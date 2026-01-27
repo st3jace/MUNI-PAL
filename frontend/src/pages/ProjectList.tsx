@@ -1,0 +1,219 @@
+import { useState } from 'react'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { Link } from 'react-router-dom'
+import { Plus, FolderKanban, MoreVertical, Trash2 } from 'lucide-react'
+import { api } from '../services/api'
+import type { ProjectCreate } from '../types'
+
+export default function ProjectList() {
+  const [showCreateModal, setShowCreateModal] = useState(false)
+  const queryClient = useQueryClient()
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['projects'],
+    queryFn: () => api.listProjects(),
+  })
+
+  const createMutation = useMutation({
+    mutationFn: (project: ProjectCreate) => api.createProject(project),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['projects'] })
+      setShowCreateModal(false)
+    },
+  })
+
+  const deleteMutation = useMutation({
+    mutationFn: (projectId: string) => api.deleteProject(projectId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['projects'] })
+    },
+  })
+
+  const handleCreate = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    createMutation.mutate({
+      name: formData.get('name') as string,
+      issuer_name: formData.get('issuer_name') as string,
+      description: formData.get('description') as string || undefined,
+      project_location: formData.get('project_location') as string || undefined,
+      target_bond_amount: formData.get('target_bond_amount')
+        ? Number(formData.get('target_bond_amount'))
+        : undefined,
+    })
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Projects</h1>
+          <p className="mt-1 text-sm text-gray-500">
+            Manage your bond-eligible project workspaces
+          </p>
+        </div>
+        <button onClick={() => setShowCreateModal(true)} className="btn-primary">
+          <Plus className="h-4 w-4 mr-2" />
+          New Project
+        </button>
+      </div>
+
+      {isLoading ? (
+        <div className="text-center py-12 text-gray-500">Loading projects...</div>
+      ) : data?.projects.length === 0 ? (
+        <div className="card p-12 text-center">
+          <FolderKanban className="mx-auto h-12 w-12 text-gray-400" />
+          <h3 className="mt-2 text-sm font-medium text-gray-900">No projects</h3>
+          <p className="mt-1 text-sm text-gray-500">
+            Get started by creating a new project.
+          </p>
+          <div className="mt-4">
+            <button onClick={() => setShowCreateModal(true)} className="btn-primary">
+              <Plus className="h-4 w-4 mr-2" />
+              New Project
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {data?.projects.map((project) => (
+            <div key={project.id} className="card hover:shadow-md transition-shadow">
+              <div className="p-5">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1 min-w-0">
+                    <Link
+                      to={`/projects/${project.id}`}
+                      className="block font-medium text-gray-900 truncate hover:text-primary-600"
+                    >
+                      {project.name}
+                    </Link>
+                    <p className="mt-1 text-sm text-gray-500 truncate">
+                      {project.issuer_name}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => {
+                      if (confirm('Delete this project?')) {
+                        deleteMutation.mutate(project.id)
+                      }
+                    }}
+                    className="ml-2 p-1 text-gray-400 hover:text-red-500"
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </button>
+                </div>
+
+                <div className="mt-4 flex items-center justify-between text-sm">
+                  <div>
+                    <span className="text-gray-500">Artifacts:</span>{' '}
+                    <span className="font-medium">{project.artifact_count}</span>
+                  </div>
+                  {project.overall_readiness_score !== null && (
+                    <div>
+                      <span className="text-gray-500">Readiness:</span>{' '}
+                      <span className="font-medium">
+                        {project.overall_readiness_score?.toFixed(1) ?? '—'}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Create Modal */}
+      {showCreateModal && (
+        <div className="fixed inset-0 z-50 overflow-y-auto">
+          <div className="flex min-h-screen items-center justify-center p-4">
+            <div
+              className="fixed inset-0 bg-gray-500 bg-opacity-75"
+              onClick={() => setShowCreateModal(false)}
+            />
+            <div className="relative bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+              <h2 className="text-lg font-medium text-gray-900 mb-4">
+                Create New Project
+              </h2>
+              <form onSubmit={handleCreate} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Project Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    className="mt-1 input"
+                    placeholder="e.g., City of Springfield WTE Facility"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Issuer Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="issuer_name"
+                    required
+                    className="mt-1 input"
+                    placeholder="e.g., Springfield Municipal Authority"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Description
+                  </label>
+                  <textarea
+                    name="description"
+                    rows={3}
+                    className="mt-1 input"
+                    placeholder="Brief project description..."
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Location
+                  </label>
+                  <input
+                    type="text"
+                    name="project_location"
+                    className="mt-1 input"
+                    placeholder="e.g., Springfield, IL"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Target Bond Amount ($)
+                  </label>
+                  <input
+                    type="number"
+                    name="target_bond_amount"
+                    className="mt-1 input"
+                    placeholder="e.g., 50000000"
+                  />
+                </div>
+                <div className="flex justify-end gap-3 pt-4">
+                  <button
+                    type="button"
+                    onClick={() => setShowCreateModal(false)}
+                    className="btn-secondary"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={createMutation.isPending}
+                    className="btn-primary"
+                  >
+                    {createMutation.isPending ? 'Creating...' : 'Create Project'}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}

@@ -12,7 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from munipal import __version__
-from munipal.api.routes import health, projects, artifacts, facts, checklist, readiness, playbooks, extraction
+from munipal.api.routes import health, projects, artifacts, facts, checklist, readiness, playbooks, extraction, deliverables
 from munipal.config import get_settings
 
 settings = get_settings()
@@ -84,6 +84,7 @@ app.include_router(extraction.router, prefix="/api/v1/extraction", tags=["Extrac
 app.include_router(facts.router, prefix="/api/v1/facts", tags=["Facts"])
 app.include_router(checklist.router, prefix="/api/v1/checklist", tags=["Checklist"])
 app.include_router(readiness.router, prefix="/api/v1/readiness", tags=["Readiness"])
+app.include_router(deliverables.router, prefix="/api/v1/deliverables", tags=["Deliverables"])
 
 
 # -----------------------------------------------------------------------------

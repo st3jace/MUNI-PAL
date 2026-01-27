@@ -1,0 +1,206 @@
+"""
+Project service - business logic for project management.
+
+Per spec: Project is the workspace for one bond-eligible project.
+"""
+
+from uuid import UUID
+
+from sqlalchemy import func, select
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
+
+from munipal.core.models import Artifact, ExtractedFact, Playbook, Project
+from munipal.core.schemas.project import ProjectCreate, ProjectRead, ProjectSummary, ProjectUpdate
+
+
+class ProjectService:
+    """Service for project CRUD operations."""
+
+    def __init__(self, db: AsyncSession):
+        self.db = db
+
+    async def create(
+        self,
+        data: ProjectCreate,
+        owner_id: str,
+    ) -> ProjectRead:
+        """
+        Create a new project.
+
+        If no playbook_id is provided, uses the default active playbook.
+        """
+        # Get playbook (use provided or default)
+        if data.playbook_id:
+            playbook = await self.db.get(Playbook, str(data.playbook_id))
+            if not playbook:
+                raise ValueError(f"Playbook {data.playbook_id} not found")
+        else:
+            # Get default playbook
+            result = await self.db.execute(
+                select(Playbook).where(Playbook.is_default == True, Playbook.is_active == True)
+            )
+            playbook = result.scalar_one_or_none()
+            if not playbook:
+                raise ValueError("No default playbook configured. Please create one first.")
+
+        project = Project(
+            name=data.name,
+            description=data.description,
+            issuer_name=data.issuer_name,
+            project_location=data.project_location,
+            target_bond_amount=data.target_bond_amount,
+            owner_id=owner_id,
+            playbook_id=playbook.id,
+        )
+
+        self.db.add(project)
+        await self.db.flush()
+        await self.db.refresh(project)
+
+        return await self._to_read_schema(project)
+
+    async def get(self, project_id: UUID) -> ProjectRead | None:
+        """Get a project by ID with computed fields."""
+        project = await self.db.get(Project, str(project_id))
+        if not project:
+            return None
+        return await self._to_read_schema(project)
+
+    async def list(
+        self,
+        owner_id: str | None = None,
+        skip: int = 0,
+        limit: int = 50,
+    ) -> tuple[list[ProjectSummary], int]:
+        """
+        List projects with pagination.
+
+        Returns (projects, total_count).
+        """
+        # Base query
+        query = select(Project)
+        count_query = select(func.count(Project.id))
+
+        if owner_id:
+            query = query.where(Project.owner_id == owner_id)
+            count_query = count_query.where(Project.owner_id == owner_id)
+
+        # Get total count
+        total = (await self.db.execute(count_query)).scalar() or 0
+
+        # Get paginated results
+        query = query.order_by(Project.updated_at.desc()).offset(skip).limit(limit)
+        result = await self.db.execute(query)
+        projects = result.scalars().all()
+
+        # Convert to summaries
+        summaries = []
+        for project in projects:
+            artifact_count = await self._count_artifacts(project.id)
+            readiness_score = await self._get_readiness_score(project.id)
+
+            summaries.append(
+                ProjectSummary(
+                    id=UUID(project.id),
+                    name=project.name,
+                    issuer_name=project.issuer_name,
+                    artifact_count=artifact_count,
+                    overall_readiness_score=readiness_score,
+                    updated_at=project.updated_at,
+                )
+            )
+
+        return summaries, total
+
+    async def update(
+        self,
+        project_id: UUID,
+        data: ProjectUpdate,
+    ) -> ProjectRead | None:
+        """Update a project's metadata."""
+        project = await self.db.get(Project, str(project_id))
+        if not project:
+            return None
+
+        # Update only provided fields
+        update_data = data.model_dump(exclude_unset=True)
+        for field, value in update_data.items():
+            setattr(project, field, value)
+
+        await self.db.flush()
+        await self.db.refresh(project)
+
+        return await self._to_read_schema(project)
+
+    async def delete(self, project_id: UUID) -> bool:
+        """
+        Delete a project and all associated data.
+
+        Returns True if deleted, False if not found.
+        """
+        project = await self.db.get(Project, str(project_id))
+        if not project:
+            return False
+
+        await self.db.delete(project)
+        return True
+
+    async def _to_read_schema(self, project: Project) -> ProjectRead:
+        """Convert project model to read schema with computed fields."""
+        artifact_count = await self._count_artifacts(project.id)
+        fact_count, approved_fact_count = await self._count_facts(project.id)
+        readiness_score = await self._get_readiness_score(project.id)
+
+        return ProjectRead(
+            id=UUID(project.id),
+            name=project.name,
+            description=project.description,
+            issuer_name=project.issuer_name,
+            project_location=project.project_location,
+            target_bond_amount=project.target_bond_amount,
+            playbook_id=UUID(project.playbook_id),
+            owner_id=UUID(project.owner_id),
+            artifact_count=artifact_count,
+            fact_count=fact_count,
+            approved_fact_count=approved_fact_count,
+            overall_readiness_score=readiness_score,
+            created_at=project.created_at,
+            updated_at=project.updated_at,
+        )
+
+    async def _count_artifacts(self, project_id: str) -> int:
+        """Count artifacts for a project."""
+        result = await self.db.execute(
+            select(func.count(Artifact.id)).where(Artifact.project_id == project_id)
+        )
+        return result.scalar() or 0
+
+    async def _count_facts(self, project_id: str) -> tuple[int, int]:
+        """Count total and approved facts for a project."""
+        # Total facts
+        total_result = await self.db.execute(
+            select(func.count(ExtractedFact.id)).where(ExtractedFact.project_id == project_id)
+        )
+        total = total_result.scalar() or 0
+
+        # Approved facts
+        approved_result = await self.db.execute(
+            select(func.count(ExtractedFact.id)).where(
+                ExtractedFact.project_id == project_id,
+                ExtractedFact.review_status == "approved",
+            )
+        )
+        approved = approved_result.scalar() or 0
+
+        return total, approved
+
+    async def _get_readiness_score(self, project_id: str) -> float | None:
+        """
+        Calculate overall readiness score for a project.
+
+        TODO: Implement full readiness calculation per playbook rules.
+        For now, returns None (not yet calculated).
+        """
+        # This will be implemented in the readiness service
+        return None

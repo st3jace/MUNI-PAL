@@ -12,7 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from munipal import __version__
-from munipal.api.routes import health, projects, artifacts, facts, checklist, readiness
+from munipal.api.routes import health, projects, artifacts, facts, checklist, readiness, playbooks
 from munipal.config import get_settings
 
 settings = get_settings()
@@ -77,6 +77,7 @@ async def global_exception_handler(request: Request, exc: Exception) -> JSONResp
 # Routes
 # -----------------------------------------------------------------------------
 app.include_router(health.router, tags=["Health"])
+app.include_router(playbooks.router, prefix="/api/v1/playbooks", tags=["Playbooks"])
 app.include_router(projects.router, prefix="/api/v1/projects", tags=["Projects"])
 app.include_router(artifacts.router, prefix="/api/v1/artifacts", tags=["Artifacts"])
 app.include_router(facts.router, prefix="/api/v1/facts", tags=["Facts"])

@@ -1,0 +1,128 @@
+{
+  "cusip": "A6C7492767BFBF2EC4640DC7FFFD9B00B",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-19T18:58:00.024436+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/A6C7492767BFBF2EC4640DC7FFFD9B00B",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "success",
+      "trade_activity": "success",
+      "ratings": "success",
+      "disclosures": "success"
+    }
+  },
+  "snapshot": {
+    "security_name": "PUBLIC FINANCE AUTHORITY / SERIES 2026-VRS224 CLASS A TENDER CERTIFICATES",
+    "cusip": "",
+    "principal_amount": 99900000,
+    "maturity_date": "12/01/2051",
+    "dated_date": "02/18/2026",
+    "coupon_pct": "1.9",
+    "closing_date": "02/18/2026",
+    "fiscal_year_end_date": "-",
+    "initial_offering_price_yield": "",
+    "time_of_formal_award": "",
+    "time_of_first_execution": "",
+    "state": "WI"
+  },
+  "interest_rates": [
+    {
+      "reset_date_time": "Stand-by Bond Purchase Agreement (541 KB)",
+      "interest_rate": "02/18/2026",
+      "rate_type": "",
+      "rate_effective_date": "",
+      "aggregate_par_bank_bonds": "",
+      "aggregate_par_investors": ""
+    },
+    {
+      "reset_date_time": "Letter of Credit (396 KB)",
+      "interest_rate": "02/18/2026",
+      "rate_type": "",
+      "rate_effective_date": "",
+      "aggregate_par_bank_bonds": "",
+      "aggregate_par_investors": ""
+    }
+  ],
+  "trades": [
+    {
+      "trade_date": "02/18/2026 10:30 AM",
+      "settlement_date": "02/18/2026",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "MM+",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "02/18/2026 10:30 AM",
+      "settlement_date": "02/18/2026",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "MM+",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    }
+  ],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Fitch Ratings."
+    },
+    {
+      "agency": "KBRA",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Kroll Bond Rating Agency."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Moody's Investors Service, Inc."
+    },
+    {
+      "agency": "S&P",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Standard and Poor's Financial Services LLC."
+    }
+  ],
+  "disclosures": [
+    {
+      "doc_type": "Official Statement",
+      "filing_date": "02/18/2026",
+      "pdf_url": "https://emma.msrb.org/P22009673-P21531036-P21987217.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A6C7492767BFBF2EC4640DC7FFFD9B00B\\A6C7492767BFBF2EC4640DC7FFFD9B00B_0001_Official_Statement_s.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/18/2026",
+      "pdf_url": "https://emma.msrb.org/P22009661-P21531076-P21987275.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A6C7492767BFBF2EC4640DC7FFFD9B00B\\A6C7492767BFBF2EC4640DC7FFFD9B00B_0002_Stand_by_Bond_Purchase_Agreement_541_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/18/2026",
+      "pdf_url": "https://emma.msrb.org/P22009660-P21531075-P21987274.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A6C7492767BFBF2EC4640DC7FFFD9B00B\\A6C7492767BFBF2EC4640DC7FFFD9B00B_0003_Letter_of_Credit_396_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Official Statement",
+      "filing_date": "02/10/2026",
+      "pdf_url": "https://emma.msrb.org/P22009673-P21526401-P21981967.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A6C7492767BFBF2EC4640DC7FFFD9B00B\\A6C7492767BFBF2EC4640DC7FFFD9B00B_0004_Preliminary_Official_Statement_2_9_MB_Archived.pdf",
+      "download_success": true
+    }
+  ]
+}

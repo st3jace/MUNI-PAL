@@ -5,8 +5,13 @@ import {
   FileCheck,
   ClipboardList,
   Gauge,
+  FileOutput,
   Menu,
   X,
+  // v2 icons
+  FileText,
+  MessageSquareMore,
+  Package,
 } from 'lucide-react'
 import { useState } from 'react'
 
@@ -20,6 +25,11 @@ const projectNavigation = [
   { name: 'Facts Review', href: '/facts', icon: FileCheck },
   { name: 'Checklist', href: '/checklist', icon: ClipboardList },
   { name: 'Readiness', href: '/readiness', icon: Gauge },
+  { name: 'Hand-Off Pack', href: '/handoff', icon: FileOutput },
+  // v2 - WP7, WP8, Bifurcated Deliverables
+  { name: 'Disclosure', href: '/disclosure', icon: FileText },
+  { name: 'Info Requests', href: '/requests', icon: MessageSquareMore },
+  { name: 'Advisory Packages', href: '/packages', icon: Package },
 ]
 
 export default function Layout() {

@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(cmd /c \"dir \"\"C:\\\\Users\\\\st3ja\\\\OneDrive\\\\Documents\\\\MEGA\\\\PROJECTS\\\\INNOVATION FACTORY\\\\MUNI-PAL\\\\emma\\\\bond_os_extractor\"\"\")",
+      "Bash(powershell -Command:*)",
+      "Bash(cmd /c \"powershell -NoProfile -Command \"\"$root = ''C:\\\\Users\\\\st3ja\\\\OneDrive\\\\Documents\\\\MEGA\\\\PROJECTS\\\\INNOVATION FACTORY\\\\MUNI-PAL\\\\emma\\\\emma_crawler\\\\output\\\\pdfs''; $dirs = Get-ChildItem -Path $root -Directory | Select-Object -First 20; foreach \\($d in $dirs\\) { $n = \\(Get-ChildItem $d.FullName -Filter ''*.pdf''\\).Count; Write-Output \\($d.Name.Substring\\(0,8\\) + '' | '' + $n + '' PDFs''\\) }\"\"\")",
+      "Bash(python:*)"
+    ]
+  }
+}

@@ -9,6 +9,7 @@ Provides:
 """
 
 import asyncio
+import os
 from collections.abc import AsyncGenerator
 from datetime import datetime, timezone
 from typing import Any
@@ -20,9 +21,16 @@ from sqlalchemy import StaticPool, create_engine, event
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import Session, sessionmaker
 
+# Force SQLite semantics for tests before importing model metadata.
+os.environ["USE_SQLITE"] = "true"
+
+from munipal.api.dependencies import DEV_FALLBACK_USER_ID
+from munipal.config import get_settings
 from munipal.core.models import Base
 from munipal.db.session import get_async_session
 from munipal.main import app
+
+get_settings.cache_clear()
 
 
 # -----------------------------------------------------------------------------
@@ -124,17 +132,54 @@ class TestDataFactory:
             bond_archetype="Test Bond",
             is_default=is_default,
             is_active=is_active,
-            schema_paths={
-                "project.name": {"criticality": "critical", "description": "Project name"},
-                "project.location": {"criticality": "material", "description": "Location"},
-            },
-            extractors={"test_extractor": {"model": "test"}},
+            schema_paths=[
+                {
+                    "path": "project.name",
+                    "display_name": "Project Name",
+                    "description": "Project name",
+                    "value_type": "string",
+                    "unit": None,
+                    "criticality": "critical",
+                    "min_confidence": 0.65,
+                    "validation_regex": None,
+                    "allowed_values": None,
+                    "extraction_hints": [],
+                },
+                {
+                    "path": "project.location",
+                    "display_name": "Project Location",
+                    "description": "Project location",
+                    "value_type": "string",
+                    "unit": None,
+                    "criticality": "material",
+                    "min_confidence": 0.65,
+                    "validation_regex": None,
+                    "allowed_values": None,
+                    "extraction_hints": [],
+                },
+            ],
+            extractors=[
+                {
+                    "extractor_id": "test_extractor",
+                    "name": "Test Extractor",
+                    "description": "Test extractor for integration fixtures",
+                    "target_schema_paths": ["project.name", "project.location"],
+                    "system_prompt": "Extract the requested paths from the input content.",
+                    "extraction_prompt_template": "{content}",
+                    "requires_full_document": False,
+                    "idempotent": True,
+                }
+            ],
             checklist_items=[
                 {
-                    "code": "TEST-001",
+                    "item_code": "TEST-001",
                     "phase": "P1",
-                    "name": "Test Item",
-                    "required_paths": ["project.name"],
+                    "title": "Test Item",
+                    "description": "Test checklist item for integration fixtures",
+                    "required_schema_paths": ["project.name"],
+                    "optional_schema_paths": ["project.location"],
+                    "criticality": "critical",
+                    "blocks_phase_completion": True,
                 }
             ],
             readiness_config={
@@ -164,7 +209,7 @@ class TestDataFactory:
         from munipal.core.models.project import Project
 
         project_id = str(uuid4())
-        owner = owner_id or str(uuid4())
+        owner = owner_id or DEV_FALLBACK_USER_ID
 
         project = Project(
             id=project_id,
@@ -202,12 +247,11 @@ class TestDataFactory:
             id=artifact_id,
             project_id=project_id,
             filename=filename,
-            original_filename=filename,
+            display_name=filename,
             artifact_type=artifact_type,
-            file_size=1024,
+            file_size_bytes=1024,
             storage_path=f"/test/storage/{artifact_id}/{filename}",
             mime_type="application/pdf",
-            checksum="abc123",
         )
 
         self.session.add(artifact)
@@ -237,8 +281,8 @@ class TestDataFactory:
             chunk_type=chunk_type,
             sequence_number=page_number,
             page_number=page_number,
-            content=content,
-            token_count=len(content.split()),
+            text_content=content,
+            content_hash=f"test-hash-{chunk_id}",
         )
 
         self.session.add(chunk)
@@ -264,10 +308,14 @@ class TestDataFactory:
         job = ExtractionJob(
             id=job_id,
             project_id=project_id,
-            artifact_id=artifact_id,
+            artifact_ids=[artifact_id],
+            chunk_ids=None,
             status=status,
-            extractor_type="test_extractor",
-            config={"test": True},
+            job_type="full_document",
+            target_schema_paths=["project.name", "project.location", "capital.project-cost"],
+            total_chunks=1,
+            processed_chunks=1 if status == "completed" else 0,
+            facts_extracted=0,
         )
 
         self.session.add(job)

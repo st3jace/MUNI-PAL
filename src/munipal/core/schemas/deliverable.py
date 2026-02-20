@@ -101,4 +101,5 @@ class DeliverablePackSummary(UUIDSchema):
     generated_for: str
     is_complete: bool
     created_at: datetime
+    generation_completed_at: datetime | None = None
     readiness_score_at_generation: float | None

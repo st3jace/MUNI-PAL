@@ -250,6 +250,7 @@ def create_fact_from_extraction(
         confidence_score=fact_data.get("confidence_score", 0.5),
         confidence_rationale=fact_data.get("confidence_rationale"),
         review_status="pending",
+        lifecycle_state="pending_review",
     )
 
     # Link to source chunk if we have a source quote

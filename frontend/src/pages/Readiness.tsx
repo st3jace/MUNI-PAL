@@ -41,6 +41,12 @@ export default function Readiness() {
     enabled: !!projectId,
   })
 
+  const { data: riskIntegration } = useQuery({
+    queryKey: ['risk-bfms-integration', projectId],
+    queryFn: () => api.getRiskBfmsIntegration(projectId!),
+    enabled: !!projectId,
+  })
+
   if (isLoading) {
     return <div className="text-center py-12 text-gray-500">Loading readiness...</div>
   }
@@ -62,6 +68,75 @@ export default function Readiness() {
           Bond issuance readiness scoring across 6 dimensions
         </p>
       </div>
+
+      {riskIntegration && (
+        <div
+          className={`card p-5 border ${
+            riskIntegration.integration_mode === 'fallback'
+              ? 'border-yellow-200 bg-yellow-50'
+              : 'border-green-200 bg-green-50'
+          }`}
+        >
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex items-start gap-3">
+              {riskIntegration.integration_mode === 'fallback' ? (
+                <AlertTriangle className="mt-0.5 h-6 w-6 text-yellow-600" />
+              ) : (
+                <CheckCircle className="mt-0.5 h-6 w-6 text-green-600" />
+              )}
+              <div>
+                <h2 className="text-base font-semibold text-gray-900">
+                  BFMS Risk Integration: {riskIntegration.integration_mode === 'fallback' ? 'Fallback Mode' : 'Full Mode'}
+                </h2>
+                <p className="text-sm text-gray-600">
+                  Contract `{riskIntegration.contract_version}` | Posture score{' '}
+                  {riskIntegration.overall_posture_score.toFixed(3)}
+                </p>
+              </div>
+            </div>
+            <span
+              className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium ${
+                riskIntegration.directional_guidance_only
+                  ? 'bg-yellow-100 text-yellow-800'
+                  : 'bg-green-100 text-green-800'
+              }`}
+            >
+              {riskIntegration.directional_guidance_only ? 'Directional Guidance' : 'Execution Grade'}
+            </span>
+          </div>
+
+          {riskIntegration.integration_mode === 'fallback' &&
+            (riskIntegration.fallback_reasons ?? []).length > 0 && (
+              <div className="mt-4">
+                <p className="text-sm font-medium text-yellow-900">Fallback Reasons</p>
+                <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-yellow-800">
+                  {(riskIntegration.fallback_reasons ?? []).map((reason: string, idx: number) => (
+                    <li key={`fallback-reason-${idx}`}>{reason}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+          {(riskIntegration.advisory_next_steps ?? []).length > 0 && (
+            <div className="mt-4">
+              <p className="text-sm font-medium text-gray-900">Top Risk Next Steps</p>
+              <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-gray-700">
+                {(riskIntegration.advisory_next_steps ?? []).slice(0, 3).map((step: {
+                  action_id: string
+                  priority: string
+                  title: string
+                  owner: string
+                  target_date_hint: string
+                }) => (
+                  <li key={step.action_id}>
+                    [{step.priority}] {step.title} ({step.owner}, target {step.target_date_hint})
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Overall Score */}
       <div className="card p-6">
@@ -230,10 +305,17 @@ export default function Readiness() {
           <ul className="divide-y divide-gray-200">
             {gaps.critical_gaps.map((gap, index) => (
               <li key={index} className="px-5 py-4">
-                <code className="text-sm bg-gray-100 px-2 py-1 rounded">
-                  {gap.schema_path}
-                </code>
-                <p className="mt-2 text-sm text-gray-600">{gap.description}</p>
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <p className="font-medium text-gray-900">{gap.description}</p>
+                    {gap.short_description && (
+                      <p className="mt-1 text-sm text-gray-600">{gap.short_description}</p>
+                    )}
+                  </div>
+                  <code className="text-xs bg-gray-100 px-2 py-1 rounded ml-3 whitespace-nowrap text-gray-500">
+                    {gap.schema_path}
+                  </code>
+                </div>
               </li>
             ))}
           </ul>
@@ -252,10 +334,17 @@ export default function Readiness() {
           <ul className="divide-y divide-gray-200">
             {gaps.material_gaps.slice(0, 10).map((gap, index) => (
               <li key={index} className="px-5 py-4">
-                <code className="text-sm bg-gray-100 px-2 py-1 rounded">
-                  {gap.schema_path}
-                </code>
-                <p className="mt-2 text-sm text-gray-600">{gap.description}</p>
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <p className="font-medium text-gray-900">{gap.description}</p>
+                    {gap.short_description && (
+                      <p className="mt-1 text-sm text-gray-600">{gap.short_description}</p>
+                    )}
+                  </div>
+                  <code className="text-xs bg-gray-100 px-2 py-1 rounded ml-3 whitespace-nowrap text-gray-500">
+                    {gap.schema_path}
+                  </code>
+                </div>
               </li>
             ))}
             {gaps.material_gaps.length > 10 && (

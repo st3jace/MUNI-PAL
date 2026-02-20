@@ -27,7 +27,7 @@ from munipal.core.schemas.readiness import (
     DIMENSION_WEIGHTS,
     DIMENSION_NAMES,
 )
-from munipal.services.playbook_data import READINESS_CONFIG, SCHEMA_PATHS
+from munipal.services.playbook_data import READINESS_CONFIG, SCHEMA_PATHS, SCHEMA_PATH_METADATA
 
 logger = logging.getLogger(__name__)
 
@@ -390,11 +390,16 @@ class ReadinessService:
                 if path in critical_paths:
                     path_criticality = "critical"
 
+                # Get short_description from metadata
+                metadata = SCHEMA_PATH_METADATA.get(path, {})
+                short_desc = metadata.get("short_description", "")
+
                 gap = ReadinessGap(
                     schema_path=path,
                     dimension=dim,
                     criticality=path_criticality,
                     description=path_config.get("display_name", path),
+                    short_description=short_desc,
                     impact=self._get_gap_impact(path_criticality, dim),
                     suggested_evidence=self._suggest_evidence(path, path_config),
                 )
@@ -506,6 +511,7 @@ class ReadinessService:
                 and_(
                     ExtractedFact.project_id == str(project_id),
                     ExtractedFact.review_status == ReviewStatus.APPROVED.value,
+                    ExtractedFact.lifecycle_state != "archived",
                 )
             )
         )
@@ -518,6 +524,7 @@ class ReadinessService:
                 and_(
                     ExtractedFact.project_id == str(project_id),
                     ExtractedFact.review_status == ReviewStatus.PENDING.value,
+                    ExtractedFact.lifecycle_state != "archived",
                 )
             )
         )

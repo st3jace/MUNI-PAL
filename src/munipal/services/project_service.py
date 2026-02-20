@@ -144,6 +144,7 @@ class ProjectService:
             return False
 
         await self.db.delete(project)
+        await self.db.flush()
         return True
 
     async def _to_read_schema(self, project: Project) -> ProjectRead:

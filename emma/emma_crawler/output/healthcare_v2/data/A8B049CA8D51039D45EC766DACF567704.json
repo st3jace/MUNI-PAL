@@ -1,0 +1,223 @@
+{
+  "cusip": "A8B049CA8D51039D45EC766DACF567704",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-19T19:18:22.517287+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/A8B049CA8D51039D45EC766DACF567704",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "empty",
+      "trade_activity": "success",
+      "ratings": "success",
+      "disclosures": "success"
+    }
+  },
+  "snapshot": {
+    "security_name": "MASSACHUSETTS DEVELOPMENT FINANCE AGENCY / REVENUE BONDS, MASS GENERAL BRIGHAM ISSUE, SERIES F (2026)",
+    "cusip": "",
+    "principal_amount": 36495000,
+    "maturity_date": "07/01/2046",
+    "dated_date": "01/29/2026",
+    "coupon_pct": "5 %",
+    "closing_date": "01/29/2026",
+    "fiscal_year_end_date": "-",
+    "initial_offering_price_yield": "105.189% / 4.35%",
+    "time_of_formal_award": "01/20/2026 07:54 PM",
+    "time_of_first_execution": "01/21/2026 01:30 PM",
+    "state": "MA"
+  },
+  "interest_rates": [],
+  "trades": [
+    {
+      "trade_date": "01/23/2026 12:20 PM",
+      "settlement_date": "01/29/2026",
+      "price": "105.667",
+      "yield": "4.292",
+      "calculation_date_price": "01/01/2036 @ 100",
+      "trade_amount": "1,500,000",
+      "trade_type": "Customer sold",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/23/2026 12:19 PM",
+      "settlement_date": "01/29/2026",
+      "price": "105.767",
+      "yield": "4.28",
+      "calculation_date_price": "01/01/2036 @ 100",
+      "trade_amount": "1,500,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/21/2026 01:30 PM",
+      "settlement_date": "01/29/2026",
+      "price": "105.189",
+      "yield": "4.35",
+      "calculation_date_price": "01/01/2036 @ 100",
+      "trade_amount": "2,500,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/21/2026 01:30 PM",
+      "settlement_date": "01/29/2026",
+      "price": "105.189",
+      "yield": "4.35",
+      "calculation_date_price": "01/01/2036 @ 100",
+      "trade_amount": "1,750,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/21/2026 01:30 PM",
+      "settlement_date": "01/29/2026",
+      "price": "105.189",
+      "yield": "4.35",
+      "calculation_date_price": "01/01/2036 @ 100",
+      "trade_amount": "10,250,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/21/2026 01:30 PM",
+      "settlement_date": "01/29/2026",
+      "price": "105.189",
+      "yield": "4.35",
+      "calculation_date_price": "01/01/2036 @ 100",
+      "trade_amount": "2,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/21/2026 01:30 PM",
+      "settlement_date": "01/29/2026",
+      "price": "105.189",
+      "yield": "4.35",
+      "calculation_date_price": "01/01/2036 @ 100",
+      "trade_amount": "10,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/21/2026 01:30 PM",
+      "settlement_date": "01/29/2026",
+      "price": "105.189",
+      "yield": "4.35",
+      "calculation_date_price": "01/01/2036 @ 100",
+      "trade_amount": "8,495,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/21/2026 01:30 PM",
+      "settlement_date": "01/29/2026",
+      "price": "105.189",
+      "yield": "4.35",
+      "calculation_date_price": "01/01/2036 @ 100",
+      "trade_amount": "1,500,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    }
+  ],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Fitch Ratings."
+    },
+    {
+      "agency": "KBRA",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Kroll Bond Rating Agency."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Access Moody's At-A Glance (Issuer) | Access Moody's At-A Glance (Obligor) Underlying Long-Term Debt Rating (effective 12/18/2025) Underlying Long-Term Debt Rating Watch Status Enhanced Long-Term Debt Rating Enhanced Long-Term Debt Rating Watch Status Insured Long-Term Debt Rating Insured Long-Term "
+    },
+    {
+      "agency": "S&P",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Long-Term Debt Rating (effective 12/22/2025) Outlook/Credit Watch (effective 12/22/2025) Underlying Maturity Long-Term Debt Rating Underlying Outlook/Credit Watch Short-Term Rating Credit Watch Underlying Maturity Short-Term Debt Rating Underlying Credit Watch Access definitions for the ratings prov"
+    }
+  ],
+  "disclosures": [
+    {
+      "doc_type": "Official Statement",
+      "filing_date": "01/22/2026",
+      "pdf_url": "https://emma.msrb.org/P11921046-P11466005-P11915117.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A8B049CA8D51039D45EC766DACF567704\\A8B049CA8D51039D45EC766DACF567704_0001_Official_Statement_s.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/13/2026",
+      "pdf_url": "https://emma.msrb.org/P22007457-P21529403-P21985374.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A8B049CA8D51039D45EC766DACF567704\\A8B049CA8D51039D45EC766DACF567704_0002_Financial_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/11/2026",
+      "pdf_url": "https://emma.msrb.org/P22005017-P21527601-P21983352.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A8B049CA8D51039D45EC766DACF567704\\A8B049CA8D51039D45EC766DACF567704_0003_Event_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/11/2026",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21509360",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/13/2026",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21511163",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/29/2026",
+      "pdf_url": "https://emma.msrb.org/P11924449-P11469888-P11919616.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A8B049CA8D51039D45EC766DACF567704\\A8B049CA8D51039D45EC766DACF567704_0006_Incorporate_OS_by_Reference_as_of_01_29_2026_2_4_M.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/29/2026",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11451157",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/29/2026",
+      "pdf_url": "https://emma.msrb.org/P11924445-P11469886-P11919614.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A8B049CA8D51039D45EC766DACF567704\\A8B049CA8D51039D45EC766DACF567704_0008_Incorporate_OS_by_Reference_as_of_01_29_2026_2_4_M.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/29/2026",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11451155",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Official Statement",
+      "filing_date": "01/21/2026",
+      "pdf_url": "https://emma.msrb.org/P11921046-P11465207-P11914209.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A8B049CA8D51039D45EC766DACF567704\\A8B049CA8D51039D45EC766DACF567704_0010_Preliminary_Official_Statement_2_3_MB.pdf",
+      "download_success": true
+    }
+  ]
+}

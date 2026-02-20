@@ -1,0 +1,142 @@
+{
+  "cusip": "A66AF0428255C84D58DF5E5346B56A7CA",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-19T22:19:31.259040+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/A66AF0428255C84D58DF5E5346B56A7CA",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "empty",
+      "trade_activity": "success",
+      "ratings": "success",
+      "disclosures": "empty"
+    }
+  },
+  "snapshot": {
+    "security_name": "NEW HAMPSHIRE HEALTH & ED FACS AUTH REV / BDS DARTMOUTH HEALTH 2020 A",
+    "cusip": "",
+    "principal_amount": 43000000,
+    "maturity_date": "08/01/2059",
+    "dated_date": "01/29/2020",
+    "coupon_pct": "5 %",
+    "closing_date": "-",
+    "fiscal_year_end_date": "-",
+    "initial_offering_price_yield": "146.106%",
+    "time_of_formal_award": "",
+    "time_of_first_execution": "",
+    "state": "NH"
+  },
+  "interest_rates": [],
+  "trades": [
+    {
+      "trade_date": "07/29/2025 05:17 PM",
+      "settlement_date": "07/30/2025",
+      "price": "100",
+      "yield": "5",
+      "calculation_date_price": "08/01/2059 @ 100",
+      "trade_amount": "6,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "07/29/2025 05:16 PM",
+      "settlement_date": "07/30/2025",
+      "price": "99.875",
+      "yield": "5.008",
+      "calculation_date_price": "08/01/2059 @ 100",
+      "trade_amount": "6,000,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "07/21/2025 01:26 PM",
+      "settlement_date": "07/22/2025",
+      "price": "96.668",
+      "yield": "5.21",
+      "calculation_date_price": "08/01/2059 @ 100",
+      "trade_amount": "6,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "07/21/2025 01:26 PM",
+      "settlement_date": "07/22/2025",
+      "price": "96.632",
+      "yield": "5.212",
+      "calculation_date_price": "08/01/2059 @ 100",
+      "trade_amount": "6,000,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "04/02/2024 01:08 PM",
+      "settlement_date": "04/04/2024",
+      "price": "106.58",
+      "yield": "4.62",
+      "calculation_date_price": "08/01/2059 @ 100",
+      "trade_amount": "1,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "04/02/2024 12:42 PM",
+      "settlement_date": "04/04/2024",
+      "price": "106.58",
+      "yield": "4.62",
+      "calculation_date_price": "08/01/2059 @ 100",
+      "trade_amount": "5,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "04/02/2024 12:41 PM",
+      "settlement_date": "04/04/2024",
+      "price": "106.58",
+      "yield": "4.62",
+      "calculation_date_price": "08/01/2059 @ 100",
+      "trade_amount": "5,000,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "04/02/2024 12:05 PM",
+      "settlement_date": "04/04/2024",
+      "price": "106.58",
+      "yield": "4.62",
+      "calculation_date_price": "08/01/2059 @ 100",
+      "trade_amount": "11,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    }
+  ],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Fitch Ratings."
+    },
+    {
+      "agency": "KBRA",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Kroll Bond Rating Agency."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Moody's Investors Service, Inc."
+    },
+    {
+      "agency": "S&P",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Long-Term Debt Rating (effective 05/02/2023) Outlook/Credit Watch (effective 05/02/2023) Underlying Maturity Long-Term Debt Rating (effective 05/02/2023) Underlying Outlook/Credit Watch (effective 05/02/2023) Short-Term Rating Credit Watch Underlying Maturity Short-Term Debt Rating Underlying Credit"
+    }
+  ],
+  "disclosures": []
+}

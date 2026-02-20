@@ -1,0 +1,200 @@
+sections:
+  COVER_PAGE:
+    patterns:
+      - "(?i)^\\s*\\$[\\d,]+(?:\\.\\d{2})?\\s*$"
+      - "(?i)OFFICIAL STATEMENT"
+      - "(?i)PRELIMINARY OFFICIAL STATEMENT"
+    priority: 100
+    expected_location: "first_page"
+
+  TABLE_OF_CONTENTS:
+    patterns:
+      - "(?i)^\\s*TABLE OF CONTENTS\\s*$"
+      - "(?i)^\\s*CONTENTS\\s*$"
+    priority: 95
+    expected_location: "early"
+
+  INTRODUCTION_AND_SUMMARY:
+    patterns:
+      - "(?i)^\\s*INTRODUCTION(?: AND SUMMARY)?\\s*$"
+      - "(?i)^\\s*INTRODUCTORY STATEMENT\\s*$"
+      - "(?i)^\\s*SUMMARY OF (THE )?BONDS?\\s*$"
+    priority: 90
+    expected_location: "early"
+
+  THE_BONDS:
+    patterns:
+      - "(?i)^\\s*THE BONDS\\s*$"
+      - "(?i)^\\s*THE SERIES \\d{4}[A-Z]* BONDS\\s*$"
+      - "(?i)^\\s*DESCRIPTION OF THE BONDS\\s*$"
+      - "(?i)^\\s*DESCRIPTION OF THE SERIES \\d{4}"
+    priority: 85
+    expected_location: "early"
+
+  PLAN_OF_FINANCE:
+    patterns:
+      - "(?i)^\\s*PLAN OF FINANC(E|ING)\\s*$"
+      - "(?i)^\\s*THE PLAN OF FINANC(E|ING)\\s*$"
+      - "(?i)^\\s*PURPOSE OF THE BONDS\\s*$"
+    priority: 80
+    expected_location: "early"
+
+  SOURCES_AND_USES:
+    patterns:
+      - "(?i)^\\s*(ESTIMATED )?SOURCES AND USES( OF FUNDS)?\\s*$"
+      - "(?i)^\\s*SOURCES AND APPLICATIONS OF FUNDS\\s*$"
+    priority: 78
+    expected_location: "early"
+
+  THE_ISSUER:
+    patterns:
+      - "(?i)^\\s*THE ISSUER\\s*$"
+      - "(?i)^\\s*THE (CITY|COUNTY|STATE|TOWN|VILLAGE|DISTRICT|AUTHORITY)( OF .+)?\\s*$"
+    priority: 75
+    expected_location: "middle"
+
+  THE_PROJECT:
+    patterns:
+      - "(?i)^\\s*THE PROJECT\\s*$"
+      - "(?i)^\\s*THE FACILITY\\s*$"
+      - "(?i)^\\s*THE SYSTEM\\s*$"
+      - "(?i)^\\s*DESCRIPTION OF THE PROJECT\\s*$"
+      - "(?i)^\\s*THE IMPROVEMENTS\\s*$"
+    priority: 73
+    expected_location: "middle"
+
+  THE_BORROWER:
+    patterns:
+      - "(?i)^\\s*THE BORROWER\\s*$"
+      - "(?i)^\\s*THE COMPANY\\s*$"
+      - "(?i)^\\s*THE OBLIGOR\\s*$"
+      - "(?i)^\\s*THE CORPORATION\\s*$"
+    priority: 72
+    expected_location: "middle"
+
+  SECURITY_FOR_THE_BONDS:
+    patterns:
+      - "(?i)^\\s*SECURITY( FOR| AND SOURCES OF PAYMENT( FOR)?)?( THE BONDS)?\\s*$"
+      - "(?i)^\\s*SOURCES OF PAYMENT AND SECURITY\\s*$"
+      - "(?i)^\\s*PLEDGE OF (NET )?REVENUES\\s*$"
+    priority: 70
+    expected_location: "middle"
+
+  FLOW_OF_FUNDS:
+    patterns:
+      - "(?i)^\\s*FLOW OF FUNDS\\s*$"
+      - "(?i)^\\s*APPLICATION OF (NET )?REVENUES\\s*$"
+      - "(?i)^\\s*FUNDS AND ACCOUNTS\\s*$"
+    priority: 68
+    expected_location: "middle"
+
+  RATE_COVENANT:
+    patterns:
+      - "(?i)^\\s*RATE COVENANT\\s*$"
+      - "(?i)^\\s*RATE MAINTENANCE COVENANT\\s*$"
+    priority: 66
+    expected_location: "middle"
+
+  ADDITIONAL_BONDS_TEST:
+    patterns:
+      - "(?i)^\\s*ADDITIONAL (BONDS|PARITY (BONDS|DEBT|OBLIGATIONS))( TEST)?\\s*$"
+      - "(?i)^\\s*ISSUANCE OF ADDITIONAL (BONDS|OBLIGATIONS)\\s*$"
+    priority: 64
+    expected_location: "middle"
+
+  DEBT_SERVICE_SCHEDULE:
+    patterns:
+      - "(?i)^\\s*(ANNUAL )?DEBT SERVICE (SCHEDULE|REQUIREMENTS)\\s*$"
+      - "(?i)^\\s*DEBT SERVICE ON THE BONDS\\s*$"
+    priority: 62
+    expected_location: "middle"
+
+  FINANCIAL_INFORMATION:
+    patterns:
+      - "(?i)^\\s*FINANCIAL (INFORMATION|STATEMENTS?)\\s*$"
+      - "(?i)^\\s*HISTORICAL FINANCIAL (DATA|INFORMATION|RESULTS)\\s*$"
+      - "(?i)^\\s*SELECTED FINANCIAL DATA\\s*$"
+    priority: 60
+    expected_location: "middle"
+
+  RISK_FACTORS:
+    patterns:
+      - "(?i)^\\s*RISK FACTORS\\s*$"
+      - "(?i)^\\s*CERTAIN RISK FACTORS\\s*$"
+      - "(?i)^\\s*BONDHOLDERS' RISKS\\s*$"
+      - "(?i)^\\s*INVESTMENT CONSIDERATIONS\\s*$"
+    priority: 55
+    expected_location: "late"
+
+  TAX_MATTERS:
+    patterns:
+      - "(?i)^\\s*TAX (MATTERS|EXEMPTION)\\s*$"
+      - "(?i)^\\s*TAX STATUS\\s*$"
+      - "(?i)^\\s*FEDERAL (INCOME )?TAX MATTERS\\s*$"
+    priority: 50
+    expected_location: "late"
+
+  LEGAL_MATTERS:
+    patterns:
+      - "(?i)^\\s*LEGAL MATTERS\\s*$"
+      - "(?i)^\\s*LITIGATION\\s*$"
+      - "(?i)^\\s*LEGAL PROCEEDINGS\\s*$"
+    priority: 48
+    expected_location: "late"
+
+  UNDERWRITING:
+    patterns:
+      - "(?i)^\\s*UNDERWRITING\\s*$"
+      - "(?i)^\\s*THE UNDERWRITER\\s*$"
+    priority: 46
+    expected_location: "late"
+
+  CONTINUING_DISCLOSURE:
+    patterns:
+      - "(?i)^\\s*CONTINUING DISCLOSURE\\s*$"
+      - "(?i)^\\s*CONTINUING DISCLOSURE (AGREEMENT|UNDERTAKING)\\s*$"
+    priority: 44
+    expected_location: "late"
+
+  RATINGS:
+    patterns:
+      - "(?i)^\\s*RATINGS?\\s*$"
+      - "(?i)^\\s*BOND RATINGS?\\s*$"
+    priority: 42
+    expected_location: "late"
+
+  MISCELLANEOUS:
+    patterns:
+      - "(?i)^\\s*MISCELLANEOUS\\s*$"
+    priority: 40
+    expected_location: "late"
+
+  APPENDIX_A:
+    patterns:
+      - "(?i)^\\s*APPENDIX A"
+    priority: 30
+    expected_location: "appendix"
+
+  APPENDIX_B:
+    patterns:
+      - "(?i)^\\s*APPENDIX B"
+    priority: 29
+    expected_location: "appendix"
+
+  APPENDIX_C:
+    patterns:
+      - "(?i)^\\s*APPENDIX C"
+    priority: 28
+    expected_location: "appendix"
+
+  APPENDIX_D:
+    patterns:
+      - "(?i)^\\s*APPENDIX D"
+    priority: 27
+    expected_location: "appendix"
+
+  APPENDIX_E:
+    patterns:
+      - "(?i)^\\s*APPENDIX E"
+    priority: 26
+    expected_location: "appendix"

@@ -1,0 +1,473 @@
+{
+  "analysis": "Phase 4 -- Hilbert Space Signal Extraction",
+  "generated_at": "2026-02-14T09:59:01.822425",
+  "spectral": {
+    "RSG": {
+      "n_observations": 1532,
+      "spectral_entropy": 0.9365,
+      "snr_db": -3.13,
+      "dominant_period_days": 2.6,
+      "dominant_period_label": "2.6 days",
+      "peaks": [
+        {
+          "period_days": 2.6,
+          "period_label": "2.6 days",
+          "power_fraction_pct": 1.0,
+          "frequency": 0.390992
+        },
+        {
+          "period_days": 13.6,
+          "period_label": "2.7 weeks",
+          "power_fraction_pct": 0.8,
+          "frequency": 0.07376
+        },
+        {
+          "period_days": 80.6,
+          "period_label": "3.8 months",
+          "power_fraction_pct": 0.77,
+          "frequency": 0.012402
+        },
+        {
+          "period_days": 2.6,
+          "period_label": "2.6 days",
+          "power_fraction_pct": 0.73,
+          "frequency": 0.391645
+        },
+        {
+          "period_days": 6.8,
+          "period_label": "1.4 weeks",
+          "power_fraction_pct": 0.73,
+          "frequency": 0.146214
+        }
+      ]
+    },
+    "WM": {
+      "n_observations": 1532,
+      "spectral_entropy": 0.9367,
+      "snr_db": -3.0,
+      "dominant_period_days": 2.6,
+      "dominant_period_label": "2.6 days",
+      "peaks": [
+        {
+          "period_days": 2.6,
+          "period_label": "2.6 days",
+          "power_fraction_pct": 1.09,
+          "frequency": 0.390992
+        },
+        {
+          "period_days": 80.6,
+          "period_label": "3.8 months",
+          "power_fraction_pct": 1.01,
+          "frequency": 0.012402
+        },
+        {
+          "period_days": 6.8,
+          "period_label": "1.4 weeks",
+          "power_fraction_pct": 0.96,
+          "frequency": 0.146214
+        },
+        {
+          "period_days": 2.6,
+          "period_label": "2.6 days",
+          "power_fraction_pct": 0.94,
+          "frequency": 0.391645
+        },
+        {
+          "period_days": 4.7,
+          "period_label": "4.7 days",
+          "power_fraction_pct": 0.8,
+          "frequency": 0.210836
+        }
+      ]
+    },
+    "CWST": {
+      "n_observations": 1532,
+      "spectral_entropy": 0.9366,
+      "snr_db": -3.03,
+      "dominant_period_days": 2.2,
+      "dominant_period_label": "2.2 days",
+      "peaks": [
+        {
+          "period_days": 2.2,
+          "period_label": "2.2 days",
+          "power_fraction_pct": 1.06,
+          "frequency": 0.447128
+        },
+        {
+          "period_days": 2.2,
+          "period_label": "2.2 days",
+          "power_fraction_pct": 0.96,
+          "frequency": 0.446475
+        },
+        {
+          "period_days": 4.8,
+          "period_label": "4.8 days",
+          "power_fraction_pct": 0.85,
+          "frequency": 0.208877
+        },
+        {
+          "period_days": 4.8,
+          "period_label": "4.8 days",
+          "power_fraction_pct": 0.84,
+          "frequency": 0.20953
+        },
+        {
+          "period_days": 21.3,
+          "period_label": "1.0 months",
+          "power_fraction_pct": 0.76,
+          "frequency": 0.046997
+        }
+      ]
+    },
+    "MARKET": {
+      "n_observations": 1532,
+      "spectral_entropy": 0.9343,
+      "snr_db": -3.03,
+      "dominant_period_days": 4.6,
+      "dominant_period_label": "4.6 days",
+      "peaks": [
+        {
+          "period_days": 4.6,
+          "period_label": "4.6 days",
+          "power_fraction_pct": 1.32,
+          "frequency": 0.218668
+        },
+        {
+          "period_days": 2.6,
+          "period_label": "2.6 days",
+          "power_fraction_pct": 0.91,
+          "frequency": 0.390992
+        },
+        {
+          "period_days": 2.6,
+          "period_label": "2.6 days",
+          "power_fraction_pct": 0.85,
+          "frequency": 0.391645
+        },
+        {
+          "period_days": 4.6,
+          "period_label": "4.6 days",
+          "power_fraction_pct": 0.77,
+          "frequency": 0.215405
+        },
+        {
+          "period_days": 4.6,
+          "period_label": "4.6 days",
+          "power_fraction_pct": 0.7,
+          "frequency": 0.219321
+        }
+      ]
+    }
+  },
+  "wavelet": {
+    "RSG": {
+      "wavelet": "db4",
+      "n_levels": 8,
+      "n_observations": 1532,
+      "trend_energy_pct": 0.43,
+      "noise_energy_pct": 58.03,
+      "trend_to_noise": 0.0075,
+      "levels": [
+        {
+          "name": "D1",
+          "scale": "2-4 days",
+          "energy_pct": 58.03,
+          "n_coefficients": 766
+        },
+        {
+          "name": "D2",
+          "scale": "4-8 days",
+          "energy_pct": 19.26,
+          "n_coefficients": 383
+        },
+        {
+          "name": "D3",
+          "scale": "8-16 days",
+          "energy_pct": 12.71,
+          "n_coefficients": 191
+        },
+        {
+          "name": "D4",
+          "scale": "16-32 days",
+          "energy_pct": 4.62,
+          "n_coefficients": 95
+        },
+        {
+          "name": "D5",
+          "scale": "32-64 days",
+          "energy_pct": 2.08,
+          "n_coefficients": 47
+        },
+        {
+          "name": "D6",
+          "scale": "64-128 days",
+          "energy_pct": 1.95,
+          "n_coefficients": 23
+        },
+        {
+          "name": "D7",
+          "scale": "128-256 days",
+          "energy_pct": 0.36,
+          "n_coefficients": 11
+        },
+        {
+          "name": "D8",
+          "scale": "256-512 days",
+          "energy_pct": 0.12,
+          "n_coefficients": 5
+        },
+        {
+          "name": "A8",
+          "scale": ">512 days (trend)",
+          "energy_pct": 0.43,
+          "n_coefficients": 5
+        }
+      ]
+    },
+    "WM": {
+      "wavelet": "db4",
+      "n_levels": 8,
+      "n_observations": 1532,
+      "trend_energy_pct": 0.35,
+      "noise_energy_pct": 54.92,
+      "trend_to_noise": 0.0063,
+      "levels": [
+        {
+          "name": "D1",
+          "scale": "2-4 days",
+          "energy_pct": 54.92,
+          "n_coefficients": 766
+        },
+        {
+          "name": "D2",
+          "scale": "4-8 days",
+          "energy_pct": 22.15,
+          "n_coefficients": 383
+        },
+        {
+          "name": "D3",
+          "scale": "8-16 days",
+          "energy_pct": 14.0,
+          "n_coefficients": 191
+        },
+        {
+          "name": "D4",
+          "scale": "16-32 days",
+          "energy_pct": 3.64,
+          "n_coefficients": 95
+        },
+        {
+          "name": "D5",
+          "scale": "32-64 days",
+          "energy_pct": 1.85,
+          "n_coefficients": 47
+        },
+        {
+          "name": "D6",
+          "scale": "64-128 days",
+          "energy_pct": 2.18,
+          "n_coefficients": 23
+        },
+        {
+          "name": "D7",
+          "scale": "128-256 days",
+          "energy_pct": 0.32,
+          "n_coefficients": 11
+        },
+        {
+          "name": "D8",
+          "scale": "256-512 days",
+          "energy_pct": 0.07,
+          "n_coefficients": 5
+        },
+        {
+          "name": "A8",
+          "scale": ">512 days (trend)",
+          "energy_pct": 0.35,
+          "n_coefficients": 5
+        }
+      ]
+    },
+    "CWST": {
+      "wavelet": "db4",
+      "n_levels": 8,
+      "n_observations": 1532,
+      "trend_energy_pct": 0.24,
+      "noise_energy_pct": 55.16,
+      "trend_to_noise": 0.0043,
+      "levels": [
+        {
+          "name": "D1",
+          "scale": "2-4 days",
+          "energy_pct": 55.16,
+          "n_coefficients": 766
+        },
+        {
+          "name": "D2",
+          "scale": "4-8 days",
+          "energy_pct": 23.11,
+          "n_coefficients": 383
+        },
+        {
+          "name": "D3",
+          "scale": "8-16 days",
+          "energy_pct": 12.93,
+          "n_coefficients": 191
+        },
+        {
+          "name": "D4",
+          "scale": "16-32 days",
+          "energy_pct": 4.51,
+          "n_coefficients": 95
+        },
+        {
+          "name": "D5",
+          "scale": "32-64 days",
+          "energy_pct": 1.05,
+          "n_coefficients": 47
+        },
+        {
+          "name": "D6",
+          "scale": "64-128 days",
+          "energy_pct": 2.15,
+          "n_coefficients": 23
+        },
+        {
+          "name": "D7",
+          "scale": "128-256 days",
+          "energy_pct": 0.31,
+          "n_coefficients": 11
+        },
+        {
+          "name": "D8",
+          "scale": "256-512 days",
+          "energy_pct": 0.16,
+          "n_coefficients": 5
+        },
+        {
+          "name": "A8",
+          "scale": ">512 days (trend)",
+          "energy_pct": 0.24,
+          "n_coefficients": 5
+        }
+      ]
+    },
+    "MARKET": {
+      "wavelet": "db4",
+      "n_levels": 8,
+      "n_observations": 1532,
+      "trend_energy_pct": 0.97,
+      "noise_energy_pct": 49.98,
+      "trend_to_noise": 0.0194,
+      "levels": [
+        {
+          "name": "D1",
+          "scale": "2-4 days",
+          "energy_pct": 49.98,
+          "n_coefficients": 766
+        },
+        {
+          "name": "D2",
+          "scale": "4-8 days",
+          "energy_pct": 25.48,
+          "n_coefficients": 383
+        },
+        {
+          "name": "D3",
+          "scale": "8-16 days",
+          "energy_pct": 12.52,
+          "n_coefficients": 191
+        },
+        {
+          "name": "D4",
+          "scale": "16-32 days",
+          "energy_pct": 5.31,
+          "n_coefficients": 95
+        },
+        {
+          "name": "D5",
+          "scale": "32-64 days",
+          "energy_pct": 1.65,
+          "n_coefficients": 47
+        },
+        {
+          "name": "D6",
+          "scale": "64-128 days",
+          "energy_pct": 2.03,
+          "n_coefficients": 23
+        },
+        {
+          "name": "D7",
+          "scale": "128-256 days",
+          "energy_pct": 0.72,
+          "n_coefficients": 11
+        },
+        {
+          "name": "D8",
+          "scale": "256-512 days",
+          "energy_pct": 0.44,
+          "n_coefficients": 5
+        },
+        {
+          "name": "A8",
+          "scale": ">512 days (trend)",
+          "energy_pct": 0.97,
+          "n_coefficients": 5
+        }
+      ]
+    }
+  },
+  "dmd": {
+    "asset_ids": [
+      "RSG",
+      "WM",
+      "CWST"
+    ],
+    "n_modes": 3,
+    "n_observations": 1532,
+    "reconstruction_error_pct": 88.52,
+    "n_stable_modes": 1,
+    "n_growing_modes": 2,
+    "modes": [
+      {
+        "mode_index": 0,
+        "period_days": 5003.7,
+        "period_label": "19.9 years",
+        "growth_rate": 9.9e-05,
+        "energy_pct": 49.79,
+        "is_stable": "False",
+        "spatial_weights": {
+          "RSG": 0.6581,
+          "WM": 0.5126,
+          "CWST": 0.5515
+        }
+      },
+      {
+        "mode_index": 1,
+        "period_days": 5003.7,
+        "period_label": "19.9 years",
+        "growth_rate": 9.9e-05,
+        "energy_pct": 49.79,
+        "is_stable": "False",
+        "spatial_weights": {
+          "RSG": 0.6581,
+          "WM": 0.5126,
+          "CWST": 0.5515
+        }
+      },
+      {
+        "mode_index": 2,
+        "period_days": "inf",
+        "period_label": "DC/trend",
+        "growth_rate": -0.002767,
+        "energy_pct": 0.42,
+        "is_stable": "True",
+        "spatial_weights": {
+          "RSG": 0.9519,
+          "WM": 0.2424,
+          "CWST": 0.1876
+        }
+      }
+    ]
+  }
+}

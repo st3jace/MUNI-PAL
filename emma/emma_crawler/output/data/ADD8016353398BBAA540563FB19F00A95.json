@@ -1,0 +1,199 @@
+{
+  "cusip": "ADD8016353398BBAA540563FB19F00A95",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-07T01:44:54.538369+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/ADD8016353398BBAA540563FB19F00A95",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "success",
+      "trade_activity": "success",
+      "ratings": "success",
+      "disclosures": "success"
+    }
+  },
+  "snapshot": {
+    "security_name": "PEMBINA COUNTY, NORTH DAKOTA / TAX-EXEMPT ADJUSTABLE MODE, SOLID WASTE DISPOSAL REVENUE BONDS,(AMERICAN CRYSTAL SUGAR COMPANY PROJECT) SERIES 2025",
+    "cusip": "",
+    "principal_amount": 29500000,
+    "maturity_date": "10/01/2055",
+    "dated_date": "10/30/2025",
+    "coupon_pct": "2.4",
+    "closing_date": "10/30/2025",
+    "fiscal_year_end_date": "-",
+    "initial_offering_price_yield": "",
+    "time_of_formal_award": "",
+    "time_of_first_execution": "",
+    "state": "ND"
+  },
+  "interest_rates": [
+    {
+      "reset_date_time": "02/04/2026 11:34 AM",
+      "interest_rate": "2.4",
+      "rate_type": "",
+      "rate_effective_date": "02/05/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$29,500,000.00"
+    },
+    {
+      "reset_date_time": "01/28/2026 11:59 AM",
+      "interest_rate": "2.5",
+      "rate_type": "",
+      "rate_effective_date": "01/29/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$29,500,000.00"
+    },
+    {
+      "reset_date_time": "01/21/2026 11:08 AM",
+      "interest_rate": "1.46",
+      "rate_type": "",
+      "rate_effective_date": "01/22/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$29,500,000.00"
+    },
+    {
+      "reset_date_time": "01/14/2026 11:39 AM",
+      "interest_rate": "1.52",
+      "rate_type": "",
+      "rate_effective_date": "01/15/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$29,500,000.00"
+    },
+    {
+      "reset_date_time": "01/07/2026 11:41 AM",
+      "interest_rate": "1.65",
+      "rate_type": "",
+      "rate_effective_date": "01/08/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$29,500,000.00"
+    },
+    {
+      "reset_date_time": "12/31/2025 09:55 AM",
+      "interest_rate": "2.65",
+      "rate_type": "",
+      "rate_effective_date": "01/01/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$29,500,000.00"
+    },
+    {
+      "reset_date_time": "12/24/2025 11:04 AM",
+      "interest_rate": "3.45",
+      "rate_type": "",
+      "rate_effective_date": "12/25/2025",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$29,500,000.00"
+    },
+    {
+      "reset_date_time": "12/17/2025 10:52 AM",
+      "interest_rate": "3.45",
+      "rate_type": "",
+      "rate_effective_date": "12/18/2025",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$29,500,000.00"
+    },
+    {
+      "reset_date_time": "12/10/2025 12:30 PM",
+      "interest_rate": "3.2",
+      "rate_type": "",
+      "rate_effective_date": "12/11/2025",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$29,500,000.00"
+    },
+    {
+      "reset_date_time": "12/03/2025 11:54 AM",
+      "interest_rate": "2.1",
+      "rate_type": "",
+      "rate_effective_date": "12/04/2025",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$29,500,000.00"
+    }
+  ],
+  "trades": [
+    {
+      "trade_date": "10/29/2025 03:20 PM",
+      "settlement_date": "10/30/2025",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "14,750,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/29/2025 03:20 PM",
+      "settlement_date": "10/30/2025",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "14,750,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    }
+  ],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Long-Term Issue Rating (effective 12/09/2025) Long-Term Issue Rating Alert Code (effective 12/09/2025) Unenhanced Long-Term Issue Rating Unenhanced Long-Term Issue Rating Alert Code Short-Term Issue Rating (effective 12/09/2025) Short-Term Issue Rating Alert Code Unenhanced Short-Term Issue Rating U"
+    },
+    {
+      "agency": "KBRA",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Kroll Bond Rating Agency."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Moody's Investors Service, Inc."
+    },
+    {
+      "agency": "S&P",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Standard and Poor's Financial Services LLC."
+    }
+  ],
+  "disclosures": [
+    {
+      "doc_type": "Official Statement",
+      "filing_date": "10/30/2025",
+      "pdf_url": "https://emma.msrb.org/P21976293-P21507074-P21960387.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\ADD8016353398BBAA540563FB19F00A95\\ADD8016353398BBAA540563FB19F00A95_0001_Official_Statement_s.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "10/30/2025",
+      "pdf_url": "https://emma.msrb.org/P21976052-P21506878-P21960162.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\ADD8016353398BBAA540563FB19F00A95\\ADD8016353398BBAA540563FB19F00A95_0002_Other_Liquidity_Facility_Document_803_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "10/30/2025",
+      "pdf_url": "https://emma.msrb.org/P21976051-P21506877-P21960161.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\ADD8016353398BBAA540563FB19F00A95\\ADD8016353398BBAA540563FB19F00A95_0003_Letter_of_Credit_1_3_MB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "10/30/2025",
+      "pdf_url": "https://emma.msrb.org/P21976050-P21506876-P21960160.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\ADD8016353398BBAA540563FB19F00A95\\ADD8016353398BBAA540563FB19F00A95_0004_Letter_of_Credit_532_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Official Statement",
+      "filing_date": "10/29/2025",
+      "pdf_url": "https://emma.msrb.org/P21976293-P21506603-P21959858.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\ADD8016353398BBAA540563FB19F00A95\\ADD8016353398BBAA540563FB19F00A95_0005_Preliminary_Official_Statement_843_KB_Archived.pdf",
+      "download_success": true
+    }
+  ]
+}

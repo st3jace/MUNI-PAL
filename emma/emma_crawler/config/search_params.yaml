@@ -1,0 +1,25 @@
+search_filters:
+  security_information:
+    state: ""
+    issuer_name: ""
+    issue_description: "Waste"
+    closing_date_from: "1/1/2020"
+    closing_date_to: "TODAY"
+    purpose_sector: "All"
+    source_of_repayment: "Revenue"
+    rate_type: "All"
+    insured: "All"
+    tax_status: "All"
+    callable: "All"
+  dated_date_from: ""
+  dated_date_to: ""
+  interest_rate_from: ""
+  interest_rate_to: ""
+  cusip6: ""
+  maturity_date_from: ""
+  maturity_date_to: ""
+  include_matured: false
+  include_called_redeemed: false
+result_filters:
+  min_principal_amount: 8000000
+view_mode: "SECURITIES"

@@ -272,6 +272,7 @@ class ChecklistService:
                     ExtractedFact.project_id == str(project_id),
                     ExtractedFact.schema_path.in_(schema_paths),
                     ExtractedFact.review_status == ReviewStatus.APPROVED.value,
+                    ExtractedFact.lifecycle_state != "archived",
                 )
             )
             .order_by(ExtractedFact.confidence_score.desc())
@@ -414,7 +415,7 @@ class ChecklistService:
         return {
             "item_code": item_code,
             "title": definition.title,
-            "status": status.status.value,
+            "status": status.status if isinstance(status.status, str) else status.status.value,
             "coverage_percentage": status.coverage_percentage,
             "missing_paths": [
                 {
@@ -487,7 +488,7 @@ class ChecklistService:
                     phase_gaps.append({
                         "item_code": item.item_code,
                         "title": item.title,
-                        "status": item.status.value,
+                        "status": item.status if isinstance(item.status, str) else item.status.value,
                         "missing_count": len(item.missing_paths),
                         "low_confidence_count": len(item.low_confidence_paths),
                     })
@@ -561,6 +562,7 @@ class ChecklistService:
             and_(
                 ExtractedFact.project_id == str(project_id),
                 ExtractedFact.schema_path.in_(all_paths),
+                ExtractedFact.lifecycle_state != "archived",
             )
         )
 

@@ -1,0 +1,230 @@
+{
+  "analysis": "Phase 5 -- Extended Risk Measures (Summers Integration)",
+  "generated_at": "2026-02-16T07:25:03.780347",
+  "parameters": {
+    "alpha_spectral": 0.25,
+    "alpha_wavelet": 0.15,
+    "alpha_dynamic": 0.1,
+    "irs_weights": {
+      "spectral_omega": 0.4,
+      "wavelet_omega": 0.35,
+      "dynamic_omega": 0.25
+    }
+  },
+  "summary": {
+    "n_assets": 6,
+    "avg_irs": 3.7168,
+    "best_irs_asset": "City_of_Los_Angeles",
+    "signal_distribution": {
+      "strong": 0,
+      "moderate": 0,
+      "weak": 6
+    }
+  },
+  "assets": [
+    {
+      "asset_id": "City_of_Los_Angeles",
+      "asset_name": "City of Los Angeles",
+      "asset_type": "bond",
+      "irs": 10.8556,
+      "irs_rank": 1,
+      "signal_quality": "weak",
+      "base_measures": {
+        "omega_at_rf": 10.9918,
+        "s_omega_pct": 128777.4297,
+        "f_score": 67.18,
+        "cri_score": 95.0,
+        "cri_rank": 1
+      },
+      "spectral_omega": {
+        "omega_s": 10.9918,
+        "adjustment": 1.0,
+        "entropy": 0.0,
+        "snr_db": 0.0
+      },
+      "wavelet_omega": {
+        "omega_w": 10.9918,
+        "adjustment": 1.0,
+        "trend_energy_pct": 0.0,
+        "noise_energy_pct": 0.0,
+        "trend_to_noise": 0.0
+      },
+      "dynamic_omega": {
+        "omega_d": 10.4468,
+        "adjustment": 0.9504,
+        "stable_fraction": 0.0042,
+        "dominant_period_days": 5003.7
+      }
+    },
+    {
+      "asset_id": "Mission_Economic_Dev",
+      "asset_name": "Mission Economic Development Corporation",
+      "asset_type": "bond",
+      "irs": 5.7941,
+      "irs_rank": 2,
+      "signal_quality": "weak",
+      "base_measures": {
+        "omega_at_rf": 5.8668,
+        "s_omega_pct": 58.079,
+        "f_score": 54.28,
+        "cri_score": 73.33,
+        "cri_rank": 2
+      },
+      "spectral_omega": {
+        "omega_s": 5.8668,
+        "adjustment": 1.0,
+        "entropy": 0.0,
+        "snr_db": 0.0
+      },
+      "wavelet_omega": {
+        "omega_w": 5.8668,
+        "adjustment": 1.0,
+        "trend_energy_pct": 0.0,
+        "noise_energy_pct": 0.0,
+        "trend_to_noise": 0.0
+      },
+      "dynamic_omega": {
+        "omega_d": 5.5759,
+        "adjustment": 0.9504,
+        "stable_fraction": 0.0042,
+        "dominant_period_days": 5003.7
+      }
+    },
+    {
+      "asset_id": "Brevard_County,_Flor",
+      "asset_name": "Brevard County, Florida",
+      "asset_type": "bond",
+      "irs": 2.3561,
+      "irs_rank": 3,
+      "signal_quality": "weak",
+      "base_measures": {
+        "omega_at_rf": 2.3856,
+        "s_omega_pct": 22.584,
+        "f_score": 67.21,
+        "cri_score": 69.17,
+        "cri_rank": 3
+      },
+      "spectral_omega": {
+        "omega_s": 2.3856,
+        "adjustment": 1.0,
+        "entropy": 0.0,
+        "snr_db": 0.0
+      },
+      "wavelet_omega": {
+        "omega_w": 2.3856,
+        "adjustment": 1.0,
+        "trend_energy_pct": 0.0,
+        "noise_energy_pct": 0.0,
+        "trend_to_noise": 0.0
+      },
+      "dynamic_omega": {
+        "omega_d": 2.2673,
+        "adjustment": 0.9504,
+        "stable_fraction": 0.0042,
+        "dominant_period_days": 5003.7
+      }
+    },
+    {
+      "asset_id": "RSG",
+      "asset_name": "RSG",
+      "asset_type": "equity",
+      "irs": 1.1235,
+      "irs_rank": 4,
+      "signal_quality": "weak",
+      "base_measures": {
+        "omega_at_rf": 1.1298,
+        "s_omega_pct": 21.9467,
+        "f_score": 67.85,
+        "cri_score": 57.5,
+        "cri_rank": 4
+      },
+      "spectral_omega": {
+        "omega_s": 1.1478,
+        "adjustment": 1.0159,
+        "entropy": 0.9365,
+        "snr_db": -3.13
+      },
+      "wavelet_omega": {
+        "omega_w": 1.1311,
+        "adjustment": 1.0011,
+        "trend_energy_pct": 0.43,
+        "noise_energy_pct": 58.03,
+        "trend_to_noise": 0.0075
+      },
+      "dynamic_omega": {
+        "omega_d": 1.0738,
+        "adjustment": 0.9504,
+        "stable_fraction": 0.0042,
+        "dominant_period_days": 5003.7
+      }
+    },
+    {
+      "asset_id": "WM",
+      "asset_name": "WM",
+      "asset_type": "equity",
+      "irs": 1.0918,
+      "irs_rank": 5,
+      "signal_quality": "weak",
+      "base_measures": {
+        "omega_at_rf": 1.0981,
+        "s_omega_pct": 16.5436,
+        "f_score": 66.89,
+        "cri_score": 35.83,
+        "cri_rank": 5
+      },
+      "spectral_omega": {
+        "omega_s": 1.1155,
+        "adjustment": 1.0158,
+        "entropy": 0.9367,
+        "snr_db": -3.0
+      },
+      "wavelet_omega": {
+        "omega_w": 1.0991,
+        "adjustment": 1.0009,
+        "trend_energy_pct": 0.35,
+        "noise_energy_pct": 54.92,
+        "trend_to_noise": 0.0063
+      },
+      "dynamic_omega": {
+        "omega_d": 1.0436,
+        "adjustment": 0.9504,
+        "stable_fraction": 0.0042,
+        "dominant_period_days": 5003.7
+      }
+    },
+    {
+      "asset_id": "CWST",
+      "asset_name": "CWST",
+      "asset_type": "equity",
+      "irs": 1.0797,
+      "irs_rank": 6,
+      "signal_quality": "weak",
+      "base_measures": {
+        "omega_at_rf": 1.086,
+        "s_omega_pct": 13.4008,
+        "f_score": 54.98,
+        "cri_score": 19.17,
+        "cri_rank": 6
+      },
+      "spectral_omega": {
+        "omega_s": 1.1032,
+        "adjustment": 1.0158,
+        "entropy": 0.9366,
+        "snr_db": -3.03
+      },
+      "wavelet_omega": {
+        "omega_w": 1.0867,
+        "adjustment": 1.0007,
+        "trend_energy_pct": 0.24,
+        "noise_energy_pct": 55.16,
+        "trend_to_noise": 0.0043
+      },
+      "dynamic_omega": {
+        "omega_d": 1.0322,
+        "adjustment": 0.9504,
+        "stable_fraction": 0.0042,
+        "dominant_period_days": 5003.7
+      }
+    }
+  ]
+}

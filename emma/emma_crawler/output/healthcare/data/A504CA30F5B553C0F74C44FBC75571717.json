@@ -1,0 +1,252 @@
+{
+  "cusip": "A504CA30F5B553C0F74C44FBC75571717",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-20T02:38:20.479447+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/A504CA30F5B553C0F74C44FBC75571717",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "empty",
+      "trade_activity": "success",
+      "ratings": "empty",
+      "disclosures": "success"
+    }
+  },
+  "snapshot": {
+    "security_name": "VENTURA COUNTY PUBLIC FINANCING AUTHORITY / LEASE REVENUE REFUNDING BONDS SERIES 2020A (FEDERALLY TAXABLE)",
+    "cusip": "",
+    "principal_amount": 12215000,
+    "maturity_date": "11/01/2033",
+    "dated_date": "06/11/2020",
+    "coupon_pct": "2.662 %",
+    "closing_date": "06/11/2020",
+    "fiscal_year_end_date": "06/30/2025",
+    "initial_offering_price_yield": "100% / 2.662%",
+    "time_of_formal_award": "06/03/2020 07:52 PM",
+    "time_of_first_execution": "06/04/2020 12:00 PM",
+    "state": "CA"
+  },
+  "interest_rates": [],
+  "trades": [
+    {
+      "trade_date": "06/10/2020 11:36 AM",
+      "settlement_date": "06/11/2020",
+      "price": "102.617",
+      "yield": "2.376",
+      "calculation_date_price": "11/01/2030 @ 100",
+      "trade_amount": "7,215,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "06/10/2020 11:27 AM",
+      "settlement_date": "06/11/2020",
+      "price": "102.033",
+      "yield": "2.439",
+      "calculation_date_price": "11/01/2030 @ 100",
+      "trade_amount": "7,215,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "06/10/2020 11:26 AM",
+      "settlement_date": "06/11/2020",
+      "price": "101.958",
+      "yield": "2.447",
+      "calculation_date_price": "11/01/2030 @ 100",
+      "trade_amount": "7,215,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "06/04/2020 12:00 PM",
+      "settlement_date": "06/11/2020",
+      "price": "100",
+      "yield": "2.662",
+      "calculation_date_price": "11/01/2030 @ 100",
+      "trade_amount": "7,215,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "06/04/2020 12:00 PM",
+      "settlement_date": "06/11/2020",
+      "price": "100",
+      "yield": "2.662",
+      "calculation_date_price": "11/01/2030 @ 100",
+      "trade_amount": "5,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    }
+  ],
+  "ratings": [],
+  "disclosures": [
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/22/2026",
+      "pdf_url": "https://emma.msrb.org/P11919285-P11465990-P11915102.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A504CA30F5B553C0F74C44FBC75571717\\A504CA30F5B553C0F74C44FBC75571717_0001_Financial_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "04/12/2024",
+      "pdf_url": "https://emma.msrb.org/P11747680-P11343626-P11779291.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A504CA30F5B553C0F74C44FBC75571717\\A504CA30F5B553C0F74C44FBC75571717_0002_Event_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "04/12/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11325168",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/22/2026",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11447294",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/24/2025",
+      "pdf_url": "https://emma.msrb.org/P11820844-P11395516-P11836136.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A504CA30F5B553C0F74C44FBC75571717\\A504CA30F5B553C0F74C44FBC75571717_0005_Annual_Financial_Disclosures_Posted_01_24_2025_for.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/24/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11376993",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2026",
+      "pdf_url": "https://emma.msrb.org/P11919287-P11465992-P11915104.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A504CA30F5B553C0F74C44FBC75571717\\A504CA30F5B553C0F74C44FBC75571717_0007_County_of_Ventura_Summary_Budget_Schedules_for_the.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2026",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11447296",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2025",
+      "pdf_url": "https://emma.msrb.org/P11820855-P11395525-P11836146.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A504CA30F5B553C0F74C44FBC75571717\\A504CA30F5B553C0F74C44FBC75571717_0009_County_of_Ventura_Budget_Schedules_for_the_year_en.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11377002",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2024",
+      "pdf_url": "https://emma.msrb.org/P11729042-P11329134-P11763108.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A504CA30F5B553C0F74C44FBC75571717\\A504CA30F5B553C0F74C44FBC75571717_0011_County_of_Ventura_Summary_Budget_Schedules_for_the.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11310726",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2023",
+      "pdf_url": "https://emma.msrb.org/P31438918-P31117816-P31529355.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A504CA30F5B553C0F74C44FBC75571717\\A504CA30F5B553C0F74C44FBC75571717_0013_County_of_Ventura_Summary_Budget_Schedules_for_the.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2023",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P31100056",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2024",
+      "pdf_url": "https://emma.msrb.org/P21928709-P21474214-P21924423.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A504CA30F5B553C0F74C44FBC75571717\\A504CA30F5B553C0F74C44FBC75571717_0015_County_of_Ventura_Annual_Comprehensive_Financial_R.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21455893",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2023",
+      "pdf_url": "https://emma.msrb.org/P21764709-P21354741-P21791275.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A504CA30F5B553C0F74C44FBC75571717\\A504CA30F5B553C0F74C44FBC75571717_0017_County_of_Ventura_Annual_Comprehensive_Financial_R.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2023",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21336386",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2023",
+      "pdf_url": "https://emma.msrb.org/P11729054-P11329143-P11763118.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A504CA30F5B553C0F74C44FBC75571717\\A504CA30F5B553C0F74C44FBC75571717_0019_FY23_Audited_Annual_Report_for_the_year_ended_06_3.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2023",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11310734",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2022",
+      "pdf_url": "https://emma.msrb.org/P21684038-P21295944-P21726409.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A504CA30F5B553C0F74C44FBC75571717\\A504CA30F5B553C0F74C44FBC75571717_0021_County_of_Ventura_Annual_Comprehensive_Financial_R.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2022",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21277473",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2022",
+      "pdf_url": "https://emma.msrb.org/P31438937-P31117832-P31529374.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A504CA30F5B553C0F74C44FBC75571717\\A504CA30F5B553C0F74C44FBC75571717_0023_FY22_Unaudited_Annual_Report_for_the_year_ended_06.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2022",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P31100073",
+      "local_pdf_path": "",
+      "download_success": false
+    }
+  ]
+}

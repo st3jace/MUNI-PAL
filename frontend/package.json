@@ -6,8 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "test": "vitest run",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate:api-types": "openapi-typescript ../contracts/openapi.v1.json -o src/types/openapi.generated.ts",
+    "generate:api-client": "openapi --input ../contracts/openapi.v1.json --output src/generated/api-client --client axios"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.17.0",
@@ -18,6 +21,8 @@
     "react-router-dom": "^6.21.3"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
     "@typescript-eslint/eslint-plugin": "^6.19.1",
@@ -27,9 +32,13 @@
     "eslint": "^8.56.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "openapi-typescript": "^7.6.1",
+    "openapi-typescript-codegen": "^0.29.0",
     "postcss": "^8.4.33",
+    "jsdom": "^26.1.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3",
-    "vite": "^5.0.12"
+    "vite": "^5.0.12",
+    "vitest": "^3.2.4"
   }
 }

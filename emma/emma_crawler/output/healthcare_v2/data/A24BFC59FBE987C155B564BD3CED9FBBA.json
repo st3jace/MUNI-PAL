@@ -1,0 +1,117 @@
+{
+  "cusip": "A24BFC59FBE987C155B564BD3CED9FBBA",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-19T22:55:51.041186+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/A24BFC59FBE987C155B564BD3CED9FBBA",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "empty",
+      "trade_activity": "success",
+      "ratings": "success",
+      "disclosures": "success"
+    }
+  },
+  "snapshot": {
+    "security_name": "MICHIGAN FINANCE AUTHORITY / HOSPITAL REVENUE LOAN ANTICIPATION NOTES (MCKENZIE HEALTH SYSTEM PROJECT), SERIES 2025",
+    "cusip": "",
+    "principal_amount": 74070000,
+    "maturity_date": "01/01/2028",
+    "dated_date": "10/21/2025",
+    "coupon_pct": "4 %",
+    "closing_date": "10/21/2025",
+    "fiscal_year_end_date": "09/30/2025",
+    "initial_offering_price_yield": "100.346% / 3.75%",
+    "time_of_formal_award": "10/07/2025 04:28 PM",
+    "time_of_first_execution": "10/08/2025 11:30 AM",
+    "state": "MI"
+  },
+  "interest_rates": [],
+  "trades": [
+    {
+      "trade_date": "10/08/2025 11:30 AM",
+      "settlement_date": "10/21/2025",
+      "price": "100.346",
+      "yield": "3.75",
+      "calculation_date_price": "04/01/2027 @ 100",
+      "trade_amount": "24,590,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/08/2025 11:30 AM",
+      "settlement_date": "10/21/2025",
+      "price": "100.346",
+      "yield": "3.75",
+      "calculation_date_price": "04/01/2027 @ 100",
+      "trade_amount": "300,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/08/2025 11:30 AM",
+      "settlement_date": "10/21/2025",
+      "price": "100.346",
+      "yield": "3.75",
+      "calculation_date_price": "04/01/2027 @ 100",
+      "trade_amount": "24,590,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/08/2025 11:30 AM",
+      "settlement_date": "10/21/2025",
+      "price": "100.346",
+      "yield": "3.75",
+      "calculation_date_price": "04/01/2027 @ 100",
+      "trade_amount": "24,590,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    }
+  ],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Ratings, Inc."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Corporation, Moody's Investors Service, Inc., Moody's Analytics, Inc. and/or their licensors and affiliates (collectively, \"MOODY'S\"). All rights reserved. Copyright \u00a9 2026, Standard and Poor\u2019s Financial Services LLC. All rights reserved. 1.0.9903-243-P2"
+    }
+  ],
+  "disclosures": [
+    {
+      "doc_type": "Official Statement",
+      "filing_date": "10/16/2025",
+      "pdf_url": "https://emma.msrb.org/P11889504-P11444134-P11890294.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/21/2026",
+      "pdf_url": "https://emma.msrb.org/P11917707-P11464809-P11913777.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/21/2026",
+      "pdf_url": "https://emma.msrb.org/P11917701-P11464805-P11913772.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Official Statement",
+      "filing_date": "10/08/2025",
+      "pdf_url": "https://emma.msrb.org/P11889504-P21503465-P21956401.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    }
+  ]
+}

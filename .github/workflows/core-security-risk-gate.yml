@@ -1,0 +1,64 @@
+name: Core Security Risk Gate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  test-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[dev]
+
+      - name: Run core + security + risk suites
+        env:
+          USE_SQLITE: "true"
+        run: |
+          pytest -q \
+            tests/contract/test_openapi_contract.py \
+            tests/integration/test_readiness_api.py \
+            tests/integration/test_checklist_api.py \
+            tests/integration/test_facts_api.py \
+            tests/integration/test_projects_api.py \
+            tests/integration/test_playbooks_api.py \
+            tests/integration/test_auth_enforcement_routes.py \
+            tests/integration/test_project_authorization.py \
+            tests/integration/test_object_authorization.py \
+            tests/integration/test_role_policy.py \
+            tests/integration/test_security_integration.py \
+            tests/integration/test_risk_reporting_foundation.py \
+            tests/unit/test_auth_dependencies.py \
+            tests/unit/test_audit_service.py \
+            tests/unit/test_audit_route_events.py \
+            tests/unit/test_risk_reporting_service.py \
+            tests/unit/test_advisory_package_service.py \
+            tests/unit/test_fact_service.py \
+            -p no:cacheprovider
+
+      - name: Test and build frontend bundle
+        run: |
+          npm ci --prefix frontend
+          npm --prefix frontend run test
+          npm --prefix frontend run build

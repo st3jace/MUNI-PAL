@@ -1,0 +1,167 @@
+{
+  "cusip": "A1D20BDDD28C224424358E696ED8D8465",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-19T20:36:54.103708+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/A1D20BDDD28C224424358E696ED8D8465",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "empty",
+      "trade_activity": "empty",
+      "ratings": "success",
+      "disclosures": "success"
+    }
+  },
+  "snapshot": {
+    "security_name": "HIGHLANDS CNTY FLA HEALTH FACS AUTH REV / HOSP BDS ADVENTHEALTH 2025B",
+    "cusip": "",
+    "principal_amount": 140000000,
+    "maturity_date": "11/15/2060",
+    "dated_date": "08/28/2025",
+    "coupon_pct": "6.375 %",
+    "closing_date": "-",
+    "fiscal_year_end_date": "-",
+    "initial_offering_price_yield": "100%",
+    "time_of_formal_award": "",
+    "time_of_first_execution": "",
+    "state": "FL"
+  },
+  "interest_rates": [],
+  "trades": [],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Long-Term Issue Rating (effective 02/02/2026) Long-Term Issue Rating Alert Code (effective 02/02/2026) Unenhanced Long-Term Issue Rating (effective 02/02/2026) Unenhanced Long-Term Issue Rating Alert Code (effective 02/02/2026) Short-Term Issue Rating Short-Term Issue Rating Alert Code Unenhanced Sh"
+    },
+    {
+      "agency": "KBRA",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Kroll Bond Rating Agency."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Moody's Investors Service, Inc."
+    },
+    {
+      "agency": "S&P",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Standard and Poor's Financial Services LLC."
+    }
+  ],
+  "disclosures": [
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/10/2025",
+      "pdf_url": "https://emma.msrb.org/P21981305-P21510594-P21964236.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A1D20BDDD28C224424358E696ED8D8465\\A1D20BDDD28C224424358E696ED8D8465_0001_Financial_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/12/2026",
+      "pdf_url": "https://emma.msrb.org/P11914257-P11462331-P11911060.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A1D20BDDD28C224424358E696ED8D8465\\A1D20BDDD28C224424358E696ED8D8465_0002_Event_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/12/2026",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11443620",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/07/2025",
+      "pdf_url": "https://emma.msrb.org/P21979836-P21509601-P21963151.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A1D20BDDD28C224424358E696ED8D8465\\A1D20BDDD28C224424358E696ED8D8465_0004_AdventHealth_CFO_Announcement_November_2025_dated_.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/07/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21491219",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/08/2025",
+      "pdf_url": "https://emma.msrb.org/P11897479-P11449689-P11896377.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A1D20BDDD28C224424358E696ED8D8465\\A1D20BDDD28C224424358E696ED8D8465_0006_Change_of_Remarketing_Agent_220_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/08/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11431005",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/28/2025",
+      "pdf_url": "https://emma.msrb.org/P21964067-P21497316-P21949570.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A1D20BDDD28C224424358E696ED8D8465\\A1D20BDDD28C224424358E696ED8D8465_0008_Series_2025B_Swap_Agreement_as_of_08_28_2025_Docum.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/28/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21478919",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/28/2025",
+      "pdf_url": "https://emma.msrb.org/P21964067-P21497316-P21951013.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A1D20BDDD28C224424358E696ED8D8465\\A1D20BDDD28C224424358E696ED8D8465_0010_Series_2025B_Swap_Agreement_as_of_08_28_2025_Docum.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/28/2025",
+      "pdf_url": "https://emma.msrb.org/P21964067-P21497316-P21951014.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A1D20BDDD28C224424358E696ED8D8465\\A1D20BDDD28C224424358E696ED8D8465_0011_Series_2025B_Swap_Agreement_as_of_08_28_2025_Docum.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/28/2025",
+      "pdf_url": "https://emma.msrb.org/P21964067-P21497316-P21951015.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A1D20BDDD28C224424358E696ED8D8465\\A1D20BDDD28C224424358E696ED8D8465_0012_Series_2025B_Swap_Agreement_as_of_08_28_2025_Docum.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/10/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21492215",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2025",
+      "pdf_url": "https://emma.msrb.org/P21981304-P21510593-P21964235.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A1D20BDDD28C224424358E696ED8D8465\\A1D20BDDD28C224424358E696ED8D8465_0014_AdventHealth_Corporate_Unaudited_Interim_Financial.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21492214",
+      "local_pdf_path": "",
+      "download_success": false
+    }
+  ]
+}

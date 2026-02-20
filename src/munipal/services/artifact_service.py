@@ -50,6 +50,17 @@ class ArtifactService:
         """Create storage directory if it doesn't exist."""
         self.storage_path.mkdir(parents=True, exist_ok=True)
 
+    @staticmethod
+    def _sanitize_chunk_text(text: str | None) -> str | None:
+        """
+        Normalize chunk text for database compatibility.
+
+        Some OCR/PDF extraction paths emit NUL bytes, which PostgreSQL rejects.
+        """
+        if text is None:
+            return None
+        return text.replace("\x00", "")
+
     async def upload(
         self,
         project_id: UUID,
@@ -156,6 +167,7 @@ class ArtifactService:
                     filename=artifact.filename,
                     artifact_type=ArtifactType(artifact.artifact_type),
                     is_processed=artifact.is_processed,
+                    is_extracted=artifact.is_extracted,
                     chunk_count=chunk_count,
                     created_at=artifact.created_at,
                 )
@@ -213,6 +225,117 @@ class ArtifactService:
         await self.db.delete(artifact)
         return True
 
+    async def process_artifact(self, artifact_id: UUID) -> tuple[bool, str]:
+        """
+        Process an artifact: extract text and create chunks.
+
+        Returns:
+            Tuple of (success, message)
+        """
+        import logging
+        from uuid import uuid4
+        from munipal.services.chunking import PDFChunker, ExcelChunker
+        from munipal.services.chunking.excel_chunker import CSVChunker
+
+        logger = logging.getLogger(__name__)
+
+        artifact = await self.db.get(Artifact, str(artifact_id))
+        if not artifact:
+            return False, f"Artifact {artifact_id} not found"
+
+        if artifact.is_processed:
+            return True, "Artifact already processed"
+
+        # Get the full file path
+        file_path = self.storage_path / artifact.storage_path
+        if not file_path.exists():
+            artifact.processing_error = "File not found in storage"
+            await self.db.flush()
+            return False, "File not found in storage"
+
+        # Select chunker based on artifact type
+        chunker = None
+        artifact_type = artifact.artifact_type.lower()
+
+        if artifact_type == "pdf":
+            chunker = PDFChunker()
+        elif artifact_type in ("xlsx", "xls"):
+            chunker = ExcelChunker()
+        elif artifact_type == "csv":
+            chunker = CSVChunker()
+        elif artifact_type in ("docx", "txt"):
+            # For DOCX and TXT, use a simple text extraction
+            chunker = None  # Handle below
+        else:
+            artifact.processing_error = f"Unsupported artifact type: {artifact_type}"
+            await self.db.flush()
+            return False, f"Unsupported artifact type: {artifact_type}"
+
+        try:
+            if chunker:
+                # Use the chunker to extract chunks
+                chunk_data_list = chunker.chunk(file_path)
+            elif artifact_type == "docx":
+                # Handle DOCX files
+                from docx import Document
+                doc = Document(str(file_path))
+                text_content = "\n\n".join([para.text for para in doc.paragraphs if para.text.strip()])
+                from munipal.services.chunking.base import BaseChunker
+                content_hash = BaseChunker.compute_hash(text_content or "empty_docx")
+                from munipal.services.chunking.base import ChunkData
+                chunk_data_list = [ChunkData(
+                    chunk_type="document",
+                    sequence_number=0,
+                    text_content=text_content,
+                    content_hash=content_hash,
+                    page_number=1,
+                )]
+            elif artifact_type == "txt":
+                # Handle TXT files
+                with open(file_path, "r", encoding="utf-8", errors="replace") as f:
+                    text_content = f.read()
+                from munipal.services.chunking.base import BaseChunker, ChunkData
+                content_hash = BaseChunker.compute_hash(text_content or "empty_txt")
+                chunk_data_list = [ChunkData(
+                    chunk_type="document",
+                    sequence_number=0,
+                    text_content=text_content,
+                    content_hash=content_hash,
+                    page_number=1,
+                )]
+            else:
+                chunk_data_list = []
+
+            # Create Chunk records in database
+            for chunk_data in chunk_data_list:
+                chunk = Chunk(
+                    id=str(uuid4()),
+                    artifact_id=str(artifact_id),
+                    chunk_type=chunk_data.chunk_type,
+                    sequence_number=chunk_data.sequence_number,
+                    page_number=chunk_data.page_number,
+                    sheet_name=chunk_data.sheet_name,
+                    section_title=chunk_data.section_title,
+                    text_content=self._sanitize_chunk_text(chunk_data.text_content),
+                    content_hash=chunk_data.content_hash,
+                    has_image=chunk_data.has_image,
+                )
+                self.db.add(chunk)
+
+            # Mark artifact as processed
+            artifact.is_processed = True
+            artifact.processing_error = None
+            await self.db.flush()
+
+            logger.info(f"Processed artifact {artifact_id}: created {len(chunk_data_list)} chunks")
+            return True, f"Created {len(chunk_data_list)} chunks"
+
+        except Exception as e:
+            logger.error(f"Failed to process artifact {artifact_id}: {e}")
+            artifact.processing_error = str(e)
+            await self.db.flush()
+            return False, str(e)
+
     async def mark_processed(
         self,
         artifact_id: str,
@@ -225,6 +348,25 @@ class ArtifactService:
             artifact.is_processed = success
             artifact.processing_error = error_message if not success else None
             await self.db.flush()
+
+    async def reset_extraction_status(self, artifact_id: UUID) -> bool:
+        """
+        Reset the extraction status of an artifact.
+
+        This allows the artifact to be re-extracted for facts.
+        Existing facts are NOT deleted.
+
+        Returns:
+            True if artifact was found and reset, False otherwise.
+        """
+        artifact = await self.db.get(Artifact, str(artifact_id))
+        if not artifact:
+            return False
+
+        artifact.is_extracted = False
+        artifact.last_extraction_job_id = None
+        await self.db.flush()
+        return True
 
     async def _count_chunks(self, artifact_id: str) -> int:
         """Count chunks for an artifact."""
@@ -247,6 +389,8 @@ class ArtifactService:
             is_processed=artifact.is_processed,
             chunk_count=0,  # Will be computed if needed
             processing_error=artifact.processing_error,
+            is_extracted=artifact.is_extracted,
+            last_extraction_job_id=UUID(artifact.last_extraction_job_id) if artifact.last_extraction_job_id else None,
             created_at=artifact.created_at,
             updated_at=artifact.updated_at,
         )

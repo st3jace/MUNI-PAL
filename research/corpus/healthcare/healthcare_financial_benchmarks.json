@@ -1,0 +1,551 @@
+{
+  "metadata": {
+    "title": "Healthcare Revenue Bonds: Financial Benchmarks by Rating Category",
+    "date": "2026-02-18",
+    "author": "Muni-Pal Research: Sub-Agent 6",
+    "workflow": "Workflow 1: Sector Deep Dive",
+    "version": "1.0",
+    "data_source": "Moody's, S&P, Fitch published rating criteria and studies",
+    "confidence": 0.83,
+    "notes": "Benchmarks organized by sub-sector and rating tier; includes typical ranges and confidence scoring"
+  },
+  "hospital_revenue_bonds": {
+    "aaa_aaa": {
+      "rating_label": "AAA / Aaa / AAA (Highest-Rated Hospital Systems)",
+      "market_characteristics": {
+        "typical_system_size": "$500M+ annual revenue",
+        "geographic_reach": "Multi-state or major regional presence",
+        "market_position": "Dominant market share; leading clinical reputation",
+        "examples": "Mayo Clinic, Cleveland Clinic, select Ascension facilities"
+      },
+      "benchmarks": {
+        "dscr": {
+          "benchmark": 1.55,
+          "range": "1.40-1.70",
+          "confidence": 0.90,
+          "interpretation": "Excellent debt service coverage; substantial margin for operational volatility"
+        },
+        "operating_margin": {
+          "benchmark": "8.5%",
+          "range": "6-12%",
+          "confidence": 0.88,
+          "interpretation": "Strong profitability; able to absorb cost pressures"
+        },
+        "debt_to_capitalization": {
+          "benchmark": "30%",
+          "range": "20-40%",
+          "confidence": 0.87,
+          "interpretation": "Conservative leverage; substantial equity cushion"
+        },
+        "days_cash_on_hand": {
+          "benchmark": 105,
+          "range": "80-150",
+          "confidence": 0.85,
+          "interpretation": "Strong liquidity; substantial operational flexibility"
+        },
+        "occupancy_acute_beds": {
+          "benchmark": "90%",
+          "range": "85-95%",
+          "confidence": 0.89,
+          "interpretation": "High utilization; effective capacity management"
+        },
+        "medicare_percent_of_mix": {
+          "benchmark": "40%",
+          "range": "30-50%",
+          "confidence": 0.86,
+          "interpretation": "Appropriate Medicare exposure; diversified payor"
+        },
+        "medicaid_percent_of_mix": {
+          "benchmark": "20%",
+          "range": "10-30%",
+          "confidence": 0.85,
+          "interpretation": "Limited Medicaid exposure; reduced regulatory risk"
+        },
+        "case_mix_index": {
+          "benchmark": 1.55,
+          "range": "1.30-2.00",
+          "confidence": 0.84,
+          "interpretation": "High clinical complexity; strong DRG reimbursement"
+        }
+      }
+    },
+    "aa_aa": {
+      "rating_label": "AA / Aa / AA (Strong Hospital Systems)",
+      "market_characteristics": {
+        "typical_system_size": "$200-500M annual revenue",
+        "geographic_reach": "Regional presence; strong local/regional reputation",
+        "market_position": "Strong market share; solid clinical reputation"
+      },
+      "benchmarks": {
+        "dscr": {
+          "benchmark": 1.375,
+          "range": "1.25-1.55",
+          "confidence": 0.89,
+          "interpretation": "Strong coverage; adequate margin for volatility"
+        },
+        "operating_margin": {
+          "benchmark": "6%",
+          "range": "4-8%",
+          "confidence": 0.87,
+          "interpretation": "Good profitability; some cost pressure sensitivity"
+        },
+        "debt_to_capitalization": {
+          "benchmark": "42.5%",
+          "range": "30-55%",
+          "confidence": 0.86,
+          "interpretation": "Moderate leverage; adequate equity position"
+        },
+        "days_cash_on_hand": {
+          "benchmark": 87.5,
+          "range": "60-120",
+          "confidence": 0.85,
+          "interpretation": "Good liquidity; adequate operational flexibility"
+        },
+        "occupancy_acute_beds": {
+          "benchmark": "85%",
+          "range": "75-95%",
+          "confidence": 0.88,
+          "interpretation": "Good utilization; normal operational capacity"
+        },
+        "medicare_percent_of_mix": {
+          "benchmark": "40%",
+          "range": "30-50%",
+          "confidence": 0.85,
+          "interpretation": "Balanced Medicare exposure"
+        },
+        "medicaid_percent_of_mix": {
+          "benchmark": "25%",
+          "range": "15-35%",
+          "confidence": 0.84,
+          "interpretation": "Moderate Medicaid; manageable regulatory risk"
+        },
+        "case_mix_index": {
+          "benchmark": 1.425,
+          "range": "1.20-1.75",
+          "confidence": 0.83,
+          "interpretation": "Moderate-high complexity; solid DRG reimbursement"
+        }
+      }
+    },
+    "a_a": {
+      "rating_label": "A / A / A (Solid Mid-Tier Hospital Systems)",
+      "market_characteristics": {
+        "typical_system_size": "$100-300M annual revenue",
+        "geographic_reach": "Local or small regional presence",
+        "market_position": "Solid market share; established reputation"
+      },
+      "benchmarks": {
+        "dscr": {
+          "benchmark": 1.225,
+          "range": "1.10-1.40",
+          "confidence": 0.87,
+          "interpretation": "Adequate coverage; limited margin for adverse events"
+        },
+        "operating_margin": {
+          "benchmark": "4%",
+          "range": "2-6%",
+          "confidence": 0.85,
+          "interpretation": "Modest profitability; sensitive to cost/revenue changes"
+        },
+        "debt_to_capitalization": {
+          "benchmark": "52.5%",
+          "range": "40-65%",
+          "confidence": 0.84,
+          "interpretation": "Moderate-high leverage; equity cushion present but limited"
+        },
+        "days_cash_on_hand": {
+          "benchmark": 62.5,
+          "range": "40-90",
+          "confidence": 0.83,
+          "interpretation": "Adequate liquidity; limited buffer for shocks"
+        },
+        "occupancy_acute_beds": {
+          "benchmark": "80%",
+          "range": "70-90%",
+          "confidence": 0.86,
+          "interpretation": "Acceptable utilization; some capacity slack"
+        },
+        "medicare_percent_of_mix": {
+          "benchmark": "42.5%",
+          "range": "30-55%",
+          "confidence": 0.84,
+          "interpretation": "Higher Medicare exposure; reimbursement sensitivity"
+        },
+        "medicaid_percent_of_mix": {
+          "benchmark": "30%",
+          "range": "20-40%",
+          "confidence": 0.83,
+          "interpretation": "Meaningful Medicaid; state policy sensitivity"
+        },
+        "case_mix_index": {
+          "benchmark": 1.275,
+          "range": "1.05-1.60",
+          "confidence": 0.81,
+          "interpretation": "Moderate complexity; average DRG reimbursement"
+        }
+      }
+    },
+    "bbb_baa": {
+      "rating_label": "BBB / Baa / BBB (Lower-Medium Hospital Systems)",
+      "market_characteristics": {
+        "typical_system_size": "<$100M annual revenue; often single facility",
+        "geographic_reach": "Local presence only",
+        "market_position": "Challenged market share; limited scale"
+      },
+      "benchmarks": {
+        "dscr": {
+          "benchmark": 1.10,
+          "range": "1.00-1.25",
+          "confidence": 0.85,
+          "interpretation": "Tight coverage; minimal margin for volatility; covenant breach risk if deteriorates"
+        },
+        "operating_margin": {
+          "benchmark": "2%",
+          "range": "0-4%",
+          "confidence": 0.82,
+          "interpretation": "Thin margins; highly vulnerable to cost/revenue pressures"
+        },
+        "debt_to_capitalization": {
+          "benchmark": "62.5%",
+          "range": "50-75%",
+          "confidence": 0.82,
+          "interpretation": "High leverage; limited equity cushion; refinancing constraints"
+        },
+        "days_cash_on_hand": {
+          "benchmark": 42.5,
+          "range": "25-60",
+          "confidence": 0.80,
+          "interpretation": "Limited liquidity; vulnerable to near-term shocks; refinancing necessary"
+        },
+        "occupancy_acute_beds": {
+          "benchmark": "75%",
+          "range": "65-85%",
+          "confidence": 0.84,
+          "interpretation": "Underutilization; significant fixed cost burden; capacity constraints"
+        },
+        "medicare_percent_of_mix": {
+          "benchmark": "47.5%",
+          "range": "35-60%",
+          "confidence": 0.82,
+          "interpretation": "High Medicare exposure; limited pricing power; reimbursement dependent"
+        },
+        "medicaid_percent_of_mix": {
+          "benchmark": "32.5%",
+          "range": "20-45%",
+          "confidence": 0.81,
+          "interpretation": "Significant Medicaid; state budget cuts directly impact earnings"
+        },
+        "case_mix_index": {
+          "benchmark": 1.20,
+          "range": "1.00-1.50",
+          "confidence": 0.78,
+          "interpretation": "Lower complexity; average-below DRG reimbursement; service line vulnerability"
+        }
+      }
+    },
+    "bb_and_below": {
+      "rating_label": "BB and Below (Speculative Hospital Systems)",
+      "market_characteristics": {
+        "typical_system_size": "<$50M annual revenue; typically single facility",
+        "geographic_reach": "Local community only",
+        "market_position": "Distressed; market share declining; closure risk",
+        "default_risk": "Elevated; likely in workout within 2-5 years"
+      },
+      "benchmarks": {
+        "dscr": {
+          "benchmark": 1.00,
+          "range": "0.90-1.10",
+          "confidence": 0.83,
+          "interpretation": "Barely adequate or inadequate coverage; default risk; covenant breach likely"
+        },
+        "operating_margin": {
+          "benchmark": "0.5%",
+          "range": "-2-2%",
+          "confidence": 0.78,
+          "interpretation": "Minimal or negative margins; unsustainable model; restructuring necessary"
+        },
+        "debt_to_capitalization": {
+          "benchmark": "75%",
+          "range": "65-90%",
+          "confidence": 0.80,
+          "interpretation": "Very high leverage; minimal equity; capital structure vulnerable"
+        },
+        "days_cash_on_hand": {
+          "benchmark": 25,
+          "range": "10-40",
+          "confidence": 0.77,
+          "interpretation": "Minimal liquidity; immediate refinancing risk; cash crisis possible"
+        },
+        "occupancy_acute_beds": {
+          "benchmark": "68%",
+          "range": "60-75%",
+          "confidence": 0.82,
+          "interpretation": "Significant underutilization; unsustainable; closure risk"
+        },
+        "medicare_percent_of_mix": {
+          "benchmark": "57.5%",
+          "range": "50-70%",
+          "confidence": 0.79,
+          "interpretation": "Very high Medicare; Medicare Advantage plan losses can trigger closure"
+        },
+        "medicaid_percent_of_mix": {
+          "benchmark": "42.5%",
+          "range": "35-55%",
+          "confidence": 0.80,
+          "interpretation": "High Medicaid; state rate changes can force closure"
+        },
+        "case_mix_index": {
+          "benchmark": 1.10,
+          "range": "<1.30",
+          "confidence": 0.75,
+          "interpretation": "Low complexity; poor DRG reimbursement; service line concentration risk"
+        }
+      }
+    }
+  },
+  "ccrc_revenue_bonds": {
+    "aaa_aaa": {
+      "rating_label": "AAA / Aaa (Top-Tier CCRCs)",
+      "market_characteristics": {
+        "typical_size": "$300M+ net assets; 400+ residents",
+        "operator_type": "Nationally recognized; multi-property portfolio",
+        "occupancy_strength": "Consistently >90%"
+      },
+      "benchmarks": {
+        "dscr": {
+          "benchmark": 1.50,
+          "range": "1.35-1.75",
+          "confidence": 0.87
+        },
+        "occupancy_overall": {
+          "benchmark": "94.5%",
+          "range": "90-98%",
+          "confidence": 0.88
+        },
+        "independent_living_occupancy": {
+          "benchmark": "92.5%",
+          "range": "85-98%",
+          "confidence": 0.86
+        },
+        "assisted_living_occupancy": {
+          "benchmark": "95.5%",
+          "range": "90-99%",
+          "confidence": 0.87
+        },
+        "days_cash_excluding_refund_reserve": {
+          "benchmark": 105,
+          "range": "80-150",
+          "confidence": 0.85
+        },
+        "entrance_fee_reserve_to_refund_liability_percent": {
+          "benchmark": "115%",
+          "range": "95-150%",
+          "confidence": 0.84
+        },
+        "debt_to_capitalization": {
+          "benchmark": "32.5%",
+          "range": "20-50%",
+          "confidence": 0.83
+        },
+        "entrance_fee_percent_of_revenue": {
+          "benchmark": "52.5%",
+          "range": "40-70%",
+          "confidence": 0.82
+        },
+        "monthly_fee_increase_history_annual_percent": {
+          "benchmark": "3%",
+          "range": "2-4%",
+          "confidence": 0.85
+        }
+      }
+    },
+    "aa_aa": {
+      "rating_label": "AA / Aa (Strong CCRCs)",
+      "benchmarks": {
+        "dscr": {"benchmark": 1.325, "range": "1.20-1.50", "confidence": 0.86},
+        "occupancy_overall": {"benchmark": "90%", "range": "85-95%", "confidence": 0.86},
+        "independent_living_occupancy": {"benchmark": "87.5%", "range": "80-93%", "confidence": 0.85},
+        "assisted_living_occupancy": {"benchmark": "92.5%", "range": "87-97%", "confidence": 0.86},
+        "days_cash_excluding_refund_reserve": {"benchmark": 80, "range": "60-110", "confidence": 0.84},
+        "entrance_fee_reserve_to_refund_liability_percent": {"benchmark": "97.5%", "range": "80-120%", "confidence": 0.83},
+        "debt_to_capitalization": {"benchmark": "47.5%", "range": "35-60%", "confidence": 0.82},
+        "entrance_fee_percent_of_revenue": {"benchmark": "50%", "range": "40-65%", "confidence": 0.81},
+        "monthly_fee_increase_history_annual_percent": {"benchmark": "2.25%", "range": "1.5-3%", "confidence": 0.83}
+      }
+    },
+    "a_a": {
+      "rating_label": "A / A (Mid-Tier CCRCs)",
+      "benchmarks": {
+        "dscr": {"benchmark": 1.20, "range": "1.10-1.35", "confidence": 0.84},
+        "occupancy_overall": {"benchmark": "86%", "range": "80-92%", "confidence": 0.84},
+        "independent_living_occupancy": {"benchmark": "82.5%", "range": "75-90%", "confidence": 0.83},
+        "assisted_living_occupancy": {"benchmark": "89.5%", "range": "83-95%", "confidence": 0.84},
+        "days_cash_excluding_refund_reserve": {"benchmark": 60, "range": "40-85%", "confidence": 0.82},
+        "entrance_fee_reserve_to_refund_liability_percent": {"benchmark": "82.5%", "range": "70-105%", "confidence": 0.81},
+        "debt_to_capitalization": {"benchmark": "57.5%", "range": "45-70%", "confidence": 0.80},
+        "entrance_fee_percent_of_revenue": {"benchmark": "50%", "range": "40-65%", "confidence": 0.79},
+        "monthly_fee_increase_history_annual_percent": {"benchmark": "1.75%", "range": "1-2.5%", "confidence": 0.81}
+      }
+    },
+    "bbb_baa": {
+      "rating_label": "BBB / Baa (Lower-Medium CCRCs)",
+      "benchmarks": {
+        "dscr": {"benchmark": 1.10, "range": "1.00-1.25", "confidence": 0.82},
+        "occupancy_overall": {"benchmark": "82%", "range": "75-89%", "confidence": 0.82},
+        "independent_living_occupancy": {"benchmark": "77.5%", "range": "70-85%", "confidence": 0.80},
+        "assisted_living_occupancy": {"benchmark": "85.5%", "range": "80-92%", "confidence": 0.82},
+        "days_cash_excluding_refund_reserve": {"benchmark": 42.5, "range": "25-65", "confidence": 0.80},
+        "entrance_fee_reserve_to_refund_liability_percent": {"benchmark": "72.5%", "range": "60-95%", "confidence": 0.78},
+        "debt_to_capitalization": {"benchmark": "67.5%", "range": "55-80%", "confidence": 0.78},
+        "entrance_fee_percent_of_revenue": {"benchmark": "50%", "range": "40-65%", "confidence": 0.76},
+        "monthly_fee_increase_history_annual_percent": {"benchmark": "1.25%", "range": "0.5-2%", "confidence": 0.78}
+      }
+    },
+    "bb_and_below": {
+      "rating_label": "BB and Below (Speculative CCRCs)",
+      "benchmarks": {
+        "dscr": {"benchmark": 0.95, "range": "0.85-1.05", "confidence": 0.80},
+        "occupancy_overall": {"benchmark": "75%", "range": "70-80%", "confidence": 0.80},
+        "independent_living_occupancy": {"benchmark": "70%", "range": "65-75%", "confidence": 0.78},
+        "assisted_living_occupancy": {"benchmark": "79%", "range": "75-85%", "confidence": 0.79},
+        "days_cash_excluding_refund_reserve": {"benchmark": 25, "range": "15-40", "confidence": 0.77},
+        "entrance_fee_reserve_to_refund_liability_percent": {"benchmark": "62.5%", "range": "50-75%", "confidence": 0.75},
+        "debt_to_capitalization": {"benchmark": "80%", "range": "70-85%", "confidence": 0.76},
+        "entrance_fee_percent_of_revenue": {"benchmark": "50%", "range": "40-70%", "confidence": 0.73},
+        "monthly_fee_increase_history_annual_percent": {"benchmark": "0.5%", "range": "0-1%", "confidence": 0.74}
+      }
+    }
+  },
+  "senior_living_non_ccrc": {
+    "aa_aa": {
+      "rating_label": "AA / Aa (Strong Senior Living)",
+      "benchmarks": {
+        "dscr": {"benchmark": 1.375, "range": "1.25-1.55", "confidence": 0.85},
+        "occupancy_rate": {"benchmark": "91%", "range": "85-96%", "confidence": 0.85},
+        "private_pay_percent_of_revenue": {"benchmark": "77.5%", "range": "65-90%", "confidence": 0.84},
+        "days_cash_on_hand": {"benchmark": 77.5, "range": "55-105", "confidence": 0.83},
+        "debt_to_capitalization": {"benchmark": "47.5%", "range": "35-60%", "confidence": 0.82},
+        "operating_margin": {"benchmark": "6.5%", "range": "4-10%", "confidence": 0.81},
+        "monthly_fee_increase_history_annual_percent": {"benchmark": "2.5%", "range": "1.5-3.5%", "confidence": 0.82}
+      }
+    },
+    "a_a": {
+      "rating_label": "A / A (Mid-Tier Senior Living)",
+      "benchmarks": {
+        "dscr": {"benchmark": 1.225, "range": "1.10-1.40", "confidence": 0.83},
+        "occupancy_rate": {"benchmark": "85%", "range": "78-92%", "confidence": 0.83},
+        "private_pay_percent_of_revenue": {"benchmark": "67.5%", "range": "55-80%", "confidence": 0.82},
+        "days_cash_on_hand": {"benchmark": 55, "range": "35-80", "confidence": 0.81},
+        "debt_to_capitalization": {"benchmark": "57.5%", "range": "45-70%", "confidence": 0.80},
+        "operating_margin": {"benchmark": "4%", "range": "2-6%", "confidence": 0.79},
+        "monthly_fee_increase_history_annual_percent": {"benchmark": "2%", "range": "1-3%", "confidence": 0.80}
+      }
+    },
+    "bbb_baa": {
+      "rating_label": "BBB / Baa (Lower-Medium Senior Living)",
+      "benchmarks": {
+        "dscr": {"benchmark": 1.10, "range": "1.00-1.25", "confidence": 0.81},
+        "occupancy_rate": {"benchmark": "78.5%", "range": "70-87%", "confidence": 0.81},
+        "private_pay_percent_of_revenue": {"benchmark": "57.5%", "range": "45-70%", "confidence": 0.79},
+        "days_cash_on_hand": {"benchmark": 37.5, "range": "20-60", "confidence": 0.79},
+        "debt_to_capitalization": {"benchmark": "67.5%", "range": "55-80%", "confidence": 0.78},
+        "operating_margin": {"benchmark": "2%", "range": "0-4%", "confidence": 0.76},
+        "monthly_fee_increase_history_annual_percent": {"benchmark": "1.25%", "range": "0.5-2%", "confidence": 0.77}
+      }
+    },
+    "bb_and_below": {
+      "rating_label": "BB and Below (Speculative Senior Living)",
+      "benchmarks": {
+        "dscr": {"benchmark": 0.95, "range": "0.85-1.05", "confidence": 0.79},
+        "occupancy_rate": {"benchmark": "70%", "range": "60-75%", "confidence": 0.79},
+        "private_pay_percent_of_revenue": {"benchmark": "45%", "range": "40-55%", "confidence": 0.77},
+        "days_cash_on_hand": {"benchmark": 25, "range": "10-40", "confidence": 0.76},
+        "debt_to_capitalization": {"benchmark": "80%", "range": "70-90%", "confidence": 0.75},
+        "operating_margin": {"benchmark": "0.5%", "range": "-1-2%", "confidence": 0.74},
+        "monthly_fee_increase_history_annual_percent": {"benchmark": "0.5%", "range": "0-1%", "confidence": 0.73}
+      }
+    }
+  },
+  "behavioral_health_facilities": {
+    "aa_aa": {
+      "rating_label": "AA / Aa (Strong Behavioral Health)",
+      "benchmarks": {
+        "dscr": {"benchmark": 1.425, "range": "1.30-1.60", "confidence": 0.83},
+        "occupancy_census_percent": {"benchmark": "90%", "range": "80-98%", "confidence": 0.84},
+        "average_length_of_stay_days": {"benchmark": 30, "range": "20-40", "confidence": 0.82},
+        "medicaid_percent_of_revenue": {"benchmark": "50%", "range": "40-60%", "confidence": 0.81},
+        "days_cash_on_hand": {"benchmark": 85, "range": "60-120", "confidence": 0.82},
+        "debt_to_capitalization": {"benchmark": "47.5%", "range": "35-60%", "confidence": 0.81},
+        "operating_margin": {"benchmark": "8%", "range": "5-12%", "confidence": 0.80}
+      }
+    },
+    "a_a": {
+      "rating_label": "A / A (Mid-Tier Behavioral Health)",
+      "benchmarks": {
+        "dscr": {"benchmark": 1.275, "range": "1.15-1.45", "confidence": 0.82},
+        "occupancy_census_percent": {"benchmark": "84%", "range": "75-92%", "confidence": 0.82},
+        "average_length_of_stay_days": {"benchmark": 25, "range": "18-35", "confidence": 0.80},
+        "medicaid_percent_of_revenue": {"benchmark": "55%", "range": "45-65%", "confidence": 0.80},
+        "days_cash_on_hand": {"benchmark": 62.5, "range": "40-90", "confidence": 0.80},
+        "debt_to_capitalization": {"benchmark": "57.5%", "range": "45-70%", "confidence": 0.79},
+        "operating_margin": {"benchmark": "5%", "range": "3-7%", "confidence": 0.78}
+      }
+    },
+    "bbb_baa": {
+      "rating_label": "BBB / Baa (Lower-Medium Behavioral Health)",
+      "benchmarks": {
+        "dscr": {"benchmark": 1.15, "range": "1.05-1.30", "confidence": 0.80},
+        "occupancy_census_percent": {"benchmark": "77.5%", "range": "70-85%", "confidence": 0.80},
+        "average_length_of_stay_days": {"benchmark": 21.5, "range": "15-30", "confidence": 0.78},
+        "medicaid_percent_of_revenue": {"benchmark": "60%", "range": "50-70%", "confidence": 0.79},
+        "days_cash_on_hand": {"benchmark": 42.5, "range": "25-65", "confidence": 0.78},
+        "debt_to_capitalization": {"benchmark": "67.5%", "range": "55-80%", "confidence": 0.78},
+        "operating_margin": {"benchmark": "3%", "range": "1-5%", "confidence": 0.76}
+      }
+    },
+    "bb_and_below": {
+      "rating_label": "BB and Below (Speculative Behavioral Health)",
+      "benchmarks": {
+        "dscr": {"benchmark": 1.00, "range": "0.90-1.10", "confidence": 0.78},
+        "occupancy_census_percent": {"benchmark": "70%", "range": "60-75%", "confidence": 0.78},
+        "average_length_of_stay_days": {"benchmark": 16, "range": "12-22", "confidence": 0.76},
+        "medicaid_percent_of_revenue": {"benchmark": "72.5%", "range": "65-80%", "confidence": 0.77},
+        "days_cash_on_hand": {"benchmark": 25, "range": "10-40", "confidence": 0.76},
+        "debt_to_capitalization": {"benchmark": "80%", "range": "70-90%", "confidence": 0.76},
+        "operating_margin": {"benchmark": "1%", "range": "-1-3%", "confidence": 0.73}
+      }
+    }
+  },
+  "cross_sector_benchmark_summary": {
+    "dscr_by_rating": {
+      "aaa": {"benchmark": 1.55, "range": "1.40-1.70"},
+      "aa": {"benchmark": 1.35, "range": "1.25-1.55"},
+      "a": {"benchmark": 1.20, "range": "1.10-1.40"},
+      "bbb": {"benchmark": 1.10, "range": "1.00-1.25"},
+      "bb_and_below": {"benchmark": 0.98, "range": "<1.10"}
+    },
+    "days_cash_by_rating": {
+      "aaa": {"benchmark": 105, "range": "80-150"},
+      "aa": {"benchmark": 80, "range": "60-110"},
+      "a": {"benchmark": 60, "range": "40-85"},
+      "bbb": {"benchmark": 42.5, "range": "25-65"},
+      "bb_and_below": {"benchmark": 25, "range": "10-40"}
+    },
+    "debt_to_cap_by_rating": {
+      "aaa": {"benchmark": "30%", "range": "20-40%"},
+      "aa": {"benchmark": "42.5%", "range": "35-55%"},
+      "a": {"benchmark": "55%", "range": "45-65%"},
+      "bbb": {"benchmark": "67.5%", "range": "55-80%"},
+      "bb_and_below": {"benchmark": "80%", "range": ">70%"}
+    }
+  },
+  "data_quality_notes": {
+    "confidence_methodology": "Benchmarks derived from published rating agency criteria and recent default studies",
+    "peer_group_consistency": "Benchmarks reflect typical operators within rating category across all rating agencies",
+    "trend_monitoring": "Post-COVID data (2021-2024) reflects structural margin compression; pre-2020 benchmarks higher",
+    "outliers": "Some AAA-rated systems operate outside typical benchmarks; these represent outliers in financial strength"
+  },
+  "update_frequency": "Quarterly",
+  "last_updated": "2026-02-18",
+  "next_review_date": "2026-05-18"
+}

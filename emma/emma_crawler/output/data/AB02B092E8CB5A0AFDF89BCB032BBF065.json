@@ -1,0 +1,108 @@
+{
+  "cusip": "AB02B092E8CB5A0AFDF89BCB032BBF065",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-07T02:55:22.223857+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/AB02B092E8CB5A0AFDF89BCB032BBF065",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "empty",
+      "trade_activity": "success",
+      "ratings": "success",
+      "disclosures": "success"
+    }
+  },
+  "snapshot": {
+    "security_name": "PENNSYLVANIA ECONOMIC DEVELOPMENT FINANCING AUTHORITY / SOLID WASTE DISPOSAL REVENUE BONDS (EARTHCARE BETHEL, L.L.C. PROJECT), SERIES 2022A",
+    "cusip": "",
+    "principal_amount": 10345000,
+    "maturity_date": "12/01/2039",
+    "dated_date": "12/29/2022",
+    "coupon_pct": "8.5 %",
+    "closing_date": "12/29/2022",
+    "fiscal_year_end_date": "12/31/2024",
+    "initial_offering_price_yield": "100% / 8.5%",
+    "time_of_formal_award": "12/27/2022 01:19 PM",
+    "time_of_first_execution": "12/27/2022 03:30 PM",
+    "state": "PA"
+  },
+  "interest_rates": [],
+  "trades": [
+    {
+      "trade_date": "12/27/2022 03:30 PM",
+      "settlement_date": "12/29/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "10,345,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    }
+  ],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Fitch Ratings."
+    },
+    {
+      "agency": "KBRA",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Kroll Bond Rating Agency."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Moody's Investors Service, Inc."
+    },
+    {
+      "agency": "S&P",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Standard and Poor's Financial Services LLC."
+    }
+  ],
+  "disclosures": [
+    {
+      "doc_type": "Official Statement",
+      "filing_date": "12/29/2022",
+      "pdf_url": "https://emma.msrb.org/P11649008-P11270148-P11697461.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\AB02B092E8CB5A0AFDF89BCB032BBF065\\AB02B092E8CB5A0AFDF89BCB032BBF065_0001_Official_Statement_s.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/10/2025",
+      "pdf_url": "https://emma.msrb.org/P21995836-P21520773-P21975574.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\AB02B092E8CB5A0AFDF89BCB032BBF065\\AB02B092E8CB5A0AFDF89BCB032BBF065_0002_Financial_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/11/2025",
+      "pdf_url": "https://emma.msrb.org/P21952779-P21490884-P21942580.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\AB02B092E8CB5A0AFDF89BCB032BBF065\\AB02B092E8CB5A0AFDF89BCB032BBF065_0003_Event_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/11/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21472556",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/10/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21502459",
+      "local_pdf_path": "",
+      "download_success": false
+    }
+  ]
+}

@@ -1,0 +1,1048 @@
+{
+  "cusip": "ADED6BC174033BE1523F24F1797D8BC35",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-20T00:17:13.231840+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/ADED6BC174033BE1523F24F1797D8BC35",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "empty",
+      "trade_activity": "success",
+      "ratings": "success",
+      "disclosures": "empty"
+    }
+  },
+  "snapshot": {
+    "security_name": "HILLSBOROUGH CNTY FLA INDL DEV AUTH HOSP REV / BDS TAMPA GEN HOSP 2020A",
+    "cusip": "",
+    "principal_amount": 18280000,
+    "maturity_date": "08/01/2055",
+    "dated_date": "10/29/2020",
+    "coupon_pct": "3.5 %",
+    "closing_date": "-",
+    "fiscal_year_end_date": "-",
+    "initial_offering_price_yield": "97.055%",
+    "time_of_formal_award": "",
+    "time_of_first_execution": "",
+    "state": "FL"
+  },
+  "interest_rates": [],
+  "trades": [
+    {
+      "trade_date": "02/18/2026 02:47 PM",
+      "settlement_date": "02/19/2026",
+      "price": "75.75",
+      "yield": "5.1",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "02/09/2026 02:42 PM",
+      "settlement_date": "02/10/2026",
+      "price": "77.5",
+      "yield": "4.961",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "15,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "02/05/2026 01:32 PM",
+      "settlement_date": "02/06/2026",
+      "price": "77.5",
+      "yield": "4.96",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "15,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "02/05/2026 11:26 AM",
+      "settlement_date": "02/06/2026",
+      "price": "75.975",
+      "yield": "5.081",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "30,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "02/05/2026 11:26 AM",
+      "settlement_date": "02/06/2026",
+      "price": "76",
+      "yield": "5.079",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "30,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "02/05/2026 11:26 AM",
+      "settlement_date": "02/06/2026",
+      "price": "76",
+      "yield": "5.079",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "30,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "02/02/2026 09:55 AM",
+      "settlement_date": "02/03/2026",
+      "price": "75.918",
+      "yield": "5.085",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "02/02/2026 09:55 AM",
+      "settlement_date": "02/03/2026",
+      "price": "76.018",
+      "yield": "5.077",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/29/2026 03:36 PM",
+      "settlement_date": "01/30/2026",
+      "price": "75.915",
+      "yield": "5.085",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "25,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/29/2026 03:36 PM",
+      "settlement_date": "01/30/2026",
+      "price": "76.015",
+      "yield": "5.077",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "25,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/29/2026 03:36 PM",
+      "settlement_date": "01/30/2026",
+      "price": "75.915",
+      "yield": "5.085",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/29/2026 03:35 PM",
+      "settlement_date": "01/30/2026",
+      "price": "76.015",
+      "yield": "5.077",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/29/2026 01:07 PM",
+      "settlement_date": "01/30/2026",
+      "price": "75.915",
+      "yield": "5.085",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/29/2026 01:07 PM",
+      "settlement_date": "01/30/2026",
+      "price": "76.015",
+      "yield": "5.077",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/29/2026 08:02 AM",
+      "settlement_date": "01/30/2026",
+      "price": "75.977",
+      "yield": "5.08",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "25,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/29/2026 08:01 AM",
+      "settlement_date": "01/30/2026",
+      "price": "76.076",
+      "yield": "5.072",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "25,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/28/2026 01:12 PM",
+      "settlement_date": "01/29/2026",
+      "price": "75.976",
+      "yield": "5.08",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer sold",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/28/2026 01:12 PM",
+      "settlement_date": "01/29/2026",
+      "price": "75.976",
+      "yield": "5.08",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/28/2026 01:12 PM",
+      "settlement_date": "01/29/2026",
+      "price": "76.076",
+      "yield": "5.072",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/27/2026 04:41 PM",
+      "settlement_date": "01/28/2026",
+      "price": "77.75",
+      "yield": "4.94",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/27/2026 04:01 PM",
+      "settlement_date": "01/28/2026",
+      "price": "75.976",
+      "yield": "5.08",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/27/2026 04:01 PM",
+      "settlement_date": "01/28/2026",
+      "price": "76.226",
+      "yield": "5.06",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/27/2026 12:02 PM",
+      "settlement_date": "01/28/2026",
+      "price": "78.25",
+      "yield": "4.902",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/27/2026 11:36 AM",
+      "settlement_date": "01/28/2026",
+      "price": "74.228",
+      "yield": "5.222",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/27/2026 11:36 AM",
+      "settlement_date": "01/28/2026",
+      "price": "74.789",
+      "yield": "5.176",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/27/2026 11:17 AM",
+      "settlement_date": "01/28/2026",
+      "price": "76.383",
+      "yield": "5.048",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/27/2026 11:17 AM",
+      "settlement_date": "01/28/2026",
+      "price": "76.4",
+      "yield": "5.046",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/27/2026 11:17 AM",
+      "settlement_date": "01/28/2026",
+      "price": "76.4",
+      "yield": "5.046",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/23/2026 02:12 PM",
+      "settlement_date": "01/26/2026",
+      "price": "76.983",
+      "yield": "5",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer sold",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/23/2026 02:12 PM",
+      "settlement_date": "01/26/2026",
+      "price": "76.983",
+      "yield": "5",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/23/2026 02:12 PM",
+      "settlement_date": "01/26/2026",
+      "price": "77.083",
+      "yield": "4.992",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/23/2026 11:05 AM",
+      "settlement_date": "01/26/2026",
+      "price": "75.683",
+      "yield": "5.103",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Customer sold",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/23/2026 11:05 AM",
+      "settlement_date": "01/26/2026",
+      "price": "75.683",
+      "yield": "5.103",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/23/2026 11:05 AM",
+      "settlement_date": "01/26/2026",
+      "price": "75.683",
+      "yield": "5.103",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/22/2026 08:23 AM",
+      "settlement_date": "01/23/2026",
+      "price": "75.233",
+      "yield": "5.139",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "130,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/21/2026 02:42 PM",
+      "settlement_date": "01/22/2026",
+      "price": "79.875",
+      "yield": "4.779",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "35,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/21/2026 01:59 PM",
+      "settlement_date": "01/22/2026",
+      "price": "78.061",
+      "yield": "4.916",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "35,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/21/2026 01:59 PM",
+      "settlement_date": "01/22/2026",
+      "price": "78.311",
+      "yield": "4.897",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "35,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/21/2026 11:41 AM",
+      "settlement_date": "01/22/2026",
+      "price": "76.232",
+      "yield": "5.059",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "55,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/21/2026 10:15 AM",
+      "settlement_date": "01/22/2026",
+      "price": "74.231",
+      "yield": "5.221",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "185,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/20/2026 08:52 AM",
+      "settlement_date": "01/21/2026",
+      "price": "76.978",
+      "yield": "5",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "35,000",
+      "trade_type": "Customer sold",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/20/2026 08:52 AM",
+      "settlement_date": "01/21/2026",
+      "price": "76.978",
+      "yield": "5",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "35,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/20/2026 08:52 AM",
+      "settlement_date": "01/21/2026",
+      "price": "76.978",
+      "yield": "5",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "35,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/16/2026 02:54 PM",
+      "settlement_date": "01/20/2026",
+      "price": "75.518",
+      "yield": "5.116",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "35,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/16/2026 02:37 PM",
+      "settlement_date": "01/20/2026",
+      "price": "76.168",
+      "yield": "5.064",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "35,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/16/2026 02:37 PM",
+      "settlement_date": "01/20/2026",
+      "price": "75.918",
+      "yield": "5.084",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "35,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/16/2026 02:37 PM",
+      "settlement_date": "01/20/2026",
+      "price": "76.168",
+      "yield": "5.064",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "35,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/09/2026 05:02 AM",
+      "settlement_date": "01/26/2026",
+      "price": "79.125",
+      "yield": "4.835",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "15,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/09/2026 05:01 AM",
+      "settlement_date": "01/26/2026",
+      "price": "79.125",
+      "yield": "4.835",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "15,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/08/2026 10:41 AM",
+      "settlement_date": "01/12/2026",
+      "price": "79.125",
+      "yield": "4.834",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "75,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/08/2026 09:40 AM",
+      "settlement_date": "01/09/2026",
+      "price": "77.547",
+      "yield": "4.955",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Customer sold",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/08/2026 09:40 AM",
+      "settlement_date": "01/09/2026",
+      "price": "77.607",
+      "yield": "4.95",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/08/2026 09:40 AM",
+      "settlement_date": "01/09/2026",
+      "price": "77.547",
+      "yield": "4.955",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/07/2026 03:10 PM",
+      "settlement_date": "01/08/2026",
+      "price": "77.964",
+      "yield": "4.922",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "30,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/07/2026 02:05 PM",
+      "settlement_date": "01/08/2026",
+      "price": "77.864",
+      "yield": "4.93",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "15,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/07/2026 01:57 PM",
+      "settlement_date": "01/08/2026",
+      "price": "78.479",
+      "yield": "4.883",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/07/2026 01:56 PM",
+      "settlement_date": "01/08/2026",
+      "price": "77.839",
+      "yield": "4.932",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/06/2026 02:22 PM",
+      "settlement_date": "01/07/2026",
+      "price": "76.551",
+      "yield": "5.032",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/06/2026 12:44 PM",
+      "settlement_date": "01/07/2026",
+      "price": "75.356",
+      "yield": "5.128",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "65,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "12/23/2025 01:41 PM",
+      "settlement_date": "12/24/2025",
+      "price": "75.719",
+      "yield": "5.098",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "12/23/2025 01:41 PM",
+      "settlement_date": "12/24/2025",
+      "price": "76.292",
+      "yield": "5.052",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/23/2025 01:41 PM",
+      "settlement_date": "12/24/2025",
+      "price": "76.292",
+      "yield": "5.052",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/22/2025 12:01 PM",
+      "settlement_date": "12/23/2025",
+      "price": "77.466",
+      "yield": "4.96",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Customer sold",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/22/2025 12:00 PM",
+      "settlement_date": "12/23/2025",
+      "price": "77.785",
+      "yield": "4.935",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "12/22/2025 12:00 PM",
+      "settlement_date": "12/23/2025",
+      "price": "77.466",
+      "yield": "4.96",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/22/2025 12:00 PM",
+      "settlement_date": "12/23/2025",
+      "price": "77.591",
+      "yield": "4.95",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/22/2025 12:00 PM",
+      "settlement_date": "12/23/2025",
+      "price": "79.615",
+      "yield": "4.796",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "12/19/2025 01:59 PM",
+      "settlement_date": "12/22/2025",
+      "price": "75.568",
+      "yield": "5.11",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "12/19/2025 01:59 PM",
+      "settlement_date": "12/22/2025",
+      "price": "76.14",
+      "yield": "5.064",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/19/2025 01:59 PM",
+      "settlement_date": "12/22/2025",
+      "price": "76.14",
+      "yield": "5.064",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/11/2025 12:48 PM",
+      "settlement_date": "12/12/2025",
+      "price": "77.58",
+      "yield": "4.95",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Customer sold",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/11/2025 12:48 PM",
+      "settlement_date": "12/12/2025",
+      "price": "77.58",
+      "yield": "4.95",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "12/11/2025 12:48 PM",
+      "settlement_date": "12/12/2025",
+      "price": "77.58",
+      "yield": "4.95",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/11/2025 12:48 PM",
+      "settlement_date": "12/12/2025",
+      "price": "79.325",
+      "yield": "4.817",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "12/09/2025 12:39 PM",
+      "settlement_date": "12/10/2025",
+      "price": "75.018",
+      "yield": "5.153",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "12/09/2025 12:39 PM",
+      "settlement_date": "12/10/2025",
+      "price": "75.585",
+      "yield": "5.107",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/09/2025 12:39 PM",
+      "settlement_date": "12/10/2025",
+      "price": "75.585",
+      "yield": "5.107",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/22/2025 09:38 AM",
+      "settlement_date": "10/23/2025",
+      "price": "80.375",
+      "yield": "4.736",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "5,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/22/2025 09:27 AM",
+      "settlement_date": "10/23/2025",
+      "price": "80.375",
+      "yield": "4.736",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/22/2025 09:23 AM",
+      "settlement_date": "10/23/2025",
+      "price": "80.375",
+      "yield": "4.736",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "45,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/22/2025 09:15 AM",
+      "settlement_date": "10/23/2025",
+      "price": "80.375",
+      "yield": "4.736",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "380,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/22/2025 09:14 AM",
+      "settlement_date": "10/23/2025",
+      "price": "80.375",
+      "yield": "4.736",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "205,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/21/2025 04:44 PM",
+      "settlement_date": "10/22/2025",
+      "price": "78.841",
+      "yield": "4.85",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "215,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/21/2025 02:46 PM",
+      "settlement_date": "10/22/2025",
+      "price": "80.375",
+      "yield": "4.736",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "25,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/21/2025 02:05 PM",
+      "settlement_date": "10/22/2025",
+      "price": "79.9",
+      "yield": "4.771",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "350,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/21/2025 02:00 PM",
+      "settlement_date": "10/22/2025",
+      "price": "80.9",
+      "yield": "4.697",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "75,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/21/2025 01:57 PM",
+      "settlement_date": "10/22/2025",
+      "price": "80.9",
+      "yield": "4.697",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "115,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/21/2025 01:55 PM",
+      "settlement_date": "10/22/2025",
+      "price": "80.75",
+      "yield": "4.708",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "30,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/21/2025 01:49 PM",
+      "settlement_date": "10/22/2025",
+      "price": "78.841",
+      "yield": "4.85",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "75,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/21/2025 01:49 PM",
+      "settlement_date": "10/22/2025",
+      "price": "78.841",
+      "yield": "4.85",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "75,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/21/2025 01:47 PM",
+      "settlement_date": "10/22/2025",
+      "price": "78.741",
+      "yield": "4.858",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "30,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/21/2025 01:43 PM",
+      "settlement_date": "10/22/2025",
+      "price": "78.841",
+      "yield": "4.85",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "115,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/21/2025 01:43 PM",
+      "settlement_date": "10/22/2025",
+      "price": "78.841",
+      "yield": "4.85",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "115,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/21/2025 01:05 PM",
+      "settlement_date": "10/22/2025",
+      "price": "80.9",
+      "yield": "4.697",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "65,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/21/2025 12:59 PM",
+      "settlement_date": "10/22/2025",
+      "price": "78.841",
+      "yield": "4.85",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "500,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/21/2025 12:34 PM",
+      "settlement_date": "10/22/2025",
+      "price": "79.9",
+      "yield": "4.771",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/21/2025 12:31 PM",
+      "settlement_date": "10/22/2025",
+      "price": "79.9",
+      "yield": "4.771",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/21/2025 12:29 PM",
+      "settlement_date": "10/22/2025",
+      "price": "78.716",
+      "yield": "4.86",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "500,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/21/2025 12:28 PM",
+      "settlement_date": "10/22/2025",
+      "price": "79.9",
+      "yield": "4.771",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "400,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/21/2025 12:22 PM",
+      "settlement_date": "10/22/2025",
+      "price": "78.841",
+      "yield": "4.85",
+      "calculation_date_price": "08/01/2055 @ 100",
+      "trade_amount": "65,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    }
+  ],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Ratings, Inc."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Corporation, Moody's Investors Service, Inc., Moody's Analytics, Inc. and/or their licensors and affiliates (collectively, \"MOODY'S\"). All rights reserved. Copyright \u00a9 2026, Standard and Poor\u2019s Financial Services LLC. All rights reserved. 1.0.9903-243-P2"
+    }
+  ],
+  "disclosures": []
+}

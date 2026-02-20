@@ -105,6 +105,10 @@ class ReadinessGap(BaseSchema):
     dimension: ReadinessDimension
     criticality: str  # critical, material, secondary
     description: str
+    short_description: str = Field(
+        default="",
+        description="Brief one-sentence explanation of what this data point is",
+    )
     impact: str = Field(..., description="How this gap affects the assessment")
     suggested_evidence: str = Field(
         ...,

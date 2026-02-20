@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import {
@@ -8,6 +8,11 @@ import {
   Clock,
   Filter,
   ChevronDown,
+  Edit3,
+  Info,
+  HelpCircle,
+  BookOpen,
+  Users,
 } from 'lucide-react'
 import { api } from '../services/api'
 import { ReviewStatus, type ExtractedFact } from '../types'
@@ -39,7 +44,33 @@ export default function FactsReview() {
   const { projectId } = useParams<{ projectId: string }>()
   const [statusFilter, setStatusFilter] = useState<ReviewStatus | ''>('')
   const [selectedFact, setSelectedFact] = useState<ExtractedFact | null>(null)
+  const [isEditing, setIsEditing] = useState(false)
+  const [editedValue, setEditedValue] = useState('')
+  const [reviewNote, setReviewNote] = useState('')
+  const [showGuidance, setShowGuidance] = useState(false)
   const queryClient = useQueryClient()
+
+  // Fetch schema path metadata when a fact is selected
+  const { data: metadata } = useQuery({
+    queryKey: ['schema-path-metadata', selectedFact?.schema_path],
+    queryFn: () => api.getSchemaPathMetadata(selectedFact!.schema_path),
+    enabled: !!selectedFact,
+    staleTime: 1000 * 60 * 10, // Cache for 10 minutes
+  })
+
+  // Reset edit state when selecting a new fact
+  useEffect(() => {
+    if (selectedFact) {
+      setEditedValue(String(selectedFact.value))
+      setReviewNote(selectedFact.review_note || '')
+      // Auto-enable editing for needs_revision facts
+      setIsEditing(selectedFact.review_status === ReviewStatus.NEEDS_REVISION)
+    } else {
+      setIsEditing(false)
+      setEditedValue('')
+      setReviewNote('')
+    }
+  }, [selectedFact])
 
   const { data, isLoading } = useQuery({
     queryKey: ['facts', projectId, statusFilter],
@@ -76,12 +107,24 @@ export default function FactsReview() {
 
   const handleReview = (action: ReviewStatus) => {
     if (!selectedFact) return
-    const note = (document.getElementById('review-note') as HTMLTextAreaElement)?.value
+
+    // Check if value was edited
+    const originalValue = String(selectedFact.value)
+    const valueChanged = editedValue !== originalValue
+
     reviewMutation.mutate({
       factId: selectedFact.id,
       action,
-      note: note || undefined,
+      note: reviewNote || undefined,
+      correctedValue: valueChanged ? editedValue : undefined,
     })
+  }
+
+  const closeModal = () => {
+    setSelectedFact(null)
+    setIsEditing(false)
+    setEditedValue('')
+    setReviewNote('')
   }
 
   return (
@@ -229,29 +272,135 @@ export default function FactsReview() {
           <div className="flex min-h-screen items-center justify-center p-4">
             <div
               className="fixed inset-0 bg-gray-500 bg-opacity-75"
-              onClick={() => setSelectedFact(null)}
+              onClick={closeModal}
             />
             <div className="relative bg-white rounded-lg shadow-xl max-w-2xl w-full p-6">
-              <h2 className="text-lg font-medium text-gray-900 mb-4">Review Fact</h2>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-medium text-gray-900">
+                  {selectedFact.review_status === ReviewStatus.NEEDS_REVISION
+                    ? 'Edit & Re-review Fact'
+                    : 'Review Fact'}
+                </h2>
+                {selectedFact.review_status === ReviewStatus.NEEDS_REVISION && (
+                  <span className="badge bg-orange-100 text-orange-800">Needs Revision</span>
+                )}
+              </div>
 
               <dl className="space-y-4">
                 <div>
-                  <dt className="text-sm text-gray-500">Schema Path</dt>
+                  <div className="flex items-center justify-between">
+                    <dt className="text-sm text-gray-500">Schema Path</dt>
+                    <button
+                      type="button"
+                      onClick={() => setShowGuidance(!showGuidance)}
+                      className="text-sm text-primary-600 hover:text-primary-700 flex items-center gap-1"
+                    >
+                      <HelpCircle className="h-4 w-4" />
+                      {showGuidance ? 'Hide' : 'What is this?'}
+                    </button>
+                  </div>
                   <dd className="mt-1">
                     <code className="bg-gray-100 px-2 py-1 rounded">
                       {selectedFact.schema_path}
                     </code>
                   </dd>
                 </div>
-                <div>
-                  <dt className="text-sm text-gray-500">Value</dt>
-                  <dd className="mt-1 font-medium text-gray-900">
-                    {String(selectedFact.value)}
-                    {selectedFact.unit && (
-                      <span className="text-gray-500 ml-1">({selectedFact.unit})</span>
+
+                {/* Guidance Panel */}
+                {showGuidance && metadata && (
+                  <div className="rounded-md border border-blue-200 bg-blue-50 p-4 space-y-3">
+                    <div className="flex items-start gap-2">
+                      <Info className="h-5 w-5 text-blue-500 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <h4 className="font-medium text-blue-900">What is this field?</h4>
+                        <p className="text-sm text-blue-800 mt-1">{metadata.description}</p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-2">
+                      <BookOpen className="h-5 w-5 text-blue-500 flex-shrink-0 mt-0.5" />
+                      <div>
+                        <h4 className="font-medium text-blue-900">What to look for</h4>
+                        <p className="text-sm text-blue-800 mt-1">{metadata.guidance}</p>
+                      </div>
+                    </div>
+
+                    {metadata.example && (
+                      <div className="bg-white rounded p-3 border border-blue-200">
+                        <span className="text-xs font-medium text-blue-700 uppercase tracking-wide">Example</span>
+                        <p className="text-sm text-gray-900 mt-1 font-mono">
+                          {typeof metadata.example === 'object'
+                            ? JSON.stringify(metadata.example, null, 2)
+                            : String(metadata.example)}
+                        </p>
+                      </div>
                     )}
-                  </dd>
+
+                    {metadata.who_needs_it && metadata.who_needs_it.length > 0 && (
+                      <div className="flex items-start gap-2">
+                        <Users className="h-5 w-5 text-blue-500 flex-shrink-0 mt-0.5" />
+                        <div>
+                          <h4 className="font-medium text-blue-900">Who needs this</h4>
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {metadata.who_needs_it.map((who) => (
+                              <span key={who} className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded">
+                                {who}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                <div>
+                  <div className="flex items-center justify-between">
+                    <dt className="text-sm text-gray-500">Value</dt>
+                    {!isEditing && selectedFact.review_status !== ReviewStatus.APPROVED && (
+                      <button
+                        onClick={() => setIsEditing(true)}
+                        className="text-sm text-primary-600 hover:text-primary-700 flex items-center gap-1"
+                      >
+                        <Edit3 className="h-3 w-3" />
+                        Edit
+                      </button>
+                    )}
+                  </div>
+                  {isEditing ? (
+                    <div className="mt-1">
+                      <input
+                        type="text"
+                        value={editedValue}
+                        onChange={(e) => setEditedValue(e.target.value)}
+                        className="input w-full"
+                      />
+                      {selectedFact.unit && (
+                        <span className="text-sm text-gray-500 mt-1 block">
+                          Unit: {selectedFact.unit}
+                        </span>
+                      )}
+                      {editedValue !== String(selectedFact.value) && (
+                        <p className="text-sm text-blue-600 mt-1">
+                          Original: {String(selectedFact.value)}
+                        </p>
+                      )}
+                    </div>
+                  ) : (
+                    <dd className="mt-1 font-medium text-gray-900">
+                      {String(selectedFact.value)}
+                      {selectedFact.unit && (
+                        <span className="text-gray-500 ml-1">({selectedFact.unit})</span>
+                      )}
+                      {selectedFact.original_value !== undefined && selectedFact.original_value !== null && (
+                        <p className="text-sm text-gray-500 mt-1">
+                          Original AI extraction: {String(selectedFact.original_value)}
+                        </p>
+                      )}
+                    </dd>
+                  )}
                 </div>
+
                 <div>
                   <dt className="text-sm text-gray-500">Confidence</dt>
                   <dd className="mt-1">
@@ -263,44 +412,66 @@ export default function FactsReview() {
                     )}
                   </dd>
                 </div>
+
+                {selectedFact.review_note && selectedFact.review_status === ReviewStatus.NEEDS_REVISION && (
+                  <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
+                    <dt className="text-sm font-medium text-orange-800">Previous Review Note</dt>
+                    <dd className="mt-1 text-sm text-orange-700">
+                      {selectedFact.review_note}
+                    </dd>
+                  </div>
+                )}
+
                 <div>
-                  <dt className="text-sm text-gray-500">Review Note (optional)</dt>
+                  <dt className="text-sm text-gray-500">
+                    {selectedFact.review_status === ReviewStatus.NEEDS_REVISION
+                      ? 'Update Note'
+                      : 'Review Note (optional)'}
+                  </dt>
                   <textarea
-                    id="review-note"
+                    value={reviewNote}
+                    onChange={(e) => setReviewNote(e.target.value)}
                     rows={3}
-                    className="mt-1 input"
-                    placeholder="Add a note about this review..."
+                    className="mt-1 input w-full"
+                    placeholder={
+                      selectedFact.review_status === ReviewStatus.NEEDS_REVISION
+                        ? 'Describe the changes made...'
+                        : 'Add a note about this review...'
+                    }
                   />
                 </div>
               </dl>
 
               <div className="mt-6 flex justify-end gap-3">
-                <button
-                  onClick={() => setSelectedFact(null)}
-                  className="btn-secondary"
-                >
+                <button onClick={closeModal} className="btn-secondary">
                   Cancel
                 </button>
-                <button
-                  onClick={() => handleReview(ReviewStatus.REJECTED)}
-                  disabled={reviewMutation.isPending}
-                  className="btn-danger"
-                >
-                  Reject
-                </button>
-                <button
-                  onClick={() => handleReview(ReviewStatus.NEEDS_REVISION)}
-                  disabled={reviewMutation.isPending}
-                  className="btn bg-orange-600 text-white hover:bg-orange-700"
-                >
-                  Needs Revision
-                </button>
+                {selectedFact.review_status !== ReviewStatus.REJECTED && (
+                  <button
+                    onClick={() => handleReview(ReviewStatus.REJECTED)}
+                    disabled={reviewMutation.isPending}
+                    className="btn-danger"
+                  >
+                    Reject
+                  </button>
+                )}
+                {selectedFact.review_status !== ReviewStatus.NEEDS_REVISION && (
+                  <button
+                    onClick={() => handleReview(ReviewStatus.NEEDS_REVISION)}
+                    disabled={reviewMutation.isPending}
+                    className="btn bg-orange-600 text-white hover:bg-orange-700"
+                  >
+                    Needs Revision
+                  </button>
+                )}
                 <button
                   onClick={() => handleReview(ReviewStatus.APPROVED)}
                   disabled={reviewMutation.isPending}
                   className="btn-success"
                 >
-                  Approve
+                  {editedValue !== String(selectedFact.value)
+                    ? 'Approve with Changes'
+                    : 'Approve'}
                 </button>
               </div>
             </div>

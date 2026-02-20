@@ -1,0 +1,221 @@
+{
+  "cusip": "AF3207B75495D31A524B5B93B4A511DB9",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-06T23:56:28.353630+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/AF3207B75495D31A524B5B93B4A511DB9",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "empty",
+      "trade_activity": "success",
+      "ratings": "success",
+      "disclosures": "success"
+    }
+  },
+  "snapshot": {
+    "security_name": "CITY OF OSCEOLA, ARKANSAS / SOLID WASTE DISPOSAL REVENUE BONDS (PLUM POINT ENERGY ASSOCIATES, LLC PROJECT), SERIES 2006",
+    "cusip": "",
+    "principal_amount": 100000000,
+    "maturity_date": "04/01/2036",
+    "dated_date": "04/26/2006",
+    "coupon_pct": "6.5 %",
+    "closing_date": "03/20/2024",
+    "fiscal_year_end_date": "-",
+    "initial_offering_price_yield": "100% / 5.5%",
+    "time_of_formal_award": "03/05/2024 09:30 PM",
+    "time_of_first_execution": "03/06/2024 11:00 AM",
+    "state": "AR"
+  },
+  "interest_rates": [],
+  "trades": [
+    {
+      "trade_date": "07/16/2024 04:57 PM",
+      "settlement_date": "07/17/2024",
+      "price": "100.453",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "1,350,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "07/16/2024 04:57 PM",
+      "settlement_date": "07/17/2024",
+      "price": "100.279",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "1,350,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "03/06/2024 11:00 AM",
+      "settlement_date": "03/20/2024",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "2,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "03/06/2024 11:00 AM",
+      "settlement_date": "03/20/2024",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "14,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "03/06/2024 11:00 AM",
+      "settlement_date": "03/20/2024",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "37,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "03/06/2024 11:00 AM",
+      "settlement_date": "03/20/2024",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "47,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    }
+  ],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Fitch Ratings."
+    },
+    {
+      "agency": "KBRA",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Kroll Bond Rating Agency."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Moody's Investors Service, Inc."
+    },
+    {
+      "agency": "S&P",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Standard and Poor's Financial Services LLC."
+    }
+  ],
+  "disclosures": [
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/26/2025",
+      "pdf_url": "https://emma.msrb.org/P11878876-P11436874-P11882201.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\AF3207B75495D31A524B5B93B4A511DB9\\AF3207B75495D31A524B5B93B4A511DB9_0001_Financial_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/15/2026",
+      "pdf_url": "https://emma.msrb.org/P11915178-P11462981-P11911784.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\AF3207B75495D31A524B5B93B4A511DB9\\AF3207B75495D31A524B5B93B4A511DB9_0002_Event_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/15/2026",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11444286",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/24/2025",
+      "pdf_url": "https://emma.msrb.org/P11908469-P11457967-P11906099.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\AF3207B75495D31A524B5B93B4A511DB9\\AF3207B75495D31A524B5B93B4A511DB9_0004_Notice_of_Posting_of_Confidential_Information_to_t.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/24/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11439173",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/17/2025",
+      "pdf_url": "https://emma.msrb.org/P11902157-P11453117-P11900237.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\AF3207B75495D31A524B5B93B4A511DB9\\AF3207B75495D31A524B5B93B4A511DB9_0006_Notice_of_Posting_of_Conditional_Information_To_Th.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/17/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11434379",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/17/2025",
+      "pdf_url": "https://emma.msrb.org/P11907774-P11453114-P11905455.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\AF3207B75495D31A524B5B93B4A511DB9\\AF3207B75495D31A524B5B93B4A511DB9_0008_Rescinded_Notice_of_Mandatory_Tender_dated_12_17_2.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/17/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11434376",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/20/2025",
+      "pdf_url": "https://emma.msrb.org/P11902037-P21515582-P11900130.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\AF3207B75495D31A524B5B93B4A511DB9\\AF3207B75495D31A524B5B93B4A511DB9_0010_Notice_of_Full_Conditional_Optional_Redemption_dat.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/20/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21497358",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/26/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11418259",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/17/2025",
+      "pdf_url": "https://emma.msrb.org/P11907774-P11453114-P11900234.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\AF3207B75495D31A524B5B93B4A511DB9\\AF3207B75495D31A524B5B93B4A511DB9_0013_Event_Filing_dated_12_17_2025_86_KB_Archived.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/20/2025",
+      "pdf_url": "https://emma.msrb.org/P11902037-P21515582-P21969745.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\AF3207B75495D31A524B5B93B4A511DB9\\AF3207B75495D31A524B5B93B4A511DB9_0014_Event_Filing_dated_11_20_2025_127_KB_Archived.pdf",
+      "download_success": true
+    }
+  ]
+}

@@ -91,9 +91,9 @@ class TestChecklistAPI:
         data = response.json()
         assert isinstance(data, list)
         if len(data) > 0:
-            assert "code" in data[0]
+            assert "item_code" in data[0]
             assert "phase" in data[0]
-            assert "name" in data[0]
+            assert "title" in data[0]
 
     async def test_get_checklist_summary(self, test_client, project_with_checklist_data):
         """Test getting checklist summary by phase."""
@@ -110,7 +110,7 @@ class TestChecklistAPI:
         for phase in expected_phases:
             if phase in data:
                 assert "total_items" in data[phase]
-                assert "completed_items" in data[phase]
+                assert "ready_count" in data[phase]
 
     async def test_get_project_gaps(self, test_client, project_with_checklist_data):
         """Test getting comprehensive project gap analysis."""
@@ -122,7 +122,9 @@ class TestChecklistAPI:
 
         assert response.status_code == 200
         data = response.json()
-        assert "gaps" in data or "critical_gaps" in data or "total_gaps" in data
+        assert "by_phase" in data
+        assert "critical_missing" in data
+        assert "total_missing_paths" in data
 
     async def test_get_single_checklist_item(self, test_client, factory, db_session):
         """Test getting a specific checklist item with computed status."""
@@ -130,14 +132,14 @@ class TestChecklistAPI:
         project = await factory.create_project(playbook["id"])
         await db_session.commit()
 
-        # Use the item code from factory playbook
+        # Use a canonical playbook item code
         response = await test_client.get(
-            f"/api/v1/checklist/TEST-001?project_id={project['id']}"
+            f"/api/v1/checklist/P1.1?project_id={project['id']}"
         )
 
         assert response.status_code == 200
         data = response.json()
-        assert data["code"] == "TEST-001"
+        assert data["item_code"] == "P1.1"
         assert "status" in data
 
     async def test_get_nonexistent_checklist_item(self, test_client, factory, db_session):
@@ -159,7 +161,7 @@ class TestChecklistAPI:
         await db_session.commit()
 
         response = await test_client.get(
-            f"/api/v1/checklist/TEST-001/gaps?project_id={project['id']}"
+            f"/api/v1/checklist/P1.1/gaps?project_id={project['id']}"
         )
 
         assert response.status_code == 200
@@ -171,7 +173,7 @@ class TestChecklistAPI:
         project_id = project_with_checklist_data["project"]["id"]
 
         response = await test_client.get(
-            f"/api/v1/checklist/TEST-001/facts?project_id={project_id}"
+            f"/api/v1/checklist/P1.1/facts?project_id={project_id}"
         )
 
         assert response.status_code == 200

@@ -1,0 +1,118 @@
+{
+  "cusip": "AF0CAE6861C84D587BFF1E760A5FE00A9",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-19T19:13:18.376591+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/AF0CAE6861C84D587BFF1E760A5FE00A9",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "empty",
+      "trade_activity": "empty",
+      "ratings": "success",
+      "disclosures": "success"
+    }
+  },
+  "snapshot": {
+    "security_name": "HAMILTON CNTY OHIO HOSP FACS REV / IMPT BDS TRIHEALTH INC 2026A",
+    "cusip": "",
+    "principal_amount": 50000000,
+    "maturity_date": "08/15/2055",
+    "dated_date": "01/15/2026",
+    "coupon_pct": "6.875 %",
+    "closing_date": "-",
+    "fiscal_year_end_date": "-",
+    "initial_offering_price_yield": "100%",
+    "time_of_formal_award": "",
+    "time_of_first_execution": "",
+    "state": "OH"
+  },
+  "interest_rates": [],
+  "trades": [],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Fitch Ratings."
+    },
+    {
+      "agency": "KBRA",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Kroll Bond Rating Agency."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Moody's Investors Service, Inc."
+    },
+    {
+      "agency": "S&P",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Standard and Poor's Financial Services LLC."
+    }
+  ],
+  "disclosures": [
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/22/2026",
+      "pdf_url": "https://emma.msrb.org/P11919106-P11465870-P11914964.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AF0CAE6861C84D587BFF1E760A5FE00A9\\AF0CAE6861C84D587BFF1E760A5FE00A9_0001_Financial_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/15/2026",
+      "pdf_url": "https://emma.msrb.org/P11918593-P11465484-P11914521.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AF0CAE6861C84D587BFF1E760A5FE00A9\\AF0CAE6861C84D587BFF1E760A5FE00A9_0002_Event_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/15/2026",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11446766",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/15/2026",
+      "pdf_url": "https://emma.msrb.org/P11918559-P11465467-P11914502.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AF0CAE6861C84D587BFF1E760A5FE00A9\\AF0CAE6861C84D587BFF1E760A5FE00A9_0004_Incurrence_of_2026A_Debt_Obligation_as_of_01_15_20.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/15/2026",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11446743",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/22/2026",
+      "pdf_url": "https://emma.msrb.org/P11918557-P11465465-P11914500.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AF0CAE6861C84D587BFF1E760A5FE00A9\\AF0CAE6861C84D587BFF1E760A5FE00A9_0006_Consummation_of_TK_Purchase_7_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/22/2026",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11446741",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/22/2026",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11447167",
+      "local_pdf_path": "",
+      "download_success": false
+    }
+  ]
+}

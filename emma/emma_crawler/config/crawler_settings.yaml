@@ -1,0 +1,32 @@
+browser:
+  headless: true
+  viewport_width: 1920
+  viewport_height: 1080
+  user_agent: "MuniPal-StandardModel/1.0 (Research crawler)"
+timing:
+  page_load_timeout: 120000
+  action_delay: 2000
+  between_securities: 3000
+  between_pages: 2000
+  tab_switch_delay: 2000
+  show_more_delay: 1500
+  retry_delay: 5000
+  max_retries: 3
+  results_ready_timeout: 180000
+  empty_results_retry_delay: 5000
+  empty_results_retry_attempts: 8
+session:
+  health_check_timeout: 2000
+  recovery_backoff_base: 5000
+  recovery_max_retries: 3
+  assume_expired_after: 300000
+pagination:
+  results_per_page: 50
+output:
+  data_dir: "./output/data"
+  pdf_dir: "./output/pdfs"
+  log_dir: "./output/logs"
+  checkpoint_file: "./output/checkpoint.json"
+logging:
+  level: "INFO"
+  format: "%(asctime)s [%(levelname)s] %(name)s: %(message)s"

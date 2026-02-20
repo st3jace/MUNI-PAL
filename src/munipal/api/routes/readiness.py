@@ -21,9 +21,11 @@ Overall scoring ranges (0-10):
 
 from uuid import UUID
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from munipal.api.dependencies import DbSession, require_auth
+from munipal.core.models import Project
 from munipal.core.schemas.base import ReadinessDimension
 from munipal.core.schemas.readiness import (
     ReadinessAssessment,
@@ -32,7 +34,7 @@ from munipal.core.schemas.readiness import (
 from munipal.db.session import get_async_session
 from munipal.services.readiness_service import ReadinessService
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(require_auth)])
 
 
 def get_readiness_service(
@@ -66,6 +68,22 @@ async def get_readiness_scores(
     return await service.compute_assessment(project_id)
 
 
+@router.get("/{project_id:uuid}", response_model=ReadinessAssessment, include_in_schema=False)
+async def get_readiness_scores_legacy(
+    project_id: UUID,
+    db: DbSession,
+    service: ReadinessService = Depends(get_readiness_service),
+) -> ReadinessAssessment:
+    """Legacy path-based readiness endpoint."""
+    project = await db.get(Project, str(project_id))
+    if not project:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Project {project_id} not found",
+        )
+    return await service.compute_assessment(project_id)
+
+
 # -----------------------------------------------------------------------------
 # Gap Analysis
 # -----------------------------------------------------------------------------
@@ -89,6 +107,22 @@ async def get_readiness_gaps(
 
     Also includes priority_actions - top recommended steps.
     """
+    return await service.compute_gaps(project_id)
+
+
+@router.get("/{project_id:uuid}/gaps", response_model=ReadinessGapReport, include_in_schema=False)
+async def get_readiness_gaps_legacy(
+    project_id: UUID,
+    db: DbSession,
+    service: ReadinessService = Depends(get_readiness_service),
+) -> ReadinessGapReport:
+    """Legacy path-based gap endpoint."""
+    project = await db.get(Project, str(project_id))
+    if not project:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Project {project_id} not found",
+        )
     return await service.compute_gaps(project_id)
 
 
@@ -121,6 +155,32 @@ async def get_dimension_detail(
     - slb_verification: SLB KPIs & Verification Plan
     """
     return await service.get_dimension_detail(project_id, dimension)
+
+
+@router.get("/{project_id:uuid}/dimensions/{dimension}", response_model=dict, include_in_schema=False)
+async def get_dimension_detail_legacy(
+    project_id: UUID,
+    dimension: str,
+    db: DbSession,
+    service: ReadinessService = Depends(get_readiness_service),
+) -> dict:
+    """Legacy path-based dimension detail endpoint."""
+    project = await db.get(Project, str(project_id))
+    if not project:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Project {project_id} not found",
+        )
+
+    try:
+        readiness_dimension = ReadinessDimension(dimension)
+    except ValueError:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Readiness dimension '{dimension}' not found",
+        ) from None
+
+    return await service.get_dimension_detail(project_id, readiness_dimension)
 
 
 @router.get("/dimension/{dimension}/summary", response_model=dict)

@@ -1,0 +1,76 @@
+{
+  "cusip": "A416A9AC886020DF23C7358A69608B320",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-19T18:59:23.288827+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/A416A9AC886020DF23C7358A69608B320",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "empty",
+      "trade_activity": "empty",
+      "ratings": "success",
+      "disclosures": "success"
+    }
+  },
+  "snapshot": {
+    "security_name": "NATIONAL FIN AUTH N H LEASE RENT REV / BDS CENTURION FNDTN ANDREWS AVE MED CTR LLC",
+    "cusip": "",
+    "principal_amount": 83900000,
+    "maturity_date": "09/15/2057",
+    "dated_date": "01/12/2026",
+    "coupon_pct": "5.625 %",
+    "closing_date": "-",
+    "fiscal_year_end_date": "-",
+    "initial_offering_price_yield": "100%",
+    "time_of_formal_award": "",
+    "time_of_first_execution": "",
+    "state": "NH"
+  },
+  "interest_rates": [],
+  "trades": [],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Fitch Ratings."
+    },
+    {
+      "agency": "KBRA",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Kroll Bond Rating Agency."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Moody's Investors Service, Inc."
+    },
+    {
+      "agency": "S&P",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Standard and Poor's Financial Services LLC."
+    }
+  ],
+  "disclosures": [
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/14/2026",
+      "pdf_url": "https://emma.msrb.org/P11914089-P11462201-P11910902.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A416A9AC886020DF23C7358A69608B320\\A416A9AC886020DF23C7358A69608B320_0001_Financial_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/14/2026",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11443478",
+      "local_pdf_path": "",
+      "download_success": false
+    }
+  ]
+}

@@ -1,0 +1,520 @@
+{
+  "cusip": "A96FD39571A7FA7339C3077C26C52247D",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-07T00:32:49.037576+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/A96FD39571A7FA7339C3077C26C52247D",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "success",
+      "trade_activity": "success",
+      "ratings": "success",
+      "disclosures": "success"
+    }
+  },
+  "snapshot": {
+    "security_name": "IOWA FINANCE AUTHORITY / SEWAGE AND SOLID WASTE DISPOSAL FACILITIES REVENUE BONDS, SERIES 2021",
+    "cusip": "",
+    "principal_amount": 61000000,
+    "maturity_date": "01/01/2051",
+    "dated_date": "01/26/2021",
+    "coupon_pct": "2.21",
+    "closing_date": "01/26/2021",
+    "fiscal_year_end_date": "05/31/2025",
+    "initial_offering_price_yield": "",
+    "time_of_formal_award": "",
+    "time_of_first_execution": "",
+    "state": "IA"
+  },
+  "interest_rates": [
+    {
+      "reset_date_time": "Financial Operating Filing (449 KB)",
+      "interest_rate": "08/12/2025",
+      "rate_type": "",
+      "rate_effective_date": "",
+      "aggregate_par_bank_bonds": "",
+      "aggregate_par_investors": ""
+    },
+    {
+      "reset_date_time": "Financial Operating Filing (420 KB)",
+      "interest_rate": "08/12/2025",
+      "rate_type": "",
+      "rate_effective_date": "",
+      "aggregate_par_bank_bonds": "",
+      "aggregate_par_investors": ""
+    },
+    {
+      "reset_date_time": "Financial Operating Filing (465 KB)",
+      "interest_rate": "08/14/2024",
+      "rate_type": "",
+      "rate_effective_date": "",
+      "aggregate_par_bank_bonds": "",
+      "aggregate_par_investors": ""
+    },
+    {
+      "reset_date_time": "Financial Operating Filing (430 KB)",
+      "interest_rate": "08/14/2024",
+      "rate_type": "",
+      "rate_effective_date": "",
+      "aggregate_par_bank_bonds": "",
+      "aggregate_par_investors": ""
+    },
+    {
+      "reset_date_time": "Financial Operating Filing (1.1 MB)",
+      "interest_rate": "08/22/2023",
+      "rate_type": "",
+      "rate_effective_date": "",
+      "aggregate_par_bank_bonds": "",
+      "aggregate_par_investors": ""
+    },
+    {
+      "reset_date_time": "Financial Operating Filing (421 KB)",
+      "interest_rate": "08/22/2023",
+      "rate_type": "",
+      "rate_effective_date": "",
+      "aggregate_par_bank_bonds": "",
+      "aggregate_par_investors": ""
+    },
+    {
+      "reset_date_time": "Financial Operating Filing (421 KB) (Modified)",
+      "interest_rate": "08/11/2022",
+      "rate_type": "",
+      "rate_effective_date": "",
+      "aggregate_par_bank_bonds": "",
+      "aggregate_par_investors": ""
+    },
+    {
+      "reset_date_time": "Financial Operating Filing (1.1 MB) (Modified)",
+      "interest_rate": "08/11/2022",
+      "rate_type": "",
+      "rate_effective_date": "",
+      "aggregate_par_bank_bonds": "",
+      "aggregate_par_investors": ""
+    },
+    {
+      "reset_date_time": "Event Filing dated 11/01/2021 (177 KB)",
+      "interest_rate": "11/17/2021",
+      "rate_type": "",
+      "rate_effective_date": "",
+      "aggregate_par_bank_bonds": "",
+      "aggregate_par_investors": ""
+    },
+    {
+      "reset_date_time": "Financial Operating Filing (236 KB)",
+      "interest_rate": "08/11/2021",
+      "rate_type": "",
+      "rate_effective_date": "",
+      "aggregate_par_bank_bonds": "",
+      "aggregate_par_investors": ""
+    },
+    {
+      "reset_date_time": "Financial Operating Filing (755 KB)",
+      "interest_rate": "08/11/2021",
+      "rate_type": "",
+      "rate_effective_date": "",
+      "aggregate_par_bank_bonds": "",
+      "aggregate_par_investors": ""
+    },
+    {
+      "reset_date_time": "Official Statement (8 KB)",
+      "interest_rate": "02/02/2021",
+      "rate_type": "",
+      "rate_effective_date": "",
+      "aggregate_par_bank_bonds": "",
+      "aggregate_par_investors": ""
+    },
+    {
+      "reset_date_time": "Official Statement (18.2 MB)",
+      "interest_rate": "01/20/2021",
+      "rate_type": "",
+      "rate_effective_date": "",
+      "aggregate_par_bank_bonds": "",
+      "aggregate_par_investors": ""
+    }
+  ],
+  "trades": [
+    {
+      "trade_date": "06/03/2022 01:12 PM",
+      "settlement_date": "06/06/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "10,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "06/03/2022 01:11 PM",
+      "settlement_date": "06/06/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "10,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "06/03/2022 01:10 PM",
+      "settlement_date": "06/06/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "9,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "06/03/2022 01:09 PM",
+      "settlement_date": "06/06/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "10,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "06/03/2022 01:08 PM",
+      "settlement_date": "06/06/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "10,000,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "06/03/2022 01:07 PM",
+      "settlement_date": "06/06/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "9,000,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "06/03/2022 01:05 PM",
+      "settlement_date": "06/06/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "10,000,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "06/03/2022 01:02 PM",
+      "settlement_date": "06/06/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "10,000,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "06/03/2022 12:58 PM",
+      "settlement_date": "06/06/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "10,000,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "04/20/2022 04:52 PM",
+      "settlement_date": "04/26/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "2,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "04/20/2022 04:50 PM",
+      "settlement_date": "04/26/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "2,000,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "12/13/2021 01:07 PM",
+      "settlement_date": "12/15/2021",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "10,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "12/13/2021 01:05 PM",
+      "settlement_date": "12/15/2021",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "10,000,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "07/16/2021 12:21 PM",
+      "settlement_date": "07/22/2021",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "9,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "07/16/2021 12:19 PM",
+      "settlement_date": "07/22/2021",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "10,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "07/16/2021 12:18 PM",
+      "settlement_date": "07/22/2021",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "9,000,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "07/16/2021 12:17 PM",
+      "settlement_date": "07/22/2021",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "10,000,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/20/2021 05:36 PM",
+      "settlement_date": "01/26/2021",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "13,700,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/20/2021 05:35 PM",
+      "settlement_date": "01/26/2021",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "2,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/20/2021 05:34 PM",
+      "settlement_date": "01/26/2021",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "100,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/20/2021 05:33 PM",
+      "settlement_date": "01/26/2021",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "5,200,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/20/2021 05:32 PM",
+      "settlement_date": "01/26/2021",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "10,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/20/2021 05:31 PM",
+      "settlement_date": "01/26/2021",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "10,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/20/2021 05:30 PM",
+      "settlement_date": "01/26/2021",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "20,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    }
+  ],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Fitch Ratings."
+    },
+    {
+      "agency": "KBRA",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Kroll Bond Rating Agency."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Moody's Investors Service, Inc."
+    },
+    {
+      "agency": "S&P",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Long-Term Debt Rating (effective 01/20/2021) Outlook/Credit Watch Underlying Maturity Long-Term Debt Rating Underlying Outlook/Credit Watch Short-Term Rating Credit Watch Underlying Maturity Short-Term Debt Rating Underlying Credit Watch Access definitions for the ratings provided by Standard and Po"
+    }
+  ],
+  "disclosures": [
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/01/2021",
+      "pdf_url": "https://emma.msrb.org/P21514683-P21171538-P21587426.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A96FD39571A7FA7339C3077C26C52247D\\A96FD39571A7FA7339C3077C26C52247D_0001_Event_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Official Statement",
+      "filing_date": "02/02/2021",
+      "pdf_url": "https://emma.msrb.org/P21434469-P21113990-P21524793.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A96FD39571A7FA7339C3077C26C52247D\\A96FD39571A7FA7339C3077C26C52247D_0002_Official_Statement_Supplement_to_the_Official_Stat.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Official Statement",
+      "filing_date": "01/20/2021",
+      "pdf_url": "https://emma.msrb.org/P21434469-P21112316-P21522940.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A96FD39571A7FA7339C3077C26C52247D\\A96FD39571A7FA7339C3077C26C52247D_0003_Official_Statement_Iowa_Finance_Authority_Official.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/12/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21473018",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/31/2025",
+      "pdf_url": "https://emma.msrb.org/P21953478-P21491378-P21943094.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A96FD39571A7FA7339C3077C26C52247D\\A96FD39571A7FA7339C3077C26C52247D_0005_Audited_Financial_Statements_and_MD_A_for_the_year.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/31/2025",
+      "pdf_url": "https://emma.msrb.org/P21953478-P21491378-P21943095.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A96FD39571A7FA7339C3077C26C52247D\\A96FD39571A7FA7339C3077C26C52247D_0006_Audited_Financial_Statements_and_MD_A_for_the_year.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/31/2024",
+      "pdf_url": "https://emma.msrb.org/P21834541-P21406034-P21848184.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A96FD39571A7FA7339C3077C26C52247D\\A96FD39571A7FA7339C3077C26C52247D_0007_Audited_Financial_Statements_and_MD_A_for_the_year.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/31/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21387507",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/31/2024",
+      "pdf_url": "https://emma.msrb.org/P21834541-P21406034-P21848185.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A96FD39571A7FA7339C3077C26C52247D\\A96FD39571A7FA7339C3077C26C52247D_0009_Audited_Financial_Statements_and_MD_A_for_the_year.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/31/2023",
+      "pdf_url": "https://emma.msrb.org/P11692278-P11301623-P11732406.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A96FD39571A7FA7339C3077C26C52247D\\A96FD39571A7FA7339C3077C26C52247D_0010_Audited_Financial_Statements_and_MD_A_for_the_year.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/31/2023",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11283041",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/31/2023",
+      "pdf_url": "https://emma.msrb.org/P11692278-P11301623-P11732407.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A96FD39571A7FA7339C3077C26C52247D\\A96FD39571A7FA7339C3077C26C52247D_0012_Audited_Financial_Statements_and_MD_A_for_the_year.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/11/2022",
+      "pdf_url": "https://emma.msrb.org/P21604757-P21235654-P21658943.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A96FD39571A7FA7339C3077C26C52247D\\A96FD39571A7FA7339C3077C26C52247D_0013_Financial_Operating_Filing_421_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/11/2022",
+      "pdf_url": "https://emma.msrb.org/P21604757-P21235654-P21658944.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A96FD39571A7FA7339C3077C26C52247D\\A96FD39571A7FA7339C3077C26C52247D_0014_Financial_Operating_Filing_1_1_MB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/11/2021",
+      "pdf_url": "https://emma.msrb.org/P21486280-P21151690-P21565619.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A96FD39571A7FA7339C3077C26C52247D\\A96FD39571A7FA7339C3077C26C52247D_0015_Financial_Operating_Filing_236_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/11/2021",
+      "pdf_url": "https://emma.msrb.org/P21486280-P21151690-P21565620.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A96FD39571A7FA7339C3077C26C52247D\\A96FD39571A7FA7339C3077C26C52247D_0016_Financial_Operating_Filing_755_KB.pdf",
+      "download_success": true
+    }
+  ]
+}

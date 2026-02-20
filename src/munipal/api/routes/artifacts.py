@@ -7,11 +7,13 @@ Artifacts are normalized into immutable Chunks with preserved provenance.
 
 from uuid import UUID
 
-from fastapi import APIRouter, File, Form, HTTPException, Query, UploadFile, status
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile, status
 
-from munipal.api.dependencies import AuthenticatedUserId, DbSession
-from munipal.core.schemas.artifact import ArtifactRead, ArtifactSummary, ChunkRead
+from munipal.api.dependencies import AuthenticatedUserId, DbSession, require_roles
+from munipal.core.schemas.artifact import ArtifactRead
 from munipal.services.artifact_service import ArtifactService
+from munipal.services.authorization_service import AuthorizationService
+from munipal.services.audit_service import AuditService
 
 router = APIRouter()
 
@@ -35,6 +37,7 @@ async def upload_artifact(
     project_id: UUID = Form(...),
     display_name: str | None = Form(None),
     file: UploadFile = File(...),
+    _: str = Depends(require_roles("admin", "analyst")),
 ) -> ArtifactRead:
     """
     Upload an artifact to a project.
@@ -52,6 +55,9 @@ async def upload_artifact(
     - Plain text (.txt)
     - Images (.png, .jpeg)
     """
+    authz = AuthorizationService(db)
+    await authz.require_project_write(user_id, project_id)
+
     # Validate file type
     content_type = file.content_type or ""
     if content_type not in SUPPORTED_MIME_TYPES:
@@ -83,8 +89,12 @@ async def list_artifacts(
     project_id: UUID,
     skip: int = Query(0, ge=0),
     limit: int = Query(50, ge=1, le=100),
+    _: str = Depends(require_roles("admin", "analyst", "viewer")),
 ) -> dict:
     """List all artifacts for a project."""
+    authz = AuthorizationService(db)
+    await authz.require_project_read(user_id, project_id)
+
     service = ArtifactService(db)
     artifacts, total = await service.list_for_project(
         project_id=project_id,
@@ -105,8 +115,12 @@ async def get_artifact(
     artifact_id: UUID,
     db: DbSession,
     user_id: AuthenticatedUserId,
+    _: str = Depends(require_roles("admin", "analyst", "viewer")),
 ) -> ArtifactRead:
     """Get artifact metadata and processing status."""
+    authz = AuthorizationService(db)
+    await authz.require_artifact_read(user_id, artifact_id)
+
     service = ArtifactService(db)
     artifact = await service.get(artifact_id)
 
@@ -126,6 +140,7 @@ async def list_artifact_chunks(
     user_id: AuthenticatedUserId,
     skip: int = Query(0, ge=0),
     limit: int = Query(100, ge=1, le=500),
+    _: str = Depends(require_roles("admin", "analyst", "viewer")),
 ) -> dict:
     """
     List all chunks for an artifact.
@@ -133,6 +148,9 @@ async def list_artifact_chunks(
     Per spec: Chunks are immutable evidence units (page-based for PDFs,
     sheet-based for Excel).
     """
+    authz = AuthorizationService(db)
+    await authz.require_artifact_read(user_id, artifact_id)
+
     service = ArtifactService(db)
 
     try:
@@ -160,6 +178,7 @@ async def delete_artifact(
     artifact_id: UUID,
     db: DbSession,
     user_id: AuthenticatedUserId,
+    _: str = Depends(require_roles("admin")),
 ) -> None:
     """
     Delete an artifact.
@@ -167,6 +186,9 @@ async def delete_artifact(
     Per spec: Deleting an artifact orphans any ExtractedFacts that cite it,
     but does not delete those facts (they become unverifiable).
     """
+    authz = AuthorizationService(db)
+    await authz.require_artifact_write(user_id, artifact_id)
+
     service = ArtifactService(db)
     deleted = await service.delete(artifact_id)
 
@@ -176,19 +198,30 @@ async def delete_artifact(
             detail=f"Artifact {artifact_id} not found",
         )
 
+    AuditService.emit_event(
+        actor_id=user_id,
+        action="delete_artifact",
+        target_type="artifact",
+        target_id=str(artifact_id),
+    )
 
-@router.post("/{artifact_id}/process", status_code=status.HTTP_202_ACCEPTED)
+
+@router.post("/{artifact_id}/process", status_code=status.HTTP_200_OK)
 async def trigger_processing(
     artifact_id: UUID,
     db: DbSession,
     user_id: AuthenticatedUserId,
+    _: str = Depends(require_roles("admin", "analyst")),
 ) -> dict:
     """
-    Manually trigger processing/chunking for an artifact.
+    Process an artifact: extract text and create chunks.
 
-    Useful for retrying failed processing or processing artifacts
-    that were uploaded before the chunking pipeline was ready.
+    This extracts text from PDFs, Excel files, Word documents, etc.
+    and creates searchable chunks for fact extraction.
     """
+    authz = AuthorizationService(db)
+    await authz.require_artifact_write(user_id, artifact_id)
+
     service = ArtifactService(db)
     artifact = await service.get(artifact_id)
 
@@ -198,13 +231,50 @@ async def trigger_processing(
             detail=f"Artifact {artifact_id} not found",
         )
 
-    # TODO: Dispatch Celery task for chunking
-    # from munipal.workers.tasks.artifact_tasks import process_artifact
-    # task = process_artifact.delay(str(artifact_id))
+    # Process the artifact synchronously (for dev; use Celery in production)
+    success, message = await service.process_artifact(artifact_id)
+
+    if not success:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=message,
+        )
 
     return {
         "artifact_id": str(artifact_id),
-        "status": "processing_queued",
-        "message": "Artifact processing has been queued. Check artifact status for progress.",
-        # "task_id": task.id,  # When Celery is connected
+        "status": "processed",
+        "message": message,
+    }
+
+
+@router.post("/{artifact_id}/reset-extraction", status_code=status.HTTP_200_OK)
+async def reset_extraction_status(
+    artifact_id: UUID,
+    db: DbSession,
+    user_id: AuthenticatedUserId,
+    _: str = Depends(require_roles("admin", "analyst")),
+) -> dict:
+    """
+    Reset the extraction status of an artifact.
+
+    This marks the artifact as not extracted, allowing it to be
+    re-processed for fact extraction. Existing facts from this
+    artifact are NOT deleted - they remain in the system.
+    """
+    authz = AuthorizationService(db)
+    await authz.require_artifact_write(user_id, artifact_id)
+
+    service = ArtifactService(db)
+    success = await service.reset_extraction_status(artifact_id)
+
+    if not success:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Artifact {artifact_id} not found",
+        )
+
+    return {
+        "artifact_id": str(artifact_id),
+        "status": "reset",
+        "message": "Extraction status reset. Artifact can now be re-extracted.",
     }

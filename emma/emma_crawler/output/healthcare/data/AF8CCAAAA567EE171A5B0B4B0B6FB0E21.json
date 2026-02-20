@@ -1,0 +1,1559 @@
+{
+  "cusip": "AF8CCAAAA567EE171A5B0B4B0B6FB0E21",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-19T23:15:28.604561+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/AF8CCAAAA567EE171A5B0B4B0B6FB0E21",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "empty",
+      "trade_activity": "success",
+      "ratings": "success",
+      "disclosures": "success"
+    }
+  },
+  "snapshot": {
+    "security_name": "ESCAMBIA COUNTY HEALTH FACILITIES AUTHORITY / HEALTH CARE FACILITIES REVENUE BONDS, SERIES 2020A (BAPTIST HEALTH CARE CORPORATION OBLIGATED GROUP)",
+    "cusip": "",
+    "principal_amount": 28515000,
+    "maturity_date": "08/15/2037",
+    "dated_date": "02/12/2020",
+    "coupon_pct": "5 %",
+    "closing_date": "02/12/2020",
+    "fiscal_year_end_date": "09/30/2025",
+    "initial_offering_price_yield": "124.724% / 2.23%",
+    "time_of_formal_award": "01/28/2020 09:00 PM",
+    "time_of_first_execution": "01/29/2020 11:00 AM",
+    "state": "FL"
+  },
+  "interest_rates": [],
+  "trades": [
+    {
+      "trade_date": "12/30/2025 01:04 PM",
+      "settlement_date": "12/31/2025",
+      "price": "103.722",
+      "yield": "4.01",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "225,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/30/2025 01:02 PM",
+      "settlement_date": "12/31/2025",
+      "price": "103.662",
+      "yield": "4.026",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "225,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/15/2025 03:21 PM",
+      "settlement_date": "12/16/2025",
+      "price": "103.795",
+      "yield": "4",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "25,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/15/2025 03:21 PM",
+      "settlement_date": "12/16/2025",
+      "price": "103.795",
+      "yield": "4",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "25,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/10/2025 03:46 PM",
+      "settlement_date": "12/11/2025",
+      "price": "102.32",
+      "yield": "4.385",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "250,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/10/2025 03:46 PM",
+      "settlement_date": "12/11/2025",
+      "price": "102.265",
+      "yield": "4.399",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "250,000",
+      "trade_type": "Customer sold",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "11/22/2022 09:19 AM",
+      "settlement_date": "11/25/2022",
+      "price": "101.812",
+      "yield": "4.7",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "6,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "11/22/2022 09:19 AM",
+      "settlement_date": "11/25/2022",
+      "price": "101.712",
+      "yield": "4.716",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "6,000,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/23/2022 04:59 PM",
+      "settlement_date": "08/25/2022",
+      "price": "106.402",
+      "yield": "4",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "6,015,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/23/2022 04:50 PM",
+      "settlement_date": "08/25/2022",
+      "price": "106.302",
+      "yield": "4.015",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "6,015,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "04/23/2021 10:57 AM",
+      "settlement_date": "04/27/2021",
+      "price": "126.677",
+      "yield": "1.72",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "6,015,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "04/23/2021 10:57 AM",
+      "settlement_date": "04/27/2021",
+      "price": "126.677",
+      "yield": "1.72",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "6,015,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "04/23/2021 10:53 AM",
+      "settlement_date": "04/27/2021",
+      "price": "126.552",
+      "yield": "1.733",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "6,015,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "04/23/2021 10:53 AM",
+      "settlement_date": "04/27/2021",
+      "price": "126.552",
+      "yield": "1.733",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "6,015,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "03/11/2020 03:19 PM",
+      "settlement_date": "03/13/2020",
+      "price": "119.427",
+      "yield": "2.749",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "250,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "03/11/2020 03:19 PM",
+      "settlement_date": "03/13/2020",
+      "price": "119.552",
+      "yield": "2.736",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "250,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "03/11/2020 03:18 PM",
+      "settlement_date": "03/13/2020",
+      "price": "119.612",
+      "yield": "2.73",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "250,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "03/11/2020 03:18 PM",
+      "settlement_date": "03/13/2020",
+      "price": "119.612",
+      "yield": "2.73",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "250,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "03/11/2020 03:18 PM",
+      "settlement_date": "03/13/2020",
+      "price": "119.612",
+      "yield": "2.73",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "250,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "03/11/2020 03:16 PM",
+      "settlement_date": "03/13/2020",
+      "price": "119.427",
+      "yield": "2.749",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "250,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "03/11/2020 03:16 PM",
+      "settlement_date": "03/13/2020",
+      "price": "119.552",
+      "yield": "2.736",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "250,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "03/11/2020 03:14 PM",
+      "settlement_date": "03/13/2020",
+      "price": "119.612",
+      "yield": "2.73",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "250,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "03/11/2020 03:14 PM",
+      "settlement_date": "03/13/2020",
+      "price": "119.612",
+      "yield": "2.73",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "250,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "03/11/2020 03:14 PM",
+      "settlement_date": "03/13/2020",
+      "price": "119.612",
+      "yield": "2.73",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "250,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "03/10/2020 03:36 PM",
+      "settlement_date": "03/12/2020",
+      "price": "120.098",
+      "yield": "2.68",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "3,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "02/10/2020 09:12 AM",
+      "settlement_date": "02/12/2020",
+      "price": "126.466",
+      "yield": "2.06",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "3,000,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/29/2020 11:00 AM",
+      "settlement_date": "02/12/2020",
+      "price": "124.724",
+      "yield": "2.23",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "3,000,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/29/2020 11:00 AM",
+      "settlement_date": "02/12/2020",
+      "price": "124.724",
+      "yield": "2.23",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "7,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/29/2020 11:00 AM",
+      "settlement_date": "02/12/2020",
+      "price": "124.724",
+      "yield": "2.23",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "500,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/29/2020 11:00 AM",
+      "settlement_date": "02/12/2020",
+      "price": "124.724",
+      "yield": "2.23",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "6,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/29/2020 11:00 AM",
+      "settlement_date": "02/12/2020",
+      "price": "124.724",
+      "yield": "2.23",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "6,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/29/2020 11:00 AM",
+      "settlement_date": "02/12/2020",
+      "price": "124.724",
+      "yield": "2.23",
+      "calculation_date_price": "02/15/2030 @ 100",
+      "trade_amount": "6,015,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    }
+  ],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Ratings, Inc."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Corporation, Moody's Investors Service, Inc., Moody's Analytics, Inc. and/or their licensors and affiliates (collectively, \"MOODY'S\"). All rights reserved. Copyright \u00a9 2026, Standard and Poor\u2019s Financial Services LLC. All rights reserved. 1.0.9903-243-P2"
+    }
+  ],
+  "disclosures": [
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/06/2026",
+      "pdf_url": "https://emma.msrb.org/P22002008-P21525329-P21980749.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/04/2025",
+      "pdf_url": "https://emma.msrb.org/P11896230-P11448765-P11895311.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/26/2026",
+      "pdf_url": "https://emma.msrb.org/P11921236-P11467458-P11916771.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/06/2026",
+      "pdf_url": "https://emma.msrb.org/P22002006-P21525328-P21980748.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/06/2026",
+      "pdf_url": "https://emma.msrb.org/P22002004-P21525327-P21980747.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/26/2026",
+      "pdf_url": "https://emma.msrb.org/P11921261-P11467474-P11916787.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/26/2026",
+      "pdf_url": "https://emma.msrb.org/P11921259-P11467473-P11916786.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/26/2026",
+      "pdf_url": "https://emma.msrb.org/P11921257-P11467472-P11916785.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/26/2026",
+      "pdf_url": "https://emma.msrb.org/P11921254-P11467470-P11916783.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/26/2026",
+      "pdf_url": "https://emma.msrb.org/P11921252-P11467469-P11916782.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/26/2026",
+      "pdf_url": "https://emma.msrb.org/P11921249-P11467467-P11916780.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/07/2025",
+      "pdf_url": "https://emma.msrb.org/P21979722-P21509498-P21963042.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/07/2025",
+      "pdf_url": "https://emma.msrb.org/P21979720-P21509497-P21963041.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/07/2025",
+      "pdf_url": "https://emma.msrb.org/P21979718-P21509496-P21963040.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/06/2025",
+      "pdf_url": "https://emma.msrb.org/P21978774-P21508816-P21962303.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/01/2025",
+      "pdf_url": "https://emma.msrb.org/P21948599-P21488019-P21939502.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/01/2025",
+      "pdf_url": "https://emma.msrb.org/P21948596-P21488017-P21939500.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/01/2025",
+      "pdf_url": "https://emma.msrb.org/P21948593-P21488015-P21939498.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "07/10/2025",
+      "pdf_url": "https://emma.msrb.org/P11873985-P11433603-P11878635.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/27/2025",
+      "pdf_url": "https://emma.msrb.org/P11871803-P11432073-P11876966.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/13/2025",
+      "pdf_url": "https://emma.msrb.org/P31459661-P31132891-P31545917.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/28/2025",
+      "pdf_url": "https://emma.msrb.org/P21931128-P21475952-P21926295.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/12/2025",
+      "pdf_url": "https://emma.msrb.org/P11854637-P11420144-P11863668.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/07/2025",
+      "pdf_url": "https://emma.msrb.org/P11846727-P11414522-P11857415.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/07/2025",
+      "pdf_url": "https://emma.msrb.org/P11846720-P11414517-P11857410.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/07/2025",
+      "pdf_url": "https://emma.msrb.org/P11846717-P11414516-P11857409.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "04/07/2025",
+      "pdf_url": "https://emma.msrb.org/P21923345-P21470330-P21920130.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "03/14/2025",
+      "pdf_url": "https://emma.msrb.org/P21911769-P21461748-P21910633.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/07/2025",
+      "pdf_url": "https://emma.msrb.org/P21890477-P21445793-P21892686.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/07/2025",
+      "pdf_url": "https://emma.msrb.org/P21890469-P21445788-P21892679.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/07/2025",
+      "pdf_url": "https://emma.msrb.org/P21890467-P21445787-P21892678.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/27/2025",
+      "pdf_url": "https://emma.msrb.org/P11822053-P11396498-P11837313.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/27/2025",
+      "pdf_url": "https://emma.msrb.org/P11822047-P11396494-P11837308.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/27/2025",
+      "pdf_url": "https://emma.msrb.org/P11822045-P11396493-P11837307.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/27/2025",
+      "pdf_url": "https://emma.msrb.org/P11822042-P11396491-P11837305.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/27/2025",
+      "pdf_url": "https://emma.msrb.org/P11822039-P11396489-P11837303.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/27/2025",
+      "pdf_url": "https://emma.msrb.org/P11822037-P11396487-P11837301.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/27/2025",
+      "pdf_url": "https://emma.msrb.org/P11822033-P11396483-P11837297.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/20/2024",
+      "pdf_url": "https://emma.msrb.org/P21865398-P21427326-P21871505.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/05/2024",
+      "pdf_url": "https://emma.msrb.org/P11799299-P11379829-P11818570.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/05/2024",
+      "pdf_url": "https://emma.msrb.org/P11799293-P11379824-P11818565.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/05/2024",
+      "pdf_url": "https://emma.msrb.org/P11799290-P11379822-P11818563.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "10/22/2024",
+      "pdf_url": "https://emma.msrb.org/P11796407-P11377750-P11816211.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/24/2024",
+      "pdf_url": "https://emma.msrb.org/P21849576-P21416749-P21859872.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/02/2024",
+      "pdf_url": "https://emma.msrb.org/P11772406-P11361254-P11798504.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/02/2024",
+      "pdf_url": "https://emma.msrb.org/P11772402-P11361252-P11798502.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/02/2024",
+      "pdf_url": "https://emma.msrb.org/P11772400-P11361251-P11798501.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "07/11/2024",
+      "pdf_url": "https://emma.msrb.org/P11769229-P11359057-P11796116.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/29/2024",
+      "pdf_url": "https://emma.msrb.org/P11766844-P11357433-P11794379.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/27/2024",
+      "pdf_url": "https://emma.msrb.org/P21827569-P21400895-P21842580.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/14/2024",
+      "pdf_url": "https://emma.msrb.org/P11759692-P11352167-P11788550.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/21/2024",
+      "pdf_url": "https://emma.msrb.org/P21814613-P21391867-P21832703.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/03/2024",
+      "pdf_url": "https://emma.msrb.org/P11751796-P11346532-P11782462.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/03/2024",
+      "pdf_url": "https://emma.msrb.org/P11751794-P11346531-P11782461.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/03/2024",
+      "pdf_url": "https://emma.msrb.org/P11751792-P11346530-P11782460.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/08/2024",
+      "pdf_url": "https://emma.msrb.org/P21771590-P21360023-P21797195.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/08/2024",
+      "pdf_url": "https://emma.msrb.org/P21771587-P21360021-P21797193.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/08/2024",
+      "pdf_url": "https://emma.msrb.org/P21771585-P21360020-P21797192.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/07/2024",
+      "pdf_url": "https://emma.msrb.org/P21771231-P21359769-P21796922.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/07/2024",
+      "pdf_url": "https://emma.msrb.org/P21771228-P21359767-P21796920.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/07/2024",
+      "pdf_url": "https://emma.msrb.org/P21771221-P21359763-P21796916.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/07/2024",
+      "pdf_url": "https://emma.msrb.org/P21771218-P21359761-P21796914.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/07/2024",
+      "pdf_url": "https://emma.msrb.org/P21771216-P21359760-P21796913.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/07/2024",
+      "pdf_url": "https://emma.msrb.org/P21771211-P21359757-P21796910.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/07/2024",
+      "pdf_url": "https://emma.msrb.org/P21771207-P21359754-P21796907.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/29/2023",
+      "pdf_url": "https://emma.msrb.org/P11707096-P11312331-P11744192.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/08/2023",
+      "pdf_url": "https://emma.msrb.org/P21746024-P21340818-P21775478.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/08/2023",
+      "pdf_url": "https://emma.msrb.org/P21745931-P21340745-P21775393.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/08/2023",
+      "pdf_url": "https://emma.msrb.org/P21745929-P21340744-P21775392.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/08/2023",
+      "pdf_url": "https://emma.msrb.org/P21745927-P21340743-P21775391.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/08/2023",
+      "pdf_url": "https://emma.msrb.org/P21717360-P21320194-P21753050.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/04/2023",
+      "pdf_url": "https://emma.msrb.org/P11691146-P11300746-P11731456.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/04/2023",
+      "pdf_url": "https://emma.msrb.org/P11691144-P11300745-P11731455.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/04/2023",
+      "pdf_url": "https://emma.msrb.org/P11691142-P11300744-P11731454.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "07/05/2023",
+      "pdf_url": "https://emma.msrb.org/P21715373-P21318734-P21751468.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/30/2023",
+      "pdf_url": "https://emma.msrb.org/P21711102-P21315691-P21748132.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/15/2023",
+      "pdf_url": "https://emma.msrb.org/P21705232-P21311513-P21743461.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/09/2023",
+      "pdf_url": "https://emma.msrb.org/P21702235-P21309404-P21741080.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/09/2023",
+      "pdf_url": "https://emma.msrb.org/P21701953-P21309188-P21740845.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/09/2023",
+      "pdf_url": "https://emma.msrb.org/P21701950-P21309186-P21740843.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "04/19/2023",
+      "pdf_url": "https://emma.msrb.org/P11661135-P11279380-P11707963.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "04/05/2023",
+      "pdf_url": "https://emma.msrb.org/P21692168-P21302235-P21733262.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/27/2023",
+      "pdf_url": "https://emma.msrb.org/P11657884-P11276990-P11705262.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "03/23/2023",
+      "pdf_url": "https://emma.msrb.org/P31439906-P31118632-P31530268.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/13/2023",
+      "pdf_url": "https://emma.msrb.org/P21659603-P21277269-P21705245.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/13/2023",
+      "pdf_url": "https://emma.msrb.org/P21659596-P21277264-P21705237.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/08/2023",
+      "pdf_url": "https://emma.msrb.org/P21656995-P21275256-P21702895.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/08/2023",
+      "pdf_url": "https://emma.msrb.org/P21656993-P21275255-P21702894.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/08/2023",
+      "pdf_url": "https://emma.msrb.org/P21656991-P21275254-P21702893.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/26/2023",
+      "pdf_url": "https://emma.msrb.org/P11653828-P11273866-P11701672.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/26/2023",
+      "pdf_url": "https://emma.msrb.org/P11653821-P11273861-P11701667.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/26/2023",
+      "pdf_url": "https://emma.msrb.org/P11653817-P11273858-P11701664.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/26/2023",
+      "pdf_url": "https://emma.msrb.org/P11653813-P11273856-P11701662.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/26/2023",
+      "pdf_url": "https://emma.msrb.org/P11653806-P11273851-P11701657.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/26/2023",
+      "pdf_url": "https://emma.msrb.org/P11653798-P11273845-P11701650.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/26/2023",
+      "pdf_url": "https://emma.msrb.org/P11653785-P11273837-P11701642.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/19/2022",
+      "pdf_url": "https://emma.msrb.org/P11646880-P11268486-P11695513.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/14/2022",
+      "pdf_url": "https://emma.msrb.org/P11628477-P11254732-P11679614.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/11/2022",
+      "pdf_url": "https://emma.msrb.org/P21634752-P21258669-P21684269.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/11/2022",
+      "pdf_url": "https://emma.msrb.org/P21634750-P21258668-P21684268.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/11/2022",
+      "pdf_url": "https://emma.msrb.org/P21634747-P21258666-P21684266.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "10/17/2022",
+      "pdf_url": "https://emma.msrb.org/P21621804-P21249303-P21674015.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/29/2022",
+      "pdf_url": "https://emma.msrb.org/P11623521-P11251161-P11675747.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/10/2022",
+      "pdf_url": "https://emma.msrb.org/P21601198-P21234875-P21658082.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/10/2022",
+      "pdf_url": "https://emma.msrb.org/P21601196-P21234874-P21658081.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/10/2022",
+      "pdf_url": "https://emma.msrb.org/P21601194-P21234873-P21658080.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/10/2022",
+      "pdf_url": "https://emma.msrb.org/P21601192-P21234872-P21658079.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "07/19/2022",
+      "pdf_url": "https://emma.msrb.org/P21594135-P21229856-P21652614.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/09/2022",
+      "pdf_url": "https://emma.msrb.org/P11596361-P11231691-P11654021.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/09/2022",
+      "pdf_url": "https://emma.msrb.org/P11596271-P11231633-P11653959.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/09/2022",
+      "pdf_url": "https://emma.msrb.org/P11596269-P11231632-P11653958.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/09/2022",
+      "pdf_url": "https://emma.msrb.org/P11596265-P11231630-P11653956.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "03/25/2022",
+      "pdf_url": "https://emma.msrb.org/P21558758-P21204345-P21624495.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/09/2022",
+      "pdf_url": "https://emma.msrb.org/P11560403-P11204738-P11623831.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/09/2022",
+      "pdf_url": "https://emma.msrb.org/P11560396-P11204734-P11623827.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/09/2022",
+      "pdf_url": "https://emma.msrb.org/P11560394-P11204733-P11623826.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/09/2022",
+      "pdf_url": "https://emma.msrb.org/P11560381-P11204722-P11623809.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/11/2022",
+      "pdf_url": "https://emma.msrb.org/P21530377-P21183245-P21600821.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/11/2022",
+      "pdf_url": "https://emma.msrb.org/P21530302-P21183188-P21600759.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/11/2022",
+      "pdf_url": "https://emma.msrb.org/P21530283-P21183178-P21600749.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/11/2022",
+      "pdf_url": "https://emma.msrb.org/P21530272-P21183173-P21600744.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/11/2022",
+      "pdf_url": "https://emma.msrb.org/P21530270-P21183172-P21600743.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/11/2022",
+      "pdf_url": "https://emma.msrb.org/P21530268-P21183171-P21600742.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/11/2022",
+      "pdf_url": "https://emma.msrb.org/P21530266-P21183170-P21600741.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/11/2022",
+      "pdf_url": "https://emma.msrb.org/P21530264-P21183169-P21600740.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/06/2022",
+      "pdf_url": "https://emma.msrb.org/P21529711-P21182762-P21600288.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/16/2021",
+      "pdf_url": "https://emma.msrb.org/P21525821-P21179724-P21596716.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/16/2021",
+      "pdf_url": "https://emma.msrb.org/P21513644-P21170807-P21586603.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/10/2021",
+      "pdf_url": "https://emma.msrb.org/P21508787-P21167324-P21582683.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/10/2021",
+      "pdf_url": "https://emma.msrb.org/P21508785-P21167323-P21582682.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/10/2021",
+      "pdf_url": "https://emma.msrb.org/P21508783-P21167322-P21582681.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/10/2021",
+      "pdf_url": "https://emma.msrb.org/P21508781-P21167321-P21582680.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/10/2021",
+      "pdf_url": "https://emma.msrb.org/P21508779-P21167320-P21582679.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/10/2021",
+      "pdf_url": "https://emma.msrb.org/P21508777-P21167319-P21582678.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "10/11/2021",
+      "pdf_url": "https://emma.msrb.org/P31431715-P31112439-P31523357.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "10/11/2021",
+      "pdf_url": "https://emma.msrb.org/P31431711-P31112437-P31523355.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/10/2021",
+      "pdf_url": "https://emma.msrb.org/P11517620-P11174370-P11590335.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/10/2021",
+      "pdf_url": "https://emma.msrb.org/P11517617-P11174369-P11590334.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/10/2021",
+      "pdf_url": "https://emma.msrb.org/P11517615-P11174368-P11590333.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/10/2021",
+      "pdf_url": "https://emma.msrb.org/P11517613-P11174367-P11590332.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/10/2021",
+      "pdf_url": "https://emma.msrb.org/P11517611-P11174366-P11590331.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "07/09/2021",
+      "pdf_url": "https://emma.msrb.org/P11508838-P11168156-P11583711.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2021",
+      "pdf_url": "https://emma.msrb.org/P21473564-P21143023-P21556418.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/13/2021",
+      "pdf_url": "https://emma.msrb.org/P21459439-P21132717-P21545235.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/13/2021",
+      "pdf_url": "https://emma.msrb.org/P21459428-P21132709-P21545226.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/13/2021",
+      "pdf_url": "https://emma.msrb.org/P21459425-P21132708-P21545224.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/13/2021",
+      "pdf_url": "https://emma.msrb.org/P21459421-P21132705-P21545221.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/13/2021",
+      "pdf_url": "https://emma.msrb.org/P21459419-P21132703-P21545220.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "03/18/2021",
+      "pdf_url": "https://emma.msrb.org/P21447272-P21123509-P21535143.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/12/2021",
+      "pdf_url": "https://emma.msrb.org/P11465595-P11136074-P11548559.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/12/2021",
+      "pdf_url": "https://emma.msrb.org/P11465590-P11136070-P11548555.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/12/2021",
+      "pdf_url": "https://emma.msrb.org/P11465588-P11136069-P11548554.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/12/2021",
+      "pdf_url": "https://emma.msrb.org/P11465585-P11136067-P11548552.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/12/2021",
+      "pdf_url": "https://emma.msrb.org/P11465581-P11136064-P11548548.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/11/2021",
+      "pdf_url": "https://emma.msrb.org/P31407336-P31094184-P31503366.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/11/2021",
+      "pdf_url": "https://emma.msrb.org/P11457554-P11130001-P11541823.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/11/2021",
+      "pdf_url": "https://emma.msrb.org/P11457552-P11130000-P11541822.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/11/2021",
+      "pdf_url": "https://emma.msrb.org/P11457549-P11129998-P11541819.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/11/2021",
+      "pdf_url": "https://emma.msrb.org/P11457547-P11129997-P11541818.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/11/2021",
+      "pdf_url": "https://emma.msrb.org/P11457545-P11129996-P11541817.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/11/2021",
+      "pdf_url": "https://emma.msrb.org/P11457531-P11129988-P11541809.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/11/2021",
+      "pdf_url": "https://emma.msrb.org/P11457524-P11129982-P11541803.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/11/2021",
+      "pdf_url": "https://emma.msrb.org/P11457488-P11129952-P11541771.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/13/2020",
+      "pdf_url": "https://emma.msrb.org/P11439806-P11116670-P11526886.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/13/2020",
+      "pdf_url": "https://emma.msrb.org/P11439768-P11116641-P11526853.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/13/2020",
+      "pdf_url": "https://emma.msrb.org/P11439766-P11116640-P11526852.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/13/2020",
+      "pdf_url": "https://emma.msrb.org/P11439763-P11116638-P11526849.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/13/2020",
+      "pdf_url": "https://emma.msrb.org/P11439760-P11116636-P11526847.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/13/2020",
+      "pdf_url": "https://emma.msrb.org/P11439757-P11116634-P11526845.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "10/08/2020",
+      "pdf_url": "https://emma.msrb.org/P11423648-P11105258-P11514707.pdf",
+      "local_pdf_path": "",
+      "download_success": false
+    }
+  ]
+}

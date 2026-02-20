@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
-import { Plus, FolderKanban, MoreVertical, Trash2 } from 'lucide-react'
+import { Plus, FolderKanban, Trash2 } from 'lucide-react'
 import { api } from '../services/api'
 import type { ProjectCreate } from '../types'
 

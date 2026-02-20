@@ -1,0 +1,112 @@
+{
+  "cusip": "A180E5D107E22DA48474EE8A6075420EF",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-19T23:54:13.354278+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/A180E5D107E22DA48474EE8A6075420EF",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "empty",
+      "trade_activity": "success",
+      "ratings": "success",
+      "disclosures": "empty"
+    }
+  },
+  "snapshot": {
+    "security_name": "DEUTSCHE BK SPEARS/LIFERS 3A-7 TENDER OPT BD TR VAR STS / CTFS DBE-8070",
+    "cusip": "",
+    "principal_amount": 20395000,
+    "maturity_date": "08/01/2040",
+    "dated_date": "12/22/2020",
+    "coupon_pct": "2.62 %",
+    "closing_date": "-",
+    "fiscal_year_end_date": "-",
+    "initial_offering_price_yield": "100%",
+    "time_of_formal_award": "",
+    "time_of_first_execution": "",
+    "state": "NA"
+  },
+  "interest_rates": [],
+  "trades": [
+    {
+      "trade_date": "03/19/2025 01:44 PM",
+      "settlement_date": "03/26/2025",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "300,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "05/22/2024 12:00 AM",
+      "settlement_date": "05/22/2024",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "800,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "05/22/2024 12:00 AM",
+      "settlement_date": "05/22/2024",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "800,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "03/20/2024 12:00 AM",
+      "settlement_date": "03/20/2024",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "3,600,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "03/20/2024 12:00 AM",
+      "settlement_date": "03/20/2024",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "3,600,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    }
+  ],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Fitch Ratings."
+    },
+    {
+      "agency": "KBRA",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Kroll Bond Rating Agency."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Moody's Investors Service, Inc."
+    },
+    {
+      "agency": "S&P",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Standard and Poor's Financial Services LLC."
+    }
+  ],
+  "disclosures": []
+}

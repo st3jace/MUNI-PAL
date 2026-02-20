@@ -1,0 +1,40 @@
+{
+  "phase": "phase_7_closeout_bundle",
+  "generated_at_utc": "2026-02-19T22:20:43.933540+00:00",
+  "started_at_utc": "2026-02-19T22:19:17.341666+00:00",
+  "overall_status": "pass",
+  "results": [
+    {
+      "name": "Backend CI-Equivalent Gate",
+      "command": "pytest -q tests/contract/test_openapi_contract.py tests/integration/test_readiness_api.py tests/integration/test_checklist_api.py tests/integration/test_facts_api.py tests/integration/test_projects_api.py tests/integration/test_playbooks_api.py tests/integration/test_auth_enforcement_routes.py tests/integration/test_project_authorization.py tests/integration/test_object_authorization.py tests/integration/test_role_policy.py tests/integration/test_security_integration.py tests/integration/test_risk_reporting_foundation.py tests/unit/test_auth_dependencies.py tests/unit/test_audit_service.py tests/unit/test_audit_route_events.py tests/unit/test_risk_reporting_service.py tests/unit/test_advisory_package_service.py tests/unit/test_fact_service.py -p no:cacheprovider",
+      "returncode": 0,
+      "duration_seconds": 28.43114249999053,
+      "log_file": "reports/phase7_closeout/logs_20260219_221917/backend_ci-equivalent_gate.log",
+      "status": "pass"
+    },
+    {
+      "name": "Frontend Tests",
+      "command": "npm --prefix frontend run test",
+      "returncode": 0,
+      "duration_seconds": 30.17381939999177,
+      "log_file": "reports/phase7_closeout/logs_20260219_221917/frontend_tests.log",
+      "status": "pass"
+    },
+    {
+      "name": "Frontend Production Build",
+      "command": "npm --prefix frontend run build",
+      "returncode": 0,
+      "duration_seconds": 14.11702060000971,
+      "log_file": "reports/phase7_closeout/logs_20260219_221917/frontend_production_build.log",
+      "status": "pass"
+    },
+    {
+      "name": "Risk Focused Regression Slice",
+      "command": "pytest tests/unit/test_risk_reporting_service.py tests/integration/test_risk_reporting_foundation.py tests/unit/test_advisory_package_service.py -q",
+      "returncode": 0,
+      "duration_seconds": 13.863579600001685,
+      "log_file": "reports/phase7_closeout/logs_20260219_221917/risk_focused_regression_slice.log",
+      "status": "pass"
+    }
+  ]
+}

@@ -8,11 +8,11 @@ with full provenance tracing.
 from datetime import datetime
 from uuid import uuid4
 
-from sqlalchemy import DateTime, Float, ForeignKey, Integer, String, Text
-from sqlalchemy.dialects.postgresql import JSON, UUID
+from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Integer, String, Text
+from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from munipal.db.base import Base, TimestampMixin
+from munipal.db.base import Base, TimestampMixin, UUIDType
 
 
 class ExtractedFact(Base, TimestampMixin):
@@ -20,12 +20,13 @@ class ExtractedFact(Base, TimestampMixin):
     THE CORE PRIMITIVE.
 
     A structured, reviewable claim about the project with full provenance.
+    Supports both AI-extracted facts and manually-entered facts.
     """
 
     __tablename__ = "extracted_facts"
 
     id: Mapped[str] = mapped_column(
-        UUID(as_uuid=False),
+        UUIDType,
         primary_key=True,
         default=lambda: str(uuid4()),
     )
@@ -35,6 +36,11 @@ class ExtractedFact(Base, TimestampMixin):
     criticality: Mapped[str] = mapped_column(
         String(20), nullable=False, default="secondary"
     )  # critical, material, secondary
+
+    # Source type: extracted (from AI) or manual (user-entered)
+    source_type: Mapped[str] = mapped_column(
+        String(20), nullable=False, default="extracted", index=True
+    )  # extracted, manual
 
     # Value
     value: Mapped[dict] = mapped_column(JSON, nullable=False)  # Stored as JSON for flexibility
@@ -49,30 +55,56 @@ class ExtractedFact(Base, TimestampMixin):
     review_status: Mapped[str] = mapped_column(
         String(20), nullable=False, default="pending", index=True
     )  # pending, approved, rejected, needs_revision
-    reviewed_by: Mapped[str | None] = mapped_column(UUID(as_uuid=False), ForeignKey("users.id"))
+    reviewed_by: Mapped[str | None] = mapped_column(UUIDType, ForeignKey("users.id"))
     reviewed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     review_note: Mapped[str | None] = mapped_column(Text)
 
     # Original value if corrected during review
     original_value: Mapped[dict | None] = mapped_column(JSON)
 
+    # Dedup/canonicalization metadata
+    fingerprint: Mapped[str | None] = mapped_column(String(128), index=True)
+    duplicate_classification: Mapped[str] = mapped_column(
+        String(32),
+        nullable=False,
+        default="unique",
+        index=True,
+    )  # unique, duplicate_exact, duplicate_semantic, candidate_conflict
+    source_trust_score: Mapped[float] = mapped_column(Float, nullable=False, default=0.5)
+    canonical_score: Mapped[float] = mapped_column(Float, nullable=False, default=0.0)
+    is_canonical: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, index=True)
+
+    # Lifecycle state and archive controls
+    lifecycle_state: Mapped[str] = mapped_column(
+        String(20),
+        nullable=False,
+        default="active",
+        index=True,
+    )  # active, archived, rejected, pending_review
+    archive_reason_code: Mapped[str | None] = mapped_column(String(64))
+    archive_note: Mapped[str | None] = mapped_column(Text)
+    archived_by: Mapped[str | None] = mapped_column(UUIDType, ForeignKey("users.id"))
+    archived_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
     # Foreign keys
     project_id: Mapped[str] = mapped_column(
-        UUID(as_uuid=False),
+        UUIDType,
         ForeignKey("projects.id"),
         nullable=False,
         index=True,
     )
-    extraction_job_id: Mapped[str] = mapped_column(
-        UUID(as_uuid=False),
+    # Nullable for manual facts which don't have an extraction job
+    extraction_job_id: Mapped[str | None] = mapped_column(
+        UUIDType,
         ForeignKey("extraction_jobs.id"),
-        nullable=False,
+        nullable=True,
     )
 
     # Relationships
     project = relationship("Project", back_populates="extracted_facts")
     extraction_job = relationship("ExtractionJob", back_populates="facts")
     reviewer = relationship("User", foreign_keys=[reviewed_by])
+    archived_by_user = relationship("User", foreign_keys=[archived_by])
     revisions = relationship(
         "FactRevision", back_populates="fact", cascade="all, delete-orphan"
     )
@@ -97,12 +129,12 @@ class FactChunkAssociation(Base):
     __tablename__ = "fact_chunks"
 
     fact_id: Mapped[str] = mapped_column(
-        UUID(as_uuid=False),
+        UUIDType,
         ForeignKey("extracted_facts.id"),
         primary_key=True,
     )
     chunk_id: Mapped[str] = mapped_column(
-        UUID(as_uuid=False),
+        UUIDType,
         ForeignKey("chunks.id"),
         primary_key=True,
     )
@@ -125,7 +157,7 @@ class FactRevision(Base, TimestampMixin):
     __tablename__ = "fact_revisions"
 
     id: Mapped[str] = mapped_column(
-        UUID(as_uuid=False),
+        UUIDType,
         primary_key=True,
         default=lambda: str(uuid4()),
     )
@@ -140,7 +172,7 @@ class FactRevision(Base, TimestampMixin):
 
     # Who changed it
     changed_by_id: Mapped[str] = mapped_column(
-        UUID(as_uuid=False),
+        UUIDType,
         ForeignKey("users.id"),
         nullable=False,
     )
@@ -148,7 +180,7 @@ class FactRevision(Base, TimestampMixin):
 
     # Foreign keys
     fact_id: Mapped[str] = mapped_column(
-        UUID(as_uuid=False),
+        UUIDType,
         ForeignKey("extracted_facts.id"),
         nullable=False,
         index=True,
@@ -169,7 +201,7 @@ class EvidenceLink(Base, TimestampMixin):
     __tablename__ = "evidence_links"
 
     id: Mapped[str] = mapped_column(
-        UUID(as_uuid=False),
+        UUIDType,
         primary_key=True,
         default=lambda: str(uuid4()),
     )
@@ -182,7 +214,7 @@ class EvidenceLink(Base, TimestampMixin):
 
     # Foreign keys
     fact_id: Mapped[str] = mapped_column(
-        UUID(as_uuid=False),
+        UUIDType,
         ForeignKey("extracted_facts.id"),
         nullable=False,
         index=True,

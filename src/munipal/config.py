@@ -8,7 +8,7 @@ for local development.
 from functools import lru_cache
 from typing import Literal
 
-from pydantic import Field, computed_field
+from pydantic import computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -30,8 +30,11 @@ class Settings(BaseSettings):
     secret_key: str = "change-me-in-production"
 
     # -------------------------------------------------------------------------
-    # Database (PostgreSQL)
+    # Database (PostgreSQL or SQLite for dev)
     # -------------------------------------------------------------------------
+    use_sqlite: bool = True  # Set to False for PostgreSQL
+    sqlite_path: str = "./munipal_dev.db"
+
     postgres_host: str = "localhost"
     postgres_port: int = 5432
     postgres_user: str = "munipal"
@@ -42,6 +45,8 @@ class Settings(BaseSettings):
     @property
     def database_url(self) -> str:
         """Async database URL for SQLAlchemy."""
+        if self.use_sqlite:
+            return f"sqlite+aiosqlite:///{self.sqlite_path}"
         return (
             f"postgresql+asyncpg://{self.postgres_user}:{self.postgres_password}"
             f"@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
@@ -51,6 +56,8 @@ class Settings(BaseSettings):
     @property
     def database_url_sync(self) -> str:
         """Sync database URL for Alembic migrations."""
+        if self.use_sqlite:
+            return f"sqlite:///{self.sqlite_path}"
         return (
             f"postgresql+psycopg2://{self.postgres_user}:{self.postgres_password}"
             f"@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
@@ -106,6 +113,11 @@ class Settings(BaseSettings):
     jwt_algorithm: str = "HS256"
     jwt_access_token_expire_minutes: int = 30
     jwt_refresh_token_expire_days: int = 7
+    auth_enforcement_v2: bool = False
+    role_enforcement_v2: bool = False
+    risk_reporting_v2_foundation: bool = False
+    risk_reporting_v2_advanced_analytics: bool = False
+    risk_reporting_v2_advanced_min_reliability: Literal["high", "medium", "low"] = "high"
 
     # -------------------------------------------------------------------------
     # File Storage

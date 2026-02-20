@@ -1,0 +1,880 @@
+{
+  "cusip": "A1A37261B9C06CF17DF0E2C3C47D3837D",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-20T03:41:32.900634+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/A1A37261B9C06CF17DF0E2C3C47D3837D",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "empty",
+      "trade_activity": "success",
+      "ratings": "empty",
+      "disclosures": "success"
+    }
+  },
+  "snapshot": {
+    "security_name": "COUNTY OF FRANKLIN, OHIO / HEALTH CARE FACILITIES REVENUE BONDS, SERIES 2020B (OHIO LIVING COMMUNITIES)",
+    "cusip": "",
+    "principal_amount": 11065000,
+    "maturity_date": "07/01/2045",
+    "dated_date": "10/01/2020",
+    "coupon_pct": "5 %",
+    "closing_date": "10/01/2020",
+    "fiscal_year_end_date": "12/31/2025",
+    "initial_offering_price_yield": "111.768% / 3.43%",
+    "time_of_formal_award": "09/16/2020 06:56 PM",
+    "time_of_first_execution": "09/17/2020 11:00 AM",
+    "state": "OH"
+  },
+  "interest_rates": [],
+  "trades": [
+    {
+      "trade_date": "02/19/2026 03:28 PM",
+      "settlement_date": "02/20/2026",
+      "price": "99.502",
+      "yield": "5.04",
+      "calculation_date_price": "07/01/2045 @ 100",
+      "trade_amount": "2,785,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "02/19/2026 03:28 PM",
+      "settlement_date": "02/20/2026",
+      "price": "99.502",
+      "yield": "5.04",
+      "calculation_date_price": "07/01/2045 @ 100",
+      "trade_amount": "2,785,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "02/06/2026 12:08 PM",
+      "settlement_date": "02/09/2026",
+      "price": "99.136",
+      "yield": "5.07",
+      "calculation_date_price": "07/01/2045 @ 100",
+      "trade_amount": "2,785,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/28/2026 03:20 PM",
+      "settlement_date": "01/29/2026",
+      "price": "97.927",
+      "yield": "5.17",
+      "calculation_date_price": "07/01/2045 @ 100",
+      "trade_amount": "3,080,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/22/2026 02:43 PM",
+      "settlement_date": "01/23/2026",
+      "price": "100",
+      "yield": "4.999",
+      "calculation_date_price": "07/01/2030 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/22/2026 02:39 PM",
+      "settlement_date": "01/23/2026",
+      "price": "100",
+      "yield": "4.999",
+      "calculation_date_price": "07/01/2030 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/22/2026 02:37 PM",
+      "settlement_date": "01/23/2026",
+      "price": "100",
+      "yield": "4.999",
+      "calculation_date_price": "07/01/2030 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/22/2026 02:30 PM",
+      "settlement_date": "01/23/2026",
+      "price": "98.288",
+      "yield": "5.14",
+      "calculation_date_price": "07/01/2045 @ 100",
+      "trade_amount": "250,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/22/2026 02:30 PM",
+      "settlement_date": "01/23/2026",
+      "price": "98.288",
+      "yield": "5.14",
+      "calculation_date_price": "07/01/2045 @ 100",
+      "trade_amount": "250,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/02/2026 10:40 AM",
+      "settlement_date": "01/05/2026",
+      "price": "98.5",
+      "yield": "5.123",
+      "calculation_date_price": "07/01/2045 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/02/2026 10:40 AM",
+      "settlement_date": "01/05/2026",
+      "price": "100",
+      "yield": "5",
+      "calculation_date_price": "07/01/2030 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/02/2026 10:40 AM",
+      "settlement_date": "01/05/2026",
+      "price": "98.5",
+      "yield": "5.123",
+      "calculation_date_price": "07/01/2045 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/30/2025 11:41 AM",
+      "settlement_date": "12/31/2025",
+      "price": "98.5",
+      "yield": "5.123",
+      "calculation_date_price": "07/01/2045 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/30/2025 11:41 AM",
+      "settlement_date": "12/31/2025",
+      "price": "98.5",
+      "yield": "5.123",
+      "calculation_date_price": "07/01/2045 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/30/2025 11:41 AM",
+      "settlement_date": "12/31/2025",
+      "price": "99.9",
+      "yield": "5.008",
+      "calculation_date_price": "07/01/2045 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "11/07/2025 10:56 AM",
+      "settlement_date": "11/10/2025",
+      "price": "98.275",
+      "yield": "5.14",
+      "calculation_date_price": "07/01/2045 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "11/07/2025 10:56 AM",
+      "settlement_date": "11/10/2025",
+      "price": "98.275",
+      "yield": "5.14",
+      "calculation_date_price": "07/01/2045 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "11/07/2025 10:56 AM",
+      "settlement_date": "11/10/2025",
+      "price": "99.5",
+      "yield": "5.04",
+      "calculation_date_price": "07/01/2045 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/22/2025 04:51 PM",
+      "settlement_date": "10/23/2025",
+      "price": "97.787",
+      "yield": "5.18",
+      "calculation_date_price": "07/01/2045 @ 100",
+      "trade_amount": "3,500,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "04/18/2024 02:20 PM",
+      "settlement_date": "04/22/2024",
+      "price": "92.019",
+      "yield": "5.65",
+      "calculation_date_price": "07/01/2045 @ 100",
+      "trade_amount": "5,565,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "04/18/2024 02:20 PM",
+      "settlement_date": "04/22/2024",
+      "price": "91.894",
+      "yield": "5.661",
+      "calculation_date_price": "07/01/2045 @ 100",
+      "trade_amount": "5,565,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "09/17/2020 11:00 AM",
+      "settlement_date": "10/01/2020",
+      "price": "111.768",
+      "yield": "3.43",
+      "calculation_date_price": "07/01/2027 @ 103",
+      "trade_amount": "5,565,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "09/17/2020 11:00 AM",
+      "settlement_date": "10/01/2020",
+      "price": "111.768",
+      "yield": "3.43",
+      "calculation_date_price": "07/01/2027 @ 103",
+      "trade_amount": "5,500,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    }
+  ],
+  "ratings": [],
+  "disclosures": [
+    {
+      "doc_type": "Official Statement",
+      "filing_date": "09/23/2020",
+      "pdf_url": "https://emma.msrb.org/P21403712-P21091266-P21499872.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0001_Official_Statement_s.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/04/2026",
+      "pdf_url": "https://emma.msrb.org/P22000619-P21524259-P21979546.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0002_Financial_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/03/2026",
+      "pdf_url": "https://emma.msrb.org/P22003901-P21526784-P21982395.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0003_Event_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/03/2026",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21508530",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/07/2026",
+      "pdf_url": "https://emma.msrb.org/P11910444-P11459452-P11907802.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0005_Notice_re_Lake_Vista_Release_2020B_Bonds_Ohio_Livi.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/07/2026",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11440663",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/07/2025",
+      "pdf_url": "https://emma.msrb.org/P21979811-P21506264-P21959483.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0007_Ohio_Living_Supplement_to_Consent_Solicitation_for.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/07/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21487831",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/07/2025",
+      "pdf_url": "https://emma.msrb.org/P21979811-P21506264-P11892795.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0009_Ohio_Living_Supplement_to_Consent_Solicitation_for.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/07/2025",
+      "pdf_url": "https://emma.msrb.org/P21979811-P21506264-P21963125.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0010_Ohio_Living_Supplement_to_Consent_Solicitation_for.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "10/14/2025",
+      "pdf_url": "https://emma.msrb.org/P11887955-P11443147-P11889239.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0011_Ohio_Living_Communities_10_27_25_Disclosure_Call_N.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "10/14/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11424497",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "10/14/2025",
+      "pdf_url": "https://emma.msrb.org/P11887777-P11443015-P11889092.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0013_Ohio_Living_Communities_Consent_Solicitation_for_L.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "10/14/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11424369",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "10/14/2025",
+      "pdf_url": "https://emma.msrb.org/P11887773-P11443011-P11889088.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0015_10_14_25_Ohio_Living_Communities_Lake_Vista_Sale_d.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "10/14/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11424366",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/15/2023",
+      "pdf_url": "https://emma.msrb.org/P21705160-P21311459-P21743409.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0017_Ohio_Living_Conditional_Notice_to_Refund_2016B_and.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/15/2023",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21293104",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/09/2025",
+      "pdf_url": "https://emma.msrb.org/P21961135-P21496580-P21948773.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0019_NOTICE_OF_ACQUISITION_OF_CORPORATE_TRUST_BUSINESS_.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/09/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21478190",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/21/2025",
+      "pdf_url": "https://emma.msrb.org/P21958513-P21494760-P21946821.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0021_HNB_EMMA_Notice_of_Sale_of_Corporate_Trust_Busines.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/21/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21476403",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/04/2026",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21506003",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/28/2026",
+      "pdf_url": "https://emma.msrb.org/P11922539-P11468427-P11917854.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0024_Interim_Financial_Disclosures_Posted_01_28_2026_15.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/28/2026",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11449686",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "10/07/2025",
+      "pdf_url": "https://emma.msrb.org/P21970423-P21502949-P21955830.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0026_Audited_Financial_Statements_Posted_10_07_2025_for.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "10/07/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21484519",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/31/2025",
+      "pdf_url": "https://emma.msrb.org/P22000614-P21524255-P21979542.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0028_Ohio_Living_December_2025_Consolidated_Financial_S.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/31/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21505998",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2025",
+      "pdf_url": "https://emma.msrb.org/P11894034-P11447362-P11893779.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0030_Ohio_Living_Communities_Annual_Continuing_Disclosu.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11428670",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2025",
+      "pdf_url": "https://emma.msrb.org/P21977628-P21508080-P21961501.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0032_Ohio_Living_Communities_September_2025_Census_Repo.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21489594",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2025",
+      "pdf_url": "https://emma.msrb.org/P21977621-P21508073-P21961494.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0034_Ohio_Living_September_2025_Consolidated_Financial_.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21489587",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2025",
+      "pdf_url": "https://emma.msrb.org/P11892868-P11446490-P11892811.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0036_Annual_Bond_Holders_Debt_Service_Coverage_Ratio_an.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11427811",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2026",
+      "pdf_url": "https://emma.msrb.org/P11885112-P11441148-P11886954.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0038_Ohio_Living_FY2026_Annual_Budget_Updated_09_25_25_.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2026",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11422518",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2025",
+      "pdf_url": "https://emma.msrb.org/P31460063-P31133194-P31546249.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0040_Ohio_Living_June_2025_Census_for_the_year_ended_06.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P31115151",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2025",
+      "pdf_url": "https://emma.msrb.org/P31460055-P31133186-P31546241.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0042_Ohio_Living_June_2025_Consolidated_Financial_State.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P31115143",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2026",
+      "pdf_url": "https://emma.msrb.org/P11857994-P11422461-P11866290.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0044_Ohio_Living_FY2026_Annual_Budget_for_the_year_ende.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2026",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11403972",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "03/31/2025",
+      "pdf_url": "https://emma.msrb.org/P11848222-P11415604-P11858595.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0046_Ohio_Living_March_2025_Census_for_the_year_ended_0.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "03/31/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11397125",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "03/31/2025",
+      "pdf_url": "https://emma.msrb.org/P11848217-P11415599-P11858590.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0048_Ohio_Living_March_2025_Consolidated_Financial_Stat.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "03/31/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11397120",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/31/2024",
+      "pdf_url": "https://emma.msrb.org/P21887718-P11396298-P11837069.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0050_Ohio_Living_December_2024_UPDATED_Consolidated_Fin.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/31/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11377763",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/31/2024",
+      "pdf_url": "https://emma.msrb.org/P21887718-P11396298-P21890260.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0052_Ohio_Living_December_2024_UPDATED_Consolidated_Fin.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/31/2024",
+      "pdf_url": "https://emma.msrb.org/P11821793-P11396296-P11837067.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0053_Ohio_Living_December_2024_Census_for_the_year_ende.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/31/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11377761",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/30/2024",
+      "pdf_url": "https://emma.msrb.org/P11811290-P11388403-P11828133.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0055_Ohio_Living_Annual_Continuing_Disclosure_11_26_24_.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/30/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11369909",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2024",
+      "pdf_url": "https://emma.msrb.org/P11808783-P11386673-P11826196.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0057_Annual_Bond_Holders_Debt_Service_Coverage_Ratio_an.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11368226",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2024",
+      "pdf_url": "https://emma.msrb.org/P11801699-P11381635-P11820558.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0059_Ohio_Living_CMS_Star_Ratings_09_30_24_for_the_year.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11363041",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2024",
+      "pdf_url": "https://emma.msrb.org/P11801644-P11381587-P11820507.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0061_Ohio_Living_September_2024_Consolidated_Financial_.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11362994",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2024",
+      "pdf_url": "https://emma.msrb.org/P11801641-P11381584-P11820504.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0063_Ohio_Living_September_2024_Census_for_the_year_end.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11362991",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2024",
+      "pdf_url": "https://emma.msrb.org/P11781585-P11367362-P11804863.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0065_Ohio_Living_June_2024_Census_for_the_year_ended_06.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11348894",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2024",
+      "pdf_url": "https://emma.msrb.org/P11781579-P11367359-P11804860.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0067_Ohio_Living_Consolidated_Financial_Statements_06_3.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11348891",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2025",
+      "pdf_url": "https://emma.msrb.org/P21815239-P21392319-P21833189.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0069_Ohio_Living_FY25_Annual_Budget_for_the_year_ended_.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21373952",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "03/31/2024",
+      "pdf_url": "https://emma.msrb.org/P11753082-P11347469-P11783464.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0071_Ohio_Living_March_2024_Census_for_the_year_ended_0.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "03/31/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11328971",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "03/31/2024",
+      "pdf_url": "https://emma.msrb.org/P11753073-P11347460-P11783455.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0073_Ohio_Living_Consolidated_Financial_Statements_03_3.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "03/31/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11328962",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/31/2023",
+      "pdf_url": "https://emma.msrb.org/P21767665-P21356999-P21793795.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0075_Ohio_Living_Consolidated_Financial_Statements_12_3.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/31/2023",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21338603",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/31/2023",
+      "pdf_url": "https://emma.msrb.org/P21767653-P21356992-P21793788.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0077_Ohio_Living_December_2023_Census_for_the_year_ende.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/31/2023",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21338596",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/30/2023",
+      "pdf_url": "https://emma.msrb.org/P11707316-P11312481-P11744358.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0079_Ohio_Living_Annual_Continuing_Disclosure_11_30_23_.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/30/2023",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11294021",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2023",
+      "pdf_url": "https://emma.msrb.org/P31449451-P31125623-P31537921.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0081_06_30_23_Annual_Debt_Service_Coverage_Ratio_and_Da.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2023",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P31107813",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2023",
+      "pdf_url": "https://emma.msrb.org/P21748838-P21342902-P21777786.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0083_Ohio_Living_September_2023_Census_for_the_year_end.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2023",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21324429",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2023",
+      "pdf_url": "https://emma.msrb.org/P21748821-P21342889-P21777772.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0085_Ohio_Living_Consolidated_Financial_Statements_09_3.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2023",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21324416",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2024",
+      "pdf_url": "https://emma.msrb.org/P21736291-P21333609-P21767607.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A1A37261B9C06CF17DF0E2C3C47D3837D\\A1A37261B9C06CF17DF0E2C3C47D3837D_0087_Ohio_Living_Revised_FY24_Annual_Budget_10_04_23_fo.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21315208",
+      "local_pdf_path": "",
+      "download_success": false
+    }
+  ]
+}

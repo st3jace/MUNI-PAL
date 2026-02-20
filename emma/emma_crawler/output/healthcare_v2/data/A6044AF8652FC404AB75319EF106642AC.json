@@ -1,0 +1,134 @@
+{
+  "cusip": "A6044AF8652FC404AB75319EF106642AC",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-19T18:49:49.732250+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/A6044AF8652FC404AB75319EF106642AC",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "empty",
+      "trade_activity": "success",
+      "ratings": "success",
+      "disclosures": "success"
+    }
+  },
+  "snapshot": {
+    "security_name": "TARRANT COUNTY CULTURAL EDUCATION FACILITIES FINANCE CORPORATION / HOSPITAL REVENUE BONDS (BAYLOR SCOTT & WHITE HEALTH PROJECT) SERIES 2026D (DAILY)",
+    "cusip": "",
+    "principal_amount": 125000000,
+    "maturity_date": "11/15/2063",
+    "dated_date": "02/19/2026",
+    "coupon_pct": "-",
+    "closing_date": "02/19/2026",
+    "fiscal_year_end_date": "-",
+    "initial_offering_price_yield": "100%",
+    "time_of_formal_award": "02/18/2026 04:45 PM",
+    "time_of_first_execution": "02/19/2026 11:00 AM",
+    "state": "TX"
+  },
+  "interest_rates": [],
+  "trades": [
+    {
+      "trade_date": "02/19/2026 11:08 AM",
+      "settlement_date": "02/19/2026",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "MM+",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "02/19/2026 11:08 AM",
+      "settlement_date": "02/19/2026",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "MM+",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "02/19/2026 11:07 AM",
+      "settlement_date": "02/19/2026",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "MM+",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "02/19/2026 11:06 AM",
+      "settlement_date": "02/19/2026",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "MM+",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "02/19/2026 11:00 AM",
+      "settlement_date": "02/19/2026",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "5,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    }
+  ],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Fitch Ratings."
+    },
+    {
+      "agency": "KBRA",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Kroll Bond Rating Agency."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Access Moody's At-A Glance (Issuer) | Access Moody's At-A Glance (Obligor) Underlying Long-Term Debt Rating (effective 01/29/2026) Underlying Long-Term Debt Rating Watch Status Enhanced Long-Term Debt Rating Enhanced Long-Term Debt Rating Watch Status Insured Long-Term Debt Rating Insured Long-Term "
+    },
+    {
+      "agency": "S&P",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Long-Term Debt Rating (effective 01/29/2026) Outlook/Credit Watch (effective 01/29/2026) Underlying Maturity Long-Term Debt Rating Underlying Outlook/Credit Watch Short-Term Rating Credit Watch Underlying Maturity Short-Term Debt Rating Underlying Credit Watch Access definitions for the ratings prov"
+    }
+  ],
+  "disclosures": [
+    {
+      "doc_type": "Official Statement",
+      "filing_date": "02/11/2026",
+      "pdf_url": "https://emma.msrb.org/P22005205-P21527743-P21983511.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A6044AF8652FC404AB75319EF106642AC\\A6044AF8652FC404AB75319EF106642AC_0001_Official_Statement_OS_3_6_MB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Official Statement",
+      "filing_date": "02/10/2026",
+      "pdf_url": "https://emma.msrb.org/P22009972-P21527045-P21982708.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A6044AF8652FC404AB75319EF106642AC\\A6044AF8652FC404AB75319EF106642AC_0002_Official_Statement_OS_TARRANT_3_6_MB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Official Statement",
+      "filing_date": "02/10/2026",
+      "pdf_url": "https://emma.msrb.org/P22010305-P21526994-P21982657.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A6044AF8652FC404AB75319EF106642AC\\A6044AF8652FC404AB75319EF106642AC_0003_Official_Statement_OFFICIAL_STATEMENT_3_6_MB.pdf",
+      "download_success": true
+    }
+  ]
+}

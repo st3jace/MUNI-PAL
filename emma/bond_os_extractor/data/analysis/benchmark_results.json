@@ -1,0 +1,160 @@
+{
+  "analysis": "Phase 3 \u2014 Benchmark & Index Development",
+  "generated_at": "2026-02-14T09:18:58.710971",
+  "benchmark": {
+    "name": "Waste Sector Benchmark",
+    "n_constituents": 3,
+    "weighted_metrics": {
+      "s_omega_pct": 18.0171,
+      "sic_efficiency": 0.0692,
+      "annualized_return_pct": 15.528,
+      "annualized_risk_pct": 247.7628,
+      "mddd_s_years": 3.75,
+      "f_score": 64.22
+    },
+    "sector_envelope": {
+      "s_omega_range_pct": [
+        13.4008,
+        21.9467
+      ],
+      "return_range_pct": [
+        13.7553,
+        17.4956
+      ],
+      "risk_range_pct": [
+        194.7543,
+        390.142
+      ],
+      "mddd_s_range_years": [
+        3.31,
+        4.33
+      ]
+    },
+    "concentration": {
+      "herfindahl": 0.3472,
+      "effective_n": 2.88
+    }
+  },
+  "cri_weights": {
+    "s_omega": 0.4,
+    "sic_efficiency": 0.25,
+    "drawdown_resilience": 0.2,
+    "fundamental_quality": 0.15
+  },
+  "constituents": [
+    {
+      "asset_id": "RSG",
+      "asset_name": "RSG",
+      "cri_rank": 1,
+      "cri_score": 100.0,
+      "signal": "overweight",
+      "benchmark_weight_pct": 42.29,
+      "measures": {
+        "s_omega_pct": 21.9467,
+        "omega_at_rf": 1.1298,
+        "sic_efficiency": 0.0898,
+        "annualized_return_pct": 17.4956,
+        "annualized_risk_pct": 194.7543,
+        "mddd_s_years": 3.31,
+        "max_drawdown_pct": -34.02,
+        "f_score": 67.85
+      },
+      "relative_value": {
+        "s_omega_spread_pct": 3.9295,
+        "efficiency_spread": 0.0206,
+        "return_spread_pct": 1.9676,
+        "risk_spread_pct": -53.0085
+      },
+      "ranks": {
+        "s_omega": 1,
+        "sic_efficiency": 1,
+        "drawdown_resilience": 1,
+        "fundamental_quality": 1
+      },
+      "percentiles": {
+        "s_omega": 83.3,
+        "sic_efficiency": 83.3,
+        "drawdown_resilience": 83.3,
+        "fundamental_quality": 83.3
+      },
+      "n_observations": 1532,
+      "n_years": 6.08
+    },
+    {
+      "asset_id": "WM",
+      "asset_name": "WM",
+      "cri_rank": 2,
+      "cri_score": 66.67,
+      "signal": "underweight",
+      "benchmark_weight_pct": 31.88,
+      "measures": {
+        "s_omega_pct": 16.5436,
+        "omega_at_rf": 1.0981,
+        "sic_efficiency": 0.0678,
+        "annualized_return_pct": 13.7553,
+        "annualized_risk_pct": 202.7522,
+        "mddd_s_years": 3.86,
+        "max_drawdown_pct": -30.06,
+        "f_score": 66.89
+      },
+      "relative_value": {
+        "s_omega_spread_pct": -1.4735,
+        "efficiency_spread": -0.0014,
+        "return_spread_pct": -1.7726,
+        "risk_spread_pct": -45.0105
+      },
+      "ranks": {
+        "s_omega": 2,
+        "sic_efficiency": 2,
+        "drawdown_resilience": 2,
+        "fundamental_quality": 2
+      },
+      "percentiles": {
+        "s_omega": 50.0,
+        "sic_efficiency": 50.0,
+        "drawdown_resilience": 50.0,
+        "fundamental_quality": 50.0
+      },
+      "n_observations": 1532,
+      "n_years": 6.08
+    },
+    {
+      "asset_id": "CWST",
+      "asset_name": "CWST",
+      "cri_rank": 3,
+      "cri_score": 33.33,
+      "signal": "underweight",
+      "benchmark_weight_pct": 25.82,
+      "measures": {
+        "s_omega_pct": 13.4008,
+        "omega_at_rf": 1.086,
+        "sic_efficiency": 0.0372,
+        "annualized_return_pct": 14.4939,
+        "annualized_risk_pct": 390.142,
+        "mddd_s_years": 4.33,
+        "max_drawdown_pct": -34.96,
+        "f_score": 54.98
+      },
+      "relative_value": {
+        "s_omega_spread_pct": -4.6163,
+        "efficiency_spread": -0.0321,
+        "return_spread_pct": -1.0341,
+        "risk_spread_pct": 142.3793
+      },
+      "ranks": {
+        "s_omega": 3,
+        "sic_efficiency": 3,
+        "drawdown_resilience": 3,
+        "fundamental_quality": 3
+      },
+      "percentiles": {
+        "s_omega": 16.7,
+        "sic_efficiency": 16.7,
+        "drawdown_resilience": 16.7,
+        "fundamental_quality": 16.7
+      },
+      "n_observations": 1532,
+      "n_years": 6.08
+    }
+  ]
+}

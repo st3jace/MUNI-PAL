@@ -7,15 +7,16 @@ All artifacts, facts, and deliverables belong to a project.
 
 from uuid import UUID
 
-from fastapi import APIRouter, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 
-from munipal.api.dependencies import AuthenticatedUserId, DbSession
+from munipal.api.dependencies import AuthenticatedUserId, DbSession, require_roles
 from munipal.core.schemas.project import (
     ProjectCreate,
     ProjectRead,
-    ProjectSummary,
     ProjectUpdate,
 )
+from munipal.services.authorization_service import AuthorizationService
+from munipal.services.audit_service import AuditService
 from munipal.services.project_service import ProjectService
 
 router = APIRouter()
@@ -26,6 +27,7 @@ async def create_project(
     data: ProjectCreate,
     db: DbSession,
     user_id: AuthenticatedUserId,
+    _: str = Depends(require_roles("admin", "analyst")),
 ) -> ProjectRead:
     """
     Create a new project.
@@ -37,9 +39,11 @@ async def create_project(
     try:
         return await service.create(data, owner_id=user_id)
     except ValueError as e:
+        message = str(e)
+        status_code = status.HTTP_404_NOT_FOUND if "Playbook" in message else status.HTTP_400_BAD_REQUEST
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=str(e),
+            status_code=status_code,
+            detail=message,
         )
 
 
@@ -49,6 +53,7 @@ async def list_projects(
     user_id: AuthenticatedUserId,
     skip: int = Query(0, ge=0),
     limit: int = Query(50, ge=1, le=100),
+    _: str = Depends(require_roles("admin", "analyst", "viewer")),
 ) -> dict:
     """
     List all projects accessible to the current user.
@@ -56,7 +61,9 @@ async def list_projects(
     Returns paginated list with summary information.
     """
     service = ProjectService(db)
-    projects, total = await service.list(owner_id=user_id, skip=skip, limit=limit)
+    authz = AuthorizationService(db)
+    owner_filter = None if await authz.is_superuser(user_id) else user_id
+    projects, total = await service.list(owner_id=owner_filter, skip=skip, limit=limit)
 
     return {
         "projects": [p.model_dump() for p in projects],
@@ -71,8 +78,12 @@ async def get_project(
     project_id: UUID,
     db: DbSession,
     user_id: AuthenticatedUserId,
+    _: str = Depends(require_roles("admin", "analyst", "viewer")),
 ) -> ProjectRead:
     """Get a specific project by ID with computed metrics."""
+    authz = AuthorizationService(db)
+    await authz.require_project_read(user_id, project_id)
+
     service = ProjectService(db)
     project = await service.get(project_id)
 
@@ -81,8 +92,6 @@ async def get_project(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Project {project_id} not found",
         )
-
-    # TODO: Add ownership/permission check
     return project
 
 
@@ -92,8 +101,12 @@ async def update_project(
     data: ProjectUpdate,
     db: DbSession,
     user_id: AuthenticatedUserId,
+    _: str = Depends(require_roles("admin", "analyst")),
 ) -> ProjectRead:
     """Update a project's metadata."""
+    authz = AuthorizationService(db)
+    await authz.require_project_write(user_id, project_id)
+
     service = ProjectService(db)
     project = await service.update(project_id, data)
 
@@ -111,6 +124,7 @@ async def delete_project(
     project_id: UUID,
     db: DbSession,
     user_id: AuthenticatedUserId,
+    _: str = Depends(require_roles("admin")),
 ) -> None:
     """
     Delete a project.
@@ -118,6 +132,9 @@ async def delete_project(
     WARNING: This will delete all associated artifacts, facts, and deliverables.
     This action cannot be undone.
     """
+    authz = AuthorizationService(db)
+    await authz.require_project_write(user_id, project_id)
+
     service = ProjectService(db)
     deleted = await service.delete(project_id)
 
@@ -126,3 +143,11 @@ async def delete_project(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Project {project_id} not found",
         )
+
+    AuditService.emit_event(
+        actor_id=user_id,
+        action="delete_project",
+        target_type="project",
+        target_id=str(project_id),
+        project_id=str(project_id),
+    )

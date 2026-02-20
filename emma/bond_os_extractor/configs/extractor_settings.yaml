@@ -1,0 +1,28 @@
+extraction:
+  tier1_enabled: true
+  tier2_enabled: true
+  ai_cache_enabled: true
+  cache_ttl_days: 30
+  default_confidence_threshold: 0.85
+  parallel_extraction: false
+
+anthropic:
+  model: "claude-sonnet-4-20250514"
+  temperature: 0.0
+  max_retries: 3
+  timeout_seconds: 60
+  max_tokens: 4096
+
+table_extraction:
+  max_table_pages: 5
+  min_table_rows: 3
+  max_table_rows: 1000
+
+ingestion:
+  min_text_chars_per_page: 50
+  ocr_confidence_base: 0.75
+  text_confidence: 1.0
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s [%(levelname)s] %(name)s: %(message)s"

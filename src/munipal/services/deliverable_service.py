@@ -205,6 +205,10 @@ class DeliverableService:
                     })
                     warnings.append(f"Section {section_num} generation failed")
 
+        # Update pack title with current date on (re)generation
+        now = datetime.now(timezone.utc)
+        pack.title = f"Advisor Handoff Pack - {now.month}/{now.day}/{now.year}"
+
         # Update pack with generated content
         pack.sections = sections
         pack.warnings = warnings
@@ -383,7 +387,9 @@ class DeliverableService:
 """
         if gaps.critical_gaps:
             for gap in gaps.critical_gaps[:10]:
-                content += f"- **{gap.description}** ({gap.dimension.value}): {gap.impact}\n"
+                # gap.dimension is a plain str when use_enum_values=True
+                dim_value = getattr(gap.dimension, 'value', gap.dimension)
+                content += f"- **{gap.description}** ({dim_value}): {gap.impact}\n"
         else:
             content += "*No critical gaps identified.*\n"
 
@@ -395,7 +401,8 @@ class DeliverableService:
 """
         if gaps.material_gaps:
             for gap in gaps.material_gaps[:10]:
-                content += f"- {gap.description} ({gap.dimension.value})\n"
+                dim_value = getattr(gap.dimension, 'value', gap.dimension)
+                content += f"- {gap.description} ({dim_value})\n"
         else:
             content += "*No material gaps identified.*\n"
 
@@ -531,9 +538,11 @@ This section documents assumptions made where evidence is incomplete or requires
 """
         if gaps.critical_gaps or gaps.material_gaps:
             for gap in gaps.critical_gaps + gaps.material_gaps:
+                # gap.dimension is a plain str when use_enum_values=True
+                dim_value = getattr(gap.dimension, 'value', gap.dimension)
                 content += f"""### {gap.description}
 
-- **Dimension:** {gap.dimension.value}
+- **Dimension:** {dim_value}
 - **Criticality:** {gap.criticality}
 - **Suggested Evidence:** {gap.suggested_evidence}
 - **Assumption:** *Value must be provided or verified by project sponsor*
@@ -801,6 +810,7 @@ This section provides a preliminary outline for Official Statement preparation.
                 and_(
                     ExtractedFact.project_id == str(project_id),
                     ExtractedFact.review_status == ReviewStatus.APPROVED.value,
+                    ExtractedFact.lifecycle_state != "archived",
                 )
             )
         )

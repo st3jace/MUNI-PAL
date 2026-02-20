@@ -13,6 +13,7 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from munipal.api.dependencies import require_auth
 from munipal.core.schemas.base import ChecklistPhase, ChecklistStatus
 from munipal.core.schemas.checklist import (
     ChecklistItemDefinition,
@@ -22,7 +23,7 @@ from munipal.core.schemas.checklist import (
 from munipal.db.session import get_async_session
 from munipal.services.checklist_service import ChecklistService
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(require_auth)])
 
 
 def get_checklist_service(

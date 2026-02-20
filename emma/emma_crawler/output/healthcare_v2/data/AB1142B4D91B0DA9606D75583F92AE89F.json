@@ -1,0 +1,1280 @@
+{
+  "cusip": "AB1142B4D91B0DA9606D75583F92AE89F",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-20T02:39:23.852221+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/AB1142B4D91B0DA9606D75583F92AE89F",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "empty",
+      "trade_activity": "success",
+      "ratings": "success",
+      "disclosures": "success"
+    }
+  },
+  "snapshot": {
+    "security_name": "DORMITORY AUTHORITY OF THE STATE OF NEW YORK / THE NEW YORK AND PRESBYTERIAN HOSPITAL OBLIGATED GROUP REVENUE BONDS, SERIES 2023A",
+    "cusip": "",
+    "principal_amount": 30355000,
+    "maturity_date": "08/01/2030",
+    "dated_date": "08/29/2023",
+    "coupon_pct": "5 %",
+    "closing_date": "08/29/2023",
+    "fiscal_year_end_date": "12/31/2024",
+    "initial_offering_price_yield": "111.951% / 3.07%",
+    "time_of_formal_award": "08/17/2023 07:32 PM",
+    "time_of_first_execution": "08/18/2023 11:00 AM",
+    "state": "NY"
+  },
+  "interest_rates": [],
+  "trades": [
+    {
+      "trade_date": "02/10/2026 03:19 PM",
+      "settlement_date": "02/11/2026",
+      "price": "111.96",
+      "yield": "2.179",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "02/10/2026 03:19 PM",
+      "settlement_date": "02/11/2026",
+      "price": "112.06",
+      "yield": "2.157",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "02/05/2026 12:52 PM",
+      "settlement_date": "02/06/2026",
+      "price": "112.081",
+      "yield": "2.16",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "02/04/2026 08:58 AM",
+      "settlement_date": "02/05/2026",
+      "price": "112.116",
+      "yield": "2.154",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "45,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "02/02/2026 03:44 PM",
+      "settlement_date": "02/03/2026",
+      "price": "112.288",
+      "yield": "2.119",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "40,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "02/02/2026 03:44 PM",
+      "settlement_date": "02/03/2026",
+      "price": "112.288",
+      "yield": "2.119",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "40,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/29/2026 12:28 PM",
+      "settlement_date": "01/30/2026",
+      "price": "111.792",
+      "yield": "2.233",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "85,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/27/2026 01:43 PM",
+      "settlement_date": "01/28/2026",
+      "price": "111.942",
+      "yield": "2.203",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "65,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/27/2026 01:43 PM",
+      "settlement_date": "01/28/2026",
+      "price": "111.942",
+      "yield": "2.203",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "65,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/22/2026 11:54 AM",
+      "settlement_date": "01/23/2026",
+      "price": "111.31",
+      "yield": "2.349",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer sold",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/22/2026 11:54 AM",
+      "settlement_date": "01/23/2026",
+      "price": "111.31",
+      "yield": "2.349",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/22/2026 11:54 AM",
+      "settlement_date": "01/23/2026",
+      "price": "111.41",
+      "yield": "2.327",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/15/2026 03:01 PM",
+      "settlement_date": "01/16/2026",
+      "price": "111.946",
+      "yield": "2.22",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "55,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/15/2026 01:32 PM",
+      "settlement_date": "01/16/2026",
+      "price": "111.957",
+      "yield": "2.218",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "65,000",
+      "trade_type": "Customer sold",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/15/2026 01:32 PM",
+      "settlement_date": "01/16/2026",
+      "price": "111.957",
+      "yield": "2.218",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "65,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/15/2026 01:32 PM",
+      "settlement_date": "01/16/2026",
+      "price": "111.957",
+      "yield": "2.218",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "65,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/13/2026 03:03 PM",
+      "settlement_date": "01/14/2026",
+      "price": "111.745",
+      "yield": "2.267",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "15,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/07/2026 11:38 AM",
+      "settlement_date": "01/08/2026",
+      "price": "111.714",
+      "yield": "2.282",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "40,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "12/22/2025 04:31 PM",
+      "settlement_date": "12/23/2025",
+      "price": "111.177",
+      "yield": "2.42",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "12/15/2025 02:18 PM",
+      "settlement_date": "12/16/2025",
+      "price": "111.34",
+      "yield": "2.395",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "12/15/2025 11:53 AM",
+      "settlement_date": "12/16/2025",
+      "price": "110.66",
+      "yield": "2.542",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer sold",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/15/2025 11:53 AM",
+      "settlement_date": "12/16/2025",
+      "price": "110.66",
+      "yield": "2.542",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "12/15/2025 11:53 AM",
+      "settlement_date": "12/16/2025",
+      "price": "110.96",
+      "yield": "2.477",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/15/2025 11:53 AM",
+      "settlement_date": "12/16/2025",
+      "price": "110.71",
+      "yield": "2.531",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/11/2025 01:46 PM",
+      "settlement_date": "12/12/2025",
+      "price": "111.759",
+      "yield": "2.31",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "12/10/2025 02:45 PM",
+      "settlement_date": "12/11/2025",
+      "price": "111.401",
+      "yield": "2.388",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "5,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/10/2025 02:45 PM",
+      "settlement_date": "12/11/2025",
+      "price": "111.401",
+      "yield": "2.388",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "5,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "12/09/2025 02:31 PM",
+      "settlement_date": "12/10/2025",
+      "price": "111.157",
+      "yield": "2.442",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "15,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "12/04/2025 10:57 AM",
+      "settlement_date": "12/05/2025",
+      "price": "111.618",
+      "yield": "2.35",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "11/21/2025 10:44 AM",
+      "settlement_date": "11/24/2025",
+      "price": "111.596",
+      "yield": "2.37",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "125,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "11/21/2025 10:35 AM",
+      "settlement_date": "11/24/2025",
+      "price": "111.389",
+      "yield": "2.414",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "125,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "11/20/2025 03:22 PM",
+      "settlement_date": "11/21/2025",
+      "price": "111.053",
+      "yield": "2.49",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "5,000",
+      "trade_type": "Customer sold",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "11/20/2025 03:21 PM",
+      "settlement_date": "11/21/2025",
+      "price": "111.053",
+      "yield": "2.49",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "5,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "11/20/2025 03:21 PM",
+      "settlement_date": "11/21/2025",
+      "price": "111.053",
+      "yield": "2.49",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "5,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "11/17/2025 04:09 PM",
+      "settlement_date": "11/18/2025",
+      "price": "111.763",
+      "yield": "2.343",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "11/17/2025 04:09 PM",
+      "settlement_date": "11/18/2025",
+      "price": "111.763",
+      "yield": "2.343",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "11/17/2025 12:00 PM",
+      "settlement_date": "11/17/2025",
+      "price": "111.132",
+      "yield": "2.478",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Customer sold",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "11/17/2025 12:00 PM",
+      "settlement_date": "11/17/2025",
+      "price": "111.132",
+      "yield": "2.478",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "11/13/2025 03:29 PM",
+      "settlement_date": "11/14/2025",
+      "price": "111.52",
+      "yield": "2.4",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "11/13/2025 11:31 AM",
+      "settlement_date": "11/14/2025",
+      "price": "111.13",
+      "yield": "2.483",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "11/12/2025 02:36 PM",
+      "settlement_date": "11/13/2025",
+      "price": "111.747",
+      "yield": "2.353",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "11/12/2025 02:36 PM",
+      "settlement_date": "11/13/2025",
+      "price": "111.747",
+      "yield": "2.353",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "11/03/2025 03:54 PM",
+      "settlement_date": "11/04/2025",
+      "price": "111.57",
+      "yield": "2.403",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "11/03/2025 12:12 PM",
+      "settlement_date": "11/04/2025",
+      "price": "111.345",
+      "yield": "2.45",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Customer sold",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "11/03/2025 12:12 PM",
+      "settlement_date": "11/04/2025",
+      "price": "111.38",
+      "yield": "2.443",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/28/2025 11:58 AM",
+      "settlement_date": "10/29/2025",
+      "price": "111.9",
+      "yield": "2.34",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/28/2025 11:58 AM",
+      "settlement_date": "10/29/2025",
+      "price": "111.9",
+      "yield": "2.34",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/28/2025 10:07 AM",
+      "settlement_date": "10/28/2025",
+      "price": "111.454",
+      "yield": "2.435",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "15,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/28/2025 10:07 AM",
+      "settlement_date": "10/28/2025",
+      "price": "111.454",
+      "yield": "2.435",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "15,000",
+      "trade_type": "Customer sold",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/17/2025 09:58 AM",
+      "settlement_date": "10/20/2025",
+      "price": "112.504",
+      "yield": "2.227",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/17/2025 09:58 AM",
+      "settlement_date": "10/20/2025",
+      "price": "112.504",
+      "yield": "2.227",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/15/2025 11:00 AM",
+      "settlement_date": "10/15/2025",
+      "price": "111.722",
+      "yield": "2.397",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "25,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/15/2025 11:00 AM",
+      "settlement_date": "10/15/2025",
+      "price": "111.842",
+      "yield": "2.372",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "25,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/14/2025 12:50 PM",
+      "settlement_date": "10/15/2025",
+      "price": "112.01",
+      "yield": "2.337",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "30,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/14/2025 11:02 AM",
+      "settlement_date": "10/15/2025",
+      "price": "111.75",
+      "yield": "2.391",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "30,000",
+      "trade_type": "Customer sold",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/14/2025 11:02 AM",
+      "settlement_date": "10/15/2025",
+      "price": "111.75",
+      "yield": "2.391",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "30,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/10/2025 11:32 AM",
+      "settlement_date": "10/14/2025",
+      "price": "112.22",
+      "yield": "2.295",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/10/2025 11:32 AM",
+      "settlement_date": "10/14/2025",
+      "price": "112.22",
+      "yield": "2.295",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/10/2025 11:20 AM",
+      "settlement_date": "10/10/2025",
+      "price": "111.81",
+      "yield": "2.385",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/06/2025 12:01 PM",
+      "settlement_date": "10/07/2025",
+      "price": "112.19",
+      "yield": "2.31",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/06/2025 12:01 PM",
+      "settlement_date": "10/07/2025",
+      "price": "112.19",
+      "yield": "2.31",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "09/30/2025 12:10 PM",
+      "settlement_date": "10/01/2025",
+      "price": "111.984",
+      "yield": "2.361",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "09/30/2025 12:10 PM",
+      "settlement_date": "10/01/2025",
+      "price": "112.104",
+      "yield": "2.336",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "09/23/2025 12:15 PM",
+      "settlement_date": "09/24/2025",
+      "price": "113.2",
+      "yield": "2.122",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "09/22/2025 12:20 PM",
+      "settlement_date": "09/23/2025",
+      "price": "112.88",
+      "yield": "2.189",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "09/18/2025 03:47 PM",
+      "settlement_date": "09/19/2025",
+      "price": "113.385",
+      "yield": "2.092",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "45,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "09/18/2025 03:47 PM",
+      "settlement_date": "09/19/2025",
+      "price": "113.51",
+      "yield": "2.067",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "45,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "09/15/2025 04:12 PM",
+      "settlement_date": "09/16/2025",
+      "price": "113.418",
+      "yield": "2.09",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "35,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "09/12/2025 03:36 PM",
+      "settlement_date": "09/15/2025",
+      "price": "113.376",
+      "yield": "2.1",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "35,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "09/03/2025 02:58 PM",
+      "settlement_date": "09/04/2025",
+      "price": "112.109",
+      "yield": "2.372",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "70,000",
+      "trade_type": "Customer sold",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "09/03/2025 11:49 AM",
+      "settlement_date": "09/04/2025",
+      "price": "112.109",
+      "yield": "2.372",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "70,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/27/2025 02:44 PM",
+      "settlement_date": "08/28/2025",
+      "price": "111.977",
+      "yield": "2.406",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "15,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/27/2025 02:44 PM",
+      "settlement_date": "08/28/2025",
+      "price": "112.177",
+      "yield": "2.366",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "15,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "08/27/2025 10:07 AM",
+      "settlement_date": "08/28/2025",
+      "price": "112.155",
+      "yield": "2.37",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "45,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/26/2025 02:23 PM",
+      "settlement_date": "08/27/2025",
+      "price": "112.014",
+      "yield": "2.4",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "45,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/25/2025 09:18 AM",
+      "settlement_date": "08/26/2025",
+      "price": "112.37",
+      "yield": "2.329",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "75,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/22/2025 09:31 AM",
+      "settlement_date": "08/25/2025",
+      "price": "111.82",
+      "yield": "2.442",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "75,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/20/2025 11:32 AM",
+      "settlement_date": "08/21/2025",
+      "price": "112.123",
+      "yield": "2.386",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "25,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "08/20/2025 11:32 AM",
+      "settlement_date": "08/21/2025",
+      "price": "112.123",
+      "yield": "2.386",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "25,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "08/19/2025 11:00 AM",
+      "settlement_date": "08/20/2025",
+      "price": "111.791",
+      "yield": "2.454",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "25,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/15/2025 03:31 PM",
+      "settlement_date": "08/18/2025",
+      "price": "112.317",
+      "yield": "2.351",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "30,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/13/2025 10:57 AM",
+      "settlement_date": "08/14/2025",
+      "price": "111.722",
+      "yield": "2.476",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "15,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/13/2025 10:57 AM",
+      "settlement_date": "08/14/2025",
+      "price": "111.782",
+      "yield": "2.464",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "15,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "08/06/2025 03:01 PM",
+      "settlement_date": "08/07/2025",
+      "price": "111.793",
+      "yield": "2.47",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "30,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/05/2025 04:42 PM",
+      "settlement_date": "08/06/2025",
+      "price": "112.249",
+      "yield": "2.38",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/05/2025 12:55 PM",
+      "settlement_date": "08/06/2025",
+      "price": "111.83",
+      "yield": "2.464",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "07/17/2025 03:54 PM",
+      "settlement_date": "07/18/2025",
+      "price": "111.728",
+      "yield": "2.506",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "07/17/2025 03:54 PM",
+      "settlement_date": "07/18/2025",
+      "price": "111.078",
+      "yield": "2.636",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "20,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "07/15/2025 10:11 AM",
+      "settlement_date": "07/16/2025",
+      "price": "111.56",
+      "yield": "2.542",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "25,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "07/14/2025 02:12 PM",
+      "settlement_date": "07/15/2025",
+      "price": "111.041",
+      "yield": "2.647",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "5,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "07/14/2025 11:17 AM",
+      "settlement_date": "07/15/2025",
+      "price": "111.15",
+      "yield": "2.625",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "25,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "07/07/2025 01:26 PM",
+      "settlement_date": "07/08/2025",
+      "price": "110.903",
+      "yield": "2.683",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "15,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "07/07/2025 01:26 PM",
+      "settlement_date": "07/08/2025",
+      "price": "110.983",
+      "yield": "2.667",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "15,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "07/02/2025 01:37 PM",
+      "settlement_date": "07/03/2025",
+      "price": "111.651",
+      "yield": "2.539",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "40,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "06/24/2025 02:44 PM",
+      "settlement_date": "06/25/2025",
+      "price": "110.551",
+      "yield": "2.767",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "45,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "06/24/2025 02:44 PM",
+      "settlement_date": "06/25/2025",
+      "price": "110.601",
+      "yield": "2.757",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "45,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "06/23/2025 08:28 AM",
+      "settlement_date": "06/24/2025",
+      "price": "110.641",
+      "yield": "2.75",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "06/20/2025 11:16 AM",
+      "settlement_date": "06/23/2025",
+      "price": "110.902",
+      "yield": "2.699",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "30,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "06/20/2025 11:14 AM",
+      "settlement_date": "06/23/2025",
+      "price": "110.497",
+      "yield": "2.78",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "15,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "06/20/2025 11:14 AM",
+      "settlement_date": "06/23/2025",
+      "price": "110.697",
+      "yield": "2.74",
+      "calculation_date_price": "08/01/2030 @ 100",
+      "trade_amount": "15,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    }
+  ],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Long-Term Issue Rating (effective 07/30/2025) Long-Term Issue Rating Alert Code (effective 07/30/2025) Unenhanced Long-Term Issue Rating (effective 07/30/2025) Unenhanced Long-Term Issue Rating Alert Code (effective 07/30/2025) Short-Term Issue Rating Short-Term Issue Rating Alert Code Unenhanced Sh"
+    },
+    {
+      "agency": "KBRA",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Kroll Bond Rating Agency."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Access Moody's At-A Glance (Issuer) | Access Moody's At-A Glance (Obligor) Underlying Long-Term Debt Rating (effective 08/08/2023) Underlying Long-Term Debt Rating Watch Status Enhanced Long-Term Debt Rating Enhanced Long-Term Debt Rating Watch Status Insured Long-Term Debt Rating Insured Long-Term "
+    },
+    {
+      "agency": "S&P",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Standard and Poor's Financial Services LLC."
+    }
+  ],
+  "disclosures": [
+    {
+      "doc_type": "Official Statement",
+      "filing_date": "08/23/2023",
+      "pdf_url": "https://emma.msrb.org/P11693075-P11302183-P11733014.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AB1142B4D91B0DA9606D75583F92AE89F\\AB1142B4D91B0DA9606D75583F92AE89F_0001_Official_Statement_s.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/26/2025",
+      "pdf_url": "https://emma.msrb.org/P21992636-P21518583-P21973096.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AB1142B4D91B0DA9606D75583F92AE89F\\AB1142B4D91B0DA9606D75583F92AE89F_0002_Financial_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/12/2026",
+      "pdf_url": "https://emma.msrb.org/P11913074-P11461452-P11910060.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AB1142B4D91B0DA9606D75583F92AE89F\\AB1142B4D91B0DA9606D75583F92AE89F_0003_Event_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/12/2026",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11442719",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "07/30/2025",
+      "pdf_url": "https://emma.msrb.org/P21950797-P21489524-P21941105.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AB1142B4D91B0DA9606D75583F92AE89F\\AB1142B4D91B0DA9606D75583F92AE89F_0005_New_York_Presbyterian_Hospital_Fitch_Affirmation_J.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "07/30/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21471179",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/26/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21500203",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/23/2025",
+      "pdf_url": "https://emma.msrb.org/P11857179-P11421840-P11865605.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AB1142B4D91B0DA9606D75583F92AE89F\\AB1142B4D91B0DA9606D75583F92AE89F_0008_Annual_Financial_Disclosures_Posted_05_23_2025_for.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/23/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11403378",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/23/2025",
+      "pdf_url": "https://emma.msrb.org/P11857175-P11421837-P11865602.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AB1142B4D91B0DA9606D75583F92AE89F\\AB1142B4D91B0DA9606D75583F92AE89F_0010_Audited_Financial_Statements_Posted_05_23_2025_for.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/23/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11403375",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2025",
+      "pdf_url": "https://emma.msrb.org/P11880211-P11437809-P11883226.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AB1142B4D91B0DA9606D75583F92AE89F\\AB1142B4D91B0DA9606D75583F92AE89F_0012_2025_2nd_Quarter_Unaudited_Financial_Statements_fo.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11419186",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "03/31/2025",
+      "pdf_url": "https://emma.msrb.org/P11857166-P11421831-P11865596.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AB1142B4D91B0DA9606D75583F92AE89F\\AB1142B4D91B0DA9606D75583F92AE89F_0014_2025_1st_Quarter_Unaudited_Financial_Statements_fo.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "03/31/2025",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11403370",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2024",
+      "pdf_url": "https://emma.msrb.org/P11811238-P11388363-P11828092.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AB1142B4D91B0DA9606D75583F92AE89F\\AB1142B4D91B0DA9606D75583F92AE89F_0016_2024_3rd_Quarter_Unaudited_Financial_Statements_fo.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11369869",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2023",
+      "pdf_url": "https://emma.msrb.org/P11785296-P11370078-P11807818.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AB1142B4D91B0DA9606D75583F92AE89F\\AB1142B4D91B0DA9606D75583F92AE89F_0018_2024_2nd_Quarter_Unaudited_Financial_Statements_fo.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/30/2023",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11351546",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "03/31/2024",
+      "pdf_url": "https://emma.msrb.org/P21811995-P21390086-P21830759.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AB1142B4D91B0DA9606D75583F92AE89F\\AB1142B4D91B0DA9606D75583F92AE89F_0020_2024_1st_Quarter_Disclosure_Report_for_the_quarter.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "03/31/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21371786",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2023",
+      "pdf_url": "https://emma.msrb.org/P31450585-P31126468-P31538873.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AB1142B4D91B0DA9606D75583F92AE89F\\AB1142B4D91B0DA9606D75583F92AE89F_0022_2023_3rd_Quarter_Unaudited_Financial_Statements_fo.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/30/2023",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P31108619",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/31/2023",
+      "pdf_url": "https://emma.msrb.org/P21811963-P21390067-P21830739.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AB1142B4D91B0DA9606D75583F92AE89F\\AB1142B4D91B0DA9606D75583F92AE89F_0024_2023_Annual_Disclosure_Report_for_the_year_ended_1.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/31/2023",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21371765",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/31/2023",
+      "pdf_url": "https://emma.msrb.org/P21811952-P21390060-P21830731.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AB1142B4D91B0DA9606D75583F92AE89F\\AB1142B4D91B0DA9606D75583F92AE89F_0026_2023_Audited_Financial_Statements_for_the_year_end.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/31/2023",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21371757",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "5/22/2024",
+      "pdf_url": "https://emma.msrb.org/P21811930-P21390045-P21830714.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AB1142B4D91B0DA9606D75583F92AE89F\\AB1142B4D91B0DA9606D75583F92AE89F_0028_2024_Not_for_Profit_Health_Care_Investor_Conferenc.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "5/22/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21371740",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/28/2023",
+      "pdf_url": "https://emma.msrb.org/P21723504-P21324665-P21757916.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AB1142B4D91B0DA9606D75583F92AE89F\\AB1142B4D91B0DA9606D75583F92AE89F_0030_Incorporate_OS_by_Reference_as_of_08_28_2023_4_9_M.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/28/2023",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21306260",
+      "local_pdf_path": "",
+      "download_success": false
+    }
+  ]
+}

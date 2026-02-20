@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir:*)",
+      "Bash(Get-ChildItem \"c:\\\\Users\\\\st3ja\\\\OneDrive\\\\Documents\\\\MEGA\\\\PROJECTS\\\\INNOVATION FACTORY\\\\MUNI-PAL\\\\emma\\\\emma_crawler\\\\output\\\\data\\\\*.json\")",
+      "Bash(Select-Object Name, LastWriteTime)",
+      "Bash(Sort-Object LastWriteTime -Descending)",
+      "Bash(Select-Object -First 10)",
+      "Bash(Remove-Item .outputcheckpoint.json -ErrorAction SilentlyContinue)",
+      "Bash(python -m src.main:*)",
+      "Bash(powershell -Command \"cd ''c:\\\\Users\\\\st3ja\\\\OneDrive\\\\Documents\\\\MEGA\\\\PROJECTS\\\\INNOVATION FACTORY\\\\MUNI-PAL\\\\emma\\\\emma_crawler''; Remove-Item .\\\\output\\\\checkpoint.json -ErrorAction SilentlyContinue; python -m src.main --phase3-only --max-securities 1 --visible\")",
+      "Bash(powershell -Command:*)",
+      "Bash(powershell -File:*)",
+      "Bash(python:*)",
+      "Bash(pip install:*)",
+      "Bash(find:*)",
+      "Bash(del:*)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\st3ja\\\\OneDrive\\\\Documents\\\\MEGA\\\\PROJECTS\\\\INNOVATION FACTORY\\\\MUNI-PAL\\\\emma\\\\emma_crawler\\\\output\\\\pdfs\"\" -Directory)",
+      "Bash(Select-Object -First 20)",
+      "Bash(ForEach-Object { $_Name })",
+      "Bash(ls:*)",
+      "Bash(python3:*)"
+    ]
+  }
+}

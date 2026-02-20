@@ -1,0 +1,76 @@
+{
+  "cusip": "AEF817F0E03839E06769415A9F4E44CA1",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-19T23:50:03.402805+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/AEF817F0E03839E06769415A9F4E44CA1",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "empty",
+      "trade_activity": "empty",
+      "ratings": "success",
+      "disclosures": "success"
+    }
+  },
+  "snapshot": {
+    "security_name": "MASSACHUSETTS ST DEV FIN AGY REV / BDS BOSTON CHILDRENS HOSP 2014 Q",
+    "cusip": "",
+    "principal_amount": 50255000,
+    "maturity_date": "10/01/2042",
+    "dated_date": "07/11/2014",
+    "coupon_pct": "2.61 %",
+    "closing_date": "-",
+    "fiscal_year_end_date": "-",
+    "initial_offering_price_yield": "100%",
+    "time_of_formal_award": "",
+    "time_of_first_execution": "",
+    "state": "MA"
+  },
+  "interest_rates": [],
+  "trades": [],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Fitch Ratings."
+    },
+    {
+      "agency": "KBRA",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Kroll Bond Rating Agency."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Moody's Investors Service, Inc."
+    },
+    {
+      "agency": "S&P",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Standard and Poor's Financial Services LLC."
+    }
+  ],
+  "disclosures": [
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/05/2024",
+      "pdf_url": "https://emma.msrb.org/P21763918-P21354100-P21790519.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AEF817F0E03839E06769415A9F4E44CA1\\AEF817F0E03839E06769415A9F4E44CA1_0001_Event_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "01/05/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21335764",
+      "local_pdf_path": "",
+      "download_success": false
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "cusip": "A96DCF454B000D117DD4F9DA7702B3037",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-07T02:07:15.379378+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/A96DCF454B000D117DD4F9DA7702B3037",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "empty",
+      "trade_activity": "success",
+      "ratings": "success",
+      "disclosures": "success"
+    }
+  },
+  "snapshot": {
+    "security_name": "CITY OF FORT WAYNE, INDIANA / ECONOMIC DEVELOPMENT SOLID WASTE FACILITY REVENUE BONDS (DO GOOD FOODS FORT WAYNE LLC PROJECT), SERIES 2022A-2",
+    "cusip": "",
+    "principal_amount": 18220000,
+    "maturity_date": "12/01/2029",
+    "dated_date": "12/15/2022",
+    "coupon_pct": "10.75 %",
+    "closing_date": "12/15/2022",
+    "fiscal_year_end_date": "-",
+    "initial_offering_price_yield": "100% / 10.75%",
+    "time_of_formal_award": "12/14/2022 11:25 AM",
+    "time_of_first_execution": "12/14/2022 01:45 PM",
+    "state": "IN"
+  },
+  "interest_rates": [],
+  "trades": [
+    {
+      "trade_date": "07/23/2024 01:58 PM",
+      "settlement_date": "07/24/2024",
+      "price": "0.1",
+      "yield": "-",
+      "calculation_date_price": "12/01/2029 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "12/14/2022 01:45 PM",
+      "settlement_date": "12/15/2022",
+      "price": "100",
+      "yield": "10.748",
+      "calculation_date_price": "12/01/2029 @ 100",
+      "trade_amount": "9,110,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/14/2022 01:45 PM",
+      "settlement_date": "12/15/2022",
+      "price": "100",
+      "yield": "10.748",
+      "calculation_date_price": "12/01/2029 @ 100",
+      "trade_amount": "9,110,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    }
+  ],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Fitch Ratings."
+    },
+    {
+      "agency": "KBRA",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Kroll Bond Rating Agency."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Moody's Investors Service, Inc."
+    },
+    {
+      "agency": "S&P",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Standard and Poor's Financial Services LLC."
+    }
+  ],
+  "disclosures": [
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/18/2024",
+      "pdf_url": "https://emma.msrb.org/P21873208-P21432914-P21877941.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A96DCF454B000D117DD4F9DA7702B3037\\A96DCF454B000D117DD4F9DA7702B3037_0001_Event_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/18/2024",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21414441",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/31/2023",
+      "pdf_url": "https://emma.msrb.org/P11667418-P21316871-P11712880.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A96DCF454B000D117DD4F9DA7702B3037\\A96DCF454B000D117DD4F9DA7702B3037_0003_Notice_of_Partial_Mandatory_Redemption_143_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/31/2023",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21298514",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/31/2023",
+      "pdf_url": "https://emma.msrb.org/P11667418-P21316871-P21749445.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A96DCF454B000D117DD4F9DA7702B3037\\A96DCF454B000D117DD4F9DA7702B3037_0005_Event_Filing_143_KB_Archived.pdf",
+      "download_success": true
+    }
+  ]
+}

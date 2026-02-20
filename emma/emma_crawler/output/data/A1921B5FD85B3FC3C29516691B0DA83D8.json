@@ -1,0 +1,463 @@
+{
+  "cusip": "A1921B5FD85B3FC3C29516691B0DA83D8",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-07T02:47:56.227338+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/A1921B5FD85B3FC3C29516691B0DA83D8",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "success",
+      "trade_activity": "success",
+      "ratings": "success",
+      "disclosures": "success"
+    }
+  },
+  "snapshot": {
+    "security_name": "PORT OF CORPUS CHRISTI AUTHORITY OF NUECES COUNTY, TEXAS / SOLID WASTE DISPOSAL REVENUE BONDS (FLINT HILLS RESOURCES, LP\u2014 WEST PLANT PRO JECT) SERIES 2002B",
+    "cusip": "",
+    "principal_amount": 11700000,
+    "maturity_date": "07/01/2029",
+    "dated_date": "10/01/2002",
+    "coupon_pct": "3.1",
+    "closing_date": "05/02/2022",
+    "fiscal_year_end_date": "-",
+    "initial_offering_price_yield": "",
+    "time_of_formal_award": "",
+    "time_of_first_execution": "",
+    "state": "TX"
+  },
+  "interest_rates": [
+    {
+      "reset_date_time": "02/06/2026 10:03 AM",
+      "interest_rate": "3.1",
+      "rate_type": "",
+      "rate_effective_date": "02/06/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$11,700,000.00"
+    },
+    {
+      "reset_date_time": "02/05/2026 10:03 AM",
+      "interest_rate": "2.45",
+      "rate_type": "",
+      "rate_effective_date": "02/05/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$11,700,000.00"
+    },
+    {
+      "reset_date_time": "02/04/2026 10:02 AM",
+      "interest_rate": "2.35",
+      "rate_type": "",
+      "rate_effective_date": "02/04/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$11,700,000.00"
+    },
+    {
+      "reset_date_time": "02/03/2026 10:02 AM",
+      "interest_rate": "2.3",
+      "rate_type": "",
+      "rate_effective_date": "02/03/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$11,700,000.00"
+    },
+    {
+      "reset_date_time": "02/02/2026 10:02 AM",
+      "interest_rate": "2.35",
+      "rate_type": "",
+      "rate_effective_date": "02/02/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$11,700,000.00"
+    },
+    {
+      "reset_date_time": "01/30/2026 10:02 AM",
+      "interest_rate": "3.35",
+      "rate_type": "",
+      "rate_effective_date": "01/30/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$11,700,000.00"
+    },
+    {
+      "reset_date_time": "01/29/2026 10:02 AM",
+      "interest_rate": "3.35",
+      "rate_type": "",
+      "rate_effective_date": "01/29/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$11,700,000.00"
+    },
+    {
+      "reset_date_time": "01/28/2026 10:03 AM",
+      "interest_rate": "3.2",
+      "rate_type": "",
+      "rate_effective_date": "01/28/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$11,700,000.00"
+    },
+    {
+      "reset_date_time": "01/27/2026 10:03 AM",
+      "interest_rate": "2.75",
+      "rate_type": "",
+      "rate_effective_date": "01/27/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$11,700,000.00"
+    },
+    {
+      "reset_date_time": "01/26/2026 10:03 AM",
+      "interest_rate": "2.15",
+      "rate_type": "",
+      "rate_effective_date": "01/26/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$11,700,000.00"
+    }
+  ],
+  "trades": [
+    {
+      "trade_date": "04/03/2023 08:43 AM",
+      "settlement_date": "04/03/2023",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "1,100,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "03/10/2023 09:49 AM",
+      "settlement_date": "03/10/2023",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "1,100,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "11/03/2022 10:51 AM",
+      "settlement_date": "11/03/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "1,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "11/03/2022 08:15 AM",
+      "settlement_date": "11/03/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "1,000,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "09/01/2022 10:37 AM",
+      "settlement_date": "09/01/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "3,800,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/15/2022 10:26 AM",
+      "settlement_date": "08/15/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "700,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/12/2022 10:54 AM",
+      "settlement_date": "08/12/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "2,300,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/11/2022 10:28 AM",
+      "settlement_date": "08/11/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "700,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/10/2022 10:17 AM",
+      "settlement_date": "08/10/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "100,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/10/2022 09:21 AM",
+      "settlement_date": "08/10/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "2,100,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/09/2022 12:23 PM",
+      "settlement_date": "08/09/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "5,800,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/09/2022 10:22 AM",
+      "settlement_date": "08/09/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "2,200,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/05/2022 02:07 PM",
+      "settlement_date": "08/05/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "6,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "07/20/2022 10:38 AM",
+      "settlement_date": "07/20/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "7,500,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "06/27/2022 09:27 AM",
+      "settlement_date": "06/27/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "4,200,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "05/02/2022 12:05 PM",
+      "settlement_date": "05/02/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "4,200,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "05/02/2022 12:04 PM",
+      "settlement_date": "05/02/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "7,500,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "04/04/2022 09:24 AM",
+      "settlement_date": "04/04/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "7,500,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "02/18/2022 02:23 PM",
+      "settlement_date": "02/22/2022",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "7,500,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "02/05/2019 10:55 AM",
+      "settlement_date": "02/05/2019",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "7,500,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "01/17/2019 08:32 AM",
+      "settlement_date": "01/24/2019",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "7,500,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/17/2016 02:25 PM",
+      "settlement_date": "10/17/2016",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "7,500,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "09/28/2016 02:16 PM",
+      "settlement_date": "10/05/2016",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "7,500,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "09/02/2016 11:24 AM",
+      "settlement_date": "09/02/2016",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "7,500,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "09/02/2016 11:22 AM",
+      "settlement_date": "09/02/2016",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "7,500,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/30/2016 11:06 AM",
+      "settlement_date": "08/30/2016",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "2,500,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/30/2016 11:06 AM",
+      "settlement_date": "08/30/2016",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "2,500,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
+    }
+  ],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Fitch Ratings."
+    },
+    {
+      "agency": "KBRA",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Kroll Bond Rating Agency."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Moody's Investors Service, Inc."
+    },
+    {
+      "agency": "S&P",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Long-Term Debt Rating (effective 05/02/2022) Outlook/Credit Watch (effective 05/02/2022) Underlying Maturity Long-Term Debt Rating Underlying Outlook/Credit Watch Short-Term Rating Credit Watch Underlying Maturity Short-Term Debt Rating Underlying Credit Watch Access definitions for the ratings prov"
+    }
+  ],
+  "disclosures": [
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/28/2023",
+      "pdf_url": "https://emma.msrb.org/P11702060-P11308741-P11740201.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A1921B5FD85B3FC3C29516691B0DA83D8\\A1921B5FD85B3FC3C29516691B0DA83D8_0001_Event_Disclosure.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Official Statement",
+      "filing_date": "04/20/2022",
+      "pdf_url": "https://emma.msrb.org/P21566696-P21210331-P21631187.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A1921B5FD85B3FC3C29516691B0DA83D8\\A1921B5FD85B3FC3C29516691B0DA83D8_0002_Remarketing_Supplement_to_Official_Statement_PORT_.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/28/2023",
+      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11290228",
+      "local_pdf_path": "",
+      "download_success": false
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/03/2022",
+      "pdf_url": "https://emma.msrb.org/P11594853-P11230576-P11652775.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A1921B5FD85B3FC3C29516691B0DA83D8\\A1921B5FD85B3FC3C29516691B0DA83D8_0004_Event_Filing_dated_05_03_2022_124_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "04/15/2022",
+      "pdf_url": "https://emma.msrb.org/P11590945-P11227696-P11649620.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A1921B5FD85B3FC3C29516691B0DA83D8\\A1921B5FD85B3FC3C29516691B0DA83D8_0005_Event_Filing_297_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "03/30/2022",
+      "pdf_url": "https://emma.msrb.org/P11585492-P11223713-P11645271.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A1921B5FD85B3FC3C29516691B0DA83D8\\A1921B5FD85B3FC3C29516691B0DA83D8_0006_Event_Filing_106_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/01/2021",
+      "pdf_url": "https://emma.msrb.org/P21514683-P21171538-P21587426.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A1921B5FD85B3FC3C29516691B0DA83D8\\A1921B5FD85B3FC3C29516691B0DA83D8_0007_Event_Filing_dated_11_01_2021_177_KB.pdf",
+      "download_success": true
+    }
+  ]
+}

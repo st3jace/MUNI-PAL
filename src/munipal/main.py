@@ -12,7 +12,22 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from munipal import __version__
-from munipal.api.routes import health, projects, artifacts, facts, checklist, readiness, playbooks, extraction, deliverables
+from munipal.api.routes import (
+    advisory_packages,
+    artifacts,
+    checklist,
+    deliverables,
+    # v2 - WP7, WP8, Bifurcated Deliverables
+    disclosure,
+    extraction,
+    facts,
+    health,
+    information_requests,
+    playbooks,
+    projects,
+    readiness,
+    risk_reporting,
+)
 from munipal.config import get_settings
 
 settings = get_settings()
@@ -22,10 +37,14 @@ settings = get_settings()
 async def lifespan(app: FastAPI):
     """Application lifespan handler for startup/shutdown events."""
     # Startup
-    # TODO: Initialize database connections, run migrations check, etc.
+    if settings.use_sqlite:
+        # Initialize SQLite database tables for development
+        from munipal.db.session import init_db
+        await init_db()
+        print(f"SQLite database initialized at {settings.sqlite_path}")
     yield
     # Shutdown
-    # TODO: Close connections, cleanup resources
+    # Cleanup resources if needed
 
 
 app = FastAPI(
@@ -59,10 +78,20 @@ app.add_middleware(
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception) -> JSONResponse:
     """Global exception handler for unhandled errors."""
+    # Include actual error message in debug mode
+    if settings.debug:
+        import traceback
+        return JSONResponse(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            content={
+                "detail": str(exc),
+                "type": type(exc).__name__,
+                "traceback": traceback.format_exc(),
+            },
+        )
+
     # Log the error in production
-    if not settings.debug:
-        # TODO: Add proper logging
-        pass
+    # TODO: Add proper logging
 
     return JSONResponse(
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -85,6 +114,16 @@ app.include_router(facts.router, prefix="/api/v1/facts", tags=["Facts"])
 app.include_router(checklist.router, prefix="/api/v1/checklist", tags=["Checklist"])
 app.include_router(readiness.router, prefix="/api/v1/readiness", tags=["Readiness"])
 app.include_router(deliverables.router, prefix="/api/v1/deliverables", tags=["Deliverables"])
+
+# v2 - WP7: Disclosure Synthesis Engine
+app.include_router(disclosure.router, prefix="/api/v1/disclosure", tags=["Disclosure"])
+
+# v2 - WP8: Information Request System
+app.include_router(information_requests.router, prefix="/api/v1/information-requests", tags=["Information Requests"])
+
+# v2 - Bifurcated Deliverables (Internal/External)
+app.include_router(advisory_packages.router, prefix="/api/v1/advisory-packages", tags=["Advisory Packages"])
+app.include_router(risk_reporting.router, prefix="/api/v1/risk", tags=["Risk"])
 
 
 # -----------------------------------------------------------------------------

@@ -9,10 +9,9 @@ from datetime import datetime
 from uuid import uuid4
 
 from sqlalchemy import DateTime, Float, ForeignKey, String, Text, func
-from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from munipal.db.base import Base, TimestampMixin
+from munipal.db.base import Base, TimestampMixin, UUIDType
 
 
 class Project(Base, TimestampMixin):
@@ -21,7 +20,7 @@ class Project(Base, TimestampMixin):
     __tablename__ = "projects"
 
     id: Mapped[str] = mapped_column(
-        UUID(as_uuid=False),
+        UUIDType,
         primary_key=True,
         default=lambda: str(uuid4()),
     )
@@ -37,12 +36,12 @@ class Project(Base, TimestampMixin):
 
     # Relationships
     owner_id: Mapped[str] = mapped_column(
-        UUID(as_uuid=False),
+        UUIDType,
         ForeignKey("users.id"),
         nullable=False,
     )
     playbook_id: Mapped[str] = mapped_column(
-        UUID(as_uuid=False),
+        UUIDType,
         ForeignKey("playbooks.id"),
         nullable=False,
     )
@@ -59,4 +58,18 @@ class Project(Base, TimestampMixin):
     )
     deliverable_packs = relationship(
         "DeliverablePack", back_populates="project", cascade="all, delete-orphan"
+    )
+
+    # v2 deliverables
+    disclosure_documents = relationship(
+        "DisclosureDocument", back_populates="project", cascade="all, delete-orphan"
+    )
+    information_requests = relationship(
+        "InformationRequest", back_populates="project", cascade="all, delete-orphan"
+    )
+    internal_reports = relationship(
+        "InternalReadinessReport", back_populates="project", cascade="all, delete-orphan"
+    )
+    external_packages = relationship(
+        "ExternalAdvisoryPackage", back_populates="project", cascade="all, delete-orphan"
     )

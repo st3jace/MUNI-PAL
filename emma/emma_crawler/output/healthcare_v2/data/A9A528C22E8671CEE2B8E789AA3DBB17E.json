@@ -1,0 +1,171 @@
+{
+  "cusip": "A9A528C22E8671CEE2B8E789AA3DBB17E",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-19T19:00:13.219788+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/A9A528C22E8671CEE2B8E789AA3DBB17E",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "success",
+      "trade_activity": "success",
+      "ratings": "success",
+      "disclosures": "success"
+    }
+  },
+  "snapshot": {
+    "security_name": "STATE OF CONNECTICUT HEALTH AND EDUCATIONAL FACILITIES AUTHORITY / REVENUE BONDS, HARTFORD HEALTHCARE ISSUE SERIES 2026C",
+    "cusip": "",
+    "principal_amount": 75000000,
+    "maturity_date": "07/01/2056",
+    "dated_date": "02/11/2026",
+    "coupon_pct": "2.2",
+    "closing_date": "02/11/2026",
+    "fiscal_year_end_date": "-",
+    "initial_offering_price_yield": "",
+    "time_of_formal_award": "",
+    "time_of_first_execution": "",
+    "state": "CT"
+  },
+  "interest_rates": [
+    {
+      "reset_date_time": "Letter of Credit - 2026C Reimbursement Redacted.pdf (4.4 MB)",
+      "interest_rate": "02/12/2026",
+      "rate_type": "",
+      "rate_effective_date": "",
+      "aggregate_par_bank_bonds": "",
+      "aggregate_par_investors": ""
+    },
+    {
+      "reset_date_time": "Letter of Credit - 2026C LOC Redacted.pdf (5.9 MB)",
+      "interest_rate": "02/12/2026",
+      "rate_type": "",
+      "rate_effective_date": "",
+      "aggregate_par_bank_bonds": "",
+      "aggregate_par_investors": ""
+    },
+    {
+      "reset_date_time": "Letter of Credit - 2026C Indenture Redacted.pdf (1.4 MB)",
+      "interest_rate": "02/11/2026",
+      "rate_type": "",
+      "rate_effective_date": "",
+      "aggregate_par_bank_bonds": "",
+      "aggregate_par_investors": ""
+    },
+    {
+      "reset_date_time": "Letter of Credit - 2026C LA Redacted.pdf (886 KB)",
+      "interest_rate": "02/11/2026",
+      "rate_type": "",
+      "rate_effective_date": "",
+      "aggregate_par_bank_bonds": "",
+      "aggregate_par_investors": ""
+    }
+  ],
+  "trades": [
+    {
+      "trade_date": "02/11/2026 09:30 AM",
+      "settlement_date": "02/11/2026",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "5,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "02/11/2026 09:30 AM",
+      "settlement_date": "02/11/2026",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "20,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "02/11/2026 09:30 AM",
+      "settlement_date": "02/11/2026",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "35,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "02/11/2026 09:30 AM",
+      "settlement_date": "02/11/2026",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "15,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    }
+  ],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Long-Term Issue Rating (effective 02/05/2026) Long-Term Issue Rating Alert Code (effective 02/05/2026) Unenhanced Long-Term Issue Rating Unenhanced Long-Term Issue Rating Alert Code Short-Term Issue Rating (effective 02/05/2026) Short-Term Issue Rating Alert Code Unenhanced Short-Term Issue Rating U"
+    },
+    {
+      "agency": "KBRA",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Kroll Bond Rating Agency."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Moody's Investors Service, Inc."
+    },
+    {
+      "agency": "S&P",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Long-Term Debt Rating (effective 02/05/2026) Outlook/Credit Watch (effective 02/05/2026) Underlying Maturity Long-Term Debt Rating (effective 02/05/2026) Underlying Outlook/Credit Watch (effective 02/05/2026) Short-Term Rating Credit Watch Underlying Maturity Short-Term Debt Rating Underlying Credit"
+    }
+  ],
+  "disclosures": [
+    {
+      "doc_type": "Official Statement",
+      "filing_date": "02/06/2026",
+      "pdf_url": "https://emma.msrb.org/P22004069-P21525353-P21980776.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A9A528C22E8671CEE2B8E789AA3DBB17E\\A9A528C22E8671CEE2B8E789AA3DBB17E_0001_Official_Statement_s.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/12/2026",
+      "pdf_url": "https://emma.msrb.org/P22005351-P21527851-P21983639.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A9A528C22E8671CEE2B8E789AA3DBB17E\\A9A528C22E8671CEE2B8E789AA3DBB17E_0002_Letter_of_Credit_2026C_Reimbursement_Redacted_pdf_.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/12/2026",
+      "pdf_url": "https://emma.msrb.org/P22005350-P21527850-P21983638.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A9A528C22E8671CEE2B8E789AA3DBB17E\\A9A528C22E8671CEE2B8E789AA3DBB17E_0003_Letter_of_Credit_2026C_LOC_Redacted_pdf_5_9_MB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/11/2026",
+      "pdf_url": "https://emma.msrb.org/P22005049-P21527633-P21983388.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A9A528C22E8671CEE2B8E789AA3DBB17E\\A9A528C22E8671CEE2B8E789AA3DBB17E_0004_Letter_of_Credit_2026C_Indenture_Redacted_pdf_1_4_.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/11/2026",
+      "pdf_url": "https://emma.msrb.org/P22005046-P21527625-P21983385.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A9A528C22E8671CEE2B8E789AA3DBB17E\\A9A528C22E8671CEE2B8E789AA3DBB17E_0005_Letter_of_Credit_2026C_LA_Redacted_pdf_886_KB.pdf",
+      "download_success": true
+    }
+  ]
+}

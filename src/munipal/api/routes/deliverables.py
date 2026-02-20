@@ -7,22 +7,23 @@ Per spec (WP6): Warm Handoff Pack Assembly
 - Include mandatory disclaimer
 """
 
-from typing import Any
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from munipal.api.dependencies import AuthenticatedUserId, require_auth
 from munipal.core.schemas.deliverable import (
     DeliverablePackCreate,
     DeliverablePackRead,
     DeliverablePackSummary,
 )
 from munipal.db.session import get_async_session
+from munipal.services.audit_service import AuditService
 from munipal.services.deliverable_service import DeliverableService
-from munipal.workers.tasks.deliverable_tasks import generate_pack, export_pack_pdf
+from munipal.workers.tasks.deliverable_tasks import export_pack_pdf, generate_pack
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(require_auth)])
 
 
 def get_deliverable_service(
@@ -40,12 +41,14 @@ def get_deliverable_service(
 @router.post("/", response_model=dict, status_code=status.HTTP_202_ACCEPTED)
 async def create_pack(
     pack_data: DeliverablePackCreate,
+    sync: bool = Query(False, description="Generate synchronously (for testing without Celery)"),
     service: DeliverableService = Depends(get_deliverable_service),
 ) -> dict:
     """
-    Create and queue generation of a new deliverable pack.
+    Create and generate a new deliverable pack.
 
-    The pack will be generated asynchronously via Celery.
+    By default, the pack will be generated asynchronously via Celery.
+    Use sync=true to generate synchronously (useful for testing without Celery).
     Poll GET /{pack_id} to check generation status.
 
     Per playbook, the pack has 9 sections:
@@ -67,15 +70,25 @@ async def create_pack(
         include_appendices=pack_data.include_appendices,
     )
 
-    # Queue async generation
-    task = generate_pack.delay(pack.id)
-
-    return {
-        "pack_id": pack.id,
-        "status": "queued",
-        "task_id": task.id,
-        "message": "Pack generation queued. Poll GET /deliverables/{pack_id} for status.",
-    }
+    if sync:
+        # Generate synchronously (for testing without Celery)
+        result = await service.generate_pack(pack.id)
+        return {
+            "pack_id": str(pack.id),
+            "status": "completed" if result.is_complete else "failed",
+            "sections_generated": len(result.sections) if result.sections else 0,
+            "facts_included": result.facts_included_count,
+            "message": "Pack generated synchronously.",
+        }
+    else:
+        # Queue async generation via Celery
+        task = generate_pack.delay(pack.id)
+        return {
+            "pack_id": pack.id,
+            "status": "queued",
+            "task_id": task.id,
+            "message": "Pack generation queued. Poll GET /deliverables/{pack_id} for status.",
+        }
 
 
 @router.get("/", response_model=list[DeliverablePackSummary])
@@ -99,6 +112,7 @@ async def list_packs(
             generated_for=p.generated_for,
             is_complete=p.is_complete,
             created_at=p.created_at,
+            generation_completed_at=p.generation_completed_at,
             readiness_score_at_generation=p.readiness_score_at_generation,
         )
         for p in packs
@@ -183,12 +197,14 @@ async def get_pack_status(
 @router.post("/{pack_id}/regenerate", response_model=dict, status_code=status.HTTP_202_ACCEPTED)
 async def regenerate_pack(
     pack_id: UUID,
+    sync: bool = Query(False, description="Regenerate synchronously"),
     service: DeliverableService = Depends(get_deliverable_service),
 ) -> dict:
     """
     Regenerate a deliverable pack.
 
     Useful after new facts have been approved or reviewed.
+    Use sync=true for synchronous regeneration.
     """
     pack = await service.get_pack(pack_id)
     if not pack:
@@ -196,6 +212,16 @@ async def regenerate_pack(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Pack {pack_id} not found",
         )
+
+    if sync:
+        # Regenerate synchronously
+        result = await service.generate_pack(pack_id)
+        return {
+            "pack_id": str(pack_id),
+            "status": "completed" if result.is_complete else "failed",
+            "sections_generated": len(result.sections) if result.sections else 0,
+            "message": "Pack regenerated synchronously.",
+        }
 
     # Queue regeneration
     task = generate_pack.delay(str(pack_id))
@@ -216,6 +242,7 @@ async def regenerate_pack(
 @router.post("/{pack_id}/export/pdf", response_model=dict, status_code=status.HTTP_202_ACCEPTED)
 async def export_pdf(
     pack_id: UUID,
+    user_id: AuthenticatedUserId,
     service: DeliverableService = Depends(get_deliverable_service),
 ) -> dict:
     """
@@ -237,6 +264,13 @@ async def export_pdf(
         )
 
     task = export_pack_pdf.delay(str(pack_id))
+    AuditService.emit_event(
+        actor_id=user_id,
+        action="export_deliverable_pack_pdf",
+        target_type="deliverable_pack",
+        target_id=str(pack_id),
+        project_id=str(pack.project_id),
+    )
 
     return {
         "pack_id": str(pack_id),
@@ -249,6 +283,7 @@ async def export_pdf(
 @router.get("/{pack_id}/export/markdown", response_model=dict)
 async def export_markdown(
     pack_id: UUID,
+    user_id: AuthenticatedUserId,
     service: DeliverableService = Depends(get_deliverable_service),
 ) -> dict:
     """
@@ -288,6 +323,13 @@ async def export_markdown(
         "figures are subject to verification by qualified professionals."
     )
     combined.append(disclaimer)
+    AuditService.emit_event(
+        actor_id=user_id,
+        action="export_deliverable_pack_markdown",
+        target_type="deliverable_pack",
+        target_id=str(pack_id),
+        project_id=str(pack.project_id),
+    )
 
     return {
         "pack_id": str(pack_id),

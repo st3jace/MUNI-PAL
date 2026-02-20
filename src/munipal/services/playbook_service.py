@@ -36,13 +36,19 @@ class PlaybookService:
             return None
         return self._to_detail_schema(playbook)
 
-    async def list_active(self) -> list[PlaybookRead]:
-        """List all active playbooks."""
-        result = await self.db.execute(
-            select(Playbook).where(Playbook.is_active == True).order_by(Playbook.name)
-        )
+    async def list(self, include_inactive: bool = False) -> list[PlaybookRead]:
+        """List playbooks, optionally including inactive records."""
+        query = select(Playbook)
+        if not include_inactive:
+            query = query.where(Playbook.is_active == True)
+
+        result = await self.db.execute(query.order_by(Playbook.name))
         playbooks = result.scalars().all()
         return [self._to_read_schema(p) for p in playbooks]
+
+    async def list_active(self) -> list[PlaybookRead]:
+        """Backwards-compatible helper for active-only listing."""
+        return await self.list(include_inactive=False)
 
     async def seed_ucs_playbook(self) -> PlaybookRead:
         """

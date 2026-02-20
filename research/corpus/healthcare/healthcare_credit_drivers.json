@@ -1,0 +1,746 @@
+{
+  "metadata": {
+    "title": "Healthcare Revenue Bonds: Credit Drivers Dataset",
+    "date": "2026-02-18",
+    "author": "Muni-Pal Research: Sub-Agent 6",
+    "workflow": "Workflow 1: Sector Deep Dive",
+    "version": "1.0",
+    "data_confidence": 0.85,
+    "notes": "Structured dataset of 5-8 key credit drivers per sub-sector; includes scoring weights and benchmark ranges."
+  },
+  "sub_sectors": {
+    "hospital_revenue_bonds": {
+      "market_size_estimate": "$120-150B",
+      "typical_deal_size": "$75-300M",
+      "median_rating": "Baa/BBB",
+      "credit_drivers": [
+        {
+          "rank": 1,
+          "name": "Payor Mix",
+          "weight": 0.25,
+          "description": "Distribution of patient revenues by type (Medicare, Medicaid, commercial, self-pay)",
+          "optimal_benchmarks": {
+            "medicare_percent": "30-40%",
+            "medicaid_percent": "15-22%",
+            "commercial_percent": "35-45%",
+            "self_pay_percent": "<5%"
+          },
+          "red_flags": [
+            "Medicaid > 40%",
+            "Medicare > 50%",
+            "Self-pay > 10%",
+            "Undisclosed payor mix"
+          ],
+          "data_source": "SEC prospectus, operating statements"
+        },
+        {
+          "rank": 2,
+          "name": "Occupancy Rate",
+          "weight": 0.20,
+          "description": "Percent of licensed beds in use (hospital census / licensed beds)",
+          "optimal_benchmarks": {
+            "excellent": ">85%",
+            "acceptable": "75-85%",
+            "concerning": "65-75%",
+            "stress": "<65%"
+          },
+          "red_flags": [
+            "Occupancy declining trend",
+            "Occupancy <70%",
+            "Surgical volume decline",
+            "ER volume softening"
+          ],
+          "data_source": "Hospital operating statistics, annual financial statements"
+        },
+        {
+          "rank": 3,
+          "name": "Debt Service Coverage Ratio (DSCR)",
+          "weight": 0.15,
+          "description": "Net operating revenues / (Principal + Interest expense); primary credit metric",
+          "optimal_benchmarks": {
+            "aaa": ">1.50x",
+            "aa": "1.35-1.50x",
+            "a": "1.20-1.35x",
+            "bbb": "1.10-1.20x",
+            "stress": "<1.10x"
+          },
+          "red_flags": [
+            "DSCR < 1.15x",
+            "Year-over-year DSCR deterioration >5%",
+            "DSCR trending below 1.0x",
+            "Covenant breach (DSCR covenant typically 1.10-1.25x)"
+          ],
+          "data_source": "Audited financial statements, rating agency reports"
+        },
+        {
+          "rank": 4,
+          "name": "Operating Margin (Adjusted)",
+          "weight": 0.15,
+          "description": "Operating income / Net patient revenues (excluding non-operating gains)",
+          "optimal_benchmarks": {
+            "excellent": ">8%",
+            "good": "5-8%",
+            "tight": "2-5%",
+            "stressed": "<2%"
+          },
+          "trends": {
+            "pre_2020_average": "4-6%",
+            "2021_2024_average": "2-4%",
+            "2024_2025_trend": "Declining (labor cost pressure)"
+          },
+          "red_flags": [
+            "Margin < 2%",
+            "Year-over-year margin decline > 1%",
+            "Margin compression due to labor costs",
+            "Inability to raise rates"
+          ],
+          "data_source": "Audited financial statements, operating margins"
+        },
+        {
+          "rank": 5,
+          "name": "Days Cash on Hand",
+          "weight": 0.12,
+          "description": "Liquid cash reserves / daily operating expenses",
+          "optimal_benchmarks": {
+            "excellent": ">100 days",
+            "good": "60-100 days",
+            "acceptable": "30-60 days",
+            "stressed": "<30 days"
+          },
+          "red_flags": [
+            "Days cash < 40 days",
+            "Declining liquidity trend",
+            "Liquidity constraints limiting capital spending",
+            "Covenant requirement not met"
+          ],
+          "data_source": "Balance sheet, statement of cash flows"
+        },
+        {
+          "rank": 6,
+          "name": "Debt-to-Capitalization Ratio",
+          "weight": 0.10,
+          "description": "Total debt / (Total debt + Unrestricted net assets)",
+          "optimal_benchmarks": {
+            "aaa": "<35%",
+            "aa": "<45%",
+            "a": "<55%",
+            "bbb": "<65%",
+            "stress": ">65%"
+          },
+          "note": "Healthcare-specific: excludes restricted assets (endowments, donor-restricted funds)",
+          "red_flags": [
+            "Debt-to-cap > 60%",
+            "Rising leverage trend",
+            "Limited debt capacity",
+            "Refinancing stress due to high leverage"
+          ],
+          "data_source": "Balance sheet, capital structure analysis"
+        },
+        {
+          "rank": 7,
+          "name": "Case Mix Index (CMI)",
+          "weight": 0.03,
+          "description": "Weighted average of diagnosis-related group (DRG) codes; indicates clinical complexity",
+          "optimal_benchmarks": {
+            "high_acuity": ">1.50",
+            "moderate_acuity": "1.30-1.50",
+            "low_acuity": "<1.30"
+          },
+          "context": "Varies by region (academic medical centers naturally higher); peer comparison essential",
+          "red_flags": [
+            "CMI < 1.20",
+            "CMI declining trend",
+            "Service line changes reducing acuity"
+          ],
+          "data_source": "Hospital discharge data, Medicare CMS"
+        }
+      ]
+    },
+    "conduit_501c3_issuance": {
+      "market_size_estimate": "$40-60B",
+      "typical_deal_size": "$20-100M",
+      "median_rating": "A/Baa",
+      "note": "Two-layer credit assessment: (1) Operator credit, (2) Conduit structure credit",
+      "credit_drivers": [
+        {
+          "rank": 1,
+          "name": "Operator Financial Performance",
+          "weight": 0.30,
+          "description": "Net revenues, operating margin, DSCR (same framework as hospital bonds)",
+          "optimal_benchmarks": {
+            "dscr": ">1.25x",
+            "operating_margin": ">4%",
+            "occupancy": ">80%"
+          },
+          "red_flags": [
+            "DSCR < 1.15x",
+            "Margin declining",
+            "Occupancy dropping"
+          ],
+          "data_source": "Operator audited statements, bond offering documents"
+        },
+        {
+          "rank": 2,
+          "name": "Operator Market Position",
+          "weight": 0.20,
+          "description": "Market share in service area, referral patterns, competitive positioning",
+          "optimal_benchmarks": {
+            "market_share": ">10% in service area",
+            "referral_strength": "Diversified and stable",
+            "competitive_position": "Strong/Stable"
+          },
+          "red_flags": [
+            "Market share declining",
+            "Key referral source lost",
+            "New competitor entering market",
+            "Service line closures"
+          ],
+          "data_source": "Market studies, payer contracts, competitive analysis"
+        },
+        {
+          "rank": 3,
+          "name": "Operator Leverage & Capital Structure",
+          "weight": 0.15,
+          "description": "Existing debt burden, debt service obligations (all debt), refinancing risk",
+          "optimal_benchmarks": {
+            "debt_to_cap": "<55%",
+            "near_term_maturities": "<15% of total debt"
+          },
+          "red_flags": [
+            "Debt-to-cap > 65%",
+            "Maturity wall (significant refinancing need)",
+            "Cross-default risk with other debt"
+          ],
+          "data_source": "Debt schedule, capital structure memo"
+        },
+        {
+          "rank": 4,
+          "name": "Conduit Issuer Credit",
+          "weight": 0.15,
+          "description": "State/local issuer creditworthiness, historical default experience, budget health",
+          "optimal_benchmarks": {
+            "issuer_rating": "Aa/AA or better",
+            "general_fund_health": "Positive/Stable",
+            "default_history": "None or minimal"
+          },
+          "red_flags": [
+            "Issuer rating < A",
+            "Budget stress at issuer level",
+            "History of conduit defaults",
+            "Political instability"
+          ],
+          "data_source": "Issuer credit rating, audited general fund statements"
+        },
+        {
+          "rank": 5,
+          "name": "Security/Reserve Package",
+          "weight": 0.12,
+          "description": "Debt service reserve fund sizing, operating reserve, intercreditor arrangements",
+          "optimal_benchmarks": {
+            "debt_service_reserve": "1.0x-1.5x annual debt service",
+            "operating_reserve": "60-90 days of operating expenses",
+            "intercreditor": "Clear subordination (if applicable)"
+          },
+          "red_flags": [
+            "Reserve fund < 1.0x debt service",
+            "Operating reserve < 30 days",
+            "Unclear intercreditor ranking",
+            "Senior debt with superior claims"
+          ],
+          "data_source": "Loan agreement, trust indenture"
+        },
+        {
+          "rank": 6,
+          "name": "Loan Agreement / Operating Covenants",
+          "weight": 0.08,
+          "description": "Strength of loan agreement, management fees, merger/sale restrictions",
+          "optimal_benchmarks": {
+            "dscr_minimum": "1.10-1.20x",
+            "debt_limitation": "Clear and enforceable",
+            "management_fees": "Arms-length (5-8% of operating budget)"
+          },
+          "red_flags": [
+            "Weak covenant structure",
+            "Ambiguous debt limitation language",
+            "Excessive related-party fees",
+            "Unilateral modification allowed"
+          ],
+          "data_source": "Loan agreement, operating covenants section"
+        }
+      ]
+    },
+    "ccrc_revenue_bonds": {
+      "market_size_estimate": "$20-30B",
+      "typical_deal_size": "$30-150M",
+      "median_rating": "Baa/BBB",
+      "note": "Entrance fee + monthly service fee model; unique refund liability exposure",
+      "credit_drivers": [
+        {
+          "rank": 1,
+          "name": "Occupancy Rate by Service Level",
+          "weight": 0.20,
+          "description": "Percent of units occupied (independent living, assisted living, skilled nursing)",
+          "optimal_benchmarks": {
+            "excellent": ">90%",
+            "good": "80-90%",
+            "concerning": "70-80%",
+            "stress": "<70%"
+          },
+          "segment_variation": {
+            "independent_living": "Often lowest occupancy (most discretionary)",
+            "assisted_living": "Mid-range; moderate occupancy risk",
+            "skilled_nursing": "Often highest (more captive to community)"
+          },
+          "red_flags": [
+            "Occupancy < 80%",
+            "Occupancy declining trend",
+            "Specific unit type significantly underutilized",
+            "New competition in market"
+          ],
+          "data_source": "Occupancy reports, census tracking"
+        },
+        {
+          "rank": 2,
+          "name": "Entrance Fee Model & Sustainability",
+          "weight": 0.20,
+          "description": "Type and amount of entrance fees; percent of revenue from entrance fees vs. monthly fees",
+          "entrance_fee_types": {
+            "type_a": "Fully Refundable (100% refund) - High liability, low revenue certainty",
+            "type_b": "Modified (Partial refund, e.g., 80% first year, declining) - Moderate balance",
+            "type_c": "Non-Refundable (No refund) - Highest revenue certainty, potentially less attractive",
+            "type_d": "Declining Balance (e.g., 95%, 90%, 85%...) - Common for strong operators"
+          },
+          "optimal_benchmarks": {
+            "entrance_fee_percent_of_revenue": "40-60%",
+            "refund_reserve_to_liability": "100-130%",
+            "fee_model": "Type B or D (modified or declining)"
+          },
+          "red_flags": [
+            "Entrance fee refund liability > 120% of reserves",
+            "Type A (fully refundable) with declining occupancy",
+            "Entrance fee revenue declining",
+            "Refund reserves inadequate"
+          ],
+          "data_source": "Prospectus, entrance fee policy, balance sheet"
+        },
+        {
+          "rank": 3,
+          "name": "Monthly Revenue Stability & Rate Increase History",
+          "weight": 0.15,
+          "description": "Resident fee inflation history; ability to raise rates without resident turnover",
+          "optimal_benchmarks": {
+            "sustained_annual_increases": "2-4%",
+            "strong_operator": "2.5-3.5% annually for 3+ consecutive years"
+          },
+          "trends": {
+            "pre_2020": "Consistent 2.5-3.5% annual increases",
+            "2021_2023": "Frozen rates or <1% increases (post-COVID)",
+            "2024_2025": "Gradual rate normalization to 1.5-2.5%"
+          },
+          "red_flags": [
+            "Inability to raise rates (0-1% annually)",
+            "Rate resistance from residents",
+            "Competitive pressure preventing rate increases",
+            "Market occupancy decline limiting pricing power"
+          ],
+          "data_source": "Rate history, management discussion of pricing"
+        },
+        {
+          "rank": 4,
+          "name": "Days Cash on Hand (Excluding Refund Reserve)",
+          "weight": 0.15,
+          "description": "Liquid cash / daily operating expenses (separate operational from refund reserve liquidity)",
+          "optimal_benchmarks": {
+            "excellent": ">90 days",
+            "good": "60-90 days",
+            "adequate": "30-60 days",
+            "vulnerable": "<30 days"
+          },
+          "ccrc_specific_risk": "Must maintain BOTH operational reserve AND entrance fee reserve; undercounting either = crisis",
+          "red_flags": [
+            "Days cash < 45 days",
+            "Declining liquidity trend",
+            "Refund liability exceeding reserves",
+            "Covenant violation risk"
+          ],
+          "data_source": "Balance sheet, statement of cash flows, entrance fee reserve accounting"
+        },
+        {
+          "rank": 5,
+          "name": "DSCR (Net of Refund Expense)",
+          "weight": 0.12,
+          "description": "Calculation: (Operating Revenues - Refund Expense) / Debt Service",
+          "optimal_benchmarks": {
+            "strong": ">1.30x",
+            "adequate": "1.15-1.30x",
+            "stressed": "<1.15x"
+          },
+          "note": "Accounting treatment of entrance fees varies (some recognize upfront, others amortize); verify calculation",
+          "red_flags": [
+            "DSCR < 1.15x",
+            "DSCR deterioration trend",
+            "Refund expense rising sharply",
+            "Occupancy decline eroding DSCR"
+          ],
+          "data_source": "Audited financial statements, DSCR calculation"
+        },
+        {
+          "rank": 6,
+          "name": "Average Resident Age & Acuity Mix",
+          "weight": 0.10,
+          "description": "Average age of residents; proportion in each service level (independent, assisted, skilled)",
+          "optimal_benchmarks": {
+            "average_age": "75-85 years (moderate lifespan)",
+            "independent_living_percent": "40-50%",
+            "assisted_living_percent": "35-45%",
+            "skilled_nursing_percent": "15-25%"
+          },
+          "implications": {
+            "higher_age_acuity": "Shorter lifespan; faster fee turnover; more new admission costs; higher refund volatility",
+            "younger_cohort": "Longer residency; more stable revenues; lower healthcare costs"
+          },
+          "covid_impact": "COVID mortality (2020-2021) disrupted many CCRC models; recovery varies by region",
+          "red_flags": [
+            "Average age > 87 (high mortality risk)",
+            "Skilled nursing > 35% (higher costs, refund risk)",
+            "Acuity increasing without rate adjustments",
+            "Mortality spike or admission slowdown"
+          ],
+          "data_source": "Census data, resident demographics"
+        },
+        {
+          "rank": 7,
+          "name": "Waiting List & Application Pipeline",
+          "weight": 0.08,
+          "description": "Length of waiting list for independent living units; new application rate",
+          "optimal_benchmarks": {
+            "long_list": "3-6+ months - Strong demand, pricing power",
+            "moderate_list": "1-3 months - Healthy demand",
+            "short_list": "<1 month - Weak demand, occupancy pressure"
+          },
+          "red_flags": [
+            "Waiting list < 1 month",
+            "Application rate declining",
+            "Market perception of facility deteriorating",
+            "Competition from new facilities"
+          ],
+          "data_source": "Marketing data, admissions pipeline"
+        }
+      ]
+    },
+    "senior_living_non_ccrc": {
+      "market_size_estimate": "$15-25B",
+      "typical_deal_size": "$15-80M",
+      "median_rating": "Baa/BBB",
+      "note": "Monthly rental model; Medicaid-dependent; no entrance fees",
+      "credit_drivers": [
+        {
+          "rank": 1,
+          "name": "Occupancy Rate",
+          "weight": 0.25,
+          "description": "Percent of available units occupied",
+          "optimal_benchmarks": {
+            "excellent": ">90%",
+            "good": "80-90%",
+            "concerning": "70-80%",
+            "stress": "<70%"
+          },
+          "sub_type_variation": {
+            "memory_care": "Often highest occupancy (specialized; limited alternatives)",
+            "assisted_living": "Mid-range; competition from other facilities",
+            "independent_living": "Often lowest (most substitutes available)"
+          },
+          "red_flags": [
+            "Occupancy < 75%",
+            "Occupancy trending downward",
+            "Specific unit type or memory care struggling",
+            "High turnover rate"
+          ],
+          "data_source": "Occupancy reports, census tracking"
+        },
+        {
+          "rank": 2,
+          "name": "Payor Mix (Medicaid vs. Private Pay)",
+          "weight": 0.22,
+          "description": "Percent of residents on Medicaid vs. private pay vs. hybrid models",
+          "optimal_benchmarks": {
+            "private_pay_strong": ">75% (highest margin, price-insensitive)",
+            "private_pay_moderate": "50-75% (balance of margin and stability)",
+            "private_pay_weak": "<50% (high Medicaid; vulnerable to state cuts)"
+          },
+          "state_medicaid_variation": {
+            "high_rate_states": "CA, NY, FL (relatively generous rates)",
+            "low_rate_states": "Southern states with low rates and pressure"
+          },
+          "trend": "States cutting rates → Senior living operators under pressure",
+          "red_flags": [
+            "Medicaid > 60%",
+            "Private pay admissions declining",
+            "State Medicaid rate freeze or cuts",
+            "Private pay rate resistance"
+          ],
+          "data_source": "Payor source data, operating statements"
+        },
+        {
+          "rank": 3,
+          "name": "Pricing Power & Rate Increase History",
+          "weight": 0.15,
+          "description": "Ability to increase monthly rents without vacancy spike",
+          "optimal_benchmarks": {
+            "strong": "Consistent 2-3% annual increases",
+            "weak": "Flat rents or declining (0% or negative)",
+            "problematic": "Recent rate increases causing turnover"
+          },
+          "red_flags": [
+            "No rate increases (0% for 2+ years)",
+            "Resident turnover spike after rate increase",
+            "Market saturation preventing rate increases",
+            "Competitor pricing pressure"
+          ],
+          "data_source": "Rate history, management discussion, marketing data"
+        },
+        {
+          "rank": 4,
+          "name": "Days Cash on Hand",
+          "weight": 0.12,
+          "description": "Liquid reserves / daily operating expenses",
+          "optimal_benchmarks": {
+            "good": ">60 days",
+            "adequate": "30-60 days",
+            "vulnerable": "<30 days"
+          },
+          "red_flags": [
+            "Days cash < 30 days",
+            "Declining liquidity",
+            "Capital needs exceeding cash generation",
+            "Refinancing stress"
+          ],
+          "data_source": "Balance sheet, statement of cash flows"
+        },
+        {
+          "rank": 5,
+          "name": "Debt-to-Capitalization Ratio",
+          "weight": 0.12,
+          "description": "Total debt / (Total debt + Net assets)",
+          "optimal_benchmarks": {
+            "conservative": "<45%",
+            "moderate": "45-55%",
+            "high": ">55%"
+          },
+          "red_flags": [
+            "Debt-to-cap > 60%",
+            "Rising leverage trend",
+            "Limited refinancing capacity",
+            "Covenant vulnerability"
+          ],
+          "data_source": "Balance sheet, capital structure"
+        },
+        {
+          "rank": 6,
+          "name": "Management Quality & Operator Track Record",
+          "weight": 0.04,
+          "description": "Operator's history of stability, turnover, litigation",
+          "optimal_benchmarks": {
+            "excellent": "Multi-facility operator with 10+ year track record",
+            "good": "Experienced operator with stable management",
+            "weak": "Single facility or high turnover"
+          },
+          "red_flags": [
+            "High management turnover",
+            "Operator inexperienced in healthcare",
+            "Abuse or neglect litigation",
+            "Regulatory citations",
+            "Failed marketing/occupancy"
+          ],
+          "data_source": "Operator background check, historical performance, regulatory records"
+        }
+      ]
+    },
+    "behavioral_health_facilities": {
+      "market_size_estimate": "$5-10B",
+      "typical_deal_size": "$20-75M",
+      "median_rating": "B/Ba",
+      "note": "Census-driven (patient days); highly concentrated payor; regulatory licensing risk",
+      "credit_drivers": [
+        {
+          "rank": 1,
+          "name": "Payor Concentration",
+          "weight": 0.25,
+          "description": "% of revenue from Medicaid vs. commercial vs. self-pay",
+          "optimal_benchmarks": {
+            "diversified": "Medicaid 40-50%, Commercial 40-50%",
+            "medicaid_dependent": "Medicaid 60%+",
+            "concerning": "Medicaid > 70%"
+          },
+          "state_variation": {
+            "strong_markets": "TX, FL, CA (stronger private/commercial payor mix)",
+            "weak_markets": "Rural states, Upper Midwest (heavily Medicaid-dependent)"
+          },
+          "red_flags": [
+            "Medicaid > 60%",
+            "Single payor concentration > 40%",
+            "Commercial payer loss",
+            "Undisclosed payor mix"
+          ],
+          "data_source": "Operating statements, payor source data"
+        },
+        {
+          "rank": 2,
+          "name": "Average Length of Stay (ALOS) & Occupancy",
+          "weight": 0.20,
+          "description": "Average days per patient; percent of licensed beds in use",
+          "alos_benchmarks": {
+            "stable": ">30 days (longer admissions; stable reimbursement)",
+            "moderate": "15-30 days (moderate; sensitive to admission patterns)",
+            "volatile": "<15 days (high turnover; unpredictable census)"
+          },
+          "occupancy_benchmarks": {
+            "strong": ">85%",
+            "good": "75-85%",
+            "weak": "<75%"
+          },
+          "red_flags": [
+            "ALOS < 15 days (unpredictable revenue)",
+            "Occupancy < 75%",
+            "Declining ALOS trend",
+            "Census volatility increasing"
+          ],
+          "data_source": "Census reports, discharge data, occupancy tracking"
+        },
+        {
+          "rank": 3,
+          "name": "Medicaid Reimbursement Rate Trends",
+          "weight": 0.18,
+          "description": "State Medicaid daily rate; trend (increasing, flat, declining)",
+          "optimal_benchmarks": {
+            "positive": "2-5% annual rate increases (rare post-2020)",
+            "neutral": "Flat rates (challenging due to inflation)",
+            "negative": "Rate cuts > 1% annually (high stress)"
+          },
+          "monitoring": "State legislative budget cycles; healthcare commissioner statements",
+          "red_flags": [
+            "State budget pressure (indicating rate freeze/cut)",
+            "Rate freeze announced",
+            "Rate cut trending",
+            "Prior authorization tightening"
+          ],
+          "data_source": "State Medicaid agency, rate schedule, budget forecasts"
+        },
+        {
+          "rank": 4,
+          "name": "DSCR & Debt Service Coverage",
+          "weight": 0.15,
+          "description": "Operating revenues (patient days × rate) / Debt service",
+          "optimal_benchmarks": {
+            "strong": ">1.35x (behavioral health higher risk; higher coverage warranted)",
+            "adequate": "1.15-1.35x",
+            "tight": "1.10-1.15x",
+            "stressed": "<1.10x"
+          },
+          "red_flags": [
+            "DSCR < 1.20x",
+            "Declining DSCR trend",
+            "Census decline eroding DSCR",
+            "Covenant breach risk"
+          ],
+          "data_source": "Audited financial statements, DSCR calculation"
+        },
+        {
+          "rank": 5,
+          "name": "Days Cash on Hand",
+          "weight": 0.12,
+          "description": "Liquid reserves / daily operating expenses",
+          "optimal_benchmarks": {
+            "excellent": ">75 days",
+            "good": "45-75 days",
+            "adequate": "25-45 days",
+            "vulnerable": "<25 days"
+          },
+          "red_flags": [
+            "Days cash < 30 days",
+            "Declining liquidity trend",
+            "Capital constraints",
+            "Refinancing stress"
+          ],
+          "data_source": "Balance sheet, statement of cash flows"
+        },
+        {
+          "rank": 6,
+          "name": "Regulatory Licensing & Compliance",
+          "weight": 0.10,
+          "description": "State health department licensing status; deficiencies, citations, enforcement",
+          "optimal_benchmarks": {
+            "excellent": "Clean licensing",
+            "acceptable": "Minor deficiencies (non-patient care)",
+            "concerning": "Patient safety citations",
+            "critical": "License suspension/revocation"
+          },
+          "context": "Behavioral health facilities face increasing regulatory scrutiny post-COVID (higher incident rates)",
+          "red_flags": [
+            "Patient safety citations",
+            "License restrictions or warnings",
+            "Recent enforcement action",
+            "Abuse/neglect allegations",
+            "License suspension risk"
+          ],
+          "monitoring": "State health department records, regulatory filings, licensing board meetings",
+          "data_source": "State health department, licensing board records, regulatory filings"
+        }
+      ]
+    }
+  },
+  "cross_sector_metrics": {
+    "dscr_framework": {
+      "definition": "Net Operating Revenues / (Principal + Interest Expense)",
+      "credit_quality_scale": [
+        {"rating": "AAA/Aaa", "dscr_target": ">1.50x", "interpretation": "Excellent coverage"},
+        {"rating": "AA/Aa", "dscr_target": "1.35-1.50x", "interpretation": "Strong coverage"},
+        {"rating": "A/A", "dscr_target": "1.20-1.35x", "interpretation": "Adequate coverage"},
+        {"rating": "BBB/Baa", "dscr_target": "1.10-1.20x", "interpretation": "Limited margin for error"},
+        {"rating": "BB/Ba", "dscr_target": "1.00-1.10x", "interpretation": "Tight; stress risk"},
+        {"rating": "Below BB", "dscr_target": "<1.00x", "interpretation": "Default risk"}
+      ]
+    },
+    "days_cash_framework": {
+      "definition": "Liquid reserves / Daily operating expenses",
+      "benchmark_scale": [
+        {"tier": "Excellent", "days": ">100", "interpretation": "Substantial buffer; strong financial flexibility"},
+        {"tier": "Good", "days": "60-100", "interpretation": "Adequate cushion for adverse events"},
+        {"tier": "Acceptable", "days": "30-60", "interpretation": "Adequate but tight"},
+        {"tier": "Vulnerable", "days": "<30", "interpretation": "Limited margin; vulnerable to shocks"}
+      ]
+    },
+    "leverage_framework": {
+      "definition": "Debt-to-Capitalization = Total Debt / (Total Debt + Unrestricted Net Assets)",
+      "benchmark_scale": [
+        {"rating": "AAA", "debt_cap_max": "<35%", "interpretation": "Conservative leverage"},
+        {"rating": "AA", "debt_cap_max": "<45%", "interpretation": "Moderate leverage"},
+        {"rating": "A", "debt_cap_max": "<55%", "interpretation": "Acceptable leverage"},
+        {"rating": "BBB", "debt_cap_max": "<65%", "interpretation": "High leverage"},
+        {"rating": "Below BBB", "debt_cap_max": ">65%", "interpretation": "Very high leverage"}
+      ]
+    }
+  },
+  "data_sources": [
+    "MSRB EMMA database (municipal bond data)",
+    "SEC EDGAR (prospectuses, offering documents)",
+    "Moody's Investor Service (rating reports, default studies)",
+    "S&P Global Ratings (credit analysis, rating publications)",
+    "Fitch Ratings (sector criteria, rating reports)",
+    "Hospital discharge data (CMS, state health departments)",
+    "Medicaid agency publications (reimbursement rates, policy changes)",
+    "Academic research (healthcare finance, operational benchmarks)"
+  ],
+  "confidence_assessment": {
+    "overall_confidence": 0.85,
+    "by_sector": {
+      "hospital_revenue_bonds": 0.87,
+      "conduit_501c3_issuance": 0.84,
+      "ccrc_revenue_bonds": 0.83,
+      "senior_living_non_ccrc": 0.83,
+      "behavioral_health_facilities": 0.82
+    }
+  },
+  "update_frequency": "Quarterly (Q1, Q2, Q3, Q4)",
+  "next_review_date": "2026-05-18"
+}

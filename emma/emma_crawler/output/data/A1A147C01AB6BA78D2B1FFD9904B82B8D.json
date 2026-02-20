@@ -1,0 +1,174 @@
+{
+  "cusip": "A1A147C01AB6BA78D2B1FFD9904B82B8D",
+  "crawl_metadata": {
+    "crawl_timestamp": "2026-02-07T00:50:28.982373+00:00",
+    "emma_url": "https://emma.msrb.org/Security/Details/A1A147C01AB6BA78D2B1FFD9904B82B8D",
+    "extraction_status": {
+      "snapshot": "success",
+      "interest_rate": "success",
+      "trade_activity": "success",
+      "ratings": "empty",
+      "disclosures": "success"
+    }
+  },
+  "snapshot": {
+    "security_name": "EDWARDS COUNTY, KANSAS / VARIABLE RATE DEMAND SOLID WASTE DISPOSAL REVENUE BONDS (SKYBOUND PROJECT) SERIES A, 2024",
+    "cusip": "",
+    "principal_amount": 50000000,
+    "maturity_date": "06/01/2054",
+    "dated_date": "06/05/2024",
+    "coupon_pct": "2.4",
+    "closing_date": "06/05/2024",
+    "fiscal_year_end_date": "-",
+    "initial_offering_price_yield": "",
+    "time_of_formal_award": "",
+    "time_of_first_execution": "",
+    "state": "KS"
+  },
+  "interest_rates": [
+    {
+      "reset_date_time": "02/04/2026 11:34 AM",
+      "interest_rate": "2.4",
+      "rate_type": "",
+      "rate_effective_date": "02/05/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$50,000,000.00"
+    },
+    {
+      "reset_date_time": "01/28/2026 11:59 AM",
+      "interest_rate": "2.5",
+      "rate_type": "",
+      "rate_effective_date": "01/29/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$50,000,000.00"
+    },
+    {
+      "reset_date_time": "01/21/2026 11:08 AM",
+      "interest_rate": "1.46",
+      "rate_type": "",
+      "rate_effective_date": "01/22/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$50,000,000.00"
+    },
+    {
+      "reset_date_time": "01/14/2026 11:39 AM",
+      "interest_rate": "1.52",
+      "rate_type": "",
+      "rate_effective_date": "01/15/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$50,000,000.00"
+    },
+    {
+      "reset_date_time": "01/07/2026 11:41 AM",
+      "interest_rate": "1.65",
+      "rate_type": "",
+      "rate_effective_date": "01/08/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$50,000,000.00"
+    },
+    {
+      "reset_date_time": "12/31/2025 09:56 AM",
+      "interest_rate": "2.65",
+      "rate_type": "",
+      "rate_effective_date": "01/01/2026",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$50,000,000.00"
+    },
+    {
+      "reset_date_time": "12/24/2025 11:04 AM",
+      "interest_rate": "3.45",
+      "rate_type": "",
+      "rate_effective_date": "12/25/2025",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$50,000,000.00"
+    },
+    {
+      "reset_date_time": "12/17/2025 10:52 AM",
+      "interest_rate": "3.45",
+      "rate_type": "",
+      "rate_effective_date": "12/18/2025",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$50,000,000.00"
+    },
+    {
+      "reset_date_time": "12/10/2025 12:30 PM",
+      "interest_rate": "3.2",
+      "rate_type": "",
+      "rate_effective_date": "12/11/2025",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$50,000,000.00"
+    },
+    {
+      "reset_date_time": "12/03/2025 11:54 AM",
+      "interest_rate": "2.1",
+      "rate_type": "",
+      "rate_effective_date": "12/04/2025",
+      "aggregate_par_bank_bonds": "-",
+      "aggregate_par_investors": "$50,000,000.00"
+    }
+  ],
+  "trades": [
+    {
+      "trade_date": "06/04/2024 01:30 PM",
+      "settlement_date": "06/05/2024",
+      "price": "100",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "50,000,000",
+      "trade_type": "Customer bought",
+      "special_condition": ""
+    }
+  ],
+  "ratings": [],
+  "disclosures": [
+    {
+      "doc_type": "Official Statement",
+      "filing_date": "06/05/2024",
+      "pdf_url": "https://emma.msrb.org/P21819312-P21395141-P21836234.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A1A147C01AB6BA78D2B1FFD9904B82B8D\\A1A147C01AB6BA78D2B1FFD9904B82B8D_0001_Official_Statement_s.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/01/2025",
+      "pdf_url": "https://emma.msrb.org/P21927555-P21473428-P21923542.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A1A147C01AB6BA78D2B1FFD9904B82B8D\\A1A147C01AB6BA78D2B1FFD9904B82B8D_0002_Letter_of_Credit_134_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/01/2025",
+      "pdf_url": "https://emma.msrb.org/P21927554-P21473427-P21923541.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A1A147C01AB6BA78D2B1FFD9904B82B8D\\A1A147C01AB6BA78D2B1FFD9904B82B8D_0003_Letter_of_Credit_41_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/05/2024",
+      "pdf_url": "https://emma.msrb.org/P21819250-P21395096-P21836186.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A1A147C01AB6BA78D2B1FFD9904B82B8D\\A1A147C01AB6BA78D2B1FFD9904B82B8D_0004_Letter_of_Credit_5_3_MB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/05/2024",
+      "pdf_url": "https://emma.msrb.org/P21819249-P21395095-P21836185.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A1A147C01AB6BA78D2B1FFD9904B82B8D\\A1A147C01AB6BA78D2B1FFD9904B82B8D_0005_Letter_of_Credit_5_5_MB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/05/2024",
+      "pdf_url": "https://emma.msrb.org/P21819248-P21395094-P21836184.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A1A147C01AB6BA78D2B1FFD9904B82B8D\\A1A147C01AB6BA78D2B1FFD9904B82B8D_0006_Letter_of_Credit_635_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/05/2024",
+      "pdf_url": "https://emma.msrb.org/P21819247-P21395093-P21836183.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\pdfs\\A1A147C01AB6BA78D2B1FFD9904B82B8D\\A1A147C01AB6BA78D2B1FFD9904B82B8D_0007_Other_Liquidity_Facility_Document_569_KB.pdf",
+      "download_success": true
+    }
+  ]
+}

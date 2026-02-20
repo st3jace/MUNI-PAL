@@ -22,7 +22,6 @@ Expected: integration_mode='full', directional_guidance_only=false
 
 from __future__ import annotations
 
-import hashlib
 import os
 import sys
 
@@ -94,12 +93,6 @@ RISK_FACTS: list[tuple[str, str]] = [
 ]
 
 
-def _source_hash(project_id: str, schema_path: str) -> str:
-    return hashlib.sha256(
-        f"{project_id}:{schema_path}:bfms_fullmode_seed_v1".encode()
-    ).hexdigest()
-
-
 def main() -> None:
     print(f"Seeding full-mode risk facts for project {PROJECT_ID}\n")
 
@@ -169,7 +162,6 @@ def main() -> None:
                 extraction_job_id=job.id,
                 review_status="approved",
                 lifecycle_state="active",
-                source_hash=_source_hash(PROJECT_ID, schema_path),
             )
             session.add(fact)
             created += 1

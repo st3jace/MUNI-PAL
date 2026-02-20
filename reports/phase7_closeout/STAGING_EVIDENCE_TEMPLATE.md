@@ -34,7 +34,7 @@ All four automated gates passed in GitHub Actions run `22235130725`.
 - Endpoint: `GET /api/v1/risk/bfms-integration`
 - Fallback mode project ID: `de618f31-bb6f-4905-be68-8445c357ed32`
 - Fallback mode result: `integration_mode=fallback`, `overall_posture_score=0.78`, `5 low-reliability dimensions`, all 3 compliance checks pass, 7 critical risk flags, 5 material risk statements, 5 advisory next steps
-- Full mode note: Full mode requires a project with high-reliability extracted risk facts; covered by `test_risk_reporting_foundation.py` (gate 4, 4.45s pass)
+- Full mode note: Full mode confirmed live — see Full-Mode BFMS Staging Example section below
 
 ## Staging UI Evidence
 
@@ -59,34 +59,57 @@ python scripts/seed_fullmode_risk_facts.py
 #   &recency_window=5y&sample_size=50
 ```
 
-### Expected full-mode response shape
+### Actual staging full-mode response — 2026-02-20T20:05:13Z
+
+Captured after running `python scripts/seed_fullmode_risk_facts.py` against project `de618f31-bb6f-4905-be68-8445c357ed32`.
 
 ```json
 {
   "contract_version": "risk-bfms-integration-v1",
-  "integration_mode": "full",
-  "directional_guidance_only": false,
-  "fallback_reasons": [],
-  "overall_posture_score": "<0.0–1.0, driven by live facts>",
-  "dimension_reliability": {
-    "technology":    {"reliability_band": "high", "evidence_count": 2},
-    "construction":  {"reliability_band": "high", "evidence_count": 2},
-    "market":        {"reliability_band": "high", "evidence_count": 2},
-    "regulatory":    {"reliability_band": "high", "evidence_count": 2},
-    "feedstock":     {"reliability_band": "high", "evidence_count": 2}
+  "generated_at": "2026-02-20T20:05:13.466902Z",
+  "project_id": "de618f31-bb6f-4905-be68-8445c357ed32",
+  "cohort": {
+    "sector": "waste_to_energy",
+    "issuer_size_band": "mid",
+    "deal_type": "revenue",
+    "recency_window": "5y",
+    "sample_size": 50
   },
-  "risk_flags": [],
+  "integration_mode": "full",
+  "fallback_reasons": [],
+  "overall_benchmark_position": "below",
+  "overall_posture_score": 0.25,
+  "reliability_low_dimensions": 0,
+  "directional_guidance_only": false,
+  "critical_risk_flags": [
+    "DSCR covenant headroom: Base DSCR 1.34x vs covenant 1.35x gives -0.01x headroom. Headroom is below tolerance minimum.",
+    "Stress DSCR floor: Stress DSCR 0.89x evaluated against target floor 1.25x (tolerance 1.15x). Stress coverage is below tolerance minimum."
+  ],
   "material_risk_statements": [],
-  "advisory_next_steps": [],
+  "advisory_next_steps": [
+    {
+      "action_id": "action.dscr.coverage",
+      "priority": "high",
+      "owner": "Financial Advisor / Sponsor",
+      "title": "Strengthen DSCR coverage and covenant cushion",
+      "target_date_hint": "7 days",
+      "expected_impact": "Improves debt-service resilience and reduces probability of covenant stress."
+    }
+  ],
+  "key_assumptions": [
+    "No material assumptions beyond current validated evidence set."
+  ],
   "compliance_checks": [
-    {"check": "min_risk_dimensions_covered", "pass": true},
-    {"check": "no_unmitigated_critical_flags", "pass": true},
-    {"check": "posture_score_above_floor", "pass": true}
-  ]
+    {"rule_id": "no_internal_conflict_diagnostics", "passed": true, "detail": "Conflict counts and unresolved conflict references are excluded."},
+    {"rule_id": "no_operational_queue_metadata", "passed": true, "detail": "Internal queue and workflow metadata are not included."},
+    {"rule_id": "no_internal_uncertainty_notes", "passed": true, "detail": "Internal uncertainty notes are converted to external assumptions."}
+  ],
+  "internal_report_contract_version": "risk-internal-v1",
+  "external_brief_contract_version": "risk-external-v1"
 }
 ```
 
-*Note: `integration_mode=full` and `directional_guidance_only=false` are the two mandatory assertions. Actual `overall_posture_score` and list contents depend on live project facts and EMMA corpus data at time of call.*
+**Key assertions confirmed:** `integration_mode=full`, `directional_guidance_only=false`, `fallback_reasons=[]`, `reliability_low_dimensions=0`.
 
 ### Test coverage equivalent
 

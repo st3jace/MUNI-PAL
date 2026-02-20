@@ -131,7 +131,7 @@ class InformationRequestBase(BaseSchema):
     """Base schema for information requests."""
 
     request_code: str = Field(
-        ..., description="Unique code (e.g., 'IR-P2.3-001')"
+        ..., description="Unique code (e.g., 'IR-<PROJECT_TOKEN>-P2.3-001')"
     )
     title: str = Field(..., description="Human-readable title")
 

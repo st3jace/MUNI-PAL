@@ -172,6 +172,7 @@ def main() -> int:
             "tests/integration/test_role_policy.py "
             "tests/integration/test_security_integration.py "
             "tests/integration/test_risk_reporting_foundation.py "
+            "tests/integration/test_advisory_packages_api.py "
             "tests/unit/test_auth_dependencies.py "
             "tests/unit/test_audit_service.py "
             "tests/unit/test_audit_route_events.py "

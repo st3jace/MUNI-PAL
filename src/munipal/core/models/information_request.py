@@ -37,7 +37,7 @@ class InformationRequest(Base, TimestampMixin):
     # Request identification
     request_code: Mapped[str] = mapped_column(
         String(50), nullable=False, unique=True
-    )  # e.g., "IR-P2.3-001"
+    )  # e.g., "IR-550E8400E29B41D4A716446655440000-P2.3-001"
 
     # Human-readable title
     title: Mapped[str] = mapped_column(String(255), nullable=False)

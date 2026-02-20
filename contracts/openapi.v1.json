@@ -2763,7 +2763,7 @@
             "type": "array"
           },
           "request_code": {
-            "description": "Unique code (e.g., 'IR-P2.3-001')",
+            "description": "Unique code (e.g., 'IR-<PROJECT_TOKEN>-P2.3-001')",
             "title": "Request Code",
             "type": "string"
           },
@@ -3090,7 +3090,7 @@
             "type": "array"
           },
           "request_code": {
-            "description": "Unique code (e.g., 'IR-P2.3-001')",
+            "description": "Unique code (e.g., 'IR-<PROJECT_TOKEN>-P2.3-001')",
             "title": "Request Code",
             "type": "string"
           },

@@ -642,6 +642,8 @@ class ExternalPackageService:
             from munipal.services.disclosure_service import DisclosureSynthesisService
             disclosure_service = DisclosureSynthesisService(self.session)
             disclosure_doc = await disclosure_service.generate_document(project_id)
+            # Ensure async-safe relationship access before iterating tbd_items.
+            await self.session.refresh(disclosure_doc, attribute_names=["tbd_items"])
             package.disclosure_document_id = disclosure_doc.id
             package.disclosure_completeness_score = disclosure_doc.completeness_score
 

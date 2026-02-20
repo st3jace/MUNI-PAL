@@ -1,6 +1,6 @@
 ﻿# V2 Execution Tracker
 
-Last updated: 2026-02-19
+Last updated: 2026-02-20
 
 ## Phase Status
 
@@ -43,9 +43,12 @@ Last updated: 2026-02-19
 1. Finalize `V2/BASELINE_PACK_20260218.md` sign-off fields (owners, dates, and rollback owner assignment).
 2. Approve Phase 0 artifact set, owners, and baseline sign-off.
 3. Execute SEC-008 checklist sign-off for target environment.
-4. Confirm first green run of `.github/workflows/core-security-risk-gate.yml` in target CI.
-5. Promote combined core/security/risk/contract gate run (`174 passed`) plus frontend build validation to target CI environment.
-6. Add Phase 7 closeout validation evidence from target CI/staging (full/fallback behavior confirmed on advisory and readiness surfaces).
+4. ~~Confirm first green run of `.github/workflows/core-security-risk-gate.yml` in target CI.~~ **DONE** — run `22235087843`, commit `84f2a18`, confirmed green 2026-02-20.
+5. ~~Promote combined core/security/risk/contract gate run plus frontend build validation to target CI environment.~~ **DONE** — phase7-closeout-dispatch run `22235130725` all 4 gates pass.
+6. Seed full-mode risk facts and re-call BFMS endpoint to capture staging full-mode evidence (`scripts/seed_fullmode_risk_facts.py`).
+7. Confirm Internal Readiness Report and External Advisory Package generation succeed in staging.
+8. Fill sign-off fields in `reports/phase7_closeout/STAGING_EVIDENCE_TEMPLATE.md`.
+9. Re-run `.github/workflows/phase7-closeout-dispatch.yml` after latest fixes (advisory_package_service session.refresh, npm cache path) to capture updated artifact.
 
 ## Completed Milestones
 
@@ -135,3 +138,13 @@ Last updated: 2026-02-19
 84. 2026-02-19: Executed Phase 7 closeout bundle locally with passing evidence artifact (`reports/phase7_closeout/phase7_closeout_20260219_222058.md`, `reports/phase7_closeout/phase7_closeout_20260219_222058.json`): backend gate `174 passed`, frontend tests `5 passed`, frontend build successful, risk-focused slice `38 passed`.
 85. 2026-02-19: Added target staging evidence capture template to streamline final closeout recording (`reports/phase7_closeout/STAGING_EVIDENCE_TEMPLATE.md`).
 86. 2026-02-19: Added dispatchable CI closeout workflow (`.github/workflows/phase7-closeout-dispatch.yml`) to run Phase 7 bundle via Actions and upload timestamped evidence artifacts.
+87. 2026-02-20: Fixed `core-security-risk-gate.yml` npm cache-dependency-path from literal `frontend/package-lock.json` to glob `"**/package-lock.json"` (matching the fix already applied to `phase7-closeout-dispatch.yml`) to unblock GitHub Actions cache step.
+88. 2026-02-20: Confirmed first green run of `.github/workflows/core-security-risk-gate.yml` in target CI — run `22235087843`, commit `84f2a18dfc667aa504a15f60dc75cbd86ef98cae`, all backend + frontend gates pass.
+89. 2026-02-20: Confirmed first green run of `.github/workflows/phase7-closeout-dispatch.yml` in target CI — run `22235130725`, commit `84f2a18`, 4/4 gates pass (backend 174 tests 14.89s, frontend tests 2.00s, frontend build 7.60s, risk slice 4.45s).
+90. 2026-02-20: Diagnosed staging `.env` was missing 5 feature-flag/JWT settings (`AUTH_ENFORCEMENT_V2`, `ROLE_ENFORCEMENT_V2`, `RISK_REPORTING_V2_FOUNDATION`, `RISK_REPORTING_V2_ADVANCED_ANALYTICS`, `RISK_REPORTING_V2_ADVANCED_MIN_RELIABILITY`); added all five to live staging `.env`.
+91. 2026-02-20: Confirmed staging BFMS fallback-mode API response for project `de618f31-bb6f-4905-be68-8445c357ed32` — `integration_mode=fallback`, `overall_posture_score=0.78`, 5 low-reliability dimensions, 3 compliance checks pass, 7 critical risk flags, 5 material risk statements, 5 advisory next steps.
+92. 2026-02-20: Confirmed staging UI — Readiness tab loads without errors; Advisory Packages External tab renders BFMS fallback mode panel correctly (yellow banner, contract version, posture score, fallback reasons, top risk next steps).
+93. 2026-02-20: Diagnosed `Generate Report` error in Advisory Packages: SQLAlchemy async lazy-load failure on `disclosure_doc.tbd_items` relationship after `session.flush()` in the disclosure service; fixed by adding `await self.session.refresh(disclosure_doc, attribute_names=["tbd_items"])` before iterating the collection (`src/munipal/services/advisory_package_service.py`).
+94. 2026-02-20: Added staging evidence capture template entries for confirmed automated gates, staging API fallback evidence, and staging UI evidence (`reports/phase7_closeout/STAGING_EVIDENCE_TEMPLATE.md`).
+95. 2026-02-20: Added full-mode risk fact seed script (`scripts/seed_fullmode_risk_facts.py`) inserting 10 approved risk dimension facts at `confidence_score=0.95` for project `de618f31-bb6f-4905-be68-8445c357ed32` to push all 5 dimensions from LOW to HIGH reliability and enable staging full-mode BFMS evidence capture.
+96. 2026-02-20: Updated Phase 7 status in Phase Status table and Next Milestones list to reflect CI green runs, staging API/UI validation, advisory package fix, and pending full-mode evidence capture.

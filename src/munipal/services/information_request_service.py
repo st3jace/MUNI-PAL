@@ -78,7 +78,7 @@ class InformationRequestService:
             request_code=request_code,
             title=request.title,
             missing_fact_paths=request.missing_fact_paths,
-            current_evidence_state=request.current_evidence_state.value,
+            current_evidence_state=self._enum_value(request.current_evidence_state),
             gap_id=request.gap_id,
             # Bond domain context
             why_it_matters=request.why_it_matters,
@@ -104,7 +104,7 @@ class InformationRequestService:
             minimum_confidence=request.minimum_confidence,
             expected_format=request.expected_format,
             # Assignment
-            priority=request.priority.value,
+            priority=self._enum_value(request.priority),
             suggested_owner=request.suggested_owner,
             target_date=request.target_date,
             # Status
@@ -183,18 +183,22 @@ class InformationRequestService:
         # Update fields
         if update.status:
             old_status = request.status
-            request.status = update.status.value
+            new_status = self._enum_value(update.status)
+            request.status = new_status
 
             # Track status transitions
             now = datetime.now(timezone.utc)
-            if update.status == RequestStatus.IN_PROGRESS and old_status == RequestStatus.OPEN.value:
+            if (
+                new_status == RequestStatus.IN_PROGRESS.value
+                and old_status == RequestStatus.OPEN.value
+            ):
                 request.acknowledged_at = now
                 request.acknowledged_by = str(user_id) if user_id else None
-            elif update.status == RequestStatus.SUBMITTED:
+            elif new_status == RequestStatus.SUBMITTED.value:
                 request.submitted_at = now
-            elif update.status == RequestStatus.RESOLVED:
+            elif new_status == RequestStatus.RESOLVED.value:
                 request.resolved_at = now
-            elif update.status == RequestStatus.DEFERRED:
+            elif new_status == RequestStatus.DEFERRED.value:
                 request.deferred_at = now
                 request.deferred_reason = update.deferred_reason
                 request.deferred_review_date = update.deferred_review_date
@@ -286,6 +290,7 @@ class InformationRequestService:
         # Find gaps and generate requests
         generated_requests = []
         request_counter = await self._get_request_counter(project_id)
+        project_token = self._project_code_token(project_id)
 
         for template in INFORMATION_REQUEST_TEMPLATES:
             trigger_paths = template["trigger_fact_paths"]
@@ -320,7 +325,11 @@ class InformationRequestService:
             # Generate request code
             request_counter += 1
             phase = template.get("trigger_phase", "P1")
-            request_code = f"IR-{phase}-{request_counter:03d}"
+            request_code = self._build_request_code(
+                project_token=project_token,
+                counter=request_counter,
+                phase=phase,
+            )
 
             # Create request
             request = InformationRequest(
@@ -575,7 +584,31 @@ class InformationRequestService:
     async def _generate_request_code(self, project_id: UUID) -> str:
         """Generate a unique request code."""
         counter = await self._get_request_counter(project_id)
-        return f"IR-{counter + 1:03d}"
+        return self._build_request_code(
+            project_token=self._project_code_token(project_id),
+            counter=counter + 1,
+        )
+
+    @staticmethod
+    def _project_code_token(project_id: UUID) -> str:
+        """Build deterministic project token for globally unique request codes."""
+        return str(project_id).replace("-", "").upper()
+
+    @staticmethod
+    def _build_request_code(
+        project_token: str,
+        counter: int,
+        phase: str | None = None,
+    ) -> str:
+        """Build request code with optional phase context."""
+        if phase:
+            return f"IR-{project_token}-{phase}-{counter:03d}"
+        return f"IR-{project_token}-{counter:03d}"
+
+    @staticmethod
+    def _enum_value(value: Any) -> Any:
+        """Return enum value for Enum-like objects; passthrough plain values."""
+        return value.value if hasattr(value, "value") else value
 
     # -------------------------------------------------------------------------
     # Serialization

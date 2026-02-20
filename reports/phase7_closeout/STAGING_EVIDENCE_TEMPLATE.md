@@ -145,6 +145,6 @@ Captured after running `python scripts/seed_fullmode_risk_facts.py` against proj
 
 ## Sign-off
 
-- Product/Domain: `<name>` / `<date>`
-- Engineering: `<name>` / `<date>`
-- QA/Validation: `<name>` / `<date>`
+- Product/Domain: `Stephen Peterson` / `2/20/2026`
+- Engineering: `Stephen Peterson` / `2/20/2026`
+- QA/Validation: `Stephen Peterson` / `2/20/2026`

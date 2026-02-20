@@ -13,7 +13,7 @@ Last updated: 2026-02-20
 | Phase 4 | In Progress (Dedup/Archive Foundation) | 2026-02-19 | TBD | TBD | `DEDUP-401` through `REVIEW-406` core backend contracts implemented plus canonical transition audit coverage and expanded dataset/property replay reproducibility validation (`AUDIT-503`/`TEST-504`); target baseline DB schema/backfill gap resolved and replay harness now stable on populated corpus with live baseline sign-off complete (`de618f31-bb6f-4905-be68-8445c357ed32`, 239 facts) |
 | Phase 5 | In Progress (Sprint 4) | 2026-02-19 | TBD | TBD | `RISK-501` through `RISK-511` implemented behind `RISK_REPORTING_V2_FOUNDATION` (`RISK-508` external brief, `RISK-509` request sync, `RISK-510` audit/governance, `RISK-511` validation suite) |
 | Phase 6 | In Progress (Risk Analytics Bridge) | 2026-02-19 | TBD | TBD | `RISK-512` advanced analytics bridge implemented behind reliability gate (`RISK_REPORTING_V2_ADVANCED_ANALYTICS`, default off) |
-| Phase 7 | In Progress (Integration Foundation) | 2026-02-19 | TBD | TBD | Added versioned BFMS risk integration contract with graceful fallback semantics (`/api/v1/risk/bfms-integration`, `risk-bfms-integration-v1`), backend full/fallback coverage, frontend Readiness + Advisory Packages consumption, and external package content enrichment carrying integration mode/fallback context |
+| Phase 7 | **Complete** | 2026-02-19 | 2026-02-20 | Stephen Peterson | BFMS integration contract shipped and signed off — both fallback and full modes confirmed in staging; all automated gates green; Internal Report + External Package generation confirmed; sign-off: Stephen Peterson 2026-02-20 |
 | Phase 8 | Planned | TBD | TBD | TBD | |
 
 ## Active Risks
@@ -47,8 +47,8 @@ Last updated: 2026-02-20
 5. ~~Promote combined core/security/risk/contract gate run plus frontend build validation to target CI environment.~~ **DONE** — phase7-closeout-dispatch run `22235130725` all 4 gates pass.
 6. ~~Seed full-mode risk facts and re-call BFMS endpoint to capture staging full-mode evidence (`scripts/seed_fullmode_risk_facts.py`).~~ **DONE** — full-mode response confirmed 2026-02-20T20:05:13Z, recorded in STAGING_EVIDENCE_TEMPLATE.md (milestone 97).
 7. ~~Confirm Internal Readiness Report and External Advisory Package generation succeed in staging.~~ **DONE** — Internal Report v3 (score 6.6/10, 2 critical gaps, 91 facts); External Package v2 Ready with full-mode BFMS green banner (posture 0.250, top DSCR action carries through) — confirmed 2026-02-20.
-8. Fill sign-off fields in `reports/phase7_closeout/STAGING_EVIDENCE_TEMPLATE.md`.
-9. Re-run `.github/workflows/phase7-closeout-dispatch.yml` after latest fixes (advisory_package_service session.refresh, npm cache path) to capture updated artifact.
+8. ~~Fill sign-off fields in `reports/phase7_closeout/STAGING_EVIDENCE_TEMPLATE.md`.~~ **DONE** — signed off by Stephen Peterson 2026-02-20.
+9. Re-run `.github/workflows/phase7-closeout-dispatch.yml` after latest fixes to capture updated artifact on final commit. Push `854b601` to trigger.
 
 ## Completed Milestones
 
@@ -151,3 +151,4 @@ Last updated: 2026-02-20
 97. 2026-02-20: Captured staging full-mode BFMS response — `integration_mode=full`, `directional_guidance_only=false`, `fallback_reasons=[]`, `reliability_low_dimensions=0`, `overall_posture_score=0.25`, 2 critical DSCR flags, 1 high-priority advisory action; recorded verbatim in `reports/phase7_closeout/STAGING_EVIDENCE_TEMPLATE.md`. Both fallback and full modes are now confirmed in staging.
 98. 2026-02-20: Confirmed Internal Readiness Report generation in staging — Version 3, score 6.6/10 ("Ready for selective advisor engagement"), 2 critical gaps (Issuer Authority 1.5/5.0), 6 open requests, 91 facts collected; export options (Markdown/PDF/HTML) rendered correctly.
 99. 2026-02-20: Confirmed External Advisory Package generation in staging — Version 2 "Ready for Distribution" for ABV Advisory; BFMS full-mode green banner renders with contract `risk-bfms-integration-v1`, posture score 0.250, reliability-low dimensions 0, and top DSCR next-step carries through; external package content evidence section in STAGING_EVIDENCE_TEMPLATE.md marked complete.
+100. 2026-02-20: **Phase 7 COMPLETE** — Sign-off recorded in `reports/phase7_closeout/STAGING_EVIDENCE_TEMPLATE.md` (Stephen Peterson, Product/Engineering/QA, 2026-02-20). All staging evidence sections complete. Artifact: commit `854b6017`.

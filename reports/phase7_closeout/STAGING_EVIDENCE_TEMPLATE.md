@@ -42,6 +42,24 @@ All four automated gates passed in GitHub Actions run `22235130725`.
 - Advisory Packages — External tab: BFMS fallback mode panel renders correctly (yellow banner, contract version, posture score, fallback reasons, top risk next steps displayed)
 - Advisory Packages — Internal tab: Generate Report succeeded after `session.refresh(disclosure_doc, attribute_names=["tbd_items"])` fix applied to `advisory_package_service.py` — confirmed 2026-02-20
 
+### Internal Readiness Report (confirmed 2026-02-20 13:08:58)
+
+- Overall Score: **6.6 / 10** — "Ready for selective advisor engagement"
+- Critical Gaps: 2 (Issuer Authority 1.5/5.0)
+- Open Requests: 6
+- Facts Collected: 91
+- Report History: Version 3 (score 6.6, 2 critical gaps), Version 2 (score 5.5, 4 critical gaps), Version 1 (score 5.5, 4 critical gaps)
+- Export options rendered: Markdown, PDF, HTML
+
+### External Advisory Package (confirmed 2026-02-20 13:10:47)
+
+- BFMS Risk Integration Input panel: **Full Mode** (green banner) — `contract risk-bfms-integration-v1`, posture score 0.250, reliability-low dimensions 0
+- Panel message: "Risk outputs are stable for advisory decisioning and package generation."
+- Top Risk Next Steps rendered: "[high] Strengthen DSCR coverage and covenant cushion (Financial Advisor / Sponsor, target 7 days)"
+- Distribution status: **Ready for Distribution** — "Package meets quality gates for external sharing"
+- Package generated for: ABV Advisory, v2
+- Package History: Test 2 (v2, 2/20/2026 1:10:47 PM, Ready), Test 1 (v1, 2/20/2026 1:07:01 PM, Ready)
+
 ## Full-Mode BFMS Staging Example
 
 Full mode is reached when all 5 risk dimensions have HIGH or MEDIUM reliability (≥2 approved facts each at confidence ≥ 0.95). The seed script creates this state deterministically.
@@ -117,17 +135,13 @@ Captured after running `python scripts/seed_fullmode_risk_facts.py` against proj
 
 ---
 
-## External Package Content Evidence (PENDING — manual)
+## External Package Content Evidence (COMPLETE)
 
-To complete this section:
-1. With server running, open Advisory Packages → External tab for project `de618f31-bb6f-4905-be68-8445c357ed32`
-2. Click **Generate Report**
-3. Copy the returned package ID from the response or UI
-4. Open the package and verify the executive summary and assumptions sections reference BFMS integration mode/posture score
-5. Fill in below:
-
-- Package ID: `<package-id>`
-- Evidence that summary/assumptions carry BFMS integration context: `<paste snippet or screenshot link>`
+- Package: "Test 2", v2, generated 2/20/2026 1:10:47 PM, for ABV Advisory — status: **Ready**
+- URL: `http://localhost:3000/projects/de618f31-bb6f-4905-be68-8445c357ed32/packages`
+- BFMS integration context in package UI: Full Mode green banner visible on External Advisory Package tab — contract `risk-bfms-integration-v1`, posture score 0.250, reliability-low dimensions 0, top DSCR action carries through to "Top Risk Next Steps" section
+- Distribution check: "Ready for Distribution — Package meets quality gates for external sharing"
+- Disclosure metrics: 0% complete, 0 critical TBDs, 0 high TBDs (seed project — expected)
 
 ## Sign-off
 

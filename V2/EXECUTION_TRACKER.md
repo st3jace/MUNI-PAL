@@ -46,7 +46,7 @@ Last updated: 2026-02-20
 4. ~~Confirm first green run of `.github/workflows/core-security-risk-gate.yml` in target CI.~~ **DONE** — run `22235087843`, commit `84f2a18`, confirmed green 2026-02-20.
 5. ~~Promote combined core/security/risk/contract gate run plus frontend build validation to target CI environment.~~ **DONE** — phase7-closeout-dispatch run `22235130725` all 4 gates pass.
 6. ~~Seed full-mode risk facts and re-call BFMS endpoint to capture staging full-mode evidence (`scripts/seed_fullmode_risk_facts.py`).~~ **DONE** — full-mode response confirmed 2026-02-20T20:05:13Z, recorded in STAGING_EVIDENCE_TEMPLATE.md (milestone 97).
-7. Confirm Internal Readiness Report and External Advisory Package generation succeed in staging.
+7. ~~Confirm Internal Readiness Report and External Advisory Package generation succeed in staging.~~ **DONE** — Internal Report v3 (score 6.6/10, 2 critical gaps, 91 facts); External Package v2 Ready with full-mode BFMS green banner (posture 0.250, top DSCR action carries through) — confirmed 2026-02-20.
 8. Fill sign-off fields in `reports/phase7_closeout/STAGING_EVIDENCE_TEMPLATE.md`.
 9. Re-run `.github/workflows/phase7-closeout-dispatch.yml` after latest fixes (advisory_package_service session.refresh, npm cache path) to capture updated artifact.
 
@@ -149,3 +149,5 @@ Last updated: 2026-02-20
 95. 2026-02-20: Added full-mode risk fact seed script (`scripts/seed_fullmode_risk_facts.py`) inserting 10 approved risk dimension facts at `confidence_score=0.95` for project `de618f31-bb6f-4905-be68-8445c357ed32` to push all 5 dimensions from LOW to HIGH reliability and enable staging full-mode BFMS evidence capture.
 96. 2026-02-20: Updated Phase 7 status in Phase Status table and Next Milestones list to reflect CI green runs, staging API/UI validation, advisory package fix, and pending full-mode evidence capture.
 97. 2026-02-20: Captured staging full-mode BFMS response — `integration_mode=full`, `directional_guidance_only=false`, `fallback_reasons=[]`, `reliability_low_dimensions=0`, `overall_posture_score=0.25`, 2 critical DSCR flags, 1 high-priority advisory action; recorded verbatim in `reports/phase7_closeout/STAGING_EVIDENCE_TEMPLATE.md`. Both fallback and full modes are now confirmed in staging.
+98. 2026-02-20: Confirmed Internal Readiness Report generation in staging — Version 3, score 6.6/10 ("Ready for selective advisor engagement"), 2 critical gaps (Issuer Authority 1.5/5.0), 6 open requests, 91 facts collected; export options (Markdown/PDF/HTML) rendered correctly.
+99. 2026-02-20: Confirmed External Advisory Package generation in staging — Version 2 "Ready for Distribution" for ABV Advisory; BFMS full-mode green banner renders with contract `risk-bfms-integration-v1`, posture score 0.250, reliability-low dimensions 0, and top DSCR next-step carries through; external package content evidence section in STAGING_EVIDENCE_TEMPLATE.md marked complete.

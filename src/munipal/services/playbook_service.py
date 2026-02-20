@@ -3,6 +3,7 @@ Playbook service - manages playbook configuration and seeding.
 
 Per spec: Playbook is a versioned configuration defining "bond-ready" criteria.
 """
+from __future__ import annotations
 
 from uuid import UUID
 

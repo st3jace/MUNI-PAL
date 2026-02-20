@@ -3,6 +3,7 @@ Project service - business logic for project management.
 
 Per spec: Project is the workspace for one bond-eligible project.
 """
+from __future__ import annotations
 
 from uuid import UUID
 

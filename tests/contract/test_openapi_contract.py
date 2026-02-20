@@ -12,9 +12,23 @@ from pathlib import Path
 from munipal.main import app
 
 
+_PYDANTIC_INTERNAL_SCHEMAS = {"ValidationError", "HTTPValidationError"}
+
+
 def _normalize(schema: dict) -> dict:
-    """Canonicalize dict ordering for stable equality checks."""
-    return json.loads(json.dumps(schema, sort_keys=True))
+    """Canonicalize dict ordering and strip Pydantic-internal component schemas.
+
+    ValidationError / HTTPValidationError schema shapes vary across Pydantic
+    minor versions (e.g. ctx/input fields added in some releases). They are
+    framework internals, not application API contracts, so excluding them keeps
+    the snapshot stable across Python / Pydantic version combinations.
+    """
+    cleaned = json.loads(json.dumps(schema, sort_keys=True))
+    components = cleaned.get("components", {})
+    schemas = components.get("schemas", {})
+    for name in _PYDANTIC_INTERNAL_SCHEMAS:
+        schemas.pop(name, None)
+    return cleaned
 
 
 def test_openapi_contract_snapshot_is_current():

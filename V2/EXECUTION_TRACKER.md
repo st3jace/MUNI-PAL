@@ -14,7 +14,7 @@ Last updated: 2026-02-20
 | Phase 5 | In Progress (Sprint 4) | 2026-02-19 | TBD | TBD | `RISK-501` through `RISK-511` implemented behind `RISK_REPORTING_V2_FOUNDATION` (`RISK-508` external brief, `RISK-509` request sync, `RISK-510` audit/governance, `RISK-511` validation suite) |
 | Phase 6 | In Progress (Risk Analytics Bridge) | 2026-02-19 | TBD | TBD | `RISK-512` advanced analytics bridge implemented behind reliability gate (`RISK_REPORTING_V2_ADVANCED_ANALYTICS`, default off) |
 | Phase 7 | **Complete** | 2026-02-19 | 2026-02-20 | Stephen Peterson | BFMS integration contract shipped and signed off — both fallback and full modes confirmed in staging; all automated gates green; Internal Report + External Package generation confirmed; sign-off: Stephen Peterson 2026-02-20 |
-| Phase 8 | In Progress (Closeout Prep) | 2026-02-20 | TBD | Stephen Peterson | Tenant isolation foundation complete (`EXT-801` to `EXT-805`); runbook + closeout automation landed and local bundle validated (`phase8_closeout_20260220_204240`) pending target staging sign-off |
+| Phase 8 | **Complete** | 2026-02-20 | 2026-02-21 | Stephen Peterson | Tenant isolation foundation shipped and signed off — migration `b8c9d0e1f2a3` applied, `TENANT_ISOLATION_V2=true` enabled, tenant-scoped listing and cross-tenant 403 confirmed, flag-only rollback drill passed; all automated gates green; sign-off: Stephen Peterson 2026-02-21 |
 
 ## Active Risks
 
@@ -43,10 +43,10 @@ Last updated: 2026-02-20
 1. Finalize `V2/BASELINE_PACK_20260218.md` sign-off fields (owners, dates, and rollback owner assignment).
 2. Approve Phase 0 artifact set, owners, and baseline sign-off.
 3. Execute SEC-008 checklist sign-off for target environment.
-4. Apply migration `b8c9d0e1f2a3` in target baseline DB and validate `projects.tenant_id` backfill output.
-5. Enable `TENANT_ISOLATION_V2=true` in staging and run project-access smoke validation for tenant-scoped behavior.
-6. Dispatch `.github/workflows/phase8-closeout-dispatch.yml` in target CI and archive artifacts.
-7. Complete `reports/phase8_closeout/STAGING_EVIDENCE_TEMPLATE.md` with staging API/UI evidence and sign-off (`EXT-807`).
+4. ~~Apply migration `b8c9d0e1f2a3` in target baseline DB and validate `projects.tenant_id` backfill output.~~ **DONE** — 0 missing rows, tenant distribution: default=3; milestone 112.
+5. ~~Enable `TENANT_ISOLATION_V2=true` in staging and run project-access smoke validation for tenant-scoped behavior.~~ **DONE** — tenant-scoped listing confirmed (default=3, other-org=0); cross-tenant 403 confirmed; milestone 113.
+6. ~~Dispatch `.github/workflows/phase8-closeout-dispatch.yml` in target CI and archive artifacts.~~ **DONE** — run `22256677506`, commit `2435a0a8`, success; core-security-risk-gate run `22256628880` also green; milestone 114.
+7. ~~Complete `reports/phase8_closeout/STAGING_EVIDENCE_TEMPLATE.md` with staging API/UI evidence and sign-off (`EXT-807`).~~ **DONE** — all sections filled, sign-off Stephen Peterson 2026-02-21; milestone 115.
 
 ## Completed Milestones
 
@@ -161,3 +161,8 @@ Last updated: 2026-02-20
 109. 2026-02-20: Added dispatchable Phase 8 closeout workflow for target CI with artifact upload support (`.github/workflows/phase8-closeout-dispatch.yml`).
 110. 2026-02-20: Added Phase 8 staging evidence template for migration/backfill proof, tenant-scope API/UI validation, rollback drill evidence, and sign-off capture (`reports/phase8_closeout/STAGING_EVIDENCE_TEMPLATE.md`).
 111. 2026-02-20: Executed Phase 8 closeout bundle locally with passing evidence artifact (`reports/phase8_closeout/phase8_closeout_20260220_204240.md`, `reports/phase8_closeout/phase8_closeout_20260220_204240.json`): backend gate `181 passed`, frontend tests `5 passed`, frontend build successful, tenant isolation slice `17 passed`.
+112. 2026-02-21: Applied migration `b8c9d0e1f2a3` to target staging DB — `projects.tenant_id` column added, index created, owner→organization backfill completed: 0 missing rows, tenant distribution `default=3` (3 projects total).
+113. 2026-02-21: Enabled `TENANT_ISOLATION_V2=true` in staging and confirmed tenant-scoped behavior — Tenant A (`default`) sees 3 projects, Tenant B (`other-org`) sees 0; cross-tenant single-project access returns `403 Forbidden: cross-tenant access denied`; same-tenant access returns `200` with full project payload.
+114. 2026-02-21: Both CI workflows green on commit `2435a0a8` — core-security-risk-gate run `22256628880` (push-triggered), phase8-closeout-dispatch run `22256677506` (manually dispatched), all gates pass.
+115. 2026-02-21: Executed flag-only rollback drill — set `TENANT_ISOLATION_V2=false`, restarted server, verified: `other-org` listing returns all 3 projects (no tenant filter), cross-tenant project access returns `200` (no block). Restored `TENANT_ISOLATION_V2=true`. Rollback is clean and immediate.
+116. 2026-02-21: **Phase 8 COMPLETE** — All staging evidence sections filled in `reports/phase8_closeout/STAGING_EVIDENCE_TEMPLATE.md`. Sign-off: Stephen Peterson, Product/Engineering/QA, 2026-02-21. Artifact: commit `2435a0a8`.

@@ -1,6 +1,6 @@
 ﻿# Muni-Pal V2 Planning Workspace
 
-Last updated: 2026-02-18
+Last updated: 2026-02-20
 
 This folder memorializes the V2 execution plan so roadmap, sprint scope, and safety controls stay explicit while the codebase evolves.
 
@@ -40,6 +40,14 @@ This folder memorializes the V2 execution plan so roadmap, sprint scope, and saf
 9. `PHASE_5_SPRINT_1_RISK_FOUNDATION.md`
 - First Phase 5 two-week execution slice (`RISK-501` to `RISK-503`)
 - Scope lock, acceptance criteria, tests, and rollout guardrails
+
+10. `PHASE_8_EXTERNAL_READINESS_BACKLOG.md`
+- Phase 8 backlog for tenant isolation, ops runbooks, and staging sign-off
+- External-readiness acceptance criteria and ordered implementation tasks
+
+11. `PHASE_8_TENANT_ISOLATION_RUNBOOK.md`
+- Phase 8 rollout, validation, incident response, and rollback runbook
+- Defines evidence capture flow for staging sign-off
 
 ## Operating Rule
 

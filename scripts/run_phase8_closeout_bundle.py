@@ -1,12 +1,12 @@
 """
-Run Phase 7 closeout validation bundle and write evidence artifacts.
+Run Phase 8 closeout validation bundle and write evidence artifacts.
 
 This script executes local CI-equivalent gates and writes:
 - JSON machine-readable results
 - Markdown human-readable summary/checklist
 
 Usage:
-    python scripts/run_phase7_closeout_bundle.py
+    python scripts/run_phase8_closeout_bundle.py
 """
 
 from __future__ import annotations
@@ -15,10 +15,10 @@ import json
 import subprocess
 import sys
 import time
+from collections.abc import Iterable
 from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Iterable
 
 
 @dataclass
@@ -90,7 +90,7 @@ def _write_json_report(
     overall_status: str,
 ) -> None:
     payload = {
-        "phase": "phase_7_closeout_bundle",
+        "phase": "phase_8_closeout_bundle",
         "generated_at_utc": finished_at,
         "started_at_utc": started_at,
         "overall_status": overall_status,
@@ -110,7 +110,7 @@ def _write_markdown_report(
     overall_status: str,
 ) -> None:
     lines: list[str] = [
-        "# Phase 7 Closeout Bundle Report",
+        "# Phase 8 Closeout Bundle Report",
         "",
         f"- Started (UTC): `{started_at}`",
         f"- Finished (UTC): `{finished_at}`",
@@ -133,13 +133,14 @@ def _write_markdown_report(
             "## Target CI/Staging Manual Closeout",
             "",
             "- [ ] Confirm first green run of `.github/workflows/core-security-risk-gate.yml` in target CI.",
-            "- [ ] Validate `GET /api/v1/risk/bfms-integration` in staging for both modes:",
-            "  - full mode payload on a high-reliability project",
-            "  - fallback mode payload on a low-reliability or low-sample project",
-            "- [ ] Confirm Readiness UI displays full/fallback status correctly on staging.",
-            "- [ ] Confirm Advisory Packages UI displays full/fallback/unavailable states correctly on staging.",
-            "- [ ] Confirm generated external advisory package carries BFMS integration context in summary/assumptions.",
-            "- [ ] Attach CI run URL and staging validation evidence (screenshots/log links) in `V2/EXECUTION_TRACKER.md`.",
+            "- [ ] Apply migration `b8c9d0e1f2a3` in target DB and capture output.",
+            "- [ ] Validate tenant backfill results (`missing_tenant_rows = 0` and tenant distribution query).",
+            "- [ ] Set `TENANT_ISOLATION_V2=true` in staging and restart API.",
+            "- [ ] Validate same-tenant project access succeeds (list/read/write).",
+            "- [ ] Validate cross-tenant project access is denied with `403`.",
+            "- [ ] Execute rollback drill (`TENANT_ISOLATION_V2=false`) and capture restoration evidence.",
+            "- [ ] Record all evidence and sign-off in `reports/phase8_closeout/STAGING_EVIDENCE_TEMPLATE.md`.",
+            "- [ ] Link CI run URL and staging evidence in `V2/EXECUTION_TRACKER.md`.",
             "",
         ]
     )
@@ -150,7 +151,7 @@ def _write_markdown_report(
 def main() -> int:
     repo_root = _repo_root()
     stamp = _timestamp()
-    report_root = repo_root / "reports" / "phase7_closeout"
+    report_root = repo_root / "reports" / "phase8_closeout"
     logs_dir = report_root / f"logs_{stamp}"
     logs_dir.mkdir(parents=True, exist_ok=True)
 
@@ -191,16 +192,17 @@ def main() -> int:
             "npm --prefix frontend run build",
         ),
         (
-            "Risk Focused Regression Slice",
-            "pytest tests/unit/test_risk_reporting_service.py "
-            "tests/integration/test_risk_reporting_foundation.py "
-            "tests/unit/test_advisory_package_service.py -q",
+            "Tenant Isolation Regression Slice",
+            "pytest -q "
+            "tests/integration/test_tenant_isolation.py "
+            "tests/integration/test_project_authorization.py "
+            "tests/unit/test_auth_dependencies.py",
         ),
     ]
 
     results: list[CommandResult] = []
     for name, command in commands:
-        print(f"[phase7-closeout] running: {name}")
+        print(f"[phase8-closeout] running: {name}")
         results.append(
             _run_command(
                 name=name,
@@ -213,8 +215,8 @@ def main() -> int:
     finished_at = datetime.now(UTC).isoformat()
     overall_status = "pass" if all(result.returncode == 0 for result in results) else "fail"
 
-    json_report_path = report_root / f"phase7_closeout_{stamp}.json"
-    md_report_path = report_root / f"phase7_closeout_{stamp}.md"
+    json_report_path = report_root / f"phase8_closeout_{stamp}.json"
+    md_report_path = report_root / f"phase8_closeout_{stamp}.md"
 
     _write_json_report(
         report_path=json_report_path,
@@ -233,9 +235,9 @@ def main() -> int:
         overall_status=overall_status,
     )
 
-    print(f"[phase7-closeout] overall={overall_status}")
-    print(f"[phase7-closeout] markdown={md_report_path.relative_to(repo_root).as_posix()}")
-    print(f"[phase7-closeout] json={json_report_path.relative_to(repo_root).as_posix()}")
+    print(f"[phase8-closeout] overall={overall_status}")
+    print(f"[phase8-closeout] markdown={md_report_path.relative_to(repo_root).as_posix()}")
+    print(f"[phase8-closeout] json={json_report_path.relative_to(repo_root).as_posix()}")
     if overall_status != "pass":
         return 1
     return 0

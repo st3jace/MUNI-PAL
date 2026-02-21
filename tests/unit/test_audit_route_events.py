@@ -185,7 +185,8 @@ async def test_delete_project_emits_audit_event(monkeypatch: pytest.MonkeyPatch)
     events = []
     project_id = uuid4()
 
-    async def fake_require_project_write(self, _user_id, _project_id):
+    async def fake_require_project_write(self, _user_id, _project_id, tenant_id=None):
+        assert tenant_id == "tenant-alpha"
         return None
 
     async def fake_delete(self, requested_project_id):
@@ -204,6 +205,7 @@ async def test_delete_project_emits_audit_event(monkeypatch: pytest.MonkeyPatch)
         project_id=project_id,
         db=object(),
         user_id="admin-1",
+        tenant_id="tenant-alpha",
         _="admin",
     )
 

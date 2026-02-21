@@ -204,6 +204,7 @@ class TestDataFactory:
         playbook_id: str,
         name: str = "Test Project",
         owner_id: str | None = None,
+        tenant_id: str = "default",
     ) -> dict[str, Any]:
         """Create a test project."""
         from munipal.core.models.project import Project
@@ -218,6 +219,7 @@ class TestDataFactory:
             issuer_name="Test Issuer",
             project_location="Test City, ST",
             target_bond_amount=10000000.0,
+            tenant_id=tenant_id,
             playbook_id=playbook_id,
             owner_id=owner,
         )
@@ -230,6 +232,7 @@ class TestDataFactory:
             "name": name,
             "playbook_id": playbook_id,
             "owner_id": owner,
+            "tenant_id": tenant_id,
         }
 
     async def create_artifact(

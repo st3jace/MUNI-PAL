@@ -9,12 +9,12 @@ Last updated: 2026-02-20
 | Phase 0 | In Progress | 2026-02-18 | TBD | TBD | First-pass baseline drafted at `V2/BASELINE_PACK_20260218.md` (pending validation/sign-off) |
 | Phase 1 | In Progress (Guarded) | 2026-02-18 | TBD | TBD | SEC-001 through SEC-008 artifacts implemented; rollout sign-off pending |
 | Phase 2 | In Progress (Contract Gate) | 2026-02-19 | TBD | TBD | OpenAPI snapshot and contract test added; frontend generated OpenAPI types/client landed and runtime adapter now delegates through generated services (`contracts/openapi.v1.json`, `frontend/src/types/openapi.generated.ts`, `frontend/src/generated/api-client/`, `frontend/src/services/api.ts`) |
-| Phase 3 | In Progress (CI Rehab) | 2026-02-19 | TBD | TBD | Core/security/risk/contract/fact-service gate now green (`174 passed`) and CI workflow now enforces frontend test + production build (`5 frontend tests passed`), plus full local suite green (`176 passed`) |
+| Phase 3 | In Progress (CI Rehab) | 2026-02-19 | TBD | TBD | Core/security/risk/contract/fact-service gate now green (`181 passed`) and CI workflow now enforces frontend test + production build (`5 frontend tests passed`), plus full local suite green (`176 passed`) |
 | Phase 4 | In Progress (Dedup/Archive Foundation) | 2026-02-19 | TBD | TBD | `DEDUP-401` through `REVIEW-406` core backend contracts implemented plus canonical transition audit coverage and expanded dataset/property replay reproducibility validation (`AUDIT-503`/`TEST-504`); target baseline DB schema/backfill gap resolved and replay harness now stable on populated corpus with live baseline sign-off complete (`de618f31-bb6f-4905-be68-8445c357ed32`, 239 facts) |
 | Phase 5 | In Progress (Sprint 4) | 2026-02-19 | TBD | TBD | `RISK-501` through `RISK-511` implemented behind `RISK_REPORTING_V2_FOUNDATION` (`RISK-508` external brief, `RISK-509` request sync, `RISK-510` audit/governance, `RISK-511` validation suite) |
 | Phase 6 | In Progress (Risk Analytics Bridge) | 2026-02-19 | TBD | TBD | `RISK-512` advanced analytics bridge implemented behind reliability gate (`RISK_REPORTING_V2_ADVANCED_ANALYTICS`, default off) |
 | Phase 7 | **Complete** | 2026-02-19 | 2026-02-20 | Stephen Peterson | BFMS integration contract shipped and signed off — both fallback and full modes confirmed in staging; all automated gates green; Internal Report + External Package generation confirmed; sign-off: Stephen Peterson 2026-02-20 |
-| Phase 8 | Planned | TBD | TBD | TBD | |
+| Phase 8 | In Progress (Closeout Prep) | 2026-02-20 | TBD | Stephen Peterson | Tenant isolation foundation complete (`EXT-801` to `EXT-805`); runbook + closeout automation landed and local bundle validated (`phase8_closeout_20260220_204240`) pending target staging sign-off |
 
 ## Active Risks
 
@@ -43,12 +43,10 @@ Last updated: 2026-02-20
 1. Finalize `V2/BASELINE_PACK_20260218.md` sign-off fields (owners, dates, and rollback owner assignment).
 2. Approve Phase 0 artifact set, owners, and baseline sign-off.
 3. Execute SEC-008 checklist sign-off for target environment.
-4. ~~Confirm first green run of `.github/workflows/core-security-risk-gate.yml` in target CI.~~ **DONE** — run `22235087843`, commit `84f2a18`, confirmed green 2026-02-20.
-5. ~~Promote combined core/security/risk/contract gate run plus frontend build validation to target CI environment.~~ **DONE** — phase7-closeout-dispatch run `22235130725` all 4 gates pass.
-6. ~~Seed full-mode risk facts and re-call BFMS endpoint to capture staging full-mode evidence (`scripts/seed_fullmode_risk_facts.py`).~~ **DONE** — full-mode response confirmed 2026-02-20T20:05:13Z, recorded in STAGING_EVIDENCE_TEMPLATE.md (milestone 97).
-7. ~~Confirm Internal Readiness Report and External Advisory Package generation succeed in staging.~~ **DONE** — Internal Report v3 (score 6.6/10, 2 critical gaps, 91 facts); External Package v2 Ready with full-mode BFMS green banner (posture 0.250, top DSCR action carries through) — confirmed 2026-02-20.
-8. ~~Fill sign-off fields in `reports/phase7_closeout/STAGING_EVIDENCE_TEMPLATE.md`.~~ **DONE** — signed off by Stephen Peterson 2026-02-20.
-9. Re-run `.github/workflows/phase7-closeout-dispatch.yml` after latest fixes to capture updated artifact on final commit. Push `854b601` to trigger.
+4. Apply migration `b8c9d0e1f2a3` in target baseline DB and validate `projects.tenant_id` backfill output.
+5. Enable `TENANT_ISOLATION_V2=true` in staging and run project-access smoke validation for tenant-scoped behavior.
+6. Dispatch `.github/workflows/phase8-closeout-dispatch.yml` in target CI and archive artifacts.
+7. Complete `reports/phase8_closeout/STAGING_EVIDENCE_TEMPLATE.md` with staging API/UI evidence and sign-off (`EXT-807`).
 
 ## Completed Milestones
 
@@ -152,3 +150,14 @@ Last updated: 2026-02-20
 98. 2026-02-20: Confirmed Internal Readiness Report generation in staging — Version 3, score 6.6/10 ("Ready for selective advisor engagement"), 2 critical gaps (Issuer Authority 1.5/5.0), 6 open requests, 91 facts collected; export options (Markdown/PDF/HTML) rendered correctly.
 99. 2026-02-20: Confirmed External Advisory Package generation in staging — Version 2 "Ready for Distribution" for ABV Advisory; BFMS full-mode green banner renders with contract `risk-bfms-integration-v1`, posture score 0.250, reliability-low dimensions 0, and top DSCR next-step carries through; external package content evidence section in STAGING_EVIDENCE_TEMPLATE.md marked complete.
 100. 2026-02-20: **Phase 7 COMPLETE** — Sign-off recorded in `reports/phase7_closeout/STAGING_EVIDENCE_TEMPLATE.md` (Stephen Peterson, Product/Engineering/QA, 2026-02-20). All staging evidence sections complete. Artifact: commit `854b6017`.
+101. 2026-02-20: Started Phase 8 with tenant isolation foundation backlog and scope lock (`V2/PHASE_8_EXTERNAL_READINESS_BACKLOG.md`).
+102. 2026-02-20: Added tenant identity context dependency (`CurrentTenantId`) with JWT claim/header resolution and `TENANT_ISOLATION_V2` config flag (`src/munipal/api/dependencies.py`, `src/munipal/config.py`, `.env.example`, `tests/unit/test_auth_dependencies.py`).
+103. 2026-02-20: Added project tenant partitioning via `projects.tenant_id` model + Alembic migration/backfill (`src/munipal/core/models/project.py`, `src/munipal/core/schemas/project.py`, `src/munipal/services/project_service.py`, `alembic/versions/20260220_0001_b8c9d0e1f2a3_add_project_tenant_id.py`).
+104. 2026-02-20: Implemented tenant-aware project authorization/list filtering paths behind `TENANT_ISOLATION_V2` with cross-tenant deny semantics for project endpoints (`src/munipal/services/authorization_service.py`, `src/munipal/api/routes/projects.py`).
+105. 2026-02-20: Added tenant isolation integration coverage and expanded CI gate command/workflow to include tenant tests (`tests/integration/test_tenant_isolation.py`, `tests/unit/test_audit_route_events.py`, `.github/workflows/core-security-risk-gate.yml`, `scripts/run_phase7_closeout_bundle.py`).
+106. 2026-02-20: Revalidated updated backend gate (`181 passed`) and frontend gate (`5 passed`, build successful) after Phase 8 tenant foundation rollout.
+107. 2026-02-20: Added Phase 8 tenant isolation operations runbook with rollout, smoke validation, incident response, and rollback procedures (`V2/PHASE_8_TENANT_ISOLATION_RUNBOOK.md`).
+108. 2026-02-20: Added one-command Phase 8 closeout bundle runner with automated gate evidence output and manual staging checklist (`scripts/run_phase8_closeout_bundle.py`).
+109. 2026-02-20: Added dispatchable Phase 8 closeout workflow for target CI with artifact upload support (`.github/workflows/phase8-closeout-dispatch.yml`).
+110. 2026-02-20: Added Phase 8 staging evidence template for migration/backfill proof, tenant-scope API/UI validation, rollback drill evidence, and sign-off capture (`reports/phase8_closeout/STAGING_EVIDENCE_TEMPLATE.md`).
+111. 2026-02-20: Executed Phase 8 closeout bundle locally with passing evidence artifact (`reports/phase8_closeout/phase8_closeout_20260220_204240.md`, `reports/phase8_closeout/phase8_closeout_20260220_204240.json`): backend gate `181 passed`, frontend tests `5 passed`, frontend build successful, tenant isolation slice `17 passed`.

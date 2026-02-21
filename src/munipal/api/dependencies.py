@@ -20,6 +20,7 @@ DbSession = Annotated[AsyncSession, Depends(get_async_session)]
 
 
 DEV_FALLBACK_USER_ID = "00000000-0000-0000-0000-000000000001"
+DEFAULT_TENANT_ID = "default"
 DEFAULT_COMPAT_ROLE = "admin"
 ALLOWED_ROLES = {"admin", "analyst", "viewer"}
 
@@ -59,6 +60,16 @@ def _decode_access_token(token: str) -> Mapping[str, object]:
 
     return payload
 
+
+def _normalize_tenant(raw_tenant: object) -> str:
+    """Normalize tenant identifier from claims/headers."""
+    if not isinstance(raw_tenant, str):
+        return DEFAULT_TENANT_ID
+
+    tenant = raw_tenant.strip()
+    return tenant or DEFAULT_TENANT_ID
+
+
 async def get_current_user_id(
     authorization: str | None = Header(None, description="Authorization: Bearer <token>"),
     x_user_id: str | None = Header(None, description="User ID for development auth"),
@@ -92,6 +103,38 @@ async def get_current_user_id(
 
 
 CurrentUserId = Annotated[str, Depends(get_current_user_id)]
+
+
+async def get_current_tenant_id(
+    authorization: str | None = Header(None, description="Authorization: Bearer <token>"),
+    x_tenant_id: str | None = Header(None, description="Tenant ID for tenant isolation"),
+) -> str:
+    """
+    Resolve current tenant ID.
+
+    With AUTH_ENFORCEMENT_V2=true:
+    - Reads from JWT claims (`tenant_id`, then `tenant`, then `org`)
+    - Falls back to DEFAULT_TENANT_ID when claim is absent
+
+    With AUTH_ENFORCEMENT_V2=false (compat mode):
+    - Uses X-Tenant-Id header when provided
+    - Falls back to DEFAULT_TENANT_ID
+    """
+    settings = get_settings()
+    if settings.auth_enforcement_v2:
+        token = _extract_bearer_token(authorization)
+        payload = _decode_access_token(token)
+        tenant = (
+            payload.get("tenant_id")
+            or payload.get("tenant")
+            or payload.get("org")
+        )
+        return _normalize_tenant(tenant)
+
+    return _normalize_tenant(x_tenant_id)
+
+
+CurrentTenantId = Annotated[str, Depends(get_current_tenant_id)]
 
 
 async def get_current_user_role(

@@ -115,6 +115,7 @@ class Settings(BaseSettings):
     jwt_refresh_token_expire_days: int = 7
     auth_enforcement_v2: bool = False
     role_enforcement_v2: bool = False
+    tenant_isolation_v2: bool = False
     risk_reporting_v2_foundation: bool = False
     risk_reporting_v2_advanced_analytics: bool = False
     risk_reporting_v2_advanced_min_reliability: Literal["high", "medium", "low"] = "high"

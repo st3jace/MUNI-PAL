@@ -12,7 +12,12 @@ import pytest
 from fastapi import HTTPException
 from jose import jwt
 
-from munipal.api.dependencies import DEV_FALLBACK_USER_ID, get_current_user_id
+from munipal.api.dependencies import (
+    DEFAULT_TENANT_ID,
+    DEV_FALLBACK_USER_ID,
+    get_current_tenant_id,
+    get_current_user_id,
+)
 from munipal.config import get_settings
 
 
@@ -131,3 +136,76 @@ async def test_auth_enforced_mode_rejects_token_without_subject(
 
     assert exc_info.value.status_code == 401
     assert exc_info.value.detail == "Token subject is missing"
+
+
+@pytest.mark.asyncio
+async def test_tenant_compat_mode_uses_header_tenant_id(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setenv("AUTH_ENFORCEMENT_V2", "false")
+
+    tenant_id = await get_current_tenant_id(
+        authorization=None,
+        x_tenant_id="tenant-alpha",
+    )
+
+    assert tenant_id == "tenant-alpha"
+
+
+@pytest.mark.asyncio
+async def test_tenant_compat_mode_falls_back_to_default(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setenv("AUTH_ENFORCEMENT_V2", "false")
+
+    tenant_id = await get_current_tenant_id(
+        authorization=None,
+        x_tenant_id=None,
+    )
+
+    assert tenant_id == DEFAULT_TENANT_ID
+
+
+@pytest.mark.asyncio
+async def test_tenant_enforced_mode_reads_tenant_claim(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setenv("AUTH_ENFORCEMENT_V2", "true")
+    monkeypatch.setenv("JWT_SECRET_KEY", "test-secret")
+    monkeypatch.setenv("JWT_ALGORITHM", "HS256")
+
+    token = jwt.encode(
+        {
+            "sub": "user-123",
+            "tenant_id": "tenant-jwt",
+            "exp": datetime.now(UTC) + timedelta(minutes=5),
+        },
+        "test-secret",
+        algorithm="HS256",
+    )
+
+    tenant_id = await get_current_tenant_id(
+        authorization=f"Bearer {token}",
+        x_tenant_id=None,
+    )
+
+    assert tenant_id == "tenant-jwt"
+
+
+@pytest.mark.asyncio
+async def test_tenant_enforced_mode_defaults_when_claim_missing(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    monkeypatch.setenv("AUTH_ENFORCEMENT_V2", "true")
+    monkeypatch.setenv("JWT_SECRET_KEY", "test-secret")
+    monkeypatch.setenv("JWT_ALGORITHM", "HS256")
+
+    token = jwt.encode(
+        {
+            "sub": "user-123",
+            "exp": datetime.now(UTC) + timedelta(minutes=5),
+        },
+        "test-secret",
+        algorithm="HS256",
+    )
+
+    tenant_id = await get_current_tenant_id(
+        authorization=f"Bearer {token}",
+        x_tenant_id=None,
+    )
+
+    assert tenant_id == DEFAULT_TENANT_ID

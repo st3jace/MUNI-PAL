@@ -49,6 +49,7 @@ class ProjectRead(ProjectBase, UUIDSchema, TimestampSchema):
 
     playbook_id: UUID
     owner_id: UUID
+    tenant_id: str
 
     # Computed summary fields
     artifact_count: int = 0
@@ -61,6 +62,7 @@ class ProjectSummary(UUIDSchema):
     """Minimal project summary for listings."""
 
     name: str
+    tenant_id: str
     issuer_name: str | None
     artifact_count: int = 0
     overall_readiness_score: float | None = None

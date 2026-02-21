@@ -5,10 +5,9 @@ Per spec: Project is the workspace for one bond-eligible project.
 All artifacts, facts, and deliverables belong to a project.
 """
 
-from datetime import datetime
 from uuid import uuid4
 
-from sqlalchemy import DateTime, Float, ForeignKey, String, Text, func
+from sqlalchemy import Float, ForeignKey, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from munipal.db.base import Base, TimestampMixin, UUIDType
@@ -33,6 +32,9 @@ class Project(Base, TimestampMixin):
     issuer_name: Mapped[str | None] = mapped_column(String(255))
     project_location: Mapped[str | None] = mapped_column(String(500))
     target_bond_amount: Mapped[float | None] = mapped_column(Float)
+    tenant_id: Mapped[str] = mapped_column(
+        String(100), nullable=False, default="default", index=True
+    )
 
     # Relationships
     owner_id: Mapped[str] = mapped_column(

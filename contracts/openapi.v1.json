@@ -4268,6 +4268,10 @@
             "description": "Target bond amount in USD",
             "title": "Target Bond Amount"
           },
+          "tenant_id": {
+            "title": "Tenant Id",
+            "type": "string"
+          },
           "updated_at": {
             "format": "date-time",
             "title": "Updated At",
@@ -4280,7 +4284,8 @@
           "id",
           "name",
           "playbook_id",
-          "owner_id"
+          "owner_id",
+          "tenant_id"
         ],
         "title": "ProjectRead",
         "type": "object"
@@ -14352,6 +14357,24 @@
             }
           },
           {
+            "description": "Tenant ID for tenant isolation",
+            "in": "header",
+            "name": "x-tenant-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Tenant ID for tenant isolation",
+              "title": "X-Tenant-Id"
+            }
+          },
+          {
             "description": "User role for development auth",
             "in": "header",
             "name": "x-user-role",
@@ -14437,6 +14460,24 @@
               ],
               "description": "User ID for development auth",
               "title": "X-User-Id"
+            }
+          },
+          {
+            "description": "Tenant ID for tenant isolation",
+            "in": "header",
+            "name": "x-tenant-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Tenant ID for tenant isolation",
+              "title": "X-Tenant-Id"
             }
           },
           {
@@ -14548,6 +14589,24 @@
             }
           },
           {
+            "description": "Tenant ID for tenant isolation",
+            "in": "header",
+            "name": "x-tenant-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Tenant ID for tenant isolation",
+              "title": "X-Tenant-Id"
+            }
+          },
+          {
             "description": "User role for development auth",
             "in": "header",
             "name": "x-user-role",
@@ -14634,6 +14693,24 @@
               ],
               "description": "User ID for development auth",
               "title": "X-User-Id"
+            }
+          },
+          {
+            "description": "Tenant ID for tenant isolation",
+            "in": "header",
+            "name": "x-tenant-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Tenant ID for tenant isolation",
+              "title": "X-Tenant-Id"
             }
           },
           {
@@ -14730,6 +14807,24 @@
               ],
               "description": "User ID for development auth",
               "title": "X-User-Id"
+            }
+          },
+          {
+            "description": "Tenant ID for tenant isolation",
+            "in": "header",
+            "name": "x-tenant-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Tenant ID for tenant isolation",
+              "title": "X-Tenant-Id"
             }
           },
           {

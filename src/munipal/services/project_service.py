@@ -9,7 +9,6 @@ from uuid import UUID
 
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload
 
 from munipal.core.models import Artifact, ExtractedFact, Playbook, Project
 from munipal.core.schemas.project import ProjectCreate, ProjectRead, ProjectSummary, ProjectUpdate
@@ -25,6 +24,7 @@ class ProjectService:
         self,
         data: ProjectCreate,
         owner_id: str,
+        tenant_id: str = "default",
     ) -> ProjectRead:
         """
         Create a new project.
@@ -39,7 +39,7 @@ class ProjectService:
         else:
             # Get default playbook
             result = await self.db.execute(
-                select(Playbook).where(Playbook.is_default == True, Playbook.is_active == True)
+                select(Playbook).where(Playbook.is_default, Playbook.is_active)
             )
             playbook = result.scalar_one_or_none()
             if not playbook:
@@ -53,6 +53,7 @@ class ProjectService:
             target_bond_amount=data.target_bond_amount,
             owner_id=owner_id,
             playbook_id=playbook.id,
+            tenant_id=tenant_id,
         )
 
         self.db.add(project)
@@ -71,6 +72,7 @@ class ProjectService:
     async def list(
         self,
         owner_id: str | None = None,
+        tenant_id: str | None = None,
         skip: int = 0,
         limit: int = 50,
     ) -> tuple[list[ProjectSummary], int]:
@@ -86,6 +88,9 @@ class ProjectService:
         if owner_id:
             query = query.where(Project.owner_id == owner_id)
             count_query = count_query.where(Project.owner_id == owner_id)
+        if tenant_id:
+            query = query.where(Project.tenant_id == tenant_id)
+            count_query = count_query.where(Project.tenant_id == tenant_id)
 
         # Get total count
         total = (await self.db.execute(count_query)).scalar() or 0
@@ -105,6 +110,7 @@ class ProjectService:
                 ProjectSummary(
                     id=UUID(project.id),
                     name=project.name,
+                    tenant_id=project.tenant_id,
                     issuer_name=project.issuer_name,
                     artifact_count=artifact_count,
                     overall_readiness_score=readiness_score,
@@ -163,6 +169,7 @@ class ProjectService:
             target_bond_amount=project.target_bond_amount,
             playbook_id=UUID(project.playbook_id),
             owner_id=UUID(project.owner_id),
+            tenant_id=project.tenant_id,
             artifact_count=artifact_count,
             fact_count=fact_count,
             approved_fact_count=approved_fact_count,

@@ -11,6 +11,7 @@ from munipal.core.models.user import User
 @pytest.fixture(autouse=True)
 def enable_tenant_isolation(monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setenv("TENANT_ISOLATION_V2", "true")
+    monkeypatch.setenv("AUTH_ENFORCEMENT_V2", "false")
     get_settings.cache_clear()
     yield
     get_settings.cache_clear()

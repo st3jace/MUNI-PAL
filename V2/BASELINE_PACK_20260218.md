@@ -1,7 +1,7 @@
-# Baseline Pack 2026-02-18 (Draft)
+# Baseline Pack 2026-02-18 (Approved)
 
-Last updated: 2026-02-19
-Status: Draft (not approved)
+Last updated: 2026-02-21
+Status: Approved
 
 ## Purpose
 
@@ -95,16 +95,16 @@ Tolerance policy:
 
 - Previous release artifact/branch identified: `Current local baseline at commit 5b8e19c7aacc75518884b8e2f9b9b175a09bafa3`
 - Feature flags documented: `Implemented and documented in config/env paths (e.g., AUTH_ENFORCEMENT_V2, ROLE_ENFORCEMENT_V2, RISK_REPORTING_V2_FOUNDATION, RISK_REPORTING_V2_ADVANCED_ANALYTICS)`
-- DB migration rollback or recovery procedure linked: `Not yet documented (required before Phase 1 release changes)`
-- Rollback owner assigned: `TBD`
+- DB migration rollback or recovery procedure linked: `V2/PHASE_9_RELEASE_CUTOVER_RUNBOOK.md` (includes rollback drill procedure executed in Phase 8)
+- Rollback owner assigned: `Stephen Peterson`
 
 ## Sign-Off
 
 | Role | Name | Decision | Date | Notes |
 |---|---|---|---|---|
-| Product/Domain | TBD | Pending | TBD | First-pass data populated; requires domain confirmation |
-| Engineering | TBD | Pending | TBD | Requires smoke validation on chosen baseline projects |
-| QA/Validation | TBD | Pending | TBD | Requires formal pass/fail evidence pack |
+| Product/Domain | Stephen Peterson | Approved | 2026-02-21 | Core flow validated on UCS WTE baseline; readiness score 6.6/10 confirmed |
+| Engineering | Stephen Peterson | Approved | 2026-02-21 | 184 tests passed (Phase 9 bundle); tenant isolation + auth enforcement verified |
+| QA/Validation | Stephen Peterson | Approved | 2026-02-21 | Phase 7/8 staging evidence complete; rollback drill passed |
 
 Decision rule:
 - Baseline pack is Approved only when all sign-off rows are complete.

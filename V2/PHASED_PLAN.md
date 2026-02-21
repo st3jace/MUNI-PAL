@@ -16,6 +16,7 @@ Last updated: 2026-02-21
 | Phase 7: Analytics to BFMS Integration | 2 weeks | Safe integration through stable interfaces | BFMS consumes analytics outputs with graceful fallback |
 | Phase 8: External Readiness | 2 weeks | Tenant and operational readiness | Tenant isolation, runbooks, staging validation signed off |
 | Phase 9: Release Cutover | 2 weeks | Launch-governance closure and external exposure decisioning | Baseline + security sign-offs closed, JWT tenant posture enforced, cutover rehearsal + explicit GO/NO-GO packet |
+| Phase 10: Post-Launch Operations | 4 weeks | Operational stability, onboarding readiness, and analytics hardening roadmap | Weekly telemetry evidence captured, tenant onboarding rehearsal completed, post-launch backlog milestones tracked |
 
 ## Dependency Rules
 
@@ -23,6 +24,7 @@ Last updated: 2026-02-21
 2. Phase 7 must not start until Phase 6 outputs are stable and versioned.
 3. External exposure is blocked until Phase 8 acceptance criteria are complete.
 4. Phase 9 release packet sign-off is required before any sustained external launch mode.
+5. Phase 10 is a continuous hardening window; no contract-breaking changes without explicit versioning approval.
 
 ## Release Gates Per Phase
 

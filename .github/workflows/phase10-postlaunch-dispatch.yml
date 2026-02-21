@@ -1,0 +1,81 @@
+name: Phase 10 Post-Launch Bundle
+
+on:
+  workflow_dispatch:
+    inputs:
+      note:
+        description: "Optional note for this weekly run"
+        required: false
+        type: string
+
+jobs:
+  postlaunch-bundle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[dev]
+          npm ci --prefix frontend
+
+      - name: Run Phase 10 post-launch bundle
+        env:
+          USE_SQLITE: "true"
+        run: |
+          python scripts/run_phase10_postlaunch_bundle.py
+
+      - name: Capture latest summary path
+        if: always()
+        id: bundle_paths
+        run: |
+          latest_md="$(ls -t reports/phase10_postlaunch/phase10_postlaunch_*.md | head -1)"
+          latest_json="$(ls -t reports/phase10_postlaunch/phase10_postlaunch_*.json | head -1)"
+          echo "latest_md=${latest_md}" >> "$GITHUB_OUTPUT"
+          echo "latest_json=${latest_json}" >> "$GITHUB_OUTPUT"
+
+      - name: Upload bundle artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase10-postlaunch-${{ github.run_id }}
+          path: |
+            reports/phase10_postlaunch/phase10_postlaunch_*.md
+            reports/phase10_postlaunch/phase10_postlaunch_*.json
+            reports/phase10_postlaunch/logs_*/
+            reports/phase10_postlaunch/WEEKLY_EVIDENCE_TEMPLATE.md
+          retention-days: 14
+
+      - name: Append workflow summary
+        if: always()
+        env:
+          RUN_NOTE: ${{ inputs.note }}
+        run: |
+          {
+            echo "## Phase 10 Post-Launch Bundle"
+            echo ""
+            echo "- Workflow run: \`${GITHUB_RUN_ID}\`"
+            echo "- Commit: \`${GITHUB_SHA}\`"
+            if [ -n "${RUN_NOTE}" ]; then
+              echo "- Note: ${RUN_NOTE}"
+            fi
+            echo "- Latest markdown report: \`${{ steps.bundle_paths.outputs.latest_md }}\`"
+            echo "- Latest JSON report: \`${{ steps.bundle_paths.outputs.latest_json }}\`"
+            echo "- Artifact: \`phase10-postlaunch-${GITHUB_RUN_ID}\`"
+          } >> "$GITHUB_STEP_SUMMARY"

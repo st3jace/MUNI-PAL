@@ -6,8 +6,8 @@ Last updated: 2026-02-21
 
 | Phase | Status | Start | Target End | Owner | Notes |
 |---|---|---|---|---|---|
-| Phase 0 | In Progress | 2026-02-18 | TBD | TBD | First-pass baseline drafted at `V2/BASELINE_PACK_20260218.md` (pending validation/sign-off) |
-| Phase 1 | In Progress (Guarded) | 2026-02-18 | TBD | TBD | SEC-001 through SEC-008 artifacts implemented; rollout sign-off pending |
+| Phase 0 | **Complete** | 2026-02-18 | 2026-02-21 | Stephen Peterson | Baseline governance approved with full sign-off and rollback owner assignment (`REL-901`) |
+| Phase 1 | **Complete** | 2026-02-18 | 2026-02-21 | Stephen Peterson | Security hardening checklist fully signed with GO decision (`REL-902`) |
 | Phase 2 | In Progress (Contract Gate) | 2026-02-19 | TBD | TBD | OpenAPI snapshot and contract test added; frontend generated OpenAPI types/client landed and runtime adapter now delegates through generated services (`contracts/openapi.v1.json`, `frontend/src/types/openapi.generated.ts`, `frontend/src/generated/api-client/`, `frontend/src/services/api.ts`) |
 | Phase 3 | In Progress (CI Rehab) | 2026-02-19 | TBD | TBD | Core/security/risk/contract/fact-service gate now green (`184 passed`) and CI workflow now enforces frontend test + production build (`5 frontend tests passed`), plus full local suite green (`176 passed`) |
 | Phase 4 | In Progress (Dedup/Archive Foundation) | 2026-02-19 | TBD | TBD | `DEDUP-401` through `REVIEW-406` core backend contracts implemented plus canonical transition audit coverage and expanded dataset/property replay reproducibility validation (`AUDIT-503`/`TEST-504`); target baseline DB schema/backfill gap resolved and replay harness now stable on populated corpus with live baseline sign-off complete (`de618f31-bb6f-4905-be68-8445c357ed32`, 239 facts) |
@@ -16,6 +16,7 @@ Last updated: 2026-02-21
 | Phase 7 | **Complete** | 2026-02-19 | 2026-02-20 | Stephen Peterson | BFMS integration contract shipped and signed off — both fallback and full modes confirmed in staging; all automated gates green; Internal Report + External Package generation confirmed; sign-off: Stephen Peterson 2026-02-20 |
 | Phase 8 | **Complete** | 2026-02-20 | 2026-02-21 | Stephen Peterson | Tenant isolation foundation shipped and signed off — migration `b8c9d0e1f2a3` applied, `TENANT_ISOLATION_V2=true` enabled, tenant-scoped listing and cross-tenant 403 confirmed, flag-only rollback drill passed; all automated gates green; sign-off: Stephen Peterson 2026-02-21 |
 | Phase 9 | **Complete** | 2026-02-21 | 2026-02-21 | Stephen Peterson | Release readiness shipped and signed off — all REL-901 through REL-907 milestones validated; JWT-enforced auth + tenant isolation + role enforcement confirmed in staging; GO decision recorded; all automated gates green; sign-off: Stephen Peterson 2026-02-21 |
+| Phase 10 | In Progress (Post-Launch Ops) | 2026-02-21 | TBD | Stephen Peterson | Weekly post-launch operations loop opened (`OPS-1001`..`OPS-1005`) with automation and evidence templates; first local bundle passing (`phase10_postlaunch_20260221_131949`) |
 
 ## Active Risks
 
@@ -41,17 +42,13 @@ Last updated: 2026-02-21
 
 ## Next Milestones
 
-All V2 phases (0-9) complete. System is at release-ready posture with:
-- JWT-enforced authentication, role-based access control, and tenant isolation active
-- 184 automated tests passing across all gates
-- GO decision recorded at 2026-02-21T13:20:00Z
-- Rollback procedures documented and drill-tested
+Release-ready posture is maintained after Phase 9 closeout; Phase 10 post-launch operations are now active.
 
-Post-launch backlog (if applicable):
-1. Monitor production 401/403 rates and tune alert thresholds.
-2. Evaluate multi-tenant onboarding workflow for second tenant.
-3. Advance BFMS analytics from foundation to production-grade scoring.
-4. Consider healthcare sector corpus integration from EMMA crawler.
+1. Execute first weekly Phase 10 bundle in target CI via `.github/workflows/phase10-postlaunch-dispatch.yml` and archive artifacts (`OPS-1001`).
+2. Complete first weekly telemetry review in `reports/phase10_postlaunch/WEEKLY_EVIDENCE_TEMPLATE.md` with 401/403/cross-tenant trend evidence (`OPS-1001`).
+3. Plan and execute second-tenant onboarding rehearsal with rollback notes (`OPS-1002`).
+4. Publish BFMS production-grade scoring hardening plan and milestones (`OPS-1003`).
+5. Capture initial healthcare corpus readiness assessment outcome (`OPS-1004`).
 
 ## Completed Milestones
 
@@ -188,3 +185,9 @@ Post-launch backlog (if applicable):
 131. 2026-02-21: **REL-907 GO DECISION** — External launch decision recorded as GO at 2026-02-21T13:20:00Z. No blocking issues. All staging evidence sections complete.
 132. 2026-02-21: Completed `reports/phase9_release/STAGING_EVIDENCE_TEMPLATE.md` with all REL-901 through REL-907 evidence, automated gate results, target CI evidence, and sign-off (Stephen Peterson, 2026-02-21).
 133. 2026-02-21: **Phase 9 COMPLETE** — All release readiness milestones REL-901 through REL-907 validated and signed off. Artifact: commit pending.
+134. 2026-02-21: Verified post-closeout auth/tenant regression slice after user unblock updates (`28 passed`) across auth enforcement, security integration, compat tenant isolation, JWT tenant isolation, and auth dependency modules.
+135. 2026-02-21: Opened Phase 10 post-launch operations backlog and runbook (`V2/PHASE_10_POST_LAUNCH_BACKLOG.md`, `V2/PHASE_10_POST_LAUNCH_RUNBOOK.md`) with milestones `OPS-1001` through `OPS-1005`.
+136. 2026-02-21: Added Phase 10 weekly evidence template and automation pipeline (`reports/phase10_postlaunch/WEEKLY_EVIDENCE_TEMPLATE.md`, `scripts/run_phase10_postlaunch_bundle.py`, `.github/workflows/phase10-postlaunch-dispatch.yml`).
+137. 2026-02-21: Updated planning index and phased roadmap to include Phase 10 post-launch operations (`V2/README.md`, `V2/PHASED_PLAN.md`).
+138. 2026-02-21: Identified and fixed Phase 10 bundle env-leak issue by enforcing deterministic command overrides (`AUTH_ENFORCEMENT_V2=false`, `ROLE_ENFORCEMENT_V2=false`, `TENANT_ISOLATION_V2=false`, `USE_SQLITE=true`) in `scripts/run_phase10_postlaunch_bundle.py`.
+139. 2026-02-21: Executed Phase 10 post-launch bundle locally with passing evidence artifact (`reports/phase10_postlaunch/phase10_postlaunch_20260221_131949.md`, `reports/phase10_postlaunch/phase10_postlaunch_20260221_131949.json`): backend gate `184 passed`, frontend tests `5 passed`, frontend build successful, auth+tenant+risk slice `63 passed`.

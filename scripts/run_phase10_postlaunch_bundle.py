@@ -1,21 +1,22 @@
 """
-Run Phase 7 closeout validation bundle and write evidence artifacts.
+Run Phase 10 post-launch validation bundle and write evidence artifacts.
 
-This script executes local CI-equivalent gates and writes:
+This script executes CI-equivalent gates and writes:
 - JSON machine-readable results
 - Markdown human-readable summary/checklist
 
 Usage:
-    python scripts/run_phase7_closeout_bundle.py
+    python scripts/run_phase10_postlaunch_bundle.py
 """
 
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 import time
-from collections.abc import Iterable
+from collections.abc import Iterable, Mapping
 from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
 from pathlib import Path
@@ -48,8 +49,12 @@ def _run_command(
     command: str,
     repo_root: Path,
     logs_dir: Path,
+    extra_env: Mapping[str, str] | None = None,
 ) -> CommandResult:
     started = time.perf_counter()
+    env = os.environ.copy()
+    if extra_env:
+        env.update(extra_env)
     proc = subprocess.run(
         command,
         cwd=repo_root,
@@ -58,12 +63,20 @@ def _run_command(
         text=True,
         encoding="utf-8",
         errors="replace",
+        env=env,
     )
     duration = time.perf_counter() - started
     safe_name = name.lower().replace(" ", "_").replace("/", "_")
     log_path = logs_dir / f"{safe_name}.log"
+    env_notes = ""
+    if extra_env:
+        env_notes = "--- ENV OVERRIDES ---\n" + "\n".join(
+            f"{key}={value}" for key, value in sorted(extra_env.items())
+        )
+        env_notes += "\n\n"
     log_text = (
         f"$ {command}\n\n"
+        f"{env_notes}"
         f"returncode={proc.returncode}\n"
         f"duration_seconds={duration:.2f}\n\n"
         "--- STDOUT ---\n"
@@ -90,7 +103,7 @@ def _write_json_report(
     overall_status: str,
 ) -> None:
     payload = {
-        "phase": "phase_7_closeout_bundle",
+        "phase": "phase_10_postlaunch_bundle",
         "generated_at_utc": finished_at,
         "started_at_utc": started_at,
         "overall_status": overall_status,
@@ -110,7 +123,7 @@ def _write_markdown_report(
     overall_status: str,
 ) -> None:
     lines: list[str] = [
-        "# Phase 7 Closeout Bundle Report",
+        "# Phase 10 Post-Launch Bundle Report",
         "",
         f"- Started (UTC): `{started_at}`",
         f"- Finished (UTC): `{finished_at}`",
@@ -130,16 +143,15 @@ def _write_markdown_report(
     lines.extend(
         [
             "",
-            "## Target CI/Staging Manual Closeout",
+            "## Weekly Manual Operations Checklist",
             "",
-            "- [ ] Confirm first green run of `.github/workflows/core-security-risk-gate.yml` in target CI.",
-            "- [ ] Validate `GET /api/v1/risk/bfms-integration` in staging for both modes:",
-            "  - full mode payload on a high-reliability project",
-            "  - fallback mode payload on a low-reliability or low-sample project",
-            "- [ ] Confirm Readiness UI displays full/fallback status correctly on staging.",
-            "- [ ] Confirm Advisory Packages UI displays full/fallback/unavailable states correctly on staging.",
-            "- [ ] Confirm generated external advisory package carries BFMS integration context in summary/assumptions.",
-            "- [ ] Attach CI run URL and staging validation evidence (screenshots/log links) in `V2/EXECUTION_TRACKER.md`.",
+            "- [ ] Update 401/403/cross-tenant-denied trend review for this week (`OPS-1001`).",
+            "- [ ] Record any alert threshold tuning changes and rationale (`OPS-1001`).",
+            "- [ ] Execute or schedule second-tenant onboarding rehearsal (`OPS-1002`).",
+            "- [ ] Record BFMS production-grade scoring hardening progress (`OPS-1003`).",
+            "- [ ] Record healthcare corpus readiness progress and risks (`OPS-1004`).",
+            "- [ ] Execute/record incident drill timeline and outcomes (`OPS-1005`).",
+            "- [ ] Populate `reports/phase10_postlaunch/WEEKLY_EVIDENCE_TEMPLATE.md` and link in tracker.",
             "",
         ]
     )
@@ -150,13 +162,19 @@ def _write_markdown_report(
 def main() -> int:
     repo_root = _repo_root()
     stamp = _timestamp()
-    report_root = repo_root / "reports" / "phase7_closeout"
+    report_root = repo_root / "reports" / "phase10_postlaunch"
     logs_dir = report_root / f"logs_{stamp}"
     logs_dir.mkdir(parents=True, exist_ok=True)
 
     started_at = datetime.now(UTC).isoformat()
+    default_env = {
+        "USE_SQLITE": "true",
+        "AUTH_ENFORCEMENT_V2": "false",
+        "ROLE_ENFORCEMENT_V2": "false",
+        "TENANT_ISOLATION_V2": "false",
+    }
 
-    commands: list[tuple[str, str]] = [
+    commands: list[tuple[str, str, Mapping[str, str] | None]] = [
         (
             "Backend CI-Equivalent Gate",
             "pytest -q "
@@ -182,40 +200,50 @@ def main() -> int:
             "tests/unit/test_advisory_package_service.py "
             "tests/unit/test_fact_service.py "
             "-p no:cacheprovider",
+            default_env,
         ),
         (
             "Frontend Tests",
             "npm --prefix frontend run test",
+            default_env,
         ),
         (
             "Frontend Production Build",
             "npm --prefix frontend run build",
+            default_env,
         ),
         (
-            "Risk Focused Regression Slice",
-            "pytest tests/unit/test_risk_reporting_service.py "
+            "Auth+Tenant+Risk Stability Slice",
+            "pytest -q "
+            "tests/integration/test_auth_enforcement_routes.py "
+            "tests/integration/test_security_integration.py "
+            "tests/integration/test_tenant_isolation.py "
+            "tests/integration/test_tenant_isolation_jwt_mode.py "
             "tests/integration/test_risk_reporting_foundation.py "
-            "tests/unit/test_advisory_package_service.py -q",
+            "tests/unit/test_auth_dependencies.py "
+            "tests/unit/test_risk_reporting_service.py",
+            default_env,
         ),
     ]
 
     results: list[CommandResult] = []
-    for name, command in commands:
-        print(f"[phase7-closeout] running: {name}")
+    for name, command, extra_env in commands:
+        print(f"[phase10-postlaunch] running: {name}")
         results.append(
             _run_command(
                 name=name,
                 command=command,
                 repo_root=repo_root,
                 logs_dir=logs_dir,
+                extra_env=extra_env,
             )
         )
 
     finished_at = datetime.now(UTC).isoformat()
     overall_status = "pass" if all(result.returncode == 0 for result in results) else "fail"
 
-    json_report_path = report_root / f"phase7_closeout_{stamp}.json"
-    md_report_path = report_root / f"phase7_closeout_{stamp}.md"
+    json_report_path = report_root / f"phase10_postlaunch_{stamp}.json"
+    md_report_path = report_root / f"phase10_postlaunch_{stamp}.md"
 
     _write_json_report(
         report_path=json_report_path,
@@ -234,9 +262,9 @@ def main() -> int:
         overall_status=overall_status,
     )
 
-    print(f"[phase7-closeout] overall={overall_status}")
-    print(f"[phase7-closeout] markdown={md_report_path.relative_to(repo_root).as_posix()}")
-    print(f"[phase7-closeout] json={json_report_path.relative_to(repo_root).as_posix()}")
+    print(f"[phase10-postlaunch] overall={overall_status}")
+    print(f"[phase10-postlaunch] markdown={md_report_path.relative_to(repo_root).as_posix()}")
+    print(f"[phase10-postlaunch] json={json_report_path.relative_to(repo_root).as_posix()}")
     if overall_status != "pass":
         return 1
     return 0

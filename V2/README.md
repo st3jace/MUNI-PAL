@@ -7,7 +7,7 @@ This folder memorializes the V2 execution plan so roadmap, sprint scope, and saf
 ## Documents
 
 1. `PHASED_PLAN.md`
-- End-to-end phased roadmap (Phase 0 through Phase 9)
+- End-to-end phased roadmap (Phase 0 through Phase 10)
 - Dependencies and phase gates
 
 2. `PHASE_0_BASELINE_PACK_TEMPLATE.md`
@@ -56,6 +56,14 @@ This folder memorializes the V2 execution plan so roadmap, sprint scope, and saf
 13. `PHASE_9_RELEASE_CUTOVER_RUNBOOK.md`
 - Phase 9 execution runbook for CI dispatch, staging evidence capture, and rollback
 - Defines `REL-901` through `REL-907` operational sequence
+
+14. `PHASE_10_POST_LAUNCH_BACKLOG.md`
+- Phase 10 backlog for post-launch telemetry hardening and tenant onboarding rehearsal
+- Defines `OPS-1001` through `OPS-1005` operations milestones
+
+15. `PHASE_10_POST_LAUNCH_RUNBOOK.md`
+- Phase 10 weekly operations runbook for recurring validation and evidence capture
+- Defines local/CI execution and escalation path
 
 ## Operating Rule
 

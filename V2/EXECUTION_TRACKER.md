@@ -16,7 +16,7 @@ Last updated: 2026-02-21
 | Phase 7 | **Complete** | 2026-02-19 | 2026-02-20 | Stephen Peterson | BFMS integration contract shipped and signed off — both fallback and full modes confirmed in staging; all automated gates green; Internal Report + External Package generation confirmed; sign-off: Stephen Peterson 2026-02-20 |
 | Phase 8 | **Complete** | 2026-02-20 | 2026-02-21 | Stephen Peterson | Tenant isolation foundation shipped and signed off — migration `b8c9d0e1f2a3` applied, `TENANT_ISOLATION_V2=true` enabled, tenant-scoped listing and cross-tenant 403 confirmed, flag-only rollback drill passed; all automated gates green; sign-off: Stephen Peterson 2026-02-21 |
 | Phase 9 | **Complete** | 2026-02-21 | 2026-02-21 | Stephen Peterson | Release readiness shipped and signed off — all REL-901 through REL-907 milestones validated; JWT-enforced auth + tenant isolation + role enforcement confirmed in staging; GO decision recorded; all automated gates green; sign-off: Stephen Peterson 2026-02-21 |
-| Phase 10 | In Progress (Post-Launch Ops) | 2026-02-21 | TBD | Stephen Peterson | Week 1 complete and Week 2 kickoff active: CI fix (Python 3.14 + Pydantic binary format normalization), OPS-1002 rehearsal (7/9 pass, rollback clean), OPS-1003 plan drafted, OPS-1004 automated readiness snapshot added (`healthcare_readiness_20260221_141512`, recommendation `go`). |
+| Phase 10 | In Progress (Post-Launch Ops) | 2026-02-21 | TBD | Stephen Peterson | Week 1 complete: OPS-1001 baseline, OPS-1002 rehearsal (7/9, rollback clean), OPS-1003 M1 calibration requirements documented (CDR-1..CDR-5), OPS-1004 go (363 files), OPS-1005 drill complete (TTD=0.1m, all controls pass). CI green at `d25fd29f`. |
 
 ## Active Risks
 
@@ -42,13 +42,13 @@ Last updated: 2026-02-21
 
 ## Next Milestones
 
-Week 1 Phase 10 operations complete. CI stabilized (Python 3.14 + Pydantic normalization), OPS-1002 onboarding rehearsal executed with rollback, telemetry baseline established.
+Week 1 Phase 10 operations complete. All 5 OPS items have initial evidence: telemetry baseline (OPS-1001), tenant rehearsal (OPS-1002), M1 calibration requirements (OPS-1003), healthcare go (OPS-1004), incident drill (OPS-1005).
 
-1. Execute updated Week 2 Phase 10 bundle in target CI (includes healthcare readiness snapshot step) and archive artifacts (`OPS-1001`/`OPS-1004`).
-2. Complete Week 2 telemetry review with 401/403/cross-tenant trend evidence (`OPS-1001`).
-3. Start OPS-1003 Milestone M1 by defining calibration dataset requirements and approval notes in `V2/OPS_1003_BFMS_PRODUCTION_SCORING_PLAN.md`.
-4. Record healthcare readiness assessment findings in weekly evidence using generated `healthcare_readiness_<timestamp>.md` artifacts (`OPS-1004`).
-5. Execute first incident drill using `reports/phase10_postlaunch/INCIDENT_DRILL_TEMPLATE.md` and capture timeline metrics (`OPS-1005`).
+1. Implement OPS-1003 M2 robustness checks: scenario sensitivity, guardrail consistency, new regression tests (`WS-2`).
+2. Implement drift detection logging for reliability band transitions and posture score delta (`CDR-5`).
+3. Execute Week 2 Phase 10 bundle in target CI and archive artifacts (`OPS-1001`).
+4. Complete Week 2 telemetry review with 401/403/cross-tenant trend evidence (`OPS-1001`).
+5. Begin healthcare corpus extraction pipeline integration (`OPS-1004` follow-up).
 
 ## Completed Milestones
 
@@ -203,3 +203,6 @@ Week 1 Phase 10 operations complete. CI stabilized (Python 3.14 + Pydantic norma
 149. 2026-02-21: Added OPS-1005 incident drill template (`reports/phase10_postlaunch/INCIDENT_DRILL_TEMPLATE.md`) and updated weekly evidence template references for OPS-1003/1004/1005 artifact linkage.
 150. 2026-02-21: Expanded Phase 10 bundle/workflow to include healthcare readiness snapshot output and artifact retention (`scripts/run_phase10_postlaunch_bundle.py`, `.github/workflows/phase10-postlaunch-dispatch.yml`).
 151. 2026-02-21: Revalidated updated Phase 10 post-launch bundle locally with passing evidence (`reports/phase10_postlaunch/phase10_postlaunch_20260221_141414.md`, backend `184 passed`, frontend `5 passed`, stability slice `63 passed`, healthcare snapshot `pass`).
+152. 2026-02-21: Dispatched expanded Phase 10 workflow (`22258436230`, commit `d25fd29f`) with OPS-1003 plan, OPS-1004 assessor, and OPS-1005 template. Both CI workflows green: core gate `22258433545` (success), phase10 dispatch `22258436230` (success).
+153. 2026-02-21: **OPS-1003 M1 IN PROGRESS** — Calibration dataset requirements (CDR-1 through CDR-5) documented in `V2/OPS_1003_BFMS_PRODUCTION_SCORING_PLAN.md`. Requirements cover minimum sample size (20+ per dimension for MEDIUM), recency bounds (365-day full weight), cohort coverage (5/5 dimensions), source quality (2+ distinct artifacts), and drift detection diagnostics. Current baseline assessment: CDR-1 partial (239 total facts, most dimensions < 20 without seeds), CDR-2 N/A, CDR-3 partial, CDR-4 partial, CDR-5 not started.
+154. 2026-02-21: **OPS-1005 DRILL COMPLETE** — First incident drill executed (`OPS-1005-20260221-01`). Scenario: auth spike with 14 malicious requests (no token, garbage, expired, cross-tenant). Results: 12x 401 rejections, 1x 403 cross-tenant block, all defensive controls confirmed. TTD=0.1 min, TTM=0.5 min, TTR=0.1 min. Lessons: JWT secret must match .env in drill scripts; no automated alerting pipeline yet. Evidence: `reports/phase10_postlaunch/INCIDENT_DRILL_TEMPLATE.md`.

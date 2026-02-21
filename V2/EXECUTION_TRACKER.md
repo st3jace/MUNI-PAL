@@ -16,7 +16,7 @@ Last updated: 2026-02-21
 | Phase 7 | **Complete** | 2026-02-19 | 2026-02-20 | Stephen Peterson | BFMS integration contract shipped and signed off — both fallback and full modes confirmed in staging; all automated gates green; Internal Report + External Package generation confirmed; sign-off: Stephen Peterson 2026-02-20 |
 | Phase 8 | **Complete** | 2026-02-20 | 2026-02-21 | Stephen Peterson | Tenant isolation foundation shipped and signed off — migration `b8c9d0e1f2a3` applied, `TENANT_ISOLATION_V2=true` enabled, tenant-scoped listing and cross-tenant 403 confirmed, flag-only rollback drill passed; all automated gates green; sign-off: Stephen Peterson 2026-02-21 |
 | Phase 9 | **Complete** | 2026-02-21 | 2026-02-21 | Stephen Peterson | Release readiness shipped and signed off — all REL-901 through REL-907 milestones validated; JWT-enforced auth + tenant isolation + role enforcement confirmed in staging; GO decision recorded; all automated gates green; sign-off: Stephen Peterson 2026-02-21 |
-| Phase 10 | In Progress (Post-Launch Ops) | 2026-02-21 | TBD | Stephen Peterson | Weekly post-launch operations loop opened (`OPS-1001`..`OPS-1005`) with automation and evidence templates; first local bundle passing (`phase10_postlaunch_20260221_131949`) |
+| Phase 10 | In Progress (Post-Launch Ops) | 2026-02-21 | TBD | Stephen Peterson | Week 1 complete: CI fix (Python 3.14 + Pydantic binary format normalization), OPS-1002 rehearsal (7/9 pass, rollback clean), evidence template filled. Phase 10 dispatch green (`22258099077`) + core gate green (`22258095603`). |
 
 ## Active Risks
 
@@ -42,13 +42,13 @@ Last updated: 2026-02-21
 
 ## Next Milestones
 
-Release-ready posture is maintained after Phase 9 closeout; Phase 10 post-launch operations are now active.
+Week 1 Phase 10 operations complete. CI stabilized (Python 3.14 + Pydantic normalization), OPS-1002 onboarding rehearsal executed with rollback, telemetry baseline established.
 
-1. Execute first weekly Phase 10 bundle in target CI via `.github/workflows/phase10-postlaunch-dispatch.yml` and archive artifacts (`OPS-1001`).
-2. Complete first weekly telemetry review in `reports/phase10_postlaunch/WEEKLY_EVIDENCE_TEMPLATE.md` with 401/403/cross-tenant trend evidence (`OPS-1001`).
-3. Plan and execute second-tenant onboarding rehearsal with rollback notes (`OPS-1002`).
-4. Publish BFMS production-grade scoring hardening plan and milestones (`OPS-1003`).
-5. Capture initial healthcare corpus readiness assessment outcome (`OPS-1004`).
+1. Execute Week 2 Phase 10 bundle in target CI and archive artifacts (`OPS-1001`).
+2. Complete Week 2 telemetry review with 401/403/cross-tenant trend evidence (`OPS-1001`).
+3. Begin BFMS production-grade scoring hardening work (`OPS-1003`).
+4. Start healthcare corpus intake and readiness assessment (`OPS-1004`).
+5. Plan and execute first incident drill with timeline and lessons learned (`OPS-1005`).
 
 ## Completed Milestones
 
@@ -191,3 +191,10 @@ Release-ready posture is maintained after Phase 9 closeout; Phase 10 post-launch
 137. 2026-02-21: Updated planning index and phased roadmap to include Phase 10 post-launch operations (`V2/README.md`, `V2/PHASED_PLAN.md`).
 138. 2026-02-21: Identified and fixed Phase 10 bundle env-leak issue by enforcing deterministic command overrides (`AUTH_ENFORCEMENT_V2=false`, `ROLE_ENFORCEMENT_V2=false`, `TENANT_ISOLATION_V2=false`, `USE_SQLITE=true`) in `scripts/run_phase10_postlaunch_bundle.py`.
 139. 2026-02-21: Executed Phase 10 post-launch bundle locally with passing evidence artifact (`reports/phase10_postlaunch/phase10_postlaunch_20260221_131949.md`, `reports/phase10_postlaunch/phase10_postlaunch_20260221_131949.json`): backend gate `184 passed`, frontend tests `5 passed`, frontend build successful, auth+tenant+risk slice `63 passed`.
+140. 2026-02-21: Committed and pushed Phase 10 foundation (`c3ba91b2`) — 13 files, 666 insertions. Dispatched Phase 10 workflow run `22257591849`.
+141. 2026-02-21: **OPS-1002 COMPLETE** — Tenant onboarding rehearsal executed for `acme-corp`: provisioned 3 users (admin/analyst/viewer), created project under `acme-corp` tenant, validated tenant-scoped listing/cross-tenant isolation (7/9 passed, 2 expected failures for non-owner access). Rollback clean: project deleted, 0 acme-corp projects, 3 default projects intact.
+142. 2026-02-21: Identified CI contract test failure: Pydantic binary format schema drift (`format: binary` vs `contentMediaType: application/octet-stream`) across Pydantic versions. Updated all 5 CI workflows from Python 3.12 to 3.14 (`a93ad8bb`).
+143. 2026-02-21: Fixed contract test with recursive `_canonicalize_binary_format()` normalizer in `tests/contract/test_openapi_contract.py` to handle Pydantic version-specific file upload schema shapes (`a9c0ca9f`). Local test suite: `199 passed`.
+144. 2026-02-21: Both CI workflows green on `a9c0ca9f` — core-security-risk-gate run `22258095603` (success), phase10-postlaunch-dispatch run `22258099077` (success).
+145. 2026-02-21: **OPS-1001 BASELINE** — Week 1 telemetry baseline established: 401/403/cross-tenant-denied log patterns confirmed via test suite + live API. Structured audit events emitted. No production traffic yet (staging validation only).
+146. 2026-02-21: Completed Week 1 evidence template (`reports/phase10_postlaunch/WEEKLY_EVIDENCE_TEMPLATE.md`) with CI gate results, OPS-1001 telemetry baseline, OPS-1002 rehearsal evidence (including authorization model finding), and sign-off (Stephen Peterson, 2026-02-21).

@@ -15,6 +15,27 @@ from munipal.main import app
 _PYDANTIC_INTERNAL_SCHEMAS = {"ValidationError", "HTTPValidationError"}
 
 
+def _canonicalize_binary_format(obj: object) -> object:
+    """Normalize binary file upload schema across Pydantic versions.
+
+    Pydantic < 2.13 uses ``{"format": "binary", "type": "string"}`` while
+    >= 2.13 uses ``{"contentMediaType": "application/octet-stream", "type":
+    "string"}``.  Canonicalize to the ``format`` variant so the snapshot is
+    stable regardless of Pydantic version.
+    """
+    if isinstance(obj, dict):
+        out = {}
+        for k, v in obj.items():
+            if k == "contentMediaType" and v == "application/octet-stream":
+                out["format"] = "binary"
+            else:
+                out[k] = _canonicalize_binary_format(v)
+        return out
+    if isinstance(obj, list):
+        return [_canonicalize_binary_format(item) for item in obj]
+    return obj
+
+
 def _normalize(schema: dict) -> dict:
     """Canonicalize dict ordering and strip Pydantic-internal component schemas.
 
@@ -28,6 +49,7 @@ def _normalize(schema: dict) -> dict:
     schemas = components.get("schemas", {})
     for name in _PYDANTIC_INTERNAL_SCHEMAS:
         schemas.pop(name, None)
+    cleaned = _canonicalize_binary_format(cleaned)
     return cleaned
 
 

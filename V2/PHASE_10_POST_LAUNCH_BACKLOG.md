@@ -36,3 +36,11 @@ Out of scope:
 3. BFMS analytics hardening plan is approved and sequenced.
 4. Healthcare corpus expansion readiness is explicitly assessed.
 5. Incident response drill evidence is captured and reviewed.
+
+## Current Progress (2026-02-21)
+
+- `OPS-1001`: Week 1 telemetry baseline captured and signed in `reports/phase10_postlaunch/WEEKLY_EVIDENCE_TEMPLATE.md`.
+- `OPS-1002`: Week 1 second-tenant onboarding rehearsal completed (`acme-corp`) with clean rollback.
+- `OPS-1003`: Plan artifact drafted at `V2/OPS_1003_BFMS_PRODUCTION_SCORING_PLAN.md` (execution pending).
+- `OPS-1004`: Automated readiness assessor added (`scripts/assess_healthcare_corpus_readiness.py`) and baseline report generated (`recommendation=go`).
+- `OPS-1005`: Incident drill template prepared at `reports/phase10_postlaunch/INCIDENT_DRILL_TEMPLATE.md` (drill execution pending).

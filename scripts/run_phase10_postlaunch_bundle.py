@@ -149,7 +149,7 @@ def _write_markdown_report(
             "- [ ] Record any alert threshold tuning changes and rationale (`OPS-1001`).",
             "- [ ] Execute or schedule second-tenant onboarding rehearsal (`OPS-1002`).",
             "- [ ] Record BFMS production-grade scoring hardening progress (`OPS-1003`).",
-            "- [ ] Record healthcare corpus readiness progress and risks (`OPS-1004`).",
+            "- [ ] Review generated `healthcare_readiness_<timestamp>.md/.json` artifacts and record outcomes (`OPS-1004`).",
             "- [ ] Execute/record incident drill timeline and outcomes (`OPS-1005`).",
             "- [ ] Populate `reports/phase10_postlaunch/WEEKLY_EVIDENCE_TEMPLATE.md` and link in tracker.",
             "",
@@ -222,6 +222,11 @@ def main() -> int:
             "tests/integration/test_risk_reporting_foundation.py "
             "tests/unit/test_auth_dependencies.py "
             "tests/unit/test_risk_reporting_service.py",
+            default_env,
+        ),
+        (
+            "Healthcare Corpus Readiness Snapshot",
+            "python scripts/assess_healthcare_corpus_readiness.py",
             default_env,
         ),
     ]

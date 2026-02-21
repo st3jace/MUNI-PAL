@@ -65,6 +65,10 @@ This folder memorializes the V2 execution plan so roadmap, sprint scope, and saf
 - Phase 10 weekly operations runbook for recurring validation and evidence capture
 - Defines local/CI execution and escalation path
 
+16. `OPS_1003_BFMS_PRODUCTION_SCORING_PLAN.md`
+- Detailed implementation plan for BFMS production-grade scoring hardening
+- Defines calibration, robustness, governance, and explainability milestones
+
 ## Operating Rule
 
 No phase is considered complete until its exit criteria are met and documented in `EXECUTION_TRACKER.md`.

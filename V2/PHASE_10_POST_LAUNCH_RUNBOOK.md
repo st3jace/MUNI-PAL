@@ -12,6 +12,7 @@ From repo root:
 
 ```powershell
 python scripts/run_phase10_postlaunch_bundle.py
+python scripts/assess_healthcare_corpus_readiness.py
 ```
 
 ## GitHub Workflow Dispatch
@@ -39,7 +40,9 @@ Each run writes:
 3. Review 401/403/cross-tenant denied trendlines.
 4. Confirm open incidents, SLA breaches, and alert quality.
 5. Record tenant onboarding rehearsal status (if scheduled).
-6. Update `V2/EXECUTION_TRACKER.md` with week summary.
+6. Run healthcare corpus readiness assessment and archive generated reports.
+7. Capture incident drill details in `reports/phase10_postlaunch/INCIDENT_DRILL_TEMPLATE.md` when executed.
+8. Update `V2/EXECUTION_TRACKER.md` with week summary.
 
 ## Incident Escalation
 

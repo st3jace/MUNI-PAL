@@ -48,12 +48,14 @@ Same-tenant non-owner access requires superuser privilege. Analyst and viewer us
 - Reliability/calibration work completed: `Not started (Week 1 focus was CI stabilization and tenant rehearsal)`
 - Validation updates: `None this week`
 - Risks/blockers: `None identified`
+- Plan/reference artifact: `V2/OPS_1003_BFMS_PRODUCTION_SCORING_PLAN.md`
 
 ## OPS-1004 Healthcare Readiness Progress
 
 - Corpus intake checks run: `no`
 - Data quality/compliance findings: `Not started (Week 1 focus was CI stabilization and tenant rehearsal)`
 - Go/no-go status: `pending`
+- Assessment report path: `reports/phase10_postlaunch/healthcare_readiness_<timestamp>.md`
 
 ## OPS-1005 Incident Drill Progress
 
@@ -61,6 +63,7 @@ Same-tenant non-owner access requires superuser privilege. Analyst and viewer us
 - Detection time: `N/A`
 - Recovery time: `N/A`
 - Lessons learned: `Scheduled for future week. Week 1 focused on CI stabilization and OPS-1002 rehearsal.`
+- Drill report path: `reports/phase10_postlaunch/INCIDENT_DRILL_TEMPLATE.md`
 
 ## Sign-off
 

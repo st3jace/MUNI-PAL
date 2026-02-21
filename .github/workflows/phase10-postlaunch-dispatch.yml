@@ -58,8 +58,11 @@ jobs:
           path: |
             reports/phase10_postlaunch/phase10_postlaunch_*.md
             reports/phase10_postlaunch/phase10_postlaunch_*.json
+            reports/phase10_postlaunch/healthcare_readiness_*.md
+            reports/phase10_postlaunch/healthcare_readiness_*.json
             reports/phase10_postlaunch/logs_*/
             reports/phase10_postlaunch/WEEKLY_EVIDENCE_TEMPLATE.md
+            reports/phase10_postlaunch/INCIDENT_DRILL_TEMPLATE.md
           retention-days: 14
 
       - name: Append workflow summary

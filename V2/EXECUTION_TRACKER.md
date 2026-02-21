@@ -16,7 +16,7 @@ Last updated: 2026-02-21
 | Phase 7 | **Complete** | 2026-02-19 | 2026-02-20 | Stephen Peterson | BFMS integration contract shipped and signed off — both fallback and full modes confirmed in staging; all automated gates green; Internal Report + External Package generation confirmed; sign-off: Stephen Peterson 2026-02-20 |
 | Phase 8 | **Complete** | 2026-02-20 | 2026-02-21 | Stephen Peterson | Tenant isolation foundation shipped and signed off — migration `b8c9d0e1f2a3` applied, `TENANT_ISOLATION_V2=true` enabled, tenant-scoped listing and cross-tenant 403 confirmed, flag-only rollback drill passed; all automated gates green; sign-off: Stephen Peterson 2026-02-21 |
 | Phase 9 | **Complete** | 2026-02-21 | 2026-02-21 | Stephen Peterson | Release readiness shipped and signed off — all REL-901 through REL-907 milestones validated; JWT-enforced auth + tenant isolation + role enforcement confirmed in staging; GO decision recorded; all automated gates green; sign-off: Stephen Peterson 2026-02-21 |
-| Phase 10 | In Progress (Post-Launch Ops) | 2026-02-21 | TBD | Stephen Peterson | Week 1 complete: CI fix (Python 3.14 + Pydantic binary format normalization), OPS-1002 rehearsal (7/9 pass, rollback clean), evidence template filled. Phase 10 dispatch green (`22258099077`) + core gate green (`22258095603`). |
+| Phase 10 | In Progress (Post-Launch Ops) | 2026-02-21 | TBD | Stephen Peterson | Week 1 complete and Week 2 kickoff active: CI fix (Python 3.14 + Pydantic binary format normalization), OPS-1002 rehearsal (7/9 pass, rollback clean), OPS-1003 plan drafted, OPS-1004 automated readiness snapshot added (`healthcare_readiness_20260221_141512`, recommendation `go`). |
 
 ## Active Risks
 
@@ -44,11 +44,11 @@ Last updated: 2026-02-21
 
 Week 1 Phase 10 operations complete. CI stabilized (Python 3.14 + Pydantic normalization), OPS-1002 onboarding rehearsal executed with rollback, telemetry baseline established.
 
-1. Execute Week 2 Phase 10 bundle in target CI and archive artifacts (`OPS-1001`).
+1. Execute updated Week 2 Phase 10 bundle in target CI (includes healthcare readiness snapshot step) and archive artifacts (`OPS-1001`/`OPS-1004`).
 2. Complete Week 2 telemetry review with 401/403/cross-tenant trend evidence (`OPS-1001`).
-3. Begin BFMS production-grade scoring hardening work (`OPS-1003`).
-4. Start healthcare corpus intake and readiness assessment (`OPS-1004`).
-5. Plan and execute first incident drill with timeline and lessons learned (`OPS-1005`).
+3. Start OPS-1003 Milestone M1 by defining calibration dataset requirements and approval notes in `V2/OPS_1003_BFMS_PRODUCTION_SCORING_PLAN.md`.
+4. Record healthcare readiness assessment findings in weekly evidence using generated `healthcare_readiness_<timestamp>.md` artifacts (`OPS-1004`).
+5. Execute first incident drill using `reports/phase10_postlaunch/INCIDENT_DRILL_TEMPLATE.md` and capture timeline metrics (`OPS-1005`).
 
 ## Completed Milestones
 
@@ -198,3 +198,8 @@ Week 1 Phase 10 operations complete. CI stabilized (Python 3.14 + Pydantic norma
 144. 2026-02-21: Both CI workflows green on `a9c0ca9f` — core-security-risk-gate run `22258095603` (success), phase10-postlaunch-dispatch run `22258099077` (success).
 145. 2026-02-21: **OPS-1001 BASELINE** — Week 1 telemetry baseline established: 401/403/cross-tenant-denied log patterns confirmed via test suite + live API. Structured audit events emitted. No production traffic yet (staging validation only).
 146. 2026-02-21: Completed Week 1 evidence template (`reports/phase10_postlaunch/WEEKLY_EVIDENCE_TEMPLATE.md`) with CI gate results, OPS-1001 telemetry baseline, OPS-1002 rehearsal evidence (including authorization model finding), and sign-off (Stephen Peterson, 2026-02-21).
+147. 2026-02-21: Added OPS-1003 production-grade scoring hardening plan artifact (`V2/OPS_1003_BFMS_PRODUCTION_SCORING_PLAN.md`) with calibration, robustness, governance, and explainability workstreams.
+148. 2026-02-21: Added automated healthcare corpus readiness assessor (`scripts/assess_healthcare_corpus_readiness.py`) and generated baseline readiness report (`reports/phase10_postlaunch/healthcare_readiness_20260221_141512.md`) with recommendation `go` on current corpus snapshot.
+149. 2026-02-21: Added OPS-1005 incident drill template (`reports/phase10_postlaunch/INCIDENT_DRILL_TEMPLATE.md`) and updated weekly evidence template references for OPS-1003/1004/1005 artifact linkage.
+150. 2026-02-21: Expanded Phase 10 bundle/workflow to include healthcare readiness snapshot output and artifact retention (`scripts/run_phase10_postlaunch_bundle.py`, `.github/workflows/phase10-postlaunch-dispatch.yml`).
+151. 2026-02-21: Revalidated updated Phase 10 post-launch bundle locally with passing evidence (`reports/phase10_postlaunch/phase10_postlaunch_20260221_141414.md`, backend `184 passed`, frontend `5 passed`, stability slice `63 passed`, healthcare snapshot `pass`).

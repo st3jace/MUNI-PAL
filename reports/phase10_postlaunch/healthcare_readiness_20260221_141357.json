@@ -1,0 +1,77 @@
+{
+  "generated_at_utc": "2026-02-21T14:13:57.738568+00:00",
+  "dataset_dir": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\data",
+  "summary": {
+    "files_discovered": 363,
+    "files_parsed": 363,
+    "parse_errors": 0,
+    "parse_success_rate_pct": 100.0,
+    "unique_cusips": 362,
+    "duplicate_cusips": 0
+  },
+  "coverage": {
+    "top_level": {
+      "cusip": {
+        "present_count": 362,
+        "coverage_pct": 99.72
+      },
+      "crawl_metadata": {
+        "present_count": 362,
+        "coverage_pct": 99.72
+      },
+      "snapshot": {
+        "present_count": 362,
+        "coverage_pct": 99.72
+      }
+    },
+    "snapshot": {
+      "security_name": {
+        "present_count": 362,
+        "coverage_pct": 99.72
+      },
+      "principal_amount": {
+        "present_count": 362,
+        "coverage_pct": 99.72
+      },
+      "maturity_date": {
+        "present_count": 362,
+        "coverage_pct": 99.72
+      },
+      "state": {
+        "present_count": 362,
+        "coverage_pct": 99.72
+      }
+    }
+  },
+  "extraction_status_counts": {
+    "snapshot": {
+      "success": 362,
+      "missing": 1
+    },
+    "interest_rate": {
+      "success": 64,
+      "empty": 298,
+      "missing": 1
+    },
+    "trade_activity": {
+      "success": 329,
+      "empty": 33,
+      "missing": 1
+    },
+    "ratings": {
+      "success": 357,
+      "empty": 5,
+      "missing": 1
+    },
+    "disclosures": {
+      "success": 344,
+      "empty": 18,
+      "missing": 1
+    }
+  },
+  "recommendation": {
+    "status": "go",
+    "reasons": []
+  },
+  "parse_error_samples": []
+}

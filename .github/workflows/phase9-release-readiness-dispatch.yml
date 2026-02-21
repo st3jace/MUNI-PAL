@@ -1,0 +1,81 @@
+name: Phase 9 Release Readiness Bundle
+
+on:
+  workflow_dispatch:
+    inputs:
+      note:
+        description: "Optional note for this readiness run"
+        required: false
+        type: string
+
+jobs:
+  readiness-bundle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .[dev]
+          npm ci --prefix frontend
+
+      - name: Run Phase 9 release readiness bundle
+        env:
+          USE_SQLITE: "true"
+        run: |
+          python scripts/run_phase9_release_readiness_bundle.py
+
+      - name: Capture latest readiness summary path
+        if: always()
+        id: readiness_paths
+        run: |
+          latest_md="$(ls -t reports/phase9_release/phase9_release_*.md | head -1)"
+          latest_json="$(ls -t reports/phase9_release/phase9_release_*.json | head -1)"
+          echo "latest_md=${latest_md}" >> "$GITHUB_OUTPUT"
+          echo "latest_json=${latest_json}" >> "$GITHUB_OUTPUT"
+
+      - name: Upload readiness artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase9-release-readiness-${{ github.run_id }}
+          path: |
+            reports/phase9_release/phase9_release_*.md
+            reports/phase9_release/phase9_release_*.json
+            reports/phase9_release/logs_*/
+            reports/phase9_release/STAGING_EVIDENCE_TEMPLATE.md
+          retention-days: 14
+
+      - name: Append workflow summary
+        if: always()
+        env:
+          READINESS_NOTE: ${{ inputs.note }}
+        run: |
+          {
+            echo "## Phase 9 Release Readiness Bundle"
+            echo ""
+            echo "- Workflow run: \`${GITHUB_RUN_ID}\`"
+            echo "- Commit: \`${GITHUB_SHA}\`"
+            if [ -n "${READINESS_NOTE}" ]; then
+              echo "- Note: ${READINESS_NOTE}"
+            fi
+            echo "- Latest markdown report: \`${{ steps.readiness_paths.outputs.latest_md }}\`"
+            echo "- Latest JSON report: \`${{ steps.readiness_paths.outputs.latest_json }}\`"
+            echo "- Artifact: \`phase9-release-readiness-${GITHUB_RUN_ID}\`"
+          } >> "$GITHUB_STEP_SUMMARY"

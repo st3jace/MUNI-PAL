@@ -1,21 +1,22 @@
 """
-Run Phase 8 closeout validation bundle and write evidence artifacts.
+Run Phase 9 release readiness validation bundle and write evidence artifacts.
 
-This script executes local CI-equivalent gates and writes:
+This script executes CI-equivalent gates plus launch-profile regressions and writes:
 - JSON machine-readable results
 - Markdown human-readable summary/checklist
 
 Usage:
-    python scripts/run_phase8_closeout_bundle.py
+    python scripts/run_phase9_release_readiness_bundle.py
 """
 
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 import time
-from collections.abc import Iterable
+from collections.abc import Iterable, Mapping
 from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
 from pathlib import Path
@@ -48,8 +49,12 @@ def _run_command(
     command: str,
     repo_root: Path,
     logs_dir: Path,
+    extra_env: Mapping[str, str] | None = None,
 ) -> CommandResult:
     started = time.perf_counter()
+    env = os.environ.copy()
+    if extra_env:
+        env.update(extra_env)
     proc = subprocess.run(
         command,
         cwd=repo_root,
@@ -58,12 +63,20 @@ def _run_command(
         text=True,
         encoding="utf-8",
         errors="replace",
+        env=env,
     )
     duration = time.perf_counter() - started
     safe_name = name.lower().replace(" ", "_").replace("/", "_")
     log_path = logs_dir / f"{safe_name}.log"
+    env_notes = ""
+    if extra_env:
+        env_notes = "--- ENV OVERRIDES ---\n" + "\n".join(
+            f"{key}={value}" for key, value in sorted(extra_env.items())
+        )
+        env_notes += "\n\n"
     log_text = (
         f"$ {command}\n\n"
+        f"{env_notes}"
         f"returncode={proc.returncode}\n"
         f"duration_seconds={duration:.2f}\n\n"
         "--- STDOUT ---\n"
@@ -90,7 +103,7 @@ def _write_json_report(
     overall_status: str,
 ) -> None:
     payload = {
-        "phase": "phase_8_closeout_bundle",
+        "phase": "phase_9_release_readiness_bundle",
         "generated_at_utc": finished_at,
         "started_at_utc": started_at,
         "overall_status": overall_status,
@@ -110,7 +123,7 @@ def _write_markdown_report(
     overall_status: str,
 ) -> None:
     lines: list[str] = [
-        "# Phase 8 Closeout Bundle Report",
+        "# Phase 9 Release Readiness Bundle Report",
         "",
         f"- Started (UTC): `{started_at}`",
         f"- Finished (UTC): `{finished_at}`",
@@ -130,17 +143,17 @@ def _write_markdown_report(
     lines.extend(
         [
             "",
-            "## Target CI/Staging Manual Closeout",
+            "## Target CI/Staging Manual Readiness",
             "",
-            "- [ ] Confirm first green run of `.github/workflows/core-security-risk-gate.yml` in target CI.",
-            "- [ ] Apply migration `b8c9d0e1f2a3` in target DB and capture output.",
-            "- [ ] Validate tenant backfill results (`missing_tenant_rows = 0` and tenant distribution query).",
-            "- [ ] Set `TENANT_ISOLATION_V2=true` in staging and restart API.",
-            "- [ ] Validate same-tenant project access succeeds (list/read/write).",
-            "- [ ] Validate cross-tenant project access is denied with `403`.",
-            "- [ ] Execute rollback drill (`TENANT_ISOLATION_V2=false`) and capture restoration evidence.",
-            "- [ ] Record all evidence and sign-off in `reports/phase8_closeout/STAGING_EVIDENCE_TEMPLATE.md`.",
-            "- [ ] Link CI run URL and staging evidence in `V2/EXECUTION_TRACKER.md`.",
+            "- [ ] Complete `REL-901`: sign baseline pack in `V2/BASELINE_PACK_20260218.md`.",
+            "- [ ] Complete `REL-902`: execute and sign SEC-008 checklist in `V2/SECURITY_HARDENING_ROLLOUT_CHECKLIST.md`.",
+            "- [ ] Set `AUTH_ENFORCEMENT_V2=true` and `ROLE_ENFORCEMENT_V2=true` in staging launch profile.",
+            "- [ ] Validate security flows with JWT-only auth (no `X-User-Id` dependency).",
+            "- [ ] Validate tenant isolation with JWT tenant claims (`tenant_id`/`tenant`/`org`) and capture evidence.",
+            "- [ ] Validate launch observability (401/403/cross-tenant-denied queries + alert routing).",
+            "- [ ] Execute cutover rehearsal and rollback drill with timestamps.",
+            "- [ ] Record results and sign-off in `reports/phase9_release/STAGING_EVIDENCE_TEMPLATE.md`.",
+            "- [ ] Link CI run URL and evidence references in `V2/EXECUTION_TRACKER.md`.",
             "",
         ]
     )
@@ -151,13 +164,14 @@ def _write_markdown_report(
 def main() -> int:
     repo_root = _repo_root()
     stamp = _timestamp()
-    report_root = repo_root / "reports" / "phase8_closeout"
+    report_root = repo_root / "reports" / "phase9_release"
     logs_dir = report_root / f"logs_{stamp}"
     logs_dir.mkdir(parents=True, exist_ok=True)
 
     started_at = datetime.now(UTC).isoformat()
+    default_env = {"USE_SQLITE": "true"}
 
-    commands: list[tuple[str, str]] = [
+    commands: list[tuple[str, str, Mapping[str, str] | None]] = [
         (
             "Backend CI-Equivalent Gate",
             "pytest -q "
@@ -183,41 +197,54 @@ def main() -> int:
             "tests/unit/test_advisory_package_service.py "
             "tests/unit/test_fact_service.py "
             "-p no:cacheprovider",
+            default_env,
         ),
         (
             "Frontend Tests",
             "npm --prefix frontend run test",
+            None,
         ),
         (
             "Frontend Production Build",
             "npm --prefix frontend run build",
+            None,
         ),
         (
-            "Tenant Isolation Regression Slice",
+            "Launch Profile Auth+Tenant Slice",
             "pytest -q "
-            "tests/integration/test_tenant_isolation.py "
-            "tests/integration/test_project_authorization.py "
+            "tests/integration/test_auth_enforcement_routes.py "
+            "tests/integration/test_security_integration.py "
+            "tests/integration/test_tenant_isolation_jwt_mode.py "
             "tests/unit/test_auth_dependencies.py",
+            {
+                **default_env,
+                "AUTH_ENFORCEMENT_V2": "true",
+                "ROLE_ENFORCEMENT_V2": "true",
+                "TENANT_ISOLATION_V2": "true",
+                "JWT_SECRET_KEY": "test-secret",
+                "JWT_ALGORITHM": "HS256",
+            },
         ),
     ]
 
     results: list[CommandResult] = []
-    for name, command in commands:
-        print(f"[phase8-closeout] running: {name}")
+    for name, command, extra_env in commands:
+        print(f"[phase9-release] running: {name}")
         results.append(
             _run_command(
                 name=name,
                 command=command,
                 repo_root=repo_root,
                 logs_dir=logs_dir,
+                extra_env=extra_env,
             )
         )
 
     finished_at = datetime.now(UTC).isoformat()
     overall_status = "pass" if all(result.returncode == 0 for result in results) else "fail"
 
-    json_report_path = report_root / f"phase8_closeout_{stamp}.json"
-    md_report_path = report_root / f"phase8_closeout_{stamp}.md"
+    json_report_path = report_root / f"phase9_release_{stamp}.json"
+    md_report_path = report_root / f"phase9_release_{stamp}.md"
 
     _write_json_report(
         report_path=json_report_path,
@@ -236,9 +263,9 @@ def main() -> int:
         overall_status=overall_status,
     )
 
-    print(f"[phase8-closeout] overall={overall_status}")
-    print(f"[phase8-closeout] markdown={md_report_path.relative_to(repo_root).as_posix()}")
-    print(f"[phase8-closeout] json={json_report_path.relative_to(repo_root).as_posix()}")
+    print(f"[phase9-release] overall={overall_status}")
+    print(f"[phase9-release] markdown={md_report_path.relative_to(repo_root).as_posix()}")
+    print(f"[phase9-release] json={json_report_path.relative_to(repo_root).as_posix()}")
     if overall_status != "pass":
         return 1
     return 0

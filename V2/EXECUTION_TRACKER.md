@@ -1,6 +1,6 @@
 ﻿# V2 Execution Tracker
 
-Last updated: 2026-02-20
+Last updated: 2026-02-21
 
 ## Phase Status
 
@@ -9,12 +9,13 @@ Last updated: 2026-02-20
 | Phase 0 | In Progress | 2026-02-18 | TBD | TBD | First-pass baseline drafted at `V2/BASELINE_PACK_20260218.md` (pending validation/sign-off) |
 | Phase 1 | In Progress (Guarded) | 2026-02-18 | TBD | TBD | SEC-001 through SEC-008 artifacts implemented; rollout sign-off pending |
 | Phase 2 | In Progress (Contract Gate) | 2026-02-19 | TBD | TBD | OpenAPI snapshot and contract test added; frontend generated OpenAPI types/client landed and runtime adapter now delegates through generated services (`contracts/openapi.v1.json`, `frontend/src/types/openapi.generated.ts`, `frontend/src/generated/api-client/`, `frontend/src/services/api.ts`) |
-| Phase 3 | In Progress (CI Rehab) | 2026-02-19 | TBD | TBD | Core/security/risk/contract/fact-service gate now green (`181 passed`) and CI workflow now enforces frontend test + production build (`5 frontend tests passed`), plus full local suite green (`176 passed`) |
+| Phase 3 | In Progress (CI Rehab) | 2026-02-19 | TBD | TBD | Core/security/risk/contract/fact-service gate now green (`184 passed`) and CI workflow now enforces frontend test + production build (`5 frontend tests passed`), plus full local suite green (`176 passed`) |
 | Phase 4 | In Progress (Dedup/Archive Foundation) | 2026-02-19 | TBD | TBD | `DEDUP-401` through `REVIEW-406` core backend contracts implemented plus canonical transition audit coverage and expanded dataset/property replay reproducibility validation (`AUDIT-503`/`TEST-504`); target baseline DB schema/backfill gap resolved and replay harness now stable on populated corpus with live baseline sign-off complete (`de618f31-bb6f-4905-be68-8445c357ed32`, 239 facts) |
 | Phase 5 | In Progress (Sprint 4) | 2026-02-19 | TBD | TBD | `RISK-501` through `RISK-511` implemented behind `RISK_REPORTING_V2_FOUNDATION` (`RISK-508` external brief, `RISK-509` request sync, `RISK-510` audit/governance, `RISK-511` validation suite) |
 | Phase 6 | In Progress (Risk Analytics Bridge) | 2026-02-19 | TBD | TBD | `RISK-512` advanced analytics bridge implemented behind reliability gate (`RISK_REPORTING_V2_ADVANCED_ANALYTICS`, default off) |
 | Phase 7 | **Complete** | 2026-02-19 | 2026-02-20 | Stephen Peterson | BFMS integration contract shipped and signed off — both fallback and full modes confirmed in staging; all automated gates green; Internal Report + External Package generation confirmed; sign-off: Stephen Peterson 2026-02-20 |
 | Phase 8 | **Complete** | 2026-02-20 | 2026-02-21 | Stephen Peterson | Tenant isolation foundation shipped and signed off — migration `b8c9d0e1f2a3` applied, `TENANT_ISOLATION_V2=true` enabled, tenant-scoped listing and cross-tenant 403 confirmed, flag-only rollback drill passed; all automated gates green; sign-off: Stephen Peterson 2026-02-21 |
+| Phase 9 | In Progress (Launch Readiness Automation) | 2026-02-21 | TBD | Stephen Peterson | Release cutover phase active: added enforced JWT tenant isolation integration coverage, Phase 9 readiness bundle/workflow, and cutover runbook artifacts for `REL-903`/`REL-904` execution evidence |
 
 ## Active Risks
 
@@ -40,13 +41,13 @@ Last updated: 2026-02-20
 
 ## Next Milestones
 
-1. Finalize `V2/BASELINE_PACK_20260218.md` sign-off fields (owners, dates, and rollback owner assignment).
-2. Approve Phase 0 artifact set, owners, and baseline sign-off.
-3. Execute SEC-008 checklist sign-off for target environment.
-4. ~~Apply migration `b8c9d0e1f2a3` in target baseline DB and validate `projects.tenant_id` backfill output.~~ **DONE** — 0 missing rows, tenant distribution: default=3; milestone 112.
-5. ~~Enable `TENANT_ISOLATION_V2=true` in staging and run project-access smoke validation for tenant-scoped behavior.~~ **DONE** — tenant-scoped listing confirmed (default=3, other-org=0); cross-tenant 403 confirmed; milestone 113.
-6. ~~Dispatch `.github/workflows/phase8-closeout-dispatch.yml` in target CI and archive artifacts.~~ **DONE** — run `22256677506`, commit `2435a0a8`, success; core-security-risk-gate run `22256628880` also green; milestone 114.
-7. ~~Complete `reports/phase8_closeout/STAGING_EVIDENCE_TEMPLATE.md` with staging API/UI evidence and sign-off (`EXT-807`).~~ **DONE** — all sections filled, sign-off Stephen Peterson 2026-02-21; milestone 115.
+1. Complete Phase 0 baseline governance sign-off in `V2/BASELINE_PACK_20260218.md` (`REL-901`).
+2. Complete SEC-008 checklist evidence and GO/NO-GO decision in `V2/SECURITY_HARDENING_ROLLOUT_CHECKLIST.md` (`REL-902`).
+3. Enable and validate enforced auth posture in staging (`AUTH_ENFORCEMENT_V2=true`, `ROLE_ENFORCEMENT_V2=true`) with security/core gate evidence (`REL-903`).
+4. Validate tenant isolation under JWT claim-sourced tenant identity (not header-only compat path) (`REL-904`).
+5. Publish launch observability pack (401/403/cross-tenant dashboards + alerts + on-call mapping) (`REL-905`).
+6. Execute production cutover rehearsal plus rollback evidence capture (`REL-906`).
+7. Produce and sign external launch decision packet (`GO`/`NO-GO`) (`REL-907`).
 
 ## Completed Milestones
 
@@ -166,3 +167,9 @@ Last updated: 2026-02-20
 114. 2026-02-21: Both CI workflows green on commit `2435a0a8` — core-security-risk-gate run `22256628880` (push-triggered), phase8-closeout-dispatch run `22256677506` (manually dispatched), all gates pass.
 115. 2026-02-21: Executed flag-only rollback drill — set `TENANT_ISOLATION_V2=false`, restarted server, verified: `other-org` listing returns all 3 projects (no tenant filter), cross-tenant project access returns `200` (no block). Restored `TENANT_ISOLATION_V2=true`. Rollback is clean and immediate.
 116. 2026-02-21: **Phase 8 COMPLETE** — All staging evidence sections filled in `reports/phase8_closeout/STAGING_EVIDENCE_TEMPLATE.md`. Sign-off: Stephen Peterson, Product/Engineering/QA, 2026-02-21. Artifact: commit `2435a0a8`.
+117. 2026-02-21: Opened Phase 9 release cutover backlog (`V2/PHASE_9_RELEASE_CUTOVER_BACKLOG.md`) and promoted it as the next implementation phase in `V2/PHASED_PLAN.md`.
+118. 2026-02-21: Added enforced JWT tenant isolation integration module for launch-profile validation (`tests/integration/test_tenant_isolation_jwt_mode.py`) covering tenant-scoped list filtering, cross-tenant 403, and `org` claim fallback behavior.
+119. 2026-02-21: Expanded core gate and closeout bundles to include enforced JWT tenant isolation regression coverage (`.github/workflows/core-security-risk-gate.yml`, `scripts/run_phase7_closeout_bundle.py`, `scripts/run_phase8_closeout_bundle.py`).
+120. 2026-02-21: Added Phase 9 release readiness automation and evidence scaffolding (`scripts/run_phase9_release_readiness_bundle.py`, `.github/workflows/phase9-release-readiness-dispatch.yml`, `reports/phase9_release/STAGING_EVIDENCE_TEMPLATE.md`).
+121. 2026-02-21: Added Phase 9 release cutover runbook with operational sequence for `REL-901` through `REL-907` (`V2/PHASE_9_RELEASE_CUTOVER_RUNBOOK.md`) and indexed it in `V2/README.md`.
+122. 2026-02-21: Executed Phase 9 release readiness bundle locally with passing evidence artifact (`reports/phase9_release/phase9_release_20260221_124409.md`, `reports/phase9_release/phase9_release_20260221_124409.json`): backend gate `184 passed`, frontend tests `5 passed`, frontend build successful, launch-profile auth+tenant slice `26 passed`.

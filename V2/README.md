@@ -1,13 +1,13 @@
 ﻿# Muni-Pal V2 Planning Workspace
 
-Last updated: 2026-02-20
+Last updated: 2026-02-21
 
 This folder memorializes the V2 execution plan so roadmap, sprint scope, and safety controls stay explicit while the codebase evolves.
 
 ## Documents
 
 1. `PHASED_PLAN.md`
-- End-to-end phased roadmap (Phase 0 through Phase 8)
+- End-to-end phased roadmap (Phase 0 through Phase 9)
 - Dependencies and phase gates
 
 2. `PHASE_0_BASELINE_PACK_TEMPLATE.md`
@@ -48,6 +48,14 @@ This folder memorializes the V2 execution plan so roadmap, sprint scope, and saf
 11. `PHASE_8_TENANT_ISOLATION_RUNBOOK.md`
 - Phase 8 rollout, validation, incident response, and rollback runbook
 - Defines evidence capture flow for staging sign-off
+
+12. `PHASE_9_RELEASE_CUTOVER_BACKLOG.md`
+- Phase 9 backlog for governance closure, enforced launch posture, and cutover rehearsal
+- Defines external launch GO/NO-GO acceptance criteria
+
+13. `PHASE_9_RELEASE_CUTOVER_RUNBOOK.md`
+- Phase 9 execution runbook for CI dispatch, staging evidence capture, and rollback
+- Defines `REL-901` through `REL-907` operational sequence
 
 ## Operating Rule
 

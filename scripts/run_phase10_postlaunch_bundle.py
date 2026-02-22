@@ -183,6 +183,16 @@ def main() -> int:
 
     commands: list[tuple[str, str, Mapping[str, str] | None]] = [
         (
+            "Phase 10 Corpus Provision",
+            "python scripts/provision_phase10_corpus_dbs.py",
+            None,
+        ),
+        (
+            "Phase 10 Corpus Preflight",
+            "python scripts/verify_phase10_corpus_prereqs.py",
+            None,
+        ),
+        (
             "Backend CI-Equivalent Gate",
             "pytest -q "
             "tests/contract/test_openapi_contract.py "
@@ -291,15 +301,20 @@ def main() -> int:
     results: list[CommandResult] = []
     for name, command, extra_env in commands:
         print(f"[phase10-postlaunch] running: {name}")
-        results.append(
-            _run_command(
-                name=name,
-                command=command,
-                repo_root=repo_root,
-                logs_dir=logs_dir,
-                extra_env=extra_env,
-            )
+        result = _run_command(
+            name=name,
+            command=command,
+            repo_root=repo_root,
+            logs_dir=logs_dir,
+            extra_env=extra_env,
         )
+        results.append(result)
+        if name in {
+            "Phase 10 Corpus Provision",
+            "Phase 10 Corpus Preflight",
+        } and result.returncode != 0:
+            print("[phase10-postlaunch] corpus setup failed; skipping remaining checks")
+            break
 
     finished_at = datetime.now(UTC).isoformat()
     overall_status = "pass" if all(result.returncode == 0 for result in results) else "fail"

@@ -150,6 +150,13 @@ def _write_markdown_report(
             "- [ ] Execute or schedule second-tenant onboarding rehearsal (`OPS-1002`).",
             "- [ ] Record BFMS production-grade scoring hardening progress (`OPS-1003`).",
             "- [ ] Review generated `healthcare_readiness_<timestamp>.md/.json` artifacts and record outcomes (`OPS-1004`).",
+            "- [ ] Review generated `bond_corpus_calibration_<timestamp>.md/.json` artifacts for CDR calibration gaps (`OPS-1003`).",
+            "- [ ] Review generated `advisory_cohort_inference_<timestamp>.md/.json` artifact for inferred cohort behavior across sector/deal-type profiles (`OPS-1003`/`OPS-1004`).",
+            "- [ ] Review generated `advisory_package_smoke_<timestamp>.md/.json` artifact for internal/external package staging smoke results (`OPS-1003`/`OPS-1004`).",
+            "- [ ] Review generated `age_weighting_policy_<timestamp>.md/.json` artifact for CDR-2 staged enable/tuning recommendation (`CDR-2`).",
+            "- [ ] Review generated `bond_corpus_drift_<timestamp>.md/.json` artifact for week-over-week CDR drift (`CDR-5`).",
+            "- [ ] Review generated `bond_corpus_alert_routing_<timestamp>.md/.json` artifact for CDR-5 escalation routing (`CDR-5`).",
+            "- [ ] Review generated `ops1003_m5_readiness_<timestamp>.md/.json` artifact for OPS-1003 M5 go/no-go with residual risks.",
             "- [ ] Execute/record incident drill timeline and outcomes (`OPS-1005`).",
             "- [ ] Populate `reports/phase10_postlaunch/WEEKLY_EVIDENCE_TEMPLATE.md` and link in tracker.",
             "",
@@ -197,6 +204,13 @@ def main() -> int:
             "tests/unit/test_audit_service.py "
             "tests/unit/test_audit_route_events.py "
             "tests/unit/test_risk_reporting_service.py "
+            "tests/unit/test_bond_corpus_drift.py "
+            "tests/unit/test_bond_corpus_alert_routing.py "
+            "tests/unit/test_age_weighting_policy_assessment.py "
+            "tests/unit/test_advisory_cohort_inference_assessment.py "
+            "tests/unit/test_advisory_package_smoke_assessment.py "
+            "tests/unit/test_ops1003_m5_readiness_assessment.py "
+            "tests/unit/test_ops1003_regression_gates.py "
             "tests/unit/test_advisory_package_service.py "
             "tests/unit/test_fact_service.py "
             "-p no:cacheprovider",
@@ -227,6 +241,49 @@ def main() -> int:
         (
             "Healthcare Corpus Readiness Snapshot",
             "python scripts/assess_healthcare_corpus_readiness.py",
+            default_env,
+        ),
+        (
+            "Bond Corpus Calibration Snapshot",
+            "python scripts/assess_bond_corpus_calibration.py",
+            default_env,
+        ),
+        (
+            "Advisory Cohort Inference Assessment",
+            "python scripts/assess_advisory_cohort_inference.py",
+            default_env,
+        ),
+        (
+            "Advisory Package Smoke Assessment",
+            "python scripts/assess_advisory_package_smoke.py --mode asgi",
+            default_env,
+        ),
+        (
+            "Age Weighting Policy Assessment",
+            "python scripts/assess_age_weighting_policy.py",
+            default_env,
+        ),
+        (
+            "Bond Corpus Drift Snapshot",
+            "python scripts/assess_bond_corpus_drift.py",
+            default_env,
+        ),
+        (
+            "Bond Corpus Drift Alert Routing",
+            "python scripts/route_bond_corpus_drift_alerts.py --fail-on-critical",
+            default_env,
+        ),
+        (
+            "OPS-1003 M5 Readiness Review",
+            "python scripts/assess_ops1003_m5_readiness.py",
+            default_env,
+        ),
+        (
+            "OPS-1003 Regression Gate",
+            "python scripts/enforce_ops1003_regression_gates.py "
+            "--reports-dir reports/phase10_postlaunch "
+            "--max-residual-risks 0 "
+            "--require-m5-go",
             default_env,
         ),
     ]

@@ -1,0 +1,755 @@
+{
+  "generated_at_utc": "2026-02-22T16:49:49.427971+00:00",
+  "sectors": {
+    "waste": {
+      "sector": "waste",
+      "db_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\bond_os_extractor\\data\\waste\\corpus.db",
+      "status": "ok",
+      "summary": {
+        "counts": {
+          "documents": 234,
+          "deal_structures": 234,
+          "deal_identities": 234,
+          "risk_factors": 360,
+          "security_packages": 104,
+          "financial_reports": 117,
+          "rating_actions": 42
+        },
+        "bond_type_counts": {
+          "<null>": 94,
+          "revenue": 64,
+          "conduit_revenue": 56,
+          "industrial_development": 20
+        },
+        "bond_cohort_counts": {
+          "unknown": 94,
+          "revenue": 64,
+          "conduit": 56,
+          "private_activity": 20
+        },
+        "classification_primary_counts": {
+          "REVENUE_SOLID_WASTE": 108,
+          "UNCLASSIFIED": 94,
+          "CONDUIT_INDUSTRIAL": 20,
+          "REVENUE_PORT": 6,
+          "REVENUE_WATER_SEWER": 5,
+          "REVENUE_OTHER": 1
+        },
+        "issuer_type_counts": {
+          "<null>": 92,
+          "authority": 87,
+          "county": 28,
+          "ida": 21,
+          "special_district": 4,
+          "city": 2
+        }
+      },
+      "cohort_assessment": {
+        "dimension_rollup": {
+          "all": {
+            "risk.technology": {
+              "exposure_count": 20,
+              "mitigant_count": 18,
+              "uncovered_exposure_count": 2,
+              "mitigation_coverage_ratio": 0.9,
+              "conflict_rate_proxy": 0.1,
+              "dimension_posture_score_proxy": 0.9025,
+              "distinct_documents": 3,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.construction": {
+              "exposure_count": 20,
+              "mitigant_count": 16,
+              "uncovered_exposure_count": 4,
+              "mitigation_coverage_ratio": 0.8,
+              "conflict_rate_proxy": 0.2,
+              "dimension_posture_score_proxy": 0.8675,
+              "distinct_documents": 6,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.market": {
+              "exposure_count": 235,
+              "mitigant_count": 9,
+              "uncovered_exposure_count": 226,
+              "mitigation_coverage_ratio": 0.0383,
+              "conflict_rate_proxy": 0.9617,
+              "dimension_posture_score_proxy": 0.6634,
+              "distinct_documents": 48,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 1,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.regulatory": {
+              "exposure_count": 62,
+              "mitigant_count": 23,
+              "uncovered_exposure_count": 39,
+              "mitigation_coverage_ratio": 0.371,
+              "conflict_rate_proxy": 0.629,
+              "dimension_posture_score_proxy": 0.7799,
+              "distinct_documents": 31,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 1,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.feedstock": {
+              "exposure_count": 20,
+              "mitigant_count": 18,
+              "uncovered_exposure_count": 2,
+              "mitigation_coverage_ratio": 0.9,
+              "conflict_rate_proxy": 0.1,
+              "dimension_posture_score_proxy": 0.9025,
+              "distinct_documents": 2,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "_meta": {
+              "rows_considered": 360,
+              "unmapped_category_count": 3,
+              "overall_posture_score_proxy": 0.8232,
+              "conflict_rate_proxy_avg": 0.3981,
+              "conflict_rate_proxy_max": 0.9617
+            }
+          },
+          "revenue": {
+            "risk.technology": {
+              "exposure_count": 20,
+              "mitigant_count": 18,
+              "uncovered_exposure_count": 2,
+              "mitigation_coverage_ratio": 0.9,
+              "conflict_rate_proxy": 0.1,
+              "dimension_posture_score_proxy": 0.9025,
+              "distinct_documents": 3,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.construction": {
+              "exposure_count": 20,
+              "mitigant_count": 16,
+              "uncovered_exposure_count": 4,
+              "mitigation_coverage_ratio": 0.8,
+              "conflict_rate_proxy": 0.2,
+              "dimension_posture_score_proxy": 0.8675,
+              "distinct_documents": 6,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.market": {
+              "exposure_count": 215,
+              "mitigant_count": 9,
+              "uncovered_exposure_count": 206,
+              "mitigation_coverage_ratio": 0.0419,
+              "conflict_rate_proxy": 0.9581,
+              "dimension_posture_score_proxy": 0.6647,
+              "distinct_documents": 45,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 1,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.regulatory": {
+              "exposure_count": 61,
+              "mitigant_count": 22,
+              "uncovered_exposure_count": 39,
+              "mitigation_coverage_ratio": 0.3607,
+              "conflict_rate_proxy": 0.6393,
+              "dimension_posture_score_proxy": 0.7762,
+              "distinct_documents": 30,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 1,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.feedstock": {
+              "exposure_count": 20,
+              "mitigant_count": 18,
+              "uncovered_exposure_count": 2,
+              "mitigation_coverage_ratio": 0.9,
+              "conflict_rate_proxy": 0.1,
+              "dimension_posture_score_proxy": 0.9025,
+              "distinct_documents": 2,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "_meta": {
+              "rows_considered": 339,
+              "unmapped_category_count": 3,
+              "overall_posture_score_proxy": 0.8227,
+              "conflict_rate_proxy_avg": 0.3995,
+              "conflict_rate_proxy_max": 0.9581
+            }
+          },
+          "conduit": {
+            "risk.technology": {
+              "exposure_count": 0,
+              "mitigant_count": 0,
+              "uncovered_exposure_count": 0,
+              "mitigation_coverage_ratio": 0.0,
+              "conflict_rate_proxy": 0.0,
+              "dimension_posture_score_proxy": 0.1,
+              "distinct_documents": 0,
+              "pair_complete": 0,
+              "meets_cdr1_medium": 0,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 0
+            },
+            "risk.construction": {
+              "exposure_count": 7,
+              "mitigant_count": 5,
+              "uncovered_exposure_count": 2,
+              "mitigation_coverage_ratio": 0.7143,
+              "conflict_rate_proxy": 0.2857,
+              "dimension_posture_score_proxy": 0.75,
+              "distinct_documents": 2,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 0,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.market": {
+              "exposure_count": 121,
+              "mitigant_count": 7,
+              "uncovered_exposure_count": 114,
+              "mitigation_coverage_ratio": 0.0579,
+              "conflict_rate_proxy": 0.9421,
+              "dimension_posture_score_proxy": 0.6703,
+              "distinct_documents": 21,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 1,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.regulatory": {
+              "exposure_count": 30,
+              "mitigant_count": 14,
+              "uncovered_exposure_count": 16,
+              "mitigation_coverage_ratio": 0.4667,
+              "conflict_rate_proxy": 0.5333,
+              "dimension_posture_score_proxy": 0.7508,
+              "distinct_documents": 17,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.feedstock": {
+              "exposure_count": 7,
+              "mitigant_count": 7,
+              "uncovered_exposure_count": 0,
+              "mitigation_coverage_ratio": 1.0,
+              "conflict_rate_proxy": 0.0,
+              "dimension_posture_score_proxy": 0.85,
+              "distinct_documents": 1,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 0,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 0
+            },
+            "_meta": {
+              "rows_considered": 166,
+              "unmapped_category_count": 1,
+              "overall_posture_score_proxy": 0.6242,
+              "conflict_rate_proxy_avg": 0.3522,
+              "conflict_rate_proxy_max": 0.9421
+            }
+          },
+          "private_activity": {
+            "risk.technology": {
+              "exposure_count": 0,
+              "mitigant_count": 0,
+              "uncovered_exposure_count": 0,
+              "mitigation_coverage_ratio": 0.0,
+              "conflict_rate_proxy": 0.0,
+              "dimension_posture_score_proxy": 0.1,
+              "distinct_documents": 0,
+              "pair_complete": 0,
+              "meets_cdr1_medium": 0,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 0
+            },
+            "risk.construction": {
+              "exposure_count": 0,
+              "mitigant_count": 0,
+              "uncovered_exposure_count": 0,
+              "mitigation_coverage_ratio": 0.0,
+              "conflict_rate_proxy": 0.0,
+              "dimension_posture_score_proxy": 0.1,
+              "distinct_documents": 0,
+              "pair_complete": 0,
+              "meets_cdr1_medium": 0,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 0
+            },
+            "risk.market": {
+              "exposure_count": 20,
+              "mitigant_count": 0,
+              "uncovered_exposure_count": 20,
+              "mitigation_coverage_ratio": 0.0,
+              "conflict_rate_proxy": 1.0,
+              "dimension_posture_score_proxy": 0.1875,
+              "distinct_documents": 3,
+              "pair_complete": 0,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.regulatory": {
+              "exposure_count": 1,
+              "mitigant_count": 1,
+              "uncovered_exposure_count": 0,
+              "mitigation_coverage_ratio": 1.0,
+              "conflict_rate_proxy": 0.0,
+              "dimension_posture_score_proxy": 0.85,
+              "distinct_documents": 1,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 0,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 0
+            },
+            "risk.feedstock": {
+              "exposure_count": 0,
+              "mitigant_count": 0,
+              "uncovered_exposure_count": 0,
+              "mitigation_coverage_ratio": 0.0,
+              "conflict_rate_proxy": 0.0,
+              "dimension_posture_score_proxy": 0.1,
+              "distinct_documents": 0,
+              "pair_complete": 0,
+              "meets_cdr1_medium": 0,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 0
+            },
+            "_meta": {
+              "rows_considered": 21,
+              "unmapped_category_count": 0,
+              "overall_posture_score_proxy": 0.2675,
+              "conflict_rate_proxy_avg": 0.2,
+              "conflict_rate_proxy_max": 1.0
+            }
+          }
+        },
+        "cdr3_status": {
+          "all": {
+            "dimensions_with_pair_complete": 5,
+            "dimensions_at_medium_plus": 5,
+            "meets_cdr3_minimum_dimensions": 1,
+            "meets_cdr3_full_mode_dimensions": 1
+          },
+          "revenue": {
+            "dimensions_with_pair_complete": 5,
+            "dimensions_at_medium_plus": 5,
+            "meets_cdr3_minimum_dimensions": 1,
+            "meets_cdr3_full_mode_dimensions": 1
+          },
+          "conduit": {
+            "dimensions_with_pair_complete": 4,
+            "dimensions_at_medium_plus": 2,
+            "meets_cdr3_minimum_dimensions": 0,
+            "meets_cdr3_full_mode_dimensions": 0
+          },
+          "private_activity": {
+            "dimensions_with_pair_complete": 1,
+            "dimensions_at_medium_plus": 1,
+            "meets_cdr3_minimum_dimensions": 0,
+            "meets_cdr3_full_mode_dimensions": 0
+          }
+        }
+      },
+      "recency": {
+        "timestamp_rows": 234,
+        "parsed_rows": 234,
+        "parse_errors": 0,
+        "stale_ratio_180_pct": 0.0,
+        "stale_ratio_365_pct": 0.0
+      }
+    },
+    "healthcare": {
+      "sector": "healthcare",
+      "db_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\bond_os_extractor\\data\\healthcare\\corpus.db",
+      "status": "ok",
+      "summary": {
+        "counts": {
+          "documents": 866,
+          "deal_structures": 866,
+          "deal_identities": 866,
+          "risk_factors": 118,
+          "security_packages": 6,
+          "financial_reports": 1318,
+          "rating_actions": 239
+        },
+        "bond_type_counts": {
+          "<null>": 860,
+          "revenue": 4,
+          "conduit_revenue": 2
+        },
+        "bond_cohort_counts": {
+          "unknown": 860,
+          "revenue": 4,
+          "conduit": 2
+        },
+        "classification_primary_counts": {
+          "UNCLASSIFIED": 860,
+          "REVENUE_HEALTHCARE": 4,
+          "CONDUIT_501C3": 2
+        },
+        "issuer_type_counts": {
+          "<null>": 860,
+          "health": 5,
+          "ida": 1
+        }
+      },
+      "cohort_assessment": {
+        "dimension_rollup": {
+          "all": {
+            "risk.technology": {
+              "exposure_count": 20,
+              "mitigant_count": 15,
+              "uncovered_exposure_count": 5,
+              "mitigation_coverage_ratio": 0.75,
+              "conflict_rate_proxy": 0.25,
+              "dimension_posture_score_proxy": 0.85,
+              "distinct_documents": 5,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.construction": {
+              "exposure_count": 20,
+              "mitigant_count": 14,
+              "uncovered_exposure_count": 6,
+              "mitigation_coverage_ratio": 0.7,
+              "conflict_rate_proxy": 0.3,
+              "dimension_posture_score_proxy": 0.8325,
+              "distinct_documents": 5,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.market": {
+              "exposure_count": 38,
+              "mitigant_count": 19,
+              "uncovered_exposure_count": 19,
+              "mitigation_coverage_ratio": 0.5,
+              "conflict_rate_proxy": 0.5,
+              "dimension_posture_score_proxy": 0.7625,
+              "distinct_documents": 6,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.regulatory": {
+              "exposure_count": 20,
+              "mitigant_count": 12,
+              "uncovered_exposure_count": 8,
+              "mitigation_coverage_ratio": 0.6,
+              "conflict_rate_proxy": 0.4,
+              "dimension_posture_score_proxy": 0.7975,
+              "distinct_documents": 6,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.feedstock": {
+              "exposure_count": 20,
+              "mitigant_count": 12,
+              "uncovered_exposure_count": 8,
+              "mitigation_coverage_ratio": 0.6,
+              "conflict_rate_proxy": 0.4,
+              "dimension_posture_score_proxy": 0.7975,
+              "distinct_documents": 5,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "_meta": {
+              "rows_considered": 118,
+              "unmapped_category_count": 0,
+              "overall_posture_score_proxy": 0.808,
+              "conflict_rate_proxy_avg": 0.37,
+              "conflict_rate_proxy_max": 0.5
+            }
+          },
+          "revenue": {
+            "risk.technology": {
+              "exposure_count": 20,
+              "mitigant_count": 15,
+              "uncovered_exposure_count": 5,
+              "mitigation_coverage_ratio": 0.75,
+              "conflict_rate_proxy": 0.25,
+              "dimension_posture_score_proxy": 0.85,
+              "distinct_documents": 5,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.construction": {
+              "exposure_count": 20,
+              "mitigant_count": 14,
+              "uncovered_exposure_count": 6,
+              "mitigation_coverage_ratio": 0.7,
+              "conflict_rate_proxy": 0.3,
+              "dimension_posture_score_proxy": 0.8325,
+              "distinct_documents": 5,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.market": {
+              "exposure_count": 38,
+              "mitigant_count": 19,
+              "uncovered_exposure_count": 19,
+              "mitigation_coverage_ratio": 0.5,
+              "conflict_rate_proxy": 0.5,
+              "dimension_posture_score_proxy": 0.7625,
+              "distinct_documents": 6,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.regulatory": {
+              "exposure_count": 20,
+              "mitigant_count": 12,
+              "uncovered_exposure_count": 8,
+              "mitigation_coverage_ratio": 0.6,
+              "conflict_rate_proxy": 0.4,
+              "dimension_posture_score_proxy": 0.7975,
+              "distinct_documents": 6,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.feedstock": {
+              "exposure_count": 20,
+              "mitigant_count": 12,
+              "uncovered_exposure_count": 8,
+              "mitigation_coverage_ratio": 0.6,
+              "conflict_rate_proxy": 0.4,
+              "dimension_posture_score_proxy": 0.7975,
+              "distinct_documents": 5,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 1,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "_meta": {
+              "rows_considered": 118,
+              "unmapped_category_count": 0,
+              "overall_posture_score_proxy": 0.808,
+              "conflict_rate_proxy_avg": 0.37,
+              "conflict_rate_proxy_max": 0.5
+            }
+          },
+          "conduit": {
+            "risk.technology": {
+              "exposure_count": 4,
+              "mitigant_count": 3,
+              "uncovered_exposure_count": 1,
+              "mitigation_coverage_ratio": 0.75,
+              "conflict_rate_proxy": 0.25,
+              "dimension_posture_score_proxy": 0.7625,
+              "distinct_documents": 1,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 0,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 0
+            },
+            "risk.construction": {
+              "exposure_count": 6,
+              "mitigant_count": 4,
+              "uncovered_exposure_count": 2,
+              "mitigation_coverage_ratio": 0.6667,
+              "conflict_rate_proxy": 0.3333,
+              "dimension_posture_score_proxy": 0.7333,
+              "distinct_documents": 1,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 0,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 0
+            },
+            "risk.market": {
+              "exposure_count": 14,
+              "mitigant_count": 7,
+              "uncovered_exposure_count": 7,
+              "mitigation_coverage_ratio": 0.5,
+              "conflict_rate_proxy": 0.5,
+              "dimension_posture_score_proxy": 0.675,
+              "distinct_documents": 2,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 0,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.regulatory": {
+              "exposure_count": 5,
+              "mitigant_count": 3,
+              "uncovered_exposure_count": 2,
+              "mitigation_coverage_ratio": 0.6,
+              "conflict_rate_proxy": 0.4,
+              "dimension_posture_score_proxy": 0.71,
+              "distinct_documents": 2,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 0,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 1
+            },
+            "risk.feedstock": {
+              "exposure_count": 3,
+              "mitigant_count": 2,
+              "uncovered_exposure_count": 1,
+              "mitigation_coverage_ratio": 0.6667,
+              "conflict_rate_proxy": 0.3333,
+              "dimension_posture_score_proxy": 0.7333,
+              "distinct_documents": 1,
+              "pair_complete": 1,
+              "meets_cdr1_medium": 0,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 0
+            },
+            "_meta": {
+              "rows_considered": 32,
+              "unmapped_category_count": 0,
+              "overall_posture_score_proxy": 0.7228,
+              "conflict_rate_proxy_avg": 0.3633,
+              "conflict_rate_proxy_max": 0.5
+            }
+          },
+          "private_activity": {
+            "risk.technology": {
+              "exposure_count": 0,
+              "mitigant_count": 0,
+              "uncovered_exposure_count": 0,
+              "mitigation_coverage_ratio": 0.0,
+              "conflict_rate_proxy": 0.0,
+              "dimension_posture_score_proxy": 0.1,
+              "distinct_documents": 0,
+              "pair_complete": 0,
+              "meets_cdr1_medium": 0,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 0
+            },
+            "risk.construction": {
+              "exposure_count": 0,
+              "mitigant_count": 0,
+              "uncovered_exposure_count": 0,
+              "mitigation_coverage_ratio": 0.0,
+              "conflict_rate_proxy": 0.0,
+              "dimension_posture_score_proxy": 0.1,
+              "distinct_documents": 0,
+              "pair_complete": 0,
+              "meets_cdr1_medium": 0,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 0
+            },
+            "risk.market": {
+              "exposure_count": 0,
+              "mitigant_count": 0,
+              "uncovered_exposure_count": 0,
+              "mitigation_coverage_ratio": 0.0,
+              "conflict_rate_proxy": 0.0,
+              "dimension_posture_score_proxy": 0.1,
+              "distinct_documents": 0,
+              "pair_complete": 0,
+              "meets_cdr1_medium": 0,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 0
+            },
+            "risk.regulatory": {
+              "exposure_count": 0,
+              "mitigant_count": 0,
+              "uncovered_exposure_count": 0,
+              "mitigation_coverage_ratio": 0.0,
+              "conflict_rate_proxy": 0.0,
+              "dimension_posture_score_proxy": 0.1,
+              "distinct_documents": 0,
+              "pair_complete": 0,
+              "meets_cdr1_medium": 0,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 0
+            },
+            "risk.feedstock": {
+              "exposure_count": 0,
+              "mitigant_count": 0,
+              "uncovered_exposure_count": 0,
+              "mitigation_coverage_ratio": 0.0,
+              "conflict_rate_proxy": 0.0,
+              "dimension_posture_score_proxy": 0.1,
+              "distinct_documents": 0,
+              "pair_complete": 0,
+              "meets_cdr1_medium": 0,
+              "meets_cdr1_high": 0,
+              "meets_cdr4_source_diversity": 0
+            },
+            "_meta": {
+              "rows_considered": 0,
+              "unmapped_category_count": 0,
+              "overall_posture_score_proxy": 0.1,
+              "conflict_rate_proxy_avg": 0.0,
+              "conflict_rate_proxy_max": 0.0
+            }
+          }
+        },
+        "cdr3_status": {
+          "all": {
+            "dimensions_with_pair_complete": 5,
+            "dimensions_at_medium_plus": 5,
+            "meets_cdr3_minimum_dimensions": 1,
+            "meets_cdr3_full_mode_dimensions": 1
+          },
+          "revenue": {
+            "dimensions_with_pair_complete": 5,
+            "dimensions_at_medium_plus": 5,
+            "meets_cdr3_minimum_dimensions": 1,
+            "meets_cdr3_full_mode_dimensions": 1
+          },
+          "conduit": {
+            "dimensions_with_pair_complete": 5,
+            "dimensions_at_medium_plus": 0,
+            "meets_cdr3_minimum_dimensions": 1,
+            "meets_cdr3_full_mode_dimensions": 0
+          },
+          "private_activity": {
+            "dimensions_with_pair_complete": 0,
+            "dimensions_at_medium_plus": 0,
+            "meets_cdr3_minimum_dimensions": 0,
+            "meets_cdr3_full_mode_dimensions": 0
+          }
+        }
+      },
+      "recency": {
+        "timestamp_rows": 866,
+        "parsed_rows": 866,
+        "parse_errors": 0,
+        "stale_ratio_180_pct": 0.0,
+        "stale_ratio_365_pct": 0.0
+      }
+    }
+  },
+  "recommendation": {
+    "status": "go",
+    "reasons": []
+  }
+}

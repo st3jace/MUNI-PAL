@@ -1,6 +1,6 @@
 # OPS-1003 BFMS Production-Grade Scoring Hardening Plan
 
-Last updated: 2026-02-21
+Last updated: 2026-02-22
 
 ## Objective
 
@@ -77,11 +77,11 @@ Deliverable:
 | M2: Robustness checks implemented | Week 3 | New robustness tests green in CI |
 | M3: Governance/versioning controls added | Week 3 | Audit + metadata controls verified |
 | M4: Explainability hardening complete | Week 4 | External narrative validation pass |
-| M5: Production-grade readiness review | Week 4 | Go/no-go recorded with residual risks |
+| M5: Production-grade readiness review | Week 4 | Go/no-go recorded with blockers/residual-risk register and sign-off package |
 
 ## M1: Calibration Dataset Requirements
 
-Status: **In Progress**
+Status: **In Progress (CDR-1/CDR-3/CDR-4/CDR-5 met; CDR-2 held by policy pending recency shift)**
 
 ### Current Confidence Model
 
@@ -106,9 +106,9 @@ Hard overrides: sample_size < 20 forces LOW; conflict_rate >= 0.35 downgrades on
 | Target for production | 100+ per dimension | `_sample_score(100)` returns 1.0 (full weight) |
 | Acceptance: full-mode | All 5 dimensions >= MEDIUM | Any LOW forces fallback mode |
 
-**Current state**: Live UCS baseline has ~239 total facts across all schema paths. Most risk dimensions have < 20 approved facts per dimension, which forces LOW reliability and fallback mode unless synthetic seed facts are used.
+**Current state**: Latest calibration snapshot reports both sectors meeting CDR-1 MEDIUM thresholds across all five dimensions (`bond_corpus_calibration_20260222_164949.json`) after Phase B evidence backfill from local waste + healthcare corpora.
 
-**Gap**: Need to define a fact generation or ingestion strategy to sustainably reach 20+ approved facts per risk dimension from real evidence (not synthetic seeds).
+**Gap**: Sustain these thresholds with recurring ingest cadence so CDR-1 does not regress between weekly snapshots.
 
 #### CDR-2: Recency Bounds
 
@@ -118,7 +118,7 @@ Hard overrides: sample_size < 20 forces LOW; conflict_rate >= 0.35 downgrades on
 | Stale fact warning threshold | 180 days | Alert when >50% of dimension facts are older than 6 months |
 | Expiry policy | None (retain all) | Archived facts already excluded; stale facts flagged but kept |
 
-**Implementation note**: The current engine does not discount by fact age. This is an additive enhancement for M2/M3.
+**Implementation note**: Feature-flagged age weighting is implemented and assessed weekly; current policy remains `hold` while stale ratios remain low.
 
 #### CDR-3: Cohort Coverage
 
@@ -159,17 +159,129 @@ M1 is complete when:
 
 | CDR | Met? | Evidence |
 |---|---|---|
-| CDR-1 (sample size) | Partial | 239 total facts, but most risk dimensions < 20 without synthetic seeds |
-| CDR-2 (recency) | N/A | No age-based weighting implemented yet |
-| CDR-3 (cohort coverage) | Partial | Depends on seed facts; organic coverage gaps in feedstock/construction |
-| CDR-4 (source quality) | Partial | Most facts sourced from single playbook evaluation |
-| CDR-5 (drift detection) | Not started | No week-over-week tracking implemented |
+| CDR-1 (sample size) | Met (all-cohort rollup) | Latest calibration snapshot reports waste + healthcare each at 5/5 dimensions meeting MEDIUM threshold (`bond_corpus_calibration_20260222_164949.json`). |
+| CDR-2 (recency) | Partial (policy hold) | Recency diagnostics emitted (`stale_ratio_180`, `stale_ratio_365`), feature-flagged age weighting implemented (`RISK_REPORTING_V2_AGE_WEIGHTING`, `RISK_REPORTING_V2_AGE_WEIGHTING_FULL_WEIGHT_DAYS`, `RISK_REPORTING_V2_AGE_WEIGHTING_MAX_PENALTY`), and staged-tuning assessor automation added (`scripts/assess_age_weighting_policy.py` -> `age_weighting_policy_<timestamp>.md/.json`). Current recommendation: `hold` due low staleness baseline (latest stale ratios 0.0/0.0). |
+| CDR-3 (cohort coverage) | Met (all-cohort rollup) | Latest calibration snapshot reports waste + healthcare at 5/5 pair-complete dimensions (`bond_corpus_calibration_20260222_164949.json`). |
+| CDR-4 (source quality) | Met (all-cohort rollup) | Latest calibration snapshot reports waste + healthcare each at 5/5 dimensions meeting source-diversity target (`bond_corpus_calibration_20260222_164949.json`). |
+| CDR-5 (drift detection) | Met (proxy-series mode) | Drift snapshots + routed escalation artifacts evaluate all four thresholds in automation with critical gate enforcement (`scripts/assess_bond_corpus_drift.py`, `scripts/route_bond_corpus_drift_alerts.py`, `--fail-on-critical`); latest routing highest severity `none`, critical count `0`. |
+
+### M2 Progress Update (2026-02-21)
+
+Implemented (non-breaking, additive):
+
+1. Cohort-aware mitigation baseline adjustments by `sector + deal_type` in `src/munipal/services/risk_reporting_service.py`.
+2. Sector-conditional semantics for `risk.feedstock` context (e.g., healthcare -> demand/reimbursement continuity) while preserving contract dimension IDs.
+3. Evidence diagnostics in dimension metrics:
+   - `source_artifact_count`
+   - `source_type_count`
+   - `stale_ratio_180`
+   - `stale_ratio_365`
+4. Confidence uncertainty notes now include source-diversity and recency warnings when thresholds are missed.
+5. Calibration evidence automation from extractor corpora:
+   - `scripts/assess_bond_corpus_calibration.py`
+   - outputs `reports/phase10_postlaunch/bond_corpus_calibration_<timestamp>.md/.json`
+6. Waste feedstock mitigant backfill utility added/applied from implementation-guide evidence:
+   - `scripts/backfill_waste_feedstock_mitigants.py`
+   - CDR-3 all-cohort waste coverage moved from 4/5 to 5/5 pair-complete.
+7. Added quantitative robustness checks (WS-2) for DSCR:
+   - `guardrail.dscr.scenario_sensitivity`
+   - `guardrail.dscr.ratio_consistency`
+   - validated via unit + integration regression updates.
+
+### M3 Progress Update (2026-02-21)
+
+Implemented (non-breaking, additive):
+
+1. Scoring profile governance metadata scaffolded in risk service:
+   - `scoring_profile_version`
+   - `scoring_profile_checksum`
+   - `governance_policy_version`
+2. Added override governance scope mapping for audit traceability:
+   - `dimension`
+   - `guardrail`
+   - `scoring_profile`
+   - `other`
+3. Enriched risk route audit events (diagnostics/internal/external/BFMS/sync/override/accept)
+   with scoring profile governance metadata.
+4. Added governance regression tests:
+   - `tests/unit/test_risk_reporting_service.py`
+   - `tests/unit/test_audit_route_events.py`
+
+### M4 Progress Update (2026-02-21)
+
+Implemented (non-breaking, additive):
+
+1. Consumer interpretation guide contract fields added for external/BFMS outputs:
+   - `interpretation_guide_version`
+   - `consumer_interpretation_guide`
+2. Scoring profile metadata exposed on external/BFMS contracts:
+   - `scoring_profile_version`
+   - `scoring_profile_checksum`
+   - `governance_policy_version`
+3. Key assumption source traceability standardized with inline references:
+   - format: `[ref: <schema_path_or_evidence_path>]`
+4. External narrative compliance checks made dynamic:
+   - `assumption_traceability_tags_present`
+   - `consumer_interpretation_guide_present`
+5. OpenAPI contract snapshot updated for additive schema fields:
+   - `contracts/openapi.v1.json`
+
+### M5 Progress Update (2026-02-22)
+
+Implemented (non-breaking, additive):
+
+1. Operational CDR-5 routing pipeline added:
+   - `scripts/route_bond_corpus_drift_alerts.py`
+   - severity-based routed events (`info`/`warning`/`critical`)
+   - incident and advisory-hold recommendations when critical events exist
+2. Phase 10 automation/CI now executes drift routing with critical fail gate:
+   - `scripts/run_phase10_postlaunch_bundle.py`
+   - `.github/workflows/phase10-postlaunch-dispatch.yml`
+3. Drift snapshot schema expanded for routing-relevant metrics:
+   - sample reliability band transitions (sample-size proxy)
+   - exposure/mitigant/source-document drop percentages
+   - posture/conflict proxy time-series deltas with bootstrap-safe history handling
+4. Regression coverage added for alert routing:
+   - `tests/unit/test_bond_corpus_alert_routing.py`
+   - `tests/unit/test_bond_corpus_drift.py`
+5. Added feature-flagged recency age-weighting in confidence scoring:
+   - `src/munipal/services/risk_reporting_service.py`
+   - `src/munipal/config.py`
+   - `.env.example`
+   - regression coverage in `tests/unit/test_risk_reporting_service.py`
+6. Added CDR-2 staged-tuning assessment automation and gate coverage:
+   - `scripts/assess_age_weighting_policy.py`
+   - `tests/unit/test_age_weighting_policy_assessment.py`
+   - integrated into `scripts/run_phase10_postlaunch_bundle.py` and CI artifact retention
+7. Added advisory cohort inference validation automation for package-generation profile behavior:
+   - `scripts/assess_advisory_cohort_inference.py`
+   - `tests/unit/test_advisory_cohort_inference_assessment.py`
+   - validates healthcare + waste sector inference across revenue/conduit/private-activity cohorts
+   - integrated into `scripts/run_phase10_postlaunch_bundle.py` and CI artifact retention
+8. Added API-level advisory package smoke assessment for staging evidence:
+   - `scripts/assess_advisory_package_smoke.py`
+   - `tests/unit/test_advisory_package_smoke_assessment.py`
+   - validates internal/external generation, fetch, validate, and export endpoints in one artifact
+   - integrated into `scripts/run_phase10_postlaunch_bundle.py` and CI artifact retention
+9. Added OPS-1003 M5 readiness synthesis automation:
+   - `scripts/assess_ops1003_m5_readiness.py`
+   - `tests/unit/test_ops1003_m5_readiness_assessment.py`
+   - consumes latest calibration/cohort/smoke/age-weighting/drift/routing artifacts and records one go/no-go output with blockers + residual risks
+   - latest run: `ops1003_m5_readiness_20260222_165001.json` recommendation `go`, blockers `0`, residual risks `0`
+10. Added and executed Phase B CDR closure backfill:
+   - `scripts/backfill_phaseb_cdr_coverage.py`
+   - dry-run + apply evidence: `44` waste rows and `27` healthcare rows inserted from local source corpora
+   - post-backfill calibration confirms CDR-1/CDR-4 closure in both sectors (`bond_corpus_calibration_20260222_164949.json`)
+11. Added strict regression-gate enforcement for post-M5 operation:
+   - `scripts/enforce_ops1003_regression_gates.py`
+   - fails on CDR-1 regression, CDR-4 regression, residual-risk count threshold breach, or non-`go` M5 recommendation
+   - wired into `scripts/run_phase10_postlaunch_bundle.py` and covered by `tests/unit/test_ops1003_regression_gates.py`
 
 ### Remediation Path
 
-1. **Short-term** (Week 2): Add drift detection logging for reliability band transitions and posture score delta. No code changes to scoring logic.
-2. **Medium-term** (Week 3): Implement source diversity check in `_compute_confidence()` as additive diagnostic field (non-breaking).
-3. **Long-term** (Week 4+): Add fact age weighting as opt-in enhancement behind feature flag. Evaluate recency bounds against healthcare sector expansion data.
+1. **Short-term** (Week 3/4): Run weekly CDR-2 assessor and archive `age_weighting_policy_<timestamp>.md/.json` in CI/staging evidence bundle.
+2. **Medium-term** (Week 4): Stage-enable age weighting only when assessor status moves to `staged_enable`; otherwise hold default-off and re-evaluate after new ingest.
+3. **Long-term** (Week 4+): Sustain CDR-1/CDR-4 coverage with periodic backfill or ingestion automation and optionally upgrade CDR-5 proxies to model-derived posture/conflict telemetry once stable historical series is available.
 
 ## Validation Plan
 

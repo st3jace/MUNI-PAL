@@ -1,0 +1,49 @@
+{
+  "generated_at_utc": "2026-02-22T16:50:01.250256+00:00",
+  "source_artifacts": {
+    "calibration": "bond_corpus_calibration_20260222_164949.json",
+    "advisory_cohort_inference": "advisory_cohort_inference_20260222_164954.json",
+    "advisory_package_smoke": "advisory_package_smoke_20260222_164959.json",
+    "age_weighting_policy": "age_weighting_policy_20260222_165000.json",
+    "bond_corpus_drift": "bond_corpus_drift_20260222_165000.json",
+    "bond_corpus_alert_routing": "bond_corpus_alert_routing_20260222_165001.json"
+  },
+  "summary": {
+    "sectors_evaluated": 2,
+    "calibration_recommendation": "go",
+    "cdr3_all_pair_complete_met": true,
+    "cdr1_medium_coverage_met": true,
+    "cdr4_source_diversity_met": true,
+    "advisory_cohort_recommendation": "go",
+    "advisory_package_smoke_recommendation": "go",
+    "age_weighting_policy_recommendation": "hold",
+    "drift_status": "stable",
+    "drift_recommendation_current": "go",
+    "alert_routing_highest_severity": "none",
+    "alert_routing_critical_count": 0,
+    "requires_incident": false,
+    "missing_artifact_count": 0,
+    "blocker_count": 0,
+    "residual_risk_count": 0
+  },
+  "sector_cdr_snapshot": {
+    "waste": {
+      "cdr3_all_pair_complete": 5,
+      "cdr1_medium_hits": 5,
+      "cdr4_source_diversity_hits": 5
+    },
+    "healthcare": {
+      "cdr3_all_pair_complete": 5,
+      "cdr1_medium_hits": 5,
+      "cdr4_source_diversity_hits": 5
+    }
+  },
+  "recommendation": {
+    "status": "go",
+    "blockers": [],
+    "residual_risks": [],
+    "notes": [
+      "No blocking gates or residual risks detected."
+    ]
+  }
+}

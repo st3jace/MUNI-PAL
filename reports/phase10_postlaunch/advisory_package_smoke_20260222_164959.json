@@ -1,0 +1,171 @@
+{
+  "generated_at_utc": "2026-02-22T16:49:59.894216+00:00",
+  "mode": "asgi",
+  "base_url": "http://127.0.0.1:8000",
+  "asgi_sqlite_path": "C:\\Users\\st3ja\\AppData\\Local\\Temp\\munipal_advisory_smoke_7c7ryp_y.db",
+  "auth": {
+    "token_mode": "generated",
+    "user_id": "00000000-0000-0000-0000-000000000001",
+    "role": "admin",
+    "tenant_id": "default",
+    "tenant_claim_key": "tenant_id"
+  },
+  "project_id_input": null,
+  "project_id_resolved": "c46ffc6d-71d4-4ad7-bf01-2e68816bec1d",
+  "project_id_created": "c46ffc6d-71d4-4ad7-bf01-2e68816bec1d",
+  "assertions": {
+    "project_id_resolved": true,
+    "internal_generate_ok": true,
+    "internal_report_fetch_ok": true,
+    "external_generate_ok": true,
+    "external_package_fetch_ok": true,
+    "external_validate_ok": true
+  },
+  "summary": {
+    "internal_report_id": "59dc7b04-8830-4c64-80c7-478286819346",
+    "external_package_id": "99548cc7-9a85-4b9b-aa76-719ee92814c5",
+    "internal_overall_score": 0.0,
+    "external_ready_for_distribution": false,
+    "external_distribution_issue_count": 1,
+    "risk_integration_mode": "Fallback"
+  },
+  "steps": [
+    {
+      "name": "Health Check",
+      "method": "GET",
+      "path": "/health",
+      "status_code": 200,
+      "ok": true,
+      "duration_seconds": 0.00301059999037534,
+      "error": null,
+      "response_excerpt": "{\"status\": \"healthy\", \"version\": \"0.1.0\", \"environment\": \"development\"}"
+    },
+    {
+      "name": "Get Default Playbook",
+      "method": "GET",
+      "path": "/api/v1/playbooks/default",
+      "status_code": 404,
+      "ok": true,
+      "duration_seconds": 0.1717062999960035,
+      "error": null,
+      "response_excerpt": "{\"detail\": \"No default playbook configured. Run POST /api/v1/playbooks/seed to initialize.\"}"
+    },
+    {
+      "name": "Seed Default Playbook",
+      "method": "POST",
+      "path": "/api/v1/playbooks/seed",
+      "status_code": 201,
+      "ok": true,
+      "duration_seconds": 0.033777100004954264,
+      "error": null,
+      "response_excerpt": "{\"created_at\": \"2026-02-22T16:49:59\", \"updated_at\": \"2026-02-22T16:49:59\", \"id\": \"c53bb471-edfa-4eb3-9c64-dd501ee6d8c4\", \"name\": \"UCS CAB+SLB Revenue Bond\", \"version\": \"0.3.0\", \"description\": \"Bond Intelligence Configuration Playbook for UCS Waste-to-Energy Capital Appreciation + Sustainability-Linked Bond structures. Defines extraction schema, checklist phases P1-P6, readiness scoring, disclosure synthesis templates (WP7), and information request templates (WP8) for El Dorado, California IDA..."
+    },
+    {
+      "name": "Get Default Playbook (After Seed)",
+      "method": "GET",
+      "path": "/api/v1/playbooks/default",
+      "status_code": 200,
+      "ok": true,
+      "duration_seconds": 0.010254699998768046,
+      "error": null,
+      "response_excerpt": "{\"created_at\": \"2026-02-22T16:49:59\", \"updated_at\": \"2026-02-22T16:49:59\", \"id\": \"c53bb471-edfa-4eb3-9c64-dd501ee6d8c4\", \"name\": \"UCS CAB+SLB Revenue Bond\", \"version\": \"0.3.0\", \"description\": \"Bond Intelligence Configuration Playbook for UCS Waste-to-Energy Capital Appreciation + Sustainability-Linked Bond structures. Defines extraction schema, checklist phases P1-P6, readiness scoring, disclosure synthesis templates (WP7), and information request templates (WP8) for El Dorado, California IDA..."
+    },
+    {
+      "name": "List Projects",
+      "method": "GET",
+      "path": "/api/v1/projects/",
+      "status_code": 200,
+      "ok": true,
+      "duration_seconds": 0.03104170000005979,
+      "error": null,
+      "response_excerpt": "{\"projects\": [], \"total\": 0, \"skip\": 0, \"limit\": 1}"
+    },
+    {
+      "name": "Create Smoke Project",
+      "method": "POST",
+      "path": "/api/v1/projects/",
+      "status_code": 201,
+      "ok": true,
+      "duration_seconds": 0.04165659999125637,
+      "error": null,
+      "response_excerpt": "{\"created_at\": \"2026-02-22T16:49:59\", \"updated_at\": \"2026-02-22T16:49:59\", \"id\": \"c46ffc6d-71d4-4ad7-bf01-2e68816bec1d\", \"name\": \"Phase10 Advisory Smoke 20260222_164959\", \"description\": \"Automated advisory package smoke validation project.\", \"issuer_name\": \"Phase10 Smoke Issuer\", \"project_location\": \"AZ\", \"target_bond_amount\": 75000000.0, \"playbook_id\": \"c53bb471-edfa-4eb3-9c64-dd501ee6d8c4\", \"owner_id\": \"00000000-0000-0000-0000-000000000001\", \"tenant_id\": \"default\", \"artifact_count\": 0, \"fac..."
+    },
+    {
+      "name": "Generate Internal Advisory Report",
+      "method": "POST",
+      "path": "/api/v1/advisory-packages/internal/generate",
+      "status_code": 200,
+      "ok": true,
+      "duration_seconds": 0.2785234000039054,
+      "error": null,
+      "response_excerpt": "{\"report_id\": \"59dc7b04-8830-4c64-80c7-478286819346\", \"status\": \"completed\", \"message\": \"Report generated with score 0.0/10\", \"celery_task_id\": null}"
+    },
+    {
+      "name": "Fetch Internal Advisory Report",
+      "method": "GET",
+      "path": "/api/v1/advisory-packages/internal/59dc7b04-8830-4c64-80c7-478286819346",
+      "status_code": 200,
+      "ok": true,
+      "duration_seconds": 0.021962400001939386,
+      "error": null,
+      "response_excerpt": "{\"created_at\": \"2026-02-22T16:49:59\", \"updated_at\": \"2026-02-22T16:49:59\", \"id\": \"59dc7b04-8830-4c64-80c7-478286819346\", \"version\": 1, \"playbook_version\": null, \"bfms_version\": \"2.0.0\", \"project_id\": \"c46ffc6d-71d4-4ad7-bf01-2e68816bec1d\", \"is_complete\": true, \"generation_started_at\": \"2026-02-22T16:49:59.420567\", \"generation_completed_at\": \"2026-02-22T16:49:59.654166\", \"executive_summary\": {\"overall_score\": 0.0, \"score_interpretation\": \"Too early; focus on foundational work\", \"status_emoji\":..."
+    },
+    {
+      "name": "Export Internal Advisory Report (MD)",
+      "method": "GET",
+      "path": "/api/v1/advisory-packages/internal/59dc7b04-8830-4c64-80c7-478286819346/export",
+      "status_code": 200,
+      "ok": true,
+      "duration_seconds": 0.014667700001155026,
+      "error": null,
+      "response_excerpt": "{\"format\": \"md\", \"filename\": \"internal_report_v1.md\", \"content\": \"# Internal Readiness Report\\n\\n**Version:** 1\\n**Generated:** 2026-02-22 16:49:59.654166\\n\\n---\\n\\n## Executive Summary\\n\\n**Critical Gaps:** 15\\n**Open Information Requests:** 13\\n**Approved Facts:** 0\\n\\n**Status:** Too early; focus on foundational work\\n\\n### Critical Blockers\\n\\n- **Issuer Authority**: Score: 0.0/5.0\\n  - Impact: Issuer Authority needs substantial documentation. Only 0/2 critical items covered. This dimensi..."
+    },
+    {
+      "name": "Generate External Advisory Package",
+      "method": "POST",
+      "path": "/api/v1/advisory-packages/external/generate",
+      "status_code": 200,
+      "ok": true,
+      "duration_seconds": 0.14427299999806564,
+      "error": null,
+      "response_excerpt": "{\"package_id\": \"99548cc7-9a85-4b9b-aa76-719ee92814c5\", \"status\": \"completed\", \"message\": \"Package generated. Ready for distribution: False\", \"celery_task_id\": null}"
+    },
+    {
+      "name": "Fetch External Advisory Package",
+      "method": "GET",
+      "path": "/api/v1/advisory-packages/external/99548cc7-9a85-4b9b-aa76-719ee92814c5",
+      "status_code": 200,
+      "ok": true,
+      "duration_seconds": 0.014381000000867061,
+      "error": null,
+      "response_excerpt": "{\"created_at\": \"2026-02-22T16:49:59\", \"updated_at\": \"2026-02-22T16:49:59\", \"id\": \"99548cc7-9a85-4b9b-aa76-719ee92814c5\", \"version\": 1, \"title\": \"Phase 10 Advisory Package Smoke\", \"generated_for\": \"Municipal Advisor\", \"playbook_version\": null, \"bfms_version\": \"2.0.0\", \"project_id\": \"c46ffc6d-71d4-4ad7-bf01-2e68816bec1d\", \"is_complete\": true, \"generation_started_at\": \"2026-02-22T16:49:59.732069\", \"generation_completed_at\": \"2026-02-22T16:49:59.831834\", \"cover_page\": {\"project_name\": \"Project\", ..."
+    },
+    {
+      "name": "Validate External Advisory Package",
+      "method": "GET",
+      "path": "/api/v1/advisory-packages/external/99548cc7-9a85-4b9b-aa76-719ee92814c5/validate",
+      "status_code": 200,
+      "ok": true,
+      "duration_seconds": 0.008456799987470731,
+      "error": null,
+      "response_excerpt": "{\"ready_for_distribution\": false, \"issues\": [\"Too many critical TBDs (6)\"], \"warnings\": [], \"recommendations\": []}"
+    },
+    {
+      "name": "Export External Advisory Package (MD)",
+      "method": "GET",
+      "path": "/api/v1/advisory-packages/external/99548cc7-9a85-4b9b-aa76-719ee92814c5/export",
+      "status_code": 200,
+      "ok": true,
+      "duration_seconds": 0.013889599998947233,
+      "error": null,
+      "response_excerpt": "{\"format\": \"md\", \"filename\": \"advisory_package_v1.md\", \"content\": \"# Advisory Information Package\\n\\n## Phase 10 Advisory Package Smoke\\n\\n**Prepared for:** Municipal Advisor\\n**Version:** 1\\n**Generated:** 2026-02-22 16:49:59.831834\\n\\n---\\n\\n**Project**\\n\\nRevenue Bonds\\n\\n*PRELIMINARY - FOR DISCUSSION PURPOSES ONLY*\\n\\n---\\n## Executive Summary\\n\\n[Issuer TBD] proposes to issue revenue bonds to finance [Project description TBD]...\\n\\n### Key Metrics\\n\\n- **Risk Integration Mode:** Fallback..."
+    }
+  ],
+  "linked_artifacts": {
+    "latest_advisory_cohort_inference_json": "advisory_cohort_inference_20260222_164954.json"
+  },
+  "recommendation": {
+    "status": "go",
+    "reasons": []
+  }
+}

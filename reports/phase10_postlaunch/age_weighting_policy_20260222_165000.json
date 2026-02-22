@@ -1,0 +1,55 @@
+{
+  "generated_at_utc": "2026-02-22T16:50:00.678259+00:00",
+  "source_calibration_report": "bond_corpus_calibration_20260222_164949.json",
+  "full_weight_days": 365,
+  "candidate_max_penalties": [
+    0.1,
+    0.15,
+    0.2
+  ],
+  "sectors": {
+    "waste": {
+      "stale_ratio_180": 0.0,
+      "stale_ratio_365": 0.0
+    },
+    "healthcare": {
+      "stale_ratio_180": 0.0,
+      "stale_ratio_365": 0.0
+    }
+  },
+  "candidate_analysis": [
+    {
+      "max_penalty": 0.1,
+      "avg_score_penalty": 0.0,
+      "avg_confidence_multiplier": 1.0
+    },
+    {
+      "max_penalty": 0.15,
+      "avg_score_penalty": 0.0,
+      "avg_confidence_multiplier": 1.0
+    },
+    {
+      "max_penalty": 0.2,
+      "avg_score_penalty": 0.0,
+      "avg_confidence_multiplier": 1.0
+    }
+  ],
+  "summary": {
+    "sectors_evaluated": 2,
+    "max_stale_ratio_365": 0.0,
+    "avg_stale_ratio_365": 0.0,
+    "stale_ratio_spread_pct": 0.0
+  },
+  "recommendation": {
+    "status": "hold",
+    "suggested_env": {
+      "RISK_REPORTING_V2_AGE_WEIGHTING": "false",
+      "RISK_REPORTING_V2_AGE_WEIGHTING_FULL_WEIGHT_DAYS": "365",
+      "RISK_REPORTING_V2_AGE_WEIGHTING_MAX_PENALTY": "0.10"
+    },
+    "reasons": [
+      "Recency staleness is limited; keep age-weighting disabled until next data refresh.",
+      "Suggested max penalty selected from observed stale ratio distribution across sectors."
+    ]
+  }
+}

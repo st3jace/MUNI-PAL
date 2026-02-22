@@ -12,32 +12,30 @@ Core principles (NON-NEGOTIABLE):
 """
 
 import logging
-from datetime import datetime, timezone
+import re
+from datetime import UTC, datetime
 from typing import Any
 from uuid import UUID, uuid4
 
-from sqlalchemy import select, func
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload
 
 from munipal.config import get_settings
 from munipal.core.models.advisory_package import (
-    InternalReadinessReport,
     ExternalAdvisoryPackage,
+    InternalReadinessReport,
 )
-from munipal.core.models.disclosure import DisclosureDocument
 from munipal.core.models.fact import ExtractedFact
 from munipal.core.models.information_request import InformationRequest
-from munipal.core.schemas.base import ReviewStatus, ChecklistPhase, ReadinessDimension
+from munipal.core.models.project import Project
 from munipal.core.schemas.advisory_package import (
-    InternalReadinessReportRead,
-    InternalReadinessReportSummary,
-    ExternalAdvisoryPackageRead,
-    ExternalAdvisoryPackageSummary,
     DistributionValidation,
+    ExternalAdvisoryPackageRead,
+    InternalReadinessReportRead,
 )
-from munipal.core.schemas.information_request import RequestStatus, RequestPriority
-from munipal.services.playbook_data import READINESS_CONFIG, CHECKLIST_ITEMS, SCHEMA_PATHS
+from munipal.core.schemas.base import ChecklistPhase, ReviewStatus
+from munipal.core.schemas.information_request import RequestStatus
+from munipal.services.playbook_data import READINESS_CONFIG
 
 logger = logging.getLogger(__name__)
 
@@ -135,12 +133,12 @@ class InternalReportService:
 
         # Create new report
         report = await self.create_report(project_id)
-        report.generation_started_at = datetime.now(timezone.utc)
+        report.generation_started_at = datetime.now(UTC)
 
         # Import services for readiness and checklist computation
-        from munipal.services.readiness_service import ReadinessService
         from munipal.services.checklist_service import ChecklistService
         from munipal.services.information_request_service import InformationRequestService
+        from munipal.services.readiness_service import ReadinessService
 
         readiness_service = ReadinessService(self.session)
         checklist_service = ChecklistService(self.session)
@@ -190,13 +188,13 @@ class InternalReportService:
             1
             for r in requests
             if r.target_date
-            and r.target_date < datetime.now(timezone.utc).date()
+            and r.target_date < datetime.now(UTC).date()
             and r.status in [RequestStatus.OPEN.value, RequestStatus.IN_PROGRESS.value]
         )
         report.facts_count = len([f for f in facts if f.review_status == ReviewStatus.APPROVED.value])
 
         report.is_complete = True
-        report.generation_completed_at = datetime.now(timezone.utc)
+        report.generation_completed_at = datetime.now(UTC)
 
         await self.session.flush()
         logger.info(f"Generated internal report {report.id}")
@@ -223,7 +221,7 @@ class InternalReportService:
 
         # Get critical blockers
         critical_blockers = []
-        for dim, dim_score in assessment.dimensions.items():
+        for _dim, dim_score in assessment.dimensions.items():
             if dim_score.score < 2.0:
                 critical_blockers.append({
                     "title": dim_score.dimension_name,
@@ -329,7 +327,7 @@ class InternalReportService:
             })
 
         # Find overdue
-        today = datetime.now(timezone.utc).date()
+        today = datetime.now(UTC).date()
         overdue = [
             {
                 "request_code": r.request_code,
@@ -621,12 +619,12 @@ class ExternalPackageService:
 
         # Create package
         package = await self.create_package(project_id, title, generated_for)
-        package.generation_started_at = datetime.now(timezone.utc)
+        package.generation_started_at = datetime.now(UTC)
 
         # Get approved facts
         facts = await self._get_approved_facts(project_id)
         facts_by_path = {f.schema_path: f for f in facts}
-        risk_context = await self._build_risk_integration_context(project_id)
+        risk_context = await self._build_risk_integration_context(project_id, facts=facts_by_path)
 
         # Build sections
         package.cover_page = self._build_cover_page(project_id, title, generated_for, facts_by_path)
@@ -665,7 +663,7 @@ class ExternalPackageService:
         package.readiness_score_at_generation = assessment.overall_score
 
         package.is_complete = True
-        package.generation_completed_at = datetime.now(timezone.utc)
+        package.generation_completed_at = datetime.now(UTC)
 
         await self.session.flush()
         logger.info(f"Generated external package {package.id}")
@@ -699,7 +697,7 @@ class ExternalPackageService:
             "structure_description": structure,
             "prepared_for": generated_for,
             "prepared_by": "Project Sponsor",
-            "prepared_date": datetime.now(timezone.utc).isoformat(),
+            "prepared_date": datetime.now(UTC).isoformat(),
             "disclaimer_text": "PRELIMINARY - FOR DISCUSSION PURPOSES ONLY",
         }
 
@@ -909,6 +907,7 @@ class ExternalPackageService:
     async def _build_risk_integration_context(
         self,
         project_id: UUID,
+        facts: dict[str, Any] | None = None,
     ) -> dict[str, Any] | None:
         """Build risk integration context for advisory package content enrichment."""
         settings = get_settings()
@@ -919,16 +918,17 @@ class ExternalPackageService:
             from munipal.core.schemas.risk_reporting import RiskBenchmarkCohort
             from munipal.services.risk_reporting_service import RiskReportingService
 
+            project = await self._get_project(project_id)
+            cohort_values = self._infer_risk_benchmark_cohort_values(
+                project=project,
+                facts=facts or {},
+            )
+            cohort = RiskBenchmarkCohort(**cohort_values)
+
             service = RiskReportingService(self.session)
             payload = await service.build_bfms_integration_payload(
                 project_id=project_id,
-                cohort=RiskBenchmarkCohort(
-                    sector="waste_to_energy",
-                    issuer_size_band="mid",
-                    deal_type="revenue",
-                    recency_window="5y",
-                    sample_size=50,
-                ),
+                cohort=cohort,
             )
             integration_mode = (
                 payload.integration_mode.value
@@ -942,12 +942,182 @@ class ExternalPackageService:
                 "reliability_low_dimensions": payload.reliability_low_dimensions,
                 "fallback_reasons": payload.fallback_reasons,
                 "top_next_steps": [action.title for action in payload.advisory_next_steps[:3]],
+                "cohort": cohort_values,
             }
         except Exception:
             logger.warning(
                 "BFMS risk integration context unavailable for external package generation",
                 exc_info=True,
             )
+            return None
+
+    def _infer_risk_benchmark_cohort_values(
+        self,
+        *,
+        project: Project | None,
+        facts: dict[str, Any],
+    ) -> dict[str, Any]:
+        sector = self._infer_cohort_sector(project=project, facts=facts)
+        deal_type = self._infer_cohort_deal_type(project=project, facts=facts)
+        issuer_size_band = self._infer_cohort_issuer_size_band(project=project, facts=facts)
+        return {
+            "sector": sector,
+            "issuer_size_band": issuer_size_band,
+            "deal_type": deal_type,
+            "recency_window": "5y",
+            "sample_size": self._infer_cohort_sample_size(sector=sector, deal_type=deal_type),
+        }
+
+    def _infer_cohort_sector(
+        self,
+        *,
+        project: Project | None,
+        facts: dict[str, Any],
+    ) -> str:
+        hint_blob = self._cohort_hint_blob(project=project, facts=facts)
+        healthcare_tokens = (
+            "healthcare",
+            "hospital",
+            "clinic",
+            "medical",
+            "fqhc",
+            "medicaid",
+            "patient care",
+            "community health",
+        )
+        waste_tokens = (
+            "waste",
+            "feedstock",
+            "biomass",
+            "msw",
+            "solid waste",
+            "landfill",
+            "biochar",
+            "renewable diesel",
+        )
+        if any(token in hint_blob for token in healthcare_tokens):
+            return "healthcare"
+        if any(token in hint_blob for token in waste_tokens):
+            return "waste_to_energy"
+        if "feedstock.type" in facts or "feedstock.volume.annual" in facts:
+            return "waste_to_energy"
+        return "waste_to_energy"
+
+    def _infer_cohort_deal_type(
+        self,
+        *,
+        project: Project | None,
+        facts: dict[str, Any],
+    ) -> str:
+        issuer_text = self._cohort_hint_text(self._get_fact_value(facts, "parties.issuer.name", ""))
+        if not issuer_text and project is not None:
+            issuer_text = self._cohort_hint_text(project.issuer_name)
+        borrower_text = self._cohort_hint_text(self._get_fact_value(facts, "parties.borrower.name", ""))
+        hint_blob = self._cohort_hint_blob(project=project, facts=facts)
+
+        if "private activity" in hint_blob or "industrial development bond" in hint_blob:
+            return "private_activity"
+        if "501(c)(3)" in hint_blob or "501c3" in hint_blob:
+            return "private_activity"
+
+        issuer_indicates_conduit = (
+            "industrial development authority" in issuer_text
+            or "health facilities authority" in issuer_text
+            or "housing authority" in issuer_text
+            or bool(re.search(r"\bida\b", issuer_text))
+        )
+        if "conduit" in hint_blob or (bool(borrower_text) and issuer_indicates_conduit):
+            return "conduit"
+        return "revenue"
+
+    def _infer_cohort_issuer_size_band(
+        self,
+        *,
+        project: Project | None,
+        facts: dict[str, Any],
+    ) -> str:
+        amount = self._cohort_hint_number(self._get_fact_value(facts, "cab.originalprincipial", None))
+        if amount is None and project is not None:
+            amount = self._cohort_hint_number(project.target_bond_amount)
+        if amount is None:
+            amount = self._cohort_hint_number(self._get_fact_value(facts, "capital.project-cost", None))
+
+        if amount is None:
+            return "mid"
+        if amount >= 250_000_000:
+            return "large"
+        if amount >= 50_000_000:
+            return "mid"
+        return "small"
+
+    @staticmethod
+    def _infer_cohort_sample_size(*, sector: str, deal_type: str) -> int:
+        sample_map = {
+            ("waste_to_energy", "revenue"): 50,
+            ("waste_to_energy", "conduit"): 35,
+            ("waste_to_energy", "private_activity"): 30,
+            ("healthcare", "revenue"): 30,
+            ("healthcare", "conduit"): 24,
+            ("healthcare", "private_activity"): 24,
+        }
+        return sample_map.get((sector, deal_type), 35)
+
+    def _cohort_hint_blob(
+        self,
+        *,
+        project: Project | None,
+        facts: dict[str, Any],
+    ) -> str:
+        hints: list[str] = []
+        for path in (
+            "project.canonicaldescription",
+            "parties.issuer.name",
+            "parties.borrower.name",
+            "revenue.commodities.list",
+            "feedstock.type",
+            "project.location.jurisdiction",
+        ):
+            hint = self._cohort_hint_text(self._get_fact_value(facts, path, ""))
+            if hint:
+                hints.append(hint)
+
+        if project is not None:
+            for value in (
+                project.name,
+                project.description,
+                project.issuer_name,
+                project.project_location,
+            ):
+                hint = self._cohort_hint_text(value)
+                if hint:
+                    hints.append(hint)
+        return " ".join(hints)
+
+    @staticmethod
+    def _cohort_hint_text(value: Any) -> str:
+        if value is None:
+            return ""
+        if isinstance(value, dict):
+            if "value" in value:
+                return ExternalPackageService._cohort_hint_text(value.get("value"))
+            return " ".join(
+                ExternalPackageService._cohort_hint_text(item) for item in value.values()
+            ).strip().lower()
+        if isinstance(value, (list, tuple, set)):
+            return " ".join(
+                ExternalPackageService._cohort_hint_text(item) for item in value
+            ).strip().lower()
+        return str(value).strip().lower()
+
+    @staticmethod
+    def _cohort_hint_number(value: Any) -> float | None:
+        if value is None:
+            return None
+        if isinstance(value, dict):
+            return ExternalPackageService._cohort_hint_number(value.get("value"))
+        try:
+            return float(value)
+        except (TypeError, ValueError):
             return None
 
     def _build_disclaimer(self) -> str:
@@ -1042,6 +1212,13 @@ Prepared by Bond Facility Management System v2.0"""
             )
         )
         return list(result.scalars().all())
+
+    async def _get_project(self, project_id: UUID) -> Project | None:
+        """Get project metadata for cohort inference."""
+        result = await self.session.execute(
+            select(Project).where(Project.id == str(project_id))
+        )
+        return result.scalar_one_or_none()
 
     def package_to_read_schema(
         self, package: ExternalAdvisoryPackage

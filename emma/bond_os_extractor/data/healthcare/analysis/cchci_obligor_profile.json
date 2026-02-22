@@ -1,0 +1,276 @@
+{
+  "obligor": {
+    "canonical_name": "Chiricahua Community Health Centers Inc",
+    "legal_name": "Chiricahua Community Health Centers, Inc.",
+    "entity_type": "Arizona nonprofit corporation",
+    "fqhc_designation": true,
+    "ein": null,
+    "state": "AZ",
+    "county": "Cochise",
+    "headquarters": "1205 N F Ave, Douglas, AZ 85607",
+    "service_area": ["Douglas", "Bisbee", "Elfrida", "Sierra Vista", "Benson", "Willcox"],
+    "target_population": "Low-income (<=200% FPL)",
+    "sector": "healthcare",
+    "sub_sector": "fqhc"
+  },
+
+  "ida_loan": {
+    "description": "Sierra Vista IDA Revolving Loan Fund — first-stage financing",
+    "lender": "Industrial Development Authority of the City of Sierra Vista",
+    "borrower": "Chiricahua Community Health Centers, Inc.",
+    "principal": 250000,
+    "interest_rate": 0.03,
+    "default_rate": 0.10,
+    "maturity_date": "2029-04-30",
+    "origination_date": "2024-03-28",
+    "term_years": 5,
+    "payment_structure": "quarterly_interest_only_balloon",
+    "quarterly_payment": 1875,
+    "security": {
+      "type": "deed_of_trust",
+      "property": "1136 N F Avenue, Douglas, AZ",
+      "parcel_number": "40905020",
+      "lien_position": "first"
+    },
+    "covenants": [
+      "Audited financial statements within 90 days of fiscal year-end",
+      "Notification of liens >$25K or additional debt",
+      "Form 990 / financial info on 10-day request",
+      "Notification of refinancing efforts",
+      "Compliance with all laws, licenses, permits",
+      "Insurance with lender as mortgagee"
+    ],
+    "escrow_agent": "Slania Law PLLC",
+    "account_servicer": "Pioneer Title Agency",
+    "status": "active"
+  },
+
+  "financials": {
+    "fiscal_year_end": "April 30",
+    "auditor": "Fester & Chapman PLLC (Scottsdale, AZ)",
+    "audit_opinion": "unmodified",
+    "auditee_risk_level": "low_risk",
+    "material_weaknesses": [
+      {
+        "finding_id": "2023-001",
+        "description": "Financial Reporting Process - Year-end Closing",
+        "detail": "Material misstatements in retainage payables (-$32K), IBNR liabilities (-$289K), beginning net assets (-$600K)",
+        "status": "corrective_action_in_progress"
+      },
+      {
+        "finding_id": "2023-002",
+        "description": "Allowance for Doubtful Accounts",
+        "detail": "Inadequate AR aging methodology; accounts >180 days not timely reviewed",
+        "status": "corrective_action_in_progress"
+      }
+    ],
+    "fy2023": {
+      "total_revenue": 55844288,
+      "total_expenses": 59798284,
+      "operating_income": -3953996,
+      "net_income": -3735251,
+      "total_assets": 57721411,
+      "total_liabilities": 37172336,
+      "net_assets": 20549075,
+      "cash_and_equivalents": 2995481,
+      "investments": 3321274,
+      "patient_revenues_net": 41481321,
+      "federal_grants_direct": 9529714,
+      "grants_receivable": 1916020,
+      "wages_and_salaries": 32599926,
+      "total_federal_awards": 11160000,
+      "accounts_receivable_net": 3700000
+    },
+    "fy2022": {
+      "total_revenue": 55152190,
+      "total_expenses": 46599019,
+      "operating_income": 8553171,
+      "total_assets": 37104294,
+      "total_liabilities": 12819968,
+      "net_assets": 24284326,
+      "cash_and_equivalents": 10468532,
+      "patient_revenues_net": 37952258,
+      "federal_grants_direct": 12500000,
+      "grants_receivable": 1306864,
+      "wages_and_salaries": 25401888
+    },
+    "ratios": {
+      "operating_margin_fy2023": -0.071,
+      "net_margin_fy2023": -0.067,
+      "current_ratio_fy2023": null,
+      "leverage_fy2023": 1.81,
+      "patient_revenue_concentration": 0.743,
+      "federal_grant_dependence": 0.171,
+      "medicaid_reliance": "high (AHCCCS primary payer)",
+      "cash_decline_yoy": -0.714
+    }
+  },
+
+  "debt_profile": {
+    "as_of_date": "2023-04-30",
+    "notes": [
+      {
+        "description": "Note 1: Refinance/Consolidate",
+        "principal": 1454792,
+        "interest_rate": 0.0408,
+        "maturity_date": "2035-07",
+        "monthly_payment": 4674
+      },
+      {
+        "description": "Note 2: Building Purchase",
+        "principal": 3579803,
+        "interest_rate": 0.0379,
+        "maturity_date": "2031-12",
+        "monthly_payment": 50631
+      },
+      {
+        "description": "Note 3: Building Remodel",
+        "principal": 344883,
+        "interest_rate": 0.0502,
+        "maturity_date": "2035-03",
+        "monthly_payment": 3199
+      },
+      {
+        "description": "IDA Sierra Vista RLF Loan (2024)",
+        "principal": 250000,
+        "interest_rate": 0.03,
+        "maturity_date": "2029-04-30",
+        "monthly_payment": null,
+        "payment_note": "Quarterly interest-only ($1,875), balloon at maturity"
+      }
+    ],
+    "finance_leases": 429226,
+    "operating_leases": 24500000,
+    "total_debt_excl_leases": 5629478,
+    "total_debt_incl_ida": 5879478,
+    "annual_debt_service_est": 700000
+  },
+
+  "real_property_portfolio": {
+    "total_parcels": 20,
+    "total_acreage": 40.09,
+    "total_assessed_value": 8874211,
+    "total_building_sqft": 98789,
+    "tax_status": "EXMPT QUALIFIED (all parcels)",
+    "locations": {
+      "douglas": {
+        "parcels": 8,
+        "assessed_value": 3822757,
+        "building_sqft": 40910,
+        "addresses": [
+          "815 E 15th St",
+          "1100D N F Ave",
+          "1111D N F Ave",
+          "1127D N F Ave",
+          "1136D N F Ave (IDA lien)",
+          "1205D N F Ave (HQ)"
+        ]
+      },
+      "bisbee": {
+        "parcels": 6,
+        "assessed_value": 2313446,
+        "building_sqft": 12342,
+        "addresses": [
+          "108 Arizona St",
+          "108 Arizona St (Parking)",
+          "307 Arizona St",
+          "308 Arizona St",
+          "312 Arizona St"
+        ]
+      },
+      "sierra_vista": {
+        "parcels": 1,
+        "assessed_value": 2126427,
+        "building_sqft": 37985,
+        "addresses": ["600 Sierra Vista"]
+      },
+      "elfrida": {
+        "parcels": 3,
+        "assessed_value": 511865,
+        "building_sqft": 7552,
+        "addresses": [
+          "10566 N Hwy 191",
+          "10567 N Hwy 191",
+          "10572 N Hwy 191"
+        ]
+      },
+      "willcox": {
+        "parcels": 2,
+        "assessed_value": 99713,
+        "building_sqft": 0,
+        "acreage": 23.3,
+        "note": "Large undeveloped/rural parcels, future expansion site"
+      }
+    },
+    "parcels": [
+      {"parcel_id": "10504256C", "address": "600 Sierra Vista", "city": "Sierra Vista", "zoning": "OP", "acres": 2.73, "assessed_value": 2126427, "bldg_sqft": 37985, "use": "Office"},
+      {"parcel_id": "40325001K", "address": "10572 N Hwy 191", "city": "Elfrida", "zoning": "R-36", "acres": 7.87, "assessed_value": 41500, "bldg_sqft": 1583, "use": "Multi-Family"},
+      {"parcel_id": "40325001Q", "address": "10566 N Hwy 191", "city": "Elfrida", "zoning": "RU-2", "acres": 0.77, "assessed_value": 351207, "bldg_sqft": 4537, "use": "Medical Facility"},
+      {"parcel_id": "40321010", "address": "10567 N Hwy 191", "city": "Elfrida", "zoning": "R-18", "acres": 1.0, "assessed_value": 119158, "bldg_sqft": 1432, "use": "Medical Facility"},
+      {"parcel_id": "40902098", "address": "815 E 15th St", "city": "Douglas", "zoning": "SFR6", "acres": 1.3, "assessed_value": 1133259, "bldg_sqft": 6985, "use": "Medical Facility"},
+      {"parcel_id": "40905018", "address": "1100D N F Ave", "city": "Douglas", "zoning": "GC", "acres": 0.31, "assessed_value": 1169031, "bldg_sqft": 13360, "use": "Commercial"},
+      {"parcel_id": "40905020", "address": "1136D N F Ave", "city": "Douglas", "zoning": "GC", "acres": 0.31, "assessed_value": 109251, "bldg_sqft": 5220, "use": "Medical Facility", "note": "IDA loan security (deed of trust)"},
+      {"parcel_id": "40905019", "address": "N F Ave (adj)", "city": "Douglas", "zoning": "GC", "acres": 0.31, "assessed_value": 42880, "bldg_sqft": null, "use": "Medical Clinic"},
+      {"parcel_id": "40903102", "address": "1111D N F Ave", "city": "Douglas", "zoning": "GC", "acres": 0.62, "assessed_value": 250000, "bldg_sqft": 4521, "use": "Medical Facility"},
+      {"parcel_id": "40903105", "address": "1127D N F Ave", "city": "Douglas", "zoning": "GC", "acres": 0.03, "assessed_value": 58786, "bldg_sqft": 1440, "use": "Commercial"},
+      {"parcel_id": "40902021", "address": "Douglas Blk 112", "city": "Douglas", "zoning": "GC", "acres": 0.16, "assessed_value": 8000, "bldg_sqft": null, "use": "Medical Facility"},
+      {"parcel_id": "40902023A", "address": "1205D N F Ave", "city": "Douglas", "zoning": "GC", "acres": 0.37, "assessed_value": 1051553, "bldg_sqft": 9384, "use": "Medical Facility", "note": "Headquarters"},
+      {"parcel_id": "10106024", "address": "307 Arizona St", "city": "Bisbee", "zoning": "C-1", "acres": 0.33, "assessed_value": 406739, "bldg_sqft": 5000, "use": "Medical Facility"},
+      {"parcel_id": "10106004A", "address": "312 Arizona St", "city": "Bisbee", "zoning": "C-1", "acres": 0.04, "assessed_value": 205158, "bldg_sqft": 1275, "use": "Office"},
+      {"parcel_id": "10106002", "address": "308 Arizona St", "city": "Bisbee", "zoning": "C-1", "acres": 0.08, "assessed_value": 216784, "bldg_sqft": 975, "use": "Office"},
+      {"parcel_id": "10109003", "address": "108 Arizona St", "city": "Bisbee", "zoning": "C-1", "acres": 0.24, "assessed_value": 1469737, "bldg_sqft": 5092, "use": "Medical Facility"},
+      {"parcel_id": "10109001", "address": "108 Arizona (Parking)", "city": "Bisbee", "zoning": "C-1", "acres": 0.2, "assessed_value": 13068, "bldg_sqft": null, "use": "Parking"},
+      {"parcel_id": "10106004B", "address": "Bisbee (adj)", "city": "Bisbee", "zoning": "C-1", "acres": 0.03, "assessed_value": 1960, "bldg_sqft": null, "use": "Office"},
+      {"parcel_id": "20327005G", "address": "Rex Allen Dr", "city": "Willcox", "zoning": "R-5", "acres": 18.69, "assessed_value": 26983, "bldg_sqft": null, "use": "Medical Facility"},
+      {"parcel_id": "20327005F", "address": "Sec 31", "city": "Willcox", "zoning": "GC-1", "acres": 4.61, "assessed_value": 72730, "bldg_sqft": null, "use": "Commercial"}
+    ]
+  },
+
+  "bond_readiness": {
+    "stage": "pre_issuance",
+    "ida_loan_status": "active (step 1 complete)",
+    "next_stage": "bond_financing",
+    "strengths": [
+      "Unmodified audit opinion with low-risk auditee classification",
+      "$55.8M revenue base — substantial for FQHC sector",
+      "$8.87M real property portfolio across 20 parcels (cross-collateral potential)",
+      "Existing IDA relationship (Sierra Vista) establishes lending track record",
+      "Essential community health service provider (6 locations, mobile clinic)",
+      "Federal grant recipient ($11.16M) — 330 Health Center Program",
+      "Prior year finding fully corrected — demonstrates compliance trajectory"
+    ],
+    "challenges": [
+      "FY2023 operating loss ($3.95M) — first loss year after strong FY2022",
+      "Two material weaknesses in current audit (financial reporting, AR allowance)",
+      "Cash declined 71% YoY ($10.5M -> $3.0M)",
+      "Unrated issuer — no established credit rating",
+      "High Medicaid (AHCCCS) concentration — reimbursement rate risk",
+      "Declining federal COVID relief grants (program sunset)",
+      "Balloon payment risk on IDA loan ($250K due Apr 2029)"
+    ],
+    "security_package_options": [
+      "Gross revenue pledge (patient revenues + grants)",
+      "Cross-collateralized real property portfolio (20 parcels, $8.87M assessed)",
+      "Debt service reserve fund (6-12 months coverage)",
+      "Additional bonds test (historical DSCR covenant)",
+      "Federal grant assignment/intercept (subject to HRSA restrictions)"
+    ]
+  },
+
+  "data_sources": {
+    "primary": "H:\\My Drive\\RLF\\CHIRICAHUA\\",
+    "project": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\IDA\\RLF\\CHIRICAHUA\\",
+    "resource": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\RESOURCES\\IDA\\RLF\\CHIRICAHUA\\",
+    "key_documents": {
+      "audit": "Chiricahua 2022-23 Federal Audit.pdf",
+      "board_financials": "Boards Financials with data, ratios and debt reserve Dec 2023.pdf",
+      "loan_agreement": "SLANIA/Loan Agreement (draft) 4-23-24.pdf",
+      "promissory_note": "SLANIA/Promissory Note (draft) 4-23-24.pdf",
+      "executed_loan": "TITLE/Sierra Vista IDA Title Document - Fully Executed - March 2024.pdf",
+      "closing_docs": "TITLE/CHIRICAHUA LOAN CLOSING DOCS.pdf",
+      "parcel_data": "chiricahua (1).csv",
+      "debt_schedule": "CCHCI Debt Schedule 4.30.23.xlsx",
+      "cash_forecast": "CCHCI Cash Forecast.xlsx"
+    }
+  }
+}

@@ -16,7 +16,7 @@ Last updated: 2026-02-25
 | Phase 7 | **Complete** | 2026-02-19 | 2026-02-20 | Stephen Peterson | BFMS integration contract shipped and signed off — both fallback and full modes confirmed in staging; all automated gates green; Internal Report + External Package generation confirmed; sign-off: Stephen Peterson 2026-02-20 |
 | Phase 8 | **Complete** | 2026-02-20 | 2026-02-21 | Stephen Peterson | Tenant isolation foundation shipped and signed off — migration `b8c9d0e1f2a3` applied, `TENANT_ISOLATION_V2=true` enabled, tenant-scoped listing and cross-tenant 403 confirmed, flag-only rollback drill passed; all automated gates green; sign-off: Stephen Peterson 2026-02-21 |
 | Phase 9 | **Complete** | 2026-02-21 | 2026-02-21 | Stephen Peterson | Release readiness shipped and signed off — all REL-901 through REL-907 milestones validated; JWT-enforced auth + tenant isolation + role enforcement confirmed in staging; GO decision recorded; all automated gates green; sign-off: Stephen Peterson 2026-02-21 |
-| Phase 10 | In Progress (Post-Launch Ops) | 2026-02-21 | TBD | Stephen Peterson | OPS-1003 automation remains stable with `calibration=go`, `cohort=go`, `smoke=go`, `M5=go`, and `residual_risks=0` (`ops1003_m5_readiness_20260225_123917.json`); age-weighting remains policy `hold`. Strict corpus normalization is now wired into Phase 10: outlier cleanup (`scripts/cleanup_corpus_db_outliers.py`), normalized index rebuild (`scripts/rebuild_corpus_document_index.py`, composite key `source_hash+doc_type`, provenance tagging), and strict reconciliation gate (`scripts/verify_corpus_db_reconciliation.py --fail-on-extra-db --fail-on-index-extras --fail-on-type-mismatch`) with backfill-only extras explicitly tagged/tolerated. OPS-1001 Closeout-A telemetry trend automation is now in-bundle (`scripts/assess_ops1001_telemetry_trends.py`); latest tracked local bundle remains `phase10_postlaunch_20260225_123753` and local telemetry run currently reports `insufficient_data` pending production export feed. |
+| Phase 10 | In Progress (Post-Launch Ops) | 2026-02-21 | TBD | Stephen Peterson | OPS-1003 automation remains stable with `calibration=go`, `cohort=go`, `smoke=go`, `M5=go`, and `residual_risks=0` (`ops1003_m5_readiness_20260225_123917.json`); age-weighting remains policy `hold`. Strict corpus normalization is now wired into Phase 10: outlier cleanup (`scripts/cleanup_corpus_db_outliers.py`), normalized index rebuild (`scripts/rebuild_corpus_document_index.py`, composite key `source_hash+doc_type`, provenance tagging), and strict reconciliation gate (`scripts/verify_corpus_db_reconciliation.py --fail-on-extra-db --fail-on-index-extras --fail-on-type-mismatch`) with backfill-only extras explicitly tagged/tolerated. OPS-1001 Closeout-A/C automation is now in-bundle (`scripts/assess_ops1001_telemetry_trends.py`, `scripts/route_ops1001_telemetry_alerts.py`); telemetry artifacts currently report `insufficient_data` pending production export feed. |
 
 ## Active Risks
 
@@ -42,12 +42,12 @@ Last updated: 2026-02-25
 
 ## Next Milestones
 
-Week 2 Phase 10 operations refreshed with strict corpus normalization/reconciliation gating and OPS-1001 telemetry automation.
+Week 2 Phase 10 operations refreshed with strict corpus normalization/reconciliation gating and OPS-1001 telemetry + alert-routing automation.
 
-1. Execute post-change Phase 10 CI dispatch for OPS-1001 telemetry-assessment wiring and link Actions artifact to weekly evidence.
-2. Populate `reports/phase10_postlaunch/ops1001_telemetry_events.jsonl` from 7-day production export and re-run telemetry assessor for threshold tuning decision.
+1. Populate `reports/phase10_postlaunch/ops1001_telemetry_events.jsonl` from 7-day production export and re-run telemetry trend + alert-routing assessors for threshold/incident calibration.
+2. Execute one live-data OPS-1005 drill with new OPS-1001 routed alert artifact and capture incident timeline evidence.
 3. Keep CDR-2 age-weighting default-off until weekly policy assessment indicates `staged_enable`; continue weekly `age_weighting_policy_<timestamp>.md/.json` review.
-4. Close incident-alerting automation follow-up from OPS-1005 drill lessons and re-run drill evidence.
+4. Close Phase 10 sign-off packet once OPS-1001 real-data calibration + OPS-1005 live-data drill evidence are captured.
 
 ## Completed Milestones
 
@@ -304,3 +304,6 @@ Week 2 Phase 10 operations refreshed with strict corpus normalization/reconcilia
 251. 2026-02-25: Revalidated full Phase 10 bundle after OPS-1001 telemetry automation integration (overall `pass`) including new automated step `OPS-1001 Telemetry Trend Assessment` (currently `insufficient_data` pending telemetry export feed).
 252. 2026-02-25: Refreshed Phase 10 tracker/backlog/evidence narrative for Closeout-A kickoff (`V2/EXECUTION_TRACKER.md`, `V2/PHASE_10_POST_LAUNCH_BACKLOG.md`, `reports/phase10_postlaunch/WEEKLY_EVIDENCE_TEMPLATE.md`) with latest local bundle and CI evidence references.
 253. 2026-02-25: Dispatched Phase 10 workflow after OPS-1001 Closeout-A merge and confirmed green run (`22401104583`, commit `9428c06f`, `success`); artifact: `phase10-postlaunch-22401104583` (`5655174177`).
+254. 2026-02-25: Implemented OPS-1001 telemetry alert-routing automation (`scripts/route_ops1001_telemetry_alerts.py`) to classify telemetry findings into `info`/`warning`/`critical`, stamp `requires_incident`, and emit `ops1001_telemetry_alert_routing_<timestamp>.md/.json`.
+255. 2026-02-25: Wired OPS-1001 telemetry alert routing into Phase 10 automation/workflow and docs (`scripts/run_phase10_postlaunch_bundle.py`, `.github/workflows/phase10-postlaunch-dispatch.yml`, `V2/PHASE_10_POST_LAUNCH_RUNBOOK.md`, `reports/phase10_postlaunch/WEEKLY_EVIDENCE_TEMPLATE.md`, `V2/PHASE_10_POST_LAUNCH_BACKLOG.md`).
+256. 2026-02-25: Added OPS-1001 alert-routing regression coverage (`tests/unit/test_ops1001_telemetry_alert_routing.py`) and validated targeted OPS-1001 unit suites.

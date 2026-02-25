@@ -24,6 +24,7 @@ Date range: 2026-02-23 to 2026-02-25
 | Frontend Production Build | `pass` | 10.03s |
 | Auth+Tenant+Risk Stability Slice | `pass` | 10.50s |
 | OPS-1001 Telemetry Trend Assessment | `pass` | 0.13s |
+| OPS-1001 Telemetry Alert Routing | `pass` | 0.12s |
 | Healthcare Corpus Readiness Snapshot | `pass` | 0.24s |
 | Bond Corpus Calibration Snapshot | `pass` | 0.13s |
 | Advisory Cohort Inference Assessment | `pass` | 0.99s |
@@ -47,6 +48,7 @@ Date range: 2026-02-23 to 2026-02-25
 - 403 trend summary: `Baseline established. Cross-tenant access returns 403 and same-tenant non-owner access follows current ownership/superuser policy.`
 - Cross-tenant-denied trend summary: `Baseline established. JWT tenant claims drive tenant scoping under enforced mode; cross-tenant reads block with 403.`
 - Telemetry trend report path: `n/a this week (run scripts/assess_ops1001_telemetry_trends.py against 7-day telemetry export).`
+- Telemetry alert routing report path: `n/a this week (run scripts/route_ops1001_telemetry_alerts.py after telemetry trend artifact generation).`
 - Current alert threshold profile (per 1k requests): `401=40`, `403=20`, `cross-tenant-denied=10`
 - Alert thresholds tuned this week: `no`
 - Notes: `OPS-1001 assessor is now automated in the Phase 10 bundle; production telemetry export feed still needs to populate ops1001_telemetry_events.jsonl for threshold calibration.`
@@ -87,7 +89,7 @@ Date range: 2026-02-23 to 2026-02-25
 - Drill executed this week: `no`
 - Detection time: `n/a this week`
 - Recovery time: `n/a this week`
-- Lessons learned: `No new drill this week; prior lesson remains JWT secret consistency across drill scripts, and alerting automation follow-up remains open.`
+- Lessons learned: `No new drill this week; JWT secret consistency remains a checklist item. OPS-1001 telemetry alert-routing automation is now wired, pending live-data drill validation.`
 - Drill report path: `reports/phase10_postlaunch/INCIDENT_DRILL_TEMPLATE.md`
 
 ## Sign-off

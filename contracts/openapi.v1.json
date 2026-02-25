@@ -5152,6 +5152,13 @@
             "title": "Compliance Checks",
             "type": "array"
           },
+          "consumer_interpretation_guide": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Consumer Interpretation Guide",
+            "type": "array"
+          },
           "contract_version": {
             "default": "risk-bfms-integration-v1",
             "title": "Contract Version",
@@ -5186,12 +5193,22 @@
             "title": "Generated At",
             "type": "string"
           },
+          "governance_policy_version": {
+            "default": "risk-governance-policy-v1",
+            "title": "Governance Policy Version",
+            "type": "string"
+          },
           "integration_mode": {
             "$ref": "#/components/schemas/RiskIntegrationMode"
           },
           "internal_report_contract_version": {
             "default": "risk-internal-v1",
             "title": "Internal Report Contract Version",
+            "type": "string"
+          },
+          "interpretation_guide_version": {
+            "default": "risk-consumer-guide-v1",
+            "title": "Interpretation Guide Version",
             "type": "string"
           },
           "key_assumptions": {
@@ -5227,6 +5244,16 @@
             "minimum": 0.0,
             "title": "Reliability Low Dimensions",
             "type": "integer"
+          },
+          "scoring_profile_checksum": {
+            "default": "unknown",
+            "title": "Scoring Profile Checksum",
+            "type": "string"
+          },
+          "scoring_profile_version": {
+            "default": "risk-scoring-profile-v1",
+            "title": "Scoring Profile Version",
+            "type": "string"
           }
         },
         "required": [
@@ -5463,6 +5490,13 @@
             "title": "Compliance Checks",
             "type": "array"
           },
+          "consumer_interpretation_guide": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Consumer Interpretation Guide",
+            "type": "array"
+          },
           "contract_version": {
             "default": "risk-external-v1",
             "title": "Contract Version",
@@ -5471,6 +5505,16 @@
           "generated_at": {
             "format": "date-time",
             "title": "Generated At",
+            "type": "string"
+          },
+          "governance_policy_version": {
+            "default": "risk-governance-policy-v1",
+            "title": "Governance Policy Version",
+            "type": "string"
+          },
+          "interpretation_guide_version": {
+            "default": "risk-consumer-guide-v1",
+            "title": "Interpretation Guide Version",
             "type": "string"
           },
           "key_assumptions": {
@@ -5511,6 +5555,16 @@
           "project_id": {
             "format": "uuid",
             "title": "Project Id",
+            "type": "string"
+          },
+          "scoring_profile_checksum": {
+            "default": "unknown",
+            "title": "Scoring Profile Checksum",
+            "type": "string"
+          },
+          "scoring_profile_version": {
+            "default": "risk-scoring-profile-v1",
+            "title": "Scoring Profile Version",
             "type": "string"
           }
         },

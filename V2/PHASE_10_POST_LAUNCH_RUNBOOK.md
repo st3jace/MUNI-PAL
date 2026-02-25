@@ -49,6 +49,12 @@ Workflow: `.github/workflows/phase10-postlaunch-dispatch.yml`
 3. Click **Run workflow** and set optional note/week label.
 4. Download artifact `phase10-postlaunch-<run_id>`.
 
+CLI fallback (when `gh` is unavailable):
+
+```powershell
+python scripts/dispatch_github_workflow.py --workflow-id phase10-postlaunch-dispatch.yml --ref master --input note="phase10 weekly run" --wait --require-success
+```
+
 ## Outputs
 
 Each run writes:

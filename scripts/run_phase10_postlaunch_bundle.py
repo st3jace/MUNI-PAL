@@ -245,6 +245,7 @@ def main() -> int:
             "tests/unit/test_ops1001_telemetry_trends_assessment.py "
             "tests/unit/test_ops1001_telemetry_alert_routing.py "
             "tests/unit/test_ops1005_incident_drill_assessment.py "
+            "tests/unit/test_dispatch_github_workflow.py "
             "tests/unit/test_corpus_db_outlier_cleanup.py "
             "tests/unit/test_corpus_document_index_rebuild.py "
             "tests/unit/test_corpus_db_reconciliation.py "

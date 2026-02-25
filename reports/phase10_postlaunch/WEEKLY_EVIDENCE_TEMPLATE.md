@@ -6,8 +6,8 @@ Date range: 2026-02-23 to 2026-02-25
 ## Automated Bundle Evidence
 
 - Workflow/script: `.github/workflows/phase10-postlaunch-dispatch.yml`
-- Run URL (if CI): `pending post-change dispatch (local strict-normalization run captured below)`
-- Commit SHA: `d5219a26`
+- Run URL (if CI): `https://github.com/st3jace/MUNI-PAL/actions/runs/22398116840`
+- Commit SHA: `fd4d7818`
 - Overall result: `pass`
 - Local bundle verification run: `reports/phase10_postlaunch/phase10_postlaunch_20260225_123753.json`
 - Local archived bundle verification: `reports/phase10_postlaunch/phase10_postlaunch_20260225_123753_archive.zip`

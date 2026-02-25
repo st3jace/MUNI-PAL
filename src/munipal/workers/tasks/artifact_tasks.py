@@ -22,6 +22,13 @@ logger = logging.getLogger(__name__)
 settings = get_settings()
 
 
+def _sanitize_chunk_text(text: str | None) -> str | None:
+    """Normalize chunk text for database compatibility."""
+    if text is None:
+        return None
+    return text.replace("\x00", "")
+
+
 @celery_app.task(bind=True, name="munipal.workers.tasks.artifact_tasks.process_artifact")
 def process_artifact(self, artifact_id: str) -> dict:
     """
@@ -69,21 +76,51 @@ def process_artifact(self, artifact_id: str) -> dict:
         artifact_type = artifact.artifact_type.lower()
         chunker = get_chunker_for_type(artifact_type)
 
-        if not chunker:
-            logger.warning(f"No chunker available for type: {artifact_type}")
-            artifact.is_processed = True
-            artifact.processing_error = f"No chunker for type: {artifact_type}"
-            session.commit()
-            return {
-                "artifact_id": artifact_id,
-                "status": "skipped",
-                "error": f"Unsupported type: {artifact_type}",
-                "chunks_created": 0,
-            }
-
-        # Extract chunks
         try:
-            chunk_data_list = chunker.chunk(file_path)
+            if chunker:
+                chunk_data_list = chunker.chunk(file_path)
+            elif artifact_type == "docx":
+                from docx import Document
+                from munipal.services.chunking.base import BaseChunker
+
+                doc = Document(str(file_path))
+                text_content = "\n\n".join(
+                    para.text for para in doc.paragraphs if para.text.strip()
+                )
+                chunk_data_list = [
+                    ChunkData(
+                        chunk_type="document",
+                        sequence_number=0,
+                        text_content=text_content,
+                        content_hash=BaseChunker.compute_hash(text_content or "empty_docx"),
+                        page_number=1,
+                    )
+                ]
+            elif artifact_type == "txt":
+                from munipal.services.chunking.base import BaseChunker
+
+                with file_path.open("r", encoding="utf-8", errors="replace") as handle:
+                    text_content = handle.read()
+                chunk_data_list = [
+                    ChunkData(
+                        chunk_type="document",
+                        sequence_number=0,
+                        text_content=text_content,
+                        content_hash=BaseChunker.compute_hash(text_content or "empty_txt"),
+                        page_number=1,
+                    )
+                ]
+            else:
+                logger.warning(f"No chunker available for type: {artifact_type}")
+                artifact.is_processed = True
+                artifact.processing_error = f"No chunker for type: {artifact_type}"
+                session.commit()
+                return {
+                    "artifact_id": artifact_id,
+                    "status": "skipped",
+                    "error": f"Unsupported type: {artifact_type}",
+                    "chunks_created": 0,
+                }
         except Exception as e:
             logger.error(f"Chunking failed for {artifact_id}: {e}")
             artifact.processing_error = str(e)
@@ -151,7 +188,7 @@ def create_chunk_from_data(artifact_id: str, chunk_data: ChunkData) -> Chunk:
         page_number=chunk_data.page_number,
         sheet_name=chunk_data.sheet_name,
         section_title=chunk_data.section_title,
-        text_content=chunk_data.text_content,
+        text_content=_sanitize_chunk_text(chunk_data.text_content),
         content_hash=chunk_data.content_hash,
         has_image=chunk_data.has_image,
     )

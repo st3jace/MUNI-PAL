@@ -23,7 +23,12 @@ from munipal.core.schemas.risk_reporting import (
 )
 from munipal.services.audit_service import AuditService
 from munipal.services.authorization_service import AuthorizationService
-from munipal.services.risk_reporting_service import RiskReportingService
+from munipal.services.risk_reporting_service import (
+    RISK_SCORING_GOVERNANCE_POLICY_VERSION,
+    RISK_SCORING_PROFILE_CHECKSUM,
+    RISK_SCORING_PROFILE_VERSION,
+    RiskReportingService,
+)
 
 router = APIRouter(dependencies=[Depends(require_auth)])
 
@@ -52,6 +57,25 @@ def _build_cohort(
         recency_window=recency_window,
         sample_size=sample_size,
     )
+
+
+def _scoring_profile_metadata() -> dict[str, str]:
+    return {
+        "scoring_profile_version": RISK_SCORING_PROFILE_VERSION,
+        "scoring_profile_checksum": RISK_SCORING_PROFILE_CHECKSUM,
+        "governance_policy_version": RISK_SCORING_GOVERNANCE_POLICY_VERSION,
+    }
+
+
+def _override_governance_scope(target_ref: str) -> str:
+    normalized = target_ref.strip().lower()
+    if normalized.startswith("scoring_profile.") or normalized.startswith("profile."):
+        return "scoring_profile"
+    if normalized.startswith("guardrail."):
+        return "guardrail"
+    if normalized.startswith("risk."):
+        return "dimension"
+    return "other"
 
 
 @router.get("/diagnostics", response_model=RiskDiagnosticsResponse)
@@ -94,7 +118,8 @@ async def get_risk_diagnostics(
             "cohort": cohort.model_dump(),
             "dimension_count": len(diagnostics.dimensions),
             "action_count": len(diagnostics.actions),
-        },
+        }
+        | _scoring_profile_metadata(),
     )
     return diagnostics
 
@@ -138,7 +163,8 @@ async def get_risk_internal_report(
         metadata={
             "cohort": cohort.model_dump(),
             "contract_version": report.contract_version,
-        },
+        }
+        | _scoring_profile_metadata(),
     )
     return report
 
@@ -183,7 +209,8 @@ async def get_risk_external_brief(
             "cohort": cohort.model_dump(),
             "contract_version": brief.contract_version,
             "material_statement_count": len(brief.material_risk_statements),
-        },
+        }
+        | _scoring_profile_metadata(),
     )
     return brief
 
@@ -230,7 +257,8 @@ async def get_risk_bfms_integration_payload(
             "integration_mode": str(payload.integration_mode),
             "fallback_reason_count": len(payload.fallback_reasons),
             "directional_guidance_only": payload.directional_guidance_only,
-        },
+        }
+        | _scoring_profile_metadata(),
     )
     return payload
 
@@ -279,7 +307,8 @@ async def sync_risk_information_requests(
             "created_count": sync_response.created_count,
             "updated_count": sync_response.updated_count,
             "skipped_count": sync_response.skipped_count,
-        },
+        }
+        | _scoring_profile_metadata(),
     )
     return sync_response
 
@@ -301,6 +330,7 @@ async def record_risk_override_decision(
 
     decision_id = uuid4()
     recorded_at = datetime.now(UTC)
+    governance_scope = _override_governance_scope(decision.target_ref)
     AuditService.emit_event(
         actor_id=user_id,
         action="risk_override_decision",
@@ -312,9 +342,11 @@ async def record_risk_override_decision(
             "reason": decision.reason,
             "previous_value": decision.previous_value,
             "override_value": decision.override_value,
+            "governance_scope": governance_scope,
             "notes": decision.notes,
             "recorded_at": recorded_at.isoformat(),
-        },
+        }
+        | _scoring_profile_metadata(),
     )
 
     return RiskOverrideDecisionResponse(
@@ -354,7 +386,8 @@ async def accept_risk_action(
             "reason": acceptance.reason,
             "notes": acceptance.notes,
             "accepted_at": accepted_at.isoformat(),
-        },
+        }
+        | _scoring_profile_metadata(),
     )
 
     return RiskActionAcceptanceResponse(

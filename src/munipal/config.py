@@ -119,6 +119,9 @@ class Settings(BaseSettings):
     risk_reporting_v2_foundation: bool = False
     risk_reporting_v2_advanced_analytics: bool = False
     risk_reporting_v2_advanced_min_reliability: Literal["high", "medium", "low"] = "high"
+    risk_reporting_v2_age_weighting: bool = False
+    risk_reporting_v2_age_weighting_full_weight_days: int = 365
+    risk_reporting_v2_age_weighting_max_penalty: float = 0.20
 
     # -------------------------------------------------------------------------
     # File Storage

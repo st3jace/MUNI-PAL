@@ -8,6 +8,7 @@ Per spec (WP2): Artifact Vault & Ingestion
 """
 
 import hashlib
+import logging
 import os
 import shutil
 from datetime import datetime
@@ -24,6 +25,7 @@ from munipal.core.schemas.artifact import ArtifactRead, ArtifactSummary, ChunkRe
 from munipal.core.schemas.base import ArtifactType
 
 settings = get_settings()
+logger = logging.getLogger(__name__)
 
 # MIME type to artifact type mapping
 MIME_TYPE_MAP = {
@@ -36,6 +38,17 @@ MIME_TYPE_MAP = {
     "image/png": ArtifactType.PNG,
     "image/jpeg": ArtifactType.JPEG,
 }
+
+
+def enqueue_artifact_processing_task(artifact_id: str) -> None:
+    """
+    Enqueue asynchronous artifact processing.
+
+    A dedicated helper keeps Celery imports local and easy to patch in tests.
+    """
+    from munipal.workers.tasks.artifact_tasks import process_artifact as process_artifact_task
+
+    process_artifact_task.delay(artifact_id)
 
 
 class ArtifactService:
@@ -122,9 +135,21 @@ class ArtifactService:
         await self.db.flush()
         await self.db.refresh(artifact)
 
-        # TODO: Dispatch Celery task for chunking
-        # from munipal.workers.tasks.artifact_tasks import process_artifact
-        # process_artifact.delay(artifact_id)
+        try:
+            enqueue_artifact_processing_task(artifact_id)
+        except Exception as exc:
+            # Preserve upload success but surface dispatch issues for operators.
+            artifact.processing_error = (
+                "chunk_dispatch_failed: "
+                f"{type(exc).__name__}: {exc}. "
+                f"Use /api/v1/artifacts/{artifact_id}/process for manual processing."
+            )
+            logger.warning(
+                "Artifact upload succeeded but async chunk dispatch failed",
+                extra={"artifact_id": artifact_id, "error": str(exc)},
+            )
+            await self.db.flush()
+            await self.db.refresh(artifact)
 
         return self._to_read_schema(artifact)
 

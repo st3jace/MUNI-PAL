@@ -9,6 +9,7 @@ Implements:
 """
 
 import hashlib
+import json
 import re
 from collections.abc import Mapping
 from datetime import UTC, date, datetime, timedelta
@@ -17,6 +18,7 @@ from uuid import UUID, uuid4
 from sqlalchemy import and_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from munipal.config import Settings, get_settings
 from munipal.core.models.fact import ExtractedFact
 from munipal.core.models.information_request import InformationRequest
 from munipal.core.schemas.base import ReviewStatus
@@ -50,7 +52,6 @@ from munipal.core.schemas.risk_reporting import (
     RiskReadinessInput,
     RiskReliabilityBand,
 )
-from munipal.config import Settings, get_settings
 
 RISK_DIMENSIONS: Mapping[str, tuple[str, str]] = {
     "risk.technology": ("risk.technology.description", "risk.technology.mitigants"),
@@ -84,6 +85,71 @@ BENCHMARK_BASELINES: Mapping[str, Mapping[str, object]] = {
     },
 }
 
+SECTOR_BENCHMARK_MITIGATION_ADJUSTMENTS: Mapping[str, Mapping[str, float]] = {
+    # Base waste profile remains the reference cohort.
+    "waste_to_energy": {},
+    "waste": {},
+    # Healthcare emphasizes demand/reimbursement continuity and policy pressure.
+    "healthcare": {
+        "risk.market": -0.02,
+        "risk.regulatory": -0.01,
+        "risk.feedstock": -0.03,
+    },
+    # Sector aliases for forward compatibility.
+    "education_facilities": {
+        "risk.market": -0.01,
+        "risk.feedstock": -0.02,
+    },
+    "multi_family_housing": {
+        "risk.market": -0.02,
+        "risk.feedstock": -0.03,
+    },
+    "housing": {
+        "risk.market": -0.02,
+        "risk.feedstock": -0.03,
+    },
+}
+
+DEAL_TYPE_BENCHMARK_MITIGATION_ADJUSTMENTS: Mapping[str, Mapping[str, float]] = {
+    "revenue": {},
+    "conduit": {
+        "risk.market": -0.01,
+        "risk.regulatory": -0.01,
+    },
+    "conduit_revenue": {
+        "risk.market": -0.01,
+        "risk.regulatory": -0.01,
+    },
+    "private_activity": {
+        "risk.market": -0.01,
+        "risk.regulatory": -0.02,
+    },
+    "industrial_development": {
+        "risk.market": -0.01,
+        "risk.regulatory": -0.02,
+    },
+}
+
+COHORT_BENCHMARK_MITIGATION_ADJUSTMENTS: Mapping[tuple[str, str], Mapping[str, float]] = {
+    ("healthcare", "conduit"): {
+        "risk.market": -0.01,
+        "risk.regulatory": -0.01,
+    },
+    ("healthcare", "private_activity"): {
+        "risk.market": -0.01,
+        "risk.regulatory": -0.01,
+    },
+}
+
+SECTOR_FEEDSTOCK_ALIASES: Mapping[str, str] = {
+    "waste_to_energy": "feedstock supply continuity",
+    "waste": "feedstock supply continuity",
+    "healthcare": "demand and reimbursement continuity",
+    "education_facilities": "enrollment and demand continuity",
+    "multi_family_housing": "occupancy and lease-up continuity",
+    "housing": "occupancy and lease-up continuity",
+}
+
 GUARDRAIL_FACT_PATHS: tuple[str, ...] = (
     "finmodel.inputs.dscr.minimum",
     "finmodel.outputs.dscrbase",
@@ -112,12 +178,53 @@ ADVANCED_ANALYTICS_PATHS: Mapping[str, Mapping[str, str]] = {
     for dimension_id in RISK_DIMENSIONS
 }
 
+RISK_SCORING_PROFILE_VERSION = "risk-scoring-profile-v1"
+RISK_SCORING_GOVERNANCE_POLICY_VERSION = "risk-governance-policy-v1"
+RISK_SCORING_PROFILE_PARAMETERS: Mapping[str, object] = {
+    "confidence_weights": {
+        "sample_score": 0.45,
+        "source_quality": 0.40,
+        "conflict_rate": 0.15,
+    },
+    "reliability_bands": {
+        "high_min": 0.80,
+        "medium_min": 0.55,
+    },
+    "hard_overrides": {
+        "sample_size_low_threshold": 20,
+        "conflict_rate_downgrade_threshold": 0.35,
+    },
+    "age_weighting": {
+        "full_weight_days": 365,
+        "max_penalty": 0.20,
+    },
+    "guardrail_thresholds": {
+        "dscr_headroom": {"target_min": 0.15, "tolerance_min": 0.05},
+        "dscr_stress_floor_tolerance_gap": 0.10,
+        "equipment_concentration": {"target_max": 0.65, "tolerance_max": 0.70},
+        "dscr_scenario_sensitivity": {"target_min": 0.10, "tolerance_min": 0.03},
+        "dscr_ratio_consistency": {"target_min": 0.0, "tolerance_min": -0.02},
+    },
+}
+RISK_SCORING_PROFILE_CHECKSUM = hashlib.sha256(
+    json.dumps(RISK_SCORING_PROFILE_PARAMETERS, sort_keys=True).encode("utf-8")
+).hexdigest()[:12]
+RISK_CONSUMER_INTERPRETATION_GUIDE_VERSION = "risk-consumer-guide-v1"
+
 
 class RiskReportingService:
     """Service for internal risk diagnostics payload generation."""
 
     def __init__(self, db: AsyncSession):
         self.db = db
+
+    @classmethod
+    def scoring_profile_metadata(cls) -> dict[str, str]:
+        return {
+            "scoring_profile_version": RISK_SCORING_PROFILE_VERSION,
+            "scoring_profile_checksum": RISK_SCORING_PROFILE_CHECKSUM,
+            "governance_policy_version": RISK_SCORING_GOVERNANCE_POLICY_VERSION,
+        }
 
     async def build_diagnostics(
         self,
@@ -155,6 +262,7 @@ class RiskReportingService:
 
         approved_by_path = self._group_by_path(approved_facts)
         non_rejected_by_path = self._group_by_path(non_rejected_facts)
+        evaluated_at = datetime.now(UTC)
 
         dimensions: list[RiskDimensionDiagnostics] = []
         for dimension_id, (exposure_path, mitigant_path) in RISK_DIMENSIONS.items():
@@ -172,16 +280,32 @@ class RiskReportingService:
                 has_mitigant=bool(mitigant_facts),
             )
             gap_severity = self._gap_severity(project_status)
+            cohort_adjustment = self._cohort_adjustment_for_dimension(
+                dimension_id=dimension_id,
+                cohort=cohort,
+            )
 
             benchmark_stats = self._build_benchmark_stats(
                 dimension_id=dimension_id,
                 cohort=cohort,
                 gap_severity=gap_severity,
+                cohort_adjustment=cohort_adjustment,
             )
+            evidence_metrics, evidence_notes = self._dimension_evidence_diagnostics(
+                facts=[*exposure_facts, *mitigant_facts],
+                evaluated_at=evaluated_at,
+            )
+            evidence_metrics["cohort_adjustment"] = cohort_adjustment
             confidence = self._compute_confidence(
                 sample_size=cohort.sample_size,
                 evidence_count=evidence_count,
                 conflict_count=conflict_count,
+                stale_ratio_365=evidence_metrics.get("stale_ratio_365"),
+                settings=settings,
+            )
+            confidence = self._augment_confidence_with_notes(
+                confidence=confidence,
+                notes=evidence_notes,
             )
             benchmark_position, posture_score, posture_explainer = self._score_dimension_posture(
                 gap_severity=gap_severity,
@@ -189,6 +313,11 @@ class RiskReportingService:
                 confidence=confidence,
                 evidence_count=evidence_count,
                 conflict_count=conflict_count,
+            )
+            posture_explainer = self._apply_dimension_context(
+                dimension_id=dimension_id,
+                cohort=cohort,
+                posture_explainer=posture_explainer,
             )
             (
                 benchmark_position,
@@ -207,6 +336,8 @@ class RiskReportingService:
                 posture_score=posture_score,
                 posture_explainer=posture_explainer,
             )
+            combined_metrics = dict(evidence_metrics)
+            combined_metrics.update(advanced_metrics)
 
             dimensions.append(
                 RiskDimensionDiagnostics(
@@ -220,7 +351,7 @@ class RiskReportingService:
                     confidence=confidence,
                     evidence_count=evidence_count,
                     conflict_count=conflict_count,
-                    advanced_metrics=advanced_metrics,
+                    advanced_metrics=combined_metrics,
                     advanced_analytics_applied=advanced_analytics_applied,
                     advanced_analytics_note=advanced_analytics_note,
                 )
@@ -297,16 +428,32 @@ class RiskReportingService:
             for action in diagnostics.actions[:5]
         ]
         key_assumptions = self._build_external_assumptions(diagnostics)
-        compliance_checks = self._build_external_compliance_checks()
+        consumer_interpretation_guide = self._build_consumer_interpretation_guide(
+            diagnostics=diagnostics,
+            integration_mode=RiskIntegrationMode.FULL,
+            fallback_reasons=[],
+        )
+        compliance_checks = self._build_external_compliance_checks(
+            advisory_input=advisory_input,
+            key_assumptions=key_assumptions,
+            next_steps=external_actions,
+            consumer_interpretation_guide=consumer_interpretation_guide,
+        )
+        scoring_profile_metadata = self.scoring_profile_metadata()
         markdown_brief = self._render_external_markdown(
             diagnostics=diagnostics,
             advisory_input=advisory_input,
             key_assumptions=key_assumptions,
+            consumer_interpretation_guide=consumer_interpretation_guide,
             next_steps=external_actions,
             compliance_checks=compliance_checks,
         )
 
         return RiskExternalBriefResponse(
+            interpretation_guide_version=RISK_CONSUMER_INTERPRETATION_GUIDE_VERSION,
+            scoring_profile_version=scoring_profile_metadata["scoring_profile_version"],
+            scoring_profile_checksum=scoring_profile_metadata["scoring_profile_checksum"],
+            governance_policy_version=scoring_profile_metadata["governance_policy_version"],
             generated_at=datetime.now(UTC),
             project_id=project_id,
             cohort=cohort,
@@ -315,6 +462,7 @@ class RiskReportingService:
             material_risk_statements=advisory_input.material_risk_statements,
             mitigant_summary=advisory_input.mitigant_highlights,
             key_assumptions=key_assumptions,
+            consumer_interpretation_guide=consumer_interpretation_guide,
             advisory_next_steps=external_actions,
             compliance_checks=compliance_checks,
             markdown_brief=markdown_brief,
@@ -336,7 +484,6 @@ class RiskReportingService:
         readiness_input = self._build_readiness_input(diagnostics)
         advisory_input = self._build_advisory_input(diagnostics)
         key_assumptions = self._build_external_assumptions(diagnostics)
-        compliance_checks = self._build_external_compliance_checks()
         advisory_next_steps = [
             RiskExternalActionBrief(
                 action_id=action.action_id,
@@ -358,8 +505,24 @@ class RiskReportingService:
         integration_mode = (
             RiskIntegrationMode.FALLBACK if fallback_reasons else RiskIntegrationMode.FULL
         )
+        consumer_interpretation_guide = self._build_consumer_interpretation_guide(
+            diagnostics=diagnostics,
+            integration_mode=integration_mode,
+            fallback_reasons=fallback_reasons,
+        )
+        compliance_checks = self._build_external_compliance_checks(
+            advisory_input=advisory_input,
+            key_assumptions=key_assumptions,
+            next_steps=advisory_next_steps,
+            consumer_interpretation_guide=consumer_interpretation_guide,
+        )
+        scoring_profile_metadata = self.scoring_profile_metadata()
 
         return RiskBfmsIntegrationResponse(
+            interpretation_guide_version=RISK_CONSUMER_INTERPRETATION_GUIDE_VERSION,
+            scoring_profile_version=scoring_profile_metadata["scoring_profile_version"],
+            scoring_profile_checksum=scoring_profile_metadata["scoring_profile_checksum"],
+            governance_policy_version=scoring_profile_metadata["governance_policy_version"],
             generated_at=datetime.now(UTC),
             project_id=project_id,
             cohort=cohort,
@@ -375,6 +538,7 @@ class RiskReportingService:
             material_risk_statements=advisory_input.material_risk_statements,
             advisory_next_steps=advisory_next_steps,
             key_assumptions=key_assumptions,
+            consumer_interpretation_guide=consumer_interpretation_guide,
             compliance_checks=compliance_checks,
         )
 
@@ -564,9 +728,10 @@ class RiskReportingService:
         dimension_id: str,
         cohort: RiskBenchmarkCohort,
         gap_severity: RiskGapSeverity,
+        cohort_adjustment: float = 0.0,
     ) -> RiskBenchmarkStats:
         baseline = BENCHMARK_BASELINES[dimension_id]
-        base_mitigation_rate = float(baseline["mitigation_rate"])
+        base_mitigation_rate = float(baseline["mitigation_rate"]) + cohort_adjustment
 
         if gap_severity == RiskGapSeverity.HIGH:
             mitigation_rate = base_mitigation_rate - 0.12
@@ -586,11 +751,131 @@ class RiskReportingService:
             severity_distribution=dict(baseline["severity_distribution"]),
         )
 
+    @staticmethod
+    def _normalize_cohort_value(value: str) -> str:
+        return re.sub(r"[^a-z0-9]+", "_", value.strip().lower()).strip("_")
+
+    def _cohort_adjustment_for_dimension(
+        self,
+        *,
+        dimension_id: str,
+        cohort: RiskBenchmarkCohort,
+    ) -> float:
+        sector_key = self._normalize_cohort_value(cohort.sector)
+        deal_type_key = self._normalize_cohort_value(cohort.deal_type)
+
+        adjustment = 0.0
+        adjustment += SECTOR_BENCHMARK_MITIGATION_ADJUSTMENTS.get(sector_key, {}).get(
+            dimension_id,
+            0.0,
+        )
+        adjustment += DEAL_TYPE_BENCHMARK_MITIGATION_ADJUSTMENTS.get(deal_type_key, {}).get(
+            dimension_id,
+            0.0,
+        )
+        adjustment += COHORT_BENCHMARK_MITIGATION_ADJUSTMENTS.get(
+            (sector_key, deal_type_key),
+            {},
+        ).get(dimension_id, 0.0)
+        return round(adjustment, 3)
+
+    def _apply_dimension_context(
+        self,
+        *,
+        dimension_id: str,
+        cohort: RiskBenchmarkCohort,
+        posture_explainer: str,
+    ) -> str:
+        if dimension_id != "risk.feedstock":
+            return posture_explainer
+        sector_key = self._normalize_cohort_value(cohort.sector)
+        alias = SECTOR_FEEDSTOCK_ALIASES.get(sector_key, "input continuity")
+        return f"{dimension_id} context ({alias}). {posture_explainer}"
+
+    @staticmethod
+    def _dimension_evidence_diagnostics(
+        *,
+        facts: list[ExtractedFact],
+        evaluated_at: datetime,
+    ) -> tuple[dict[str, float], list[str]]:
+        if not facts:
+            return (
+                {
+                    "source_artifact_count": 0.0,
+                    "source_type_count": 0.0,
+                    "stale_ratio_180": 0.0,
+                    "stale_ratio_365": 0.0,
+                },
+                [],
+            )
+
+        source_artifacts: set[str] = set()
+        source_types: set[str] = set()
+        stale_180 = 0
+        stale_365 = 0
+
+        for fact in facts:
+            if fact.extraction_job_id:
+                source_artifacts.add(str(fact.extraction_job_id))
+            else:
+                source_artifacts.add(f"manual:{fact.id}")
+            source_types.add(str(fact.source_type))
+
+            created_at = fact.created_at
+            if created_at is None:
+                continue
+            if created_at.tzinfo is None:
+                created_at = created_at.replace(tzinfo=UTC)
+            age_days = max(0, int((evaluated_at - created_at.astimezone(UTC)).days))
+            if age_days > 180:
+                stale_180 += 1
+            if age_days > 365:
+                stale_365 += 1
+
+        total = len(facts)
+        metrics = {
+            "source_artifact_count": float(len(source_artifacts)),
+            "source_type_count": float(len(source_types)),
+            "stale_ratio_180": round(stale_180 / total, 3),
+            "stale_ratio_365": round(stale_365 / total, 3),
+        }
+        notes: list[str] = []
+        if len(source_artifacts) < 2:
+            notes.append("Source diversity below target (fewer than 2 distinct artifacts).")
+        if metrics["stale_ratio_180"] > 0.5:
+            notes.append("Evidence recency warning: over 50% of facts are older than 180 days.")
+        if metrics["stale_ratio_365"] > 0.5:
+            notes.append("Evidence recency warning: over 50% of facts are older than 365 days.")
+        return metrics, notes
+
+    @staticmethod
+    def _augment_confidence_with_notes(
+        *,
+        confidence: RiskConfidence,
+        notes: list[str],
+    ) -> RiskConfidence:
+        if not notes:
+            return confidence
+        combined: list[str] = []
+        if confidence.uncertainty_note:
+            combined.append(confidence.uncertainty_note.strip())
+        for note in notes:
+            cleaned = note.strip()
+            if cleaned and cleaned not in combined:
+                combined.append(cleaned)
+        return RiskConfidence(
+            score=confidence.score,
+            reliability_band=confidence.reliability_band,
+            uncertainty_note=" ".join(combined) if combined else None,
+        )
+
     def _compute_confidence(
         self,
         sample_size: int,
         evidence_count: int,
         conflict_count: int,
+        stale_ratio_365: float | None = None,
+        settings: Settings | None = None,
     ) -> RiskConfidence:
         sample_score = self._sample_score(sample_size)
         source_quality = self._source_quality_score(evidence_count)
@@ -603,8 +888,17 @@ class RiskReportingService:
             (sample_score * 0.45) + (source_quality * 0.40) + ((1.0 - conflict_rate) * 0.15),
             3,
         )
+        score = base_score
 
-        band = self._band_from_score(base_score)
+        active_settings = settings or get_settings()
+        recency_penalty = 0.0
+        if active_settings.risk_reporting_v2_age_weighting and stale_ratio_365 is not None:
+            stale_ratio = max(0.0, min(1.0, float(stale_ratio_365)))
+            max_penalty = max(0.0, min(0.95, float(active_settings.risk_reporting_v2_age_weighting_max_penalty)))
+            recency_penalty = round(stale_ratio * max_penalty, 3)
+            score = round(base_score * (1.0 - recency_penalty), 3)
+
+        band = self._band_from_score(score)
         if sample_size < 20:
             band = RiskReliabilityBand.LOW
         if conflict_rate >= 0.35:
@@ -617,10 +911,15 @@ class RiskReportingService:
             notes.append("Source quality inputs missing.")
         if conflict_rate >= 0.35:
             notes.append("High conflict rate reduced reliability.")
+        if recency_penalty > 0.0:
+            notes.append(
+                "Age-weighting penalty applied from stale evidence ratio "
+                f"(> {active_settings.risk_reporting_v2_age_weighting_full_weight_days} days)."
+            )
 
         uncertainty_note = " ".join(notes) if notes else None
         return RiskConfidence(
-            score=base_score,
+            score=score,
             reliability_band=band,
             uncertainty_note=uncertainty_note,
         )
@@ -874,6 +1173,8 @@ class RiskReportingService:
         checks = [
             self._guardrail_dscr_headroom(approved_by_path),
             self._guardrail_dscr_stress_floor(approved_by_path),
+            self._guardrail_dscr_scenario_sensitivity(approved_by_path),
+            self._guardrail_dscr_ratio_consistency(approved_by_path),
             self._guardrail_equipment_concentration(approved_by_path),
         ]
         checks.sort(key=lambda item: item.guardrail_id)
@@ -1049,6 +1350,127 @@ class RiskReportingService:
             observed_value=concentration,
             unit="ratio",
             benchmark_percentile_band=None,
+            threshold=threshold,
+            evidence_paths=evidence_paths,
+            rationale=rationale,
+        )
+
+    def _guardrail_dscr_scenario_sensitivity(
+        self,
+        approved_by_path: Mapping[str, list[ExtractedFact]],
+    ) -> RiskGuardrailCheck:
+        evidence_paths = [
+            "finmodel.outputs.dscrbase",
+            "finmodel.outputs.dscrstress",
+        ]
+        base_dscr = self._numeric_fact_value(approved_by_path, "finmodel.outputs.dscrbase")
+        stress_dscr = self._numeric_fact_value(approved_by_path, "finmodel.outputs.dscrstress")
+        threshold = RiskGuardrailThreshold(
+            target_min=0.10,
+            tolerance_min=0.03,
+        )
+
+        if base_dscr is None or stress_dscr is None:
+            return RiskGuardrailCheck(
+                guardrail_id="guardrail.dscr.scenario_sensitivity",
+                metric_name="DSCR scenario sensitivity",
+                status=RiskGuardrailStatus.INSUFFICIENT_EVIDENCE,
+                violation=False,
+                observed_value=None,
+                unit="x",
+                benchmark_percentile_band=None,
+                threshold=threshold,
+                evidence_paths=evidence_paths,
+                rationale="Missing approved DSCR base or stress fact; sensitivity guardrail could not be evaluated.",
+            )
+
+        spread = round(base_dscr - stress_dscr, 3)
+        status = self._status_for_minimum(
+            observed_value=spread,
+            target_min=0.10,
+            tolerance_min=0.03,
+        )
+        percentile = self._dscr_percentile_band(stress_dscr)
+        rationale = (
+            f"Scenario sensitivity spread is {spread:.2f}x (base {base_dscr:.2f}x minus stress {stress_dscr:.2f}x)."
+        )
+        if stress_dscr > base_dscr:
+            rationale += " Stress DSCR exceeds base DSCR; scenario ordering appears inconsistent."
+        if status == RiskGuardrailStatus.WATCH:
+            rationale += " Sensitivity is within tolerance but below target."
+        elif status == RiskGuardrailStatus.BREACH:
+            rationale += " Sensitivity is below tolerance minimum."
+
+        return RiskGuardrailCheck(
+            guardrail_id="guardrail.dscr.scenario_sensitivity",
+            metric_name="DSCR scenario sensitivity",
+            status=status,
+            violation=status == RiskGuardrailStatus.BREACH,
+            observed_value=spread,
+            unit="x",
+            benchmark_percentile_band=percentile,
+            threshold=threshold,
+            evidence_paths=evidence_paths,
+            rationale=rationale,
+        )
+
+    def _guardrail_dscr_ratio_consistency(
+        self,
+        approved_by_path: Mapping[str, list[ExtractedFact]],
+    ) -> RiskGuardrailCheck:
+        evidence_paths = [
+            "finmodel.outputs.dscrbase",
+            "finmodel.outputs.dscrstress",
+            "finmodel.inputs.dscr.minimum",
+        ]
+        base_dscr = self._numeric_fact_value(approved_by_path, "finmodel.outputs.dscrbase")
+        stress_dscr = self._numeric_fact_value(approved_by_path, "finmodel.outputs.dscrstress")
+        minimum_dscr = self._numeric_fact_value(approved_by_path, "finmodel.inputs.dscr.minimum")
+        threshold = RiskGuardrailThreshold(
+            target_min=0.0,
+            tolerance_min=-0.02,
+        )
+
+        if base_dscr is None or stress_dscr is None or minimum_dscr is None:
+            return RiskGuardrailCheck(
+                guardrail_id="guardrail.dscr.ratio_consistency",
+                metric_name="DSCR ratio consistency",
+                status=RiskGuardrailStatus.INSUFFICIENT_EVIDENCE,
+                violation=False,
+                observed_value=None,
+                unit="x",
+                benchmark_percentile_band=None,
+                threshold=threshold,
+                evidence_paths=evidence_paths,
+                rationale="Missing approved DSCR base, stress, or covenant fact; ratio-consistency guardrail could not be evaluated.",
+            )
+
+        base_vs_stress = round(base_dscr - stress_dscr, 3)
+        stress_vs_covenant = round(stress_dscr - minimum_dscr, 3)
+        consistency_margin = round(min(base_vs_stress, stress_vs_covenant), 3)
+        status = self._status_for_minimum(
+            observed_value=consistency_margin,
+            target_min=0.0,
+            tolerance_min=-0.02,
+        )
+        percentile = self._dscr_percentile_band(stress_dscr)
+        rationale = (
+            f"DSCR ordering margins: base-stress {base_vs_stress:.2f}x; "
+            f"stress-covenant {stress_vs_covenant:.2f}x."
+        )
+        if status == RiskGuardrailStatus.WATCH:
+            rationale += " Ordering is near-boundary and should be monitored."
+        elif status == RiskGuardrailStatus.BREACH:
+            rationale += " Ordering is inconsistent beyond tolerance."
+
+        return RiskGuardrailCheck(
+            guardrail_id="guardrail.dscr.ratio_consistency",
+            metric_name="DSCR ratio consistency",
+            status=status,
+            violation=status == RiskGuardrailStatus.BREACH,
+            observed_value=consistency_margin,
+            unit="x",
+            benchmark_percentile_band=percentile,
             threshold=threshold,
             evidence_paths=evidence_paths,
             rationale=rationale,
@@ -1485,48 +1907,136 @@ class RiskReportingService:
                 self._normalize_reliability_band(dimension.confidence.reliability_band)
                 == RiskReliabilityBand.LOW
             ):
+                refs = RISK_DIMENSIONS.get(dimension.dimension_id, ())
+                ref_note = f"[ref: {', '.join(refs)}]" if refs else "[ref: risk.dimension.unknown]"
                 assumptions.append(
-                    f"{dimension.dimension_id}: current posture is directional pending additional evidence."
+                    f"{dimension.dimension_id}: current posture is directional pending additional evidence. {ref_note}"
                 )
 
         for guardrail in diagnostics.guardrails:
             if self._normalize_guardrail_status(guardrail.status) == (
                 RiskGuardrailStatus.INSUFFICIENT_EVIDENCE
             ):
+                refs = guardrail.evidence_paths or ["guardrail.evidence.pending"]
                 assumptions.append(
-                    f"{guardrail.metric_name}: quantitative assessment pending validated supporting data."
+                    f"{guardrail.metric_name}: quantitative assessment pending validated supporting data. [ref: {', '.join(refs)}]"
                 )
 
         if not assumptions:
-            assumptions = ["No material assumptions beyond current validated evidence set."]
+            assumptions = ["No material assumptions beyond current validated evidence set. [ref: diagnostics.current]"]
 
         return assumptions[:6]
 
     @staticmethod
-    def _build_external_compliance_checks() -> list[RiskExternalComplianceCheck]:
+    def _build_external_compliance_checks(
+        *,
+        advisory_input: RiskAdvisoryInput,
+        key_assumptions: list[str],
+        next_steps: list[RiskExternalActionBrief],
+        consumer_interpretation_guide: list[str],
+    ) -> list[RiskExternalComplianceCheck]:
+        narrative_blob = " ".join(
+            [
+                *[statement.statement for statement in advisory_input.material_risk_statements],
+                *advisory_input.mitigant_highlights,
+                *key_assumptions,
+                *[step.title for step in next_steps],
+                *[step.expected_impact for step in next_steps],
+                *consumer_interpretation_guide,
+            ]
+        ).lower()
+        no_internal_conflicts = not any(
+            token in narrative_blob
+            for token in (
+                "conflict_count",
+                "source_artifact_count",
+                "stale_ratio_",
+                "uncertainty_note",
+                "extraction_job_id",
+            )
+        )
+        no_queue_metadata = not any(
+            token in narrative_blob
+            for token in (
+                "queue_id",
+                "workflow queue",
+                "pending_review",
+                "resolved_at",
+            )
+        )
+        traceability_tags_present = bool(key_assumptions) and all(
+            "[ref:" in assumption.lower() and "]" in assumption for assumption in key_assumptions
+        )
+        guide_present = len(consumer_interpretation_guide) >= 3
+
         return [
             RiskExternalComplianceCheck(
                 rule_id="no_internal_conflict_diagnostics",
-                passed=True,
-                detail="Conflict counts and unresolved conflict references are excluded.",
+                passed=no_internal_conflicts,
+                detail="Conflict counts and unresolved conflict references are excluded from external narratives.",
             ),
             RiskExternalComplianceCheck(
                 rule_id="no_operational_queue_metadata",
-                passed=True,
-                detail="Internal queue and workflow metadata are not included.",
+                passed=no_queue_metadata,
+                detail="Internal queue and workflow metadata are not included in external narratives.",
             ),
             RiskExternalComplianceCheck(
-                rule_id="no_internal_uncertainty_notes",
-                passed=True,
-                detail="Internal uncertainty notes are converted to external assumptions.",
+                rule_id="assumption_traceability_tags_present",
+                passed=traceability_tags_present,
+                detail="Each key assumption includes a `[ref: ...]` source traceability tag.",
+            ),
+            RiskExternalComplianceCheck(
+                rule_id="consumer_interpretation_guide_present",
+                passed=guide_present,
+                detail="Consumer interpretation guide includes posture, reliability, and action usage guidance.",
             ),
         ]
+
+    def _build_consumer_interpretation_guide(
+        self,
+        *,
+        diagnostics: RiskDiagnosticsResponse,
+        integration_mode: RiskIntegrationMode,
+        fallback_reasons: list[str],
+    ) -> list[str]:
+        overall_position = self._normalize_benchmark_position(
+            diagnostics.overall_posture.benchmark_position
+        ).value
+        low_reliability = sum(
+            1
+            for dimension in diagnostics.dimensions
+            if self._normalize_reliability_band(dimension.confidence.reliability_band)
+            == RiskReliabilityBand.LOW
+        )
+        guide = [
+            "Interpret posture score as relative cohort positioning, not a probability-of-default estimate.",
+            f"Current overall benchmark position is '{overall_position}' for the selected cohort.",
+            "Treat high-priority advisory next steps as execution items tied to quantitative guardrails or high gap severity.",
+        ]
+        if low_reliability > 0:
+            guide.append(
+                f"{low_reliability} dimension(s) are low reliability; prioritize evidence completion before making irreversible commitments."
+            )
+        if integration_mode == RiskIntegrationMode.FALLBACK:
+            guide.append(
+                "Integration mode is fallback, so outputs should be used for directional triage until reliability constraints clear."
+            )
+            if fallback_reasons:
+                guide.append(
+                    f"Fallback rationale: {'; '.join(fallback_reasons[:2])}."
+                )
+        else:
+            guide.append(
+                "Integration mode is full; continue monitoring compliance checks and weekly drift snapshots."
+            )
+        return guide[:6]
 
     def _render_external_markdown(
         self,
         diagnostics: RiskDiagnosticsResponse,
         advisory_input: RiskAdvisoryInput,
         key_assumptions: list[str],
+        consumer_interpretation_guide: list[str],
         next_steps: list[RiskExternalActionBrief],
         compliance_checks: list[RiskExternalComplianceCheck],
     ) -> str:
@@ -1556,6 +2066,10 @@ class RiskReportingService:
         lines.extend(["", "## Key Assumptions"])
         for assumption in key_assumptions:
             lines.append(f"- {assumption}")
+
+        lines.extend(["", "## Consumer Interpretation Guide"])
+        for guide in consumer_interpretation_guide:
+            lines.append(f"- {guide}")
 
         lines.extend(["", "## Advisory Next Steps"])
         if not next_steps:
@@ -1913,5 +2427,5 @@ class RiskReportingService:
         base_action = re.sub(r"[^a-z0-9]+", "-", action_id.lower()).strip("-")
         base_action = base_action[:16] if base_action else "action"
         project_part = str(project_id).split("-")[0]
-        digest = hashlib.sha1(f"{project_id}:{action_id}".encode("utf-8")).hexdigest()[:6]
+        digest = hashlib.sha1(f"{project_id}:{action_id}".encode()).hexdigest()[:6]
         return f"IR-RISK-{project_part}-{base_action}-{digest}"[:50]

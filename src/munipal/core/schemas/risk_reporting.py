@@ -227,6 +227,10 @@ class RiskExternalBriefResponse(BaseSchema):
     """Versioned external advisory risk brief contract (JSON + Markdown)."""
 
     contract_version: str = "risk-external-v1"
+    interpretation_guide_version: str = "risk-consumer-guide-v1"
+    scoring_profile_version: str = "risk-scoring-profile-v1"
+    scoring_profile_checksum: str = "unknown"
+    governance_policy_version: str = "risk-governance-policy-v1"
     generated_at: datetime
     project_id: UUID
     cohort: RiskBenchmarkCohort
@@ -235,6 +239,7 @@ class RiskExternalBriefResponse(BaseSchema):
     material_risk_statements: list[RiskAdvisoryStatement] = Field(default_factory=list)
     mitigant_summary: list[str] = Field(default_factory=list)
     key_assumptions: list[str] = Field(default_factory=list)
+    consumer_interpretation_guide: list[str] = Field(default_factory=list)
     advisory_next_steps: list[RiskExternalActionBrief] = Field(default_factory=list)
     compliance_checks: list[RiskExternalComplianceCheck] = Field(default_factory=list)
     markdown_brief: str = Field(..., min_length=1)
@@ -249,6 +254,10 @@ class RiskBfmsIntegrationResponse(BaseSchema):
     """
 
     contract_version: str = "risk-bfms-integration-v1"
+    interpretation_guide_version: str = "risk-consumer-guide-v1"
+    scoring_profile_version: str = "risk-scoring-profile-v1"
+    scoring_profile_checksum: str = "unknown"
+    governance_policy_version: str = "risk-governance-policy-v1"
     generated_at: datetime
     project_id: UUID
     cohort: RiskBenchmarkCohort
@@ -262,6 +271,7 @@ class RiskBfmsIntegrationResponse(BaseSchema):
     material_risk_statements: list[RiskAdvisoryStatement] = Field(default_factory=list)
     advisory_next_steps: list[RiskExternalActionBrief] = Field(default_factory=list)
     key_assumptions: list[str] = Field(default_factory=list)
+    consumer_interpretation_guide: list[str] = Field(default_factory=list)
     compliance_checks: list[RiskExternalComplianceCheck] = Field(default_factory=list)
     internal_report_contract_version: str = "risk-internal-v1"
     external_brief_contract_version: str = "risk-external-v1"

@@ -91,6 +91,10 @@ describe('AdvisoryPackages risk integration rendering', () => {
       compliance_checks: [],
       internal_report_contract_version: 'risk-internal-v1',
       external_brief_contract_version: 'risk-external-v1',
+      interpretation_guide_version: 'bfms-consumer-guide-v1',
+      scoring_profile_version: 'risk-bfms-integration-v1',
+      scoring_profile_checksum: 'test-checksum',
+      governance_policy_version: 'risk-governance-v1',
       material_risk_statements: [],
     }
     mockedApi.getRiskBfmsIntegration.mockResolvedValue(payload)
@@ -128,6 +132,10 @@ describe('AdvisoryPackages risk integration rendering', () => {
       compliance_checks: [],
       internal_report_contract_version: 'risk-internal-v1',
       external_brief_contract_version: 'risk-external-v1',
+      interpretation_guide_version: 'bfms-consumer-guide-v1',
+      scoring_profile_version: 'risk-bfms-integration-v1',
+      scoring_profile_checksum: 'test-checksum',
+      governance_policy_version: 'risk-governance-v1',
       material_risk_statements: [],
     }
     mockedApi.getRiskBfmsIntegration.mockResolvedValue(payload)

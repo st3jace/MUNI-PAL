@@ -22,6 +22,7 @@ export type ProjectRead = {
      * Target bond amount in USD
      */
     target_bond_amount?: (number | null);
+    tenant_id: string;
     updated_at: string;
 };
 

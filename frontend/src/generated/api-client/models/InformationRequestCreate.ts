@@ -33,7 +33,7 @@ export type InformationRequestCreate = {
     regulatory_reference?: (string | null);
     related_requirements?: Array<string>;
     /**
-     * Unique code (e.g., 'IR-P2.3-001')
+     * Unique code (e.g., 'IR-<PROJECT_TOKEN>-P2.3-001')
      */
     request_code: string;
     specific_questions?: Array<string>;

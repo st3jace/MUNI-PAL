@@ -58,10 +58,14 @@ jobs:
             tests/unit/test_risk_reporting_service.py \
             tests/unit/test_advisory_package_service.py \
             tests/unit/test_fact_service.py \
+            tests/unit/test_openapi_generated_artifact_verification.py \
+            tests/unit/test_test_suite_health_assessment.py \
             -p no:cacheprovider
 
-      - name: Test and build frontend bundle
+      - name: Verify OpenAPI generation + test and build frontend bundle
         run: |
           npm ci --prefix frontend
+          python scripts/verify_openapi_generated_artifacts.py --fail-on-mismatch
+          python scripts/assess_test_suite_health.py --enforce --min-expected-tests 120
           npm --prefix frontend run test
           npm --prefix frontend run build

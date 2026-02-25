@@ -1,6 +1,6 @@
 ﻿# Muni-Pal V2 Planning Workspace
 
-Last updated: 2026-02-21
+Last updated: 2026-02-25
 
 This folder memorializes the V2 execution plan so roadmap, sprint scope, and safety controls stay explicit while the codebase evolves.
 
@@ -68,6 +68,10 @@ This folder memorializes the V2 execution plan so roadmap, sprint scope, and saf
 16. `OPS_1003_BFMS_PRODUCTION_SCORING_PLAN.md`
 - Detailed implementation plan for BFMS production-grade scoring hardening
 - Defines calibration, robustness, governance, and explainability milestones
+
+17. `PHASE_2_6_RISK_CLOSEOUT_RUNBOOK.md`
+- Phase 2-6 risk closeout runbook for `R-001`/`R-002`/`R-003`
+- Defines local/CI closeout bundle execution and evidence expectations
 
 ## Operating Rule
 

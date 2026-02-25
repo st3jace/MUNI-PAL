@@ -14,8 +14,11 @@ export type RiskExternalBriefResponse = {
     advisory_next_steps?: Array<RiskExternalActionBrief>;
     cohort: RiskBenchmarkCohort;
     compliance_checks?: Array<RiskExternalComplianceCheck>;
+    consumer_interpretation_guide?: Array<string>;
     contract_version?: string;
     generated_at: string;
+    governance_policy_version?: string;
+    interpretation_guide_version?: string;
     key_assumptions?: Array<string>;
     markdown_brief: string;
     material_risk_statements?: Array<RiskAdvisoryStatement>;
@@ -23,5 +26,7 @@ export type RiskExternalBriefResponse = {
     overall_benchmark_position: RiskBenchmarkPosition;
     overall_posture_score: number;
     project_id: string;
+    scoring_profile_checksum?: string;
+    scoring_profile_version?: string;
 };
 

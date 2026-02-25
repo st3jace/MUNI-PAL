@@ -18,6 +18,7 @@ export class ProjectsService {
      * @param limit
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns any Successful Response
      * @throws ApiError
@@ -27,6 +28,7 @@ export class ProjectsService {
         limit: number = 50,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
@@ -35,6 +37,7 @@ export class ProjectsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {
@@ -55,6 +58,7 @@ export class ProjectsService {
      * @param requestBody
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns ProjectRead Successful Response
      * @throws ApiError
@@ -63,6 +67,7 @@ export class ProjectsService {
         requestBody: ProjectCreate,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<ProjectRead> {
         return __request(OpenAPI, {
@@ -71,6 +76,7 @@ export class ProjectsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             body: requestBody,
@@ -89,6 +95,7 @@ export class ProjectsService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns void
      * @throws ApiError
@@ -97,6 +104,7 @@ export class ProjectsService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<void> {
         return __request(OpenAPI, {
@@ -108,6 +116,7 @@ export class ProjectsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             errors: {
@@ -121,6 +130,7 @@ export class ProjectsService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns ProjectRead Successful Response
      * @throws ApiError
@@ -129,6 +139,7 @@ export class ProjectsService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<ProjectRead> {
         return __request(OpenAPI, {
@@ -140,6 +151,7 @@ export class ProjectsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             errors: {
@@ -154,6 +166,7 @@ export class ProjectsService {
      * @param requestBody
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns ProjectRead Successful Response
      * @throws ApiError
@@ -163,6 +176,7 @@ export class ProjectsService {
         requestBody: ProjectUpdate,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<ProjectRead> {
         return __request(OpenAPI, {
@@ -174,6 +188,7 @@ export class ProjectsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             body: requestBody,

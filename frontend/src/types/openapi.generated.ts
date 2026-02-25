@@ -3619,7 +3619,7 @@ export interface components {
             related_requirements?: string[];
             /**
              * Request Code
-             * @description Unique code (e.g., 'IR-P2.3-001')
+             * @description Unique code (e.g., 'IR-<PROJECT_TOKEN>-P2.3-001')
              */
             request_code: string;
             /** Specific Questions */
@@ -3742,7 +3742,7 @@ export interface components {
             related_requirements?: string[];
             /**
              * Request Code
-             * @description Unique code (e.g., 'IR-P2.3-001')
+             * @description Unique code (e.g., 'IR-<PROJECT_TOKEN>-P2.3-001')
              */
             request_code: string;
             /** Resolution Notes */
@@ -4351,6 +4351,8 @@ export interface components {
              * @description Target bond amount in USD
              */
             target_bond_amount?: number | null;
+            /** Tenant Id */
+            tenant_id: string;
             /**
              * Updated At
              * Format: date-time
@@ -4790,6 +4792,8 @@ export interface components {
             cohort: components["schemas"]["RiskBenchmarkCohort"];
             /** Compliance Checks */
             compliance_checks?: components["schemas"]["RiskExternalComplianceCheck"][];
+            /** Consumer Interpretation Guide */
+            consumer_interpretation_guide?: string[];
             /**
              * Contract Version
              * @default risk-bfms-integration-v1
@@ -4814,12 +4818,22 @@ export interface components {
              * Format: date-time
              */
             generated_at: string;
+            /**
+             * Governance Policy Version
+             * @default risk-governance-policy-v1
+             */
+            governance_policy_version: string;
             integration_mode: components["schemas"]["RiskIntegrationMode"];
             /**
              * Internal Report Contract Version
              * @default risk-internal-v1
              */
             internal_report_contract_version: string;
+            /**
+             * Interpretation Guide Version
+             * @default risk-consumer-guide-v1
+             */
+            interpretation_guide_version: string;
             /** Key Assumptions */
             key_assumptions?: string[];
             /** Material Risk Statements */
@@ -4837,6 +4851,16 @@ export interface components {
              * @default 0
              */
             reliability_low_dimensions: number;
+            /**
+             * Scoring Profile Checksum
+             * @default unknown
+             */
+            scoring_profile_checksum: string;
+            /**
+             * Scoring Profile Version
+             * @default risk-scoring-profile-v1
+             */
+            scoring_profile_version: string;
         };
         /**
          * RiskConfidence
@@ -4933,6 +4957,8 @@ export interface components {
             cohort: components["schemas"]["RiskBenchmarkCohort"];
             /** Compliance Checks */
             compliance_checks?: components["schemas"]["RiskExternalComplianceCheck"][];
+            /** Consumer Interpretation Guide */
+            consumer_interpretation_guide?: string[];
             /**
              * Contract Version
              * @default risk-external-v1
@@ -4943,6 +4969,16 @@ export interface components {
              * Format: date-time
              */
             generated_at: string;
+            /**
+             * Governance Policy Version
+             * @default risk-governance-policy-v1
+             */
+            governance_policy_version: string;
+            /**
+             * Interpretation Guide Version
+             * @default risk-consumer-guide-v1
+             */
+            interpretation_guide_version: string;
             /** Key Assumptions */
             key_assumptions?: string[];
             /** Markdown Brief */
@@ -4959,6 +4995,16 @@ export interface components {
              * Format: uuid
              */
             project_id: string;
+            /**
+             * Scoring Profile Checksum
+             * @default unknown
+             */
+            scoring_profile_checksum: string;
+            /**
+             * Scoring Profile Version
+             * @default risk-scoring-profile-v1
+             */
+            scoring_profile_version: string;
         };
         /**
          * RiskExternalComplianceCheck
@@ -8523,6 +8569,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -8561,6 +8609,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -8601,6 +8651,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -8639,6 +8691,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -8675,6 +8729,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };

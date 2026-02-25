@@ -9,31 +9,32 @@ Date range: 2026-02-23 to 2026-02-25
 - Run URL (if CI): `https://github.com/st3jace/MUNI-PAL/actions/runs/22405141300`
 - Commit SHA: `3bc0d4fb`
 - Overall result: `pass`
-- Local bundle verification run: `reports/phase10_postlaunch/phase10_postlaunch_20260225_123753.json`
+- Local bundle verification run: `reports/phase10_postlaunch/phase10_postlaunch_20260225_162618.json`
 - Local archived bundle verification: `reports/phase10_postlaunch/phase10_postlaunch_20260225_123753_archive.zip`
 
 | Gate | Status | Duration |
 |---|---|---:|
-| Phase 10 Corpus Provision | `pass` | 0.11s |
-| Phase 10 Corpus Preflight | `pass` | 0.11s |
-| Phase 10 Corpus Outlier Cleanup | `pass` | 0.12s |
-| Phase 10 Document Index Rebuild | `pass` | 0.18s |
-| Phase 10 Corpus Reconciliation Gate | `pass` | 0.53s |
-| Backend CI-Equivalent Gate | `pass` | 30.04s |
-| Frontend Tests (vitest) | `pass` | 29.01s |
-| Frontend Production Build | `pass` | 10.03s |
-| Auth+Tenant+Risk Stability Slice | `pass` | 10.50s |
-| OPS-1001 Telemetry Trend Assessment | `pass` | 0.13s |
-| OPS-1001 Telemetry Alert Routing | `pass` | 0.12s |
-| Healthcare Corpus Readiness Snapshot | `pass` | 0.24s |
-| Bond Corpus Calibration Snapshot | `pass` | 0.13s |
-| Advisory Cohort Inference Assessment | `pass` | 0.99s |
-| Advisory Package Smoke Assessment | `pass` | 2.13s |
-| Age Weighting Policy Assessment | `pass` | 0.12s |
-| Bond Corpus Drift Snapshot | `pass` | 0.12s |
-| Bond Corpus Drift Alert Routing | `pass` | 0.13s |
-| OPS-1003 M5 Readiness Review | `pass` | 0.13s |
-| OPS-1003 Regression Gate | `pass` | 0.12s |
+| Phase 10 Corpus Provision | `pass` | 0.18s |
+| Phase 10 Corpus Preflight | `pass` | 0.14s |
+| Phase 10 Corpus Outlier Cleanup | `pass` | 0.16s |
+| Phase 10 Document Index Rebuild | `pass` | 0.23s |
+| Phase 10 Corpus Reconciliation Gate | `pass` | 0.73s |
+| Backend CI-Equivalent Gate | `pass` | 53.85s |
+| Frontend Tests (vitest) | `pass` | 44.84s |
+| Frontend Production Build | `pass` | 18.83s |
+| Auth+Tenant+Risk Stability Slice | `pass` | 20.39s |
+| OPS-1001 Telemetry Trend Assessment | `pass` | 0.18s |
+| OPS-1001 Telemetry Alert Routing | `pass` | 0.19s |
+| OPS-1005 Incident Drill Assessment | `pass` | 0.17s |
+| Healthcare Corpus Readiness Snapshot | `pass` | 0.32s |
+| Bond Corpus Calibration Snapshot | `pass` | 0.22s |
+| Advisory Cohort Inference Assessment | `pass` | 1.76s |
+| Advisory Package Smoke Assessment | `pass` | 3.42s |
+| Age Weighting Policy Assessment | `pass` | 0.17s |
+| Bond Corpus Drift Snapshot | `pass` | 0.17s |
+| Bond Corpus Drift Alert Routing | `pass` | 0.17s |
+| OPS-1003 M5 Readiness Review | `pass` | 0.17s |
+| OPS-1003 Regression Gate | `pass` | 0.19s |
 
 ### Phase E + Corpus Gate Wiring Notes
 
@@ -47,8 +48,8 @@ Date range: 2026-02-23 to 2026-02-25
 - 401 trend summary: `Baseline established. Missing/invalid JWT tokens correctly return 401 with WWW-Authenticate: Bearer header; validated through auth enforcement suites and staged smoke.`
 - 403 trend summary: `Baseline established. Cross-tenant access returns 403 and same-tenant non-owner access follows current ownership/superuser policy.`
 - Cross-tenant-denied trend summary: `Baseline established. JWT tenant claims drive tenant scoping under enforced mode; cross-tenant reads block with 403.`
-- Telemetry trend report path: `n/a this week (run scripts/assess_ops1001_telemetry_trends.py against 7-day telemetry export).`
-- Telemetry alert routing report path: `n/a this week (run scripts/route_ops1001_telemetry_alerts.py after telemetry trend artifact generation).`
+- Telemetry trend report path: `reports/phase10_postlaunch/ops1001_telemetry_trends_20260225_162838.md`
+- Telemetry alert routing report path: `reports/phase10_postlaunch/ops1001_telemetry_alert_routing_20260225_162838.md`
 - Current alert threshold profile (per 1k requests): `401=40`, `403=20`, `cross-tenant-denied=10`
 - Alert thresholds tuned this week: `no`
 - Notes: `OPS-1001 assessor is now automated in the Phase 10 bundle; production telemetry export feed still needs to populate ops1001_telemetry_events.jsonl for threshold calibration.`
@@ -66,22 +67,22 @@ Date range: 2026-02-23 to 2026-02-25
 - Validation updates: `M5 readiness latest is go with blockers=0 and residual_risk_count=0.`
 - Risks/blockers: `No blockers. CDR-2 remains policy hold (healthy recency baseline), so age-weighting stays default-off pending future staleness shift.`
 - Plan/reference artifact: `V2/OPS_1003_BFMS_PRODUCTION_SCORING_PLAN.md`
-- Calibration snapshot report path: `reports/phase10_postlaunch/bond_corpus_calibration_20260225_123913.md`
-- Advisory cohort inference report path: `reports/phase10_postlaunch/advisory_cohort_inference_20260225_123914.md`
-- Advisory package smoke report path: `reports/phase10_postlaunch/advisory_package_smoke_20260225_123916.md`
-- Age-weighting policy report path: `reports/phase10_postlaunch/age_weighting_policy_20260225_123917.md`
-- Drift snapshot report path: `reports/phase10_postlaunch/bond_corpus_drift_20260225_123917.md`
-- Alert routing report path: `reports/phase10_postlaunch/bond_corpus_alert_routing_20260225_123917.md`
-- OPS-1003 M5 readiness report path: `reports/phase10_postlaunch/ops1003_m5_readiness_20260225_123917.md`
+- Calibration snapshot report path: `reports/phase10_postlaunch/bond_corpus_calibration_20260225_162839.md`
+- Advisory cohort inference report path: `reports/phase10_postlaunch/advisory_cohort_inference_20260225_162841.md`
+- Advisory package smoke report path: `reports/phase10_postlaunch/advisory_package_smoke_20260225_162844.md`
+- Age-weighting policy report path: `reports/phase10_postlaunch/age_weighting_policy_20260225_162844.md`
+- Drift snapshot report path: `reports/phase10_postlaunch/bond_corpus_drift_20260225_162844.md`
+- Alert routing report path: `reports/phase10_postlaunch/bond_corpus_alert_routing_20260225_162845.md`
+- OPS-1003 M5 readiness report path: `reports/phase10_postlaunch/ops1003_m5_readiness_20260225_162845.md`
 
 ## OPS-1004 Healthcare Readiness Progress
 
 - Corpus intake checks run: `yes`
 - Data quality/compliance findings: `363 files discovered and parsed (100.0% parse success), 362 unique CUSIPs, no parse errors.`
 - Go/no-go status: `go`
-- Assessment report path: `reports/phase10_postlaunch/healthcare_readiness_20260225_123913.md`
-- Staging package cohort validation path: `reports/phase10_postlaunch/advisory_cohort_inference_20260225_123914.md`
-- Staging package generation smoke path: `reports/phase10_postlaunch/advisory_package_smoke_20260225_123916.md`
+- Assessment report path: `reports/phase10_postlaunch/healthcare_readiness_20260225_162839.md`
+- Staging package cohort validation path: `reports/phase10_postlaunch/advisory_cohort_inference_20260225_162841.md`
+- Staging package generation smoke path: `reports/phase10_postlaunch/advisory_package_smoke_20260225_162844.md`
 - Backfill utilities used (if any): `scripts/backfill_healthcare_obligor_profile.py`, `scripts/backfill_healthcare_research_corpus.py`, `scripts/backfill_waste_feedstock_mitigants.py`, `scripts/backfill_phaseb_cdr_coverage.py`
 
 ## OPS-1005 Incident Drill Progress
@@ -89,7 +90,8 @@ Date range: 2026-02-23 to 2026-02-25
 - Drill executed this week: `no`
 - Detection time: `n/a this week`
 - Recovery time: `n/a this week`
-- Lessons learned: `No new drill this week; JWT secret consistency remains a checklist item. OPS-1001 telemetry alert-routing automation is now wired, pending live-data drill validation.`
+- Lessons learned: `No new drill this week; JWT secret consistency remains a checklist item. OPS-1001 routing + OPS-1005 drill assessment automation are now wired, pending live-data timeline evidence.`
+- Drill assessment report path: `reports/phase10_postlaunch/ops1005_incident_drill_assessment_20260225_162838.md`
 - Drill report path: `reports/phase10_postlaunch/INCIDENT_DRILL_TEMPLATE.md`
 
 ## Sign-off

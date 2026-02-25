@@ -8,8 +8,8 @@ Last updated: 2026-02-25
 |---|---|---|---|---|---|
 | Phase 0 | **Complete** | 2026-02-18 | 2026-02-21 | Stephen Peterson | Baseline governance approved with full sign-off and rollback owner assignment (`REL-901`) |
 | Phase 1 | **Complete** | 2026-02-18 | 2026-02-21 | Stephen Peterson | Security hardening checklist fully signed with GO decision (`REL-902`) |
-| Phase 2 | In Progress (Contract Gate) | 2026-02-19 | TBD | TBD | OpenAPI snapshot and contract test added; frontend generated OpenAPI types/client landed and runtime adapter now delegates through generated services (`contracts/openapi.v1.json`, `frontend/src/types/openapi.generated.ts`, `frontend/src/generated/api-client/`, `frontend/src/services/api.ts`) |
-| Phase 3 | In Progress (CI Rehab) | 2026-02-19 | TBD | TBD | Core/security/risk/contract/fact-service gate now green (`184 passed`) and CI workflow now enforces frontend test + production build (`5 frontend tests passed`), plus full local suite green (`176 passed`) |
+| Phase 2 | **Complete** | 2026-02-19 | 2026-02-25 | Stephen Peterson | Contract-drift hardening closed with local+CI evidence: local bundle `reports/phase2_6_closeout/phase2_6_closeout_20260225_182248.json` (`overall_status=pass`), core gate success `22410239882`, and Phase 2-6 closeout workflow success `22410329356`. OpenAPI snapshot/generated-client parity is now enforced by `scripts/verify_openapi_generated_artifacts.py`. |
+| Phase 3 | **Complete** | 2026-02-19 | 2026-02-25 | Stephen Peterson | CI rehab closed with deterministic gate posture and test-suite health enforcement: core regression gate green (`199 passed` local parity run; CI run `22410239882` success), `scripts/assess_test_suite_health.py` enforced in CI, and frontend test/build checks integrated in closeout workflow (`22410329356`). |
 | Phase 4 | In Progress (Dedup/Archive Foundation) | 2026-02-19 | TBD | TBD | `DEDUP-401` through `REVIEW-406` core backend contracts implemented plus canonical transition audit coverage and expanded dataset/property replay reproducibility validation (`AUDIT-503`/`TEST-504`); target baseline DB schema/backfill gap resolved and replay harness now stable on populated corpus with live baseline sign-off complete (`de618f31-bb6f-4905-be68-8445c357ed32`, 239 facts). Phase A upload path hardening now ships async Celery chunk dispatch on artifact upload with integration/unit coverage and replay evidence promotion closure. |
 | Phase 5 | In Progress (Sprint 4) | 2026-02-19 | TBD | TBD | `RISK-501` through `RISK-511` implemented behind `RISK_REPORTING_V2_FOUNDATION` (`RISK-508` external brief, `RISK-509` request sync, `RISK-510` audit/governance, `RISK-511` validation suite) |
 | Phase 6 | In Progress (Risk Analytics Bridge) | 2026-02-19 | TBD | TBD | `RISK-512` advanced analytics bridge implemented behind reliability gate (`RISK_REPORTING_V2_ADVANCED_ANALYTICS`, default off) |
@@ -22,9 +22,9 @@ Last updated: 2026-02-25
 
 | ID | Risk | Impact | Mitigation | Status |
 |---|---|---|---|---|
-| R-001 | API contract drift | High | OpenAPI-generated client and contract tests | Open |
-| R-002 | Core flow regression during refactor | High | Baselines + feature flags + smoke tests | Open |
-| R-003 | Test suite staleness | High | Rebuild fixtures and CI gates in Phase 3 | Open |
+| R-001 | API contract drift | High | OpenAPI-generated client and contract tests | Closed (2026-02-25) |
+| R-002 | Core flow regression during refactor | High | Baselines + feature flags + smoke tests | Closed (2026-02-25) |
+| R-003 | Test suite staleness | High | Rebuild fixtures and CI gates in Phase 3 | Closed (2026-02-25) |
 
 ## Decision Log
 
@@ -42,7 +42,7 @@ Last updated: 2026-02-25
 
 ## Next Milestones
 
-Week 2 Phase 10 operations refreshed with strict corpus normalization/reconciliation gating, OPS-1001 telemetry + alert-routing automation, and OPS-1005 drill-readiness automation.
+Week 2 Phase 10 operations refreshed with strict corpus normalization/reconciliation gating, OPS-1001 telemetry + alert-routing automation, and OPS-1005 drill-readiness automation. Non-Phase-10 active risks (`R-001`/`R-002`/`R-003`) are closed as of 2026-02-25.
 
 1. Populate `reports/phase10_postlaunch/ops1001_telemetry_events.jsonl` from 7-day production export and re-run telemetry trend + alert-routing assessors for threshold/incident calibration.
 2. Execute one live-data OPS-1005 drill with new OPS-1001 routed alert artifact, capture `reports/phase10_postlaunch/ops1005_incident_timeline.json`, and re-run `scripts/assess_ops1005_incident_drill.py`.
@@ -316,3 +316,9 @@ Week 2 Phase 10 operations refreshed with strict corpus normalization/reconcilia
 263. 2026-02-25: Added dispatcher utility unit coverage (`tests/unit/test_dispatch_github_workflow.py`) for repo/input/time parsing helpers.
 264. 2026-02-25: Expanded Phase 10 backend CI-equivalent bundle gate to include dispatcher utility regression coverage (`tests/unit/test_dispatch_github_workflow.py`) and revalidated local bundle (`reports/phase10_postlaunch/phase10_postlaunch_20260225_164128.json`, overall `pass`).
 265. 2026-02-25: Revalidated GitHub dispatch fallback on latest post-merge commit (`12af1536`) by running `scripts/dispatch_github_workflow.py` with wait+success enforcement; Phase 10 run `22406633452` completed `success` (`https://github.com/st3jace/MUNI-PAL/actions/runs/22406633452`).
+266. 2026-02-25: Added Phase 2-6 risk-closeout automation lane: generated-artifact verification (`scripts/verify_openapi_generated_artifacts.py`), test-suite health assessment (`scripts/assess_test_suite_health.py`), closeout bundle orchestrator (`scripts/run_phase2_6_risk_closeout_bundle.py`), dispatch workflow (`.github/workflows/phase2-6-risk-closeout-dispatch.yml`), and runbook (`V2/PHASE_2_6_RISK_CLOSEOUT_RUNBOOK.md`).
+267. 2026-02-25: Regenerated frontend OpenAPI artifacts and aligned frontend tests with additive risk contract fields (`frontend/src/types/openapi.generated.ts`, `frontend/src/generated/api-client/`, `frontend/src/pages/__tests__/AdvisoryPackages.test.tsx`, `frontend/src/pages/__tests__/Readiness.test.tsx`), then revalidated local closeout bundle (`reports/phase2_6_closeout/phase2_6_closeout_20260225_182248.json`, overall `pass`).
+268. 2026-02-25: Diagnosed initial closeout CI parity failures (`core gate 22409555393`, `phase2-6 dispatch 22409558170`) as snapshot/source drift from unstaged risk contract code paths.
+269. 2026-02-25: Landed CI-parity fix commit (`b63c51ce`) aligning risk contract source + async artifact dispatch changes (`src/munipal/core/schemas/risk_reporting.py`, `src/munipal/services/risk_reporting_service.py`, `src/munipal/api/routes/risk_reporting.py`, `src/munipal/services/artifact_service.py`, `src/munipal/workers/tasks/artifact_tasks.py`, `tests/integration/test_artifacts_api.py`, `tests/unit/test_artifact_dispatch.py`) and hardened core gate env determinism in `.github/workflows/core-security-risk-gate.yml`.
+270. 2026-02-25: Revalidated local core-security-risk parity gate with deterministic auth/tenant-off profile (`199 passed`) and targeted artifact dispatch coverage (`3 passed`).
+271. 2026-02-25: Closed non-Phase-10 active risk lane with green CI evidence: core-security-risk-gate run `22410239882` (`success`) and Phase 2-6 closeout dispatch run `22410329356` (`success`, `https://github.com/st3jace/MUNI-PAL/actions/runs/22410329356`).

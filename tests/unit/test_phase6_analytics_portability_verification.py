@@ -1,4 +1,8 @@
-from scripts.verify_phase6_analytics_portability import scan_line_for_findings
+from scripts.verify_phase6_analytics_portability import (
+    PathFinding,
+    is_allowlisted,
+    scan_line_for_findings,
+)
 
 
 def test_scan_line_detects_windows_drive_path() -> None:
@@ -33,3 +37,22 @@ def test_scan_line_detects_unix_and_onedrive_paths() -> None:
     assert any(item.rule_id == "unix_machine_path" for item in unix_findings)
     assert any(item.rule_id == "onedrive_path" for item in onedrive_findings)
 
+
+def test_allowlist_matches_known_legacy_data_loader_path() -> None:
+    finding = PathFinding(
+        file="emma/bond_os_extractor/src/analysis/data_loader.py",
+        line=31,
+        rule_id="windows_drive_path",
+        snippet=r'r"C:\Users\st3ja\OneDrive\Documents\PROJECTS\AZRFO\QF\WTE\waste_tickers"',
+    )
+    assert is_allowlisted(finding) is True
+
+
+def test_allowlist_does_not_match_other_paths() -> None:
+    finding = PathFinding(
+        file="emma/bond_os_extractor/src/example.py",
+        line=9,
+        rule_id="windows_drive_path",
+        snippet=r'path = "C:\Users\analyst\data\file.csv"',
+    )
+    assert is_allowlisted(finding) is False

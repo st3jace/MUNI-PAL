@@ -31,6 +31,8 @@ class PortabilityResult:
     report_md_path: Path
     status: str
     finding_count: int
+    blocking_count: int
+    allowlisted_count: int
     findings: list[PathFinding]
 
 
@@ -46,6 +48,16 @@ RULES: tuple[tuple[str, re.Pattern[str]], ...] = (
     ("windows_drive_path", WINDOWS_DRIVE_PATTERN),
     ("unix_machine_path", UNIX_MACHINE_PATTERN),
     ("onedrive_path", ONEDRIVE_PATTERN),
+)
+
+# Legacy hardcoded path that remains in the extractor branch history. Keep it
+# visible in reports, but fail only on newly introduced portability findings.
+ALLOWLIST_RULES: tuple[tuple[str, str, str], ...] = (
+    (
+        "emma/bond_os_extractor/src/analysis/data_loader.py",
+        "windows_drive_path",
+        r"PROJECTS\AZRFO\QF\WTE\waste_tickers",
+    ),
 )
 
 
@@ -67,6 +79,17 @@ def _timestamp() -> str:
 
 def _normalize_path(path: Path, repo_root: Path) -> str:
     return str(path.relative_to(repo_root)).replace("\\", "/")
+
+
+def is_allowlisted(finding: PathFinding) -> bool:
+    for file_path, rule_id, snippet_fragment in ALLOWLIST_RULES:
+        if finding.file != file_path:
+            continue
+        if finding.rule_id != rule_id:
+            continue
+        if snippet_fragment in finding.snippet:
+            return True
+    return False
 
 
 def scan_line_for_findings(*, line: str, line_number: int, relative_file: str) -> list[PathFinding]:
@@ -109,17 +132,29 @@ def _write_markdown(path: Path, payload: dict[str, Any]) -> None:
         f"- Source root: `{payload['source_root']}`",
         f"- Status: `{recommendation['status']}`",
         f"- Python files scanned: `{summary['python_files_scanned']}`",
-        f"- Findings: `{summary['finding_count']}`",
+        f"- Blocking findings: `{summary['blocking_count']}`",
+        f"- Allowlisted findings: `{summary['allowlisted_count']}`",
+        f"- Findings (total): `{summary['finding_count']}`",
         "",
-        "## Findings",
+        "## Blocking Findings",
         "",
     ]
 
-    findings = payload["findings"]
-    if not findings:
+    blocking = payload["blocking_findings"]
+    if not blocking:
         lines.append("- None.")
     else:
-        for item in findings:
+        for item in blocking:
+            lines.append(
+                f"- `{item['file']}:{item['line']}` `{item['rule_id']}` -> `{item['snippet']}`"
+            )
+
+    lines.extend(["", "## Allowlisted Findings", ""])
+    allowlisted = payload["allowlisted_findings"]
+    if not allowlisted:
+        lines.append("- None.")
+    else:
+        for item in allowlisted:
             lines.append(
                 f"- `{item['file']}:{item['line']}` `{item['rule_id']}` -> `{item['snippet']}`"
             )
@@ -150,18 +185,32 @@ def verify_phase6_analytics_portability(
     else:
         findings = scan_source_root(source_root=source_root, repo_root=repo_root)
 
+    blocking_findings = [item for item in findings if not is_allowlisted(item)]
+    allowlisted_findings = [item for item in findings if is_allowlisted(item)]
+
     python_files_scanned = len(list(source_root.rglob("*.py"))) if source_root.exists() else 0
-    status = "pass" if not findings else "fail"
+    status = "pass" if not blocking_findings else "fail"
+    recommendation_issues: list[str] = []
+    if blocking_findings:
+        recommendation_issues.append(
+            f"{len(blocking_findings)} blocking portability finding(s) detected."
+        )
+    if allowlisted_findings:
+        recommendation_issues.append(
+            f"{len(allowlisted_findings)} allowlisted portability finding(s) present."
+        )
     payload = {
         "generated_at_utc": datetime.now(UTC).isoformat(),
         "source_root": _normalize_path(source_root, repo_root),
         "summary": {
             "python_files_scanned": python_files_scanned,
             "finding_count": len(findings),
+            "blocking_count": len(blocking_findings),
+            "allowlisted_count": len(allowlisted_findings),
         },
         "recommendation": {
             "status": status,
-            "issues": [] if not findings else [f"{len(findings)} portability finding(s) detected."],
+            "issues": recommendation_issues,
         },
         "findings": [
             {
@@ -172,6 +221,24 @@ def verify_phase6_analytics_portability(
             }
             for item in findings
         ],
+        "blocking_findings": [
+            {
+                "file": item.file,
+                "line": item.line,
+                "rule_id": item.rule_id,
+                "snippet": item.snippet,
+            }
+            for item in blocking_findings
+        ],
+        "allowlisted_findings": [
+            {
+                "file": item.file,
+                "line": item.line,
+                "rule_id": item.rule_id,
+                "snippet": item.snippet,
+            }
+            for item in allowlisted_findings
+        ],
     }
     output_json.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     _write_markdown(output_md, payload)
@@ -181,6 +248,8 @@ def verify_phase6_analytics_portability(
         report_md_path=output_md,
         status=status,
         finding_count=len(findings),
+        blocking_count=len(blocking_findings),
+        allowlisted_count=len(allowlisted_findings),
         findings=findings,
     )
 
@@ -217,13 +286,14 @@ def main() -> int:
     )
     print(f"[phase6-portability] status={result.status}")
     print(f"[phase6-portability] findings={result.finding_count}")
+    print(f"[phase6-portability] blocking_findings={result.blocking_count}")
+    print(f"[phase6-portability] allowlisted_findings={result.allowlisted_count}")
     print(f"[phase6-portability] markdown={result.report_md_path.as_posix()}")
     print(f"[phase6-portability] json={result.report_json_path.as_posix()}")
-    if args.fail_on_hardcoded and result.finding_count > 0:
+    if args.fail_on_hardcoded and result.blocking_count > 0:
         return 1
     return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

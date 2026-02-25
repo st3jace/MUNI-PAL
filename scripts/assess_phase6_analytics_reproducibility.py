@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 import tempfile
@@ -77,14 +78,14 @@ def _run_score_command(*, repo_root: Path, sector: str, output_path: Path) -> tu
         sys.executable,
         "-m",
         "emma.bond_os_extractor.src.cli",
-        "--sector",
-        sector,
         "score",
         "--threshold",
         "50",
         "--output",
         str(output_path),
     ]
+    env = os.environ.copy()
+    env["BOND_SECTOR"] = sector
     proc = subprocess.run(
         command,
         cwd=repo_root,
@@ -92,9 +93,11 @@ def _run_score_command(*, repo_root: Path, sector: str, output_path: Path) -> tu
         capture_output=True,
         encoding="utf-8",
         errors="replace",
+        env=env,
     )
     log_text = (
         f"$ {' '.join(command)}\n"
+        f"env:BOND_SECTOR={sector}\n"
         f"returncode={proc.returncode}\n\n"
         "--- STDOUT ---\n"
         f"{proc.stdout}\n"
@@ -291,4 +294,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

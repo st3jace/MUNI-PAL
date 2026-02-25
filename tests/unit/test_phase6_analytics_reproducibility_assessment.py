@@ -26,13 +26,14 @@ def test_evaluate_sector_reproducibility_ignores_scored_at_drift() -> None:
         "summary": {"total_obligors": 5, "investable_count": 1},
         "scores": [{"obligor_name": "A", "f_score": 60.0}],
     }
-    status, issues = evaluate_sector_reproducibility(
+    status, issues, warnings = evaluate_sector_reproducibility(
         sector="waste",
         first_payload=first,
         second_payload=second,
     )
     assert status == "pass"
     assert issues == []
+    assert warnings == []
 
 
 def test_evaluate_sector_reproducibility_flags_canonical_drift() -> None:
@@ -44,11 +45,30 @@ def test_evaluate_sector_reproducibility_flags_canonical_drift() -> None:
         "summary": {"total_obligors": 5, "investable_count": 2},
         "scores": [{"obligor_name": "A", "f_score": 61.0}],
     }
-    status, issues = evaluate_sector_reproducibility(
+    status, issues, warnings = evaluate_sector_reproducibility(
         sector="waste",
         first_payload=first,
         second_payload=second,
     )
     assert status == "fail"
     assert any("drifted" in item for item in issues)
+    assert warnings == []
 
+
+def test_evaluate_sector_reproducibility_zero_obligors_is_warning_only() -> None:
+    first = {
+        "summary": {"total_obligors": 0, "investable_count": 0},
+        "scores": [],
+    }
+    second = {
+        "summary": {"total_obligors": 0, "investable_count": 0},
+        "scores": [],
+    }
+    status, issues, warnings = evaluate_sector_reproducibility(
+        sector="healthcare",
+        first_payload=first,
+        second_payload=second,
+    )
+    assert status == "warn"
+    assert issues == []
+    assert any("zero obligors" in item for item in warnings)

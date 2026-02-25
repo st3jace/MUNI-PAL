@@ -30,6 +30,7 @@ class ReproducibilityResult:
     status: str
     sector_status: dict[str, str]
     issues: list[str]
+    warnings: list[str]
 
 
 def _repo_root() -> Path:
@@ -55,22 +56,27 @@ def evaluate_sector_reproducibility(
     sector: str,
     first_payload: Mapping[str, Any],
     second_payload: Mapping[str, Any],
-) -> tuple[str, list[str]]:
+) -> tuple[str, list[str], list[str]]:
     issues: list[str] = []
+    warnings: list[str] = []
     first_summary = first_payload.get("summary", {})
     second_summary = second_payload.get("summary", {})
 
     first_total = int(first_summary.get("total_obligors", 0) or 0)
     second_total = int(second_summary.get("total_obligors", 0) or 0)
     if first_total <= 0 or second_total <= 0:
-        issues.append(f"{sector}: zero obligors scored in one or more runs.")
+        warnings.append(f"{sector}: zero obligors scored in one or more runs.")
 
     canonical_first = _canonicalize_score_payload(first_payload)
     canonical_second = _canonicalize_score_payload(second_payload)
     if canonical_first != canonical_second:
         issues.append(f"{sector}: canonical score outputs drifted between repeated runs.")
 
-    return ("pass" if not issues else "fail", issues)
+    if issues:
+        return ("fail", issues, warnings)
+    if warnings:
+        return ("warn", issues, warnings)
+    return ("pass", issues, warnings)
 
 
 def _run_score_command(*, repo_root: Path, sector: str, output_path: Path) -> tuple[int, str]:
@@ -133,6 +139,14 @@ def _write_markdown(path: Path, payload: dict[str, Any]) -> None:
     else:
         lines.append("- None.")
 
+    lines.extend(["", "## Warnings", ""])
+    warnings = payload["recommendation"].get("warnings", [])
+    if warnings:
+        for warning in warnings:
+            lines.append(f"- {warning}")
+    else:
+        lines.append("- None.")
+
     lines.extend(["", "## Logs", ""])
     for log_rel in payload["log_files"]:
         lines.append(f"- `{log_rel}`")
@@ -155,6 +169,7 @@ def assess_phase6_analytics_reproducibility(
     sector_rows: list[dict[str, Any]] = []
     sector_status: dict[str, str] = {}
     issues: list[str] = []
+    warnings: list[str] = []
     log_files: list[str] = []
 
     with tempfile.TemporaryDirectory(prefix="phase6-repro-") as temp_dir:
@@ -212,13 +227,14 @@ def assess_phase6_analytics_reproducibility(
 
             first_payload = json.loads(run1_path.read_text(encoding="utf-8"))
             second_payload = json.loads(run2_path.read_text(encoding="utf-8"))
-            status, sector_issues = evaluate_sector_reproducibility(
+            status, sector_issues, sector_warnings = evaluate_sector_reproducibility(
                 sector=sector,
                 first_payload=first_payload,
                 second_payload=second_payload,
             )
             sector_status[sector] = status
             issues.extend(sector_issues)
+            warnings.extend(sector_warnings)
 
             first_summary = first_payload.get("summary", {})
             second_summary = second_payload.get("summary", {})
@@ -240,6 +256,7 @@ def assess_phase6_analytics_reproducibility(
         "recommendation": {
             "status": overall_status,
             "issues": issues,
+            "warnings": warnings,
         },
         "sector_results": sector_rows,
         "log_files": log_files,
@@ -253,6 +270,7 @@ def assess_phase6_analytics_reproducibility(
         status=overall_status,
         sector_status=sector_status,
         issues=issues,
+        warnings=warnings,
     )
 
 
@@ -287,6 +305,10 @@ def main() -> int:
         print("[phase6-reproducibility] issues:")
         for issue in result.issues:
             print(f"- {issue}")
+    if result.warnings:
+        print("[phase6-reproducibility] warnings:")
+        for warning in result.warnings:
+            print(f"- {warning}")
     if args.fail_on_drift and result.issues:
         return 1
     return 0

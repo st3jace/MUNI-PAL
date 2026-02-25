@@ -35,6 +35,7 @@ Date range: 2026-02-23 to 2026-02-25
 | Bond Corpus Drift Alert Routing | `pass` | 0.14s |
 | OPS-1003 M5 Readiness Review | `pass` | 0.14s |
 | OPS-1003 Regression Gate | `pass` | 0.13s |
+| Phase 10 Sign-off Packet Readiness | `pass` | 0.12s |
 
 ### Phase E + Corpus Gate Wiring Notes
 
@@ -93,6 +94,12 @@ Date range: 2026-02-23 to 2026-02-25
 - Lessons learned: `No new drill this week; JWT secret consistency remains a checklist item. OPS-1001 routing + OPS-1005 drill assessment automation are now wired, pending live-data timeline evidence.`
 - Drill assessment report path: `reports/phase10_postlaunch/ops1005_incident_drill_assessment_20260225_164250.md`
 - Drill report path: `reports/phase10_postlaunch/INCIDENT_DRILL_TEMPLATE.md`
+
+## Phase 10 Sign-off Packet
+
+- Sign-off packet status: `pending_live_data`
+- Sign-off packet report path: `reports/phase10_postlaunch/phase10_signoff_packet_20260225_164250.md`
+- Remaining pending live-data items: `OPS-1001 live telemetry calibration`, `OPS-1005 live incident timeline evidence`
 
 ## Sign-off
 

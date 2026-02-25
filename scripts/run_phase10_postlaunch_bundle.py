@@ -149,6 +149,7 @@ def _write_markdown_report(
             "- [ ] Review generated `ops1001_telemetry_trends_<timestamp>.md/.json` artifact for 7-day rates and threshold recommendations (`OPS-1001`).",
             "- [ ] Review generated `ops1001_telemetry_alert_routing_<timestamp>.md/.json` artifact for incident/escalation routing (`OPS-1001`/`OPS-1005`).",
             "- [ ] Review generated `ops1005_incident_drill_assessment_<timestamp>.md/.json` artifact for live-drill readiness (`OPS-1005`).",
+            "- [ ] Review generated `phase10_signoff_packet_<timestamp>.md/.json` artifact for final sign-off readiness (`go`/`pending_live_data`/`no-go`).",
             "- [ ] Record any alert threshold tuning changes and rationale (`OPS-1001`).",
             "- [ ] Execute or schedule second-tenant onboarding rehearsal (`OPS-1002`).",
             "- [ ] Record BFMS production-grade scoring hardening progress (`OPS-1003`).",
@@ -245,6 +246,7 @@ def main() -> int:
             "tests/unit/test_ops1001_telemetry_trends_assessment.py "
             "tests/unit/test_ops1001_telemetry_alert_routing.py "
             "tests/unit/test_ops1005_incident_drill_assessment.py "
+            "tests/unit/test_phase10_signoff_packet_assessment.py "
             "tests/unit/test_dispatch_github_workflow.py "
             "tests/unit/test_openapi_generated_artifact_verification.py "
             "tests/unit/test_test_suite_health_assessment.py "
@@ -339,6 +341,11 @@ def main() -> int:
             "--reports-dir reports/phase10_postlaunch "
             "--max-residual-risks 1 "
             "--require-m5-go",
+            default_env,
+        ),
+        (
+            "Phase 10 Sign-off Packet Readiness",
+            "python scripts/assess_phase10_signoff_packet.py --fail-on-no-go",
             default_env,
         ),
     ]

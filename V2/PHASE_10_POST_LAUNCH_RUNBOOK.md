@@ -15,6 +15,7 @@ python scripts/run_phase10_postlaunch_bundle.py
 python scripts/assess_ops1001_telemetry_trends.py --events-path reports/phase10_postlaunch/ops1001_telemetry_events.jsonl
 python scripts/route_ops1001_telemetry_alerts.py --fail-on-critical
 python scripts/assess_ops1005_incident_drill.py --fail-on-no-go
+python scripts/assess_phase10_signoff_packet.py --fail-on-no-go
 python scripts/cleanup_corpus_db_outliers.py
 python scripts/rebuild_corpus_document_index.py --clear-existing
 python scripts/verify_corpus_db_reconciliation.py --fail-on-extra-db --fail-on-index-extras --fail-on-type-mismatch
@@ -84,6 +85,8 @@ Each run writes:
 - `reports/phase10_postlaunch/bond_corpus_alert_routing_<timestamp>.json`
 - `reports/phase10_postlaunch/ops1003_m5_readiness_<timestamp>.md`
 - `reports/phase10_postlaunch/ops1003_m5_readiness_<timestamp>.json`
+- `reports/phase10_postlaunch/phase10_signoff_packet_<timestamp>.md`
+- `reports/phase10_postlaunch/phase10_signoff_packet_<timestamp>.json`
 - `reports/phase10_postlaunch/WEEKLY_EVIDENCE_TEMPLATE.md`
 
 ## Weekly Execution Sequence
@@ -93,23 +96,24 @@ Each run writes:
 3. Run OPS-1001 telemetry assessment and archive `ops1001_telemetry_trends_<timestamp>.md/.json`.
 4. Run OPS-1001 telemetry alert routing and archive `ops1001_telemetry_alert_routing_<timestamp>.md/.json`.
 5. Run OPS-1005 incident drill assessment and archive `ops1005_incident_drill_assessment_<timestamp>.md/.json`.
-6. Review 401/403/cross-tenant denied trendlines, threshold recommendations, routed escalation actions, and drill readiness status.
-7. Confirm open incidents, SLA breaches, and alert quality.
-8. Record tenant onboarding rehearsal status (if scheduled).
-9. Run healthcare corpus readiness assessment and archive generated reports.
-10. Apply healthcare evidence backfill utilities when new obligor/research corpus inputs are available.
-11. Apply waste feedstock mitigant backfill utility when updated implementation-guide evidence is available.
-12. Run bond corpus calibration assessment and record CDR-3 coverage gaps by sector/cohort.
-13. Run advisory cohort inference assessment and record inferred sector/deal-type profile validation for package generation.
-14. Run advisory package smoke assessment and record internal/external generation API evidence.
-15. Run age-weighting policy assessment and record CDR-2 staged enable/tuning recommendation.
-16. Run bond corpus drift assessment and record pair-completeness transitions / recommendation deltas.
-17. Run drift alert routing and review incident/hold recommendations in `bond_corpus_alert_routing_<timestamp>.md/.json`.
-18. Run OPS-1003 M5 readiness assessment and record go/no-go with residual risks in `ops1003_m5_readiness_<timestamp>.md/.json`.
-19. Run OPS-1003 regression gate enforcement (`enforce_ops1003_regression_gates.py`) and fail weekly bundle if CDR-1/CDR-4 regress or residual risks exceed threshold.
-20. Review external/BFMS interpretation-guide and compliance-check fields for disclosure-safe narrative consistency.
-21. Capture incident drill details in `reports/phase10_postlaunch/INCIDENT_DRILL_TEMPLATE.md` when executed.
-22. Update `V2/EXECUTION_TRACKER.md` with week summary.
+6. Run Phase 10 sign-off packet readiness assessment and archive `phase10_signoff_packet_<timestamp>.md/.json`.
+7. Review 401/403/cross-tenant denied trendlines, threshold recommendations, routed escalation actions, drill readiness status, and sign-off packet recommendation.
+8. Confirm open incidents, SLA breaches, and alert quality.
+9. Record tenant onboarding rehearsal status (if scheduled).
+10. Run healthcare corpus readiness assessment and archive generated reports.
+11. Apply healthcare evidence backfill utilities when new obligor/research corpus inputs are available.
+12. Apply waste feedstock mitigant backfill utility when updated implementation-guide evidence is available.
+13. Run bond corpus calibration assessment and record CDR-3 coverage gaps by sector/cohort.
+14. Run advisory cohort inference assessment and record inferred sector/deal-type profile validation for package generation.
+15. Run advisory package smoke assessment and record internal/external generation API evidence.
+16. Run age-weighting policy assessment and record CDR-2 staged enable/tuning recommendation.
+17. Run bond corpus drift assessment and record pair-completeness transitions / recommendation deltas.
+18. Run drift alert routing and review incident/hold recommendations in `bond_corpus_alert_routing_<timestamp>.md/.json`.
+19. Run OPS-1003 M5 readiness assessment and record go/no-go with residual risks in `ops1003_m5_readiness_<timestamp>.md/.json`.
+20. Run OPS-1003 regression gate enforcement (`enforce_ops1003_regression_gates.py`) and fail weekly bundle if CDR-1/CDR-4 regress or residual risks exceed threshold.
+21. Review external/BFMS interpretation-guide and compliance-check fields for disclosure-safe narrative consistency.
+22. Capture incident drill details in `reports/phase10_postlaunch/INCIDENT_DRILL_TEMPLATE.md` when executed.
+23. Update `V2/EXECUTION_TRACKER.md` with week summary.
 
 ## Incident Escalation
 

@@ -146,6 +146,7 @@ def _write_markdown_report(
             "## Weekly Manual Operations Checklist",
             "",
             "- [ ] Update 401/403/cross-tenant-denied trend review for this week (`OPS-1001`).",
+            "- [ ] Review generated `ops1001_telemetry_trends_<timestamp>.md/.json` artifact for 7-day rates and threshold recommendations (`OPS-1001`).",
             "- [ ] Record any alert threshold tuning changes and rationale (`OPS-1001`).",
             "- [ ] Execute or schedule second-tenant onboarding rehearsal (`OPS-1002`).",
             "- [ ] Record BFMS production-grade scoring hardening progress (`OPS-1003`).",
@@ -239,6 +240,7 @@ def main() -> int:
             "tests/unit/test_advisory_package_smoke_assessment.py "
             "tests/unit/test_ops1003_m5_readiness_assessment.py "
             "tests/unit/test_ops1003_regression_gates.py "
+            "tests/unit/test_ops1001_telemetry_trends_assessment.py "
             "tests/unit/test_corpus_db_outlier_cleanup.py "
             "tests/unit/test_corpus_document_index_rebuild.py "
             "tests/unit/test_corpus_db_reconciliation.py "
@@ -267,6 +269,11 @@ def main() -> int:
             "tests/integration/test_risk_reporting_foundation.py "
             "tests/unit/test_auth_dependencies.py "
             "tests/unit/test_risk_reporting_service.py",
+            default_env,
+        ),
+        (
+            "OPS-1001 Telemetry Trend Assessment",
+            "python scripts/assess_ops1001_telemetry_trends.py",
             default_env,
         ),
         (

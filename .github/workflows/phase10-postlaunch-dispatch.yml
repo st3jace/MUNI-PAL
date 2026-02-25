@@ -35,6 +35,14 @@ jobs:
           pip install -e .[dev]
           npm ci --prefix frontend
 
+      - name: Provision Phase 10 corpus DB snapshots
+        run: |
+          python scripts/provision_phase10_corpus_dbs.py
+
+      - name: Preflight Phase 10 corpus DB prerequisites
+        run: |
+          python scripts/verify_phase10_corpus_prereqs.py
+
       - name: Run Phase 10 post-launch bundle
         env:
           USE_SQLITE: "true"
@@ -58,8 +66,24 @@ jobs:
           path: |
             reports/phase10_postlaunch/phase10_postlaunch_*.md
             reports/phase10_postlaunch/phase10_postlaunch_*.json
+            reports/phase10_postlaunch/ops1001_telemetry_trends_*.md
+            reports/phase10_postlaunch/ops1001_telemetry_trends_*.json
             reports/phase10_postlaunch/healthcare_readiness_*.md
             reports/phase10_postlaunch/healthcare_readiness_*.json
+            reports/phase10_postlaunch/bond_corpus_calibration_*.md
+            reports/phase10_postlaunch/bond_corpus_calibration_*.json
+            reports/phase10_postlaunch/advisory_cohort_inference_*.md
+            reports/phase10_postlaunch/advisory_cohort_inference_*.json
+            reports/phase10_postlaunch/advisory_package_smoke_*.md
+            reports/phase10_postlaunch/advisory_package_smoke_*.json
+            reports/phase10_postlaunch/age_weighting_policy_*.md
+            reports/phase10_postlaunch/age_weighting_policy_*.json
+            reports/phase10_postlaunch/bond_corpus_drift_*.md
+            reports/phase10_postlaunch/bond_corpus_drift_*.json
+            reports/phase10_postlaunch/bond_corpus_alert_routing_*.md
+            reports/phase10_postlaunch/bond_corpus_alert_routing_*.json
+            reports/phase10_postlaunch/ops1003_m5_readiness_*.md
+            reports/phase10_postlaunch/ops1003_m5_readiness_*.json
             reports/phase10_postlaunch/logs_*/
             reports/phase10_postlaunch/WEEKLY_EVIDENCE_TEMPLATE.md
             reports/phase10_postlaunch/INCIDENT_DRILL_TEMPLATE.md

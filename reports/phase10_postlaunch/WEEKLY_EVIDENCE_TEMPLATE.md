@@ -6,8 +6,8 @@ Date range: 2026-02-23 to 2026-02-25
 ## Automated Bundle Evidence
 
 - Workflow/script: `.github/workflows/phase10-postlaunch-dispatch.yml`
-- Run URL (if CI): `https://github.com/st3jace/MUNI-PAL/actions/runs/22398242105`
-- Commit SHA: `817b1789`
+- Run URL (if CI): `https://github.com/st3jace/MUNI-PAL/actions/runs/22398936091`
+- Commit SHA: `6ebfc225`
 - Overall result: `pass`
 - Local bundle verification run: `reports/phase10_postlaunch/phase10_postlaunch_20260225_123753.json`
 - Local archived bundle verification: `reports/phase10_postlaunch/phase10_postlaunch_20260225_123753_archive.zip`
@@ -23,6 +23,7 @@ Date range: 2026-02-23 to 2026-02-25
 | Frontend Tests (vitest) | `pass` | 29.01s |
 | Frontend Production Build | `pass` | 10.03s |
 | Auth+Tenant+Risk Stability Slice | `pass` | 10.50s |
+| OPS-1001 Telemetry Trend Assessment | `pass` | 0.13s |
 | Healthcare Corpus Readiness Snapshot | `pass` | 0.24s |
 | Bond Corpus Calibration Snapshot | `pass` | 0.13s |
 | Advisory Cohort Inference Assessment | `pass` | 0.99s |
@@ -45,8 +46,10 @@ Date range: 2026-02-23 to 2026-02-25
 - 401 trend summary: `Baseline established. Missing/invalid JWT tokens correctly return 401 with WWW-Authenticate: Bearer header; validated through auth enforcement suites and staged smoke.`
 - 403 trend summary: `Baseline established. Cross-tenant access returns 403 and same-tenant non-owner access follows current ownership/superuser policy.`
 - Cross-tenant-denied trend summary: `Baseline established. JWT tenant claims drive tenant scoping under enforced mode; cross-tenant reads block with 403.`
+- Telemetry trend report path: `n/a this week (run scripts/assess_ops1001_telemetry_trends.py against 7-day telemetry export).`
+- Current alert threshold profile (per 1k requests): `401=40`, `403=20`, `cross-tenant-denied=10`
 - Alert thresholds tuned this week: `no`
-- Notes: `No production traffic profile change yet; maintain weekly trend capture and incident routing checks.`
+- Notes: `OPS-1001 assessor is now automated in the Phase 10 bundle; production telemetry export feed still needs to populate ops1001_telemetry_events.jsonl for threshold calibration.`
 
 ## OPS-1002 Tenant Onboarding Rehearsal
 

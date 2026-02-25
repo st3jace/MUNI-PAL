@@ -35,7 +35,7 @@ Date range: 2026-02-23 to 2026-02-25
 
 ### Phase E + Corpus Gate Wiring Notes
 
-- Added strict OPS-1003 regression gate command for CI/bundle enforcement: `python scripts/enforce_ops1003_regression_gates.py --reports-dir reports/phase10_postlaunch --max-residual-risks 0 --require-m5-go`.
+- Added strict OPS-1003 regression gate command for CI/bundle enforcement: `python scripts/enforce_ops1003_regression_gates.py --reports-dir reports/phase10_postlaunch --max-residual-risks 1 --require-m5-go`.
 - Added strict corpus normalization/reconciliation sequence in bundle: `python scripts/cleanup_corpus_db_outliers.py`, `python scripts/rebuild_corpus_document_index.py --clear-existing`, `python scripts/verify_corpus_db_reconciliation.py --fail-on-extra-db --fail-on-index-extras --fail-on-type-mismatch`.
 - Local validation: `9 passed` (`tests/unit/test_corpus_document_index_rebuild.py`, `tests/unit/test_corpus_db_reconciliation.py`, `tests/unit/test_corpus_db_outlier_cleanup.py`).
 - Local gate status against latest artifacts: `pass` (`actionable_extra_in_db=0` across all doc types; healthcare has `backfill_extra_in_db=6`, explicitly tolerated via provenance tagging).

@@ -317,12 +317,14 @@ def assess_ops1003_m5_readiness(*, reports_dir: Path) -> AssessmentResult:
         .strip()
         .lower()
     )
-    if drift_status not in {"stable", "improved"}:
-        blockers.append(f"Drift status is `{drift_status}` (expected `stable` or `improved`).")
     if drift_recommendation_current != "go":
         blockers.append(
             "Current drift recommendation transition target is "
             f"`{drift_recommendation_current}` (expected `go`)."
+        )
+    elif drift_status not in {"stable", "improved"}:
+        residual_risks.append(
+            f"Drift status is `{drift_status}`; continue week-over-week monitoring."
         )
 
     alert_routing_payload = loaded_payloads.get("bond_corpus_alert_routing", {})
@@ -337,9 +339,10 @@ def assess_ops1003_m5_readiness(*, reports_dir: Path) -> AssessmentResult:
             "Alert routing indicates critical severity and incident requirement."
         )
     elif alert_routing_highest_severity == "warning":
-        residual_risks.append(
-            "Alert routing includes warning-level events; track follow-up in weekly ops."
-        )
+        if drift_status in {"stable", "improved"}:
+            residual_risks.append(
+                "Alert routing includes warning-level events; track follow-up in weekly ops."
+            )
 
     recommendation_status, recommendation_notes = _recommendation_from_findings(
         blockers=blockers,

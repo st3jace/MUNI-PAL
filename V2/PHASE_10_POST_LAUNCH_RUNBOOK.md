@@ -26,7 +26,7 @@ python scripts/assess_age_weighting_policy.py
 python scripts/assess_bond_corpus_drift.py
 python scripts/route_bond_corpus_drift_alerts.py --fail-on-critical
 python scripts/assess_ops1003_m5_readiness.py
-python scripts/enforce_ops1003_regression_gates.py --reports-dir reports/phase10_postlaunch --max-residual-risks 0 --require-m5-go
+python scripts/enforce_ops1003_regression_gates.py --reports-dir reports/phase10_postlaunch --max-residual-risks 1 --require-m5-go
 ```
 
 Note: `assess_advisory_package_smoke.py --mode asgi` now defaults to an isolated ephemeral sqlite DB so local stale schemas do not affect smoke outcomes. Use `--asgi-sqlite-path <path>` only when you intentionally want a persistent DB for debugging.

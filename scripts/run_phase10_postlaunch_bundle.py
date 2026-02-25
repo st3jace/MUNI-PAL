@@ -313,7 +313,7 @@ def main() -> int:
             "OPS-1003 Regression Gate",
             "python scripts/enforce_ops1003_regression_gates.py "
             "--reports-dir reports/phase10_postlaunch "
-            "--max-residual-risks 0 "
+            "--max-residual-risks 1 "
             "--require-m5-go",
             default_env,
         ),

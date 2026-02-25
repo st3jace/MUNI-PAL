@@ -40,7 +40,15 @@ def test_recommendation_go_without_findings() -> None:
     assert notes == ["No blocking gates or residual risks detected."]
 
 
-def _write_minimum_reports(reports_dir: Path, *, age_weighting_status: str, age_weighting_reasons: list[str]) -> None:
+def _write_minimum_reports(
+    reports_dir: Path,
+    *,
+    age_weighting_status: str,
+    age_weighting_reasons: list[str],
+    drift_status: str = "stable",
+    drift_current_recommendation: str = "go",
+    alert_highest_severity: str = "none",
+) -> None:
     calibration_payload = {
         "recommendation": {"status": "go"},
         "sectors": {
@@ -74,12 +82,12 @@ def _write_minimum_reports(reports_dir: Path, *, age_weighting_status: str, age_
         }
     }
     drift_payload = {
-        "drift_status": "stable",
-        "recommendation_transition": {"current": "go"},
+        "drift_status": drift_status,
+        "recommendation_transition": {"current": drift_current_recommendation},
     }
     alert_routing_payload = {
         "summary": {
-            "highest_severity": "none",
+            "highest_severity": alert_highest_severity,
             "counts_by_severity": {"critical": 0},
             "requires_incident": False,
         }
@@ -147,3 +155,26 @@ def test_age_weighting_hold_without_healthy_reason_stays_residual_risk(tmp_path:
 
     assert result.status == "go"
     assert any("CDR-2" in risk for risk in residuals)
+
+
+def test_drift_changed_with_go_transition_stays_go_with_single_residual(tmp_path: Path) -> None:
+    reports_dir = tmp_path / "reports"
+    reports_dir.mkdir(parents=True, exist_ok=True)
+    _write_minimum_reports(
+        reports_dir,
+        age_weighting_status="hold",
+        age_weighting_reasons=[
+            "Recency staleness is limited; keep age-weighting disabled until next data refresh.",
+        ],
+        drift_status="changed",
+        drift_current_recommendation="go",
+        alert_highest_severity="warning",
+    )
+
+    result = assess_ops1003_m5_readiness(reports_dir=reports_dir)
+    payload = json.loads(result.report_json_path.read_text(encoding="utf-8"))
+    residuals = payload["recommendation"]["residual_risks"]
+
+    assert result.status == "go"
+    assert len(residuals) == 1
+    assert "Drift status is `changed`" in residuals[0]

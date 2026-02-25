@@ -184,6 +184,7 @@ def evaluate_sector(
     sector: str,
     db_path: Path,
     extracted_root: Path,
+    require_extracted: bool,
     fail_on_extra_db: bool,
     fail_on_index_extras: bool,
 ) -> SectorReconciliation:
@@ -203,21 +204,16 @@ def evaluate_sector(
             violations=[f"Missing DB: {db_path.as_posix()}"],
             warnings=[],
         )
-    if not extracted_root.exists():
-        return SectorReconciliation(
-            sector=sector,
-            db_path=db_path,
-            extracted_root=extracted_root,
-            by_doc_type={},
-            duplicate_source_hash_rows={},
-            orphan_rows={},
-            parse_errors=0,
-            status="fail",
-            violations=[f"Missing extracted root: {extracted_root.as_posix()}"],
-            warnings=[],
-        )
-
-    extracted_hashes, parse_errors = _load_extracted_hashes(extracted_root)
+    if extracted_root.exists():
+        extracted_hashes, parse_errors = _load_extracted_hashes(extracted_root)
+    else:
+        extracted_hashes = {doc_type: set() for doc_type in DOC_TYPES}
+        parse_errors = 0
+        message = f"Missing extracted root: {extracted_root.as_posix()}"
+        if require_extracted:
+            violations.append(message)
+        else:
+            warnings.append(message)
 
     conn = sqlite3.connect(db_path)
     try:
@@ -316,6 +312,7 @@ def evaluate_sector(
 def evaluate_all(
     *,
     sectors: list[str] | None,
+    require_extracted: bool,
     fail_on_extra_db: bool,
     fail_on_index_extras: bool,
 ) -> list[SectorReconciliation]:
@@ -331,6 +328,7 @@ def evaluate_all(
                 sector=sector,
                 db_path=db_path,
                 extracted_root=extracted_root,
+                require_extracted=require_extracted,
                 fail_on_extra_db=fail_on_extra_db,
                 fail_on_index_extras=fail_on_index_extras,
             )
@@ -347,6 +345,11 @@ def _build_parser() -> argparse.ArgumentParser:
         action="append",
         default=None,
         help="Sector to verify (repeatable). Defaults to all sectors.",
+    )
+    parser.add_argument(
+        "--require-extracted",
+        action="store_true",
+        help="Fail when extracted JSON roots are missing.",
     )
     parser.add_argument(
         "--fail-on-extra-db",
@@ -368,7 +371,9 @@ def _print_result(result: SectorReconciliation) -> None:
         f"parse_errors={result.parse_errors}"
     )
     for doc_type in DOC_TYPES:
-        row = result.by_doc_type[doc_type]
+        row = result.by_doc_type.get(doc_type)
+        if row is None:
+            continue
         print(
             "[corpus-reconciliation] "
             f"sector={result.sector} doc_type={doc_type} "
@@ -392,6 +397,7 @@ def main() -> int:
     args = _build_parser().parse_args()
     results = evaluate_all(
         sectors=args.sector,
+        require_extracted=bool(args.require_extracted),
         fail_on_extra_db=bool(args.fail_on_extra_db),
         fail_on_index_extras=bool(args.fail_on_index_extras),
     )

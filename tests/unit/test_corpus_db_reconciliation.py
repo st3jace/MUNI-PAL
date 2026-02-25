@@ -107,6 +107,7 @@ def test_reconciliation_passes_when_hashes_and_index_match(tmp_path: Path) -> No
         sector="test",
         db_path=db_path,
         extracted_root=extracted_root,
+        require_extracted=True,
         fail_on_extra_db=False,
         fail_on_index_extras=False,
     )
@@ -136,6 +137,7 @@ def test_reconciliation_fails_when_index_missing_db_hash(tmp_path: Path) -> None
         sector="test",
         db_path=db_path,
         extracted_root=extracted_root,
+        require_extracted=True,
         fail_on_extra_db=False,
         fail_on_index_extras=False,
     )
@@ -168,6 +170,7 @@ def test_reconciliation_can_fail_on_extra_db_hashes(tmp_path: Path) -> None:
         sector="test",
         db_path=db_path,
         extracted_root=extracted_root,
+        require_extracted=True,
         fail_on_extra_db=False,
         fail_on_index_extras=False,
     )
@@ -178,8 +181,42 @@ def test_reconciliation_can_fail_on_extra_db_hashes(tmp_path: Path) -> None:
         sector="test",
         db_path=db_path,
         extracted_root=extracted_root,
+        require_extracted=True,
         fail_on_extra_db=True,
         fail_on_index_extras=False,
     )
     assert strict_result.status == "fail"
     assert any("not found in extracted JSON" in message for message in strict_result.violations)
+
+
+def test_reconciliation_warns_when_extracted_root_missing_without_strict_mode(
+    tmp_path: Path,
+) -> None:
+    db_path = tmp_path / "corpus.db"
+    extracted_root = tmp_path / "missing-extracted"
+    _init_db(db_path)
+
+    conn = sqlite3.connect(db_path)
+    try:
+        conn.execute(
+            "INSERT INTO documents (id, source_hash, source_file) VALUES ('doc1', 'h-os1', 'os1.pdf')"
+        )
+        conn.execute(
+            "INSERT INTO document_index (source_hash, source_file, doc_type, module_record_id) "
+            "VALUES ('h-os1', 'os1.pdf', 'official_statement', 'doc1')"
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+    result = evaluate_sector(
+        sector="test",
+        db_path=db_path,
+        extracted_root=extracted_root,
+        require_extracted=False,
+        fail_on_extra_db=False,
+        fail_on_index_extras=False,
+    )
+
+    assert result.status == "pass"
+    assert any("Missing extracted root" in warning for warning in result.warnings)

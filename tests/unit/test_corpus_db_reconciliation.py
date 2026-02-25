@@ -222,6 +222,43 @@ def test_reconciliation_warns_when_extracted_root_missing_without_strict_mode(
 
     assert result.status == "pass"
     assert any("Missing extracted root" in warning for warning in result.warnings)
+    assert any("Skipping extracted-vs-DB delta checks" in warning for warning in result.warnings)
+
+
+def test_reconciliation_missing_extracted_root_skips_extra_db_failures_when_optional(
+    tmp_path: Path,
+) -> None:
+    db_path = tmp_path / "corpus.db"
+    extracted_root = tmp_path / "missing-extracted"
+    _init_db(db_path)
+
+    conn = sqlite3.connect(db_path)
+    try:
+        conn.execute(
+            "INSERT INTO documents (id, source_hash, source_file) VALUES ('doc1', 'h-os1', 'os1.pdf')"
+        )
+        conn.execute(
+            "INSERT INTO document_index (source_hash, source_file, doc_type, module_record_id, provenance_class) "
+            "VALUES ('h-os1', 'os1.pdf', 'official_statement', 'doc1', 'extracted_pdf')"
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+    result = evaluate_sector(
+        sector="test",
+        db_path=db_path,
+        extracted_root=extracted_root,
+        require_extracted=False,
+        fail_on_extra_db=True,
+        fail_on_index_extras=True,
+        fail_on_type_mismatch=True,
+        allow_backfill_extra_db=True,
+    )
+
+    assert result.status == "pass"
+    assert result.by_doc_type["official_statement"].extra_in_db == 0
+    assert any("Missing extracted root" in warning for warning in result.warnings)
 
 
 def test_reconciliation_tolerates_backfill_extra_hashes_in_strict_mode(tmp_path: Path) -> None:

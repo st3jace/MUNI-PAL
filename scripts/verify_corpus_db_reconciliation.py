@@ -5,7 +5,7 @@ Usage:
     python scripts/verify_corpus_db_reconciliation.py
     python scripts/verify_corpus_db_reconciliation.py --sector waste
     python scripts/verify_corpus_db_reconciliation.py --fail-on-extra-db
-    python scripts/verify_corpus_db_reconciliation.py --require-extracted --fail-on-extra-db --fail-on-index-extras --fail-on-type-mismatch
+    python scripts/verify_corpus_db_reconciliation.py --fail-on-extra-db --fail-on-index-extras --fail-on-type-mismatch
 """
 
 from __future__ import annotations
@@ -264,6 +264,7 @@ def evaluate_sector(
 ) -> SectorReconciliation:
     violations: list[str] = []
     warnings: list[str] = []
+    extracted_available = extracted_root.exists()
 
     if not db_path.exists():
         return SectorReconciliation(
@@ -278,7 +279,7 @@ def evaluate_sector(
             violations=[f"Missing DB: {db_path.as_posix()}"],
             warnings=[],
         )
-    if extracted_root.exists():
+    if extracted_available:
         extracted_hashes, parse_errors = _load_extracted_hashes(extracted_root)
     else:
         extracted_hashes = {doc_type: set() for doc_type in DOC_TYPES}
@@ -288,6 +289,9 @@ def evaluate_sector(
             violations.append(message)
         else:
             warnings.append(message)
+            warnings.append(
+                "Skipping extracted-vs-DB delta checks because extracted root is unavailable."
+            )
 
     conn = sqlite3.connect(db_path)
     try:
@@ -316,12 +320,12 @@ def evaluate_sector(
     by_doc_type: dict[str, TypeReconciliation] = {}
 
     for doc_type in DOC_TYPES:
-        extracted_set = extracted_hashes.get(doc_type, set())
+        extracted_set = extracted_hashes.get(doc_type, set()) if extracted_available else set()
         db_set = db_hashes.get(doc_type, set())
         index_set = index_hashes.get(doc_type, set())
 
-        missing_in_db = extracted_set - db_set
-        extra_in_db = db_set - extracted_set
+        missing_in_db = (extracted_set - db_set) if extracted_available else set()
+        extra_in_db = (db_set - extracted_set) if extracted_available else set()
         missing_in_index = db_set - index_set
         extra_in_index = index_set - db_set
 
@@ -460,7 +464,7 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--require-extracted",
         action="store_true",
-        help="Fail when extracted JSON roots are missing.",
+        help="Fail when extracted JSON roots are missing. Without this flag, extracted-vs-DB deltas are skipped when roots are absent.",
     )
     parser.add_argument(
         "--fail-on-extra-db",

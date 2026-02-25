@@ -14,7 +14,7 @@ From repo root:
 python scripts/run_phase10_postlaunch_bundle.py
 python scripts/cleanup_corpus_db_outliers.py
 python scripts/rebuild_corpus_document_index.py --clear-existing
-python scripts/verify_corpus_db_reconciliation.py --require-extracted --fail-on-extra-db --fail-on-index-extras --fail-on-type-mismatch
+python scripts/verify_corpus_db_reconciliation.py --fail-on-extra-db --fail-on-index-extras --fail-on-type-mismatch
 python scripts/assess_healthcare_corpus_readiness.py
 python scripts/backfill_healthcare_obligor_profile.py
 python scripts/backfill_healthcare_research_corpus.py

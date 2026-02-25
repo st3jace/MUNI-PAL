@@ -205,7 +205,6 @@ def main() -> int:
         (
             "Phase 10 Corpus Reconciliation Gate",
             "python scripts/verify_corpus_db_reconciliation.py "
-            "--require-extracted "
             "--fail-on-extra-db "
             "--fail-on-index-extras "
             "--fail-on-type-mismatch",

@@ -73,6 +73,10 @@ This folder memorializes the V2 execution plan so roadmap, sprint scope, and saf
 - Phase 2-6 risk closeout runbook for `R-001`/`R-002`/`R-003`
 - Defines local/CI closeout bundle execution and evidence expectations
 
+18. `PHASE_4_6_CLOSEOUT_RUNBOOK.md`
+- Phase 4-6 closeout runbook for ingestion, reporting, and analytics hardening gates
+- Defines local/CI closeout bundle execution and evidence expectations
+
 ## Operating Rule
 
 No phase is considered complete until its exit criteria are met and documented in `EXECUTION_TRACKER.md`.

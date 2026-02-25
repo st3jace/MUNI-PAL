@@ -193,6 +193,16 @@ def main() -> int:
             None,
         ),
         (
+            "Phase 10 Document Index Rebuild",
+            "python scripts/rebuild_corpus_document_index.py --clear-existing",
+            None,
+        ),
+        (
+            "Phase 10 Corpus Reconciliation Gate",
+            "python scripts/verify_corpus_db_reconciliation.py",
+            None,
+        ),
+        (
             "Backend CI-Equivalent Gate",
             "pytest -q "
             "tests/contract/test_openapi_contract.py "
@@ -221,6 +231,8 @@ def main() -> int:
             "tests/unit/test_advisory_package_smoke_assessment.py "
             "tests/unit/test_ops1003_m5_readiness_assessment.py "
             "tests/unit/test_ops1003_regression_gates.py "
+            "tests/unit/test_corpus_document_index_rebuild.py "
+            "tests/unit/test_corpus_db_reconciliation.py "
             "tests/unit/test_advisory_package_service.py "
             "tests/unit/test_fact_service.py "
             "-p no:cacheprovider",
@@ -312,6 +324,8 @@ def main() -> int:
         if name in {
             "Phase 10 Corpus Provision",
             "Phase 10 Corpus Preflight",
+            "Phase 10 Document Index Rebuild",
+            "Phase 10 Corpus Reconciliation Gate",
         } and result.returncode != 0:
             print("[phase10-postlaunch] corpus setup failed; skipping remaining checks")
             break

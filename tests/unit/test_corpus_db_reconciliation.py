@@ -32,13 +32,15 @@ def _init_db(path: Path) -> None:
             );
             CREATE TABLE document_index (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                source_hash TEXT UNIQUE,
+                source_hash TEXT NOT NULL,
                 source_file TEXT,
                 doc_type TEXT,
                 module_record_id TEXT,
                 extraction_timestamp TEXT,
                 issuer_name TEXT,
-                completeness_score REAL
+                completeness_score REAL,
+                provenance_class TEXT NOT NULL DEFAULT 'unknown',
+                UNIQUE (source_hash, doc_type)
             );
             CREATE TABLE deal_identities (document_id TEXT PRIMARY KEY);
             CREATE TABLE deal_structures (document_id TEXT PRIMARY KEY);
@@ -220,3 +222,54 @@ def test_reconciliation_warns_when_extracted_root_missing_without_strict_mode(
 
     assert result.status == "pass"
     assert any("Missing extracted root" in warning for warning in result.warnings)
+
+
+def test_reconciliation_tolerates_backfill_extra_hashes_in_strict_mode(tmp_path: Path) -> None:
+    db_path = tmp_path / "corpus.db"
+    extracted_root = tmp_path / "extracted"
+    _init_db(db_path)
+    _populate_matching_data(db_path, extracted_root)
+
+    conn = sqlite3.connect(db_path)
+    try:
+        conn.execute(
+            "INSERT INTO documents (id, source_hash, source_file) VALUES "
+            "('doc-backfill', 'h-backfill', "
+            "'C:/repo/research/corpus/healthcare/healthcare_credit_drivers.json#hospital_revenue_bonds')"
+        )
+        conn.execute(
+            "INSERT INTO document_index (source_hash, source_file, doc_type, module_record_id, provenance_class) "
+            "VALUES ('h-backfill', "
+            "'C:/repo/research/corpus/healthcare/healthcare_credit_drivers.json#hospital_revenue_bonds', "
+            "'official_statement', 'doc-backfill', 'backfill_research_corpus')"
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+    tolerated_result = evaluate_sector(
+        sector="test",
+        db_path=db_path,
+        extracted_root=extracted_root,
+        require_extracted=True,
+        fail_on_extra_db=True,
+        fail_on_index_extras=True,
+        fail_on_type_mismatch=True,
+        allow_backfill_extra_db=True,
+    )
+    assert tolerated_result.status == "pass"
+    assert tolerated_result.by_doc_type["official_statement"].tolerated_backfill_extra_in_db == 1
+    assert tolerated_result.by_doc_type["official_statement"].actionable_extra_in_db == 0
+
+    strict_result = evaluate_sector(
+        sector="test",
+        db_path=db_path,
+        extracted_root=extracted_root,
+        require_extracted=True,
+        fail_on_extra_db=True,
+        fail_on_index_extras=True,
+        fail_on_type_mismatch=True,
+        allow_backfill_extra_db=False,
+    )
+    assert strict_result.status == "fail"
+    assert strict_result.by_doc_type["official_statement"].actionable_extra_in_db == 1

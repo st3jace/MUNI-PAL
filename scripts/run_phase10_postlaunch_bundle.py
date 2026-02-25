@@ -193,13 +193,22 @@ def main() -> int:
             None,
         ),
         (
+            "Phase 10 Corpus Outlier Cleanup",
+            "python scripts/cleanup_corpus_db_outliers.py",
+            None,
+        ),
+        (
             "Phase 10 Document Index Rebuild",
             "python scripts/rebuild_corpus_document_index.py --clear-existing",
             None,
         ),
         (
             "Phase 10 Corpus Reconciliation Gate",
-            "python scripts/verify_corpus_db_reconciliation.py",
+            "python scripts/verify_corpus_db_reconciliation.py "
+            "--require-extracted "
+            "--fail-on-extra-db "
+            "--fail-on-index-extras "
+            "--fail-on-type-mismatch",
             None,
         ),
         (
@@ -231,6 +240,7 @@ def main() -> int:
             "tests/unit/test_advisory_package_smoke_assessment.py "
             "tests/unit/test_ops1003_m5_readiness_assessment.py "
             "tests/unit/test_ops1003_regression_gates.py "
+            "tests/unit/test_corpus_db_outlier_cleanup.py "
             "tests/unit/test_corpus_document_index_rebuild.py "
             "tests/unit/test_corpus_db_reconciliation.py "
             "tests/unit/test_advisory_package_service.py "
@@ -324,6 +334,7 @@ def main() -> int:
         if name in {
             "Phase 10 Corpus Provision",
             "Phase 10 Corpus Preflight",
+            "Phase 10 Corpus Outlier Cleanup",
             "Phase 10 Document Index Rebuild",
             "Phase 10 Corpus Reconciliation Gate",
         } and result.returncode != 0:

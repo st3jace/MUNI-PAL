@@ -14,6 +14,7 @@ from sqlalchemy import (
     String,
     Table,
     Text,
+    UniqueConstraint,
     create_engine,
     text,
 )
@@ -168,13 +169,15 @@ classifications = Table(
 document_index = Table(
     "document_index", metadata,
     Column("id", Integer, primary_key=True, autoincrement=True),
-    Column("source_hash", String(64), nullable=False, unique=True),
+    Column("source_hash", String(64), nullable=False),
     Column("source_file", String(500), nullable=False),
     Column("doc_type", String(30), nullable=False),  # official_statement | rating_action | event_filing | financial_report
     Column("module_record_id", String(36)),  # ID in the module's own table
     Column("extraction_timestamp", DateTime),
     Column("issuer_name", Text),
     Column("completeness_score", Float),
+    Column("provenance_class", String(64), nullable=False, default="unknown"),
+    UniqueConstraint("source_hash", "doc_type", name="uq_docidx_source_hash_doc_type"),
 )
 
 # Indexes
@@ -185,6 +188,7 @@ Index("ix_docs_issuer_state", deal_identities.c.issuer_state)
 Index("ix_docs_par_amount", deal_structures.c.par_amount)
 Index("ix_docidx_doc_type", document_index.c.doc_type)
 Index("ix_docidx_issuer", document_index.c.issuer_name)
+Index("ix_docidx_provenance", document_index.c.provenance_class)
 
 
 # ---------------------------------------------------------------------------
@@ -243,6 +247,25 @@ def _str_or_none(val: Any) -> str | None:
     if val is None:
         return None
     return str(val)
+
+
+def _infer_document_provenance_class(source_file: str) -> str:
+    normalized = source_file.replace("\\", "/").strip().lower()
+    if not normalized:
+        return "unknown"
+    if normalized == "test.pdf" or normalized.endswith("/test.pdf"):
+        return "test_fixture"
+    if "analysis/cchci_obligor_profile.json" in normalized:
+        return "backfill_obligor_profile"
+    if "research/corpus/healthcare/healthcare_credit_drivers.json" in normalized:
+        return "backfill_research_corpus"
+    if "risk_implementation_guide.json" in normalized:
+        return "backfill_waste_feedstock"
+    if normalized.endswith(".pdf"):
+        return "extracted_pdf"
+    if normalized.endswith(".json"):
+        return "extracted_json"
+    return "derived_other"
 
 
 def save_deal_record(engine: Engine, record: Any) -> str:
@@ -542,13 +565,17 @@ def save_to_document_index(
     extraction_timestamp: Any = None,
     issuer_name: str | None = None,
     completeness_score: float | None = None,
+    provenance_class: str | None = None,
 ) -> None:
     """Add or update an entry in the cross-module document index."""
     with engine.begin() as conn:
         # Upsert: delete existing then insert
         existing = conn.execute(
-            text("SELECT id FROM document_index WHERE source_hash = :h"),
-            {"h": source_hash},
+            text(
+                "SELECT id FROM document_index "
+                "WHERE source_hash = :h AND doc_type = :doc_type"
+            ),
+            {"h": source_hash, "doc_type": doc_type},
         ).fetchone()
         if existing:
             conn.execute(
@@ -556,6 +583,7 @@ def save_to_document_index(
                 {"id": existing[0]},
             )
 
+        resolved_provenance = provenance_class or _infer_document_provenance_class(source_file)
         conn.execute(document_index.insert().values(
             source_hash=source_hash,
             source_file=source_file,
@@ -564,6 +592,7 @@ def save_to_document_index(
             extraction_timestamp=extraction_timestamp,
             issuer_name=issuer_name,
             completeness_score=completeness_score,
+            provenance_class=resolved_provenance,
         ))
 
 

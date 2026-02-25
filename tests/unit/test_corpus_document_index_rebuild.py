@@ -135,19 +135,66 @@ def test_rebuild_document_index_prefers_official_statement_on_hash_collision(
         clear_existing=True,
     )
 
-    assert summary.indexed_rows == 1
-    assert summary.skipped_collisions == 1
+    assert summary.indexed_rows == 2
+    assert summary.skipped_collisions == 0
     assert summary.by_doc_type["official_statement"] == 1
-    assert summary.by_doc_type["rating_action"] == 0
+    assert summary.by_doc_type["rating_action"] == 1
 
     conn = sqlite3.connect(db_path)
     try:
+        rows = conn.execute(
+            "SELECT doc_type, module_record_id FROM document_index "
+            "WHERE source_hash = 'h-shared' ORDER BY doc_type"
+        ).fetchall()
+    finally:
+        conn.close()
+
+    assert rows == [
+        ("official_statement", "doc1"),
+        ("rating_action", "ra1"),
+    ]
+
+
+def test_rebuild_document_index_migrates_legacy_schema_and_sets_provenance(
+    tmp_path: Path,
+) -> None:
+    db_path = tmp_path / "corpus.db"
+    _init_db(db_path)
+
+    conn = sqlite3.connect(db_path)
+    try:
+        conn.execute(
+            "INSERT INTO documents (id, source_hash, source_file, extraction_timestamp, completeness_score) "
+            "VALUES ('doc1', 'h-backfill', "
+            "'C:/repo/research/corpus/healthcare/healthcare_credit_drivers.json#hospital_revenue_bonds', "
+            "'2026-02-21T00:00:00Z', 0.75)"
+        )
+        conn.commit()
+    finally:
+        conn.close()
+
+    summary = rebuild_document_index(
+        sector="test",
+        db_path=db_path,
+        clear_existing=True,
+    )
+    assert summary.indexed_rows == 1
+
+    conn = sqlite3.connect(db_path)
+    try:
+        columns = [
+            row[1]
+            for row in conn.execute("PRAGMA table_info(document_index)").fetchall()
+        ]
+        unique_indexes = conn.execute("PRAGMA index_list(document_index)").fetchall()
         row = conn.execute(
-            "SELECT doc_type, module_record_id FROM document_index WHERE source_hash = 'h-shared'"
+            "SELECT provenance_class FROM document_index "
+            "WHERE source_hash = 'h-backfill' AND doc_type = 'official_statement'"
         ).fetchone()
     finally:
         conn.close()
 
+    assert "provenance_class" in columns
+    assert any(int(index_row[2]) == 1 for index_row in unique_indexes)
     assert row is not None
-    assert row[0] == "official_statement"
-    assert row[1] == "doc1"
+    assert row[0] == "backfill_research_corpus"

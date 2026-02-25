@@ -1,6 +1,6 @@
 ﻿# V2 Execution Tracker
 
-Last updated: 2026-02-22
+Last updated: 2026-02-25
 
 ## Phase Status
 
@@ -16,7 +16,7 @@ Last updated: 2026-02-22
 | Phase 7 | **Complete** | 2026-02-19 | 2026-02-20 | Stephen Peterson | BFMS integration contract shipped and signed off — both fallback and full modes confirmed in staging; all automated gates green; Internal Report + External Package generation confirmed; sign-off: Stephen Peterson 2026-02-20 |
 | Phase 8 | **Complete** | 2026-02-20 | 2026-02-21 | Stephen Peterson | Tenant isolation foundation shipped and signed off — migration `b8c9d0e1f2a3` applied, `TENANT_ISOLATION_V2=true` enabled, tenant-scoped listing and cross-tenant 403 confirmed, flag-only rollback drill passed; all automated gates green; sign-off: Stephen Peterson 2026-02-21 |
 | Phase 9 | **Complete** | 2026-02-21 | 2026-02-21 | Stephen Peterson | Release readiness shipped and signed off — all REL-901 through REL-907 milestones validated; JWT-enforced auth + tenant isolation + role enforcement confirmed in staging; GO decision recorded; all automated gates green; sign-off: Stephen Peterson 2026-02-21 |
-| Phase 10 | In Progress (Post-Launch Ops) | 2026-02-21 | TBD | Stephen Peterson | Week 1 complete with OPS-1003 M2/M3/M4 delivered, CDR-5 alert routing hardened to full proxy-threshold coverage, feature-flagged CDR-2 age-weighting implemented in confidence scoring with automated staged-tuning assessment output, automated advisory cohort inference validation delivered for package-generation profile behavior (healthcare + waste across revenue/conduit/private-activity), automated advisory package API smoke evidence integrated with isolated ASGI sqlite bootstrapping for deterministic local runs, and OPS-1003 M5 readiness synthesis automation now generating explicit go/no-go + residual-risk evidence. Phase A async ingestion hardening is complete, and Phase B CDR coverage backfill is complete (`scripts/backfill_phaseb_cdr_coverage.py`) with CDR-1 medium coverage and CDR-4 source diversity now met in both sectors. Current calibration baseline is `go` (waste 5/5; healthcare 5/5 pair-complete); latest M5 recommendation is `go` with `0` residual risks (`ops1003_m5_readiness_20260222_165001.json`). Latest local bundle green at `phase10_postlaunch_20260222_164741` and archived at `phase10_postlaunch_20260222_164741_archive.zip`. Phase C weekly sign-off evidence is refreshed (`WEEKLY_EVIDENCE_TEMPLATE.md`), and Phase E regression gate enforcement is wired and locally validated in the bundle (`scripts/enforce_ops1003_regression_gates.py`). |
+| Phase 10 | In Progress (Post-Launch Ops) | 2026-02-21 | TBD | Stephen Peterson | OPS-1003 automation remains stable with `calibration=go`, `cohort=go`, `smoke=go`, `M5=go`, and `residual_risks=0` (`ops1003_m5_readiness_20260225_123917.json`); age-weighting remains policy `hold`. Strict corpus normalization is now wired into Phase 10: outlier cleanup (`scripts/cleanup_corpus_db_outliers.py`), normalized index rebuild (`scripts/rebuild_corpus_document_index.py`, composite key `source_hash+doc_type`, provenance tagging), and strict reconciliation gate (`scripts/verify_corpus_db_reconciliation.py --require-extracted --fail-on-extra-db --fail-on-index-extras --fail-on-type-mismatch`) with backfill-only extras explicitly tagged/tolerated. Latest local bundle green at `phase10_postlaunch_20260225_123753` and archived at `phase10_postlaunch_20260225_123753_archive.zip`. |
 
 ## Active Risks
 
@@ -42,12 +42,12 @@ Last updated: 2026-02-22
 
 ## Next Milestones
 
-Week 1 Phase 10 operations complete with Phase C sign-off evidence refreshed and Phase E regression gates added.
+Week 2 Phase 10 operations refreshed with strict corpus normalization/reconciliation gating and fresh local archive evidence.
 
-1. Execute one post-change Phase 10 CI dispatch after committing/pushing Phase E gate wiring to validate regression-gate enforcement in Actions logs/artifacts.
+1. Execute post-change Phase 10 CI dispatch for strict normalization gate wiring and link Actions artifact to weekly evidence.
 2. Capture staging API/UI smoke evidence for internal/external advisory package generation and link to advisory cohort inference + smoke artifacts (`OPS-1003`/`OPS-1004`).
 3. Keep CDR-2 age-weighting default-off until weekly policy assessment indicates `staged_enable`; continue weekly `age_weighting_policy_<timestamp>.md/.json` review.
-4. Maintain weekly CDR-1/CDR-4 and residual-risk regression gate pass history in tracker updates.
+4. Maintain weekly strict reconciliation pass history (including tolerated backfill-only extras) in tracker/evidence updates.
 
 ## Completed Milestones
 
@@ -285,3 +285,10 @@ Week 1 Phase 10 operations complete with Phase C sign-off evidence refreshed and
 232. 2026-02-22: Revalidated full Phase 10 bundle after Phase E gate wiring (`reports/phase10_postlaunch/phase10_postlaunch_20260222_164741.md`) with overall status `pass`; new automated step `OPS-1003 Regression Gate` passed.
 233. 2026-02-22: Refreshed latest OPS-1003 artifacts from post-gate bundle run (`bond_corpus_calibration_20260222_164949.json`, `advisory_cohort_inference_20260222_164954.json`, `advisory_package_smoke_20260222_164959.json`, `age_weighting_policy_20260222_165000.json`, `bond_corpus_drift_20260222_165000.json`, `bond_corpus_alert_routing_20260222_165001.json`, `ops1003_m5_readiness_20260222_165001.json`) with blockers `0` and residual risks `0`.
 234. 2026-02-22: Archived post-gate Phase 10 verification bundle at `reports/phase10_postlaunch/phase10_postlaunch_20260222_164741_archive.zip` (33 packaged entries including logs + linked artifacts).
+235. 2026-02-25: Added corpus outlier cleanup utility (`scripts/cleanup_corpus_db_outliers.py`) and unit coverage (`tests/unit/test_corpus_db_outlier_cleanup.py`) to remove known test-fixture residue (`source_hash=abc123`, `test.pdf`) from corpus DBs.
+236. 2026-02-25: Implemented strict document-index normalization and provenance tagging in rebuild flow (`scripts/rebuild_corpus_document_index.py`): migration-safe schema upgrade to composite uniqueness (`UNIQUE(source_hash, doc_type)`), `provenance_class` tagging, and collision-safe indexing across doc types.
+237. 2026-02-25: Updated extractor storage schema/adapter for normalized document index (`emma/bond_os_extractor/src/storage/database.py`): composite uniqueness, provenance column/index, and `(source_hash, doc_type)` upsert behavior in `save_to_document_index`.
+238. 2026-02-25: Hardened corpus reconciliation gate for strict mode with backfill-aware extras handling (`scripts/verify_corpus_db_reconciliation.py`): actionable-vs-backfill extra split, schema validation for normalized document index, and strict options `--require-extracted --fail-on-extra-db --fail-on-index-extras --fail-on-type-mismatch`.
+239. 2026-02-25: Wired strict corpus hardening steps into Phase 10 bundle (`scripts/run_phase10_postlaunch_bundle.py`): added outlier-cleanup gate, strict reconciliation flags, and new unit suite inclusion for cleanup coverage.
+240. 2026-02-25: Revalidated corpus hardening unit suites (`9 passed`) across index rebuild/reconciliation/outlier cleanup (`tests/unit/test_corpus_document_index_rebuild.py`, `tests/unit/test_corpus_db_reconciliation.py`, `tests/unit/test_corpus_db_outlier_cleanup.py`).
+241. 2026-02-25: Revalidated full Phase 10 bundle with strict corpus normalization gates (`reports/phase10_postlaunch/phase10_postlaunch_20260225_123753.md`, overall `pass`) and archived fresh bundle at `reports/phase10_postlaunch/phase10_postlaunch_20260225_123753_archive.zip` (36 packaged entries).

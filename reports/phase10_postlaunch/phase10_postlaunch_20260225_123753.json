@@ -1,0 +1,152 @@
+{
+  "phase": "phase_10_postlaunch_bundle",
+  "generated_at_utc": "2026-02-25T12:39:17.766328+00:00",
+  "started_at_utc": "2026-02-25T12:37:53.007398+00:00",
+  "overall_status": "pass",
+  "results": [
+    {
+      "name": "Phase 10 Corpus Provision",
+      "command": "python scripts/provision_phase10_corpus_dbs.py",
+      "returncode": 0,
+      "duration_seconds": 0.10999029999948107,
+      "log_file": "reports/phase10_postlaunch/logs_20260225_123753/phase_10_corpus_provision.log",
+      "status": "pass"
+    },
+    {
+      "name": "Phase 10 Corpus Preflight",
+      "command": "python scripts/verify_phase10_corpus_prereqs.py",
+      "returncode": 0,
+      "duration_seconds": 0.10623390000546351,
+      "log_file": "reports/phase10_postlaunch/logs_20260225_123753/phase_10_corpus_preflight.log",
+      "status": "pass"
+    },
+    {
+      "name": "Phase 10 Corpus Outlier Cleanup",
+      "command": "python scripts/cleanup_corpus_db_outliers.py",
+      "returncode": 0,
+      "duration_seconds": 0.12130440000328235,
+      "log_file": "reports/phase10_postlaunch/logs_20260225_123753/phase_10_corpus_outlier_cleanup.log",
+      "status": "pass"
+    },
+    {
+      "name": "Phase 10 Document Index Rebuild",
+      "command": "python scripts/rebuild_corpus_document_index.py --clear-existing",
+      "returncode": 0,
+      "duration_seconds": 0.17877810000209138,
+      "log_file": "reports/phase10_postlaunch/logs_20260225_123753/phase_10_document_index_rebuild.log",
+      "status": "pass"
+    },
+    {
+      "name": "Phase 10 Corpus Reconciliation Gate",
+      "command": "python scripts/verify_corpus_db_reconciliation.py --require-extracted --fail-on-extra-db --fail-on-index-extras --fail-on-type-mismatch",
+      "returncode": 0,
+      "duration_seconds": 0.5299631999951089,
+      "log_file": "reports/phase10_postlaunch/logs_20260225_123753/phase_10_corpus_reconciliation_gate.log",
+      "status": "pass"
+    },
+    {
+      "name": "Backend CI-Equivalent Gate",
+      "command": "pytest -q tests/contract/test_openapi_contract.py tests/integration/test_readiness_api.py tests/integration/test_checklist_api.py tests/integration/test_facts_api.py tests/integration/test_projects_api.py tests/integration/test_playbooks_api.py tests/integration/test_auth_enforcement_routes.py tests/integration/test_project_authorization.py tests/integration/test_object_authorization.py tests/integration/test_role_policy.py tests/integration/test_security_integration.py tests/integration/test_tenant_isolation.py tests/integration/test_tenant_isolation_jwt_mode.py tests/integration/test_risk_reporting_foundation.py tests/integration/test_advisory_packages_api.py tests/unit/test_auth_dependencies.py tests/unit/test_audit_service.py tests/unit/test_audit_route_events.py tests/unit/test_risk_reporting_service.py tests/unit/test_bond_corpus_drift.py tests/unit/test_bond_corpus_alert_routing.py tests/unit/test_age_weighting_policy_assessment.py tests/unit/test_advisory_cohort_inference_assessment.py tests/unit/test_advisory_package_smoke_assessment.py tests/unit/test_ops1003_m5_readiness_assessment.py tests/unit/test_ops1003_regression_gates.py tests/unit/test_corpus_db_outlier_cleanup.py tests/unit/test_corpus_document_index_rebuild.py tests/unit/test_corpus_db_reconciliation.py tests/unit/test_advisory_package_service.py tests/unit/test_fact_service.py -p no:cacheprovider",
+      "returncode": 0,
+      "duration_seconds": 30.038752200009185,
+      "log_file": "reports/phase10_postlaunch/logs_20260225_123753/backend_ci-equivalent_gate.log",
+      "status": "pass"
+    },
+    {
+      "name": "Frontend Tests",
+      "command": "npm --prefix frontend run test",
+      "returncode": 0,
+      "duration_seconds": 29.005745700007537,
+      "log_file": "reports/phase10_postlaunch/logs_20260225_123753/frontend_tests.log",
+      "status": "pass"
+    },
+    {
+      "name": "Frontend Production Build",
+      "command": "npm --prefix frontend run build",
+      "returncode": 0,
+      "duration_seconds": 10.026353799999924,
+      "log_file": "reports/phase10_postlaunch/logs_20260225_123753/frontend_production_build.log",
+      "status": "pass"
+    },
+    {
+      "name": "Auth+Tenant+Risk Stability Slice",
+      "command": "pytest -q tests/integration/test_auth_enforcement_routes.py tests/integration/test_security_integration.py tests/integration/test_tenant_isolation.py tests/integration/test_tenant_isolation_jwt_mode.py tests/integration/test_risk_reporting_foundation.py tests/unit/test_auth_dependencies.py tests/unit/test_risk_reporting_service.py",
+      "returncode": 0,
+      "duration_seconds": 10.50316420001036,
+      "log_file": "reports/phase10_postlaunch/logs_20260225_123753/auth+tenant+risk_stability_slice.log",
+      "status": "pass"
+    },
+    {
+      "name": "Healthcare Corpus Readiness Snapshot",
+      "command": "python scripts/assess_healthcare_corpus_readiness.py",
+      "returncode": 0,
+      "duration_seconds": 0.24125210000784136,
+      "log_file": "reports/phase10_postlaunch/logs_20260225_123753/healthcare_corpus_readiness_snapshot.log",
+      "status": "pass"
+    },
+    {
+      "name": "Bond Corpus Calibration Snapshot",
+      "command": "python scripts/assess_bond_corpus_calibration.py",
+      "returncode": 0,
+      "duration_seconds": 0.13498859999526758,
+      "log_file": "reports/phase10_postlaunch/logs_20260225_123753/bond_corpus_calibration_snapshot.log",
+      "status": "pass"
+    },
+    {
+      "name": "Advisory Cohort Inference Assessment",
+      "command": "python scripts/assess_advisory_cohort_inference.py",
+      "returncode": 0,
+      "duration_seconds": 0.9933283999998821,
+      "log_file": "reports/phase10_postlaunch/logs_20260225_123753/advisory_cohort_inference_assessment.log",
+      "status": "pass"
+    },
+    {
+      "name": "Advisory Package Smoke Assessment",
+      "command": "python scripts/assess_advisory_package_smoke.py --mode asgi",
+      "returncode": 0,
+      "duration_seconds": 2.129154499998549,
+      "log_file": "reports/phase10_postlaunch/logs_20260225_123753/advisory_package_smoke_assessment.log",
+      "status": "pass"
+    },
+    {
+      "name": "Age Weighting Policy Assessment",
+      "command": "python scripts/assess_age_weighting_policy.py",
+      "returncode": 0,
+      "duration_seconds": 0.11728500000026543,
+      "log_file": "reports/phase10_postlaunch/logs_20260225_123753/age_weighting_policy_assessment.log",
+      "status": "pass"
+    },
+    {
+      "name": "Bond Corpus Drift Snapshot",
+      "command": "python scripts/assess_bond_corpus_drift.py",
+      "returncode": 0,
+      "duration_seconds": 0.12306569999782369,
+      "log_file": "reports/phase10_postlaunch/logs_20260225_123753/bond_corpus_drift_snapshot.log",
+      "status": "pass"
+    },
+    {
+      "name": "Bond Corpus Drift Alert Routing",
+      "command": "python scripts/route_bond_corpus_drift_alerts.py --fail-on-critical",
+      "returncode": 0,
+      "duration_seconds": 0.1298724999942351,
+      "log_file": "reports/phase10_postlaunch/logs_20260225_123753/bond_corpus_drift_alert_routing.log",
+      "status": "pass"
+    },
+    {
+      "name": "OPS-1003 M5 Readiness Review",
+      "command": "python scripts/assess_ops1003_m5_readiness.py",
+      "returncode": 0,
+      "duration_seconds": 0.1275080000050366,
+      "log_file": "reports/phase10_postlaunch/logs_20260225_123753/ops-1003_m5_readiness_review.log",
+      "status": "pass"
+    },
+    {
+      "name": "OPS-1003 Regression Gate",
+      "command": "python scripts/enforce_ops1003_regression_gates.py --reports-dir reports/phase10_postlaunch --max-residual-risks 0 --require-m5-go",
+      "returncode": 0,
+      "duration_seconds": 0.12265360000310466,
+      "log_file": "reports/phase10_postlaunch/logs_20260225_123753/ops-1003_regression_gate.log",
+      "status": "pass"
+    }
+  ]
+}

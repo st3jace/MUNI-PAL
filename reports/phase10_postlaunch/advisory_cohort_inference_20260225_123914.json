@@ -1,0 +1,225 @@
+{
+  "generated_at_utc": "2026-02-25T12:39:14.885343+00:00",
+  "target_profiles": {
+    "sectors": [
+      "healthcare",
+      "waste_to_energy"
+    ],
+    "deal_types": [
+      "revenue",
+      "conduit",
+      "private_activity"
+    ]
+  },
+  "source_artifacts": {
+    "healthcare_profile": "C:/Users/st3ja/OneDrive/Documents/MEGA/PROJECTS/INNOVATION FACTORY/MUNI-PAL/emma/bond_os_extractor/data/healthcare/analysis/cchci_obligor_profile.json",
+    "waste_implementation_guide": "C:/Users/st3ja/OneDrive/Documents/MEGA/PROJECTS/INNOVATION FACTORY/MUNI-PAL/emma/bond_os_extractor/data/waste/analysis/risk_implementation_guide.json",
+    "missing": []
+  },
+  "summary": {
+    "scenarios_evaluated": 6,
+    "scenarios_passed": 6,
+    "scenarios_failed": 0,
+    "match_rate_pct": 100.0,
+    "target_combo_count": 6,
+    "covered_target_combo_count": 6
+  },
+  "expected_coverage_matrix": {
+    "healthcare": {
+      "revenue": 1,
+      "conduit": 1,
+      "private_activity": 1
+    },
+    "waste_to_energy": {
+      "revenue": 1,
+      "conduit": 1,
+      "private_activity": 1
+    }
+  },
+  "inferred_coverage_matrix": {
+    "healthcare": {
+      "revenue": 1,
+      "conduit": 1,
+      "private_activity": 1
+    },
+    "waste_to_energy": {
+      "revenue": 1,
+      "conduit": 1,
+      "private_activity": 1
+    }
+  },
+  "scenarios": [
+    {
+      "name": "healthcare_conduit_extractor_profile",
+      "expected": {
+        "sector": "healthcare",
+        "deal_type": "conduit",
+        "issuer_size_band": "small",
+        "sample_size": 24,
+        "recency_window": "5y"
+      },
+      "inferred": {
+        "sector": "healthcare",
+        "issuer_size_band": "small",
+        "deal_type": "conduit",
+        "recency_window": "5y",
+        "sample_size": 24
+      },
+      "checks": {
+        "sector": true,
+        "deal_type": true,
+        "issuer_size_band": true,
+        "sample_size": true,
+        "recency_window": true
+      },
+      "status": "pass",
+      "source_artifacts": [
+        "C:/Users/st3ja/OneDrive/Documents/MEGA/PROJECTS/INNOVATION FACTORY/MUNI-PAL/emma/bond_os_extractor/data/healthcare/analysis/cchci_obligor_profile.json"
+      ]
+    },
+    {
+      "name": "healthcare_revenue_project_metadata",
+      "expected": {
+        "sector": "healthcare",
+        "deal_type": "revenue",
+        "issuer_size_band": "mid",
+        "sample_size": 30,
+        "recency_window": "5y"
+      },
+      "inferred": {
+        "sector": "healthcare",
+        "issuer_size_band": "mid",
+        "deal_type": "revenue",
+        "recency_window": "5y",
+        "sample_size": 30
+      },
+      "checks": {
+        "sector": true,
+        "deal_type": true,
+        "issuer_size_band": true,
+        "sample_size": true,
+        "recency_window": true
+      },
+      "status": "pass",
+      "source_artifacts": [
+        "C:/Users/st3ja/OneDrive/Documents/MEGA/PROJECTS/INNOVATION FACTORY/MUNI-PAL/emma/bond_os_extractor/data/healthcare/analysis/cchci_obligor_profile.json"
+      ]
+    },
+    {
+      "name": "healthcare_private_activity_501c3",
+      "expected": {
+        "sector": "healthcare",
+        "deal_type": "private_activity",
+        "issuer_size_band": "mid",
+        "sample_size": 24,
+        "recency_window": "5y"
+      },
+      "inferred": {
+        "sector": "healthcare",
+        "issuer_size_band": "mid",
+        "deal_type": "private_activity",
+        "recency_window": "5y",
+        "sample_size": 24
+      },
+      "checks": {
+        "sector": true,
+        "deal_type": true,
+        "issuer_size_band": true,
+        "sample_size": true,
+        "recency_window": true
+      },
+      "status": "pass",
+      "source_artifacts": [
+        "C:/Users/st3ja/OneDrive/Documents/MEGA/PROJECTS/INNOVATION FACTORY/MUNI-PAL/emma/bond_os_extractor/data/healthcare/analysis/cchci_obligor_profile.json"
+      ]
+    },
+    {
+      "name": "waste_revenue_feedstock",
+      "expected": {
+        "sector": "waste_to_energy",
+        "deal_type": "revenue",
+        "issuer_size_band": "mid",
+        "sample_size": 50,
+        "recency_window": "5y"
+      },
+      "inferred": {
+        "sector": "waste_to_energy",
+        "issuer_size_band": "mid",
+        "deal_type": "revenue",
+        "recency_window": "5y",
+        "sample_size": 50
+      },
+      "checks": {
+        "sector": true,
+        "deal_type": true,
+        "issuer_size_band": true,
+        "sample_size": true,
+        "recency_window": true
+      },
+      "status": "pass",
+      "source_artifacts": [
+        "C:/Users/st3ja/OneDrive/Documents/MEGA/PROJECTS/INNOVATION FACTORY/MUNI-PAL/emma/bond_os_extractor/data/waste/analysis/risk_implementation_guide.json"
+      ]
+    },
+    {
+      "name": "waste_conduit_ida_structure",
+      "expected": {
+        "sector": "waste_to_energy",
+        "deal_type": "conduit",
+        "issuer_size_band": "small",
+        "sample_size": 35,
+        "recency_window": "5y"
+      },
+      "inferred": {
+        "sector": "waste_to_energy",
+        "issuer_size_band": "small",
+        "deal_type": "conduit",
+        "recency_window": "5y",
+        "sample_size": 35
+      },
+      "checks": {
+        "sector": true,
+        "deal_type": true,
+        "issuer_size_band": true,
+        "sample_size": true,
+        "recency_window": true
+      },
+      "status": "pass",
+      "source_artifacts": [
+        "C:/Users/st3ja/OneDrive/Documents/MEGA/PROJECTS/INNOVATION FACTORY/MUNI-PAL/emma/bond_os_extractor/data/waste/analysis/risk_implementation_guide.json"
+      ]
+    },
+    {
+      "name": "waste_private_activity_industrial_development",
+      "expected": {
+        "sector": "waste_to_energy",
+        "deal_type": "private_activity",
+        "issuer_size_band": "mid",
+        "sample_size": 30,
+        "recency_window": "5y"
+      },
+      "inferred": {
+        "sector": "waste_to_energy",
+        "issuer_size_band": "mid",
+        "deal_type": "private_activity",
+        "recency_window": "5y",
+        "sample_size": 30
+      },
+      "checks": {
+        "sector": true,
+        "deal_type": true,
+        "issuer_size_band": true,
+        "sample_size": true,
+        "recency_window": true
+      },
+      "status": "pass",
+      "source_artifacts": [
+        "C:/Users/st3ja/OneDrive/Documents/MEGA/PROJECTS/INNOVATION FACTORY/MUNI-PAL/emma/bond_os_extractor/data/waste/analysis/risk_implementation_guide.json"
+      ]
+    }
+  ],
+  "recommendation": {
+    "status": "go",
+    "reasons": []
+  }
+}

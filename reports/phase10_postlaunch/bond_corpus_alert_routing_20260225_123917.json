@@ -1,0 +1,29 @@
+{
+  "generated_at_utc": "2026-02-25T12:39:17.497580+00:00",
+  "source_drift_report": "bond_corpus_drift_20260225_123917.json",
+  "drift_status": "stable",
+  "policy_version": "cdr5-alert-routing-v1",
+  "on_call_owner": "unassigned",
+  "cdr5_metric_coverage": {
+    "reliability_band_change": "evaluated via sample-size proxy transitions",
+    "overall_posture_score_delta_gt_0_10": "evaluated via posture_score_proxy series",
+    "conflict_rate_spike_gt_0_20": "evaluated via conflict_rate_proxy series",
+    "evidence_count_drop_gt_30pct": "evaluated"
+  },
+  "events": [],
+  "summary": {
+    "counts_by_severity": {
+      "info": 0,
+      "warning": 0,
+      "critical": 0
+    },
+    "highest_severity": "none",
+    "requires_incident": false,
+    "hold_advisory_generation": false,
+    "alert_count": 0
+  },
+  "next_actions": [
+    "No action required beyond weekly evidence archival.",
+    "Continue scheduled Phase 10 monitoring cadence."
+  ]
+}

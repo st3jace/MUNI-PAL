@@ -5,6 +5,7 @@ Usage:
     python scripts/verify_corpus_db_reconciliation.py
     python scripts/verify_corpus_db_reconciliation.py --sector waste
     python scripts/verify_corpus_db_reconciliation.py --fail-on-extra-db
+    python scripts/verify_corpus_db_reconciliation.py --require-extracted --fail-on-extra-db --fail-on-index-extras --fail-on-type-mismatch
 """
 
 from __future__ import annotations
@@ -29,6 +30,12 @@ TABLE_BY_DOC_TYPE = {
     "rating_action": "rating_actions",
 }
 
+BACKFILL_PROVENANCE_BY_MARKER = {
+    "analysis/cchci_obligor_profile.json": "backfill_obligor_profile",
+    "research/corpus/healthcare/healthcare_credit_drivers.json": "backfill_research_corpus",
+    "risk_implementation_guide.json": "backfill_waste_feedstock",
+}
+
 
 @dataclass
 class TypeReconciliation:
@@ -37,6 +44,8 @@ class TypeReconciliation:
     index_unique_hashes: int
     missing_in_db: int
     extra_in_db: int
+    tolerated_backfill_extra_in_db: int
+    actionable_extra_in_db: int
     missing_in_index: int
     extra_in_index: int
     type_mismatch_in_index: int
@@ -103,17 +112,80 @@ def _load_db_hashes(conn: sqlite3.Connection) -> dict[str, set[str]]:
     return output
 
 
-def _load_index_hashes(conn: sqlite3.Connection) -> dict[str, set[str]]:
-    output: dict[str, set[str]] = {doc_type: set() for doc_type in DOC_TYPES}
-    rows = conn.execute(
-        "SELECT doc_type, source_hash FROM document_index WHERE source_hash IS NOT NULL"
-    ).fetchall()
+def _load_db_rows(conn: sqlite3.Connection) -> dict[str, dict[str, str]]:
+    output: dict[str, dict[str, str]] = {}
+    for doc_type, table in TABLE_BY_DOC_TYPE.items():
+        rows = conn.execute(
+            f"SELECT source_hash, source_file FROM {table} WHERE source_hash IS NOT NULL"
+        ).fetchall()
+        output[doc_type] = {
+            str(row[0]).strip(): str(row[1] or "")
+            for row in rows
+            if str(row[0]).strip()
+        }
+    return output
+
+
+def _table_has_column(conn: sqlite3.Connection, table_name: str, column: str) -> bool:
+    rows = conn.execute(f"PRAGMA table_info({table_name})").fetchall()
+    return any(str(row[1] or "").strip() == column for row in rows)
+
+
+def _has_composite_unique_index(conn: sqlite3.Connection) -> bool:
+    rows = conn.execute("PRAGMA index_list(document_index)").fetchall()
+    for row in rows:
+        index_name = str(row[1] or "")
+        is_unique = int(row[2] or 0) == 1
+        if not index_name or not is_unique:
+            continue
+        columns = [
+            str(col_row[2] or "")
+            for col_row in conn.execute(f'PRAGMA index_info("{index_name}")').fetchall()
+        ]
+        if columns == ["source_hash", "doc_type"]:
+            return True
+    return False
+
+
+def _infer_provenance_class(source_file: str) -> str:
+    normalized = source_file.replace("\\", "/").strip().lower()
+    if not normalized:
+        return "unknown"
+    if normalized == "test.pdf" or normalized.endswith("/test.pdf"):
+        return "test_fixture"
+    for marker, provenance_class in BACKFILL_PROVENANCE_BY_MARKER.items():
+        if marker in normalized:
+            return provenance_class
+    if normalized.endswith(".pdf"):
+        return "extracted_pdf"
+    if normalized.endswith(".json"):
+        return "extracted_json"
+    return "derived_other"
+
+
+def _load_index_hashes_and_provenance(
+    conn: sqlite3.Connection,
+) -> tuple[dict[str, set[str]], dict[str, dict[str, str]]]:
+    output_hashes: dict[str, set[str]] = {doc_type: set() for doc_type in DOC_TYPES}
+    output_provenance: dict[str, dict[str, str]] = {doc_type: {} for doc_type in DOC_TYPES}
+    has_provenance = _table_has_column(conn, "document_index", "provenance_class")
+    select_sql = (
+        "SELECT doc_type, source_hash, source_file, provenance_class "
+        "FROM document_index WHERE source_hash IS NOT NULL"
+        if has_provenance
+        else "SELECT doc_type, source_hash, source_file, NULL "
+        "FROM document_index WHERE source_hash IS NOT NULL"
+    )
+    rows = conn.execute(select_sql).fetchall()
     for row in rows:
         doc_type = str(row[0] or "").strip()
         source_hash = str(row[1] or "").strip()
-        if doc_type in output and source_hash:
-            output[doc_type].add(source_hash)
-    return output
+        source_file = str(row[2] or "")
+        if doc_type in output_hashes and source_hash:
+            output_hashes[doc_type].add(source_hash)
+            provenance_class = str(row[3] or "").strip() or _infer_provenance_class(source_file)
+            output_provenance[doc_type][source_hash] = provenance_class
+    return output_hashes, output_provenance
 
 
 def _duplicate_counts(conn: sqlite3.Connection) -> dict[str, int]:
@@ -187,6 +259,8 @@ def evaluate_sector(
     require_extracted: bool,
     fail_on_extra_db: bool,
     fail_on_index_extras: bool,
+    fail_on_type_mismatch: bool = False,
+    allow_backfill_extra_db: bool = True,
 ) -> SectorReconciliation:
     violations: list[str] = []
     warnings: list[str] = []
@@ -194,9 +268,9 @@ def evaluate_sector(
     if not db_path.exists():
         return SectorReconciliation(
             sector=sector,
-            db_path=db_path,
-            extracted_root=extracted_root,
-            by_doc_type={},
+        db_path=db_path,
+        extracted_root=extracted_root,
+        by_doc_type={},
             duplicate_source_hash_rows={},
             orphan_rows={},
             parse_errors=0,
@@ -217,22 +291,29 @@ def evaluate_sector(
 
     conn = sqlite3.connect(db_path)
     try:
+        db_rows = _load_db_rows(conn)
         db_hashes = _load_db_hashes(conn)
-        index_hashes = _load_index_hashes(conn)
+        index_hashes, index_provenance = _load_index_hashes_and_provenance(conn)
+        has_provenance_column = _table_has_column(conn, "document_index", "provenance_class")
+        has_composite_key = _has_composite_unique_index(conn)
         duplicate_counts = _duplicate_counts(conn)
         orphan_counts = _orphan_counts(conn)
     finally:
         conn.close()
 
+    if not has_composite_key:
+        violations.append(
+            "document_index schema missing UNIQUE(source_hash, doc_type) normalization key."
+        )
+    if not has_provenance_column:
+        violations.append(
+            "document_index schema missing provenance_class column for backfill provenance tagging."
+        )
+
     if parse_errors:
         warnings.append(f"{parse_errors} extracted JSON files could not be parsed.")
 
     by_doc_type: dict[str, TypeReconciliation] = {}
-    db_union: set[str] = set()
-    index_union: set[str] = set()
-    for doc_type in DOC_TYPES:
-        db_union |= db_hashes.get(doc_type, set())
-        index_union |= index_hashes.get(doc_type, set())
 
     for doc_type in DOC_TYPES:
         extracted_set = extracted_hashes.get(doc_type, set())
@@ -241,11 +322,30 @@ def evaluate_sector(
 
         missing_in_db = extracted_set - db_set
         extra_in_db = db_set - extracted_set
-        # Index schema is unique on source_hash (not source_hash+doc_type), so
-        # coverage must be evaluated against global index hashes.
-        missing_in_index = db_set - index_union
-        extra_in_index = index_set - db_union
-        type_mismatch_in_index = (db_set & index_union) - index_set
+        missing_in_index = db_set - index_set
+        extra_in_index = index_set - db_set
+
+        type_mismatch_in_index_set: set[str] = set()
+        for source_hash in missing_in_index:
+            for other_doc_type in DOC_TYPES:
+                if other_doc_type == doc_type:
+                    continue
+                if source_hash in index_hashes.get(other_doc_type, set()):
+                    type_mismatch_in_index_set.add(source_hash)
+                    break
+        missing_in_index_exact = missing_in_index - type_mismatch_in_index_set
+
+        tolerated_backfill_extra_in_db = 0
+        actionable_extra_in_db = 0
+        for source_hash in extra_in_db:
+            source_file = db_rows.get(doc_type, {}).get(source_hash, "")
+            provenance_class = index_provenance.get(doc_type, {}).get(source_hash) or _infer_provenance_class(
+                source_file
+            )
+            if allow_backfill_extra_db and provenance_class.startswith("backfill_"):
+                tolerated_backfill_extra_in_db += 1
+            else:
+                actionable_extra_in_db += 1
 
         by_doc_type[doc_type] = TypeReconciliation(
             extracted_unique_hashes=len(extracted_set),
@@ -253,21 +353,26 @@ def evaluate_sector(
             index_unique_hashes=len(index_set),
             missing_in_db=len(missing_in_db),
             extra_in_db=len(extra_in_db),
+            tolerated_backfill_extra_in_db=tolerated_backfill_extra_in_db,
+            actionable_extra_in_db=actionable_extra_in_db,
             missing_in_index=len(missing_in_index),
             extra_in_index=len(extra_in_index),
-            type_mismatch_in_index=len(type_mismatch_in_index),
+            type_mismatch_in_index=len(type_mismatch_in_index_set),
         )
 
         if missing_in_db:
             violations.append(
                 f"{doc_type}: {len(missing_in_db)} extracted hashes missing in DB."
             )
-        if missing_in_index:
+        if missing_in_index_exact:
             violations.append(
-                f"{doc_type}: {len(missing_in_index)} DB hashes missing in document_index."
+                f"{doc_type}: {len(missing_in_index_exact)} DB hashes missing in document_index."
             )
-        if extra_in_db:
-            message = f"{doc_type}: {len(extra_in_db)} DB hashes not found in extracted JSON."
+        if actionable_extra_in_db:
+            message = (
+                f"{doc_type}: {actionable_extra_in_db} DB hashes not found in extracted JSON "
+                "(actionable)."
+            )
             if fail_on_extra_db:
                 violations.append(message)
             else:
@@ -278,13 +383,15 @@ def evaluate_sector(
                 violations.append(message)
             else:
                 warnings.append(message)
-        if type_mismatch_in_index:
-            warnings.append(
-                f"{doc_type}: {len(type_mismatch_in_index)} DB hashes are indexed under a different doc_type."
+        if type_mismatch_in_index_set:
+            message = (
+                f"{doc_type}: {len(type_mismatch_in_index_set)} DB hashes are indexed under a "
+                "different doc_type."
             )
-
-    if len(db_union) != sum(len(db_hashes.get(doc_type, set())) for doc_type in DOC_TYPES):
-        warnings.append("Cross-table source_hash collisions detected across corpus doc types.")
+            if fail_on_type_mismatch:
+                violations.append(message)
+            else:
+                warnings.append(message)
 
     for doc_type, dup_count in duplicate_counts.items():
         if dup_count > 0:
@@ -315,6 +422,8 @@ def evaluate_all(
     require_extracted: bool,
     fail_on_extra_db: bool,
     fail_on_index_extras: bool,
+    fail_on_type_mismatch: bool,
+    allow_backfill_extra_db: bool,
 ) -> list[SectorReconciliation]:
     paths = _default_paths()
     selected = sectors or list(paths.keys())
@@ -331,6 +440,8 @@ def evaluate_all(
                 require_extracted=require_extracted,
                 fail_on_extra_db=fail_on_extra_db,
                 fail_on_index_extras=fail_on_index_extras,
+                fail_on_type_mismatch=fail_on_type_mismatch,
+                allow_backfill_extra_db=allow_backfill_extra_db,
             )
         )
     return results
@@ -361,6 +472,16 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Fail when document_index contains hashes not found in source tables.",
     )
+    parser.add_argument(
+        "--fail-on-type-mismatch",
+        action="store_true",
+        help="Fail when a DB hash is indexed only under a different doc_type.",
+    )
+    parser.add_argument(
+        "--no-allow-backfill-extra-db",
+        action="store_true",
+        help="Treat backfill-only DB hashes missing from extracted JSON as actionable.",
+    )
     return parser
 
 
@@ -380,6 +501,8 @@ def _print_result(result: SectorReconciliation) -> None:
             f"extracted={row.extracted_unique_hashes} db={row.db_unique_hashes} "
             f"index={row.index_unique_hashes} "
             f"missing_in_db={row.missing_in_db} extra_in_db={row.extra_in_db} "
+            f"backfill_extra_in_db={row.tolerated_backfill_extra_in_db} "
+            f"actionable_extra_in_db={row.actionable_extra_in_db} "
             f"missing_in_index={row.missing_in_index} extra_in_index={row.extra_in_index} "
             f"type_mismatch_in_index={row.type_mismatch_in_index}"
         )
@@ -400,6 +523,8 @@ def main() -> int:
         require_extracted=bool(args.require_extracted),
         fail_on_extra_db=bool(args.fail_on_extra_db),
         fail_on_index_extras=bool(args.fail_on_index_extras),
+        fail_on_type_mismatch=bool(args.fail_on_type_mismatch),
+        allow_backfill_extra_db=not bool(args.no_allow_backfill_extra_db),
     )
     for result in results:
         _print_result(result)

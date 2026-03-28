@@ -1,13 +1,13 @@
 {
   "cusip": "A7BD5292038101FA39092A3445A06BEA1",
   "crawl_metadata": {
-    "crawl_timestamp": "2026-02-19T22:19:56.208520+00:00",
+    "crawl_timestamp": "2026-02-20T01:00:18.312420+00:00",
     "emma_url": "https://emma.msrb.org/Security/Details/A7BD5292038101FA39092A3445A06BEA1",
     "extraction_status": {
       "snapshot": "success",
       "interest_rate": "empty",
       "trade_activity": "success",
-      "ratings": "empty",
+      "ratings": "success",
       "disclosures": "success"
     }
   },
@@ -100,21 +100,21 @@
     {
       "trade_date": "12/04/2025 10:43 AM",
       "settlement_date": "12/05/2025",
-      "price": "78.465",
-      "yield": "4.72",
-      "calculation_date_price": "02/01/2045 @ 100",
-      "trade_amount": "5,000",
-      "trade_type": "Inter-dealer trade",
-      "special_condition": "-"
-    },
-    {
-      "trade_date": "12/04/2025 10:43 AM",
-      "settlement_date": "12/05/2025",
       "price": "78.665",
       "yield": "4.701",
       "calculation_date_price": "02/01/2045 @ 100",
       "trade_amount": "5,000",
       "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "12/04/2025 10:43 AM",
+      "settlement_date": "12/05/2025",
+      "price": "78.465",
+      "yield": "4.72",
+      "calculation_date_price": "02/01/2045 @ 100",
+      "trade_amount": "5,000",
+      "trade_type": "Inter-dealer trade",
       "special_condition": "-"
     },
     {
@@ -340,21 +340,21 @@
     {
       "trade_date": "08/29/2025 11:06 AM",
       "settlement_date": "09/02/2025",
-      "price": "71.55",
-      "yield": "5.379",
-      "calculation_date_price": "02/01/2045 @ 100",
-      "trade_amount": "5,000",
-      "trade_type": "Inter-dealer trade",
-      "special_condition": "-"
-    },
-    {
-      "trade_date": "08/29/2025 11:06 AM",
-      "settlement_date": "09/02/2025",
       "price": "71.75",
       "yield": "5.358",
       "calculation_date_price": "02/01/2045 @ 100",
       "trade_amount": "5,000",
       "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "08/29/2025 11:06 AM",
+      "settlement_date": "09/02/2025",
+      "price": "71.55",
+      "yield": "5.379",
+      "calculation_date_price": "02/01/2045 @ 100",
+      "trade_amount": "5,000",
+      "trade_type": "Inter-dealer trade",
       "special_condition": "-"
     },
     {
@@ -690,21 +690,21 @@
     {
       "trade_date": "04/30/2025 04:17 PM",
       "settlement_date": "05/01/2025",
-      "price": "71.23",
-      "yield": "5.383",
-      "calculation_date_price": "02/01/2045 @ 100",
-      "trade_amount": "100,000",
-      "trade_type": "Inter-dealer trade",
-      "special_condition": "-"
-    },
-    {
-      "trade_date": "04/30/2025 04:17 PM",
-      "settlement_date": "05/01/2025",
       "price": "69.98",
       "yield": "5.513",
       "calculation_date_price": "02/01/2045 @ 100",
       "trade_amount": "100,000",
       "trade_type": "Customer sold",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "04/30/2025 04:17 PM",
+      "settlement_date": "05/01/2025",
+      "price": "71.23",
+      "yield": "5.383",
+      "calculation_date_price": "02/01/2045 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Inter-dealer trade",
       "special_condition": "-"
     },
     {
@@ -1028,20 +1028,49 @@
       "special_condition": "-"
     }
   ],
-  "ratings": [],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Long-Term Issue Rating (effective 07/08/2025) Long-Term Issue Rating Alert Code (effective 07/08/2025) Unenhanced Long-Term Issue Rating (effective 07/08/2025) Unenhanced Long-Term Issue Rating Alert Code (effective 07/08/2025) Short-Term Issue Rating Short-Term Issue Rating Alert Code Unenhanced Sh"
+    },
+    {
+      "agency": "KBRA",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Kroll Bond Rating Agency."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Access Moody's At-A Glance (Issuer) | Access Moody's At-A Glance (Obligor) Underlying Long-Term Debt Rating (effective 01/23/2025) Underlying Long-Term Debt Rating Watch Status Enhanced Long-Term Debt Rating Enhanced Long-Term Debt Rating Watch Status Insured Long-Term Debt Rating Insured Long-Term "
+    },
+    {
+      "agency": "S&P",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Long-Term Debt Rating (effective 07/28/2021) Outlook/Credit Watch (effective 07/28/2021) Underlying Maturity Long-Term Debt Rating Underlying Outlook/Credit Watch Short-Term Rating Credit Watch Underlying Maturity Short-Term Debt Rating Underlying Credit Watch Access definitions for the ratings prov"
+    }
+  ],
   "disclosures": [
     {
       "doc_type": "Disclosure",
       "filing_date": "11/21/2025",
       "pdf_url": "https://emma.msrb.org/P21989438-P21516189-P21970390.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0001_Financial_Disclosure.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0001_Financial_Disclosure.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "07/08/2025",
       "pdf_url": "https://emma.msrb.org/P11872641-P11432691-P11877681.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0002_Event_Disclosure.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0002_Event_Disclosure.pdf",
       "download_success": true
     },
     {
@@ -1055,7 +1084,7 @@
       "doc_type": "Disclosure",
       "filing_date": "02/13/2025",
       "pdf_url": "https://emma.msrb.org/P21894100-P21448524-P21895916.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0004_Phoenix_Children_s_Announces_the_Retirement_of_Pre.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0004_Phoenix_Children_s_Announces_the_Retirement_of_Pre.pdf",
       "download_success": true
     },
     {
@@ -1069,7 +1098,7 @@
       "doc_type": "Disclosure",
       "filing_date": "07/20/2023",
       "pdf_url": "https://emma.msrb.org/P11686682-P11297593-P11728053.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0006_Phoenix_Children_s_Appoints_Michelle_Bruhn_as_Chie.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0006_Phoenix_Children_s_Appoints_Michelle_Bruhn_as_Chie.pdf",
       "download_success": true
     },
     {
@@ -1083,7 +1112,7 @@
       "doc_type": "Disclosure",
       "filing_date": "01/23/2025",
       "pdf_url": "https://emma.msrb.org/P11824699-P11398449-P11839576.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0008_Phoenix_Children_s_Hospital_AZ_Moody_s_Outlook_Jan.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0008_Phoenix_Children_s_Hospital_AZ_Moody_s_Outlook_Jan.pdf",
       "download_success": true
     },
     {
@@ -1097,7 +1126,7 @@
       "doc_type": "Disclosure",
       "filing_date": "11/15/2024",
       "pdf_url": "https://emma.msrb.org/P11807752-P11385939-P11825368.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0010_Phoenix_Children_s_Hospital_AZ_Standard_Poor_s_Aff.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0010_Phoenix_Children_s_Hospital_AZ_Standard_Poor_s_Aff.pdf",
       "download_success": true
     },
     {
@@ -1111,7 +1140,7 @@
       "doc_type": "Disclosure",
       "filing_date": "08/29/2023",
       "pdf_url": "https://emma.msrb.org/P11807750-P11385938-P11825367.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0012_Phoenix_Children_s_Hospital_AZ_Standard_Poor_s_Aff.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0012_Phoenix_Children_s_Hospital_AZ_Standard_Poor_s_Aff.pdf",
       "download_success": true
     },
     {
@@ -1125,7 +1154,7 @@
       "doc_type": "Disclosure",
       "filing_date": "07/16/2024",
       "pdf_url": "https://emma.msrb.org/P21828842-P21401771-P21843531.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0014_Phoenix_Children_s_Hospital_AZ_Fitch_Affirmation_J.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0014_Phoenix_Children_s_Hospital_AZ_Fitch_Affirmation_J.pdf",
       "download_success": true
     },
     {
@@ -1139,7 +1168,7 @@
       "doc_type": "Disclosure",
       "filing_date": "07/24/2023",
       "pdf_url": "https://emma.msrb.org/P31446118-P31123306-P31535453.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0016_Phoenix_Children_s_Hospital_AZ_Fitch_Affirmation_J.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0016_Phoenix_Children_s_Hospital_AZ_Fitch_Affirmation_J.pdf",
       "download_success": true
     },
     {
@@ -1153,7 +1182,7 @@
       "doc_type": "Disclosure",
       "filing_date": "12/13/2024",
       "pdf_url": "https://emma.msrb.org/P11812678-P11389446-P11829268.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0018_Incurrence_of_Financial_Obligations_as_of_12_13_20.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0018_Incurrence_of_Financial_Obligations_as_of_12_13_20.pdf",
       "download_success": true
     },
     {
@@ -1174,7 +1203,7 @@
       "doc_type": "Disclosure",
       "filing_date": "05/01/2025",
       "pdf_url": "https://emma.msrb.org/P21927586-P21473396-P21923573.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0021_Annual_Financial_Disclosures_Posted_05_01_2025_for.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0021_Annual_Financial_Disclosures_Posted_05_01_2025_for.pdf",
       "download_success": true
     },
     {
@@ -1188,7 +1217,7 @@
       "doc_type": "Disclosure",
       "filing_date": "05/01/2025",
       "pdf_url": "https://emma.msrb.org/P21927508-P21473394-P21923506.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0023_Audited_Financial_Statements_Posted_05_01_2025_for.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0023_Audited_Financial_Statements_Posted_05_01_2025_for.pdf",
       "download_success": true
     },
     {
@@ -1202,7 +1231,7 @@
       "doc_type": "Disclosure",
       "filing_date": "06/30/2025",
       "pdf_url": "https://emma.msrb.org/P11880511-P11438011-P11883440.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0025_2025_2nd_Qtr_Unaudited_Financial_Statements_for_th.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0025_2025_2nd_Qtr_Unaudited_Financial_Statements_for_th.pdf",
       "download_success": true
     },
     {
@@ -1216,7 +1245,7 @@
       "doc_type": "Disclosure",
       "filing_date": "03/31/2025",
       "pdf_url": "https://emma.msrb.org/P11860809-P11424364-P11868391.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0027_2025_1st_Qtr_Unaudited_Financial_Statements_for_th.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0027_2025_1st_Qtr_Unaudited_Financial_Statements_for_th.pdf",
       "download_success": true
     },
     {
@@ -1230,7 +1259,7 @@
       "doc_type": "Disclosure",
       "filing_date": "09/30/2024",
       "pdf_url": "https://emma.msrb.org/P21862696-P21425576-P21869556.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0029_2024_3rd_Qtr_Unaudited_Financial_Statements_for_th.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0029_2024_3rd_Qtr_Unaudited_Financial_Statements_for_th.pdf",
       "download_success": true
     },
     {
@@ -1244,7 +1273,7 @@
       "doc_type": "Disclosure",
       "filing_date": "06/30/2024",
       "pdf_url": "https://emma.msrb.org/P21839486-P21409715-P21852138.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0031_2024_2nd_Qtr_Unaudited_Financial_Statements_for_th.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0031_2024_2nd_Qtr_Unaudited_Financial_Statements_for_th.pdf",
       "download_success": true
     },
     {
@@ -1258,7 +1287,7 @@
       "doc_type": "Disclosure",
       "filing_date": "03/31/2024",
       "pdf_url": "https://emma.msrb.org/P21816085-P21392889-P21833793.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0033_2024_1st_Qtr_Unaudited_Financial_Statements_for_th.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0033_2024_1st_Qtr_Unaudited_Financial_Statements_for_th.pdf",
       "download_success": true
     },
     {
@@ -1272,7 +1301,7 @@
       "doc_type": "Disclosure",
       "filing_date": "12/31/2023",
       "pdf_url": "https://emma.msrb.org/P21784627-P21370122-P21808803.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0035_2023_4th_Qtr_Unaudited_Financial_Statements_for_th.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0035_2023_4th_Qtr_Unaudited_Financial_Statements_for_th.pdf",
       "download_success": true
     },
     {
@@ -1286,7 +1315,7 @@
       "doc_type": "Disclosure",
       "filing_date": "09/30/2023",
       "pdf_url": "https://emma.msrb.org/P11706719-P11312070-P11743904.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0037_2023_3rd_Qtr_Unaudited_Financial_Statements_for_th.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0037_2023_3rd_Qtr_Unaudited_Financial_Statements_for_th.pdf",
       "download_success": true
     },
     {
@@ -1300,7 +1329,7 @@
       "doc_type": "Disclosure",
       "filing_date": "06/30/2023",
       "pdf_url": "https://emma.msrb.org/P21724023-P21325040-P21758330.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0039_2023_2nd_Qtr_Unaudited_Financial_Statements_for_th.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0039_2023_2nd_Qtr_Unaudited_Financial_Statements_for_th.pdf",
       "download_success": true
     },
     {
@@ -1314,7 +1343,7 @@
       "doc_type": "Disclosure",
       "filing_date": "03/31/2023",
       "pdf_url": "https://emma.msrb.org/P11666243-P11283129-P11712120.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0041_2023_1st_Qtr_Unaudited_Financial_Statements_for_th.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0041_2023_1st_Qtr_Unaudited_Financial_Statements_for_th.pdf",
       "download_success": true
     },
     {
@@ -1328,7 +1357,7 @@
       "doc_type": "Disclosure",
       "filing_date": "12/31/2022",
       "pdf_url": "https://emma.msrb.org/P21667257-P21283149-P21712141.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0043_2022_4th_Qtr_Unaudited_Financial_Statements_for_th.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0043_2022_4th_Qtr_Unaudited_Financial_Statements_for_th.pdf",
       "download_success": true
     },
     {
@@ -1342,7 +1371,7 @@
       "doc_type": "Disclosure",
       "filing_date": "12/31/2023",
       "pdf_url": "https://emma.msrb.org/P21805010-P21385159-P21825326.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0045_2023_Continuing_Disclosure_Report_for_the_year_end.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0045_2023_Continuing_Disclosure_Report_for_the_year_end.pdf",
       "download_success": true
     },
     {
@@ -1356,7 +1385,7 @@
       "doc_type": "Disclosure",
       "filing_date": "12/31/2022",
       "pdf_url": "https://emma.msrb.org/P21704582-P21311053-P21742966.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0047_2022_Continuing_Disclosure_Report_for_the_year_end.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0047_2022_Continuing_Disclosure_Report_for_the_year_end.pdf",
       "download_success": true
     },
     {
@@ -1370,7 +1399,7 @@
       "doc_type": "Disclosure",
       "filing_date": "12/31/2023",
       "pdf_url": "https://emma.msrb.org/P21805008-P21385157-P21825325.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0049_2023_Audited_Financial_Statements_for_the_year_end.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0049_2023_Audited_Financial_Statements_for_the_year_end.pdf",
       "download_success": true
     },
     {
@@ -1384,7 +1413,7 @@
       "doc_type": "Disclosure",
       "filing_date": "12/31/2022",
       "pdf_url": "https://emma.msrb.org/P21704584-P21311054-P21742967.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0051_2022_Audited_Financial_Statements_for_the_year_end.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0051_2022_Audited_Financial_Statements_for_the_year_end.pdf",
       "download_success": true
     },
     {
@@ -1398,7 +1427,7 @@
       "doc_type": "Disclosure",
       "filing_date": "05/22/2024",
       "pdf_url": "https://emma.msrb.org/P21812067-P21390143-P21830821.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0053_PCH_Investor_Call_Presentation_for_May_22_2024_as_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0053_PCH_Investor_Call_Presentation_for_May_22_2024_as_.pdf",
       "download_success": true
     },
     {
@@ -1412,7 +1441,7 @@
       "doc_type": "Disclosure",
       "filing_date": "05/16/2024",
       "pdf_url": "https://emma.msrb.org/P21809410-P21388283-P21828788.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0055_PCH_2024_Investor_Call_Invitation_for_May_22_2024_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0055_PCH_2024_Investor_Call_Invitation_for_May_22_2024_.pdf",
       "download_success": true
     },
     {
@@ -1426,7 +1455,7 @@
       "doc_type": "Disclosure",
       "filing_date": "05/24/2023",
       "pdf_url": "https://emma.msrb.org/P21710280-P21315128-P21747509.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0057_PCH_Investor_Call_Presentation_for_May_24_2023_as_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0057_PCH_Investor_Call_Presentation_for_May_24_2023_as_.pdf",
       "download_success": true
     },
     {
@@ -1440,7 +1469,7 @@
       "doc_type": "Disclosure",
       "filing_date": "12/31/2022",
       "pdf_url": "https://emma.msrb.org/P21707796-P21313355-P21745538.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0059_PCH_2023_Investor_Call_Invitation_for_May_24_2023_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A7BD5292038101FA39092A3445A06BEA1\\A7BD5292038101FA39092A3445A06BEA1_0059_PCH_2023_Investor_Call_Invitation_for_May_24_2023_.pdf",
       "download_success": true
     },
     {

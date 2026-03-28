@@ -34,6 +34,7 @@ export class FactsService {
      * @param offset
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns any Successful Response
      * @throws ApiError
@@ -51,6 +52,7 @@ export class FactsService {
         offset?: number,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
@@ -59,6 +61,7 @@ export class FactsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {
@@ -89,6 +92,7 @@ export class FactsService {
      * @param includeArchived Include archived facts
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns ExtractedFactSummary Successful Response
      * @throws ApiError
@@ -100,6 +104,7 @@ export class FactsService {
         includeArchived: boolean = false,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<Array<ExtractedFactSummary>> {
         return __request(OpenAPI, {
@@ -108,6 +113,7 @@ export class FactsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {
@@ -132,6 +138,7 @@ export class FactsService {
      * @param schemaPath Specific path to check
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns any Successful Response
      * @throws ApiError
@@ -141,6 +148,7 @@ export class FactsService {
         schemaPath?: (string | null),
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<Record<string, Array<Record<string, any>>>> {
         return __request(OpenAPI, {
@@ -149,6 +157,7 @@ export class FactsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {
@@ -169,6 +178,7 @@ export class FactsService {
      * @param maxAgeDays Only include older pending items
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns any Successful Response
      * @throws ApiError
@@ -180,6 +190,7 @@ export class FactsService {
         maxAgeDays?: (number | null),
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<Record<string, Array<Record<string, any>>>> {
         return __request(OpenAPI, {
@@ -188,6 +199,7 @@ export class FactsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {
@@ -215,6 +227,7 @@ export class FactsService {
      * @param strategy Resolution strategy: highest_confidence
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns any Successful Response
      * @throws ApiError
@@ -224,6 +237,7 @@ export class FactsService {
         strategy: string = 'highest_confidence',
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<Record<string, Array<Record<string, any>>>> {
         return __request(OpenAPI, {
@@ -232,6 +246,7 @@ export class FactsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {
@@ -251,6 +266,7 @@ export class FactsService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns number Successful Response
      * @throws ApiError
@@ -259,6 +275,7 @@ export class FactsService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<Record<string, number>> {
         return __request(OpenAPI, {
@@ -267,6 +284,7 @@ export class FactsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {
@@ -294,6 +312,7 @@ export class FactsService {
      * @param autoApprove If true, fact is immediately approved without review
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns ExtractedFactRead Successful Response
      * @throws ApiError
@@ -304,6 +323,7 @@ export class FactsService {
         autoApprove: boolean = false,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<ExtractedFactRead> {
         return __request(OpenAPI, {
@@ -312,6 +332,7 @@ export class FactsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {
@@ -338,6 +359,7 @@ export class FactsService {
      * @param criticality Filter by criticality tier
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns MissingPathInfo Successful Response
      * @throws ApiError
@@ -348,6 +370,7 @@ export class FactsService {
         criticality?: (string | null),
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<Array<MissingPathInfo>> {
         return __request(OpenAPI, {
@@ -356,6 +379,7 @@ export class FactsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {
@@ -377,6 +401,7 @@ export class FactsService {
      * @param factId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns ExtractedFactRead Successful Response
      * @throws ApiError
@@ -385,6 +410,7 @@ export class FactsService {
         factId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<ExtractedFactRead> {
         return __request(OpenAPI, {
@@ -396,6 +422,7 @@ export class FactsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             errors: {
@@ -418,6 +445,7 @@ export class FactsService {
      * @param note
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns ExtractedFactRead Successful Response
      * @throws ApiError
@@ -429,6 +457,7 @@ export class FactsService {
         note?: (string | null),
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<ExtractedFactRead> {
         return __request(OpenAPI, {
@@ -440,6 +469,7 @@ export class FactsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {
@@ -460,6 +490,7 @@ export class FactsService {
      * @param reviewerId ID of user archiving
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns ExtractedFactRead Successful Response
      * @throws ApiError
@@ -470,6 +501,7 @@ export class FactsService {
         reviewerId?: (string | null),
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<ExtractedFactRead> {
         return __request(OpenAPI, {
@@ -481,6 +513,7 @@ export class FactsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {
@@ -504,6 +537,7 @@ export class FactsService {
      * @param reason
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns ExtractedFactRead Successful Response
      * @throws ApiError
@@ -514,6 +548,7 @@ export class FactsService {
         reason?: (string | null),
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<ExtractedFactRead> {
         return __request(OpenAPI, {
@@ -525,6 +560,7 @@ export class FactsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {
@@ -551,6 +587,7 @@ export class FactsService {
      * @param reviewerId ID of user submitting review
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns ExtractedFactRead Successful Response
      * @throws ApiError
@@ -561,6 +598,7 @@ export class FactsService {
         reviewerId?: (string | null),
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<ExtractedFactRead> {
         return __request(OpenAPI, {
@@ -572,6 +610,7 @@ export class FactsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {
@@ -596,6 +635,7 @@ export class FactsService {
      * @param reviewerId ID of user requesting revision
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns ExtractedFactRead Successful Response
      * @throws ApiError
@@ -606,6 +646,7 @@ export class FactsService {
         reviewerId?: (string | null),
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<ExtractedFactRead> {
         return __request(OpenAPI, {
@@ -617,6 +658,7 @@ export class FactsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {
@@ -637,6 +679,7 @@ export class FactsService {
      * @param factId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns FactRevisionRead Successful Response
      * @throws ApiError
@@ -645,6 +688,7 @@ export class FactsService {
         factId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<Array<FactRevisionRead>> {
         return __request(OpenAPI, {
@@ -656,6 +700,7 @@ export class FactsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             errors: {
@@ -671,6 +716,7 @@ export class FactsService {
      * @param reviewerId ID of user unarchiving
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns ExtractedFactRead Successful Response
      * @throws ApiError
@@ -681,6 +727,7 @@ export class FactsService {
         reviewerId?: (string | null),
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<ExtractedFactRead> {
         return __request(OpenAPI, {
@@ -692,6 +739,7 @@ export class FactsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {

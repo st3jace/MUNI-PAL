@@ -84,6 +84,7 @@ class ChunkType(str, Enum):
     PAGE = "page"  # PDF page
     SHEET = "sheet"  # Excel sheet
     SECTION = "section"  # Document section
+    DOCUMENT = "document"  # Full document (docx, txt)
     IMAGE = "image"  # Image file
 
 

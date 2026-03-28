@@ -28,6 +28,7 @@ export class InformationRequestsService {
      * @param offset
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -40,6 +41,7 @@ export class InformationRequestsService {
         offset?: number,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -47,6 +49,7 @@ export class InformationRequestsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'project_id': projectId,
@@ -67,6 +70,7 @@ export class InformationRequestsService {
      * @param requestBody
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns InformationRequestRead Successful Response
      * @throws ApiError
      */
@@ -74,6 +78,7 @@ export class InformationRequestsService {
         requestBody: InformationRequestCreate,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<InformationRequestRead> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -81,6 +86,7 @@ export class InformationRequestsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -98,6 +104,7 @@ export class InformationRequestsService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -105,6 +112,7 @@ export class InformationRequestsService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -112,6 +120,7 @@ export class InformationRequestsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'project_id': projectId,
@@ -127,6 +136,7 @@ export class InformationRequestsService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns InformationRequestSummary Successful Response
      * @throws ApiError
      */
@@ -134,6 +144,7 @@ export class InformationRequestsService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Array<InformationRequestSummary>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -144,6 +155,7 @@ export class InformationRequestsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             errors: {
                 422: `Validation Error`,
@@ -158,6 +170,7 @@ export class InformationRequestsService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns InformationRequestReport Successful Response
      * @throws ApiError
      */
@@ -165,6 +178,7 @@ export class InformationRequestsService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<InformationRequestReport> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -175,6 +189,7 @@ export class InformationRequestsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             errors: {
                 422: `Validation Error`,
@@ -187,6 +202,7 @@ export class InformationRequestsService {
      * @param requestId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns InformationRequestRead Successful Response
      * @throws ApiError
      */
@@ -194,6 +210,7 @@ export class InformationRequestsService {
         requestId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<InformationRequestRead> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -204,6 +221,7 @@ export class InformationRequestsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             errors: {
                 422: `Validation Error`,
@@ -219,6 +237,7 @@ export class InformationRequestsService {
      * @param requestBody
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns InformationRequestRead Successful Response
      * @throws ApiError
      */
@@ -227,6 +246,7 @@ export class InformationRequestsService {
         requestBody: InformationRequestUpdate,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<InformationRequestRead> {
         return __request(OpenAPI, {
             method: 'PATCH',
@@ -237,6 +257,7 @@ export class InformationRequestsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -254,6 +275,7 @@ export class InformationRequestsService {
      * @param userId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns InformationRequestRead Successful Response
      * @throws ApiError
      */
@@ -262,6 +284,7 @@ export class InformationRequestsService {
         userId?: (string | null),
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<InformationRequestRead> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -272,6 +295,7 @@ export class InformationRequestsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'user_id': userId,
@@ -291,6 +315,7 @@ export class InformationRequestsService {
      * @param reviewDate
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns InformationRequestRead Successful Response
      * @throws ApiError
      */
@@ -300,6 +325,7 @@ export class InformationRequestsService {
         reviewDate?: (string | null),
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<InformationRequestRead> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -310,6 +336,7 @@ export class InformationRequestsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'reason': reason,
@@ -329,6 +356,7 @@ export class InformationRequestsService {
      * @param requestBody
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns InformationRequestRead Successful Response
      * @throws ApiError
      */
@@ -337,6 +365,7 @@ export class InformationRequestsService {
         requestBody: LinkEvidenceRequest,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<InformationRequestRead> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -347,6 +376,7 @@ export class InformationRequestsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -364,6 +394,7 @@ export class InformationRequestsService {
      * @param requestBody
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns InformationRequestRead Successful Response
      * @throws ApiError
      */
@@ -372,6 +403,7 @@ export class InformationRequestsService {
         requestBody: ResolveRequestInput,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<InformationRequestRead> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -382,6 +414,7 @@ export class InformationRequestsService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             body: requestBody,
             mediaType: 'application/json',

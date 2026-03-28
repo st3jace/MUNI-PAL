@@ -128,6 +128,38 @@ class FactService:
             normalized = normalized.replace(tzinfo=timezone.utc)
         return normalized.timestamp()
 
+    @classmethod
+    def _publication_priority_key(cls, fact: ExtractedFact) -> tuple[float, float, float, float, float, str]:
+        """
+        Priority key for deterministic per-path fact selection.
+
+        Canonical facts win first, then review/canonical/confidence ordering, then recency/id.
+        """
+        return (
+            1.0 if fact.is_canonical else 0.0,
+            cls._review_status_weight(fact.review_status),
+            float(fact.canonical_score or 0.0),
+            float(fact.confidence_score or 0.0),
+            cls._created_timestamp(fact.created_at),
+            fact.id,
+        )
+
+    @classmethod
+    def select_preferred_facts_by_path(
+        cls,
+        facts: list[ExtractedFact],
+    ) -> dict[str, ExtractedFact]:
+        """Select one deterministic preferred fact per schema path."""
+        candidates_by_path: dict[str, list[ExtractedFact]] = defaultdict(list)
+        for fact in facts:
+            candidates_by_path[fact.schema_path].append(fact)
+
+        selected: dict[str, ExtractedFact] = {}
+        for schema_path, candidates in candidates_by_path.items():
+            selected[schema_path] = max(candidates, key=cls._publication_priority_key)
+
+        return {schema_path: selected[schema_path] for schema_path in sorted(selected.keys())}
+
     @staticmethod
     def _review_status_weight(review_status: str) -> float:
         if review_status == ReviewStatus.APPROVED.value:
@@ -537,6 +569,49 @@ class FactService:
     # -------------------------------------------------------------------------
     # Query Methods
     # -------------------------------------------------------------------------
+
+    async def get_active_approved_facts(
+        self,
+        project_id: UUID | str,
+        schema_paths: list[str] | None = None,
+    ) -> list[ExtractedFact]:
+        """Return active approved facts for a project, optionally filtered by path."""
+        project_id_str = str(project_id)
+        query = select(ExtractedFact).where(
+            and_(
+                ExtractedFact.project_id == project_id_str,
+                ExtractedFact.review_status == ReviewStatus.APPROVED.value,
+                ExtractedFact.lifecycle_state == FactLifecycleState.ACTIVE.value,
+            )
+        )
+        if schema_paths is not None:
+            if not schema_paths:
+                return []
+            query = query.where(ExtractedFact.schema_path.in_(schema_paths))
+
+        query = query.order_by(
+            ExtractedFact.schema_path.asc(),
+            ExtractedFact.is_canonical.desc(),
+            ExtractedFact.canonical_score.desc(),
+            ExtractedFact.confidence_score.desc(),
+            ExtractedFact.created_at.desc(),
+            ExtractedFact.id.desc(),
+        )
+
+        result = await self.session.execute(query)
+        return list(result.scalars().all())
+
+    async def get_active_approved_facts_by_path(
+        self,
+        project_id: UUID | str,
+        schema_paths: list[str] | None = None,
+    ) -> dict[str, ExtractedFact]:
+        """Return preferred active approved fact per schema path."""
+        facts = await self.get_active_approved_facts(
+            project_id=project_id,
+            schema_paths=schema_paths,
+        )
+        return self.select_preferred_facts_by_path(facts)
 
     async def get_fact(self, fact_id: UUID) -> ExtractedFact | None:
         """

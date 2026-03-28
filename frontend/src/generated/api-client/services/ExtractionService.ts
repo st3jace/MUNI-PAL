@@ -17,6 +17,7 @@ export class ExtractionService {
      * @param limit
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns any Successful Response
      * @throws ApiError
@@ -28,6 +29,7 @@ export class ExtractionService {
         limit: number = 50,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
@@ -36,6 +38,7 @@ export class ExtractionService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {
@@ -60,6 +63,7 @@ export class ExtractionService {
      * @param requestBody
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns ExtractionResponse Successful Response
      * @throws ApiError
@@ -68,6 +72,7 @@ export class ExtractionService {
         requestBody: ExtractionRequest,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<ExtractionResponse> {
         return __request(OpenAPI, {
@@ -76,6 +81,7 @@ export class ExtractionService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             body: requestBody,
@@ -91,6 +97,7 @@ export class ExtractionService {
      * @param jobId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns any Successful Response
      * @throws ApiError
@@ -99,6 +106,7 @@ export class ExtractionService {
         jobId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
@@ -110,6 +118,7 @@ export class ExtractionService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             errors: {
@@ -123,6 +132,7 @@ export class ExtractionService {
      * @param jobId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns ExtractionResponse Successful Response
      * @throws ApiError
@@ -131,6 +141,7 @@ export class ExtractionService {
         jobId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<ExtractionResponse> {
         return __request(OpenAPI, {
@@ -142,6 +153,7 @@ export class ExtractionService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             errors: {
@@ -161,6 +173,7 @@ export class ExtractionService {
      * @param jobId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns any Successful Response
      * @throws ApiError
@@ -169,6 +182,7 @@ export class ExtractionService {
         jobId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
@@ -180,6 +194,7 @@ export class ExtractionService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             errors: {

@@ -4,7 +4,7 @@
 /* eslint-disable */
 export type Body_upload_artifact_api_v1_artifacts_upload_post = {
     display_name?: (string | null);
-    file: Blob;
+    file: string;
     project_id: string;
 };
 

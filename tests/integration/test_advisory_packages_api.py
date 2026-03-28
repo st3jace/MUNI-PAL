@@ -14,7 +14,7 @@ class TestAdvisoryPackagesAPI:
         await db_session.commit()
         return project
 
-    async def test_generate_internal_and_external_packages(self, test_client, project):
+    async def test_generate_internal_and_external_packages(self, test_client, project, auth_headers):
         """Internal and external generate endpoints return successful responses."""
         internal_response = await test_client.post(
             "/api/v1/advisory-packages/internal/generate",
@@ -22,6 +22,7 @@ class TestAdvisoryPackagesAPI:
                 "project_id": project["id"],
                 "force_regenerate": False,
             },
+            headers=auth_headers,
         )
 
         assert internal_response.status_code == 200
@@ -38,6 +39,7 @@ class TestAdvisoryPackagesAPI:
                 "include_disclosure": True,
                 "force_regenerate": False,
             },
+            headers=auth_headers,
         )
 
         assert external_response.status_code == 200
@@ -46,7 +48,8 @@ class TestAdvisoryPackagesAPI:
         assert "package_id" in external_payload
 
         package_response = await test_client.get(
-            f"/api/v1/advisory-packages/external/{external_payload['package_id']}"
+            f"/api/v1/advisory-packages/external/{external_payload['package_id']}",
+            headers=auth_headers,
         )
 
         assert package_response.status_code == 200

@@ -16,6 +16,7 @@ from munipal.api.routes import (
     advisory_packages,
     artifacts,
     checklist,
+    deal_documents,
     deliverables,
     # v2 - WP7, WP8, Bifurcated Deliverables
     disclosure,
@@ -27,8 +28,11 @@ from munipal.api.routes import (
     projects,
     readiness,
     risk_reporting,
+    sensing,
+    templates,
 )
 from munipal.config import get_settings
+from munipal.middleware.telemetry import TelemetryMiddleware
 
 settings = get_settings()
 
@@ -63,6 +67,11 @@ app = FastAPI(
 # -----------------------------------------------------------------------------
 # Middleware
 # -----------------------------------------------------------------------------
+app.add_middleware(
+    TelemetryMiddleware,
+    jsonl_path=settings.telemetry_jsonl_path,
+    enabled=settings.telemetry_enabled,
+)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"] if settings.debug else [],  # Configure for production
@@ -124,6 +133,13 @@ app.include_router(information_requests.router, prefix="/api/v1/information-requ
 # v2 - Bifurcated Deliverables (Internal/External)
 app.include_router(advisory_packages.router, prefix="/api/v1/advisory-packages", tags=["Advisory Packages"])
 app.include_router(risk_reporting.router, prefix="/api/v1/risk", tags=["Risk"])
+
+# Document Management System
+app.include_router(deal_documents.router, prefix="/api/v1/deal-documents", tags=["Deal Documents"])
+app.include_router(templates.router, prefix="/api/v1/templates", tags=["Templates"])
+
+# Sensing Component (top-of-funnel lead generation tools)
+app.include_router(sensing.router, prefix="/api/v1/sensing", tags=["Sensing"])
 
 
 # -----------------------------------------------------------------------------

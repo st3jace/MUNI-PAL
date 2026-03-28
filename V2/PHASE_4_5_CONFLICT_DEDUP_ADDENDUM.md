@@ -37,8 +37,10 @@ Implemented:
 - Stakeholder/default approval completed for replay artifact promotion readiness (`reports/baseline_canonical_replay_20260219.json`, `overall_stable=true`)
 - Control baseline policy ratified and enforced: explicit empty control row `41f263ab-d83a-42c6-9f30-be128ddd3320` retained in target DB (`0` artifacts, `0` facts) for deterministic empty-corpus coverage
 
-In validation:
-- Promotion of approved replay artifact and gate evidence into target CI release run records
+Validation closeout:
+- 2026-02-22: Promotion of approved replay artifact and gate evidence into target CI release run records completed.
+- 2026-02-22: Artifact upload path now dispatches async chunking tasks via Celery (`enqueue_artifact_processing_task` in `src/munipal/services/artifact_service.py`) with non-blocking operator-visible fallback when broker dispatch fails.
+- 2026-02-22: Added artifact async-dispatch coverage in integration/unit tests (`tests/integration/test_artifacts_api.py`, `tests/unit/test_artifact_dispatch.py`) to validate enqueue behavior and dispatch-failure persistence.
 
 ## Backlog (Ordered)
 

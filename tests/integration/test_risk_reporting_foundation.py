@@ -26,6 +26,14 @@ def cohort_params() -> dict[str, str | int]:
     }
 
 
+@pytest.fixture(autouse=True)
+def use_jwt_auth_headers(test_client, auth_headers):
+    """Run this suite against JWT-enforced auth without per-request boilerplate."""
+    test_client.headers.update(auth_headers)
+    yield
+    test_client.headers.pop("Authorization", None)
+
+
 @pytest.fixture
 async def project_with_risk_job(factory, db_session):
     playbook = await factory.create_playbook()
@@ -314,12 +322,15 @@ async def test_risk_diagnostics_guardrails_expose_explicit_breaches(
     assert equipment_concentration["violation"] is True
     assert equipment_concentration["threshold"]["target_max"] == 0.65
     assert equipment_concentration["threshold"]["tolerance_max"] == 0.7
+    assert guardrails["guardrail.dscr.scenario_sensitivity"]["status"] == "pass"
+    assert guardrails["guardrail.dscr.ratio_consistency"]["status"] == "breach"
 
     actions = {item["action_id"]: item for item in data["actions"]}
     assert "action.dscr.coverage" in actions
     assert actions["action.dscr.coverage"]["priority"] == "high"
     assert "guardrail.dscr.headroom" in actions["action.dscr.coverage"]["source_refs"]
     assert "guardrail.dscr.stress_floor" in actions["action.dscr.coverage"]["source_refs"]
+    assert "guardrail.dscr.ratio_consistency" in actions["action.dscr.coverage"]["source_refs"]
 
 
 @pytest.mark.asyncio
@@ -420,10 +431,16 @@ async def test_risk_external_brief_contract_suppresses_internal_fields(
     assert response.status_code == 200
     payload = response.json()
     assert payload["contract_version"] == "risk-external-v1"
+    assert payload["interpretation_guide_version"] == "risk-consumer-guide-v1"
+    assert payload["scoring_profile_version"].startswith("risk-scoring-profile-")
+    assert payload["scoring_profile_checksum"] != "unknown"
     assert "diagnostics" not in payload
     assert "readiness_input" not in payload
     assert "advisory_input" not in payload
     assert "compliance_checks" in payload
+    assert "consumer_interpretation_guide" in payload
+    assert len(payload["consumer_interpretation_guide"]) >= 3
+    assert all("[ref:" in assumption.lower() for assumption in payload["key_assumptions"])
     assert "markdown_brief" in payload
     assert "conflict_count" not in payload["markdown_brief"]
 
@@ -461,11 +478,15 @@ async def test_risk_bfms_integration_contract_returns_full_mode_when_reliable(
     assert response.status_code == 200
     payload = response.json()
     assert payload["contract_version"] == "risk-bfms-integration-v1"
+    assert payload["interpretation_guide_version"] == "risk-consumer-guide-v1"
+    assert payload["scoring_profile_version"].startswith("risk-scoring-profile-")
+    assert payload["scoring_profile_checksum"] != "unknown"
     assert payload["integration_mode"] == "full"
     assert payload["fallback_reasons"] == []
     assert payload["directional_guidance_only"] is False
     assert payload["internal_report_contract_version"] == "risk-internal-v1"
     assert payload["external_brief_contract_version"] == "risk-external-v1"
+    assert len(payload["consumer_interpretation_guide"]) >= 3
     assert "overall_benchmark_position" in payload
     assert "overall_posture_score" in payload
 
@@ -493,10 +514,12 @@ async def test_risk_bfms_integration_contract_falls_back_for_low_reliability(
 
     assert response.status_code == 200
     payload = response.json()
+    assert payload["interpretation_guide_version"] == "risk-consumer-guide-v1"
     assert payload["integration_mode"] == "fallback"
     assert payload["directional_guidance_only"] is True
     assert payload["reliability_low_dimensions"] >= 1
     assert len(payload["fallback_reasons"]) >= 1
+    assert any("fallback" in item.lower() for item in payload["consumer_interpretation_guide"])
 
 
 @pytest.mark.asyncio

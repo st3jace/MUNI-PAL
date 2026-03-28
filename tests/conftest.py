@@ -11,18 +11,27 @@ Provides:
 import asyncio
 import os
 from collections.abc import AsyncGenerator
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any
 from uuid import uuid4
 
 import pytest
 from httpx import ASGITransport, AsyncClient
+from jose import jwt
 from sqlalchemy import StaticPool, create_engine, event
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import Session, sessionmaker
 
 # Force SQLite semantics for tests before importing model metadata.
 os.environ["USE_SQLITE"] = "true"
+# Disable HTTP telemetry middleware during tests to avoid polluting the
+# real OPS-1001 telemetry JSONL with test-generated 401/403 events.
+os.environ["TELEMETRY_ENABLED"] = "false"
+# Pin security feature flags for deterministic integration defaults.
+# Individual test modules can override these via monkeypatch.
+os.environ["AUTH_ENFORCEMENT_V2"] = "false"
+os.environ["ROLE_ENFORCEMENT_V2"] = "false"
+os.environ["TENANT_ISOLATION_V2"] = "false"
 
 from munipal.api.dependencies import DEV_FALLBACK_USER_ID
 from munipal.config import get_settings
@@ -100,6 +109,47 @@ async def test_client(async_engine, db_session) -> AsyncGenerator[AsyncClient, N
         yield client
 
     app.dependency_overrides.clear()
+
+
+@pytest.fixture
+def enforce_jwt_auth(monkeypatch: pytest.MonkeyPatch):
+    """Enable JWT auth enforcement for integration suites migrating off compat mode."""
+    monkeypatch.setenv("AUTH_ENFORCEMENT_V2", "true")
+    monkeypatch.setenv("ROLE_ENFORCEMENT_V2", "false")
+    monkeypatch.setenv("TENANT_ISOLATION_V2", "false")
+    monkeypatch.setenv("JWT_SECRET_KEY", "test-secret")
+    monkeypatch.setenv("JWT_ALGORITHM", "HS256")
+    get_settings.cache_clear()
+    yield
+    get_settings.cache_clear()
+
+
+@pytest.fixture
+def jwt_token_factory():
+    """Build deterministic JWT access tokens for integration tests."""
+
+    def _make_token(
+        user_id: str = DEV_FALLBACK_USER_ID,
+        role: str = "admin",
+        tenant_id: str = "default",
+        expires_minutes: int = 10,
+    ) -> str:
+        payload = {
+            "sub": user_id,
+            "role": role,
+            "tenant_id": tenant_id,
+            "exp": datetime.now(timezone.utc) + timedelta(minutes=expires_minutes),
+        }
+        return jwt.encode(payload, "test-secret", algorithm="HS256")
+
+    return _make_token
+
+
+@pytest.fixture
+def auth_headers(enforce_jwt_auth, jwt_token_factory) -> dict[str, str]:
+    """Default Authorization header for JWT-enforced integration tests."""
+    token = jwt_token_factory()
+    return {"Authorization": f"Bearer {token}"}
 
 
 # -----------------------------------------------------------------------------

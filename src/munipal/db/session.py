@@ -92,6 +92,10 @@ SyncSessionLocal = sessionmaker(
     autoflush=False,
 )
 
+# Alias for convenience — matches the common SQLAlchemy convention expected by
+# tests, examples, and documentation.
+SessionLocal = SyncSessionLocal
+
 
 def get_sync_session() -> Session:
     """Get sync session for Celery workers."""

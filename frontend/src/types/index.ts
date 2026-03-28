@@ -286,6 +286,80 @@ export type RiskBfmsIntegrationResponse =
   OpenApiComponents['schemas']['RiskBfmsIntegrationResponse'];
 
 // -----------------------------------------------------------------------------
+// Revenue Visualization Types
+// -----------------------------------------------------------------------------
+
+export type RevenueStabilityClass = 'stable' | 'balanced' | 'volatile';
+export type RevenueScenarioSafety = 'fragile' | 'safe' | 'fortress';
+
+export interface RevenueStreamDefinition {
+  stream_id: string;
+  label: string;
+  color: string;
+  stability_class: RevenueStabilityClass;
+  description: string;
+}
+
+export interface RevenueStreamSlice {
+  stream_id: string;
+  label: string;
+  amount: number;
+  pct_of_total: number;
+  color: string;
+  stability_class: RevenueStabilityClass;
+  is_inferred: boolean;
+  source_path?: string | null;
+}
+
+export interface RevenueScenarioMix {
+  scenario_id: string;
+  label: string;
+  total_revenue: number;
+  revenue_streams: RevenueStreamSlice[];
+  dscr_mean: number;
+  dscr_minimum: number;
+  breach_weeks: number;
+  implied_rating: string;
+  breakeven_diesel_price: number;
+  dscr_parity_diesel_price?: number | null;
+  covenant_trigger_diesel_price: number;
+  safety_status: RevenueScenarioSafety;
+  safety_label: string;
+  assumptions: string[];
+}
+
+export interface RevenueRiskProofMetric {
+  metric_id: string;
+  label: string;
+  baseline_value: string;
+  diversified_value: string;
+  delta_label: string;
+}
+
+export interface RevenueDiversificationRiskProof {
+  title: string;
+  baseline_label: string;
+  diversified_label: string;
+  takeaway: string;
+  metrics: RevenueRiskProofMetric[];
+}
+
+export interface RevenueDiversificationVisualizationResponse {
+  contract_version: string;
+  generated_at: string;
+  project_id: UUID;
+  project_name: string;
+  debt_service_annual: number;
+  covenant_trigger_dscr: number;
+  non_diesel_combined_coverage_dscr?: number | null;
+  non_diesel_senior_coverage_dscr?: number | null;
+  stream_definitions: RevenueStreamDefinition[];
+  revenue_scenarios: RevenueScenarioMix[];
+  risk_proof?: RevenueDiversificationRiskProof | null;
+  data_quality_notes: string[];
+}
+
+// -----------------------------------------------------------------------------
 // API Response Types
 // -----------------------------------------------------------------------------
 

@@ -21,6 +21,7 @@ export class AdvisoryPackagesService {
      * @param offset
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -30,6 +31,7 @@ export class AdvisoryPackagesService {
         offset?: number,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -37,6 +39,7 @@ export class AdvisoryPackagesService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'project_id': projectId,
@@ -57,6 +60,7 @@ export class AdvisoryPackagesService {
      * @param requestBody
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns GenerateExternalPackageResponse Successful Response
      * @throws ApiError
      */
@@ -64,6 +68,7 @@ export class AdvisoryPackagesService {
         requestBody: GenerateExternalPackageRequest,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<GenerateExternalPackageResponse> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -71,6 +76,7 @@ export class AdvisoryPackagesService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -85,6 +91,7 @@ export class AdvisoryPackagesService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -92,6 +99,7 @@ export class AdvisoryPackagesService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<(ExternalAdvisoryPackageRead | null)> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -102,6 +110,7 @@ export class AdvisoryPackagesService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             errors: {
                 422: `Validation Error`,
@@ -114,6 +123,7 @@ export class AdvisoryPackagesService {
      * @param packageId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns ExternalAdvisoryPackageRead Successful Response
      * @throws ApiError
      */
@@ -121,6 +131,7 @@ export class AdvisoryPackagesService {
         packageId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<ExternalAdvisoryPackageRead> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -131,6 +142,7 @@ export class AdvisoryPackagesService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             errors: {
                 422: `Validation Error`,
@@ -146,6 +158,7 @@ export class AdvisoryPackagesService {
      * @param format
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -154,6 +167,7 @@ export class AdvisoryPackagesService {
         format: string = 'pdf',
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -164,6 +178,7 @@ export class AdvisoryPackagesService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'format': format,
@@ -181,6 +196,7 @@ export class AdvisoryPackagesService {
      * @param packageId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns DistributionValidation Successful Response
      * @throws ApiError
      */
@@ -188,6 +204,7 @@ export class AdvisoryPackagesService {
         packageId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<DistributionValidation> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -198,6 +215,7 @@ export class AdvisoryPackagesService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             errors: {
                 422: `Validation Error`,
@@ -212,6 +230,7 @@ export class AdvisoryPackagesService {
      * @param offset
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -221,6 +240,7 @@ export class AdvisoryPackagesService {
         offset?: number,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -228,6 +248,7 @@ export class AdvisoryPackagesService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'project_id': projectId,
@@ -249,6 +270,7 @@ export class AdvisoryPackagesService {
      * @param requestBody
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns GenerateInternalReportResponse Successful Response
      * @throws ApiError
      */
@@ -256,6 +278,7 @@ export class AdvisoryPackagesService {
         requestBody: GenerateInternalReportRequest,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<GenerateInternalReportResponse> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -263,6 +286,7 @@ export class AdvisoryPackagesService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -277,6 +301,7 @@ export class AdvisoryPackagesService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -284,6 +309,7 @@ export class AdvisoryPackagesService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<(InternalReadinessReportRead | null)> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -294,6 +320,7 @@ export class AdvisoryPackagesService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             errors: {
                 422: `Validation Error`,
@@ -306,6 +333,7 @@ export class AdvisoryPackagesService {
      * @param reportId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns InternalReadinessReportRead Successful Response
      * @throws ApiError
      */
@@ -313,6 +341,7 @@ export class AdvisoryPackagesService {
         reportId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<InternalReadinessReportRead> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -323,6 +352,7 @@ export class AdvisoryPackagesService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             errors: {
                 422: `Validation Error`,
@@ -338,6 +368,7 @@ export class AdvisoryPackagesService {
      * @param format
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -346,6 +377,7 @@ export class AdvisoryPackagesService {
         format: string = 'md',
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -356,6 +388,7 @@ export class AdvisoryPackagesService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'format': format,

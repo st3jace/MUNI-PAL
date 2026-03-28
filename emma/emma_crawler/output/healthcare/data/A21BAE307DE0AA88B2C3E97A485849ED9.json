@@ -1,7 +1,7 @@
 {
   "cusip": "A21BAE307DE0AA88B2C3E97A485849ED9",
   "crawl_metadata": {
-    "crawl_timestamp": "2026-02-19T20:09:38.385854+00:00",
+    "crawl_timestamp": "2026-02-19T22:44:29.011800+00:00",
     "emma_url": "https://emma.msrb.org/Security/Details/A21BAE307DE0AA88B2C3E97A485849ED9",
     "extraction_status": {
       "snapshot": "success",
@@ -380,6 +380,16 @@
     {
       "trade_date": "12/18/2025 11:18 AM",
       "settlement_date": "12/19/2025",
+      "price": "95.109",
+      "yield": "4.318",
+      "calculation_date_price": "07/01/2051 @ 100",
+      "trade_amount": "15,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "12/18/2025 11:18 AM",
+      "settlement_date": "12/19/2025",
       "price": "92.816",
       "yield": "4.475",
       "calculation_date_price": "07/01/2051 @ 100",
@@ -396,16 +406,6 @@
       "trade_amount": "15,000",
       "trade_type": "Inter-dealer trade",
       "special_condition": ""
-    },
-    {
-      "trade_date": "12/18/2025 11:18 AM",
-      "settlement_date": "12/19/2025",
-      "price": "95.109",
-      "yield": "4.318",
-      "calculation_date_price": "07/01/2051 @ 100",
-      "trade_amount": "15,000",
-      "trade_type": "Customer bought",
-      "special_condition": "-"
     },
     {
       "trade_date": "12/17/2025 03:20 PM",
@@ -440,16 +440,6 @@
     {
       "trade_date": "12/17/2025 11:20 AM",
       "settlement_date": "12/18/2025",
-      "price": "90.313",
-      "yield": "4.652",
-      "calculation_date_price": "07/01/2051 @ 100",
-      "trade_amount": "35,000",
-      "trade_type": "Customer sold",
-      "special_condition": "-"
-    },
-    {
-      "trade_date": "12/17/2025 11:20 AM",
-      "settlement_date": "12/18/2025",
       "price": "90.713",
       "yield": "4.623",
       "calculation_date_price": "07/01/2051 @ 100",
@@ -458,14 +448,14 @@
       "special_condition": "-"
     },
     {
-      "trade_date": "12/15/2025 02:12 PM",
-      "settlement_date": "12/16/2025",
-      "price": "91.948",
-      "yield": "4.535",
+      "trade_date": "12/17/2025 11:20 AM",
+      "settlement_date": "12/18/2025",
+      "price": "90.313",
+      "yield": "4.652",
       "calculation_date_price": "07/01/2051 @ 100",
-      "trade_amount": "25,000",
-      "trade_type": "Inter-dealer trade",
-      "special_condition": ""
+      "trade_amount": "35,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
     },
     {
       "trade_date": "12/15/2025 02:12 PM",
@@ -486,6 +476,16 @@
       "trade_amount": "25,000",
       "trade_type": "Customer bought",
       "special_condition": "-"
+    },
+    {
+      "trade_date": "12/15/2025 02:12 PM",
+      "settlement_date": "12/16/2025",
+      "price": "91.948",
+      "yield": "4.535",
+      "calculation_date_price": "07/01/2051 @ 100",
+      "trade_amount": "25,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
     },
     {
       "trade_date": "12/15/2025 12:24 PM",
@@ -920,16 +920,6 @@
     {
       "trade_date": "11/04/2025 12:01 PM",
       "settlement_date": "11/05/2025",
-      "price": "92.625",
-      "yield": "4.487",
-      "calculation_date_price": "07/01/2051 @ 100",
-      "trade_amount": "100,000",
-      "trade_type": "Customer sold",
-      "special_condition": "-"
-    },
-    {
-      "trade_date": "11/04/2025 12:01 PM",
-      "settlement_date": "11/05/2025",
       "price": "92.71",
       "yield": "4.481",
       "calculation_date_price": "07/01/2051 @ 100",
@@ -946,6 +936,16 @@
       "trade_amount": "100,000",
       "trade_type": "Inter-dealer trade",
       "special_condition": ""
+    },
+    {
+      "trade_date": "11/04/2025 12:01 PM",
+      "settlement_date": "11/05/2025",
+      "price": "92.625",
+      "yield": "4.487",
+      "calculation_date_price": "07/01/2051 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Customer sold",
+      "special_condition": "-"
     },
     {
       "trade_date": "10/30/2025 02:14 PM",
@@ -1063,14 +1063,14 @@
       "doc_type": "Disclosure",
       "filing_date": "01/28/2026",
       "pdf_url": "https://emma.msrb.org/P11923464-P11469120-P11918720.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0001_Financial_Disclosure.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0001_Financial_Disclosure.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "10/30/2025",
       "pdf_url": "https://emma.msrb.org/P21979138-P21509118-P21962640.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0002_Event_Disclosure.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0002_Event_Disclosure.pdf",
       "download_success": true
     },
     {
@@ -1084,7 +1084,7 @@
       "doc_type": "Disclosure",
       "filing_date": "04/15/2025",
       "pdf_url": "https://emma.msrb.org/P11844708-P11413102-P11855855.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0004_Carilion_Clinic_Obligated_Group_Line_of_Credit_as_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0004_Carilion_Clinic_Obligated_Group_Line_of_Credit_as_.pdf",
       "download_success": true
     },
     {
@@ -1098,7 +1098,7 @@
       "doc_type": "Disclosure",
       "filing_date": "09/25/2025",
       "pdf_url": "https://emma.msrb.org/P11884525-P11440661-P11886475.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0006_Notice_of_failure_to_file_notice_event_relating_to.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0006_Notice_of_failure_to_file_notice_event_relating_to.pdf",
       "download_success": true
     },
     {
@@ -1112,7 +1112,7 @@
       "doc_type": "Disclosure",
       "filing_date": "08/06/2025",
       "pdf_url": "https://emma.msrb.org/P21951314-P21489876-P21941483.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0008_Carilion_Clinic_potential_bond_financing_and_possi.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0008_Carilion_Clinic_potential_bond_financing_and_possi.pdf",
       "download_success": true
     },
     {
@@ -1126,7 +1126,7 @@
       "doc_type": "Disclosure",
       "filing_date": "07/17/2024",
       "pdf_url": "https://emma.msrb.org/P11768978-P11358896-P11795941.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0010_Executive_Leadership_Change_dated_07_17_2024_251_K.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0010_Executive_Leadership_Change_dated_07_17_2024_251_K.pdf",
       "download_success": true
     },
     {
@@ -1140,7 +1140,7 @@
       "doc_type": "Disclosure",
       "filing_date": "05/15/2023",
       "pdf_url": "https://emma.msrb.org/P21708358-P21313736-P21745977.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0012_Executive_Leadership_Event_dated_05_15_2023_64_KB.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0012_Executive_Leadership_Event_dated_05_15_2023_64_KB.pdf",
       "download_success": true
     },
     {
@@ -1168,7 +1168,7 @@
       "doc_type": "Disclosure",
       "filing_date": "08/28/2025",
       "pdf_url": "https://emma.msrb.org/P11880642-P11438095-P11883531.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0016_Interim_Financial_Disclosures_Posted_08_28_2025_24.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0016_Interim_Financial_Disclosures_Posted_08_28_2025_24.pdf",
       "download_success": true
     },
     {
@@ -1182,7 +1182,7 @@
       "doc_type": "Disclosure",
       "filing_date": "09/30/2024",
       "pdf_url": "https://emma.msrb.org/P11821514-P11396080-P11836791.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0018_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0018_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
       "download_success": true
     },
     {
@@ -1196,21 +1196,21 @@
       "doc_type": "Disclosure",
       "filing_date": "09/30/2024",
       "pdf_url": "https://emma.msrb.org/P11821514-P11396080-P11836792.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0020_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0020_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "09/30/2024",
       "pdf_url": "https://emma.msrb.org/P11821514-P11396080-P11836793.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0021_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0021_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "9/30/2023",
       "pdf_url": "https://emma.msrb.org/P11729516-P11329494-P11763505.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0022_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0022_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
       "download_success": true
     },
     {
@@ -1224,21 +1224,21 @@
       "doc_type": "Disclosure",
       "filing_date": "9/30/2023",
       "pdf_url": "https://emma.msrb.org/P11729516-P11329494-P11763506.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0024_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0024_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "9/30/2023",
       "pdf_url": "https://emma.msrb.org/P11729516-P11329494-P11763507.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0025_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0025_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "09/30/2022",
       "pdf_url": "https://emma.msrb.org/P11654998-P11274758-P11702730.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0026_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0026_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
       "download_success": true
     },
     {
@@ -1252,35 +1252,35 @@
       "doc_type": "Disclosure",
       "filing_date": "09/30/2022",
       "pdf_url": "https://emma.msrb.org/P11654998-P11274758-P11702731.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0028_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0028_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "09/30/2022",
       "pdf_url": "https://emma.msrb.org/P11654998-P11274758-P11702732.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0029_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0029_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "09/30/2025",
       "pdf_url": "https://emma.msrb.org/P11923163-P11468893-P11918448.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0030_Carilion_Clinic_Fiscal_Year_2025_Audited_Financial.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0030_Carilion_Clinic_Fiscal_Year_2025_Audited_Financial.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "09/30/2025",
       "pdf_url": "https://emma.msrb.org/P11923163-P11468893-P11918449.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0031_Carilion_Clinic_Fiscal_Year_2025_Audited_Financial.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0031_Carilion_Clinic_Fiscal_Year_2025_Audited_Financial.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "10/01/2024",
       "pdf_url": "https://emma.msrb.org/P11855853-P11420944-P11864583.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0032_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0032_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
       "download_success": true
     },
     {
@@ -1294,7 +1294,7 @@
       "doc_type": "Disclosure",
       "filing_date": "10/01/2024",
       "pdf_url": "https://emma.msrb.org/P21902581-P21455045-P21903374.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0034_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0034_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
       "download_success": true
     },
     {
@@ -1308,7 +1308,7 @@
       "doc_type": "Disclosure",
       "filing_date": "10/01/2023",
       "pdf_url": "https://emma.msrb.org/P21839831-P21409958-P21852412.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0036_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0036_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
       "download_success": true
     },
     {
@@ -1322,7 +1322,7 @@
       "doc_type": "Disclosure",
       "filing_date": "10/01/2023",
       "pdf_url": "https://emma.msrb.org/P21814909-P21392050-P21832903.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0038_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A21BAE307DE0AA88B2C3E97A485849ED9\\A21BAE307DE0AA88B2C3E97A485849ED9_0038_Carilion_Clinic_Obligated_Group_Operating_Statisti.pdf",
       "download_success": true
     }
   ]

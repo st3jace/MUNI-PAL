@@ -22,16 +22,19 @@ from typing import Any
 from sqlalchemy import text
 from sqlalchemy.engine import Engine
 
-from ..config import get_settings, PROJECT_ROOT, MUNIPAL_ROOT
+from ..config import get_settings
 
 logger = logging.getLogger("bond_os_extractor.analysis.data_loader")
 
-# Default path to waste ticker data (external to workspace)
-DEFAULT_TICKER_DIR = Path(
-    r"C:\Users\st3ja\OneDrive\Documents\PROJECTS\AZRFO\QF\WTE\waste_tickers"
-)
 
-EMMA_DATA_DIR = MUNIPAL_ROOT / "emma" / "emma_crawler" / "output" / "data"
+def _get_default_ticker_dir() -> Path:
+    """Get the ticker data directory for the active sector from settings."""
+    return get_settings().ticker_dir
+
+
+def _get_emma_data_dir() -> Path:
+    """Get the EMMA crawler data directory for the active sector from settings."""
+    return get_settings().emma_data_dir
 
 
 def _parse_financial_value(val: str | None) -> float | None:
@@ -225,7 +228,7 @@ def load_os_ratings(engine: Engine) -> list[dict[str, Any]]:
 
 def get_ticker_dir(ticker: str, base_dir: Path | None = None) -> Path | None:
     """Get the directory for a specific ticker's data."""
-    base = base_dir or DEFAULT_TICKER_DIR
+    base = base_dir or _get_default_ticker_dir()
     # Try exact case first, then uppercase
     for name in [ticker, ticker.upper(), ticker.lower()]:
         d = base / name
@@ -515,12 +518,13 @@ def load_emma_bond_data(cusip_hash: str | None = None) -> list[dict[str, Any]]:
 
     If cusip_hash is provided, loads only that CUSIP. Otherwise loads all.
     """
-    if not EMMA_DATA_DIR.exists():
-        logger.warning("EMMA data directory not found: %s", EMMA_DATA_DIR)
+    emma_dir = _get_emma_data_dir()
+    if not emma_dir.exists():
+        logger.warning("EMMA data directory not found: %s", emma_dir)
         return []
 
     if cusip_hash:
-        json_path = EMMA_DATA_DIR / f"{cusip_hash}.json"
+        json_path = emma_dir / f"{cusip_hash}.json"
         if json_path.exists():
             with open(json_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
@@ -528,7 +532,7 @@ def load_emma_bond_data(cusip_hash: str | None = None) -> list[dict[str, Any]]:
         return []
 
     records = []
-    for json_path in EMMA_DATA_DIR.glob("A*.json"):
+    for json_path in emma_dir.glob("A*.json"):
         try:
             with open(json_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
@@ -590,14 +594,15 @@ def load_emma_bonds_by_issuer(
     Checks security_name against issuer_name and all aliases
     (case-insensitive substring match).
     """
-    if not EMMA_DATA_DIR.exists():
+    emma_dir = _get_emma_data_dir()
+    if not emma_dir.exists():
         return []
     search_terms = [issuer_name.lower()]
     if aliases:
         search_terms.extend(a.lower() for a in aliases)
 
     matches = []
-    for json_path in EMMA_DATA_DIR.glob("A*.json"):
+    for json_path in emma_dir.glob("A*.json"):
         try:
             with open(json_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
@@ -815,4 +820,72 @@ def load_credit_enhancements(engine: Engine) -> list[dict[str, Any]]:
             "issuer_name": r[3],
         })
     logger.info("Loaded %d credit enhancements from corpus", len(records))
+    return records
+
+
+def load_revenue_streams(
+    engine: Engine,
+    stream_type: str | None = None,
+) -> list[dict[str, Any]]:
+    """Load revenue stream data from the revenue_streams table.
+
+    Joins with deal_identities for issuer context. Optionally filters
+    by stream_type (tipping_fee, electricity_ppa, carbon_credit, offtake).
+
+    Returns a list of dicts with stream details plus issuer_name and
+    borrower_name for analysis integration.
+    """
+    where = ""
+    if stream_type:
+        where = f"AND rs.stream_type = '{stream_type}'"
+
+    query = f"""
+        SELECT rs.document_id, rs.stream_type, rs.counterparty,
+               rs.counterparty_credit_rating, rs.contract_term_years,
+               rs.contract_expiry_date, rs.pricing_mechanism,
+               rs.current_rate, rs.rate_escalator_pct,
+               rs.minimum_obligation, rs.estimated_annual_revenue,
+               rs.assigned_as_security, rs.take_or_pay,
+               rs.details_json,
+               di.issuer_name, di.borrower_name
+        FROM revenue_streams rs
+        LEFT JOIN deal_identities di ON rs.document_id = di.document_id
+        WHERE 1=1 {where}
+        ORDER BY rs.stream_type, di.issuer_name
+    """
+    with engine.connect() as conn:
+        try:
+            rows = conn.execute(text(query)).fetchall()
+        except Exception:
+            logger.warning("revenue_streams table not found")
+            return []
+
+    records = []
+    for r in rows:
+        detail = {}
+        if r[13]:
+            try:
+                detail = json.loads(r[13])
+            except (json.JSONDecodeError, TypeError):
+                pass
+
+        records.append({
+            "document_id": r[0],
+            "stream_type": r[1],
+            "counterparty": r[2],
+            "counterparty_credit_rating": r[3],
+            "contract_term_years": r[4],
+            "contract_expiry_date": r[5],
+            "pricing_mechanism": r[6],
+            "current_rate": r[7],
+            "rate_escalator_pct": r[8],
+            "minimum_obligation": r[9],
+            "estimated_annual_revenue": r[10],
+            "assigned_as_security": bool(r[11]),
+            "take_or_pay": bool(r[12]),
+            "details": detail,
+            "issuer_name": r[14],
+            "borrower_name": r[15],
+        })
+    logger.info("Loaded %d revenue streams from corpus", len(records))
     return records

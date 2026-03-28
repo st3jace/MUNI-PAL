@@ -5,11 +5,40 @@ Per spec: Celery is used for async extraction and processing tasks.
 Workers run sync SQLAlchemy inside tasks.
 """
 
+import ssl
+from urllib.parse import parse_qsl, urlparse
+
 from celery import Celery
 
 from munipal.config import get_settings
 
 settings = get_settings()
+
+
+def _redis_ssl_config(url: str) -> dict[str, object] | None:
+    """Translate rediss:// URL params into Celery SSL config."""
+    parsed = urlparse(url)
+    if parsed.scheme != "rediss":
+        return None
+
+    query = dict(parse_qsl(parsed.query, keep_blank_values=True))
+    cert_reqs = {
+        "required": ssl.CERT_REQUIRED,
+        "optional": ssl.CERT_OPTIONAL,
+        "none": ssl.CERT_NONE,
+        "CERT_REQUIRED": ssl.CERT_REQUIRED,
+        "CERT_OPTIONAL": ssl.CERT_OPTIONAL,
+        "CERT_NONE": ssl.CERT_NONE,
+    }.get(query.get("ssl_cert_reqs", "required"), ssl.CERT_REQUIRED)
+
+    ssl_config: dict[str, object] = {"ssl_cert_reqs": cert_reqs}
+    for key in ("ssl_ca_certs", "ssl_certfile", "ssl_keyfile"):
+        if query.get(key):
+            ssl_config[key] = query[key]
+    return ssl_config
+
+
+redis_ssl_config = _redis_ssl_config(settings.redis_connection_url)
 
 # Create Celery app
 celery_app = Celery(
@@ -68,6 +97,10 @@ celery_app.conf.update(
             "default_retry_delay": 120,
         },
     },
+
+    # Hosted Redis TLS support
+    broker_use_ssl=redis_ssl_config,
+    redis_backend_use_ssl=redis_ssl_config,
 )
 
 # Beat schedule for periodic tasks (if needed)

@@ -52,17 +52,25 @@ async def generate_information_requests(
     Per WP8 spec: Each gap type maps to a request template.
     Requests include bond-domain context, guidance, and examples.
     """
+    if not await service.project_exists(project_id):
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Project {project_id} not found",
+        )
+
     try:
         requests = await service.generate_requests_from_gaps(project_id)
         return {
             "generated_count": len(requests),
             "requests": [service.request_to_summary(r) for r in requests],
         }
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=str(e),
-        )
+            detail="Failed to generate information requests",
+        ) from e
 
 
 # -----------------------------------------------------------------------------
@@ -110,6 +118,12 @@ async def list_information_requests(
 
     Supports filtering by status, priority, and owner.
     """
+    if not await service.project_exists(project_id):
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Project {project_id} not found",
+        )
+
     requests, total = await service.list_requests(
         project_id=project_id,
         status=status_filter,
@@ -264,6 +278,11 @@ async def get_request_report(
 
     Includes counts by status/priority, overdue requests, and grouping by owner.
     """
+    if not await service.project_exists(project_id):
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Project {project_id} not found",
+        )
     return await service.get_report(project_id)
 
 
@@ -273,5 +292,10 @@ async def get_overdue_requests(
     service: InformationRequestService = Depends(get_request_service),
 ) -> list[InformationRequestSummary]:
     """Get overdue information requests for a project."""
+    if not await service.project_exists(project_id):
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Project {project_id} not found",
+        )
     report = await service.get_report(project_id)
     return report.overdue_requests

@@ -361,6 +361,213 @@ Return a JSON object with these exact fields:
         return self.client.extract(SYSTEM_PROMPT, prompt)
 
 
+class RevenueStreamsAIExtractor(BaseExtractor):
+    tier = ExtractionTier.TIER_2
+    name = "ai_revenue_streams"
+
+    def __init__(self, client: AnthropicClient | None = None) -> None:
+        self.client = client or AnthropicClient()
+
+    def extract(self, section_text: str, section_id: str, tables=None) -> dict[str, Any]:
+        prompt = f"""Extract revenue stream and contract details from this Official Statement section titled "{section_id}":
+
+{section_text[:12000]}
+
+Look for these four types of revenue arrangements. For each type, extract ALL instances found.
+
+1. TIPPING FEES / DISPOSAL FEES / GATE RATES:
+   - Per-ton or per-cubic-yard rates, flat annual fees, tiered structures
+   - Rate escalation (CPI, fixed %, contractual)
+   - Minimum annual tonnage (put-or-pay provisions)
+   - Flow control ordinances directing waste to the facility
+   - Counterparty municipalities or haulers
+   - Contract terms and expiration dates
+
+2. ELECTRICITY PPAs / POWER PURCHASE AGREEMENTS:
+   - Counterparty utility or offtaker name and credit rating
+   - Price per kWh or MWh, escalation mechanism
+   - Capacity (MW), estimated annual generation (MWh)
+   - Dispatch priority (must-take, baseload, as-available)
+   - Minimum delivery obligations, curtailment provisions
+   - Whether assigned as security for the bonds
+
+3. CARBON CREDITS / EMISSION PROGRAMS:
+   - Program type: compliance (cap-and-trade), voluntary offsets, renewable energy credits
+   - Registry (California ARB, Verra, Gold Standard, etc.)
+   - Credit type (CERs, VERs, RECs, RINs, D3 RINs, etc.)
+   - Estimated annual credits, price per credit, price floors
+   - Counterparty and contract terms
+
+4. OFFTAKE AGREEMENTS (non-electricity products):
+   - Product: steam, metals, ash, biogas, RNG, hydrogen, recyclables, compost, water, chemicals, aggregate
+   - Counterparty name and credit rating
+   - Pricing mechanism (fixed, market-indexed, formula)
+   - Take-or-pay provisions, minimum purchase obligations
+   - Estimated annual revenue, contract terms
+
+Return a JSON object with these exact fields:
+{{
+  "tipping_fees": [
+    {{
+      "fee_type": "per_ton|per_cubic_yard|flat_annual|tiered or null",
+      "current_rate": number or null,
+      "rate_escalator_type": "cpi|fixed_pct|contractual|market or null",
+      "rate_escalator_pct": number or null,
+      "minimum_annual_tonnage": number or null,
+      "guaranteed_annual_revenue": number or null,
+      "contract_term_years": number or null,
+      "contract_expiry_date": "YYYY-MM-DD or null",
+      "counterparties": ["list of municipality/hauler names"],
+      "put_or_pay": true/false,
+      "flow_control_ordinance": true/false
+    }}
+  ],
+  "electricity_ppas": [
+    {{
+      "counterparty": "name or null",
+      "counterparty_credit_rating": "rating or null",
+      "contract_term_years": number or null,
+      "contract_start_date": "YYYY-MM-DD or null",
+      "contract_expiry_date": "YYYY-MM-DD or null",
+      "price_per_kwh": number or null,
+      "price_per_mwh": number or null,
+      "price_escalator_type": "cpi|fixed_pct|market_indexed|none or null",
+      "price_escalator_pct": number or null,
+      "capacity_mw": number or null,
+      "estimated_annual_generation_mwh": number or null,
+      "minimum_delivery_obligation_mwh": number or null,
+      "curtailment_provisions": true/false,
+      "dispatch_priority": "must_take|baseload|dispatchable|as_available or null",
+      "assigned_as_security": true/false
+    }}
+  ],
+  "carbon_credits": [
+    {{
+      "program_type": "compliance|voluntary|cap_and_trade|offset or null",
+      "registry": "registry name or null",
+      "credit_type": "credit type or null",
+      "estimated_annual_credits": number or null,
+      "price_per_credit": number or null,
+      "price_floor": number or null,
+      "price_escalator_pct": number or null,
+      "contract_term_years": number or null,
+      "counterparty": "name or null",
+      "assigned_as_security": true/false,
+      "revenue_share_pct": number or null
+    }}
+  ],
+  "offtake_agreements": [
+    {{
+      "product_type": "steam|processed_materials|compost|recyclables|metals|ash|biogas|rng|hydrogen|water|chemicals|aggregate|other or null",
+      "counterparty": "name or null",
+      "counterparty_credit_rating": "rating or null",
+      "contract_term_years": number or null,
+      "contract_expiry_date": "YYYY-MM-DD or null",
+      "pricing_mechanism": "fixed|market_indexed|formula|negotiated or null",
+      "minimum_purchase_obligation": number or null,
+      "estimated_annual_revenue": number or null,
+      "assigned_as_security": true/false,
+      "take_or_pay": true/false
+    }}
+  ],
+  "total_contracted_revenue_pct": number or null,
+  "revenue_concentration_risk": "low|moderate|high or null",
+  "shortest_contract_expiry": "YYYY-MM-DD or null",
+  "has_put_or_pay": true/false,
+  "has_flow_control": true/false,
+  "has_take_or_pay": true/false,
+  "_confidence": {{"tipping_fees": 0.0-1.0, "electricity_ppas": 0.0-1.0, "carbon_credits": 0.0-1.0, "offtake_agreements": 0.0-1.0}}
+}}
+
+If none of these revenue stream types are described in the text, return empty lists for each type."""
+        return self.client.extract(SYSTEM_PROMPT, prompt)
+
+
+class OperationalMetricsAIExtractor(BaseExtractor):
+    """Extracts DSCR, debt service schedules, generation volumes, escalation rates, and operating expenses."""
+    tier = ExtractionTier.TIER_2
+    name = "ai_operational_metrics"
+
+    def __init__(self, client: AnthropicClient | None = None) -> None:
+        self.client = client or AnthropicClient()
+
+    def extract(self, section_text: str, section_id: str, tables=None) -> dict[str, Any]:
+        prompt = f"""Extract operational and financial metrics from this Official Statement section titled "{section_id}":
+
+{section_text[:12000]}
+
+Extract ALL of the following data points. These are critical for financial modeling.
+
+1. DEBT SERVICE COVERAGE RATIO (DSCR):
+   - Historical DSCR values by year
+   - Projected DSCR values by year
+   - Minimum required DSCR (from rate covenant)
+   - Additional bonds test DSCR requirement
+
+2. DEBT SERVICE SCHEDULE:
+   - Annual principal payments by year
+   - Annual interest payments by year
+   - Total annual debt service by year
+   - Maximum annual debt service (MADS)
+
+3. ELECTRICITY GENERATION:
+   - Annual generation in MWh (not just MW capacity)
+   - Capacity factor percentage
+   - Net generation vs gross generation
+   - Historical generation volumes if available
+
+4. TIPPING FEE / DISPOSAL FEE ESCALATION:
+   - Current rate per ton
+   - Annual escalation rate (% or CPI-linked)
+   - Escalation mechanism (fixed %, CPI, contractual schedule)
+   - Historical rate increases if shown
+
+5. OPERATING EXPENSES:
+   - Total annual operating expenses
+   - O&M expenses breakdown if available
+   - Operating expense per ton or per unit
+   - Historical operating expense trend (year-over-year)
+   - Projected operating expenses
+
+Return a JSON object with these exact fields:
+{{
+  "dscr": {{
+    "historical": [{{"year": 2024, "dscr": 1.35}}, ...],
+    "projected": [{{"year": 2025, "dscr": 1.30}}, ...],
+    "minimum_required": number or null,
+    "additional_bonds_test": number or null
+  }},
+  "debt_service_schedule": [
+    {{"year": 2025, "principal": number, "interest": number, "total": number}}
+  ],
+  "maximum_annual_debt_service": number or null,
+  "electricity_generation": {{
+    "annual_mwh": number or null,
+    "capacity_factor_pct": number or null,
+    "capacity_mw": number or null,
+    "net_generation_mwh": number or null,
+    "historical_mwh": [{{"year": 2024, "mwh": number}}, ...]
+  }},
+  "tipping_fee_escalation": {{
+    "current_rate_per_ton": number or null,
+    "escalation_rate_pct": number or null,
+    "escalation_mechanism": "fixed_pct|cpi|contractual_schedule|market or null",
+    "historical_rates": [{{"year": 2024, "rate": number}}, ...]
+  }},
+  "operating_expenses": {{
+    "total_annual": number or null,
+    "per_ton": number or null,
+    "historical": [{{"year": 2024, "amount": number}}, ...],
+    "projected": [{{"year": 2025, "amount": number}}, ...],
+    "categories": {{"labor": number, "maintenance": number, "utilities": number, "other": number}} or null
+  }},
+  "_confidence": {{"dscr": 0.0-1.0, "debt_service": 0.0-1.0, "generation": 0.0-1.0, "escalation": 0.0-1.0, "opex": 0.0-1.0}}
+}}
+
+If a data point is not described in the text, use null. Do not infer or estimate."""
+        return self.client.extract(SYSTEM_PROMPT, prompt)
+
+
 class RefundingAIExtractor(BaseExtractor):
     tier = ExtractionTier.TIER_2
     name = "ai_refunding"
@@ -430,15 +637,19 @@ class CachedAIExtractor:
 # Maps section IDs to which AI extractors should run on them
 SECTION_EXTRACTOR_MAP: dict[str, list[type[BaseExtractor]]] = {
     "COVER_PAGE": [DealIdentityAIExtractor, DealStructureAIExtractor],
-    "INTRODUCTION_AND_SUMMARY": [DealIdentityAIExtractor, DealStructureAIExtractor, RefundingAIExtractor],
+    "INTRODUCTION_AND_SUMMARY": [DealIdentityAIExtractor, DealStructureAIExtractor, RefundingAIExtractor, RevenueStreamsAIExtractor, OperationalMetricsAIExtractor],
     "THE_BONDS": [DealStructureAIExtractor],
     "PLAN_OF_FINANCE": [RefundingAIExtractor],
     "THE_ISSUER": [DealIdentityAIExtractor],
     "THE_BORROWER": [DealIdentityAIExtractor],
-    "SECURITY_FOR_THE_BONDS": [SecurityAIExtractor],
-    "FLOW_OF_FUNDS": [FlowOfFundsAIExtractor],
-    "RATE_COVENANT": [SecurityAIExtractor],
+    "SECURITY_FOR_THE_BONDS": [SecurityAIExtractor, RevenueStreamsAIExtractor, OperationalMetricsAIExtractor],
+    "FLOW_OF_FUNDS": [FlowOfFundsAIExtractor, RevenueStreamsAIExtractor],
+    "RATE_COVENANT": [SecurityAIExtractor, OperationalMetricsAIExtractor],
     "ADDITIONAL_BONDS_TEST": [SecurityAIExtractor],
+    "THE_PROJECT": [RevenueStreamsAIExtractor, OperationalMetricsAIExtractor],
+    "DEBT_SERVICE_SCHEDULE": [OperationalMetricsAIExtractor],
+    "FINANCIAL_INFORMATION": [OperationalMetricsAIExtractor],
+    "SERVICE_AGREEMENTS": [RevenueStreamsAIExtractor],
     "RISK_FACTORS": [RiskFactorsAIExtractor],
     "LEGAL_MATTERS": [LegalAIExtractor],
     "UNDERWRITING": [UnderwritingAIExtractor],

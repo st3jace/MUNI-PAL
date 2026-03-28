@@ -36,6 +36,13 @@ from ..schema.additional import (
     WaterfallStep,
 )
 from ..schema.deal_record import DealRecord, ReviewFlag
+from ..schema.revenue_streams import (
+    CarbonCreditProgram,
+    ElectricityPPA,
+    OfftakeAgreement,
+    RevenueStreamProfile,
+    TippingFeeStructure,
+)
 from .deterministic import ALL_DETERMINISTIC_EXTRACTORS
 from .table_extractor import ALL_TABLE_EXTRACTORS
 from .ai_extractor import (
@@ -554,6 +561,253 @@ class ExtractionOrchestrator:
                     )
                 except Exception as exc:
                     logger.warning("Failed to assemble refunding: %s", exc)
+
+        # -- Revenue Streams --
+        for key, data in all_results.items():
+            if "tipping_fees" not in data:
+                continue
+            # Merge into existing profile or create new one
+            try:
+                tf_list = [
+                    TippingFeeStructure(
+                        fee_type=t.get("fee_type"),
+                        current_rate=_dec(t.get("current_rate")),
+                        rate_escalator_type=t.get("rate_escalator_type"),
+                        rate_escalator_pct=_dec(t.get("rate_escalator_pct")),
+                        minimum_annual_tonnage=_dec(t.get("minimum_annual_tonnage")),
+                        guaranteed_annual_revenue=_dec(t.get("guaranteed_annual_revenue")),
+                        contract_term_years=t.get("contract_term_years"),
+                        contract_expiry_date=_date(t.get("contract_expiry_date")),
+                        counterparties=t.get("counterparties") or [],
+                        put_or_pay=bool(t.get("put_or_pay")),
+                        flow_control_ordinance=bool(t.get("flow_control_ordinance")),
+                    )
+                    for t in (data.get("tipping_fees") or [])
+                    if isinstance(t, dict)
+                ]
+                ppa_list = [
+                    ElectricityPPA(
+                        counterparty=p.get("counterparty"),
+                        counterparty_credit_rating=p.get("counterparty_credit_rating"),
+                        contract_term_years=p.get("contract_term_years"),
+                        contract_start_date=_date(p.get("contract_start_date")),
+                        contract_expiry_date=_date(p.get("contract_expiry_date")),
+                        price_per_kwh=_dec(p.get("price_per_kwh")),
+                        price_per_mwh=_dec(p.get("price_per_mwh")),
+                        price_escalator_type=p.get("price_escalator_type"),
+                        price_escalator_pct=_dec(p.get("price_escalator_pct")),
+                        capacity_mw=_dec(p.get("capacity_mw")),
+                        estimated_annual_generation_mwh=_dec(p.get("estimated_annual_generation_mwh")),
+                        minimum_delivery_obligation_mwh=_dec(p.get("minimum_delivery_obligation_mwh")),
+                        curtailment_provisions=bool(p.get("curtailment_provisions")),
+                        dispatch_priority=p.get("dispatch_priority"),
+                        assigned_as_security=bool(p.get("assigned_as_security")),
+                    )
+                    for p in (data.get("electricity_ppas") or [])
+                    if isinstance(p, dict)
+                ]
+                cc_list = [
+                    CarbonCreditProgram(
+                        program_type=c.get("program_type"),
+                        registry=c.get("registry"),
+                        credit_type=c.get("credit_type"),
+                        estimated_annual_credits=_dec(c.get("estimated_annual_credits")),
+                        price_per_credit=_dec(c.get("price_per_credit")),
+                        price_floor=_dec(c.get("price_floor")),
+                        price_escalator_pct=_dec(c.get("price_escalator_pct")),
+                        contract_term_years=c.get("contract_term_years"),
+                        counterparty=c.get("counterparty"),
+                        assigned_as_security=bool(c.get("assigned_as_security")),
+                        revenue_share_pct=_dec(c.get("revenue_share_pct")),
+                    )
+                    for c in (data.get("carbon_credits") or [])
+                    if isinstance(c, dict)
+                ]
+                oa_list = [
+                    OfftakeAgreement(
+                        product_type=o.get("product_type"),
+                        counterparty=o.get("counterparty"),
+                        counterparty_credit_rating=o.get("counterparty_credit_rating"),
+                        contract_term_years=o.get("contract_term_years"),
+                        contract_expiry_date=_date(o.get("contract_expiry_date")),
+                        pricing_mechanism=o.get("pricing_mechanism"),
+                        minimum_purchase_obligation=_dec(o.get("minimum_purchase_obligation")),
+                        estimated_annual_revenue=_dec(o.get("estimated_annual_revenue")),
+                        assigned_as_security=bool(o.get("assigned_as_security")),
+                        take_or_pay=bool(o.get("take_or_pay")),
+                    )
+                    for o in (data.get("offtake_agreements") or [])
+                    if isinstance(o, dict)
+                ]
+
+                # Only create profile if at least one stream was found
+                has_streams = tf_list or ppa_list or cc_list or oa_list
+                if has_streams:
+                    if record.revenue_streams is None:
+                        record.revenue_streams = RevenueStreamProfile(
+                            tipping_fees=tf_list,
+                            electricity_ppas=ppa_list,
+                            carbon_credits=cc_list,
+                            offtake_agreements=oa_list,
+                            total_contracted_revenue_pct=_dec(data.get("total_contracted_revenue_pct")),
+                            revenue_concentration_risk=data.get("revenue_concentration_risk"),
+                            shortest_contract_expiry=_date(data.get("shortest_contract_expiry")),
+                            has_put_or_pay=bool(data.get("has_put_or_pay")),
+                            has_flow_control=bool(data.get("has_flow_control")),
+                            has_take_or_pay=bool(data.get("has_take_or_pay")),
+                        )
+                    else:
+                        # Merge additional streams from other sections
+                        record.revenue_streams.tipping_fees.extend(tf_list)
+                        record.revenue_streams.electricity_ppas.extend(ppa_list)
+                        record.revenue_streams.carbon_credits.extend(cc_list)
+                        record.revenue_streams.offtake_agreements.extend(oa_list)
+                        if data.get("has_put_or_pay"):
+                            record.revenue_streams.has_put_or_pay = True
+                        if data.get("has_flow_control"):
+                            record.revenue_streams.has_flow_control = True
+                        if data.get("has_take_or_pay"):
+                            record.revenue_streams.has_take_or_pay = True
+            except Exception as exc:
+                logger.warning("Failed to assemble revenue_streams from %s: %s", key, exc)
+
+        # -- Operational Metrics --
+        op_metrics: list[dict] = []
+        for key, data in all_results.items():
+            if "dscr" not in data or "debt_service_schedule" not in data:
+                continue
+            try:
+                # DSCR entries
+                dscr_data = data.get("dscr") or {}
+                for entry in dscr_data.get("historical", []) or []:
+                    if isinstance(entry, dict) and entry.get("dscr"):
+                        op_metrics.append({
+                            "metric_type": "dscr", "year": entry.get("year"),
+                            "value": entry["dscr"], "label": "historical",
+                        })
+                for entry in dscr_data.get("projected", []) or []:
+                    if isinstance(entry, dict) and entry.get("dscr"):
+                        op_metrics.append({
+                            "metric_type": "dscr", "year": entry.get("year"),
+                            "value": entry["dscr"], "label": "projected",
+                        })
+                if dscr_data.get("minimum_required"):
+                    op_metrics.append({
+                        "metric_type": "dscr", "value": dscr_data["minimum_required"],
+                        "label": "minimum_required",
+                    })
+                    # Also update security package coverage ratio
+                    if record.security and not record.security.rate_covenant:
+                        record.security.rate_covenant = RateCovenant(
+                            covenant_type="coverage",
+                            minimum_coverage_ratio=_dec(dscr_data["minimum_required"]),
+                        )
+                if dscr_data.get("additional_bonds_test"):
+                    op_metrics.append({
+                        "metric_type": "dscr", "value": dscr_data["additional_bonds_test"],
+                        "label": "additional_bonds_test",
+                    })
+
+                # Debt service schedule
+                for entry in data.get("debt_service_schedule", []) or []:
+                    if isinstance(entry, dict) and entry.get("year"):
+                        op_metrics.append({
+                            "metric_type": "debt_service",
+                            "year": entry["year"],
+                            "value": entry.get("principal"),
+                            "value2": entry.get("interest"),
+                            "value3": entry.get("total"),
+                            "label": "annual",
+                        })
+                        # Also populate debt_service_rows on the record
+                        if record.debt_service is None:
+                            from ..schema.financials import DebtServiceSchedule
+                            record.debt_service = DebtServiceSchedule(rows=[])
+                        record.debt_service.rows.append(DebtServiceRow(
+                            fiscal_year=entry["year"],
+                            principal=_dec(entry.get("principal")),
+                            interest=_dec(entry.get("interest")),
+                            total=_dec(entry.get("total")),
+                        ))
+
+                mads = data.get("maximum_annual_debt_service")
+                if mads:
+                    op_metrics.append({
+                        "metric_type": "debt_service", "value": mads,
+                        "label": "maximum_annual",
+                    })
+                    if record.debt_service:
+                        record.debt_service.maximum_annual_debt_service = _dec(mads)
+
+                # Electricity generation
+                gen = data.get("electricity_generation") or {}
+                if gen.get("annual_mwh"):
+                    op_metrics.append({
+                        "metric_type": "generation", "value": gen["annual_mwh"],
+                        "label": "annual_mwh",
+                    })
+                if gen.get("capacity_factor_pct"):
+                    op_metrics.append({
+                        "metric_type": "generation", "value": gen["capacity_factor_pct"],
+                        "label": "capacity_factor_pct",
+                    })
+                for entry in gen.get("historical_mwh", []) or []:
+                    if isinstance(entry, dict) and entry.get("mwh"):
+                        op_metrics.append({
+                            "metric_type": "generation", "year": entry.get("year"),
+                            "value": entry["mwh"], "label": "historical_mwh",
+                        })
+
+                # Tipping fee escalation
+                esc = data.get("tipping_fee_escalation") or {}
+                if esc.get("escalation_rate_pct") or esc.get("escalation_mechanism"):
+                    op_metrics.append({
+                        "metric_type": "escalation",
+                        "value": esc.get("escalation_rate_pct"),
+                        "label": esc.get("escalation_mechanism"),
+                        "details": {"current_rate": esc.get("current_rate_per_ton")},
+                    })
+                for entry in esc.get("historical_rates", []) or []:
+                    if isinstance(entry, dict) and entry.get("rate"):
+                        op_metrics.append({
+                            "metric_type": "escalation", "year": entry.get("year"),
+                            "value": entry["rate"], "label": "historical_rate",
+                        })
+
+                # Operating expenses
+                opex = data.get("operating_expenses") or {}
+                if opex.get("total_annual"):
+                    op_metrics.append({
+                        "metric_type": "opex", "value": opex["total_annual"],
+                        "label": "total_annual",
+                    })
+                if opex.get("per_ton"):
+                    op_metrics.append({
+                        "metric_type": "opex", "value": opex["per_ton"],
+                        "label": "per_ton",
+                    })
+                for entry in opex.get("historical", []) or []:
+                    if isinstance(entry, dict) and entry.get("amount"):
+                        op_metrics.append({
+                            "metric_type": "opex", "year": entry.get("year"),
+                            "value": entry["amount"], "label": "historical",
+                        })
+                for entry in opex.get("projected", []) or []:
+                    if isinstance(entry, dict) and entry.get("amount"):
+                        op_metrics.append({
+                            "metric_type": "opex", "year": entry.get("year"),
+                            "value": entry["amount"], "label": "projected",
+                        })
+                if opex.get("categories"):
+                    op_metrics.append({
+                        "metric_type": "opex", "label": "categories",
+                        "details": opex["categories"],
+                    })
+            except Exception as exc:
+                logger.warning("Failed to assemble operational_metrics from %s: %s", key, exc)
+
+        # Attach to record for storage (using a private attr since DealRecord doesn't have this field)
+        record._operational_metrics = op_metrics if op_metrics else None
 
         record.confidence_scores = confidence
         record.review_flags = flags

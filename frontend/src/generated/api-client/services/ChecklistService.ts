@@ -33,6 +33,7 @@ export class ChecklistService {
      * @param statusFilter
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -42,6 +43,7 @@ export class ChecklistService {
         statusFilter?: (ChecklistStatus | null),
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -49,6 +51,7 @@ export class ChecklistService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'project_id': projectId,
@@ -69,6 +72,7 @@ export class ChecklistService {
      * @param phase
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns ChecklistItemDefinition Successful Response
      * @throws ApiError
      */
@@ -76,6 +80,7 @@ export class ChecklistService {
         phase?: (ChecklistPhase | null),
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Array<ChecklistItemDefinition>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -83,6 +88,7 @@ export class ChecklistService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'phase': phase,
@@ -101,6 +107,7 @@ export class ChecklistService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -108,6 +115,7 @@ export class ChecklistService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -115,6 +123,7 @@ export class ChecklistService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'project_id': projectId,
@@ -134,6 +143,7 @@ export class ChecklistService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns ChecklistPhaseSummary Successful Response
      * @throws ApiError
      */
@@ -142,6 +152,7 @@ export class ChecklistService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<ChecklistPhaseSummary> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -152,6 +163,7 @@ export class ChecklistService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'project_id': projectId,
@@ -168,6 +180,7 @@ export class ChecklistService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns ChecklistItemStatus Successful Response
      * @throws ApiError
      */
@@ -176,6 +189,7 @@ export class ChecklistService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Array<ChecklistItemStatus>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -186,6 +200,7 @@ export class ChecklistService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'project_id': projectId,
@@ -204,6 +219,7 @@ export class ChecklistService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns ChecklistPhaseSummary Successful Response
      * @throws ApiError
      */
@@ -211,6 +227,7 @@ export class ChecklistService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, ChecklistPhaseSummary>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -218,6 +235,7 @@ export class ChecklistService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'project_id': projectId,
@@ -237,6 +255,7 @@ export class ChecklistService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns ChecklistItemStatus Successful Response
      * @throws ApiError
      */
@@ -245,6 +264,7 @@ export class ChecklistService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<ChecklistItemStatus> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -255,6 +275,7 @@ export class ChecklistService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'project_id': projectId,
@@ -272,6 +293,7 @@ export class ChecklistService {
      * @param itemCode
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns ChecklistItemDefinition Successful Response
      * @throws ApiError
      */
@@ -279,6 +301,7 @@ export class ChecklistService {
         itemCode: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<ChecklistItemDefinition> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -289,6 +312,7 @@ export class ChecklistService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             errors: {
                 422: `Validation Error`,
@@ -306,6 +330,7 @@ export class ChecklistService {
      * @param approvedOnly Only return approved facts
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -315,6 +340,7 @@ export class ChecklistService {
         approvedOnly: boolean = true,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Array<Record<string, any>>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -325,6 +351,7 @@ export class ChecklistService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'project_id': projectId,
@@ -347,6 +374,7 @@ export class ChecklistService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -355,6 +383,7 @@ export class ChecklistService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -365,6 +394,7 @@ export class ChecklistService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'project_id': projectId,

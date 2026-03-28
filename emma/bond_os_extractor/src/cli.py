@@ -7,15 +7,19 @@ from pathlib import Path
 
 import click
 
-from .config import get_settings, setup_logging
+from .config import get_settings, set_sector, setup_logging
 
 logger = logging.getLogger("bond_os_extractor")
 
 
 @click.group()
 @click.option("--log-level", default=None, help="Override log level (DEBUG, INFO, WARNING, ERROR)")
-def cli(log_level: str | None) -> None:
+@click.option("--sector", default="waste", show_default=True,
+              type=click.Choice(["waste", "healthcare", "wte"]),
+              help="Sector to operate on")
+def cli(log_level: str | None, sector: str) -> None:
     """Bond Official Statement PDF Extractor & Learning Engine."""
+    set_sector(sector)
     setup_logging(log_level)
 
 
@@ -405,7 +409,7 @@ def module_status(module_name: str | None) -> None:
 @cli.command()
 @click.option("--threshold", type=float, default=50.0, help="Investable threshold (0-100)")
 @click.option("--ticker-dir", type=click.Path(exists=True), default=None,
-              help="Path to waste_tickers directory (auto-detected if not set)")
+              help="Path to ticker data directory (auto-detected if not set)")
 @click.option("--output", type=click.Path(), default=None, help="Output JSON path")
 def score(threshold: float, ticker_dir: str | None, output: str | None) -> None:
     """Score the obligor universe using Summers' fundamental screening.
@@ -1892,6 +1896,765 @@ def risk_guide(
         md_path = Path(output + ".md") if output else None
         exported_md = export_implementation_guide_markdown(guide, md_path)
         click.echo(f"  Markdown: {exported_md}")
+    click.echo("")
+
+
+@cli.command(name="market-intelligence")
+@click.option("--output", "-o", type=click.Path(), default=None,
+              help="Output path prefix (without extension)")
+@click.option("--format", "-f", "fmt", type=click.Choice(["json", "markdown", "both"]),
+              default="both", help="Output format")
+def market_intelligence_cmd(output: str | None, fmt: str) -> None:
+    """Generate Sector Market Intelligence Report.
+
+    Aggregates EMMA corpus data into a publishable sector benchmark
+    report covering deal structures, ratings, financial metrics,
+    risk factors, and secondary market activity.
+
+    Designed as a lead magnet for municipal bond borrowers and advisors.
+
+    Example:
+        python -m src.cli --sector waste market-intelligence
+        python -m src.cli --sector healthcare market-intelligence
+    """
+    from .storage.database import init_database
+    from .analysis.market_intelligence import (
+        generate_market_intelligence,
+        export_json,
+        export_markdown,
+    )
+
+    engine = init_database()
+    settings = get_settings()
+    click.echo(f"Generating market intelligence for {settings.sector} sector...")
+
+    report = generate_market_intelligence(engine)
+
+    # Display summary
+    es = report.executive_summary
+    comp = es.get("report_completeness", {})
+    click.echo(f"\n{'=' * 72}")
+    click.echo(f"  SECTOR MARKET INTELLIGENCE: {settings.sector.upper()}")
+    click.echo(f"{'=' * 72}")
+    click.echo(
+        f"\n  Data sections: {comp.get('available_sections', 0)} available, "
+        f"{comp.get('partial_sections', 0)} partial, "
+        f"{comp.get('pending_sections', 0)} pending"
+    )
+
+    findings = es.get("key_findings", [])
+    if findings:
+        click.echo(f"\n  Key Findings:")
+        for finding in findings:
+            click.echo(f"    - {finding}")
+
+    # Deal structure
+    ds = report.deal_structure
+    if ds.n_deals > 0:
+        click.echo(f"\n{'-' * 72}")
+        click.echo(f"  Deal Structure ({ds.n_deals} deals)")
+        click.echo(f"{'-' * 72}")
+        if ds.par_amount_median:
+            click.echo(f"  Median par: ${ds.par_amount_median / 1e6:.1f}M")
+        if ds.par_amount_total > 0:
+            click.echo(f"  Total par:  ${ds.par_amount_total / 1e6:.0f}M")
+        if ds.bond_type_distribution:
+            click.echo(f"  Bond types: {dict(ds.bond_type_distribution)}")
+        if ds.state_distribution:
+            top_states = dict(list(ds.state_distribution.items())[:5])
+            click.echo(f"  Top states: {top_states}")
+
+    # Ratings
+    rd = report.rating_distribution
+    if rd.total_rated > 0:
+        click.echo(f"\n{'-' * 72}")
+        click.echo(f"  Rating Distribution ({rd.total_rated} ratings)")
+        click.echo(f"{'-' * 72}")
+        click.echo(f"  Investment grade: {rd.investment_grade_pct:.0f}%")
+        click.echo(f"  Modal rating:     {rd.modal_rating}")
+        if rd.by_agency:
+            for agency, ratings in rd.by_agency.items():
+                if agency:
+                    top_3 = dict(list(ratings.items())[:3])
+                    click.echo(f"  {agency}: {top_3}")
+
+    # Financial benchmarks
+    fb = report.financial_benchmarks
+    if fb.n_reports > 0:
+        click.echo(f"\n{'-' * 72}")
+        click.echo(f"  Financial Benchmarks ({fb.n_reports} reports)")
+        click.echo(f"{'-' * 72}")
+        if fb.dscr_median is not None:
+            click.echo(
+                f"  DSCR: {fb.dscr_median:.2f}x median "
+                f"({fb.dscr_p25 or 0:.2f}x - {fb.dscr_p75 or 0:.2f}x IQR)"
+            )
+        if fb.operating_margin_median is not None:
+            click.echo(f"  Operating margin: {fb.operating_margin_median * 100:.1f}%")
+        if fb.leverage_median is not None:
+            click.echo(f"  Leverage ratio:   {fb.leverage_median:.2f}x")
+
+    # Risk profile
+    rp = report.risk_profile
+    if rp.n_risk_factors > 0:
+        click.echo(f"\n{'-' * 72}")
+        click.echo(f"  Risk Profile ({rp.n_risk_factors} factors)")
+        click.echo(f"{'-' * 72}")
+        click.echo(
+            f"  Issuances with risk disclosures: {rp.n_issuances_with_risk}"
+        )
+        click.echo(
+            f"  Overall mitigation rate: {rp.overall_mitigation_rate * 100:.0f}%"
+        )
+        if rp.top_categories:
+            click.echo(f"\n  {'Category':<20} {'Count':>6} {'%':>6} {'Mitig':>6}")
+            click.echo(f"  {'-'*44}")
+            for tc in rp.top_categories[:7]:
+                click.echo(
+                    f"  {tc['category']:<20} {tc['count']:>6} "
+                    f"{tc['pct_of_total']:>5.0f}% {tc['mitigation_rate']:>5.0f}%"
+                )
+
+    # Rating agency perspective
+    rap = report.rating_agency_perspective
+    if rap.n_actions > 0:
+        click.echo(f"\n{'-' * 72}")
+        click.echo(f"  Rating Agency Perspective ({rap.n_actions} actions)")
+        click.echo(f"{'-' * 72}")
+        click.echo(
+            f"  Upgrades: {rap.upgrade_count}  |  "
+            f"Downgrades: {rap.downgrade_count}  |  "
+            f"Affirmations: {rap.affirmation_count}"
+        )
+        if rap.top_strengths:
+            click.echo(f"\n  Top Strengths:")
+            for s in rap.top_strengths[:5]:
+                click.echo(f"    + {s[:80]}")
+        if rap.top_challenges:
+            click.echo(f"\n  Top Challenges:")
+            for c in rap.top_challenges[:5]:
+                click.echo(f"    - {c[:80]}")
+
+    # Market activity
+    ma = report.market_activity
+    if ma.n_cusips > 0:
+        click.echo(f"\n{'-' * 72}")
+        click.echo(f"  Secondary Market Activity ({ma.n_cusips} CUSIPs)")
+        click.echo(f"{'-' * 72}")
+        click.echo(f"  Total trades: {ma.n_trades}")
+        click.echo(f"  Avg trades/bond: {ma.avg_trades_per_bond:.1f}")
+        if ma.yield_range != (0.0, 0.0):
+            click.echo(f"  Yield range: {ma.yield_range[0]:.2f}% - {ma.yield_range[1]:.2f}%")
+
+    # Pending sections notice
+    pending_sections = []
+    for section_name, section_data in [
+        ("Deal Structure", ds.data),
+        ("Ratings", rd.data),
+        ("Financial Benchmarks", fb.data),
+        ("Risk Factors", rp.data),
+        ("Rating Agency", rap.data),
+        ("Market Activity", ma.data),
+    ]:
+        if section_data and section_data.status == "pending":
+            pending_sections.append(section_name)
+
+    if pending_sections:
+        click.echo(f"\n{'=' * 72}")
+        click.echo("  PENDING DATA SECTIONS:")
+        for ps in pending_sections:
+            click.echo(f"    - {ps}")
+        click.echo(
+            "  Run 'batch_ingest --all-types' to populate remaining sections."
+        )
+
+    # Export
+    click.echo(f"\n{'=' * 72}")
+    if fmt in ("json", "both"):
+        json_path = Path(output + ".json") if output else None
+        exported = export_json(report, json_path)
+        click.echo(f"  JSON: {exported}")
+    if fmt in ("markdown", "both"):
+        md_path = Path(output + ".md") if output else None
+        exported = export_markdown(report, md_path)
+        click.echo(f"  Markdown: {exported}")
+    click.echo("")
+
+
+@cli.command(name="benchmark-issuance")
+@click.option("--deal-size", "-s", type=float, required=True,
+              help="Deal size in USD (e.g., 50000000 for $50M)")
+@click.option("--state", "-st", type=str, required=True,
+              help="Issuer state (2-letter abbreviation, e.g., CA)")
+@click.option("--rating", "-r", type=str, required=True,
+              help="Expected credit rating (e.g., A, BBB+, Aa2)")
+@click.option("--maturity", "-m", type=float, default=30.0, show_default=True,
+              help="Years to final maturity")
+@click.option("--output", "-o", type=click.Path(), default=None,
+              help="Output path prefix (without extension)")
+@click.option("--format", "-f", "fmt", type=click.Choice(["json", "markdown", "both"]),
+              default="both", help="Output format")
+def benchmark_issuance_cmd(
+    deal_size: float, state: str, rating: str,
+    maturity: float, output: str | None, fmt: str,
+) -> None:
+    """Benchmark a prospective issuance against the EMMA corpus.
+
+    Compares deal parameters to sector peers and returns spread estimate,
+    structural norms, risk profile, and PFA comparison.
+
+    Example:
+        python -m src.cli --sector waste benchmark-issuance -s 50000000 -st CA -r A
+        python -m src.cli --sector healthcare benchmark-issuance -s 200000000 -st TX -r AA -m 25
+    """
+    from .storage.database import init_database
+    from .analysis.benchmarking_calculator import (
+        ProspectInputs,
+        generate_benchmark,
+        export_json,
+        export_markdown,
+    )
+
+    engine = init_database()
+    settings = get_settings()
+
+    inputs = ProspectInputs(
+        sector=settings.sector,
+        deal_size=deal_size,
+        state=state.upper(),
+        expected_rating=rating,
+        maturity_years=maturity,
+    )
+
+    click.echo(
+        f"Benchmarking ${deal_size / 1e6:.1f}M {state.upper()} {rating} "
+        f"{maturity:.0f}yr issuance against {settings.sector} corpus..."
+    )
+
+    result = generate_benchmark(engine, inputs)
+
+    # Display results
+    click.echo(f"\n{'=' * 72}")
+    click.echo(f"  ISSUANCE BENCHMARK: {settings.sector.upper()} SECTOR")
+    click.echo(f"{'=' * 72}")
+
+    # Spread estimate
+    se = result.spread_estimate
+    click.echo(f"\n{'-' * 72}")
+    click.echo(f"  Spread Estimate")
+    click.echo(f"{'-' * 72}")
+    if se.expected_spread_bps is not None:
+        click.echo(f"  Your rating ({se.rating_normalized}): {se.expected_spread_bps} bps over AAA MMD")
+    if se.sector_median_spread_bps is not None:
+        click.echo(
+            f"  Sector median: {se.sector_median_spread_bps} bps "
+            f"(your spread is {se.spread_vs_sector})"
+        )
+    click.echo(f"  Rated peers: {se.n_rated_peers}")
+
+    # Peer comparison
+    pc = result.peer_comparison
+    click.echo(f"\n{'-' * 72}")
+    click.echo(f"  Peer Comparison ({pc.n_peers_found} peers)")
+    click.echo(f"{'-' * 72}")
+    if pc.size_percentile is not None:
+        click.echo(f"  Deal size percentile: {pc.size_percentile:.0f}th")
+    if pc.peer_par_median:
+        click.echo(f"  Peer median par: ${pc.peer_par_median / 1e6:.1f}M")
+    if pc.peer_deals:
+        click.echo(f"\n  {'Issuer':<28} {'State':>5} {'Par ($M)':>10} {'Type':<14} {'Sim':>5}")
+        click.echo(f"  {'-' * 66}")
+        for p in pc.peer_deals[:10]:
+            par_str = f"${p.par_amount / 1e6:.1f}" if p.par_amount > 0 else "N/A"
+            click.echo(
+                f"  {p.issuer_name[:27]:<28} {p.state:>5} {par_str:>10} "
+                f"{p.bond_type[:13]:<14} {p.similarity_score:>4.0%}"
+            )
+
+    # Structural norms
+    sn = result.structural_norms
+    if sn.n_packages > 0:
+        click.echo(f"\n{'-' * 72}")
+        click.echo(f"  Structural Norms ({sn.n_packages} packages)")
+        click.echo(f"{'-' * 72}")
+        if sn.typical_coverage_ratio is not None:
+            click.echo(f"  Typical min coverage: {sn.typical_coverage_ratio:.2f}x")
+        if sn.abt_coverage_median is not None:
+            click.echo(f"  ABT coverage median:  {sn.abt_coverage_median:.2f}x")
+        click.echo(f"  DSRF prevalence:      {sn.dsrf_prevalence * 100:.0f}%")
+        if sn.pledge_type_distribution:
+            click.echo(f"  Pledge types:         {dict(list(sn.pledge_type_distribution.items())[:5])}")
+
+    # Financial benchmarks
+    fb = result.financial_benchmarks
+    if fb.n_reports > 0:
+        click.echo(f"\n{'-' * 72}")
+        click.echo(f"  Financial Benchmarks ({fb.n_reports} reports)")
+        click.echo(f"{'-' * 72}")
+        if fb.dscr_median is not None:
+            click.echo(
+                f"  DSCR: {fb.dscr_median:.2f}x median "
+                f"({fb.dscr_iqr[0]:.2f}x - {fb.dscr_iqr[1]:.2f}x IQR)"
+            )
+        if fb.operating_margin_median is not None:
+            click.echo(f"  Operating margin: {fb.operating_margin_median * 100:.1f}%")
+        if fb.leverage_median is not None:
+            click.echo(f"  Leverage ratio:   {fb.leverage_median:.2f}x")
+
+    # Risk profile
+    rp = result.risk_profile
+    if rp.n_risk_factors > 0:
+        click.echo(f"\n{'-' * 72}")
+        click.echo(f"  Risk Landscape ({rp.n_risk_factors} factors, "
+                   f"{rp.overall_mitigation_rate * 100:.0f}% mitigated)")
+        click.echo(f"{'-' * 72}")
+        if rp.top_risk_categories:
+            click.echo(f"  {'Category':<20} {'Count':>6} {'%':>6} {'Mitig':>6}")
+            click.echo(f"  {'-' * 44}")
+            for tc in rp.top_risk_categories[:5]:
+                click.echo(
+                    f"  {tc['category']:<20} {tc['count']:>6} "
+                    f"{tc['pct_of_total']:>5.0f}% {tc['mitigation_rate_pct']:>5.0f}%"
+                )
+        if rp.prospect_risk_flags:
+            click.echo(f"\n  Risk flags for this issuance:")
+            for flag in rp.prospect_risk_flags:
+                click.echo(f"    ! {flag}")
+
+    # PFA comparison
+    pfa = result.pfa_comparison
+    click.echo(f"\n{'-' * 72}")
+    click.echo(f"  Conduit / PFA Comparison ({pfa.conduit_deals_in_corpus} conduit deals)")
+    click.echo(f"{'-' * 72}")
+    if pfa.conduit_median_par:
+        click.echo(f"  Conduit median par: ${pfa.conduit_median_par / 1e6:.1f}M")
+    if pfa.conduit_rating_profile:
+        click.echo(f"  Rating profile: {pfa.conduit_rating_profile}")
+    if pfa.prospect_advantages:
+        click.echo(f"\n  Advantages (direct issuance):")
+        for a in pfa.prospect_advantages:
+            click.echo(f"    + {a[:78]}")
+    if pfa.prospect_considerations:
+        click.echo(f"\n  Considerations:")
+        for c in pfa.prospect_considerations:
+            click.echo(f"    - {c[:78]}")
+
+    # Market context
+    mc = result.market_context
+    if mc.n_trades > 0:
+        click.echo(f"\n{'-' * 72}")
+        click.echo(f"  Secondary Market ({mc.n_bonds_trading} bonds, {mc.n_trades} trades)")
+        click.echo(f"{'-' * 72}")
+        if mc.median_yield is not None:
+            click.echo(f"  Median yield: {mc.median_yield:.2f}%")
+        if mc.yield_range != (0.0, 0.0):
+            click.echo(f"  Yield range:  {mc.yield_range[0]:.2f}% - {mc.yield_range[1]:.2f}%")
+        if mc.median_price is not None:
+            click.echo(f"  Median price: ${mc.median_price:.2f}")
+
+    # Export
+    click.echo(f"\n{'=' * 72}")
+    if fmt in ("json", "both"):
+        json_path = Path(output + ".json") if output else None
+        exported = export_json(result, json_path)
+        click.echo(f"  JSON: {exported}")
+    if fmt in ("markdown", "both"):
+        md_path = Path(output + ".md") if output else None
+        exported = export_markdown(result, md_path)
+        click.echo(f"  Markdown: {exported}")
+    click.echo("")
+
+
+@cli.command(name="readiness-assess")
+@click.option("--project-name", "-p", default="Project", help="Project name")
+@click.option("--dscr", type=float, default=None, help="Project DSCR (e.g., 1.34)")
+@click.option("--revenue", type=float, default=None, help="Annual revenue in USD")
+@click.option("--coverage-ratio", type=float, default=None, help="Minimum coverage ratio")
+@click.option("--has-technology-risk", is_flag=True, help="Technology risk description provided")
+@click.option("--has-technology-mitigants", is_flag=True, help="Technology mitigants documented")
+@click.option("--has-construction-risk", is_flag=True, help="Construction risk description provided")
+@click.option("--has-construction-mitigants", is_flag=True, help="Construction mitigants documented")
+@click.option("--has-market-risk", is_flag=True, help="Market risk description provided")
+@click.option("--has-market-mitigants", is_flag=True, help="Market mitigants documented")
+@click.option("--has-regulatory-risk", is_flag=True, help="Regulatory risk description provided")
+@click.option("--has-regulatory-mitigants", is_flag=True, help="Regulatory mitigants documented")
+@click.option("--has-feedstock-risk", is_flag=True, help="Feedstock risk description provided")
+@click.option("--has-feedstock-mitigants", is_flag=True, help="Feedstock mitigants documented")
+@click.option("--evidence", "-e", multiple=True,
+              help="Evidence items present (e.g., 'risk.technology.evidence.0')")
+@click.option("--all-evidence", is_flag=True,
+              help="Mark all evidence items as present (for testing)")
+@click.option("--output", "-o", type=click.Path(), default=None,
+              help="Output path prefix (without extension)")
+@click.option("--format", "-f", "fmt", type=click.Choice(["json", "markdown", "both"]),
+              default="both", help="Output format")
+def readiness_assess(
+    project_name: str,
+    dscr: float | None,
+    revenue: float | None,
+    coverage_ratio: float | None,
+    has_technology_risk: bool,
+    has_technology_mitigants: bool,
+    has_construction_risk: bool,
+    has_construction_mitigants: bool,
+    has_market_risk: bool,
+    has_market_mitigants: bool,
+    has_regulatory_risk: bool,
+    has_regulatory_mitigants: bool,
+    has_feedstock_risk: bool,
+    has_feedstock_mitigants: bool,
+    evidence: tuple[str, ...],
+    all_evidence: bool,
+    output: str | None,
+    fmt: str,
+) -> None:
+    """Bond Readiness Self-Assessment (Phase C sensing component).
+
+    Score a project's bond readiness across 5 risk dimensions, with
+    financial health overlay. Produces a scored readiness packet with
+    gap analysis and corpus-derived recommendations.
+
+    Each dimension (20 pts max) scores:
+      - Risk description provided (+5)
+      - Mitigants documented (+5)
+      - Evidence items gathered (+2 each, up to +10)
+
+    Readiness Tiers:
+      85-100  Bond Ready       - proceed to market engagement
+      65-84   Nearly Ready     - address material gaps first
+      40-64   Developing       - significant preparation needed
+      0-39    Early Stage      - foundational work required
+
+    Example:
+        python -m src.cli --sector waste readiness-assess \\
+            -p "GSI Caldor" --dscr 1.34 --revenue 10000000 \\
+            --has-technology-risk --has-technology-mitigants \\
+            --has-market-risk --has-regulatory-risk \\
+            --has-regulatory-mitigants
+    """
+    from .storage.database import init_database
+    from .analysis.readiness_assessment import (
+        AssessmentResponse,
+        build_questionnaire,
+        score_assessment,
+        export_json as export_assess_json,
+        export_markdown as export_assess_md,
+    )
+
+    engine = init_database()
+    settings = get_settings()
+
+    # Build responses dict from flags
+    responses: dict[str, bool] = {
+        "risk.technology.description": has_technology_risk,
+        "risk.technology.mitigants": has_technology_mitigants,
+        "risk.construction.description": has_construction_risk,
+        "risk.construction.mitigants": has_construction_mitigants,
+        "risk.market.description": has_market_risk,
+        "risk.market.mitigants": has_market_mitigants,
+        "risk.regulatory.description": has_regulatory_risk,
+        "risk.regulatory.mitigants": has_regulatory_mitigants,
+        "risk.feedstock.description": has_feedstock_risk,
+        "risk.feedstock.mitigants": has_feedstock_mitigants,
+    }
+
+    # Handle evidence items
+    if all_evidence:
+        questionnaire = build_questionnaire()
+        for item in questionnaire:
+            if item.category == "evidence":
+                responses[item.item_id] = True
+    for ev_id in evidence:
+        responses[ev_id] = True
+
+    assessment = AssessmentResponse(
+        project_name=project_name,
+        responses=responses,
+        dscr=dscr,
+        revenue=revenue,
+        coverage_ratio=coverage_ratio,
+    )
+
+    click.echo(
+        f"Scoring bond readiness for {project_name} "
+        f"against {settings.sector} corpus..."
+    )
+
+    result = score_assessment(engine, assessment)
+
+    # Display results
+    click.echo(f"\n{'=' * 72}")
+    click.echo(f"  BOND READINESS SELF-ASSESSMENT: {project_name}")
+    click.echo(f"{'=' * 72}")
+
+    # Score banner
+    click.echo(f"\n  READINESS SCORE: {result.adjusted_score:.0f} / 100")
+    click.echo(f"  Tier: {result.readiness_tier}")
+    click.echo(f"  {result.tier_guidance}")
+
+    adj = result.financial_assessment.adjustment_points
+    if adj != 0:
+        adj_str = f"+{adj:.0f}" if adj >= 0 else f"{adj:.0f}"
+        click.echo(
+            f"\n  Raw score: {result.raw_score:.0f} | "
+            f"Financial adjustment: {adj_str}"
+        )
+
+    # Summary
+    click.echo(f"\n{'-' * 72}")
+    click.echo("  Assessment Summary")
+    click.echo(f"{'-' * 72}")
+    click.echo(
+        f"  Dimensions:  {result.dimensions_addressed} addressed, "
+        f"{result.dimensions_partial} partial, "
+        f"{result.dimensions_missing} missing"
+    )
+    click.echo(
+        f"  Evidence:    {result.total_evidence_present}/"
+        f"{result.total_evidence_possible} items "
+        f"({result.evidence_completeness_pct:.0f}%)"
+    )
+
+    # Dimension scores
+    click.echo(f"\n{'-' * 72}")
+    click.echo("  Dimension Scores")
+    click.echo(f"{'-' * 72}")
+    click.echo(
+        f"\n  {'Dimension':<28} {'Score':>6} {'%':>5}  "
+        f"{'Desc':>4} {'Mit':>4} {'Evid':>6}  {'Gap'}"
+    )
+    click.echo(f"  {'-' * 68}")
+
+    for dim in result.dimension_scores:
+        desc_mark = "Y" if dim.description_answered else "-"
+        mit_mark = "Y" if dim.mitigants_answered else "-"
+        click.echo(
+            f"  {dim.display_name:<28} "
+            f"{dim.score:>4.0f}/{dim.max_score:.0f} "
+            f"{dim.pct:>4.0f}%  "
+            f"{desc_mark:>4} {mit_mark:>4} "
+            f"{dim.evidence_count:>2}/{dim.evidence_total:<2}  "
+            f"{dim.gap_severity}"
+        )
+
+    # Detailed dimension breakdowns
+    for dim in result.dimension_scores:
+        if dim.gap_severity == "acceptable" and dim.pct >= 80:
+            continue  # skip well-scored dimensions in detail
+        click.echo(f"\n  {dim.display_name} [{dim.gap_severity.upper()}]:")
+        click.echo(f"    {dim.gap_narrative}")
+        if dim.evidence_items_missing:
+            click.echo(f"    Missing evidence:")
+            for ev in dim.evidence_items_missing[:3]:
+                click.echo(f"      [ ] {ev}")
+
+    # Financial assessment
+    fin = result.financial_assessment
+    click.echo(f"\n{'-' * 72}")
+    click.echo("  Financial Assessment")
+    click.echo(f"{'-' * 72}")
+    click.echo(f"  DSCR:     [{fin.dscr_score}] {fin.dscr_narrative}")
+    click.echo(f"  Coverage: [{fin.coverage_score}] {fin.coverage_narrative}")
+    click.echo(f"  Revenue:  [{fin.revenue_score}] {fin.revenue_narrative}")
+
+    if fin.financial_flags:
+        click.echo(f"\n  Financial Flags:")
+        for flag in fin.financial_flags:
+            click.echo(f"    ! {flag}")
+
+    # Priority actions
+    if result.priority_actions:
+        click.echo(f"\n{'-' * 72}")
+        click.echo("  Priority Actions")
+        click.echo(f"{'-' * 72}")
+        for i, action in enumerate(result.priority_actions, 1):
+            click.echo(f"  {i}. {action}")
+
+    # Questionnaire reference (show what evidence items are available)
+    click.echo(f"\n{'-' * 72}")
+    click.echo("  Evidence Items Reference")
+    click.echo(f"{'-' * 72}")
+    click.echo("  Use -e <item_id> to mark evidence as present:")
+    questionnaire = build_questionnaire()
+    for item in questionnaire:
+        if item.category == "evidence":
+            mark = "x" if responses.get(item.item_id) else " "
+            click.echo(f"    [{mark}] {item.item_id}: {item.evidence_key}")
+
+    # Export
+    click.echo(f"\n{'=' * 72}")
+    if fmt in ("json", "both"):
+        json_path = Path(output + ".json") if output else None
+        exported = export_assess_json(result, json_path)
+        click.echo(f"  JSON: {exported}")
+    if fmt in ("markdown", "both"):
+        md_path = Path(output + ".md") if output else None
+        exported = export_assess_md(result, md_path)
+        click.echo(f"  Markdown: {exported}")
+    click.echo("")
+
+
+@cli.command(name="revenue-streams")
+@click.argument("issuer_or_cusip", required=False, default=None)
+@click.option("--stream-type", "-t",
+              type=click.Choice(["all", "tipping_fee", "electricity_ppa", "carbon_credit", "offtake"]),
+              default="all", help="Filter by stream type")
+def revenue_streams_cmd(issuer_or_cusip: str | None, stream_type: str) -> None:
+    """Show revenue stream details for extracted deals.
+
+    Displays tipping fees, electricity PPAs, carbon credit programs,
+    and offtake agreements extracted from Official Statements.
+
+    Optionally filter by issuer name or CUSIP prefix.
+
+    Example:
+        python -m src.cli revenue-streams
+        python -m src.cli revenue-streams "Western Placer"
+        python -m src.cli revenue-streams --stream-type tipping_fee
+    """
+    from .storage.database import init_database
+
+    engine = init_database()
+    settings = get_settings()
+
+    click.echo(f"\n{'=' * 72}")
+    click.echo(f"  REVENUE STREAMS: {settings.sector.upper()} SECTOR")
+    click.echo(f"{'=' * 72}")
+
+    # Build query
+    where_clauses = ["1=1"]
+    if stream_type != "all":
+        where_clauses.append(f"rs.stream_type = '{stream_type}'")
+    if issuer_or_cusip:
+        where_clauses.append(
+            f"(di.issuer_name LIKE '%{issuer_or_cusip}%' "
+            f"OR di.cusip_base LIKE '{issuer_or_cusip}%' "
+            f"OR di.borrower_name LIKE '%{issuer_or_cusip}%')"
+        )
+
+    where = " AND ".join(where_clauses)
+    query = f"""
+        SELECT
+            rs.stream_type,
+            rs.counterparty,
+            rs.counterparty_credit_rating,
+            rs.contract_term_years,
+            rs.contract_expiry_date,
+            rs.current_rate,
+            rs.rate_escalator_pct,
+            rs.minimum_obligation,
+            rs.estimated_annual_revenue,
+            rs.assigned_as_security,
+            rs.take_or_pay,
+            rs.details_json,
+            di.issuer_name,
+            di.borrower_name,
+            di.series_name
+        FROM revenue_streams rs
+        JOIN deal_identities di ON rs.document_id = di.document_id
+        WHERE {where}
+        ORDER BY rs.stream_type, di.issuer_name
+    """
+
+    from sqlalchemy import text as sa_text
+    with engine.connect() as conn:
+        # Check if table exists
+        try:
+            rows = conn.execute(sa_text(query)).fetchall()
+        except Exception:
+            click.echo("\n  No revenue_streams table found. Run extraction first.")
+            click.echo("  Revenue stream extraction requires re-ingesting OS PDFs")
+            click.echo("  with the updated pipeline.\n")
+            return
+
+    if not rows:
+        click.echo("\n  No revenue streams found in extracted data.")
+        if issuer_or_cusip:
+            click.echo(f"  Filter: '{issuer_or_cusip}'")
+        if stream_type != "all":
+            click.echo(f"  Type filter: {stream_type}")
+        click.echo("\n  Revenue streams are extracted from OS sections:")
+        click.echo("    - SECURITY FOR THE BONDS")
+        click.echo("    - THE PROJECT")
+        click.echo("    - FLOW OF FUNDS")
+        click.echo("    - SERVICE AGREEMENTS")
+        click.echo("\n  Re-ingest OS PDFs to populate this data.\n")
+        return
+
+    # Group by stream type
+    by_type: dict[str, list] = {}
+    for row in rows:
+        st = row[0]
+        by_type.setdefault(st, []).append(row)
+
+    # Summary
+    click.echo(f"\n  Total streams: {len(rows)}")
+    for st, st_rows in sorted(by_type.items()):
+        label = st.replace("_", " ").title()
+        click.echo(f"    {label}: {len(st_rows)}")
+
+    # Detail by type
+    type_labels = {
+        "tipping_fee": "TIPPING FEES",
+        "electricity_ppa": "ELECTRICITY PPAs",
+        "carbon_credit": "CARBON CREDITS",
+        "offtake": "OFFTAKE AGREEMENTS",
+    }
+
+    for st in ["tipping_fee", "electricity_ppa", "carbon_credit", "offtake"]:
+        st_rows = by_type.get(st, [])
+        if not st_rows:
+            continue
+
+        click.echo(f"\n{'-' * 72}")
+        click.echo(f"  {type_labels[st]} ({len(st_rows)})")
+        click.echo(f"{'-' * 72}")
+
+        for row in st_rows:
+            (stream_type_val, counterparty, cp_rating, term_years,
+             expiry, rate, escalator, min_oblig, est_rev,
+             as_security, take_pay, details_json,
+             issuer, borrower, series) = row
+
+            entity = borrower or issuer or "Unknown"
+            click.echo(f"\n  {entity}")
+            if series:
+                click.echo(f"    Series: {series}")
+            if counterparty:
+                cp_str = counterparty
+                if cp_rating:
+                    cp_str += f" ({cp_rating})"
+                click.echo(f"    Counterparty: {cp_str}")
+            if rate is not None:
+                if st == "tipping_fee":
+                    click.echo(f"    Rate: ${rate:,.2f}/ton")
+                elif st == "electricity_ppa":
+                    click.echo(f"    Price: ${rate:,.4f}/kWh")
+                elif st == "carbon_credit":
+                    click.echo(f"    Price: ${rate:,.2f}/credit")
+            if escalator is not None:
+                click.echo(f"    Escalator: {escalator:.1f}%")
+            if term_years:
+                click.echo(f"    Term: {term_years} years")
+            if expiry:
+                click.echo(f"    Expires: {expiry}")
+            if min_oblig is not None:
+                if st == "tipping_fee":
+                    click.echo(f"    Min tonnage: {min_oblig:,.0f} tons/yr")
+                elif st == "electricity_ppa":
+                    click.echo(f"    Min delivery: {min_oblig:,.0f} MWh/yr")
+                elif st == "carbon_credit":
+                    click.echo(f"    Est credits: {min_oblig:,.0f}/yr")
+            if est_rev is not None:
+                click.echo(f"    Est revenue: ${est_rev:,.0f}/yr")
+            flags = []
+            if take_pay:
+                flags.append("take-or-pay" if st != "tipping_fee" else "put-or-pay")
+            if as_security:
+                flags.append("assigned as security")
+            if flags:
+                click.echo(f"    Flags: {', '.join(flags)}")
+
     click.echo("")
 
 

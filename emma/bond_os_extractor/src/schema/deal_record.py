@@ -24,6 +24,7 @@ from .additional import (
     RiskFactorProfile,
     UnderwritingTerms,
 )
+from .revenue_streams import RevenueStreamProfile
 
 
 class ReviewFlag(BaseModel):
@@ -61,6 +62,7 @@ class DealRecord(BaseModel):
     demographics: DemographicContext | None = None
     refunding: RefundingInfo | None = None
     underwriting: UnderwritingTerms | None = None
+    revenue_streams: RevenueStreamProfile | None = None
 
     # Fields needing human review
     review_flags: list[ReviewFlag] = Field(default_factory=list)

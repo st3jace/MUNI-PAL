@@ -12,6 +12,7 @@ async def test_upload_artifact_enqueues_async_chunking(
     factory,
     db_session,
     tmp_path: Path,
+    auth_headers,
 ):
     queued: dict[str, str] = {}
 
@@ -38,6 +39,7 @@ async def test_upload_artifact_enqueues_async_chunking(
         "/api/v1/artifacts/upload",
         data={"project_id": project["id"], "display_name": "Input TXT"},
         files={"file": ("input.txt", b"hello world", "text/plain")},
+        headers=auth_headers,
     )
 
     assert response.status_code == 202
@@ -53,6 +55,7 @@ async def test_upload_artifact_persists_dispatch_failure_message(
     factory,
     db_session,
     tmp_path: Path,
+    auth_headers,
 ):
     def fake_enqueue(_artifact_id: str) -> None:
         raise RuntimeError("broker unavailable")
@@ -77,6 +80,7 @@ async def test_upload_artifact_persists_dispatch_failure_message(
         "/api/v1/artifacts/upload",
         data={"project_id": project["id"], "display_name": "Input TXT"},
         files={"file": ("input.txt", b"hello world", "text/plain")},
+        headers=auth_headers,
     )
 
     assert response.status_code == 202

@@ -20,6 +20,8 @@ from munipal.api.dependencies import (
 )
 from munipal.config import get_settings
 
+TEST_USER_UUID = "aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee"
+
 
 @pytest.fixture(autouse=True)
 def clear_settings_cache():
@@ -99,7 +101,7 @@ async def test_auth_enforced_mode_accepts_valid_jwt(monkeypatch: pytest.MonkeyPa
 
     token = jwt.encode(
         {
-            "sub": "user-123",
+            "sub": TEST_USER_UUID,
             "exp": datetime.now(UTC) + timedelta(minutes=5),
         },
         "test-secret",
@@ -111,7 +113,7 @@ async def test_auth_enforced_mode_accepts_valid_jwt(monkeypatch: pytest.MonkeyPa
         x_user_id=DEV_FALLBACK_USER_ID,
     )
 
-    assert user_id == "user-123"
+    assert user_id == TEST_USER_UUID
 
 
 @pytest.mark.asyncio
@@ -136,6 +138,33 @@ async def test_auth_enforced_mode_rejects_token_without_subject(
 
     assert exc_info.value.status_code == 401
     assert exc_info.value.detail == "Token subject is missing"
+
+
+@pytest.mark.asyncio
+async def test_auth_enforced_mode_rejects_non_uuid_subject(
+    monkeypatch: pytest.MonkeyPatch,
+):
+    monkeypatch.setenv("AUTH_ENFORCEMENT_V2", "true")
+    monkeypatch.setenv("JWT_SECRET_KEY", "test-secret")
+    monkeypatch.setenv("JWT_ALGORITHM", "HS256")
+
+    token = jwt.encode(
+        {
+            "sub": "user-alpha",
+            "exp": datetime.now(UTC) + timedelta(minutes=5),
+        },
+        "test-secret",
+        algorithm="HS256",
+    )
+
+    with pytest.raises(HTTPException) as exc_info:
+        await get_current_user_id(
+            authorization=f"Bearer {token}",
+            x_user_id=DEV_FALLBACK_USER_ID,
+        )
+
+    assert exc_info.value.status_code == 401
+    assert exc_info.value.detail == "Token subject must be a valid UUID"
 
 
 @pytest.mark.asyncio
@@ -170,7 +199,7 @@ async def test_tenant_enforced_mode_reads_tenant_claim(monkeypatch: pytest.Monke
 
     token = jwt.encode(
         {
-            "sub": "user-123",
+            "sub": TEST_USER_UUID,
             "tenant_id": "tenant-jwt",
             "exp": datetime.now(UTC) + timedelta(minutes=5),
         },
@@ -196,7 +225,7 @@ async def test_tenant_enforced_mode_defaults_when_claim_missing(
 
     token = jwt.encode(
         {
-            "sub": "user-123",
+            "sub": TEST_USER_UUID,
             "exp": datetime.now(UTC) + timedelta(minutes=5),
         },
         "test-secret",

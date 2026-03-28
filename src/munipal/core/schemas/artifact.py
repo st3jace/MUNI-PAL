@@ -67,6 +67,7 @@ class ArtifactSummary(UUIDSchema):
     """Minimal artifact summary for listings."""
 
     filename: str
+    display_name: str | None = None
     artifact_type: ArtifactType
     is_processed: bool
     is_extracted: bool = False

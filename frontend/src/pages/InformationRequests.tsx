@@ -13,6 +13,7 @@ import {
   AlertTriangle,
 } from 'lucide-react'
 import { api } from '../services/api'
+import { ApiError } from '../services/generatedApi'
 import type {
   InformationRequest,
   RequestStatus,
@@ -42,20 +43,48 @@ const statusIcons: Record<RequestStatus, React.ReactNode> = {
   deferred: <XCircle className="h-4 w-4" />,
 }
 
+const getErrorMessage = (error: unknown): string => {
+  if (error instanceof ApiError) {
+    const bodyDetail =
+      error.body &&
+      typeof error.body === 'object' &&
+      'detail' in error.body &&
+      typeof error.body.detail === 'string'
+        ? error.body.detail
+        : null
+    if (bodyDetail && bodyDetail.trim()) {
+      return bodyDetail
+    }
+    return `Request failed (${error.status}).`
+  }
+  if (error instanceof Error && error.message) {
+    return error.message
+  }
+  return 'Request failed. Check API connectivity and auth token configuration.'
+}
+
 export default function InformationRequests() {
   const { projectId } = useParams<{ projectId: string }>()
   const queryClient = useQueryClient()
   const [statusFilter, setStatusFilter] = useState<RequestStatus | ''>('')
   const [priorityFilter, setPriorityFilter] = useState<RequestPriority | ''>('')
   const [selectedRequest, setSelectedRequest] = useState<InformationRequest | null>(null)
+  const [statusBanner, setStatusBanner] = useState<{
+    tone: 'success' | 'error'
+    message: string
+  } | null>(null)
 
-  const { data: report, isLoading } = useQuery({
+  const { data: report, isLoading: isReportLoading, error: reportError } = useQuery({
     queryKey: ['information-requests-report', projectId],
     queryFn: () => api.getInformationRequestReport(projectId!),
     enabled: !!projectId,
   })
 
-  const { data: requestsList } = useQuery({
+  const {
+    data: requestsList,
+    isLoading: isRequestsLoading,
+    error: requestsError,
+  } = useQuery({
     queryKey: ['information-requests', projectId, statusFilter, priorityFilter],
     queryFn: () =>
       api.listInformationRequests({
@@ -67,7 +96,11 @@ export default function InformationRequests() {
     enabled: !!projectId,
   })
 
-  const { data: overdueRequests } = useQuery({
+  const {
+    data: overdueRequests,
+    isLoading: isOverdueLoading,
+    error: overdueError,
+  } = useQuery({
     queryKey: ['overdue-requests', projectId],
     queryFn: () => api.getOverdueRequests(projectId!),
     enabled: !!projectId,
@@ -75,10 +108,20 @@ export default function InformationRequests() {
 
   const generateMutation = useMutation({
     mutationFn: () => api.generateInformationRequests(projectId!, false),
-    onSuccess: () => {
+    onMutate: () => {
+      setStatusBanner(null)
+    },
+    onSuccess: (result) => {
       queryClient.invalidateQueries({ queryKey: ['information-requests-report', projectId] })
       queryClient.invalidateQueries({ queryKey: ['information-requests', projectId] })
       queryClient.invalidateQueries({ queryKey: ['overdue-requests', projectId] })
+      setStatusBanner({
+        tone: 'success',
+        message:
+          result.requests_created > 0
+            ? `Generated ${result.requests_created} request(s).`
+            : 'No new requests generated. Existing requests may already cover current gaps.',
+      })
     },
   })
 
@@ -91,8 +134,26 @@ export default function InformationRequests() {
   })
 
   const fetchRequestDetail = async (requestId: string) => {
-    const request = await api.getInformationRequest(requestId)
-    setSelectedRequest(request)
+    try {
+      const request = await api.getInformationRequest(requestId)
+      setSelectedRequest(request)
+    } catch (error) {
+      setStatusBanner({
+        tone: 'error',
+        message: getErrorMessage(error),
+      })
+    }
+  }
+
+  const pageError = reportError ?? requestsError ?? overdueError
+  const isLoading = isReportLoading || isRequestsLoading || isOverdueLoading
+
+  if (!projectId) {
+    return (
+      <div className="card p-6 border border-red-200 bg-red-50 text-red-700">
+        Missing project context. Open this page from a project workspace.
+      </div>
+    )
   }
 
   if (isLoading) {
@@ -111,12 +172,42 @@ export default function InformationRequests() {
         <button
           className="btn btn-primary flex items-center gap-2"
           onClick={() => generateMutation.mutate()}
-          disabled={generateMutation.isPending}
+          disabled={!projectId || generateMutation.isPending}
         >
           <RefreshCw className={`h-4 w-4 ${generateMutation.isPending ? 'animate-spin' : ''}`} />
-          Generate Requests
+          {generateMutation.isPending ? 'Generating...' : 'Generate Requests'}
         </button>
       </div>
+
+      {pageError ? (
+        <div className="card p-4 border border-red-200 bg-red-50 text-red-700">
+          {getErrorMessage(pageError)}
+        </div>
+      ) : null}
+
+      {generateMutation.error ? (
+        <div className="card p-4 border border-red-200 bg-red-50 text-red-700">
+          {getErrorMessage(generateMutation.error)}
+        </div>
+      ) : null}
+
+      {acknowledgeMutation.error ? (
+        <div className="card p-4 border border-red-200 bg-red-50 text-red-700">
+          {getErrorMessage(acknowledgeMutation.error)}
+        </div>
+      ) : null}
+
+      {statusBanner ? (
+        <div
+          className={`card p-4 ${
+            statusBanner.tone === 'success'
+              ? 'border border-blue-200 bg-blue-50 text-blue-800'
+              : 'border border-red-200 bg-red-50 text-red-700'
+          }`}
+        >
+          {statusBanner.message}
+        </div>
+      ) : null}
 
       {/* Status Overview */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">

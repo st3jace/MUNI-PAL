@@ -13,18 +13,25 @@ import sys
 import time
 from pathlib import Path
 
-# Paths
-DEFAULT_EMMA_PDFS = Path(r"C:\Users\st3ja\OneDrive\Documents\MEGA\PROJECTS\INNOVATION FACTORY\MUNI-PAL\emma\emma_crawler\output\pdfs")
+
+def _parse_sector() -> str:
+    """Parse --sector from sys.argv before any settings access."""
+    for i, arg in enumerate(sys.argv[1:], 1):
+        if arg == "--sector" and i < len(sys.argv) - 1:
+            return sys.argv[i + 1]
+    return "waste"
 
 
 def _get_pdf_root() -> Path:
-    """Get the PDF root from CLI args or use default."""
+    """Get the PDF root from CLI args or use sector default."""
+    from src.config import get_settings
     for arg in sys.argv[1:]:
-        if not arg.startswith("--"):
-            p = Path(arg)
-            if p.is_dir():
-                return p
-    return DEFAULT_EMMA_PDFS
+        if arg.startswith("--"):
+            continue
+        p = Path(arg)
+        if p.is_dir():
+            return p
+    return get_settings().emma_pdf_dir
 
 # Patterns to exclude (supplements, stubs, fact sheets)
 EXCLUDE_KEYWORDS = [
@@ -39,6 +46,8 @@ EXCLUDE_KEYWORDS = [
 MIN_FILE_SIZE = 100 * 1024  # 100 KB — skip tiny stubs
 # Smaller threshold for non-OS docs (rating actions can be small)
 MIN_FILE_SIZE_ALL = 10 * 1024  # 10 KB
+# Skip massive image-scanned PDFs (SEC 10-K scans, 50-150MB) that yield 0 text
+MAX_FILE_SIZE = 30 * 1024 * 1024  # 30 MB
 
 
 def quick_hash(path: Path) -> str:
@@ -88,13 +97,20 @@ def find_os_pdfs() -> list[Path]:
 def find_all_pdfs() -> list[Path]:
     """Find ALL PDFs in EMMA output, deduped, above minimum size."""
     all_pdfs: list[Path] = []
+    skipped_large = 0
     pdf_root = _get_pdf_root()
     for pdf in pdf_root.rglob("*.pdf"):
-        if pdf.stat().st_size < MIN_FILE_SIZE_ALL:
+        size = pdf.stat().st_size
+        if size < MIN_FILE_SIZE_ALL:
+            continue
+        if size > MAX_FILE_SIZE:
+            skipped_large += 1
             continue
         if any(kw in pdf.name for kw in EXCLUDE_KEYWORDS):
             continue
         all_pdfs.append(pdf)
+    if skipped_large:
+        print(f"  Skipped {skipped_large} PDFs over {MAX_FILE_SIZE // (1024*1024)}MB (image-only scans)")
 
     # Deduplicate
     seen_hashes: dict[str, Path] = {}
@@ -298,6 +314,12 @@ def main_all_types():
 
 
 def main():
+    from src.config import set_sector, get_settings
+    set_sector(_parse_sector())
+
+    if "--no-ai" in sys.argv:
+        get_settings().tier2_enabled = False
+
     if "--all-types" in sys.argv:
         main_all_types()
     else:

@@ -14,7 +14,7 @@ from datetime import datetime, timezone
 from typing import Any
 from uuid import UUID
 
-from sqlalchemy import select, and_
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
@@ -22,9 +22,10 @@ from munipal.core.models.artifact import Artifact, Chunk
 from munipal.core.models.deliverable import DeliverablePack
 from munipal.core.models.fact import ExtractedFact
 from munipal.core.models.project import Project
-from munipal.core.schemas.base import ReviewStatus, CriticalityTier, ChecklistPhase
+from munipal.core.schemas.base import CriticalityTier, ChecklistPhase
 from munipal.core.schemas.deliverable import DeliverableSection
 from munipal.services.checklist_service import ChecklistService
+from munipal.services.fact_service import FactService
 from munipal.services.readiness_service import ReadinessService
 from munipal.services.playbook_data import SCHEMA_PATHS
 
@@ -152,8 +153,9 @@ class DeliverableService:
 
         # Load all required data
         project = await self._get_project(project_id)
-        facts = await self._get_approved_facts(project_id)
-        facts_by_path = self._index_facts_by_path(facts)
+        raw_facts = await self._get_approved_facts(project_id)
+        facts_by_path = self._index_facts_by_path(raw_facts)
+        facts = list(facts_by_path.values())
 
         # Get checklist and readiness data
         checklist_service = ChecklistService(self.session)
@@ -805,23 +807,12 @@ This section provides a preliminary outline for Official Statement preparation.
 
     async def _get_approved_facts(self, project_id: UUID) -> list[ExtractedFact]:
         """Get all approved facts for a project."""
-        result = await self.session.execute(
-            select(ExtractedFact).where(
-                and_(
-                    ExtractedFact.project_id == str(project_id),
-                    ExtractedFact.review_status == ReviewStatus.APPROVED.value,
-                    ExtractedFact.lifecycle_state != "archived",
-                )
-            )
-        )
-        return list(result.scalars().all())
+        fact_service = FactService(self.session)
+        return await fact_service.get_active_approved_facts(project_id)
 
     def _index_facts_by_path(
         self,
         facts: list[ExtractedFact],
     ) -> dict[str, ExtractedFact]:
-        """Index facts by schema path (highest confidence wins)."""
-        facts_by_path = {}
-        for fact in sorted(facts, key=lambda f: f.confidence_score):
-            facts_by_path[fact.schema_path] = fact  # Later = higher confidence
-        return facts_by_path
+        """Index facts by schema path using canonical-first deterministic selection."""
+        return FactService.select_preferred_facts_by_path(facts)

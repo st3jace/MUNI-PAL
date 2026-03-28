@@ -190,6 +190,7 @@ class ArtifactService:
                 ArtifactSummary(
                     id=UUID(artifact.id),
                     filename=artifact.filename,
+                    display_name=artifact.display_name,
                     artifact_type=ArtifactType(artifact.artifact_type),
                     is_processed=artifact.is_processed,
                     is_extracted=artifact.is_extracted,

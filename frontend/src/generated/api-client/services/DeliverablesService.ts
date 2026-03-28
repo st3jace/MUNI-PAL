@@ -19,6 +19,7 @@ export class DeliverablesService {
      * @param offset
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns DeliverablePackSummary Successful Response
      * @throws ApiError
      */
@@ -28,6 +29,7 @@ export class DeliverablesService {
         offset?: number,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Array<DeliverablePackSummary>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -35,6 +37,7 @@ export class DeliverablesService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'project_id': projectId,
@@ -68,6 +71,7 @@ export class DeliverablesService {
      * @param sync Generate synchronously (for testing without Celery)
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -76,6 +80,7 @@ export class DeliverablesService {
         sync: boolean = false,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -83,6 +88,7 @@ export class DeliverablesService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'sync': sync,
@@ -103,6 +109,7 @@ export class DeliverablesService {
      * @param packId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns DeliverablePackRead Successful Response
      * @throws ApiError
      */
@@ -110,6 +117,7 @@ export class DeliverablesService {
         packId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<DeliverablePackRead> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -120,6 +128,7 @@ export class DeliverablesService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             errors: {
                 422: `Validation Error`,
@@ -134,6 +143,7 @@ export class DeliverablesService {
      * @param packId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -141,6 +151,7 @@ export class DeliverablesService {
         packId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -151,6 +162,7 @@ export class DeliverablesService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             errors: {
                 422: `Validation Error`,
@@ -165,6 +177,7 @@ export class DeliverablesService {
      * @param packId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -172,6 +185,7 @@ export class DeliverablesService {
         packId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -182,6 +196,7 @@ export class DeliverablesService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             errors: {
                 422: `Validation Error`,
@@ -198,6 +213,7 @@ export class DeliverablesService {
      * @param sync Regenerate synchronously
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -206,6 +222,7 @@ export class DeliverablesService {
         sync: boolean = false,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -216,6 +233,7 @@ export class DeliverablesService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'sync': sync,
@@ -232,6 +250,7 @@ export class DeliverablesService {
      * @param sectionNumber
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -240,6 +259,7 @@ export class DeliverablesService {
         sectionNumber: number,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -251,6 +271,7 @@ export class DeliverablesService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             errors: {
                 422: `Validation Error`,
@@ -265,6 +286,7 @@ export class DeliverablesService {
      * @param packId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -272,6 +294,7 @@ export class DeliverablesService {
         packId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -282,6 +305,7 @@ export class DeliverablesService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             errors: {
                 422: `Validation Error`,

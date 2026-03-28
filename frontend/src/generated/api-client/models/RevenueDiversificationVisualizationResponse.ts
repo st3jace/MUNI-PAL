@@ -1,0 +1,21 @@
+/* generated using openapi-typescript-codegen -- do not edit */
+/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+import type { RevenueScenarioMix } from './RevenueScenarioMix';
+import type { RevenueStreamDefinition } from './RevenueStreamDefinition';
+/**
+ * Versioned visualization contract for revenue diversification rendering.
+ */
+export type RevenueDiversificationVisualizationResponse = {
+    contract_version?: string;
+    covenant_trigger_dscr: number;
+    data_quality_notes?: Array<string>;
+    debt_service_annual: number;
+    generated_at: string;
+    project_id: string;
+    project_name: string;
+    revenue_scenarios?: Array<RevenueScenarioMix>;
+    stream_definitions?: Array<RevenueStreamDefinition>;
+};
+

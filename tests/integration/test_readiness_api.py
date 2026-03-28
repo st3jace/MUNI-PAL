@@ -57,11 +57,11 @@ class TestReadinessAPI:
             "playbook": playbook,
         }
 
-    async def test_get_readiness_assessment(self, test_client, project_with_approved_facts):
+    async def test_get_readiness_assessment(self, test_client, project_with_approved_facts, auth_headers):
         """Test getting full readiness assessment."""
         project_id = project_with_approved_facts["project"]["id"]
 
-        response = await test_client.get(f"/api/v1/readiness/{project_id}")
+        response = await test_client.get(f"/api/v1/readiness/{project_id}", headers=auth_headers)
 
         assert response.status_code == 200
         data = response.json()
@@ -70,11 +70,11 @@ class TestReadinessAPI:
         assert "dimensions" in data
         assert 0 <= data["overall_score"] <= 10
 
-    async def test_readiness_assessment_includes_dimensions(self, test_client, project_with_approved_facts):
+    async def test_readiness_assessment_includes_dimensions(self, test_client, project_with_approved_facts, auth_headers):
         """Test that assessment includes all 6 dimensions."""
         project_id = project_with_approved_facts["project"]["id"]
 
-        response = await test_client.get(f"/api/v1/readiness/{project_id}")
+        response = await test_client.get(f"/api/v1/readiness/{project_id}", headers=auth_headers)
 
         assert response.status_code == 200
         data = response.json()
@@ -96,11 +96,11 @@ class TestReadinessAPI:
             assert "weight" in dimensions[dim]
             assert 0 <= dimensions[dim]["score"] <= 5
 
-    async def test_get_readiness_gaps(self, test_client, project_with_approved_facts):
+    async def test_get_readiness_gaps(self, test_client, project_with_approved_facts, auth_headers):
         """Test getting readiness gap report."""
         project_id = project_with_approved_facts["project"]["id"]
 
-        response = await test_client.get(f"/api/v1/readiness/{project_id}/gaps")
+        response = await test_client.get(f"/api/v1/readiness/{project_id}/gaps", headers=auth_headers)
 
         assert response.status_code == 200
         data = response.json()
@@ -108,12 +108,13 @@ class TestReadinessAPI:
         assert "material_gaps" in data
         assert "priority_actions" in data
 
-    async def test_get_dimension_detail(self, test_client, project_with_approved_facts):
+    async def test_get_dimension_detail(self, test_client, project_with_approved_facts, auth_headers):
         """Test getting detail for a specific dimension."""
         project_id = project_with_approved_facts["project"]["id"]
 
         response = await test_client.get(
-            f"/api/v1/readiness/{project_id}/dimensions/project_tech"
+            f"/api/v1/readiness/{project_id}/dimensions/project_tech",
+            headers=auth_headers,
         )
 
         assert response.status_code == 200
@@ -123,27 +124,28 @@ class TestReadinessAPI:
         assert "weight" in data
         assert "explanation" in data
 
-    async def test_get_invalid_dimension(self, test_client, project_with_approved_facts):
+    async def test_get_invalid_dimension(self, test_client, project_with_approved_facts, auth_headers):
         """Test getting invalid dimension returns 404."""
         project_id = project_with_approved_facts["project"]["id"]
 
         response = await test_client.get(
-            f"/api/v1/readiness/{project_id}/dimensions/invalid_dimension"
+            f"/api/v1/readiness/{project_id}/dimensions/invalid_dimension",
+            headers=auth_headers,
         )
 
         assert response.status_code == 404
 
-    async def test_readiness_nonexistent_project(self, test_client):
+    async def test_readiness_nonexistent_project(self, test_client, auth_headers):
         """Test readiness for nonexistent project returns 404."""
-        response = await test_client.get(f"/api/v1/readiness/{uuid4()}")
+        response = await test_client.get(f"/api/v1/readiness/{uuid4()}", headers=auth_headers)
 
         assert response.status_code == 404
 
-    async def test_readiness_recommendation_thresholds(self, test_client, project_with_approved_facts):
+    async def test_readiness_recommendation_thresholds(self, test_client, project_with_approved_facts, auth_headers):
         """Test that recommendation matches score thresholds."""
         project_id = project_with_approved_facts["project"]["id"]
 
-        response = await test_client.get(f"/api/v1/readiness/{project_id}")
+        response = await test_client.get(f"/api/v1/readiness/{project_id}", headers=auth_headers)
 
         assert response.status_code == 200
         data = response.json()

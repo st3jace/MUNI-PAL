@@ -486,6 +486,9 @@ async def test_risk_diagnostics_emits_audit_event(monkeypatch: pytest.MonkeyPatc
     assert len(events) == 1
     assert events[0]["action"] == "generate_risk_diagnostics"
     assert events[0]["target_id"] == str(project_id)
+    assert events[0]["metadata"]["scoring_profile_version"].startswith("risk-scoring-profile-")
+    assert events[0]["metadata"]["scoring_profile_checksum"]
+    assert events[0]["metadata"]["governance_policy_version"].startswith("risk-governance-policy-")
 
 
 @pytest.mark.asyncio
@@ -523,6 +526,45 @@ async def test_risk_override_decision_emits_audit_event(monkeypatch: pytest.Monk
     assert events[0]["action"] == "risk_override_decision"
     assert events[0]["project_id"] == str(project_id)
     assert events[0]["metadata"]["reason"] == decision.reason
+    assert events[0]["metadata"]["governance_scope"] == "dimension"
+    assert events[0]["metadata"]["scoring_profile_version"].startswith("risk-scoring-profile-")
+
+
+@pytest.mark.asyncio
+async def test_risk_override_scoring_profile_scope_metadata(monkeypatch: pytest.MonkeyPatch):
+    events = []
+    project_id = uuid4()
+
+    async def fake_require_project_write(self, _user_id, _project_id):
+        return None
+
+    def fake_emit_event(**kwargs):
+        events.append(kwargs)
+        return kwargs
+
+    monkeypatch.setattr(risk_reporting, "get_settings", lambda: SimpleNamespace(risk_reporting_v2_foundation=True))
+    monkeypatch.setattr(risk_reporting.AuthorizationService, "require_project_write", fake_require_project_write)
+    monkeypatch.setattr(risk_reporting.AuditService, "emit_event", fake_emit_event)
+
+    decision = risk_reporting.RiskOverrideDecisionRequest(
+        project_id=project_id,
+        target_ref="scoring_profile.dscr.headroom.target_min",
+        reason="Approved threshold update after governance review.",
+        previous_value="0.15",
+        override_value="0.16",
+        notes="M3 policy alignment",
+    )
+    await risk_reporting.record_risk_override_decision(
+        db=object(),
+        user_id="actor-risk-2",
+        decision=decision,
+        _="analyst",
+    )
+
+    assert len(events) == 1
+    assert events[0]["action"] == "risk_override_decision"
+    assert events[0]["metadata"]["governance_scope"] == "scoring_profile"
+    assert events[0]["metadata"]["scoring_profile_checksum"]
 
 
 @pytest.mark.asyncio
@@ -558,3 +600,4 @@ async def test_risk_action_acceptance_emits_audit_event(monkeypatch: pytest.Monk
     assert events[0]["action"] == "risk_action_accepted"
     assert events[0]["target_id"] == "action.dscr.coverage"
     assert events[0]["project_id"] == str(project_id)
+    assert events[0]["metadata"]["scoring_profile_version"].startswith("risk-scoring-profile-")

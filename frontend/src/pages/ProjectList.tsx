@@ -5,11 +5,18 @@ import { Plus, FolderKanban, Trash2 } from 'lucide-react'
 import { api } from '../services/api'
 import type { ProjectCreate } from '../types'
 
+const getErrorMessage = (error: unknown): string => {
+  if (error instanceof Error && error.message) {
+    return error.message
+  }
+  return 'Request failed. Check API connectivity and auth token configuration.'
+}
+
 export default function ProjectList() {
   const [showCreateModal, setShowCreateModal] = useState(false)
   const queryClient = useQueryClient()
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error: listError } = useQuery({
     queryKey: ['projects'],
     queryFn: () => api.listProjects(),
   })
@@ -60,6 +67,10 @@ export default function ProjectList() {
 
       {isLoading ? (
         <div className="text-center py-12 text-gray-500">Loading projects...</div>
+      ) : listError ? (
+        <div className="card p-6 border border-red-200 bg-red-50 text-red-700">
+          {getErrorMessage(listError)}
+        </div>
       ) : data?.projects.length === 0 ? (
         <div className="card p-12 text-center">
           <FolderKanban className="mx-auto h-12 w-12 text-gray-400" />
@@ -209,6 +220,11 @@ export default function ProjectList() {
                     {createMutation.isPending ? 'Creating...' : 'Create Project'}
                   </button>
                 </div>
+                {createMutation.error ? (
+                  <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+                    {getErrorMessage(createMutation.error)}
+                  </div>
+                ) : null}
               </form>
             </div>
           </div>

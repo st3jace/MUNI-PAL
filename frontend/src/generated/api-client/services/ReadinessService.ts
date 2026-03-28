@@ -23,6 +23,7 @@ export class ReadinessService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns ReadinessAssessment Successful Response
      * @throws ApiError
      */
@@ -30,6 +31,7 @@ export class ReadinessService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<ReadinessAssessment> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -37,6 +39,7 @@ export class ReadinessService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'project_id': projectId,
@@ -67,6 +70,7 @@ export class ReadinessService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -75,6 +79,7 @@ export class ReadinessService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -85,6 +90,7 @@ export class ReadinessService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'project_id': projectId,
@@ -101,6 +107,7 @@ export class ReadinessService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -109,6 +116,7 @@ export class ReadinessService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -119,6 +127,7 @@ export class ReadinessService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'project_id': projectId,
@@ -137,6 +146,7 @@ export class ReadinessService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -144,6 +154,7 @@ export class ReadinessService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -151,6 +162,7 @@ export class ReadinessService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'project_id': projectId,
@@ -176,6 +188,7 @@ export class ReadinessService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns ReadinessGapReport Successful Response
      * @throws ApiError
      */
@@ -183,6 +196,7 @@ export class ReadinessService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<ReadinessGapReport> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -190,6 +204,7 @@ export class ReadinessService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'project_id': projectId,

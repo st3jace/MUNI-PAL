@@ -1,0 +1,117 @@
+# =============================================================================
+# Muni-Pal Sensing Microservice — Production Docker Compose
+# assess.launchshop.io
+#
+# Exposes ONLY the sensing layer. Full BFMS stack is separate.
+#
+# Usage:
+#   cp .env.sensing.example .env.sensing
+#   # Fill in secrets in .env.sensing
+#   docker compose -f docker-compose.sensing.yml --env-file .env.sensing up -d
+# =============================================================================
+
+version: "3.9"
+
+services:
+
+  # ============================================================================
+  # Nginx — TLS termination + reverse proxy
+  # Exposes /api/sensing/* only; blocks all BFMS/admin routes
+  # ============================================================================
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: sensing-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx-sensing.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./frontend/dist:/app/dist:ro          # pre-built sensing frontend
+      - certbot_www:/var/www/certbot:ro
+      - certbot_conf:/etc/letsencrypt:ro
+    depends_on:
+      - sensing-api
+    networks:
+      - sensing_net
+
+  # ============================================================================
+  # Sensing API — FastAPI with EMMA corpus
+  # ============================================================================
+  sensing-api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.sensing
+    container_name: sensing-api
+    restart: unless-stopped
+    env_file:
+      - .env.sensing
+    environment:
+      # Runtime overrides (secrets come from .env.sensing)
+      - APP_ENV=production
+      - DEBUG=false
+      - USE_SQLITE=false
+      # Postgres — lead capture DB
+      - POSTGRES_HOST=sensing-postgres
+      - POSTGRES_PORT=5432
+      # Redis — rate limiting + Celery broker
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_TLS=${REDIS_TLS:-true}
+      - REDIS_URL=${REDIS_URL}
+    depends_on:
+      sensing-postgres:
+        condition: service_healthy
+    networks:
+      - sensing_net
+    # Do NOT expose port 8000 externally — only reachable via nginx
+    expose:
+      - "8000"
+
+  # ============================================================================
+  # PostgreSQL — lead capture + sensing event storage
+  # ============================================================================
+  sensing-postgres:
+    image: postgres:16-alpine
+    container_name: sensing-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-munipal_sensing}
+    volumes:
+      - sensing_postgres_data:/var/lib/postgresql/data
+    networks:
+      - sensing_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB:-munipal_sensing}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # Do NOT expose Postgres externally
+    expose:
+      - "5432"
+
+  # ============================================================================
+  # Certbot — TLS certificate renewal (Let's Encrypt)
+  # ============================================================================
+  certbot:
+    image: certbot/certbot:latest
+    container_name: sensing-certbot
+    volumes:
+      - certbot_www:/var/www/certbot
+      - certbot_conf:/etc/letsencrypt
+    # Run manual renewal; cron handles auto-renewal
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done'"
+    networks:
+      - sensing_net
+
+networks:
+  sensing_net:
+    driver: bridge
+
+volumes:
+  sensing_postgres_data:
+  certbot_www:
+  certbot_conf:

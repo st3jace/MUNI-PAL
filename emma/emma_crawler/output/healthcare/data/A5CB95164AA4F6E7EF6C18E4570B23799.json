@@ -1,7 +1,7 @@
 {
   "cusip": "A5CB95164AA4F6E7EF6C18E4570B23799",
   "crawl_metadata": {
-    "crawl_timestamp": "2026-02-19T22:00:57.642180+00:00",
+    "crawl_timestamp": "2026-02-20T00:16:33.077041+00:00",
     "emma_url": "https://emma.msrb.org/Security/Details/A5CB95164AA4F6E7EF6C18E4570B23799",
     "extraction_status": {
       "snapshot": "success",
@@ -110,21 +110,21 @@
     {
       "trade_date": "01/08/2026 01:55 PM",
       "settlement_date": "01/09/2026",
-      "price": "75.863",
-      "yield": "4.95",
-      "calculation_date_price": "06/01/2045 @ 100",
-      "trade_amount": "35,000",
-      "trade_type": "Customer bought",
-      "special_condition": ""
-    },
-    {
-      "trade_date": "01/08/2026 01:55 PM",
-      "settlement_date": "01/09/2026",
       "price": "75.613",
       "yield": "4.974",
       "calculation_date_price": "06/01/2045 @ 100",
       "trade_amount": "35,000",
       "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "01/08/2026 01:55 PM",
+      "settlement_date": "01/09/2026",
+      "price": "75.863",
+      "yield": "4.95",
+      "calculation_date_price": "06/01/2045 @ 100",
+      "trade_amount": "35,000",
+      "trade_type": "Customer bought",
       "special_condition": ""
     },
     {
@@ -284,8 +284,8 @@
       "yield": "4.841",
       "calculation_date_price": "06/01/2045 @ 100",
       "trade_amount": "200,000",
-      "trade_type": "Customer bought",
-      "special_condition": ""
+      "trade_type": "Inter-dealer trade",
+      "special_condition": "-"
     },
     {
       "trade_date": "11/17/2025 02:02 PM",
@@ -294,8 +294,8 @@
       "yield": "4.841",
       "calculation_date_price": "06/01/2045 @ 100",
       "trade_amount": "200,000",
-      "trade_type": "Inter-dealer trade",
-      "special_condition": "-"
+      "trade_type": "Customer bought",
+      "special_condition": ""
     },
     {
       "trade_date": "11/17/2025 01:11 PM",
@@ -350,22 +350,22 @@
     {
       "trade_date": "11/14/2025 09:30 AM",
       "settlement_date": "11/17/2025",
-      "price": "74.874",
-      "yield": "5.035",
-      "calculation_date_price": "06/01/2045 @ 100",
-      "trade_amount": "10,000",
-      "trade_type": "Inter-dealer trade",
-      "special_condition": ""
-    },
-    {
-      "trade_date": "11/14/2025 09:30 AM",
-      "settlement_date": "11/17/2025",
       "price": "74.624",
       "yield": "5.06",
       "calculation_date_price": "06/01/2045 @ 100",
       "trade_amount": "10,000",
       "trade_type": "Customer sold",
       "special_condition": "-"
+    },
+    {
+      "trade_date": "11/14/2025 09:30 AM",
+      "settlement_date": "11/17/2025",
+      "price": "74.874",
+      "yield": "5.035",
+      "calculation_date_price": "06/01/2045 @ 100",
+      "trade_amount": "10,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
     },
     {
       "trade_date": "11/13/2025 12:54 PM",
@@ -600,22 +600,22 @@
     {
       "trade_date": "06/30/2025 11:39 AM",
       "settlement_date": "07/01/2025",
-      "price": "73.679",
-      "yield": "5.124",
-      "calculation_date_price": "06/01/2045 @ 100",
-      "trade_amount": "5,000",
-      "trade_type": "Inter-dealer trade",
-      "special_condition": ""
-    },
-    {
-      "trade_date": "06/30/2025 11:39 AM",
-      "settlement_date": "07/01/2025",
       "price": "73.879",
       "yield": "5.104",
       "calculation_date_price": "06/01/2045 @ 100",
       "trade_amount": "5,000",
       "trade_type": "Customer bought",
       "special_condition": "-"
+    },
+    {
+      "trade_date": "06/30/2025 11:39 AM",
+      "settlement_date": "07/01/2025",
+      "price": "73.679",
+      "yield": "5.124",
+      "calculation_date_price": "06/01/2045 @ 100",
+      "trade_amount": "5,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
     },
     {
       "trade_date": "06/09/2025 01:21 PM",
@@ -640,22 +640,22 @@
     {
       "trade_date": "05/13/2025 12:03 PM",
       "settlement_date": "05/14/2025",
-      "price": "76.484",
-      "yield": "4.847",
-      "calculation_date_price": "06/01/2045 @ 100",
-      "trade_amount": "275,000",
-      "trade_type": "Inter-dealer trade",
-      "special_condition": ""
-    },
-    {
-      "trade_date": "05/13/2025 12:03 PM",
-      "settlement_date": "05/14/2025",
       "price": "76.404",
       "yield": "4.854",
       "calculation_date_price": "06/01/2045 @ 100",
       "trade_amount": "275,000",
       "trade_type": "Customer sold",
       "special_condition": "-"
+    },
+    {
+      "trade_date": "05/13/2025 12:03 PM",
+      "settlement_date": "05/14/2025",
+      "price": "76.484",
+      "yield": "4.847",
+      "calculation_date_price": "06/01/2045 @ 100",
+      "trade_amount": "275,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
     },
     {
       "trade_date": "05/07/2025 02:00 PM",
@@ -700,16 +700,6 @@
     {
       "trade_date": "01/23/2025 03:54 PM",
       "settlement_date": "01/24/2025",
-      "price": "79.775",
-      "yield": "4.532",
-      "calculation_date_price": "06/01/2045 @ 100",
-      "trade_amount": "25,000",
-      "trade_type": "Customer bought",
-      "special_condition": "-"
-    },
-    {
-      "trade_date": "01/23/2025 03:54 PM",
-      "settlement_date": "01/24/2025",
       "price": "78.211",
       "yield": "4.67",
       "calculation_date_price": "06/01/2045 @ 100",
@@ -718,14 +708,24 @@
       "special_condition": "-"
     },
     {
+      "trade_date": "01/23/2025 03:54 PM",
+      "settlement_date": "01/24/2025",
+      "price": "79.775",
+      "yield": "4.532",
+      "calculation_date_price": "06/01/2045 @ 100",
+      "trade_amount": "25,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
       "trade_date": "01/07/2025 10:29 AM",
       "settlement_date": "01/08/2025",
-      "price": "79.947",
-      "yield": "4.514",
+      "price": "80.017",
+      "yield": "4.508",
       "calculation_date_price": "06/01/2045 @ 100",
       "trade_amount": "10,000",
-      "trade_type": "Customer sold",
-      "special_condition": "-"
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
     },
     {
       "trade_date": "01/07/2025 10:29 AM",
@@ -740,12 +740,12 @@
     {
       "trade_date": "01/07/2025 10:29 AM",
       "settlement_date": "01/08/2025",
-      "price": "80.017",
-      "yield": "4.508",
+      "price": "79.947",
+      "yield": "4.514",
       "calculation_date_price": "06/01/2045 @ 100",
       "trade_amount": "10,000",
-      "trade_type": "Inter-dealer trade",
-      "special_condition": ""
+      "trade_type": "Customer sold",
+      "special_condition": "-"
     },
     {
       "trade_date": "12/19/2024 03:37 PM",
@@ -890,6 +890,16 @@
     {
       "trade_date": "10/25/2024 12:58 PM",
       "settlement_date": "10/28/2024",
+      "price": "80.194",
+      "yield": "4.483",
+      "calculation_date_price": "06/01/2045 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "10/25/2024 12:58 PM",
+      "settlement_date": "10/28/2024",
       "price": "80.214",
       "yield": "4.481",
       "calculation_date_price": "06/01/2045 @ 100",
@@ -898,12 +908,12 @@
       "special_condition": "-"
     },
     {
-      "trade_date": "10/25/2024 12:58 PM",
-      "settlement_date": "10/28/2024",
-      "price": "80.194",
-      "yield": "4.483",
+      "trade_date": "10/24/2024 11:27 AM",
+      "settlement_date": "10/25/2024",
+      "price": "78.524",
+      "yield": "4.628",
       "calculation_date_price": "06/01/2045 @ 100",
-      "trade_amount": "50,000",
+      "trade_amount": "250,000",
       "trade_type": "Inter-dealer trade",
       "special_condition": ""
     },
@@ -920,20 +930,20 @@
     {
       "trade_date": "10/24/2024 11:27 AM",
       "settlement_date": "10/25/2024",
-      "price": "78.524",
-      "yield": "4.628",
-      "calculation_date_price": "06/01/2045 @ 100",
-      "trade_amount": "250,000",
-      "trade_type": "Inter-dealer trade",
-      "special_condition": ""
-    },
-    {
-      "trade_date": "10/24/2024 11:27 AM",
-      "settlement_date": "10/25/2024",
       "price": "78.574",
       "yield": "4.624",
       "calculation_date_price": "06/01/2045 @ 100",
       "trade_amount": "250,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "10/21/2024 12:04 PM",
+      "settlement_date": "10/22/2024",
+      "price": "81.51",
+      "yield": "4.37",
+      "calculation_date_price": "06/01/2045 @ 100",
+      "trade_amount": "20,000",
       "trade_type": "Customer bought",
       "special_condition": "-"
     },
@@ -946,16 +956,6 @@
       "trade_amount": "20,000",
       "trade_type": "Inter-dealer trade",
       "special_condition": ""
-    },
-    {
-      "trade_date": "10/21/2024 12:04 PM",
-      "settlement_date": "10/22/2024",
-      "price": "81.51",
-      "yield": "4.37",
-      "calculation_date_price": "06/01/2045 @ 100",
-      "trade_amount": "20,000",
-      "trade_type": "Customer bought",
-      "special_condition": "-"
     },
     {
       "trade_date": "10/16/2024 03:18 PM",
@@ -1034,28 +1034,14 @@
       "rating": "",
       "outlook": "",
       "as_of": "",
-      "note": "Long-Term Issue Rating (effective 06/30/2025) Long-Term Issue Rating Alert Code (effective 06/30/2025) Unenhanced Long-Term Issue Rating (effective 06/30/2025) Unenhanced Long-Term Issue Rating Alert Code (effective 06/30/2025) Short-Term Issue Rating Short-Term Issue Rating Alert Code Unenhanced Sh"
-    },
-    {
-      "agency": "KBRA",
-      "rating": "",
-      "outlook": "",
-      "as_of": "",
-      "note": "No ratings information provided by Kroll Bond Rating Agency."
+      "note": "Ratings, Inc."
     },
     {
       "agency": "Moody's",
       "rating": "",
       "outlook": "",
       "as_of": "",
-      "note": "No ratings information provided by Moody's Investors Service, Inc."
-    },
-    {
-      "agency": "S&P",
-      "rating": "",
-      "outlook": "",
-      "as_of": "",
-      "note": "Long-Term Debt Rating (effective 09/29/2020) Outlook/Credit Watch (effective 09/29/2020) Underlying Maturity Long-Term Debt Rating (effective 07/08/2022) Underlying Outlook/Credit Watch (effective 07/08/2022) Short-Term Rating Credit Watch Underlying Maturity Short-Term Debt Rating Underlying Credit"
+      "note": "Corporation, Moody's Investors Service, Inc., Moody's Analytics, Inc. and/or their licensors and affiliates (collectively, \"MOODY'S\"). All rights reserved. Copyright \u00a9 2026, Standard and Poor\u2019s Financial Services LLC. All rights reserved. 1.0.9903-243-P2"
     }
   ],
   "disclosures": [
@@ -1063,414 +1049,372 @@
       "doc_type": "Official Statement",
       "filing_date": "09/29/2020",
       "pdf_url": "https://emma.msrb.org/P11416018-P11099892-P11509025.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0001_Official_Statement_s.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0001_Official_Statement_s.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "11/26/2025",
       "pdf_url": "https://emma.msrb.org/P21992702-P21518626-P21973144.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0002_Financial_Disclosure.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0002_Financial_Disclosure.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "02/03/2026",
       "pdf_url": "https://emma.msrb.org/P21999905-P21523706-P21978869.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0003_Event_Disclosure.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0003_Event_Disclosure.pdf",
       "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "02/03/2026",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21505449",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "09/10/2025",
-      "pdf_url": "https://emma.msrb.org/P31460836-P31133715-P31546829.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0005_Kaiser_Permanente_Launches_in_Nevada_in_2026_as_of.pdf",
-      "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "09/10/2025",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P31115716",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "09/16/2025",
-      "pdf_url": "https://emma.msrb.org/P21963316-P21498131-P21950451.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0007_Agreement_to_Covenants_of_a_Financial_Obligation_a.pdf",
-      "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "09/16/2025",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21479705",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "06/16/2025",
-      "pdf_url": "https://emma.msrb.org/P31456656-P31130737-P31543549.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0009_Incurrence_of_a_Financial_Obligation_as_of_06_16_2.pdf",
-      "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "06/16/2025",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P31112792",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "07/08/2025",
-      "pdf_url": "https://emma.msrb.org/P21938671-P21481240-P21932134.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0011_Renown_Regional_Medical_Center_NV_Standard_Poor_s_.pdf",
-      "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "07/08/2025",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21462917",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "06/30/2025",
-      "pdf_url": "https://emma.msrb.org/P11872288-P11432423-P11877352.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0013_Renown_Regional_Medical_Center_NV_Fitch_Assignment.pdf",
-      "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "06/30/2025",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11413803",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "08/02/2024",
-      "pdf_url": "https://emma.msrb.org/P11779783-P11366004-P11803461.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0015_Assured_Guaranty_Municipal_Corp_AGM_now_AG_Moody_s.pdf",
-      "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "08/02/2024",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11347536",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "08/01/2024",
-      "pdf_url": "https://emma.msrb.org/P11778063-P11364697-P11802103.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0017_Assured_Guaranty_Municipal_AGM_Standard_Poor_s_08_.pdf",
-      "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "08/01/2024",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11346212",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "08/01/2024",
-      "pdf_url": "https://emma.msrb.org/P11777082-P11364336-P11801742.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0019_Assured_Guaranty_Municipal_AGM_Kroll_08_01_2024_as.pdf",
-      "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "08/01/2024",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11345851",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "08/08/2023",
-      "pdf_url": "https://emma.msrb.org/P21720696-P21322603-P21755706.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0021_Renown_Regional_Medical_Center_NV_Fitch_Outlook_Au.pdf",
-      "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "08/08/2023",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21304165",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "05/13/2025",
-      "pdf_url": "https://emma.msrb.org/P11850198-P11417079-P11860242.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0023_Voluntary_Disclosure_Related_to_Potential_Financin.pdf",
-      "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "05/13/2025",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11398572",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "08/01/2024",
-      "pdf_url": "https://emma.msrb.org/P11775214-P11363215-P11800562.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0025_Notice_Regarding_Change_of_Insurer_as_of_08_01_202.pdf",
-      "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "08/01/2024",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11344703",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "11/26/2025",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21500245",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "07/07/2025",
-      "pdf_url": "https://emma.msrb.org/P11872061-P11432277-P11877189.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0028_Annual_Financial_Disclosures_Posted_07_07_2025_for.pdf",
-      "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "07/07/2025",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11413663",
-      "local_pdf_path": "",
-      "download_success": false
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "05/16/2025",
       "pdf_url": "https://emma.msrb.org/P11853427-P11419310-P11862727.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0030_Audited_Financial_Statements_Posted_05_16_2025_for.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0004_View_Audited_Financial_Statement.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
-      "filing_date": "05/16/2025",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11400834",
-      "local_pdf_path": "",
-      "download_success": false
+      "filing_date": "09/16/2025",
+      "pdf_url": "https://emma.msrb.org/P21963316-P21498131-P21950451.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0005_Event_Filing_as_of_09_16_2025_371_KB.pdf",
+      "download_success": true
     },
     {
       "doc_type": "Disclosure",
-      "filing_date": "06/30/2025",
+      "filing_date": "09/10/2025",
+      "pdf_url": "https://emma.msrb.org/P31460836-P31133715-P31546829.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0006_Event_Filing_as_of_09_10_2025_140_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/28/2025",
       "pdf_url": "https://emma.msrb.org/P11880184-P11437788-P11883202.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0032_2025_2nd_Quarter_Report_for_the_quarter_ended_06_3.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0007_Financial_Operating_Filing_174_KB.pdf",
       "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "06/30/2025",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11419167",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "03/31/2025",
-      "pdf_url": "https://emma.msrb.org/P11853430-P11419311-P11862729.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0034_2025_1st_Quarter_Report_for_the_quarter_ended_03_3.pdf",
-      "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "03/31/2025",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11400835",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "09/30/2024",
-      "pdf_url": "https://emma.msrb.org/P11807049-P11385479-P11824844.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0036_2024_3rd_Quarter_Report_for_the_quarter_ended_09_3.pdf",
-      "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "09/30/2024",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11366971",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "06/30/2024",
-      "pdf_url": "https://emma.msrb.org/P11785153-P11369978-P11807715.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0038_2024_2nd_Quarter_Report_for_the_quarter_ended_06_3.pdf",
-      "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "06/30/2024",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11351448",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "03/31/2024",
-      "pdf_url": "https://emma.msrb.org/P21814559-P21391832-P21832664.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0040_2024_1st_Quarter_Report_for_the_quarter_ended_03_3.pdf",
-      "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "03/31/2024",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21373490",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "09/30/2023",
-      "pdf_url": "https://emma.msrb.org/P11705226-P11311028-P11742734.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0042_2023_3rd_Quarter_Report_for_the_quarter_ended_09_3.pdf",
-      "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "09/30/2023",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11292537",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "06/30/2023",
-      "pdf_url": "https://emma.msrb.org/P11692851-P11302025-P11732840.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0044_2023_2nd_Quarter_Report_for_the_quarter_ended_06_3.pdf",
-      "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "06/30/2023",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11283448",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "03/31/2023",
-      "pdf_url": "https://emma.msrb.org/P11666421-P11283242-P11712243.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0046_2023_1st_Quarter_Report_for_Three_Months_Ended_Mar.pdf",
-      "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "03/31/2023",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11264418",
-      "local_pdf_path": "",
-      "download_success": false
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "07/30/2025",
       "pdf_url": "https://emma.msrb.org/P21946152-P21486308-P21937656.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0048_Incorporate_OS_by_Reference_as_of_07_30_2025_3_6_M.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0008_Financial_Operating_Filing_3_6_MB.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
-      "filing_date": "07/30/2025",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21468015",
-      "local_pdf_path": "",
-      "download_success": false
+      "filing_date": "07/08/2025",
+      "pdf_url": "https://emma.msrb.org/P21938671-P21481240-P21932134.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0009_Event_Filing_as_of_07_08_2025_382_KB.pdf",
+      "download_success": true
     },
     {
       "doc_type": "Disclosure",
-      "filing_date": "12/31/2024",
+      "filing_date": "06/30/2025",
+      "pdf_url": "https://emma.msrb.org/P11872288-P11432423-P11877352.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0010_Event_Filing_as_of_06_30_2025_538_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "07/07/2025",
+      "pdf_url": "https://emma.msrb.org/P11872061-P11432277-P11877189.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0011_Financial_Operating_Filing_246_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "06/16/2025",
+      "pdf_url": "https://emma.msrb.org/P31456656-P31130737-P31543549.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0012_Event_Filing_as_of_06_16_2025_890_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/16/2025",
+      "pdf_url": "https://emma.msrb.org/P11853430-P11419311-P11862729.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0013_Financial_Operating_Filing_386_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/16/2025",
       "pdf_url": "https://emma.msrb.org/P11853423-P11419307-P11862724.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0050_2024_Annual_Report_for_the_year_ended_12_31_2024_2.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0014_Financial_Operating_Filing_2_MB.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
-      "filing_date": "12/31/2024",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11400831",
-      "local_pdf_path": "",
-      "download_success": false
+      "filing_date": "05/13/2025",
+      "pdf_url": "https://emma.msrb.org/P11850198-P11417079-P11860242.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0015_Event_Filing_as_of_05_13_2025_75_KB.pdf",
+      "download_success": true
     },
     {
       "doc_type": "Disclosure",
-      "filing_date": "12/31/2023",
+      "filing_date": "11/19/2024",
+      "pdf_url": "https://emma.msrb.org/P11807049-P11385479-P11824844.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0016_Financial_Operating_Filing_649_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/26/2024",
+      "pdf_url": "https://emma.msrb.org/P11785153-P11369978-P11807715.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0017_Financial_Operating_Filing_1_2_MB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/02/2024",
+      "pdf_url": "https://emma.msrb.org/P11779783-P11366004-P11803461.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0018_Event_Filing_as_of_08_02_2024_72_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/01/2024",
+      "pdf_url": "https://emma.msrb.org/P11778063-P11364697-P11802103.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0019_Event_Filing_as_of_08_01_2024_2_9_MB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/01/2024",
+      "pdf_url": "https://emma.msrb.org/P11777082-P11364336-P11801742.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0020_Event_Filing_as_of_08_01_2024_41_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/01/2024",
+      "pdf_url": "https://emma.msrb.org/P11775214-P11363215-P11800562.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0021_Event_Filing_as_of_08_01_2024_185_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/28/2024",
+      "pdf_url": "https://emma.msrb.org/P21814559-P21391832-P21832664.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0022_Financial_Operating_Filing_706_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/28/2024",
       "pdf_url": "https://emma.msrb.org/P21814555-P21391828-P21832661.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0052_2023_Annual_Report_for_the_year_ended_12_31_2023_1.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0023_Financial_Operating_Filing_1_1_MB.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
-      "filing_date": "12/31/2023",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21373488",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "12/31/2022",
-      "pdf_url": "https://emma.msrb.org/P11666415-P11283238-P11712238.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0054_2022_Annual_Report_for_Six_Months_Ended_December_3.pdf",
-      "download_success": true
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "12/31/2022",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11264414",
-      "local_pdf_path": "",
-      "download_success": false
-    },
-    {
-      "doc_type": "Disclosure",
-      "filing_date": "12/31/2023",
+      "filing_date": "05/28/2024",
       "pdf_url": "https://emma.msrb.org/P21814548-P21391823-P21832656.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0056_2023_Audited_Financial_Statements_for_the_year_end.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0024_Financial_Operating_Filing_1_1_MB.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
-      "filing_date": "12/31/2023",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P21373483",
-      "local_pdf_path": "",
-      "download_success": false
+      "filing_date": "11/27/2023",
+      "pdf_url": "https://emma.msrb.org/P11705226-P11311028-P11742734.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0025_Financial_Operating_Filing_1_1_MB.pdf",
+      "download_success": true
     },
     {
       "doc_type": "Disclosure",
-      "filing_date": "12/31/2022",
+      "filing_date": "08/23/2023",
+      "pdf_url": "https://emma.msrb.org/P11692851-P11302025-P11732840.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0026_Financial_Operating_Filing_1_1_MB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/08/2023",
+      "pdf_url": "https://emma.msrb.org/P21720696-P21322603-P21755706.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0027_Event_Filing_as_of_08_08_2023_736_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/30/2023",
+      "pdf_url": "https://emma.msrb.org/P11666421-P11283242-P11712243.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0028_Financial_Operating_Filing_632_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/30/2023",
       "pdf_url": "https://emma.msrb.org/P11666419-P11283241-P11712242.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0058_2022_Audited_Financial_Statements_for_Six_Month_Pe.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0029_Financial_Operating_Filing_1_3_MB.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
-      "filing_date": "12/31/2022",
-      "pdf_url": "https://emma.msrb.org/MarketActivity/ContinuingDisclosureDetails/P11264417",
-      "local_pdf_path": "",
-      "download_success": false
+      "filing_date": "05/30/2023",
+      "pdf_url": "https://emma.msrb.org/P11666415-P11283238-P11712238.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0030_Financial_Operating_Filing_1_3_MB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "12/01/2022",
+      "pdf_url": "https://emma.msrb.org/P21640367-P21262726-P21688866.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0031_Financial_Operating_Filing_91_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/28/2022",
+      "pdf_url": "https://emma.msrb.org/P11632496-P11257640-P11682866.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0032_Financial_Operating_Filing_636_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/28/2022",
+      "pdf_url": "https://emma.msrb.org/P11632494-P11257639-P11682865.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0033_Financial_Operating_Filing_1_7_MB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/28/2022",
+      "pdf_url": "https://emma.msrb.org/P11632492-P11257638-P11682864.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0034_Financial_Operating_Filing_1_7_MB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "09/15/2022",
+      "pdf_url": "https://emma.msrb.org/P11621384-P11249698-P11674130.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0035_Event_Filing_as_of_09_15_2022_671_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/12/2022",
+      "pdf_url": "https://emma.msrb.org/P21606132-P21238400-P21662045.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0036_Event_Filing_as_of_08_12_2022_740_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "07/08/2022",
+      "pdf_url": "https://emma.msrb.org/P21592913-P21229028-P21651706.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0037_Event_Filing_as_of_07_08_2022_1_3_MB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/27/2022",
+      "pdf_url": "https://emma.msrb.org/P11608422-P11240293-P11663660.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0038_Financial_Operating_Filing_266_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "03/18/2022",
+      "pdf_url": "https://emma.msrb.org/P11580375-P11220015-P11641244.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0039_Event_Filing_as_of_03_18_2022_96_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "03/11/2022",
+      "pdf_url": "https://emma.msrb.org/P21557529-P21203389-P21623432.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0040_Event_Filing_as_of_03_11_2022_318_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "02/25/2022",
+      "pdf_url": "https://emma.msrb.org/P11571634-P11213297-P11633725.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0041_Financial_Operating_Filing_218_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/29/2021",
+      "pdf_url": "https://emma.msrb.org/P11543325-P11192242-P11609733.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0042_Financial_Operating_Filing_214_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/24/2021",
+      "pdf_url": "https://emma.msrb.org/P21518992-P21174701-P21590953.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0043_Financial_Operating_Filing_569_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/24/2021",
+      "pdf_url": "https://emma.msrb.org/P21518989-P21174699-P21590951.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0044_Financial_Operating_Filing_569_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "08/19/2021",
+      "pdf_url": "https://emma.msrb.org/P11522822-P11177931-P11594262.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0045_Event_Filing_as_of_08_19_2021_155_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "05/27/2021",
+      "pdf_url": "https://emma.msrb.org/P21464069-P21136049-P21548857.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0046_Financial_Operating_Filing_214_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "03/01/2021",
+      "pdf_url": "https://emma.msrb.org/P21436601-P21115646-P21526694.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0047_Financial_Operating_Filing_215_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/25/2020",
+      "pdf_url": "https://emma.msrb.org/P11444655-P11120143-P11530699.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0048_Financial_Operating_Filing_205_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/19/2020",
+      "pdf_url": "https://emma.msrb.org/P21413824-P21098612-P21507818.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0049_Financial_Operating_Filing_158_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "11/09/2020",
+      "pdf_url": "https://emma.msrb.org/P11437681-P11115136-P11525207.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0050_Event_Filing_as_of_11_09_2020_916_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "10/16/2020",
+      "pdf_url": "https://emma.msrb.org/P11428320-P11108443-P11518094.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0051_Financial_Operating_Filing_73_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "10/16/2020",
+      "pdf_url": "https://emma.msrb.org/P11428317-P11108441-P11518092.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0052_Financial_Operating_Filing_431_KB.pdf",
+      "download_success": true
+    },
+    {
+      "doc_type": "Disclosure",
+      "filing_date": "10/01/2020",
+      "pdf_url": "https://emma.msrb.org/P11419242-P11102214-P11511544.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\A5CB95164AA4F6E7EF6C18E4570B23799\\A5CB95164AA4F6E7EF6C18E4570B23799_0053_Financial_Operating_Filing_3_1_MB.pdf",
+      "download_success": true
     }
   ]
 }

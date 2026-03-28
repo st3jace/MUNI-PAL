@@ -12,12 +12,16 @@ import {
   FileText,
   MessageSquareMore,
   Package,
+  // Sensing tools
+  Wrench,
 } from 'lucide-react'
 import { useState } from 'react'
+import AdvisorChat from './AdvisorChat'
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Projects', href: '/projects', icon: FolderKanban },
+  { name: 'Sensing Tools', href: '/tools', icon: Wrench },
 ]
 
 const projectNavigation = [
@@ -137,6 +141,9 @@ export default function Layout() {
           <Outlet />
         </main>
       </div>
+
+      {/* Municipal Advisor Chat Widget */}
+      <AdvisorChat />
     </div>
   )
 }

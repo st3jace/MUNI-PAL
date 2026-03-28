@@ -88,6 +88,18 @@ sections:
     priority: 68
     expected_location: "middle"
 
+  SERVICE_AGREEMENTS:
+    patterns:
+      - "(?i)^\\s*SERVICE AGREEMENT(S)?\\s*$"
+      - "(?i)^\\s*(THE )?WASTE (DISPOSAL|SUPPLY) AGREEMENT(S)?\\s*$"
+      - "(?i)^\\s*(THE )?ENERGY (PURCHASE|SALE) AGREEMENT\\s*$"
+      - "(?i)^\\s*POWER PURCHASE AGREEMENT\\s*$"
+      - "(?i)^\\s*(THE )?OFFTAKE AGREEMENT(S)?\\s*$"
+      - "(?i)^\\s*(THE )?TIPPING FEE(S)?( AGREEMENT)?\\s*$"
+      - "(?i)^\\s*(THE )?DISPOSAL (FEE|AGREEMENT)(S)?\\s*$"
+    priority: 67
+    expected_location: "middle"
+
   RATE_COVENANT:
     patterns:
       - "(?i)^\\s*RATE COVENANT\\s*$"

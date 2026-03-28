@@ -75,3 +75,11 @@ class Project(Base, TimestampMixin):
     external_packages = relationship(
         "ExternalAdvisoryPackage", back_populates="project", cascade="all, delete-orphan"
     )
+
+    # Document Management System
+    deal_documents = relationship(
+        "DealDocument", back_populates="project", cascade="all, delete-orphan"
+    )
+    virtual_data_room = relationship(
+        "VirtualDataRoom", back_populates="project", uselist=False, cascade="all, delete-orphan"
+    )

@@ -156,6 +156,38 @@ sources_uses = Table(
     Column("total_uses", Float),
 )
 
+revenue_streams = Table(
+    "revenue_streams", metadata,
+    Column("id", Integer, primary_key=True, autoincrement=True),
+    Column("document_id", String(36), nullable=False),
+    Column("stream_type", String(30), nullable=False),  # carbon_credit|tipping_fee|electricity_ppa|offtake
+    Column("counterparty", Text),
+    Column("counterparty_credit_rating", String(20)),
+    Column("contract_term_years", Integer),
+    Column("contract_expiry_date", String(20)),
+    Column("pricing_mechanism", String(30)),
+    Column("current_rate", Float),
+    Column("rate_escalator_pct", Float),
+    Column("minimum_obligation", Float),
+    Column("estimated_annual_revenue", Float),
+    Column("assigned_as_security", Integer),  # SQLite bool
+    Column("take_or_pay", Integer),  # SQLite bool
+    Column("details_json", Text),  # Full sub-model as JSON for type-specific fields
+)
+
+operational_metrics = Table(
+    "operational_metrics", metadata,
+    Column("id", Integer, primary_key=True, autoincrement=True),
+    Column("document_id", String(36), nullable=False),
+    Column("metric_type", String(30), nullable=False),  # dscr|debt_service|generation|escalation|opex
+    Column("year", Integer),
+    Column("value", Float),
+    Column("value2", Float),  # secondary value (e.g., interest for debt_service)
+    Column("value3", Float),  # tertiary (e.g., total for debt_service)
+    Column("label", String(50)),  # sub-label (e.g., "historical", "projected", "minimum_required")
+    Column("details_json", Text),
+)
+
 classifications = Table(
     "classifications", metadata,
     Column("document_id", String(36), primary_key=True),
@@ -186,6 +218,10 @@ Index("ix_docs_tax_status", deal_structures.c.tax_status)
 Index("ix_docs_interest_type", deal_structures.c.interest_type)
 Index("ix_docs_issuer_state", deal_identities.c.issuer_state)
 Index("ix_docs_par_amount", deal_structures.c.par_amount)
+Index("ix_operational_metrics_doc", operational_metrics.c.document_id)
+Index("ix_operational_metrics_type", operational_metrics.c.metric_type)
+Index("ix_revenue_streams_doc", revenue_streams.c.document_id)
+Index("ix_revenue_streams_type", revenue_streams.c.stream_type)
 Index("ix_docidx_doc_type", document_index.c.doc_type)
 Index("ix_docidx_issuer", document_index.c.issuer_name)
 Index("ix_docidx_provenance", document_index.c.provenance_class)
@@ -288,7 +324,8 @@ def save_deal_record(engine: Engine, record: Any) -> str:
             for tbl_name in [
                 "classifications", "sources_uses", "risk_factors", "ratings",
                 "security_packages", "debt_service_rows", "maturity_rows",
-                "deal_structures", "deal_identities",
+                "deal_structures", "deal_identities", "revenue_streams",
+                "operational_metrics",
             ]:
                 conn.execute(text(f"DELETE FROM {tbl_name} WHERE document_id = :id"), {"id": old_id})
             conn.execute(text("DELETE FROM documents WHERE id = :id"), {"id": old_id})
@@ -432,6 +469,84 @@ def save_deal_record(engine: Engine, record: Any) -> str:
                 total_sources=_float_or_none(su.total_sources),
                 total_uses=_float_or_none(su.total_uses),
             ))
+
+        # Revenue streams
+        if record.revenue_streams:
+            import json as _json
+
+            rs = record.revenue_streams
+            for tf in rs.tipping_fees:
+                conn.execute(revenue_streams.insert().values(
+                    document_id=doc_id,
+                    stream_type="tipping_fee",
+                    counterparty=", ".join(tf.counterparties) if tf.counterparties else None,
+                    contract_term_years=tf.contract_term_years,
+                    contract_expiry_date=_str_or_none(tf.contract_expiry_date),
+                    current_rate=_float_or_none(tf.current_rate),
+                    rate_escalator_pct=_float_or_none(tf.rate_escalator_pct),
+                    minimum_obligation=_float_or_none(tf.minimum_annual_tonnage),
+                    estimated_annual_revenue=_float_or_none(tf.guaranteed_annual_revenue),
+                    take_or_pay=int(tf.put_or_pay),
+                    details_json=_json.dumps(tf.model_dump(mode="json", exclude_none=True)),
+                ))
+
+            for ppa in rs.electricity_ppas:
+                conn.execute(revenue_streams.insert().values(
+                    document_id=doc_id,
+                    stream_type="electricity_ppa",
+                    counterparty=ppa.counterparty,
+                    counterparty_credit_rating=ppa.counterparty_credit_rating,
+                    contract_term_years=ppa.contract_term_years,
+                    contract_expiry_date=_str_or_none(ppa.contract_expiry_date),
+                    current_rate=_float_or_none(ppa.price_per_mwh or ppa.price_per_kwh),
+                    rate_escalator_pct=_float_or_none(ppa.price_escalator_pct),
+                    minimum_obligation=_float_or_none(ppa.minimum_delivery_obligation_mwh),
+                    assigned_as_security=int(ppa.assigned_as_security),
+                    details_json=_json.dumps(ppa.model_dump(mode="json", exclude_none=True)),
+                ))
+
+            for cc in rs.carbon_credits:
+                conn.execute(revenue_streams.insert().values(
+                    document_id=doc_id,
+                    stream_type="carbon_credit",
+                    counterparty=cc.counterparty,
+                    contract_term_years=cc.contract_term_years,
+                    current_rate=_float_or_none(cc.price_per_credit),
+                    minimum_obligation=_float_or_none(cc.estimated_annual_credits),
+                    assigned_as_security=int(cc.assigned_as_security),
+                    details_json=_json.dumps(cc.model_dump(mode="json", exclude_none=True)),
+                ))
+
+            for oa in rs.offtake_agreements:
+                conn.execute(revenue_streams.insert().values(
+                    document_id=doc_id,
+                    stream_type="offtake",
+                    counterparty=oa.counterparty,
+                    counterparty_credit_rating=oa.counterparty_credit_rating,
+                    contract_term_years=oa.contract_term_years,
+                    contract_expiry_date=_str_or_none(oa.contract_expiry_date),
+                    pricing_mechanism=oa.pricing_mechanism,
+                    minimum_obligation=_float_or_none(oa.minimum_purchase_obligation),
+                    estimated_annual_revenue=_float_or_none(oa.estimated_annual_revenue),
+                    assigned_as_security=int(oa.assigned_as_security),
+                    take_or_pay=int(oa.take_or_pay),
+                    details_json=_json.dumps(oa.model_dump(mode="json", exclude_none=True)),
+                ))
+
+        # Operational metrics (from ai_operational_metrics extractor)
+        if hasattr(record, '_operational_metrics') and record._operational_metrics:
+            import json as _json2
+            for metric in record._operational_metrics:
+                conn.execute(operational_metrics.insert().values(
+                    document_id=doc_id,
+                    metric_type=metric.get("metric_type", ""),
+                    year=metric.get("year"),
+                    value=_float_or_none(metric.get("value")),
+                    value2=_float_or_none(metric.get("value2")),
+                    value3=_float_or_none(metric.get("value3")),
+                    label=metric.get("label"),
+                    details_json=_json2.dumps(metric.get("details", {})) if metric.get("details") else None,
+                ))
 
         # Classifications
         conn.execute(classifications.insert().values(

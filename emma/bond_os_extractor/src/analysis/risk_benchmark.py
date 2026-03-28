@@ -436,6 +436,425 @@ class ImplementationGuide:
 
 
 # ---------------------------------------------------------------------------
+# Sector-Specific Dimension Registries
+# ---------------------------------------------------------------------------
+# Each sector defines its own set of 5 readiness dimensions with display names,
+# methodology templates, benchmark standards, playbook guidance, and evidence.
+# The registries are keyed by sector name (e.g., "waste", "healthcare").
+# Unknown sectors fall back to a generic configuration derived from waste.
+
+HEALTHCARE_READINESS_PATH_CONFIG: dict[str, dict[str, Any]] = {
+    "risk.technology": {
+        "display_name": "Technology & Clinical Systems Risk",
+        "methodology": (
+            "Technology risk benchmarks are derived from {n_factors} risk factor "
+            "disclosures across {n_issuances} healthcare bond issuances in the EMMA "
+            "corpus. The severity distribution ({pct_material:.0f}% material, "
+            "{pct_significant:.0f}% significant, {pct_boilerplate:.0f}% boilerplate) "
+            "reflects how healthcare issuers characterize technology and clinical "
+            "systems risks. Rating agency perspectives are drawn from "
+            "{n_rating_factors} rating action factors citing technology-related "
+            "considerations."
+        ),
+        "benchmark_standard": (
+            "Well-positioned healthcare issuers demonstrate: (1) modern EHR/EMR "
+            "systems with interoperability compliance (21st Century Cures Act), "
+            "(2) HIPAA-compliant cybersecurity posture with regular penetration "
+            "testing, (3) mitigation described in {pct_mitigated:.0f}% of "
+            "disclosures. Rating agencies cite technology as a strength when "
+            "backed by robust IT infrastructure ({n_strengths} instances) but "
+            "flag it as a challenge for legacy system dependencies "
+            "({n_challenges} instances)."
+        ),
+        "emma_categories": ["technology", "cybersecurity"],
+    },
+    "risk.construction": {
+        "display_name": "Facility & Capital Risk",
+        "methodology": (
+            "Facility risk benchmarks are derived from {n_factors} risk factor "
+            "disclosures across {n_issuances} healthcare issuances. These cover "
+            "hospital construction, renovation, equipment acquisition, and "
+            "Certificate of Need (CON) requirements. The severity profile "
+            "({pct_material:.0f}% material, {pct_significant:.0f}% significant) "
+            "reflects capital-intensive nature of healthcare facilities. "
+            "{n_rating_factors} rating agency factors referenced facility and "
+            "capital considerations."
+        ),
+        "benchmark_standard": (
+            "The corpus benchmark for facility risk reflects issuers with: "
+            "(1) Certificate of Need approval where required, "
+            "(2) mitigation described in {pct_mitigated:.0f}% of disclosures "
+            "(performance bonds, contingency reserves, phased construction), "
+            "(3) facility condition assessments within 3 years. "
+            "Rating agencies treat facility risk as a challenge {n_challenges} "
+            "times, citing aging infrastructure and deferred maintenance. "
+            "Strengths cited {n_strengths} times include campus master plans "
+            "and recently completed expansions."
+        ),
+        "emma_categories": ["construction", "labor", "force_majeure", "insurance"],
+    },
+    "risk.market": {
+        "display_name": "Market & Volume Risk",
+        "methodology": (
+            "Market risk benchmarks aggregate {n_factors} risk factor disclosures "
+            "across {n_issuances} healthcare issuances, spanning patient volume "
+            "trends, service area competition, physician recruitment, and payer "
+            "mix dynamics. This is typically the most frequently disclosed risk "
+            "in healthcare bonds. {n_rating_factors} rating action factors "
+            "addressed market-related considerations."
+        ),
+        "benchmark_standard": (
+            "Well-positioned healthcare issuers demonstrate: (1) stable or "
+            "growing patient volumes with favorable demographic trends, "
+            "(2) manageable competition with defined service area advantages, "
+            "(3) mitigation described in {pct_mitigated:.0f}% of market risk "
+            "disclosures. Rating agencies cite market position as a strength "
+            "{n_strengths} times (essential provider status, limited "
+            "competition) but flag volume declines and physician shortages "
+            "as challenges {n_challenges} times."
+        ),
+        "emma_categories": [
+            "market_demand", "offtake_counterparty", "competition",
+            "financial", "interest_rate", "litigation",
+        ],
+    },
+    "risk.regulatory": {
+        "display_name": "Regulatory & Compliance Risk",
+        "methodology": (
+            "Regulatory risk benchmarks draw from {n_factors} disclosures across "
+            "{n_issuances} healthcare issuances. Healthcare is among the most "
+            "heavily regulated sectors, encompassing CMS Conditions of "
+            "Participation, state licensure, accreditation standards, and "
+            "fraud/abuse regulations. The severity distribution "
+            "({pct_material:.0f}% material, {pct_significant:.0f}% significant) "
+            "reflects pervasive regulatory exposure. {n_rating_factors} rating "
+            "agency factors referenced regulatory considerations."
+        ),
+        "benchmark_standard": (
+            "The corpus standard shows: (1) regulatory risk is universal in "
+            "healthcare issuances with {pct_mitigated:.0f}% describing specific "
+            "mitigants (compliance programs, legal counsel, accreditation), "
+            "(2) CMS survey readiness is a critical ongoing requirement, "
+            "(3) rating agencies cite regulatory environment as a strength "
+            "{n_strengths} times (essential service, favorable licensing) and "
+            "a challenge {n_challenges} times (changing reimbursement rules, "
+            "compliance costs, fraud/abuse investigations)."
+        ),
+        "emma_categories": [
+            "regulatory", "environmental", "tax_law",
+            "political", "permitting", "climate", "pandemic",
+        ],
+    },
+    "risk.reimbursement": {
+        "display_name": "Reimbursement & Payer Risk",
+        "methodology": (
+            "Reimbursement risk benchmarks are derived from {n_factors} "
+            "disclosures across {n_issuances} healthcare issuances. In the "
+            "healthcare sector, reimbursement risk concerns Medicare/Medicaid "
+            "rate adequacy, managed care contract terms, payer mix stability, "
+            "and revenue cycle management effectiveness. {n_rating_factors} "
+            "rating agency factors addressed reimbursement and payer "
+            "considerations."
+        ),
+        "benchmark_standard": (
+            "Corpus issuers typically manage reimbursement risk through: "
+            "(1) diversified payer mix with no single payer exceeding 40% of "
+            "net revenue, (2) proactive managed care contract negotiations, "
+            "(3) explicit mitigation in {pct_mitigated:.0f}% of disclosures. "
+            "Rating agencies cite favorable payer mix and revenue diversity "
+            "as strengths {n_strengths} times. Reimbursement pressure is "
+            "flagged as a challenge {n_challenges} times, particularly for "
+            "Medicaid-dependent facilities and those with high uncompensated "
+            "care."
+        ),
+        "emma_categories": ["feedstock_supply", "management"],
+    },
+}
+
+HEALTHCARE_PLAYBOOK_GUIDANCE: dict[str, dict[str, Any]] = {
+    "risk.technology": {
+        "guidance": (
+            "Assess technology and clinical systems risk including EHR/EMR "
+            "reliability, medical equipment lifecycle, cybersecurity posture, "
+            "and telehealth platform maturity. Describe system dependencies, "
+            "HIPAA compliance status, and IT infrastructure resilience."
+        ),
+        "example_description": (
+            "Epic EHR system deployed across all facilities with 99.9% uptime "
+            "SLA. HIPAA security risk assessment completed within 12 months. "
+            "Legacy radiology systems scheduled for replacement in FY2027."
+        ),
+        "example_mitigants": (
+            "Annual HIPAA security risk assessment; cyber liability insurance "
+            "($10M coverage); EHR vendor SLA with 99.9% uptime guarantee; "
+            "redundant data center with 4-hour RTO."
+        ),
+        "suggested_evidence": [
+            "HIPAA security risk assessment (within 12 months)",
+            "EHR vendor contract with SLA",
+            "Cybersecurity penetration test results",
+            "Clinical technology capital plan",
+            "IT disaster recovery / business continuity plan",
+        ],
+        "concrete_mitigants": [
+            "Annual HIPAA security risk assessment",
+            "Cyber liability insurance ($10M+ coverage)",
+            "EHR vendor SLA (99.9% uptime guarantee)",
+            "IT disaster recovery plan with tested RTO < 4 hours",
+        ],
+    },
+    "risk.construction": {
+        "guidance": (
+            "Assess facility and capital risks including construction projects, "
+            "renovation schedules, equipment installation, and Certificate of "
+            "Need requirements. Describe facility condition, capital project "
+            "timelines, and deferred maintenance exposure."
+        ),
+        "example_description": (
+            "Phase 1 hospital expansion ($45M) completing in 18 months. "
+            "Certificate of Need approved. Existing campus has $12M deferred "
+            "maintenance addressed over 3-year capital plan."
+        ),
+        "example_mitigants": (
+            "GMP contract with experienced healthcare contractor; $2M "
+            "construction contingency; Certificate of Need obtained; "
+            "facility condition assessment within 3 years."
+        ),
+        "suggested_evidence": [
+            "Certificate of Need approval (if applicable)",
+            "Architect/engineering contract (GMP or fixed-price)",
+            "Construction performance bond",
+            "Facility condition assessment (within 3 years)",
+            "Capital improvement plan (5-year horizon)",
+        ],
+        "concrete_mitigants": [
+            "GMP construction contract with experienced healthcare builder",
+            "Construction performance bond (100% of contract value)",
+            "15% contingency reserve funded at closing",
+            "Facility condition assessment with deferred maintenance plan",
+            "Certificate of Need obtained (where required)",
+        ],
+    },
+    "risk.market": {
+        "guidance": (
+            "Assess market and volume risks including patient volume trends, "
+            "service area demographics, physician recruitment, payer mix, and "
+            "competitive dynamics. Describe market position drivers and "
+            "vulnerability to volume shifts."
+        ),
+        "example_description": (
+            "Primary service area population growing 1.2% annually. Hospital "
+            "holds 45% market share as sole community provider. Key risk: "
+            "physician recruitment in rural market with aging medical staff."
+        ),
+        "example_mitigants": (
+            "Essential provider status with limited competition; physician "
+            "recruitment partnership with regional medical school; service "
+            "line diversification across 8 specialties; growing outpatient "
+            "network."
+        ),
+        "suggested_evidence": [
+            "Independent demand / market study",
+            "Service area demographic analysis",
+            "Payer mix analysis (3-year trend)",
+            "Physician recruitment and retention plan",
+            "Competitive landscape assessment",
+        ],
+        "concrete_mitigants": [
+            "Essential provider designation or sole community status",
+            "Physician recruitment pipeline with medical school partnerships",
+            "Service line diversification across 5+ specialties",
+            "Growing outpatient network expanding market reach",
+        ],
+    },
+    "risk.regulatory": {
+        "guidance": (
+            "Assess regulatory and compliance risks including CMS Conditions "
+            "of Participation, state licensure, accreditation (Joint Commission "
+            "or HFAP), Stark Law/Anti-Kickback compliance, and 340B program "
+            "eligibility. Describe compliance infrastructure and survey "
+            "readiness."
+        ),
+        "example_description": (
+            "Joint Commission accredited through 2028. Last CMS survey with "
+            "no Immediate Jeopardy findings. Compliance program with dedicated "
+            "Chief Compliance Officer and annual training. 340B program "
+            "participant."
+        ),
+        "example_mitigants": (
+            "Joint Commission accreditation (current); dedicated Chief "
+            "Compliance Officer; annual compliance training program; "
+            "quarterly board compliance reporting; external compliance audit."
+        ),
+        "suggested_evidence": [
+            "Current accreditation certificate (Joint Commission/HFAP)",
+            "Most recent CMS survey results",
+            "State licensure documentation (current)",
+            "Compliance program description and officer designation",
+            "Regulatory change impact analysis",
+        ],
+        "concrete_mitigants": [
+            "Joint Commission or HFAP accreditation (current)",
+            "Dedicated Chief Compliance Officer",
+            "Annual compliance training for all staff",
+            "Quarterly board compliance reporting",
+            "External compliance audit (annual)",
+        ],
+    },
+    "risk.reimbursement": {
+        "guidance": (
+            "Assess reimbursement and payer risks including Medicare/Medicaid "
+            "rate trends, managed care contract terms, payer concentration, "
+            "bad debt/charity care levels, and revenue cycle effectiveness. "
+            "Describe payer mix stability and exposure to rate changes."
+        ),
+        "example_description": (
+            "Payer mix: 42% Medicare, 22% Medicaid, 28% commercial, 8% "
+            "self-pay. Top 3 managed care contracts represent 35% of net "
+            "revenue. Days in A/R trending at 48 days. Bad debt at 3.2% of "
+            "gross revenue."
+        ),
+        "example_mitigants": (
+            "Diversified payer mix with no single payer >42% of net revenue; "
+            "multi-year managed care contracts with annual escalators; "
+            "revenue cycle management partnership achieving 98% clean claim "
+            "rate; financial assistance policy reducing bad debt exposure."
+        ),
+        "suggested_evidence": [
+            "Payer mix analysis with trend (3+ years)",
+            "Top managed care contract summaries",
+            "Revenue cycle performance metrics (days in A/R, clean claim rate)",
+            "Bad debt and charity care trend analysis",
+            "Medicare cost report (most recent)",
+        ],
+        "concrete_mitigants": [
+            "Diversified payer mix (no single payer >40% of net revenue)",
+            "Multi-year managed care contracts with rate escalators",
+            "Revenue cycle management achieving 98%+ clean claim rate",
+            "Financial assistance policy with defined eligibility criteria",
+            "Days in A/R maintained below 50 days",
+        ],
+    },
+}
+
+# Healthcare maps the same EMMA categories but routes feedstock/management
+# to risk.reimbursement instead of risk.feedstock.
+HEALTHCARE_CATEGORY_TO_READINESS: dict[str, str] = {
+    "technology": "risk.technology",
+    "cybersecurity": "risk.technology",
+    "construction": "risk.construction",
+    "labor": "risk.construction",
+    "force_majeure": "risk.construction",
+    "insurance": "risk.construction",
+    "market_demand": "risk.market",
+    "offtake_counterparty": "risk.market",
+    "competition": "risk.market",
+    "financial": "risk.market",
+    "interest_rate": "risk.market",
+    "litigation": "risk.market",
+    "regulatory": "risk.regulatory",
+    "environmental": "risk.regulatory",
+    "tax_law": "risk.regulatory",
+    "political": "risk.regulatory",
+    "permitting": "risk.regulatory",
+    "climate": "risk.regulatory",
+    "pandemic": "risk.regulatory",
+    "feedstock_supply": "risk.reimbursement",
+    "management": "risk.reimbursement",
+}
+
+HEALTHCARE_RATING_FACTOR_KEYWORDS: dict[str, list[str]] = {
+    "risk.technology": [
+        "technology", "system", "equipment", "EHR", "EMR", "cyber",
+        "digital", "telehealth", "HIPAA", "interoperability",
+    ],
+    "risk.construction": [
+        "construction", "capital project", "build", "expansion",
+        "renovation", "facility", "campus", "labor", "workforce",
+        "certificate of need", "CON",
+    ],
+    "risk.market": [
+        "market", "volume", "patient", "demand", "competition",
+        "competitive", "physician", "recruitment", "demographic",
+        "service area", "admissions", "outpatient",
+    ],
+    "risk.regulatory": [
+        "regulat", "compliance", "CMS", "licensure", "accreditation",
+        "Joint Commission", "Stark", "anti-kickback", "340B",
+        "legislation", "tax", "political", "government",
+    ],
+    "risk.reimbursement": [
+        "reimbursement", "payer", "Medicare", "Medicaid", "managed care",
+        "revenue cycle", "bad debt", "charity care", "rate", "payment",
+        "insurance", "commercial payer", "self-pay",
+    ],
+}
+
+
+# ---------------------------------------------------------------------------
+# Sector Config Registry + Accessors
+# ---------------------------------------------------------------------------
+
+_SECTOR_REGISTRY: dict[str, dict[str, Any]] = {
+    "waste": {
+        "path_config": None,           # use module-level READINESS_PATH_CONFIG
+        "playbook": None,              # use module-level PLAYBOOK_RISK_GUIDANCE
+        "category_mapping": None,      # use module-level CATEGORY_TO_READINESS
+        "rating_keywords": None,       # use module-level _RATING_FACTOR_KEYWORDS
+    },
+    "healthcare": {
+        "path_config": HEALTHCARE_READINESS_PATH_CONFIG,
+        "playbook": HEALTHCARE_PLAYBOOK_GUIDANCE,
+        "category_mapping": HEALTHCARE_CATEGORY_TO_READINESS,
+        "rating_keywords": HEALTHCARE_RATING_FACTOR_KEYWORDS,
+    },
+}
+
+
+def get_readiness_path_config(
+    sector: str | None = None,
+) -> dict[str, dict[str, Any]]:
+    """Return the readiness path configuration for *sector*.
+
+    Falls back to the waste (default) configuration for unknown sectors.
+    """
+    if sector and sector in _SECTOR_REGISTRY:
+        cfg = _SECTOR_REGISTRY[sector]["path_config"]
+        return cfg if cfg is not None else READINESS_PATH_CONFIG
+    return READINESS_PATH_CONFIG
+
+
+def get_playbook_guidance(
+    sector: str | None = None,
+) -> dict[str, dict[str, Any]]:
+    """Return the playbook guidance for *sector*."""
+    if sector and sector in _SECTOR_REGISTRY:
+        pb = _SECTOR_REGISTRY[sector]["playbook"]
+        return pb if pb is not None else PLAYBOOK_RISK_GUIDANCE
+    return PLAYBOOK_RISK_GUIDANCE
+
+
+def get_category_mapping(
+    sector: str | None = None,
+) -> dict[str, str]:
+    """Return the EMMA-category → readiness-path mapping for *sector*."""
+    if sector and sector in _SECTOR_REGISTRY:
+        cm = _SECTOR_REGISTRY[sector]["category_mapping"]
+        return cm if cm is not None else CATEGORY_TO_READINESS
+    return CATEGORY_TO_READINESS
+
+
+def get_rating_factor_keywords(
+    sector: str | None = None,
+) -> dict[str, list[str]]:
+    """Return the rating-factor keyword mapping for *sector*."""
+    if sector and sector in _SECTOR_REGISTRY:
+        rk = _SECTOR_REGISTRY[sector]["rating_keywords"]
+        return rk if rk is not None else _RATING_FACTOR_KEYWORDS
+    return _RATING_FACTOR_KEYWORDS
+
+
+# ---------------------------------------------------------------------------
 # Playbook Risk Guidance (from SCHEMA_PATH_METADATA, not imported to avoid
 # cross-package dependency with src/munipal)
 # ---------------------------------------------------------------------------
@@ -629,17 +1048,22 @@ def _compute_distribution(
     )
 
 
-def _classify_rating_factor(text: str) -> str | None:
+def _classify_rating_factor(
+    text: str,
+    keywords_map: dict[str, list[str]] | None = None,
+) -> str | None:
     """Classify a rating action factor's free text into a readiness path.
 
     Uses keyword matching against the factor text. Returns the best-matching
     readiness path, or None if no strong match.
     """
+    if keywords_map is None:
+        keywords_map = _RATING_FACTOR_KEYWORDS
     text_lower = text.lower()
     best_path = None
     best_score = 0
 
-    for path, keywords in _RATING_FACTOR_KEYWORDS.items():
+    for path, keywords in keywords_map.items():
         score = sum(1 for kw in keywords if kw in text_lower)
         if score > best_score:
             best_score = score
@@ -667,6 +1091,7 @@ def _build_readiness_benchmark(
     config: dict[str, Any],
     risk_factors: list[dict],
     rating_factors: list[dict],
+    rating_keywords: dict[str, list[str]] | None = None,
 ) -> ReadinessRiskBenchmark:
     """Build benchmark for one readiness risk path from corpus data."""
 
@@ -731,7 +1156,7 @@ def _build_readiness_benchmark(
     # Classify rating action factors into this readiness path
     path_rating_factors = [
         rf for rf in rating_factors
-        if _classify_rating_factor(rf.get("text", "")) == readiness_path
+        if _classify_rating_factor(rf.get("text", ""), rating_keywords) == readiness_path
     ]
 
     strengths = [
@@ -855,7 +1280,10 @@ def _build_financial_benchmarks(
 # Main entry points
 # ---------------------------------------------------------------------------
 
-def build_risk_benchmarks(engine: Engine) -> RiskBenchmarkReport:
+def build_risk_benchmarks(
+    engine: Engine,
+    sector: str | None = None,
+) -> RiskBenchmarkReport:
     """Build corpus-wide risk benchmarks from EMMA data.
 
     This is the primary entry point. Loads all risk-relevant data from the
@@ -865,7 +1293,18 @@ def build_risk_benchmarks(engine: Engine) -> RiskBenchmarkReport:
 
     The benchmarks serve as the reference point for comparing individual
     project risk profiles against the broader municipal bond market.
+
+    Args:
+        engine: SQLAlchemy engine for the corpus database.
+        sector: Sector name (e.g., "waste", "healthcare"). When provided,
+            uses sector-specific readiness dimensions and guidance.
     """
+    if sector is None:
+        sector = get_settings().sector
+
+    path_config = get_readiness_path_config(sector)
+    rating_kw = get_rating_factor_keywords(sector)
+
     # Load all data
     risk_factors = load_risk_factors(engine)
     rating_factors = load_rating_action_factors(engine)
@@ -873,17 +1312,18 @@ def build_risk_benchmarks(engine: Engine) -> RiskBenchmarkReport:
     financial_reports = load_financial_reports(engine)
 
     logger.info(
-        "Building risk benchmarks from %d risk factors, %d rating factors, "
-        "%d security packages, %d financial reports",
-        len(risk_factors), len(rating_factors),
+        "Building risk benchmarks (sector=%s) from %d risk factors, "
+        "%d rating factors, %d security packages, %d financial reports",
+        sector, len(risk_factors), len(rating_factors),
         len(security_packages), len(financial_reports),
     )
 
     # Build per-path benchmarks
     benchmarks: dict[str, ReadinessRiskBenchmark] = {}
-    for path, config in READINESS_PATH_CONFIG.items():
+    for path, config in path_config.items():
         benchmarks[path] = _build_readiness_benchmark(
             path, config, risk_factors, rating_factors,
+            rating_keywords=rating_kw,
         )
 
     # Build financial benchmarks
@@ -891,6 +1331,7 @@ def build_risk_benchmarks(engine: Engine) -> RiskBenchmarkReport:
 
     # Corpus summary
     all_doc_ids = {rf.get("document_id", "") for rf in risk_factors} - {""}
+    sector_label = sector.replace("_", " ").title()
     corpus_summary = {
         "n_official_statements": len(all_doc_ids),
         "n_risk_factors": len(risk_factors),
@@ -903,7 +1344,7 @@ def build_risk_benchmarks(engine: Engine) -> RiskBenchmarkReport:
         "risk_categories_observed": len(
             {rf.get("category") for rf in risk_factors if rf.get("category")}
         ),
-        "sector": "waste management / environmental services",
+        "sector": sector_label,
     }
 
     report = RiskBenchmarkReport(

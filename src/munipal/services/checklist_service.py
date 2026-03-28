@@ -25,6 +25,7 @@ from munipal.core.schemas.checklist import (
     ChecklistItemStatus,
     ChecklistPhaseSummary,
 )
+from munipal.services.fact_service import FactService
 from munipal.services.playbook_data import CHECKLIST_ITEMS, SCHEMA_PATHS
 
 logger = logging.getLogger(__name__)
@@ -260,31 +261,15 @@ class ChecklistService:
         """
         Get approved facts indexed by schema path.
 
-        Returns highest confidence fact for each path.
+        Returns preferred canonical-first fact for each path.
         """
         if not schema_paths:
             return {}
-
-        result = await self.session.execute(
-            select(ExtractedFact)
-            .where(
-                and_(
-                    ExtractedFact.project_id == str(project_id),
-                    ExtractedFact.schema_path.in_(schema_paths),
-                    ExtractedFact.review_status == ReviewStatus.APPROVED.value,
-                    ExtractedFact.lifecycle_state != "archived",
-                )
-            )
-            .order_by(ExtractedFact.confidence_score.desc())
+        fact_service = FactService(self.session)
+        return await fact_service.get_active_approved_facts_by_path(
+            project_id=project_id,
+            schema_paths=schema_paths,
         )
-
-        facts_by_path = {}
-        for fact in result.scalars():
-            # Keep highest confidence fact for each path
-            if fact.schema_path not in facts_by_path:
-                facts_by_path[fact.schema_path] = fact
-
-        return facts_by_path
 
     def _get_min_confidence(self, schema_path: str) -> float:
         """Get minimum confidence threshold for a schema path."""

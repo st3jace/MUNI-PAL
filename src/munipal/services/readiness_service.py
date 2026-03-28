@@ -27,6 +27,7 @@ from munipal.core.schemas.readiness import (
     DIMENSION_WEIGHTS,
     DIMENSION_NAMES,
 )
+from munipal.services.fact_service import FactService
 from munipal.services.playbook_data import READINESS_CONFIG, SCHEMA_PATHS, SCHEMA_PATH_METADATA
 
 logger = logging.getLogger(__name__)
@@ -103,7 +104,7 @@ class ReadinessService:
         """
         # Get all approved facts for project
         approved_facts = await self._get_approved_facts(project_id)
-        facts_by_path = {f.schema_path: f for f in approved_facts}
+        facts_by_path = FactService.select_preferred_facts_by_path(approved_facts)
 
         # Get counts for summary
         pending_count = await self._count_pending_facts(project_id)
@@ -135,7 +136,7 @@ class ReadinessService:
             overall_score=overall_score,
             recommendation=recommendation,
             recommendation_rationale=rationale,
-            total_facts_approved=len(approved_facts),
+            total_facts_approved=len(facts_by_path),
             total_facts_pending=pending_count,
             critical_gaps_count=critical_gaps,
             material_gaps_count=material_gaps,
@@ -360,7 +361,7 @@ class ReadinessService:
         Returns gaps organized by criticality with improvement suggestions.
         """
         approved_facts = await self._get_approved_facts(project_id)
-        facts_by_path = {f.schema_path: f for f in approved_facts}
+        facts_by_path = FactService.select_preferred_facts_by_path(approved_facts)
 
         assessment = await self.compute_assessment(project_id)
 
@@ -506,16 +507,8 @@ class ReadinessService:
 
     async def _get_approved_facts(self, project_id: UUID) -> list[ExtractedFact]:
         """Get all approved facts for a project."""
-        result = await self.session.execute(
-            select(ExtractedFact).where(
-                and_(
-                    ExtractedFact.project_id == str(project_id),
-                    ExtractedFact.review_status == ReviewStatus.APPROVED.value,
-                    ExtractedFact.lifecycle_state != "archived",
-                )
-            )
-        )
-        return list(result.scalars().all())
+        fact_service = FactService(self.session)
+        return await fact_service.get_active_approved_facts(project_id)
 
     async def _count_pending_facts(self, project_id: UUID) -> int:
         """Count pending facts for a project."""
@@ -545,7 +538,7 @@ class ReadinessService:
         Returns contributing facts and specific gap information.
         """
         approved_facts = await self._get_approved_facts(project_id)
-        facts_by_path = {f.schema_path: f for f in approved_facts}
+        facts_by_path = FactService.select_preferred_facts_by_path(approved_facts)
 
         dim_score = self._compute_dimension_score(dimension, facts_by_path)
 

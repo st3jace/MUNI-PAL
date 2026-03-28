@@ -86,6 +86,19 @@ def extract_event_filing(ingestion: IngestionResult) -> EventFilingRecord:
         record.compute_completeness()
         return record
 
+    # Guard: skip AI extraction if Tier 2 is disabled
+    if not settings.tier2_enabled:
+        logger.info("Tier 2 (AI) disabled, skipping AI extraction for %s", ingestion.source_file)
+        record = EventFilingRecord(
+            extraction_id=str(uuid.uuid4()),
+            source_file=ingestion.source_file,
+            source_hash=ingestion.source_hash,
+            extraction_timestamp=datetime.now(tz=None),
+            confidence_scores={},
+        )
+        record.compute_completeness()
+        return record
+
     text_for_ai = full_text[:15000]
 
     # Check cache

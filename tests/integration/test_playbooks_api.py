@@ -37,9 +37,9 @@ class TestPlaybooksAPI:
         await db_session.commit()
         return playbooks
 
-    async def test_list_playbooks(self, test_client, playbooks):
+    async def test_list_playbooks(self, test_client, playbooks, auth_headers):
         """Test listing all active playbooks."""
-        response = await test_client.get("/api/v1/playbooks/")
+        response = await test_client.get("/api/v1/playbooks/", headers=auth_headers)
 
         assert response.status_code == 200
         data = response.json()
@@ -47,19 +47,19 @@ class TestPlaybooksAPI:
         assert len(data["playbooks"]) == 2
         assert all(p["is_active"] for p in data["playbooks"])
 
-    async def test_list_playbooks_include_inactive(self, test_client, playbooks):
+    async def test_list_playbooks_include_inactive(self, test_client, playbooks, auth_headers):
         """Test listing all playbooks including inactive."""
-        response = await test_client.get("/api/v1/playbooks/?include_inactive=true")
+        response = await test_client.get("/api/v1/playbooks/?include_inactive=true", headers=auth_headers)
 
         assert response.status_code == 200
         data = response.json()
         assert len(data["playbooks"]) == 3
 
-    async def test_get_playbook(self, test_client, playbooks):
+    async def test_get_playbook(self, test_client, playbooks, auth_headers):
         """Test retrieving a playbook by ID."""
         playbook = playbooks[0]
 
-        response = await test_client.get(f"/api/v1/playbooks/{playbook['id']}")
+        response = await test_client.get(f"/api/v1/playbooks/{playbook['id']}", headers=auth_headers)
 
         assert response.status_code == 200
         data = response.json()
@@ -68,38 +68,42 @@ class TestPlaybooksAPI:
         assert "schema_paths" in data
         assert "checklist_items" in data
 
-    async def test_get_nonexistent_playbook(self, test_client):
+    async def test_get_nonexistent_playbook(self, test_client, auth_headers):
         """Test retrieving nonexistent playbook returns 404."""
-        response = await test_client.get(f"/api/v1/playbooks/{uuid4()}")
+        response = await test_client.get(f"/api/v1/playbooks/{uuid4()}", headers=auth_headers)
 
         assert response.status_code == 404
 
-    async def test_get_default_playbook(self, test_client, playbooks):
+    async def test_get_default_playbook(self, test_client, playbooks, auth_headers):
         """Test retrieving the default playbook."""
-        response = await test_client.get("/api/v1/playbooks/default")
+        response = await test_client.get("/api/v1/playbooks/default", headers=auth_headers)
 
         assert response.status_code == 200
         data = response.json()
         assert data["is_default"] is True
         assert data["name"] == "Default Playbook"
 
-    async def test_get_schema_paths(self, test_client, playbooks):
+    async def test_get_schema_paths(self, test_client, playbooks, auth_headers):
         """Test retrieving schema paths from a playbook."""
         playbook = playbooks[0]
 
-        response = await test_client.get(f"/api/v1/playbooks/{playbook['id']}/schema-paths")
+        response = await test_client.get(
+            f"/api/v1/playbooks/{playbook['id']}/schema-paths",
+            headers=auth_headers,
+        )
 
         assert response.status_code == 200
         data = response.json()
         assert "schema_paths" in data
         assert len(data["schema_paths"]) > 0
 
-    async def test_get_schema_paths_by_criticality(self, test_client, playbooks):
+    async def test_get_schema_paths_by_criticality(self, test_client, playbooks, auth_headers):
         """Test filtering schema paths by criticality."""
         playbook = playbooks[0]
 
         response = await test_client.get(
-            f"/api/v1/playbooks/{playbook['id']}/schema-paths?criticality=critical"
+            f"/api/v1/playbooks/{playbook['id']}/schema-paths?criticality=critical",
+            headers=auth_headers,
         )
 
         assert response.status_code == 200
@@ -110,11 +114,14 @@ class TestPlaybooksAPI:
             for p in data["schema_paths"].values()
         )
 
-    async def test_get_checklist_definitions(self, test_client, playbooks):
+    async def test_get_checklist_definitions(self, test_client, playbooks, auth_headers):
         """Test retrieving checklist item definitions."""
         playbook = playbooks[0]
 
-        response = await test_client.get(f"/api/v1/playbooks/{playbook['id']}/checklist-items")
+        response = await test_client.get(
+            f"/api/v1/playbooks/{playbook['id']}/checklist-items",
+            headers=auth_headers,
+        )
 
         assert response.status_code == 200
         data = response.json()

@@ -1,13 +1,13 @@
 {
   "cusip": "AD18D1B4F19248CFF2FB07AC87C5278AB",
   "crawl_metadata": {
-    "crawl_timestamp": "2026-02-19T21:31:12.343610+00:00",
+    "crawl_timestamp": "2026-02-19T23:29:49.685925+00:00",
     "emma_url": "https://emma.msrb.org/Security/Details/AD18D1B4F19248CFF2FB07AC87C5278AB",
     "extraction_status": {
       "snapshot": "success",
       "interest_rate": "empty",
       "trade_activity": "success",
-      "ratings": "empty",
+      "ratings": "success",
       "disclosures": "success"
     }
   },
@@ -474,23 +474,13 @@
       "yield": "-",
       "calculation_date_price": "-",
       "trade_amount": "25,000",
-      "trade_type": "Inter-dealer trade",
+      "trade_type": "Customer bought",
       "special_condition": ""
     },
     {
       "trade_date": "12/09/2025 01:06 PM",
       "settlement_date": "12/10/2025",
       "price": "100.581",
-      "yield": "-",
-      "calculation_date_price": "-",
-      "trade_amount": "25,000",
-      "trade_type": "Customer bought",
-      "special_condition": ""
-    },
-    {
-      "trade_date": "12/08/2025 01:08 PM",
-      "settlement_date": "12/09/2025",
-      "price": "100.103",
       "yield": "-",
       "calculation_date_price": "-",
       "trade_amount": "25,000",
@@ -505,6 +495,16 @@
       "calculation_date_price": "-",
       "trade_amount": "25,000",
       "trade_type": "Customer sold",
+      "special_condition": ""
+    },
+    {
+      "trade_date": "12/08/2025 01:08 PM",
+      "settlement_date": "12/09/2025",
+      "price": "100.103",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "25,000",
+      "trade_type": "Inter-dealer trade",
       "special_condition": ""
     },
     {
@@ -530,16 +530,6 @@
     {
       "trade_date": "11/20/2025 11:22 AM",
       "settlement_date": "11/21/2025",
-      "price": "100.757",
-      "yield": "-",
-      "calculation_date_price": "-",
-      "trade_amount": "20,000",
-      "trade_type": "Customer bought",
-      "special_condition": "-"
-    },
-    {
-      "trade_date": "11/20/2025 11:22 AM",
-      "settlement_date": "11/21/2025",
       "price": "100.657",
       "yield": "-",
       "calculation_date_price": "-",
@@ -556,6 +546,16 @@
       "trade_amount": "20,000",
       "trade_type": "Inter-dealer trade",
       "special_condition": ""
+    },
+    {
+      "trade_date": "11/20/2025 11:22 AM",
+      "settlement_date": "11/21/2025",
+      "price": "100.757",
+      "yield": "-",
+      "calculation_date_price": "-",
+      "trade_amount": "20,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
     },
     {
       "trade_date": "11/12/2025 11:40 AM",
@@ -770,21 +770,21 @@
     {
       "trade_date": "05/02/2025 08:46 AM",
       "settlement_date": "05/05/2025",
-      "price": "100.62",
-      "yield": "4.375",
-      "calculation_date_price": "05/15/2026 @ 100",
-      "trade_amount": "50,000",
-      "trade_type": "Inter-dealer trade",
-      "special_condition": "-"
-    },
-    {
-      "trade_date": "05/02/2025 08:46 AM",
-      "settlement_date": "05/05/2025",
       "price": "100.72",
       "yield": "4.275",
       "calculation_date_price": "05/15/2026 @ 100",
       "trade_amount": "50,000",
       "trade_type": "Customer bought",
+      "special_condition": "-"
+    },
+    {
+      "trade_date": "05/02/2025 08:46 AM",
+      "settlement_date": "05/05/2025",
+      "price": "100.62",
+      "yield": "4.375",
+      "calculation_date_price": "05/15/2026 @ 100",
+      "trade_amount": "50,000",
+      "trade_type": "Inter-dealer trade",
       "special_condition": "-"
     },
     {
@@ -820,22 +820,22 @@
     {
       "trade_date": "04/14/2025 03:50 PM",
       "settlement_date": "04/15/2025",
-      "price": "100.903",
-      "yield": "4.136",
-      "calculation_date_price": "05/15/2026 @ 100",
-      "trade_amount": "100,000",
-      "trade_type": "Customer bought",
-      "special_condition": "-"
-    },
-    {
-      "trade_date": "04/14/2025 03:50 PM",
-      "settlement_date": "04/15/2025",
       "price": "100.803",
       "yield": "4.23",
       "calculation_date_price": "05/15/2026 @ 100",
       "trade_amount": "100,000",
       "trade_type": "Inter-dealer trade",
       "special_condition": ""
+    },
+    {
+      "trade_date": "04/14/2025 03:50 PM",
+      "settlement_date": "04/15/2025",
+      "price": "100.903",
+      "yield": "4.136",
+      "calculation_date_price": "05/15/2026 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
     },
     {
       "trade_date": "04/10/2025 11:39 AM",
@@ -846,6 +846,16 @@
       "trade_amount": "100,000",
       "trade_type": "Customer sold",
       "special_condition": ""
+    },
+    {
+      "trade_date": "04/10/2025 11:39 AM",
+      "settlement_date": "04/11/2025",
+      "price": "100.695",
+      "yield": "4.339",
+      "calculation_date_price": "05/15/2026 @ 100",
+      "trade_amount": "100,000",
+      "trade_type": "Customer bought",
+      "special_condition": "-"
     },
     {
       "trade_date": "04/10/2025 11:39 AM",
@@ -866,16 +876,6 @@
       "trade_amount": "100,000",
       "trade_type": "Inter-dealer trade",
       "special_condition": ""
-    },
-    {
-      "trade_date": "04/10/2025 11:39 AM",
-      "settlement_date": "04/11/2025",
-      "price": "100.695",
-      "yield": "4.339",
-      "calculation_date_price": "05/15/2026 @ 100",
-      "trade_amount": "100,000",
-      "trade_type": "Customer bought",
-      "special_condition": "-"
     },
     {
       "trade_date": "03/27/2025 02:27 PM",
@@ -1010,31 +1010,60 @@
     {
       "trade_date": "06/28/2024 01:58 PM",
       "settlement_date": "07/01/2024",
-      "price": "101.653",
-      "yield": "4.071",
-      "calculation_date_price": "05/15/2026 @ 100",
-      "trade_amount": "15,000",
-      "trade_type": "Inter-dealer trade",
-      "special_condition": ""
-    },
-    {
-      "trade_date": "06/28/2024 01:58 PM",
-      "settlement_date": "07/01/2024",
       "price": "101.753",
       "yield": "4.016",
       "calculation_date_price": "05/15/2026 @ 100",
       "trade_amount": "15,000",
       "trade_type": "Customer bought",
       "special_condition": "-"
+    },
+    {
+      "trade_date": "06/28/2024 01:58 PM",
+      "settlement_date": "07/01/2024",
+      "price": "101.653",
+      "yield": "4.071",
+      "calculation_date_price": "05/15/2026 @ 100",
+      "trade_amount": "15,000",
+      "trade_type": "Inter-dealer trade",
+      "special_condition": ""
     }
   ],
-  "ratings": [],
+  "ratings": [
+    {
+      "agency": "Fitch",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Fitch Ratings."
+    },
+    {
+      "agency": "KBRA",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Kroll Bond Rating Agency."
+    },
+    {
+      "agency": "Moody's",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "Access Moody's At-A Glance (Issuer) | Access Moody's At-A Glance (Obligor) Underlying Long-Term Debt Rating (effective 01/15/2026) Underlying Long-Term Debt Rating Watch Status Enhanced Long-Term Debt Rating Enhanced Long-Term Debt Rating Watch Status Insured Long-Term Debt Rating Insured Long-Term "
+    },
+    {
+      "agency": "S&P",
+      "rating": "",
+      "outlook": "",
+      "as_of": "",
+      "note": "No ratings information provided by Standard and Poor's Financial Services LLC."
+    }
+  ],
   "disclosures": [
     {
       "doc_type": "Disclosure",
       "filing_date": "01/23/2025",
       "pdf_url": "https://emma.msrb.org/P11819304-P11394320-P11834784.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0001_Event_Disclosure.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0001_Event_Disclosure.pdf",
       "download_success": true
     },
     {
@@ -1055,35 +1084,35 @@
       "doc_type": "Disclosure",
       "filing_date": "12/31/2025",
       "pdf_url": "https://emma.msrb.org/P22006759-P21528846-P21984746.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0004_Bronson_Healthcare_Group_Inc_Q4_2025_for_the_quart.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0004_Bronson_Healthcare_Group_Inc_Q4_2025_for_the_quart.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2025",
       "pdf_url": "https://emma.msrb.org/P22006759-P21528846-P21984747.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0005_Bronson_Healthcare_Group_Inc_Q4_2025_for_the_quart.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0005_Bronson_Healthcare_Group_Inc_Q4_2025_for_the_quart.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2025",
       "pdf_url": "https://emma.msrb.org/P22006759-P21528846-P21984748.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0006_Bronson_Healthcare_Group_Inc_Q4_2025_for_the_quart.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0006_Bronson_Healthcare_Group_Inc_Q4_2025_for_the_quart.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2025",
       "pdf_url": "https://emma.msrb.org/P22006759-P21528846-P21984749.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0007_Bronson_Healthcare_Group_Inc_Q4_2025_for_the_quart.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0007_Bronson_Healthcare_Group_Inc_Q4_2025_for_the_quart.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "09/30/2025",
       "pdf_url": "https://emma.msrb.org/P21982668-P21511577-P21965307.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0008_Bronson_Healthcare_Group_Inc_Q3_2025_for_the_quart.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0008_Bronson_Healthcare_Group_Inc_Q3_2025_for_the_quart.pdf",
       "download_success": true
     },
     {
@@ -1097,28 +1126,28 @@
       "doc_type": "Disclosure",
       "filing_date": "09/30/2025",
       "pdf_url": "https://emma.msrb.org/P21982668-P21511577-P21965308.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0010_Bronson_Healthcare_Group_Inc_Q3_2025_for_the_quart.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0010_Bronson_Healthcare_Group_Inc_Q3_2025_for_the_quart.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "09/30/2025",
       "pdf_url": "https://emma.msrb.org/P21982668-P21511577-P21965309.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0011_Bronson_Healthcare_Group_Inc_Q3_2025_for_the_quart.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0011_Bronson_Healthcare_Group_Inc_Q3_2025_for_the_quart.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "09/30/2025",
       "pdf_url": "https://emma.msrb.org/P21982668-P21511577-P21965310.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0012_Bronson_Healthcare_Group_Inc_Q3_2025_for_the_quart.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0012_Bronson_Healthcare_Group_Inc_Q3_2025_for_the_quart.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "06/30/2025",
       "pdf_url": "https://emma.msrb.org/P21956199-P21493219-P21945104.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0013_Bronson_Healthcare_Group_Inc_Q2_2025_for_the_quart.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0013_Bronson_Healthcare_Group_Inc_Q2_2025_for_the_quart.pdf",
       "download_success": true
     },
     {
@@ -1132,28 +1161,28 @@
       "doc_type": "Disclosure",
       "filing_date": "06/30/2025",
       "pdf_url": "https://emma.msrb.org/P21956199-P21493219-P21945105.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0015_Bronson_Healthcare_Group_Inc_Q2_2025_for_the_quart.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0015_Bronson_Healthcare_Group_Inc_Q2_2025_for_the_quart.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "06/30/2025",
       "pdf_url": "https://emma.msrb.org/P21956199-P21493219-P21945106.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0016_Bronson_Healthcare_Group_Inc_Q2_2025_for_the_quart.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0016_Bronson_Healthcare_Group_Inc_Q2_2025_for_the_quart.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "06/30/2025",
       "pdf_url": "https://emma.msrb.org/P21956199-P21493219-P21945107.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0017_Bronson_Healthcare_Group_Inc_Q2_2025_for_the_quart.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0017_Bronson_Healthcare_Group_Inc_Q2_2025_for_the_quart.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "03/31/2025",
       "pdf_url": "https://emma.msrb.org/P11848475-P11415799-P11858805.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0018_Bronson_Healthcare_Group_Inc_Q1_2025_for_the_quart.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0018_Bronson_Healthcare_Group_Inc_Q1_2025_for_the_quart.pdf",
       "download_success": true
     },
     {
@@ -1167,28 +1196,28 @@
       "doc_type": "Disclosure",
       "filing_date": "03/31/2025",
       "pdf_url": "https://emma.msrb.org/P11848475-P11415799-P11858806.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0020_Bronson_Healthcare_Group_Inc_Q1_2025_for_the_quart.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0020_Bronson_Healthcare_Group_Inc_Q1_2025_for_the_quart.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "03/31/2025",
       "pdf_url": "https://emma.msrb.org/P11848475-P11415799-P11858807.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0021_Bronson_Healthcare_Group_Inc_Q1_2025_for_the_quart.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0021_Bronson_Healthcare_Group_Inc_Q1_2025_for_the_quart.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "03/31/2025",
       "pdf_url": "https://emma.msrb.org/P11848475-P11415799-P11858808.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0022_Bronson_Healthcare_Group_Inc_Q1_2025_for_the_quart.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0022_Bronson_Healthcare_Group_Inc_Q1_2025_for_the_quart.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2024",
       "pdf_url": "https://emma.msrb.org/P21926301-P21472519-P21922515.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0023_Bronson_Healthcare_Group_Inc_2024_Disclosures_for_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0023_Bronson_Healthcare_Group_Inc_2024_Disclosures_for_.pdf",
       "download_success": true
     },
     {
@@ -1202,56 +1231,56 @@
       "doc_type": "Disclosure",
       "filing_date": "12/31/2024",
       "pdf_url": "https://emma.msrb.org/P21926301-P21472519-P21922516.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0025_Bronson_Healthcare_Group_Inc_2024_Disclosures_for_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0025_Bronson_Healthcare_Group_Inc_2024_Disclosures_for_.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2024",
       "pdf_url": "https://emma.msrb.org/P21926301-P21472519-P21922517.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0026_Bronson_Healthcare_Group_Inc_2024_Disclosures_for_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0026_Bronson_Healthcare_Group_Inc_2024_Disclosures_for_.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2024",
       "pdf_url": "https://emma.msrb.org/P21926301-P21472519-P21922518.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0027_Bronson_Healthcare_Group_Inc_2024_Disclosures_for_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0027_Bronson_Healthcare_Group_Inc_2024_Disclosures_for_.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2024",
       "pdf_url": "https://emma.msrb.org/P21926301-P21472519-P21922519.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0028_Bronson_Healthcare_Group_Inc_2024_Disclosures_for_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0028_Bronson_Healthcare_Group_Inc_2024_Disclosures_for_.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2024",
       "pdf_url": "https://emma.msrb.org/P21926301-P21472519-P21922520.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0029_Bronson_Healthcare_Group_Inc_2024_Disclosures_for_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0029_Bronson_Healthcare_Group_Inc_2024_Disclosures_for_.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2024",
       "pdf_url": "https://emma.msrb.org/P21926301-P21472519-P21922521.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0030_Bronson_Healthcare_Group_Inc_2024_Disclosures_for_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0030_Bronson_Healthcare_Group_Inc_2024_Disclosures_for_.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2024",
       "pdf_url": "https://emma.msrb.org/P21926301-P21472519-P21922522.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0031_Bronson_Healthcare_Group_Inc_2024_Disclosures_for_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0031_Bronson_Healthcare_Group_Inc_2024_Disclosures_for_.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2024",
       "pdf_url": "https://emma.msrb.org/P21894040-P21448481-P21895863.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0032_Bronson_Healthcare_Group_Inc_Q4_2024_for_the_quart.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0032_Bronson_Healthcare_Group_Inc_Q4_2024_for_the_quart.pdf",
       "download_success": true
     },
     {
@@ -1265,28 +1294,28 @@
       "doc_type": "Disclosure",
       "filing_date": "12/31/2024",
       "pdf_url": "https://emma.msrb.org/P21894040-P21448481-P21895864.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0034_Bronson_Healthcare_Group_Inc_Q4_2024_for_the_quart.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0034_Bronson_Healthcare_Group_Inc_Q4_2024_for_the_quart.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2024",
       "pdf_url": "https://emma.msrb.org/P21894040-P21448481-P21895865.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0035_Bronson_Healthcare_Group_Inc_Q4_2024_for_the_quart.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0035_Bronson_Healthcare_Group_Inc_Q4_2024_for_the_quart.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2024",
       "pdf_url": "https://emma.msrb.org/P21894040-P21448481-P21895866.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0036_Bronson_Healthcare_Group_Inc_Q4_2024_for_the_quart.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0036_Bronson_Healthcare_Group_Inc_Q4_2024_for_the_quart.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "09/30/2024",
       "pdf_url": "https://emma.msrb.org/P11803775-P11383095-P11822172.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0037_Bronson_Healthcare_Group_Inc_Q3_2024_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0037_Bronson_Healthcare_Group_Inc_Q3_2024_Disclosures_f.pdf",
       "download_success": true
     },
     {
@@ -1300,28 +1329,28 @@
       "doc_type": "Disclosure",
       "filing_date": "09/30/2024",
       "pdf_url": "https://emma.msrb.org/P11803775-P11383095-P11822173.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0039_Bronson_Healthcare_Group_Inc_Q3_2024_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0039_Bronson_Healthcare_Group_Inc_Q3_2024_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "09/30/2024",
       "pdf_url": "https://emma.msrb.org/P11803775-P11383095-P11822174.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0040_Bronson_Healthcare_Group_Inc_Q3_2024_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0040_Bronson_Healthcare_Group_Inc_Q3_2024_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "09/30/2024",
       "pdf_url": "https://emma.msrb.org/P11803775-P11383095-P11822175.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0041_Bronson_Healthcare_Group_Inc_Q3_2024_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0041_Bronson_Healthcare_Group_Inc_Q3_2024_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "06/30/2024",
       "pdf_url": "https://emma.msrb.org/P11780400-P11366414-P11803875.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0042_Bronson_Healthcare_Group_Inc_Q2_2024_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0042_Bronson_Healthcare_Group_Inc_Q2_2024_Disclosures_f.pdf",
       "download_success": true
     },
     {
@@ -1335,28 +1364,28 @@
       "doc_type": "Disclosure",
       "filing_date": "06/30/2024",
       "pdf_url": "https://emma.msrb.org/P11780400-P11366414-P11803876.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0044_Bronson_Healthcare_Group_Inc_Q2_2024_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0044_Bronson_Healthcare_Group_Inc_Q2_2024_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "06/30/2024",
       "pdf_url": "https://emma.msrb.org/P11780400-P11366414-P11803877.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0045_Bronson_Healthcare_Group_Inc_Q2_2024_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0045_Bronson_Healthcare_Group_Inc_Q2_2024_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "06/30/2024",
       "pdf_url": "https://emma.msrb.org/P11780400-P11366414-P11803878.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0046_Bronson_Healthcare_Group_Inc_Q2_2024_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0046_Bronson_Healthcare_Group_Inc_Q2_2024_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "03/31/2024",
       "pdf_url": "https://emma.msrb.org/P21807678-P21387068-P21827429.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0047_Bronson_Healthcare_Group_Inc_Q1_2024_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0047_Bronson_Healthcare_Group_Inc_Q1_2024_Disclosures_f.pdf",
       "download_success": true
     },
     {
@@ -1370,28 +1399,28 @@
       "doc_type": "Disclosure",
       "filing_date": "03/31/2024",
       "pdf_url": "https://emma.msrb.org/P21807678-P21387068-P21827430.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0049_Bronson_Healthcare_Group_Inc_Q1_2024_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0049_Bronson_Healthcare_Group_Inc_Q1_2024_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "03/31/2024",
       "pdf_url": "https://emma.msrb.org/P21807678-P21387068-P21827431.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0050_Bronson_Healthcare_Group_Inc_Q1_2024_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0050_Bronson_Healthcare_Group_Inc_Q1_2024_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "03/31/2024",
       "pdf_url": "https://emma.msrb.org/P21807678-P21387068-P21827432.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0051_Bronson_Healthcare_Group_Inc_Q1_2024_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0051_Bronson_Healthcare_Group_Inc_Q1_2024_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2023",
       "pdf_url": "https://emma.msrb.org/P11748285-P11344052-P11779756.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0052_Bronson_Healthcare_Group_Inc_2023_Disclosures_for_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0052_Bronson_Healthcare_Group_Inc_2023_Disclosures_for_.pdf",
       "download_success": true
     },
     {
@@ -1405,56 +1434,56 @@
       "doc_type": "Disclosure",
       "filing_date": "12/31/2023",
       "pdf_url": "https://emma.msrb.org/P11748285-P11344052-P11779757.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0054_Bronson_Healthcare_Group_Inc_2023_Disclosures_for_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0054_Bronson_Healthcare_Group_Inc_2023_Disclosures_for_.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2023",
       "pdf_url": "https://emma.msrb.org/P11748285-P11344052-P11779758.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0055_Bronson_Healthcare_Group_Inc_2023_Disclosures_for_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0055_Bronson_Healthcare_Group_Inc_2023_Disclosures_for_.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2023",
       "pdf_url": "https://emma.msrb.org/P11748285-P11344052-P11779759.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0056_Bronson_Healthcare_Group_Inc_2023_Disclosures_for_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0056_Bronson_Healthcare_Group_Inc_2023_Disclosures_for_.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2023",
       "pdf_url": "https://emma.msrb.org/P11748285-P11344052-P11779760.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0057_Bronson_Healthcare_Group_Inc_2023_Disclosures_for_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0057_Bronson_Healthcare_Group_Inc_2023_Disclosures_for_.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2023",
       "pdf_url": "https://emma.msrb.org/P11748285-P11344052-P11779761.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0058_Bronson_Healthcare_Group_Inc_2023_Disclosures_for_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0058_Bronson_Healthcare_Group_Inc_2023_Disclosures_for_.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2023",
       "pdf_url": "https://emma.msrb.org/P11748285-P11344052-P11779762.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0059_Bronson_Healthcare_Group_Inc_2023_Disclosures_for_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0059_Bronson_Healthcare_Group_Inc_2023_Disclosures_for_.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2023",
       "pdf_url": "https://emma.msrb.org/P11748285-P11344052-P11779763.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0060_Bronson_Healthcare_Group_Inc_2023_Disclosures_for_.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0060_Bronson_Healthcare_Group_Inc_2023_Disclosures_for_.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2023",
       "pdf_url": "https://emma.msrb.org/P21774557-P21362297-P21799957.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0061_Bronson_Healthcare_Group_Inc_Q4_2023_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0061_Bronson_Healthcare_Group_Inc_Q4_2023_Disclosures_f.pdf",
       "download_success": true
     },
     {
@@ -1468,28 +1497,28 @@
       "doc_type": "Disclosure",
       "filing_date": "12/31/2023",
       "pdf_url": "https://emma.msrb.org/P21774557-P21362297-P21799958.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0063_Bronson_Healthcare_Group_Inc_Q4_2023_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0063_Bronson_Healthcare_Group_Inc_Q4_2023_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2023",
       "pdf_url": "https://emma.msrb.org/P21774557-P21362297-P21799959.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0064_Bronson_Healthcare_Group_Inc_Q4_2023_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0064_Bronson_Healthcare_Group_Inc_Q4_2023_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2023",
       "pdf_url": "https://emma.msrb.org/P21774557-P21362297-P21799960.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0065_Bronson_Healthcare_Group_Inc_Q4_2023_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0065_Bronson_Healthcare_Group_Inc_Q4_2023_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "09/30/2023",
       "pdf_url": "https://emma.msrb.org/P21747278-P21341703-P21776449.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0066_Bronson_Healthcare_Group_Inc_Q3_2023_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0066_Bronson_Healthcare_Group_Inc_Q3_2023_Disclosures_f.pdf",
       "download_success": true
     },
     {
@@ -1503,28 +1532,28 @@
       "doc_type": "Disclosure",
       "filing_date": "09/30/2023",
       "pdf_url": "https://emma.msrb.org/P21747278-P21341703-P21776450.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0068_Bronson_Healthcare_Group_Inc_Q3_2023_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0068_Bronson_Healthcare_Group_Inc_Q3_2023_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "09/30/2023",
       "pdf_url": "https://emma.msrb.org/P21747278-P21341703-P21776451.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0069_Bronson_Healthcare_Group_Inc_Q3_2023_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0069_Bronson_Healthcare_Group_Inc_Q3_2023_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "09/30/2023",
       "pdf_url": "https://emma.msrb.org/P21747278-P21341703-P21776452.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0070_Bronson_Healthcare_Group_Inc_Q3_2023_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0070_Bronson_Healthcare_Group_Inc_Q3_2023_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "06/30/2023",
       "pdf_url": "https://emma.msrb.org/P21721068-P21322905-P21756032.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0071_Bronson_Healthcare_Group_Inc_Q2_2023_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0071_Bronson_Healthcare_Group_Inc_Q2_2023_Disclosures_f.pdf",
       "download_success": true
     },
     {
@@ -1538,28 +1567,28 @@
       "doc_type": "Disclosure",
       "filing_date": "06/30/2023",
       "pdf_url": "https://emma.msrb.org/P21721068-P21322905-P21756033.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0073_Bronson_Healthcare_Group_Inc_Q2_2023_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0073_Bronson_Healthcare_Group_Inc_Q2_2023_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "06/30/2023",
       "pdf_url": "https://emma.msrb.org/P21721068-P21322905-P21756034.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0074_Bronson_Healthcare_Group_Inc_Q2_2023_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0074_Bronson_Healthcare_Group_Inc_Q2_2023_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "06/30/2023",
       "pdf_url": "https://emma.msrb.org/P21721068-P21322905-P21756035.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0075_Bronson_Healthcare_Group_Inc_Q2_2023_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0075_Bronson_Healthcare_Group_Inc_Q2_2023_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "03/31/2023",
       "pdf_url": "https://emma.msrb.org/P21705427-P21311666-P21743630.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0076_Bronson_Healthcare_Group_Inc_Q1_2023_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0076_Bronson_Healthcare_Group_Inc_Q1_2023_Disclosures_f.pdf",
       "download_success": true
     },
     {
@@ -1573,28 +1602,28 @@
       "doc_type": "Disclosure",
       "filing_date": "03/31/2023",
       "pdf_url": "https://emma.msrb.org/P21705427-P21311666-P21743631.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0078_Bronson_Healthcare_Group_Inc_Q1_2023_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0078_Bronson_Healthcare_Group_Inc_Q1_2023_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "03/31/2023",
       "pdf_url": "https://emma.msrb.org/P21705427-P21311666-P21743632.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0079_Bronson_Healthcare_Group_Inc_Q1_2023_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0079_Bronson_Healthcare_Group_Inc_Q1_2023_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "03/31/2023",
       "pdf_url": "https://emma.msrb.org/P21705427-P21311666-P21743633.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0080_Bronson_Healthcare_Group_Inc_Q1_2023_Disclosures_f.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0080_Bronson_Healthcare_Group_Inc_Q1_2023_Disclosures_f.pdf",
       "download_success": true
     },
     {
       "doc_type": "Disclosure",
       "filing_date": "12/31/2022",
       "pdf_url": "https://emma.msrb.org/P11663567-P11281217-P11709996.pdf",
-      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0081_Bronson_Healthcare_Group_Inc_2022_Annual_Disclosur.pdf",
+      "local_pdf_path": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\MUNI-PAL\\emma\\emma_crawler\\output\\healthcare_v2\\pdfs\\AD18D1B4F19248CFF2FB07AC87C5278AB\\AD18D1B4F19248CFF2FB07AC87C5278AB_0081_Bronson_Healthcare_Group_Inc_2022_Annual_Disclosur.pdf",
       "download_success": true
     }
   ]

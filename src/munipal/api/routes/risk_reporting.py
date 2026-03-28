@@ -3,6 +3,7 @@ Risk reporting foundation endpoints.
 """
 
 from datetime import UTC, datetime
+from typing import Literal
 from uuid import UUID, uuid4
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
@@ -21,8 +22,12 @@ from munipal.core.schemas.risk_reporting import (
     RiskOverrideDecisionRequest,
     RiskOverrideDecisionResponse,
 )
+from munipal.core.schemas.revenue_visualization import (
+    RevenueDiversificationVisualizationResponse,
+)
 from munipal.services.audit_service import AuditService
 from munipal.services.authorization_service import AuthorizationService
+from munipal.services.revenue_visualization_service import RevenueVisualizationService
 from munipal.services.risk_reporting_service import (
     RISK_SCORING_GOVERNANCE_POLICY_VERSION,
     RISK_SCORING_PROFILE_CHECKSUM,
@@ -76,6 +81,43 @@ def _override_governance_scope(target_ref: str) -> str:
     if normalized.startswith("risk."):
         return "dimension"
     return "other"
+
+
+@router.get(
+    "/revenue-diversification",
+    response_model=RevenueDiversificationVisualizationResponse,
+)
+async def get_revenue_diversification_visualization(
+    db: DbSession,
+    user_id: AuthenticatedUserId,
+    project_id: UUID,
+    mode: Literal["auto", "native", "packet"] = Query("auto"),
+    _: str = Depends(require_roles("admin", "analyst", "viewer")),
+) -> RevenueDiversificationVisualizationResponse:
+    """
+    Typed visualization payload for the revenue diversification comparison chart.
+    """
+    authz = AuthorizationService(db)
+    await authz.require_project_read(user_id, project_id)
+
+    service = RevenueVisualizationService(db)
+    visualization = await service.build_visualization(project_id, mode=mode)
+
+    AuditService.emit_event(
+        actor_id=user_id,
+        action="generate_revenue_diversification_visualization",
+        target_type="project",
+        target_id=str(project_id),
+        project_id=str(project_id),
+        metadata={
+            "mode": mode,
+            "contract_version": visualization.contract_version,
+            "scenario_count": len(visualization.revenue_scenarios),
+            "stream_definition_count": len(visualization.stream_definitions),
+            "has_data_quality_notes": bool(visualization.data_quality_notes),
+        },
+    )
+    return visualization
 
 
 @router.get("/diagnostics", response_model=RiskDiagnosticsResponse)

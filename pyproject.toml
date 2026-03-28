@@ -25,6 +25,9 @@ dependencies = [
     "celery[redis]>=5.3.6",
     "redis>=5.0.1",
 
+    # Rate Limiting (sensing microservice)
+    "slowapi>=0.1.9",
+
     # Data Validation
     "pydantic>=2.5.3",
     "pydantic-settings>=2.1.0",
@@ -41,6 +44,7 @@ dependencies = [
     "python-docx>=1.1.0",
     "openpyxl>=3.1.2",
     "pandas>=2.1.4",
+    "jinja2>=3.1.4",
 
     # Utilities
     "httpx>=0.26.0",

@@ -23,10 +23,39 @@ import {
   RiskService,
 } from '../generated/api-client';
 
-OpenAPI.BASE = '';
-OpenAPI.HEADERS = {
-  'x-user-id': '00000000-0000-0000-0000-000000000001',
-  'x-user-role': 'admin',
+const DEV_USER_ID = '00000000-0000-0000-0000-000000000001';
+const DEV_USER_ROLE = 'admin';
+const TOKEN_STORAGE_KEY = 'munipal_api_bearer_token';
+
+const configuredBaseUrl = (import.meta.env.VITE_API_BASE_URL ?? '').trim();
+const configuredBearerToken = (import.meta.env.VITE_API_BEARER_TOKEN ?? '').trim();
+const configuredDevUserId = (import.meta.env.VITE_DEV_USER_ID ?? DEV_USER_ID).trim();
+const configuredDevUserRole = (import.meta.env.VITE_DEV_USER_ROLE ?? DEV_USER_ROLE).trim();
+
+const getStoredToken = (): string => {
+  if (typeof window === 'undefined') {
+    return '';
+  }
+  const stored = window.localStorage.getItem(TOKEN_STORAGE_KEY);
+  return (stored ?? '').trim();
+};
+
+OpenAPI.BASE = configuredBaseUrl;
+OpenAPI.TOKEN = async () => {
+  const stored = getStoredToken();
+  if (stored) {
+    return stored;
+  }
+  return configuredBearerToken;
+};
+OpenAPI.HEADERS = async () => {
+  const headers: Record<string, string> = {};
+  const token = getStoredToken() || configuredBearerToken;
+  if (!token) {
+    headers['x-user-id'] = configuredDevUserId;
+    headers['x-user-role'] = configuredDevUserRole;
+  }
+  return headers;
 };
 
 export {

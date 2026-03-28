@@ -18,6 +18,7 @@ export class DisclosureService {
      * @param offset
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -27,6 +28,7 @@ export class DisclosureService {
         offset?: number,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -34,6 +36,7 @@ export class DisclosureService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'project_id': projectId,
@@ -55,6 +58,7 @@ export class DisclosureService {
      * @param requestBody
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns GenerateDisclosureResponse Successful Response
      * @throws ApiError
      */
@@ -62,6 +66,7 @@ export class DisclosureService {
         requestBody: GenerateDisclosureRequest,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<GenerateDisclosureResponse> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -69,6 +74,7 @@ export class DisclosureService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -87,6 +93,7 @@ export class DisclosureService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -95,6 +102,7 @@ export class DisclosureService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<(DisclosureSectionPreview | null)> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -105,6 +113,7 @@ export class DisclosureService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'project_id': projectId,
@@ -120,6 +129,7 @@ export class DisclosureService {
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -127,6 +137,7 @@ export class DisclosureService {
         projectId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<(DisclosureDocumentRead | null)> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -137,6 +148,7 @@ export class DisclosureService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             errors: {
                 422: `Validation Error`,
@@ -149,6 +161,7 @@ export class DisclosureService {
      * @param documentId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns DisclosureDocumentRead Successful Response
      * @throws ApiError
      */
@@ -156,6 +169,7 @@ export class DisclosureService {
         documentId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<DisclosureDocumentRead> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -166,6 +180,7 @@ export class DisclosureService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             errors: {
                 422: `Validation Error`,
@@ -181,6 +196,7 @@ export class DisclosureService {
      * @param format
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns any Successful Response
      * @throws ApiError
      */
@@ -189,6 +205,7 @@ export class DisclosureService {
         format: string = 'md',
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, any>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -199,6 +216,7 @@ export class DisclosureService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'format': format,

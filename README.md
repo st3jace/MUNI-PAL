@@ -10,8 +10,14 @@ Bond Facility Management System - Evidence-first, advisor-grade platform for mun
 # Install dependencies
 pip install -e ".[dev]"
 
-# Run server (SQLite dev mode)
-uvicorn munipal.main:app --reload
+# Run server (canonical Postgres dev mode)
+powershell -ExecutionPolicy Bypass -File scripts/start_backend.ps1 -ListenHost 127.0.0.1 -ListenPort 8000 -Reload
+
+# Validate Redis separately (optional but recommended for hosted Redis)
+python scripts/check_redis.py
+
+# Run Celery worker for async extraction / deliverables
+powershell -ExecutionPolicy Bypass -File scripts/start_worker.ps1
 ```
 
 ### Frontend
@@ -21,6 +27,42 @@ cd frontend
 npm install
 npm run dev
 ```
+
+When `AUTH_ENFORCEMENT_V2=true`, set a bearer token for the frontend client:
+
+```bash
+# frontend/.env.local
+VITE_API_PROXY_TARGET=http://127.0.0.1:8000
+VITE_API_BEARER_TOKEN=<jwt token with UUID sub claim>
+```
+
+SQLite remains available for scratch work, but it is opt-in. The default `.env`
+and `.env.example` now pin `USE_SQLITE=false` so the app stays pointed at the
+Postgres dataset that contains the live dev projects.
+
+## Redis Cloud
+
+Muni-Pal accepts a full hosted Redis URL via `REDIS_URL`. Use the exact scheme
+shown by your Redis provider. Some endpoints use TLS (`rediss://`), while
+others are plain Redis (`redis://`).
+
+```bash
+REDIS_URL=rediss://default:<password>@<host>:<port>/0?ssl_cert_reqs=required
+CELERY_BROKER_URL=${REDIS_URL}
+CELERY_RESULT_BACKEND=${REDIS_URL}
+```
+
+Plain Redis example:
+
+```bash
+REDIS_URL=redis://default:<password>@<host>:<port>/0
+CELERY_BROKER_URL=${REDIS_URL}
+CELERY_RESULT_BACKEND=${REDIS_URL}
+```
+
+`scripts/check_redis.py` will verify auth + TLS before you start the worker.
+On Windows, `scripts/start_worker.ps1` automatically uses Celery's `solo` pool
+for local stability.
 
 ## API Documentation
 

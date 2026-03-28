@@ -7,7 +7,10 @@
  */
 export type EvidenceIndexSection = {
     by_domain?: Record<string, Array<Record<string, any>>>;
+    canonical_by_domain?: Record<string, Array<Record<string, any>>>;
+    conflict_summary?: Record<string, any>;
     conflicts?: Array<Record<string, any>>;
+    ledger_by_domain?: Record<string, Array<Record<string, any>>>;
     summary?: Record<string, any>;
 };
 

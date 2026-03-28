@@ -40,6 +40,43 @@ def enable_enforced_jwt_tenant_mode(monkeypatch: pytest.MonkeyPatch):
 
 
 @pytest.mark.asyncio
+async def test_jwt_subject_is_auto_provisioned_for_project_create(
+    test_client,
+    factory,
+    db_session,
+):
+    user_id = str(uuid4())
+    playbook = await factory.create_playbook(is_default=True)
+    await db_session.commit()
+
+    token = _make_token(
+        user_id=user_id,
+        tenant_claim_key="tenant_id",
+        tenant_id="tenant-auto",
+    )
+
+    response = await test_client.post(
+        "/api/v1/projects/",
+        headers={"Authorization": f"Bearer {token}"},
+        json={
+            "name": "Auto-Provisioned User Project",
+            "issuer_name": "Issuer Auto",
+            "playbook_id": playbook["id"],
+        },
+    )
+
+    assert response.status_code == 201
+    payload = response.json()
+    assert payload["owner_id"] == user_id
+    assert payload["tenant_id"] == "tenant-auto"
+
+    persisted_user = await db_session.get(User, user_id)
+    assert persisted_user is not None
+    assert persisted_user.email == f"{user_id}@jwt.local"
+    assert persisted_user.organization == "tenant-auto"
+
+
+@pytest.mark.asyncio
 async def test_superuser_list_projects_is_filtered_by_jwt_tenant_claim(
     test_client,
     factory,

@@ -1,0 +1,68 @@
+# =============================================================================
+# Muni-Pal Sensing Microservice Dockerfile
+# Public-facing sensing layer — EMMA corpus + lead capture only
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Stage 1: Builder
+# -----------------------------------------------------------------------------
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY pyproject.toml ./
+RUN pip install --no-cache-dir build && \
+    pip wheel --no-cache-dir --wheel-dir /app/wheels -e . && \
+    pip wheel --no-cache-dir --wheel-dir /app/wheels slowapi
+
+# -----------------------------------------------------------------------------
+# Stage 2: Runtime
+# -----------------------------------------------------------------------------
+FROM python:3.11-slim AS runtime
+
+WORKDIR /app
+
+# Runtime system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq5 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Non-root user
+RUN groupadd --gid 1000 munipal && \
+    useradd --uid 1000 --gid 1000 --shell /bin/bash --create-home munipal
+
+# Install wheels
+COPY --from=builder /app/wheels /wheels
+RUN pip install --no-cache-dir /wheels/* && rm -rf /wheels
+
+# Copy application source
+COPY --chown=munipal:munipal src/ /app/src/
+
+# Bundle EMMA corpus data (waste + healthcare sectors)
+# These are read-only SQLite corpus DBs — no runtime writes to this directory
+COPY --chown=munipal:munipal emma/bond_os_extractor/ /app/emma/bond_os_extractor/
+
+# Directories for runtime artifacts
+RUN mkdir -p /app/artifacts /app/reports/phase10_postlaunch && \
+    chown -R munipal:munipal /app/artifacts /app/reports
+
+ENV PYTHONPATH=/app/src:/app/emma/bond_os_extractor
+ENV PYTHONUNBUFFERED=1
+
+# Production defaults — override via env
+ENV APP_ENV=production
+ENV DEBUG=false
+ENV USE_SQLITE=false
+
+USER munipal
+
+EXPOSE 8000
+
+CMD ["uvicorn", "munipal.sensing_app:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2"]

@@ -50,6 +50,40 @@ FIELD_MAP = {
 
 
 async def ensure_security_panel_open(page: Any) -> None:
+    # Use JavaScript to force-expand all collapsible sections on the search page.
+    # This is more reliable than trying to find/click panel headers, especially
+    # when reusing cached sessions where panels may be in arbitrary states.
+    try:
+        await page.evaluate("""() => {
+            // Expand any collapsed panels by removing display:none from parent containers
+            const inputs = document.querySelectorAll(
+                '#issueDescription, [id*="IssueDescription"], [name*="IssueDescription"]'
+            );
+            for (const input of inputs) {
+                let el = input;
+                while (el && el !== document.body) {
+                    if (el.style && el.style.display === 'none') {
+                        el.style.display = '';
+                    }
+                    // Also handle jQuery-collapsed panels (common in ASP.NET)
+                    if (el.classList && el.classList.contains('collapsed')) {
+                        el.classList.remove('collapsed');
+                    }
+                    el = el.parentElement;
+                }
+            }
+            // Click any aria-expanded=false headers related to Security Information
+            document.querySelectorAll('[aria-expanded="false"]').forEach(h => {
+                if (h.textContent && h.textContent.includes('Security')) {
+                    h.click();
+                }
+            });
+        }""")
+        await delay_ms(2000)
+    except Exception:
+        pass
+
+    # Fallback: try the standard locator approach
     panel_headers = [
         "text=Security Information",
         "button:has-text('Security Information')",
@@ -63,11 +97,12 @@ async def ensure_security_panel_open(page: Any) -> None:
         if expanded == "false":
             await header.click()
             await page.wait_for_load_state("networkidle")
+            await delay_ms(1000)
     except Exception:
-        # If aria-expanded is unavailable, a single click attempt is harmless.
         try:
-            await header.click(timeout=1000)
+            await header.click(timeout=3000)
             await page.wait_for_load_state("networkidle")
+            await delay_ms(1000)
         except Exception:
             pass
 
@@ -274,6 +309,8 @@ async def ensure_search_ready(
 async def populate_search_filters(page: Any, search_filters: dict[str, Any], action_delay_ms: int) -> None:
     security_filters = search_filters.get("security_information", {})
     await ensure_security_panel_open(page)
+    # Give the panel time to render inputs after expansion
+    await delay_ms(2000)
 
     label_map = {
         "state": ("State", True),
@@ -330,19 +367,42 @@ async def populate_search_filters(page: Any, search_filters: dict[str, Any], act
                     if not selected:
                         logger.warning("Could not map select option for %s=%s", key, value)
         else:
-            await locator.fill(str(value))
+            try:
+                await locator.fill(str(value))
+            except Exception:
+                # Fallback: use JavaScript to fill if element is in DOM but not Playwright-visible
+                logger.debug("Playwright fill failed for %s, using JS fallback", key)
+                await locator.evaluate("(el, v) => { el.value = v; el.dispatchEvent(new Event('input', {bubbles: true})); }", str(value))
         logger.info("Applied filter %s=%s", key, value)
         await delay_ms(action_delay_ms)
     await page.wait_for_load_state("networkidle")
 
 
 async def run_search(page: Any, timeout_ms: int) -> None:
-    run_button = await _first_visible_in_roots(
-        page,
-        ["input[id*='btnSearch']", "button:has-text('Run Search')", "text=Run Search"],
-    )
+    run_button = None
+    for attempt in range(5):
+        run_button = await _first_visible_in_roots(
+            page,
+            ["input[id*='btnSearch']", "button:has-text('Run Search')", "text=Run Search"],
+        )
+        if run_button is not None:
+            break
+        await delay_ms(2000)
+        logger.debug("Waiting for Run Search button (attempt %d)", attempt + 1)
     if run_button is None:
-        raise RuntimeError("Run Search button not found")
+        # JS fallback: try clicking the button directly
+        try:
+            await page.evaluate("""() => {
+                const btn = document.querySelector('[id*="btnSearch"]')
+                    || document.querySelector('input[value*="Search"]')
+                    || document.querySelector('button');
+                if (btn) btn.click();
+            }""")
+            await page.wait_for_load_state("networkidle", timeout=timeout_ms)
+            logger.info("Search submitted (JS fallback)")
+            return
+        except Exception:
+            raise RuntimeError("Run Search button not found")
     await run_button.click()
     await page.wait_for_load_state("networkidle", timeout=timeout_ms)
     logger.info("Search submitted")

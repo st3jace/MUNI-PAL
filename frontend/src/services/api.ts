@@ -5,6 +5,7 @@
  * runtime calls through the generated OpenAPI client services.
  */
 
+import axios from 'axios'
 import type {
   Project,
   ProjectCreate,
@@ -42,6 +43,7 @@ import type {
   SchemaPathMetadata,
   RiskBfmsCohortParams,
   RiskBfmsIntegrationResponse,
+  RevenueDiversificationVisualizationResponse,
 } from '../types'
 import {
   ApiError,
@@ -54,6 +56,7 @@ import {
   FactsService,
   HealthService,
   InformationRequestsService,
+  OpenAPI,
   PlaybooksService,
   ProjectsService,
   ReadinessService,
@@ -68,9 +71,20 @@ const DEFAULT_RISK_BFMS_COHORT: RiskBfmsCohortParams = {
   recency_window: '5y',
   sample_size: 50,
 }
+type OpenApiSetting<T> = T | ((options?: unknown) => T | Promise<T>)
 
 const isNotFoundError = (error: unknown): boolean =>
   error instanceof ApiError && error.status === 404
+
+const resolveOpenApiSetting = async <T,>(
+  value: OpenApiSetting<T> | undefined
+): Promise<T | undefined> => {
+  if (typeof value === 'function') {
+    const resolver = value as (options?: unknown) => T | Promise<T>
+    return await resolver()
+  }
+  return value
+}
 
 class ApiClient {
   // ---------------------------------------------------------------------------
@@ -344,6 +358,28 @@ class ApiClient {
     }
   }
 
+  async getRevenueDiversificationVisualization(
+    projectId: UUID,
+    mode: 'auto' | 'native' | 'packet' = 'auto'
+  ): Promise<RevenueDiversificationVisualizationResponse> {
+    const token = await resolveOpenApiSetting<string>(
+      OpenAPI.TOKEN as OpenApiSetting<string> | undefined
+    )
+    const base = OpenAPI.BASE ? `${OpenAPI.BASE}/api/v1/risk/revenue-diversification` : '/api/v1/risk/revenue-diversification'
+    const resolvedHeaders = await resolveOpenApiSetting<Record<string, string>>(
+      OpenAPI.HEADERS as OpenApiSetting<Record<string, string>> | undefined
+    )
+    const headers = {
+      ...(resolvedHeaders ?? {}),
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    }
+    const { data } = await axios.get(base, {
+      params: { project_id: projectId, mode },
+      headers,
+    })
+    return data as RevenueDiversificationVisualizationResponse
+  }
+
   async getReadinessExplanation(projectId: UUID): Promise<{
     summary: string
     overall_score: number
@@ -384,7 +420,7 @@ class ApiClient {
   ): Promise<{ id: string; filename: string; status: string }> {
     const artifact = await ArtifactsService.uploadArtifactApiV1ArtifactsUploadPost({
       project_id: projectId,
-      file,
+      file: file as unknown as string,
       display_name: displayName,
     })
     return {
@@ -737,7 +773,7 @@ class ApiClient {
 
   async acknowledgeInformationRequest(
     requestId: UUID,
-    userId: UUID = DEV_USER_ID
+    userId?: UUID
   ): Promise<InformationRequest> {
     const data =
       await InformationRequestsService.acknowledgeRequestApiV1InformationRequestsRequestIdAcknowledgePost(

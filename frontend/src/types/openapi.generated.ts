@@ -626,6 +626,250 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/deal-documents/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Deal Documents
+         * @description List deal documents for a project with optional filters.
+         */
+        get: operations["list_deal_documents_api_v1_deal_documents__get"];
+        put?: never;
+        /**
+         * Create Deal Document
+         * @description Create a new deal document, optionally from a template.
+         */
+        post: operations["create_deal_document_api_v1_deal_documents__post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/deal-documents/checklist/{project_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Closing Checklist
+         * @description Auto-generate a closing checklist from the document type registry.
+         */
+        get: operations["get_closing_checklist_api_v1_deal_documents_checklist__project_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/deal-documents/types": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Document Types
+         * @description List available document types.
+         */
+        get: operations["list_document_types_api_v1_deal_documents_types_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/deal-documents/{document_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Deal Document
+         * @description Get a specific deal document by ID.
+         */
+        get: operations["get_deal_document_api_v1_deal_documents__document_id__get"];
+        put?: never;
+        post?: never;
+        /**
+         * Delete Deal Document
+         * @description Delete a document. Blocked if under legal hold.
+         */
+        delete: operations["delete_deal_document_api_v1_deal_documents__document_id__delete"];
+        options?: never;
+        head?: never;
+        /**
+         * Update Deal Document
+         * @description Update document metadata (title, assignment).
+         */
+        patch: operations["update_deal_document_api_v1_deal_documents__document_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/deal-documents/{document_id}/audit-log": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Document Audit Log
+         * @description Get the audit trail for a document.
+         */
+        get: operations["get_document_audit_log_api_v1_deal_documents__document_id__audit_log_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/deal-documents/{document_id}/compare": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Compare Versions
+         * @description Compare two version snapshots of a document.
+         */
+        get: operations["compare_versions_api_v1_deal_documents__document_id__compare_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/deal-documents/{document_id}/consistency-check": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Check Document Consistency
+         * @description Validate legal terms in a document against model parameters.
+         *
+         *     This enforces model-to-document parity for covenant and waterfall terms.
+         */
+        post: operations["check_document_consistency_api_v1_deal_documents__document_id__consistency_check_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/deal-documents/{document_id}/content": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * Update Document Content
+         * @description Update document content (editor auto-save).
+         *
+         *     Optionally creates a version snapshot when auto_snapshot is true.
+         *     Only allowed when document is in draft or under_review status.
+         */
+        put: operations["update_document_content_api_v1_deal_documents__document_id__content_put"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/deal-documents/{document_id}/legal-hold": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Set Legal Hold
+         * @description Set or release legal hold on a document. Admin only.
+         */
+        post: operations["set_legal_hold_api_v1_deal_documents__document_id__legal_hold_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/deal-documents/{document_id}/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Transition Document Status
+         * @description Transition document to a new workflow status.
+         *
+         *     State machine: draft → under_review → approved → execution →
+         *     signed → filed → archived.
+         */
+        post: operations["transition_document_status_api_v1_deal_documents__document_id__status_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/deal-documents/{document_id}/versions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Document Versions
+         * @description List all version snapshots for a document.
+         */
+        get: operations["list_document_versions_api_v1_deal_documents__document_id__versions_get"];
+        put?: never;
+        /**
+         * Create Version Snapshot
+         * @description Create a manual version snapshot.
+         */
+        post: operations["create_version_snapshot_api_v1_deal_documents__document_id__versions_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/deliverables/": {
         parameters: {
             query?: never;
@@ -2094,6 +2338,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/risk/revenue-diversification": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Revenue Diversification Visualization
+         * @description Typed visualization payload for the revenue diversification comparison chart.
+         */
+        get: operations["get_revenue_diversification_visualization_api_v1_risk_revenue_diversification_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/risk/sync-information-requests": {
         parameters: {
             query?: never;
@@ -2108,6 +2372,308 @@ export interface paths {
          * @description Auto-create/refresh risk-related information requests from synthesized actions.
          */
         post: operations["sync_risk_information_requests_api_v1_risk_sync_information_requests_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/sensing/benchmark": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Benchmark Issuance
+         * @description Benchmark a prospective issuance against the EMMA corpus.
+         */
+        post: operations["benchmark_issuance_api_v1_sensing_benchmark_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/sensing/event": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Track Event
+         * @description Track a funnel interaction event.
+         *
+         *     Events are linked to a session_id and optionally to a lead_id
+         *     once the prospect completes the lead capture form.
+         */
+        post: operations["track_event_api_v1_sensing_event_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/sensing/lead": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Capture Lead
+         * @description Capture prospect lead when they request the combined report PDF.
+         *
+         *     Stores contact info, deal context, and a snapshot of all report data
+         *     for follow-up. Links anonymous session events to this lead.
+         */
+        post: operations["capture_lead_api_v1_sensing_lead_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/sensing/leads": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Leads
+         * @description List captured sensing leads (admin view).
+         */
+        get: operations["list_leads_api_v1_sensing_leads_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/sensing/market-intelligence": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Market Intelligence
+         * @description Generate Sector Market Intelligence Report.
+         */
+        get: operations["market_intelligence_api_v1_sensing_market_intelligence_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/sensing/questionnaire": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Questionnaire
+         * @description Get the readiness self-assessment questionnaire.
+         */
+        get: operations["get_questionnaire_api_v1_sensing_questionnaire_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/sensing/readiness": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Readiness Assessment
+         * @description Score a Bond Readiness Self-Assessment.
+         */
+        post: operations["readiness_assessment_api_v1_sensing_readiness_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/sensing/sectors": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Sectors
+         * @description List available sectors with corpus data.
+         */
+        get: operations["list_sectors_api_v1_sensing_sectors_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/templates/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Templates
+         * @description List templates with optional filters.
+         */
+        get: operations["list_templates_api_v1_templates__get"];
+        put?: never;
+        /**
+         * Create Template
+         * @description Create a template in the tenant-scoped library.
+         */
+        post: operations["create_template_api_v1_templates__post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/templates/clauses": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Clauses
+         * @description List clause library entries.
+         */
+        get: operations["list_clauses_api_v1_templates_clauses_get"];
+        put?: never;
+        /**
+         * Create Clause
+         * @description Create a clause entry in the reusable clause library.
+         */
+        post: operations["create_clause_api_v1_templates_clauses_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/templates/clauses/recommendations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Recommend Clauses
+         * @description Recommend clauses based on deal structure and feature signals.
+         */
+        post: operations["recommend_clauses_api_v1_templates_clauses_recommendations_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/templates/clauses/{clause_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Clause
+         * @description Get a clause by ID.
+         */
+        get: operations["get_clause_api_v1_templates_clauses__clause_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update Clause
+         * @description Update a clause entry.
+         */
+        patch: operations["update_clause_api_v1_templates_clauses__clause_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/templates/{template_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Template
+         * @description Get a template by ID.
+         */
+        get: operations["get_template_api_v1_templates__template_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update Template
+         * @description Update a template entry.
+         */
+        patch: operations["update_template_api_v1_templates__template_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/templates/{template_id}/render": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Render Template
+         * @description Render a template to TipTap JSON using input variables.
+         */
+        post: operations["render_template_api_v1_templates__template_id__render_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -2243,14 +2809,40 @@ export interface components {
                 [key: string]: unknown;
             };
         };
+        /** BenchmarkRequest */
+        BenchmarkRequest: {
+            /**
+             * Deal Size
+             * @description Deal size in USD
+             */
+            deal_size: number;
+            /**
+             * Maturity
+             * @description Years to final maturity
+             * @default 30
+             */
+            maturity: number;
+            /**
+             * Rating
+             * @description Expected credit rating (e.g., A, BBB+, Aa2)
+             */
+            rating: string;
+            /**
+             * Sector
+             * @description Sector (waste, healthcare)
+             */
+            sector: string;
+            /**
+             * State
+             * @description State abbreviation
+             */
+            state: string;
+        };
         /** Body_upload_artifact_api_v1_artifacts_upload_post */
         Body_upload_artifact_api_v1_artifacts_upload_post: {
             /** Display Name */
             display_name?: string | null;
-            /**
-             * File
-             * Format: binary
-             */
+            /** File */
             file: string;
             /**
              * Project Id
@@ -2299,6 +2891,27 @@ export interface components {
             required_schema_paths: string[];
             /** Title */
             title: string;
+        };
+        /**
+         * ChecklistItemRead
+         * @description Auto-generated closing checklist item.
+         */
+        ChecklistItemRead: {
+            category: components["schemas"]["DocumentCategory"];
+            /** Document Id */
+            document_id?: string | null;
+            document_status?: components["schemas"]["DocumentStatus"] | null;
+            /** Document Type Code */
+            document_type_code: string;
+            /** Document Type Name */
+            document_type_name: string;
+            /**
+             * Is Complete
+             * @default false
+             */
+            is_complete: boolean;
+            /** Requires Signature */
+            requires_signature: boolean;
         };
         /**
          * ChecklistItemStatus
@@ -2421,6 +3034,237 @@ export interface components {
             sheet_name?: string | null;
         };
         /**
+         * ClauseCreate
+         * @description Schema for creating a template clause.
+         */
+        ClauseCreate: {
+            /** Category */
+            category: string;
+            /** Content Json */
+            content_json: {
+                [key: string]: unknown;
+            };
+            /** Description */
+            description?: string | null;
+            /** Jurisdiction */
+            jurisdiction?: string | null;
+            /** Name */
+            name: string;
+            /** Template Id */
+            template_id?: string | null;
+        };
+        /**
+         * ClauseRead
+         * @description Full clause read schema.
+         */
+        ClauseRead: {
+            /** Category */
+            category: string;
+            /** Content Json */
+            content_json: {
+                [key: string]: unknown;
+            };
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Description */
+            description: string | null;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Is Active */
+            is_active: boolean;
+            /** Jurisdiction */
+            jurisdiction: string | null;
+            /** Name */
+            name: string;
+            /** Template Id */
+            template_id: string | null;
+            /** Tenant Id */
+            tenant_id: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+        };
+        /**
+         * ClauseRecommendation
+         * @description Recommended clause candidate with scoring details.
+         */
+        ClauseRecommendation: {
+            /** Category */
+            category: string;
+            /** Clause Id */
+            clause_id?: string | null;
+            /** Clause Name */
+            clause_name: string;
+            /** Reason */
+            reason: string;
+            /** Sample Documents */
+            sample_documents?: string[];
+            /** Score */
+            score: number;
+            /** Source */
+            source: string;
+        };
+        /**
+         * ClauseRecommendationRequest
+         * @description Input for deal-structure-driven clause recommendations.
+         */
+        ClauseRecommendationRequest: {
+            /** Deal Features */
+            deal_features?: string[];
+            /** @default muni */
+            deal_vertical: components["schemas"]["DealVertical"];
+            /** Document Type Code */
+            document_type_code?: string | null;
+            /** Jurisdiction */
+            jurisdiction?: string | null;
+            /**
+             * Limit
+             * @default 20
+             */
+            limit: number;
+            /** Text Query */
+            text_query?: string | null;
+        };
+        /**
+         * ClauseUpdate
+         * @description Schema for updating a template clause.
+         */
+        ClauseUpdate: {
+            /** Category */
+            category?: string | null;
+            /** Content Json */
+            content_json?: {
+                [key: string]: unknown;
+            } | null;
+            /** Description */
+            description?: string | null;
+            /** Is Active */
+            is_active?: boolean | null;
+            /** Jurisdiction */
+            jurisdiction?: string | null;
+            /** Name */
+            name?: string | null;
+        };
+        /**
+         * ConsistencyCheckRequest
+         * @description Request payload for model-to-document consistency checks.
+         */
+        ConsistencyCheckRequest: {
+            domain: components["schemas"]["ConsistencyDomain"];
+            /** Legal Terms */
+            legal_terms?: {
+                [key: string]: unknown;
+            } | null;
+            /** Model Terms */
+            model_terms?: {
+                [key: string]: unknown;
+            };
+            /**
+             * Strict
+             * @default false
+             */
+            strict: boolean;
+            /**
+             * Tolerance Ratio
+             * @default 0.001
+             */
+            tolerance_ratio: number;
+        };
+        /**
+         * ConsistencyCheckResult
+         * @description Result of comparing legal terms against model terms.
+         */
+        ConsistencyCheckResult: {
+            /**
+             * Checked Fields
+             * @default 0
+             */
+            checked_fields: number;
+            /**
+             * Consistency Score
+             * @default 0
+             */
+            consistency_score: number;
+            /**
+             * Document Id
+             * Format: uuid
+             */
+            document_id: string;
+            domain: components["schemas"]["ConsistencyDomain"];
+            /** Extracted Legal Terms */
+            extracted_legal_terms?: {
+                [key: string]: unknown;
+            };
+            /**
+             * Is Consistent
+             * @default false
+             */
+            is_consistent: boolean;
+            /** Issues */
+            issues?: components["schemas"]["ConsistencyIssue"][];
+            /**
+             * Matched Fields
+             * @default 0
+             */
+            matched_fields: number;
+            /** Model Terms */
+            model_terms?: {
+                [key: string]: unknown;
+            };
+        };
+        /**
+         * ConsistencyDomain
+         * @description Supported legal consistency domains.
+         * @enum {string}
+         */
+        ConsistencyDomain: "covenant" | "waterfall";
+        /**
+         * ConsistencyIssue
+         * @description A single mismatch or warning from a consistency check.
+         */
+        ConsistencyIssue: {
+            /** Delta */
+            delta?: number | null;
+            /** Field */
+            field: string;
+            /** Legal Value */
+            legal_value?: string | number | boolean | null;
+            /** Message */
+            message: string;
+            /** Model Value */
+            model_value?: string | number | boolean | null;
+            severity: components["schemas"]["ConsistencySeverity"];
+        };
+        /**
+         * ConsistencySeverity
+         * @description Consistency issue severity levels.
+         * @enum {string}
+         */
+        ConsistencySeverity: "info" | "warning" | "error";
+        /**
+         * ContentUpdateRequest
+         * @description Schema for updating document content (editor auto-save).
+         */
+        ContentUpdateRequest: {
+            /**
+             * Auto Snapshot
+             * @default true
+             */
+            auto_snapshot: boolean;
+            /** Content Json */
+            content_json: {
+                [key: string]: unknown;
+            };
+        };
+        /**
          * CoverPage
          * @description Cover page for external advisory package.
          */
@@ -2463,6 +3307,195 @@ export interface components {
          */
         CriticalityTier: "critical" | "material" | "secondary";
         /**
+         * DealDocumentCreate
+         * @description Schema for creating a new deal document.
+         */
+        DealDocumentCreate: {
+            /** Assigned To Id */
+            assigned_to_id?: string | null;
+            /** Content Json */
+            content_json?: {
+                [key: string]: unknown;
+            } | null;
+            /**
+             * Document Type Id
+             * Format: uuid
+             */
+            document_type_id: string;
+            /**
+             * Project Id
+             * Format: uuid
+             */
+            project_id: string;
+            /** Template Id */
+            template_id?: string | null;
+            /** Template Variables */
+            template_variables?: {
+                [key: string]: unknown;
+            } | null;
+            /** Title */
+            title: string;
+        };
+        /**
+         * DealDocumentRead
+         * @description Full deal document read schema.
+         */
+        DealDocumentRead: {
+            /** Artifact Id */
+            artifact_id: string | null;
+            assigned_to?: components["schemas"]["UserSummary"] | null;
+            /** Content Html */
+            content_html?: string | null;
+            /** Content Json */
+            content_json: {
+                [key: string]: unknown;
+            } | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            created_by?: components["schemas"]["UserSummary"] | null;
+            /**
+             * Current Version
+             * @default 0
+             */
+            current_version: number;
+            /** Document Number */
+            document_number: string | null;
+            document_type: components["schemas"]["DealDocumentTypeRead"];
+            /** Filed At */
+            filed_at: string | null;
+            /** Filed To */
+            filed_to: string | null;
+            /** Filing Reference */
+            filing_reference: string | null;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Legal Hold */
+            legal_hold: boolean;
+            /**
+             * Project Id
+             * Format: uuid
+             */
+            project_id: string;
+            /** Retention Expires At */
+            retention_expires_at: string | null;
+            retention_policy: components["schemas"]["RetentionPolicy"];
+            /** Signature Request Id */
+            signature_request_id?: string | null;
+            /** Signature Status */
+            signature_status: string | null;
+            status: components["schemas"]["DocumentStatus"];
+            /** Template Id */
+            template_id: string | null;
+            /** Template Version */
+            template_version: number | null;
+            /** Title */
+            title: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /**
+             * Version Count
+             * @default 0
+             */
+            version_count: number;
+        };
+        /**
+         * DealDocumentTypeRead
+         * @description Read schema for document type registry entries.
+         */
+        DealDocumentTypeRead: {
+            category: components["schemas"]["DocumentCategory"];
+            /** Code */
+            code: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            deal_vertical: components["schemas"]["DealVertical"];
+            /** Default Workflow */
+            default_workflow: string;
+            /** Description */
+            description?: string | null;
+            /** Display Name */
+            display_name: string;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Is Active */
+            is_active: boolean;
+            /** Requires Signature */
+            requires_signature: boolean;
+            retention_policy: components["schemas"]["RetentionPolicy"];
+            /** Sort Order */
+            sort_order: number;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+        };
+        /**
+         * DealDocumentUpdate
+         * @description Schema for updating document metadata.
+         */
+        DealDocumentUpdate: {
+            /** Assigned To Id */
+            assigned_to_id?: string | null;
+            /** Title */
+            title?: string | null;
+        };
+        /**
+         * DealDocumentVersionRead
+         * @description Version snapshot read schema.
+         */
+        DealDocumentVersionRead: {
+            /** Change Summary */
+            change_summary: string | null;
+            /** Content Hash */
+            content_hash: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Created By Id
+             * Format: uuid
+             */
+            created_by_id: string;
+            /**
+             * Document Id
+             * Format: uuid
+             */
+            document_id: string;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            snapshot_reason: components["schemas"]["SnapshotReason"];
+            /** Storage Path */
+            storage_path: string | null;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /** Version Number */
+            version_number: number;
+        };
+        /**
          * DealOverviewMemo
          * @description Deal overview memo for external package.
          */
@@ -2484,6 +3517,12 @@ export interface components {
                 [key: string]: unknown;
             };
         };
+        /**
+         * DealVertical
+         * @description Deal verticals for document type registry.
+         * @enum {string}
+         */
+        DealVertical: "muni" | "pe" | "re" | "project_finance";
         /**
          * DeliverablePackCreate
          * @description Schema for requesting pack generation.
@@ -2880,6 +3919,41 @@ export interface components {
             warnings?: string[];
         };
         /**
+         * DocumentCategory
+         * @description Document type categories.
+         * @enum {string}
+         */
+        DocumentCategory: "templated" | "negotiated" | "professional_report" | "regulatory";
+        /**
+         * DocumentStatus
+         * @description Document lifecycle states.
+         * @enum {string}
+         */
+        DocumentStatus: "draft" | "under_review" | "approved" | "execution" | "signed" | "filed" | "archived";
+        /**
+         * EventRequest
+         * @description Funnel event tracking.
+         */
+        EventRequest: {
+            /**
+             * Event Data
+             * @description Optional JSON payload
+             */
+            event_data?: string | null;
+            /**
+             * Event Type
+             * @description Event type (page_view, benchmark_run, etc.)
+             */
+            event_type: string;
+            /** Sector */
+            sector?: string | null;
+            /**
+             * Session Id
+             * @description Client session ID
+             */
+            session_id: string;
+        };
+        /**
          * EvidenceExample
          * @description Example of acceptable evidence.
          */
@@ -2916,10 +3990,26 @@ export interface components {
                     [key: string]: unknown;
                 }[];
             };
+            /** Canonical By Domain */
+            canonical_by_domain?: {
+                [key: string]: {
+                    [key: string]: unknown;
+                }[];
+            };
+            /** Conflict Summary */
+            conflict_summary?: {
+                [key: string]: unknown;
+            };
             /** Conflicts */
             conflicts?: {
                 [key: string]: unknown;
             }[];
+            /** Ledger By Domain */
+            ledger_by_domain?: {
+                [key: string]: {
+                    [key: string]: unknown;
+                }[];
+            };
             /** Summary */
             summary?: {
                 [key: string]: unknown;
@@ -4053,6 +5143,82 @@ export interface components {
             value: string;
         };
         /**
+         * LeadCaptureRequest
+         * @description Lead info submitted before combined report PDF download.
+         */
+        LeadCaptureRequest: {
+            /**
+             * Benchmark Json
+             * @description Benchmark results JSON
+             */
+            benchmark_json?: string | null;
+            /**
+             * Deal Size Estimate
+             * @description Estimated deal size USD
+             */
+            deal_size_estimate?: number | null;
+            /**
+             * Email
+             * @description Contact email
+             */
+            email: string;
+            /**
+             * Expected Rating
+             * @description Expected rating
+             */
+            expected_rating?: string | null;
+            /**
+             * Market Intel Json
+             * @description Market intelligence report JSON
+             */
+            market_intel_json?: string | null;
+            /**
+             * Name
+             * @description Full name
+             */
+            name: string;
+            /**
+             * Organization
+             * @description Organization / entity name
+             */
+            organization: string;
+            /**
+             * Phone
+             * @description Phone number
+             */
+            phone?: string | null;
+            /**
+             * Readiness Json
+             * @description Readiness assessment JSON
+             */
+            readiness_json?: string | null;
+            /**
+             * Referral Source
+             * @description How they heard about us
+             */
+            referral_source?: string | null;
+            /**
+             * Sector
+             * @description Primary sector of interest
+             */
+            sector: string;
+            /**
+             * Session Id
+             * @description Client session ID for event linkage
+             */
+            session_id: string;
+            /**
+             * State
+             * @description State abbreviation
+             */
+            state?: string | null;
+            /**
+             * Title
+             * @description Job title / role
+             */
+            title?: string | null;
+        };
+        /**
          * LinkEvidenceRequest
          * @description Request to link evidence to an information request.
          */
@@ -4509,6 +5675,47 @@ export interface components {
              */
             secondary_gaps?: components["schemas"]["ReadinessGap"][];
         };
+        /** ReadinessRequest */
+        ReadinessRequest: {
+            /**
+             * Coverage Ratio
+             * @description Minimum coverage ratio
+             */
+            coverage_ratio?: number | null;
+            /**
+             * Dscr
+             * @description Debt Service Coverage Ratio
+             */
+            dscr?: number | null;
+            /**
+             * Evidence Ids
+             * @description Evidence item IDs present (e.g., risk.technology.evidence.1)
+             */
+            evidence_ids?: string[];
+            /**
+             * Project Name
+             * @description Project name
+             * @default Project
+             */
+            project_name: string;
+            /**
+             * Responses
+             * @description Dimension responses (e.g., risk.technology.description: true)
+             */
+            responses?: {
+                [key: string]: boolean;
+            };
+            /**
+             * Revenue
+             * @description Annual revenue in USD
+             */
+            revenue?: number | null;
+            /**
+             * Sector
+             * @description Sector (waste, healthcare)
+             */
+            sector: string;
+        };
         /**
          * ReportDimensionScore
          * @description Dimension score for reports.
@@ -4589,6 +5796,127 @@ export interface components {
             fact_ids: string[];
             /** Resolution Notes */
             resolution_notes?: string | null;
+        };
+        /**
+         * RetentionPolicy
+         * @description Compliance retention policies.
+         * @enum {string}
+         */
+        RetentionPolicy: "standard_6yr" | "indefinite" | "bond_life_plus_3yr";
+        /**
+         * RevenueDiversificationVisualizationResponse
+         * @description Versioned visualization contract for revenue diversification rendering.
+         */
+        RevenueDiversificationVisualizationResponse: {
+            /**
+             * Contract Version
+             * @default revenue-diversification-v1
+             */
+            contract_version: string;
+            /** Covenant Trigger Dscr */
+            covenant_trigger_dscr: number;
+            /** Data Quality Notes */
+            data_quality_notes?: string[];
+            /** Debt Service Annual */
+            debt_service_annual: number;
+            /**
+             * Generated At
+             * Format: date-time
+             */
+            generated_at: string;
+            /**
+             * Project Id
+             * Format: uuid
+             */
+            project_id: string;
+            /** Project Name */
+            project_name: string;
+            /** Revenue Scenarios */
+            revenue_scenarios?: components["schemas"]["RevenueScenarioMix"][];
+            /** Stream Definitions */
+            stream_definitions?: components["schemas"]["RevenueStreamDefinition"][];
+        };
+        /**
+         * RevenueScenarioMix
+         * @description Scenario payload for the diversification comparison chart.
+         */
+        RevenueScenarioMix: {
+            /** Assumptions */
+            assumptions?: string[];
+            /** Breach Weeks */
+            breach_weeks: number;
+            /** Breakeven Diesel Price */
+            breakeven_diesel_price: number;
+            /** Covenant Trigger Diesel Price */
+            covenant_trigger_diesel_price: number;
+            /** Dscr Mean */
+            dscr_mean: number;
+            /** Dscr Minimum */
+            dscr_minimum: number;
+            /** Implied Rating */
+            implied_rating: string;
+            /** Label */
+            label: string;
+            /** Revenue Streams */
+            revenue_streams?: components["schemas"]["RevenueStreamSlice"][];
+            /** Safety Label */
+            safety_label: string;
+            safety_status: components["schemas"]["RevenueScenarioSafety"];
+            /** Scenario Id */
+            scenario_id: string;
+            /** Total Revenue */
+            total_revenue: number;
+        };
+        /**
+         * RevenueScenarioSafety
+         * @description High-level scenario safety classification.
+         * @enum {string}
+         */
+        RevenueScenarioSafety: "fragile" | "safe" | "fortress";
+        /**
+         * RevenueStabilityClass
+         * @description Revenue-stream stability posture used for rendering and legend grouping.
+         * @enum {string}
+         */
+        RevenueStabilityClass: "stable" | "balanced" | "volatile";
+        /**
+         * RevenueStreamDefinition
+         * @description Platform registry entry for one revenue stream.
+         */
+        RevenueStreamDefinition: {
+            /** Color */
+            color: string;
+            /** Description */
+            description: string;
+            /** Label */
+            label: string;
+            stability_class: components["schemas"]["RevenueStabilityClass"];
+            /** Stream Id */
+            stream_id: string;
+        };
+        /**
+         * RevenueStreamSlice
+         * @description One revenue stream within a scenario mix.
+         */
+        RevenueStreamSlice: {
+            /** Amount */
+            amount: number;
+            /** Color */
+            color: string;
+            /**
+             * Is Inferred
+             * @default false
+             */
+            is_inferred: boolean;
+            /** Label */
+            label: string;
+            /** Pct Of Total */
+            pct_of_total: number;
+            /** Source Path */
+            source_path?: string | null;
+            stability_class: components["schemas"]["RevenueStabilityClass"];
+            /** Stream Id */
+            stream_id: string;
         };
         /**
          * ReviewStatus
@@ -5299,11 +6627,26 @@ export interface components {
             value_type: string;
         };
         /**
+         * SnapshotReason
+         * @description Reasons for creating a version snapshot.
+         * @enum {string}
+         */
+        SnapshotReason: "auto_save" | "manual_save" | "pre_review" | "pre_signature" | "status_change";
+        /**
          * SourceType
          * @description Source type for ExtractedFacts.
          * @enum {string}
          */
         SourceType: "extracted" | "manual";
+        /**
+         * StatusTransitionRequest
+         * @description Schema for transitioning document workflow status.
+         */
+        StatusTransitionRequest: {
+            /** Comment */
+            comment?: string | null;
+            new_status: components["schemas"]["DocumentStatus"];
+        };
         /**
          * TBDMarkerRead
          * @description Schema for reading a TBD marker.
@@ -5364,14 +6707,173 @@ export interface components {
          * @enum {string}
          */
         TBDSeverity: "low" | "medium" | "high" | "critical";
+        /**
+         * TemplateCreate
+         * @description Schema for creating a document template.
+         */
+        TemplateCreate: {
+            /**
+             * Document Type Id
+             * Format: uuid
+             */
+            document_type_id: string;
+            /** Jurisdiction */
+            jurisdiction?: string | null;
+            /** Name */
+            name: string;
+            /** Template Body */
+            template_body: string;
+            /** Variable Schema */
+            variable_schema?: {
+                [key: string]: unknown;
+            } | null;
+        };
+        /**
+         * TemplateRead
+         * @description Full template read schema.
+         */
+        TemplateRead: {
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            document_type?: components["schemas"]["DealDocumentTypeRead"] | null;
+            /**
+             * Document Type Id
+             * Format: uuid
+             */
+            document_type_id: string;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Is Active */
+            is_active: boolean;
+            /** Is System */
+            is_system: boolean;
+            /** Jurisdiction */
+            jurisdiction: string | null;
+            /** Name */
+            name: string;
+            /** Template Body */
+            template_body: string;
+            /** Tenant Id */
+            tenant_id: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /** Variable Schema */
+            variable_schema: {
+                [key: string]: unknown;
+            } | null;
+            /** Version */
+            version: number;
+        };
+        /**
+         * TemplateRenderRequest
+         * @description Request to render a template with variables.
+         */
+        TemplateRenderRequest: {
+            /** Variables */
+            variables?: {
+                [key: string]: unknown;
+            };
+        };
+        /**
+         * TemplateRenderResult
+         * @description Template rendering result with structured output and diagnostics.
+         */
+        TemplateRenderResult: {
+            /** Content Json */
+            content_json?: {
+                [key: string]: unknown;
+            } | null;
+            /** Missing Variables */
+            missing_variables?: string[];
+            /** Rendered Text */
+            rendered_text: string;
+            /**
+             * Template Id
+             * Format: uuid
+             */
+            template_id: string;
+            /** Used Variables */
+            used_variables?: string[];
+            /** Warnings */
+            warnings?: string[];
+        };
+        /**
+         * TemplateUpdate
+         * @description Schema for updating a template.
+         */
+        TemplateUpdate: {
+            /** Is Active */
+            is_active?: boolean | null;
+            /** Jurisdiction */
+            jurisdiction?: string | null;
+            /** Name */
+            name?: string | null;
+            /** Template Body */
+            template_body?: string | null;
+            /** Variable Schema */
+            variable_schema?: {
+                [key: string]: unknown;
+            } | null;
+        };
+        /**
+         * UserSummary
+         * @description Minimal user reference for document ownership.
+         */
+        UserSummary: {
+            /** Email */
+            email?: string | null;
+            /** Full Name */
+            full_name?: string | null;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+        };
         /** ValidationError */
         ValidationError: {
+            /** Context */
+            ctx?: Record<string, never>;
+            /** Input */
+            input?: unknown;
             /** Location */
             loc: (string | number)[];
             /** Message */
             msg: string;
             /** Error Type */
             type: string;
+        };
+        /**
+         * VersionDiff
+         * @description Result of comparing two document versions.
+         */
+        VersionDiff: {
+            /** Content A */
+            content_a: {
+                [key: string]: unknown;
+            } | null;
+            /** Content B */
+            content_b: {
+                [key: string]: unknown;
+            } | null;
+            /**
+             * Document Id
+             * Format: uuid
+             */
+            document_id: string;
+            /** Version A */
+            version_a: number;
+            /** Version B */
+            version_b: number;
         };
     };
     responses: never;
@@ -5394,6 +6896,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -5430,6 +6934,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -5468,6 +6974,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 project_id: string;
@@ -5504,6 +7012,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 package_id: string;
@@ -5542,6 +7052,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 package_id: string;
@@ -5580,6 +7092,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 package_id: string;
@@ -5620,6 +7134,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -5656,6 +7172,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -5694,6 +7212,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 project_id: string;
@@ -5730,6 +7250,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 report_id: string;
@@ -5768,6 +7290,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 report_id: string;
@@ -5810,6 +7334,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -5848,6 +7374,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -5888,6 +7416,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -5926,6 +7456,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -5965,6 +7497,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -6005,6 +7539,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -6045,6 +7581,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -6089,6 +7627,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -6127,6 +7667,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -6163,6 +7705,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -6201,6 +7745,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 phase: components["schemas"]["ChecklistPhase"];
@@ -6239,6 +7785,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 phase: components["schemas"]["ChecklistPhase"];
@@ -6277,6 +7825,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -6315,6 +7865,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 item_code: string;
@@ -6351,6 +7903,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 item_code: string;
@@ -6391,6 +7945,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 item_code: string;
@@ -6431,6 +7987,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 item_code: string;
@@ -6461,6 +8019,642 @@ export interface operations {
             };
         };
     };
+    list_deal_documents_api_v1_deal_documents__get: {
+        parameters: {
+            query: {
+                /** @description Filter by project */
+                project_id: string;
+                status?: string | null;
+                type?: string | null;
+                skip?: number;
+                limit?: number;
+            };
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_deal_document_api_v1_deal_documents__post: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DealDocumentCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DealDocumentRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_closing_checklist_api_v1_deal_documents_checklist__project_id__get: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path: {
+                project_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ChecklistItemRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_document_types_api_v1_deal_documents_types_get: {
+        parameters: {
+            query?: {
+                deal_vertical?: string | null;
+            };
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown[];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_deal_document_api_v1_deal_documents__document_id__get: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path: {
+                document_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DealDocumentRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_deal_document_api_v1_deal_documents__document_id__delete: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path: {
+                document_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_deal_document_api_v1_deal_documents__document_id__patch: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path: {
+                document_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DealDocumentUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DealDocumentRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_document_audit_log_api_v1_deal_documents__document_id__audit_log_get: {
+        parameters: {
+            query?: {
+                skip?: number;
+                limit?: number;
+            };
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path: {
+                document_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    compare_versions_api_v1_deal_documents__document_id__compare_get: {
+        parameters: {
+            query: {
+                v1: number;
+                v2: number;
+            };
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path: {
+                document_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["VersionDiff"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    check_document_consistency_api_v1_deal_documents__document_id__consistency_check_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path: {
+                document_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ConsistencyCheckRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ConsistencyCheckResult"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_document_content_api_v1_deal_documents__document_id__content_put: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path: {
+                document_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ContentUpdateRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DealDocumentRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    set_legal_hold_api_v1_deal_documents__document_id__legal_hold_post: {
+        parameters: {
+            query?: {
+                hold?: boolean;
+            };
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path: {
+                document_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DealDocumentRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    transition_document_status_api_v1_deal_documents__document_id__status_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path: {
+                document_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StatusTransitionRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DealDocumentRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_document_versions_api_v1_deal_documents__document_id__versions_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path: {
+                document_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DealDocumentVersionRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_version_snapshot_api_v1_deal_documents__document_id__versions_post: {
+        parameters: {
+            query?: {
+                reason?: string;
+                change_summary?: string | null;
+            };
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path: {
+                document_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DealDocumentVersionRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     list_packs_api_v1_deliverables__get: {
         parameters: {
             query: {
@@ -6473,6 +8667,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -6510,6 +8706,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -6550,6 +8748,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 pack_id: string;
@@ -6586,6 +8786,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 pack_id: string;
@@ -6624,6 +8826,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 pack_id: string;
@@ -6665,6 +8869,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 pack_id: string;
@@ -6703,6 +8909,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 pack_id: string;
@@ -6742,6 +8950,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 pack_id: string;
@@ -6784,6 +8994,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -6820,6 +9032,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -6860,6 +9074,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 section_id: string;
@@ -6896,6 +9112,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 project_id: string;
@@ -6932,6 +9150,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 document_id: string;
@@ -6970,6 +9190,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 document_id: string;
@@ -7014,6 +9236,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7052,6 +9276,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7092,6 +9318,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7132,6 +9360,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7170,6 +9400,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7225,6 +9457,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7271,6 +9505,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7311,6 +9547,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7359,6 +9597,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7403,6 +9643,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7445,6 +9687,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7488,6 +9732,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7534,6 +9780,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7570,6 +9818,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7613,6 +9863,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7654,6 +9906,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7700,6 +9954,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7741,6 +9997,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7787,6 +10045,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7825,6 +10085,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7866,6 +10128,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -7915,6 +10179,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -7951,6 +10217,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -7991,6 +10259,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -8027,6 +10297,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 project_id: string;
@@ -8063,6 +10335,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 project_id: string;
@@ -8099,6 +10373,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 request_id: string;
@@ -8135,6 +10411,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 request_id: string;
@@ -8177,6 +10455,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 request_id: string;
@@ -8216,6 +10496,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 request_id: string;
@@ -8252,6 +10534,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 request_id: string;
@@ -8292,6 +10576,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 request_id: string;
@@ -8335,6 +10621,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -8371,6 +10659,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -8496,6 +10786,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -8530,6 +10822,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 playbook_id: string;
@@ -8775,6 +11069,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -8811,6 +11107,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 dimension: components["schemas"]["ReadinessDimension"];
@@ -8851,6 +11149,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path: {
                 dimension: components["schemas"]["ReadinessDimension"];
@@ -8891,6 +11191,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -8929,6 +11231,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
             };
             path?: never;
             cookie?: never;
@@ -8963,6 +11267,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -9012,6 +11318,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -9055,6 +11363,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -9098,6 +11408,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -9141,6 +11453,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -9177,6 +11491,8 @@ export interface operations {
                 authorization?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User role for development auth */
                 "x-user-role"?: string | null;
             };
@@ -9209,6 +11525,46 @@ export interface operations {
             };
         };
     };
+    get_revenue_diversification_visualization_api_v1_risk_revenue_diversification_get: {
+        parameters: {
+            query: {
+                project_id: string;
+            };
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RevenueDiversificationVisualizationResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     sync_risk_information_requests_api_v1_risk_sync_information_requests_post: {
         parameters: {
             query: {
@@ -9222,6 +11578,304 @@ export interface operations {
             header?: {
                 /** @description Authorization: Bearer <token> */
                 authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["RiskActionSyncResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    benchmark_issuance_api_v1_sensing_benchmark_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BenchmarkRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    track_event_api_v1_sensing_event_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EventRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: string;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    capture_lead_api_v1_sensing_lead_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LeadCaptureRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_leads_api_v1_sensing_leads_get: {
+        parameters: {
+            query?: {
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    market_intelligence_api_v1_sensing_market_intelligence_get: {
+        parameters: {
+            query: {
+                /** @description Sector (waste, healthcare) */
+                sector: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_questionnaire_api_v1_sensing_questionnaire_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    }[];
+                };
+            };
+        };
+    };
+    readiness_assessment_api_v1_sensing_readiness_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReadinessRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_sectors_api_v1_sensing_sectors_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: string;
+                    }[];
+                };
+            };
+        };
+    };
+    list_templates_api_v1_templates__get: {
+        parameters: {
+            query?: {
+                document_type_id?: string | null;
+                jurisdiction?: string | null;
+                active_only?: boolean;
+                skip?: number;
+                limit?: number;
+            };
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
                 /** @description User ID for development auth */
                 "x-user-id"?: string | null;
                 /** @description User role for development auth */
@@ -9238,7 +11892,395 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["RiskActionSyncResponse"];
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_template_api_v1_templates__post: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TemplateCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TemplateRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_clauses_api_v1_templates_clauses_get: {
+        parameters: {
+            query?: {
+                template_id?: string | null;
+                category?: string | null;
+                jurisdiction?: string | null;
+                text_query?: string | null;
+                active_only?: boolean;
+                skip?: number;
+                limit?: number;
+            };
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_clause_api_v1_templates_clauses_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ClauseCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ClauseRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    recommend_clauses_api_v1_templates_clauses_recommendations_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ClauseRecommendationRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ClauseRecommendation"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_clause_api_v1_templates_clauses__clause_id__get: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path: {
+                clause_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ClauseRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_clause_api_v1_templates_clauses__clause_id__patch: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path: {
+                clause_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ClauseUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ClauseRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_template_api_v1_templates__template_id__get: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path: {
+                template_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TemplateRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_template_api_v1_templates__template_id__patch: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path: {
+                template_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TemplateUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TemplateRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    render_template_api_v1_templates__template_id__render_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+                /** @description User role for development auth */
+                "x-user-role"?: string | null;
+            };
+            path: {
+                template_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TemplateRenderRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TemplateRenderResult"];
                 };
             };
             /** @description Validation Error */

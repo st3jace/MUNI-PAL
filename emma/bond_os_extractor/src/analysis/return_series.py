@@ -323,13 +323,16 @@ def build_market_benchmark(
     base_dir: Path | None = None,
     start_date: str = "2020-01-01",
 ) -> ReturnSeries:
-    """Build equal-weighted market benchmark from waste sector basket.
+    """Build equal-weighted market benchmark from sector ticker basket.
 
-    The benchmark represents the waste sector "market" for S_Omega's
+    The benchmark represents the sector "market" for S_Omega's
     market downside term E[r_f - r_mk]^+.
 
     Equal-weighted daily returns across all tickers with data on each date.
     """
+    from ..config import get_settings
+    sector_label = get_settings().sector.title()
+
     if tickers is None:
         tickers = get_all_tickers()
 
@@ -343,7 +346,7 @@ def build_market_benchmark(
     if not all_series:
         logger.warning("No tickers with sufficient data for benchmark")
         return ReturnSeries(
-            asset_id="MARKET", asset_name="Waste Sector Benchmark",
+            asset_id="MARKET", asset_name=f"{sector_label} Sector Benchmark",
             asset_type="market",
         )
 
@@ -364,7 +367,7 @@ def build_market_benchmark(
 
     if not valid_dates:
         return ReturnSeries(
-            asset_id="MARKET", asset_name="Waste Sector Benchmark",
+            asset_id="MARKET", asset_name=f"{sector_label} Sector Benchmark",
             asset_type="market",
         )
 
@@ -386,7 +389,7 @@ def build_market_benchmark(
 
     return ReturnSeries(
         asset_id="MARKET",
-        asset_name=f"Waste Sector Benchmark ({len(all_series)} tickers)",
+        asset_name=f"{sector_label} Sector Benchmark ({len(all_series)} tickers)",
         asset_type="market",
         dates=dates,
         returns=returns,
@@ -514,16 +517,19 @@ def merge_return_series(
 def build_bond_market_benchmark(
     start_date: str = "2020-01-01",
 ) -> ReturnSeries:
-    """Build municipal bond market benchmark from all EMMA waste sector trades.
+    """Build municipal bond market benchmark from all EMMA sector trades.
 
     Equal-weighted average return across all bonds with trade data on each
     date. Provides the bond-appropriate market comparator for S_Omega's
     E[r_f - r_mk]^+ term.
     """
+    from ..config import get_settings
+    sector_label = get_settings().sector.title()
+
     all_bonds = load_emma_bond_data()
     if not all_bonds:
         return ReturnSeries(
-            asset_id="BOND_MKT", asset_name="Waste Sector Bond Benchmark",
+            asset_id="BOND_MKT", asset_name=f"{sector_label} Sector Bond Benchmark",
             asset_type="market", frequency="irregular",
         )
 
@@ -536,12 +542,12 @@ def build_bond_market_benchmark(
 
     if not bond_series:
         return ReturnSeries(
-            asset_id="BOND_MKT", asset_name="Waste Sector Bond Benchmark",
+            asset_id="BOND_MKT", asset_name=f"{sector_label} Sector Bond Benchmark",
             asset_type="market", frequency="irregular",
         )
 
     # Merge all into benchmark
-    merged = merge_return_series(bond_series, "Waste Sector Bond Benchmark")
+    merged = merge_return_series(bond_series, f"{sector_label} Sector Bond Benchmark")
 
     # Filter by start_date
     filtered_dates = []
@@ -562,7 +568,7 @@ def build_bond_market_benchmark(
 
     return ReturnSeries(
         asset_id="BOND_MKT",
-        asset_name=f"Waste Sector Bond Benchmark ({len(bond_series)} bonds)",
+        asset_name=f"{sector_label} Sector Bond Benchmark ({len(bond_series)} bonds)",
         asset_type="market",
         dates=filtered_dates,
         returns=filtered_returns,

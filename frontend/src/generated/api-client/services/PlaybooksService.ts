@@ -14,6 +14,7 @@ export class PlaybooksService {
      * @param includeInactive Include inactive playbooks
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns PlaybookRead Successful Response
      * @throws ApiError
      */
@@ -21,6 +22,7 @@ export class PlaybooksService {
         includeInactive: boolean = false,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<Record<string, Array<PlaybookRead>>> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -28,6 +30,7 @@ export class PlaybooksService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             query: {
                 'include_inactive': includeInactive,
@@ -42,12 +45,14 @@ export class PlaybooksService {
      * Get the default active playbook.
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns PlaybookRead Successful Response
      * @throws ApiError
      */
     public static getDefaultPlaybookApiV1PlaybooksDefaultGet(
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<PlaybookRead> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -55,6 +60,7 @@ export class PlaybooksService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             errors: {
                 422: `Validation Error`,
@@ -153,12 +159,14 @@ export class PlaybooksService {
      * existing playbook if already seeded.
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns PlaybookRead Successful Response
      * @throws ApiError
      */
     public static seedPlaybookApiV1PlaybooksSeedPost(
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<PlaybookRead> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -166,6 +174,7 @@ export class PlaybooksService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             errors: {
                 422: `Validation Error`,
@@ -178,6 +187,7 @@ export class PlaybooksService {
      * @param playbookId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @returns PlaybookDetail Successful Response
      * @throws ApiError
      */
@@ -185,6 +195,7 @@ export class PlaybooksService {
         playbookId: string,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
     ): CancelablePromise<PlaybookDetail> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -195,6 +206,7 @@ export class PlaybooksService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
             },
             errors: {
                 422: `Validation Error`,

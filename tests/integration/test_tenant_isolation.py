@@ -11,10 +11,18 @@ from munipal.core.models.user import User
 @pytest.fixture(autouse=True)
 def enable_tenant_isolation(monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setenv("TENANT_ISOLATION_V2", "true")
-    monkeypatch.setenv("AUTH_ENFORCEMENT_V2", "false")
+    monkeypatch.setenv("AUTH_ENFORCEMENT_V2", "true")
+    monkeypatch.setenv("ROLE_ENFORCEMENT_V2", "true")
+    monkeypatch.setenv("JWT_SECRET_KEY", "test-secret")
+    monkeypatch.setenv("JWT_ALGORITHM", "HS256")
     get_settings.cache_clear()
     yield
     get_settings.cache_clear()
+
+
+def _auth_headers(jwt_token_factory, user_id: str, tenant_id: str, role: str = "admin") -> dict[str, str]:
+    token = jwt_token_factory(user_id=user_id, role=role, tenant_id=tenant_id)
+    return {"Authorization": f"Bearer {token}"}
 
 
 @pytest.mark.asyncio
@@ -22,6 +30,7 @@ async def test_superuser_list_projects_is_filtered_by_tenant_header(
     test_client,
     factory,
     db_session,
+    jwt_token_factory,
 ):
     superuser_id = str(uuid4())
     db_session.add(
@@ -38,7 +47,7 @@ async def test_superuser_list_projects_is_filtered_by_tenant_header(
 
     alpha_create = await test_client.post(
         "/api/v1/projects/",
-        headers={"X-User-Id": superuser_id, "X-Tenant-Id": "tenant-alpha"},
+        headers=_auth_headers(jwt_token_factory, superuser_id, tenant_id="tenant-alpha"),
         json={
             "name": "Tenant Alpha Project",
             "issuer_name": "Issuer Alpha",
@@ -49,7 +58,7 @@ async def test_superuser_list_projects_is_filtered_by_tenant_header(
 
     beta_create = await test_client.post(
         "/api/v1/projects/",
-        headers={"X-User-Id": superuser_id, "X-Tenant-Id": "tenant-beta"},
+        headers=_auth_headers(jwt_token_factory, superuser_id, tenant_id="tenant-beta"),
         json={
             "name": "Tenant Beta Project",
             "issuer_name": "Issuer Beta",
@@ -60,7 +69,7 @@ async def test_superuser_list_projects_is_filtered_by_tenant_header(
 
     response = await test_client.get(
         "/api/v1/projects/",
-        headers={"X-User-Id": superuser_id, "X-Tenant-Id": "tenant-alpha"},
+        headers=_auth_headers(jwt_token_factory, superuser_id, tenant_id="tenant-alpha"),
     )
 
     assert response.status_code == 200
@@ -75,6 +84,7 @@ async def test_superuser_cross_tenant_project_access_returns_403(
     test_client,
     factory,
     db_session,
+    jwt_token_factory,
 ):
     superuser_id = str(uuid4())
     db_session.add(
@@ -91,7 +101,7 @@ async def test_superuser_cross_tenant_project_access_returns_403(
 
     beta_create = await test_client.post(
         "/api/v1/projects/",
-        headers={"X-User-Id": superuser_id, "X-Tenant-Id": "tenant-beta"},
+        headers=_auth_headers(jwt_token_factory, superuser_id, tenant_id="tenant-beta"),
         json={
             "name": "Tenant Beta Project",
             "issuer_name": "Issuer Beta",
@@ -103,7 +113,7 @@ async def test_superuser_cross_tenant_project_access_returns_403(
 
     response = await test_client.get(
         f"/api/v1/projects/{beta_project_id}",
-        headers={"X-User-Id": superuser_id, "X-Tenant-Id": "tenant-alpha"},
+        headers=_auth_headers(jwt_token_factory, superuser_id, tenant_id="tenant-alpha"),
     )
 
     assert response.status_code == 403

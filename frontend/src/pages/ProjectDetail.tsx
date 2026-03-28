@@ -17,6 +17,7 @@ import {
   Zap,
   RotateCcw,
   MoreVertical,
+  BarChart3,
 } from 'lucide-react'
 import { api } from '../services/api'
 
@@ -191,6 +192,13 @@ export default function ProjectDetail() {
       icon: Gauge,
       color: 'bg-green-500',
     },
+    {
+      name: 'Revenue Mix',
+      description: 'Scenario diversification and DSCR view',
+      href: `/projects/${projectId}/revenue-diversification`,
+      icon: BarChart3,
+      color: 'bg-slate-700',
+    },
   ]
 
   return (
@@ -251,7 +259,7 @@ export default function ProjectDetail() {
       {/* Quick Actions */}
       <div>
         <h2 className="text-lg font-medium text-gray-900 mb-4">Quick Actions</h2>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {quickActions.map((action) => (
             <Link
               key={action.name}
@@ -377,7 +385,7 @@ export default function ProjectDetail() {
                 <div className="flex items-center gap-3">
                   <FileText className="h-8 w-8 text-gray-400" />
                   <div>
-                    <p className="font-medium text-gray-900">{artifact.display_name}</p>
+                    <p className="font-medium text-gray-900">{artifact.display_name || artifact.filename}</p>
                     <p className="text-sm text-gray-500">
                       {artifact.artifact_type.toUpperCase()} &middot;{' '}
                       {new Date(artifact.created_at).toLocaleDateString()}

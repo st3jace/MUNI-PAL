@@ -37,6 +37,25 @@ from munipal.core.models.advisory_package import (
     ExternalAdvisoryPackage,
 )
 
+# Sensing Lead Generation
+from munipal.core.models.lead import SensingLead, SensingEvent
+
+# Document Management System
+from munipal.core.models.deal_document import (
+    DealDocumentType,
+    DocumentTemplate,
+    TemplateClause,
+    DealDocument,
+    DealDocumentVersion,
+    DocumentReview,
+    DocumentSigner,
+    DocumentAuditLog,
+    VirtualDataRoom,
+    VdrParticipant,
+    VdrDocumentPermission,
+    VdrActivityLog,
+)
+
 __all__ = [
     "Base",
     "User",
@@ -60,4 +79,20 @@ __all__ = [
     # v2 Deliverables
     "InternalReadinessReport",
     "ExternalAdvisoryPackage",
+    # Document Management System
+    "DealDocumentType",
+    "DocumentTemplate",
+    "TemplateClause",
+    "DealDocument",
+    "DealDocumentVersion",
+    "DocumentReview",
+    "DocumentSigner",
+    "DocumentAuditLog",
+    "VirtualDataRoom",
+    "VdrParticipant",
+    "VdrDocumentPermission",
+    "VdrActivityLog",
+    # Sensing Leads
+    "SensingLead",
+    "SensingEvent",
 ]

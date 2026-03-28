@@ -13,6 +13,7 @@ Core principles (NON-NEGOTIABLE):
 
 import logging
 import re
+from collections import defaultdict
 from datetime import UTC, datetime
 from typing import Any
 from uuid import UUID, uuid4
@@ -35,6 +36,7 @@ from munipal.core.schemas.advisory_package import (
 )
 from munipal.core.schemas.base import ChecklistPhase, ReviewStatus
 from munipal.core.schemas.information_request import RequestStatus
+from munipal.services.fact_service import FactConflictDetector, FactService
 from munipal.services.playbook_data import READINESS_CONFIG
 
 logger = logging.getLogger(__name__)
@@ -165,7 +167,7 @@ class InternalReportService:
         report.gap_analysis = await self._build_gap_analysis(project_id, readiness_service)
         report.information_requests_section = self._build_requests_section(requests)
         report.checklist_status = await self._build_checklist_status(project_id, checklist_service)
-        report.evidence_index = self._build_evidence_index(facts)
+        report.evidence_index = await self._build_evidence_index(project_id, facts)
         report.assumption_register = self._build_assumption_register(facts)
 
         # Set metrics
@@ -191,7 +193,12 @@ class InternalReportService:
             and r.target_date < datetime.now(UTC).date()
             and r.status in [RequestStatus.OPEN.value, RequestStatus.IN_PROGRESS.value]
         )
-        report.facts_count = len([f for f in facts if f.review_status == ReviewStatus.APPROVED.value])
+        report.facts_count = len([
+            f
+            for f in facts
+            if f.review_status == ReviewStatus.APPROVED.value
+            and f.lifecycle_state == "active"
+        ])
 
         report.is_complete = True
         report.generation_completed_at = datetime.now(UTC)
@@ -404,13 +411,25 @@ class InternalReportService:
             "phases": phases,
         }
 
-    def _build_evidence_index(self, facts: list[ExtractedFact]) -> dict:
+    async def _build_evidence_index(self, project_id: UUID, facts: list[ExtractedFact]) -> dict:
         """Build the evidence index section."""
         # Count by status
         status_counts = {
             "approved": 0,
             "pending": 0,
             "rejected": 0,
+        }
+        lifecycle_counts = {
+            "active": 0,
+            "pending_review": 0,
+            "rejected": 0,
+            "archived": 0,
+        }
+        duplicate_counts = {
+            "unique": 0,
+            "duplicate_exact": 0,
+            "duplicate_semantic": 0,
+            "candidate_conflict": 0,
         }
         for f in facts:
             if f.review_status == ReviewStatus.APPROVED.value:
@@ -419,27 +438,93 @@ class InternalReportService:
                 status_counts["pending"] += 1
             elif f.review_status == ReviewStatus.REJECTED.value:
                 status_counts["rejected"] += 1
+            lifecycle_counts[f.lifecycle_state or "active"] = lifecycle_counts.get(
+                f.lifecycle_state or "active",
+                0,
+            ) + 1
+            duplicate_counts[f.duplicate_classification or "unique"] = duplicate_counts.get(
+                f.duplicate_classification or "unique",
+                0,
+            ) + 1
 
-        # Group by domain
-        by_domain = {}
-        for f in facts:
+        # Group canonical view by domain (one preferred row per path).
+        active_approved = [
+            f
+            for f in facts
+            if f.review_status == ReviewStatus.APPROVED.value
+            and f.lifecycle_state == "active"
+        ]
+        canonical_facts = FactService.select_preferred_facts_by_path(active_approved)
+
+        canonical_by_domain: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        for f in canonical_facts.values():
             domain = f.schema_path.split(".")[0]
-            if domain not in by_domain:
-                by_domain[domain] = []
-            by_domain[domain].append({
+            canonical_by_domain[domain].append({
+                "fact_id": f.id,
                 "schema_path": f.schema_path,
-                "value": str(f.value)[:100],  # Truncate
+                "value": str(f.value)[:100],
                 "confidence": f.confidence_score,
                 "status": f.review_status,
+                "criticality": f.criticality,
+                "duplicate_classification": f.duplicate_classification,
+                "is_canonical": bool(f.is_canonical),
+                "lifecycle_state": f.lifecycle_state,
             })
+
+        # Group full ledger by domain (all facts, including archived).
+        ledger_by_domain: dict[str, list[dict[str, Any]]] = defaultdict(list)
+        for f in sorted(
+            facts,
+            key=lambda item: (
+                item.schema_path,
+                item.created_at.isoformat() if item.created_at else "",
+                item.id,
+            ),
+        ):
+            domain = f.schema_path.split(".")[0]
+            ledger_by_domain[domain].append({
+                "fact_id": f.id,
+                "schema_path": f.schema_path,
+                "value": str(f.value)[:100],
+                "confidence": f.confidence_score,
+                "status": f.review_status,
+                "criticality": f.criticality,
+                "source_type": f.source_type,
+                "duplicate_classification": f.duplicate_classification,
+                "is_canonical": bool(f.is_canonical),
+                "lifecycle_state": f.lifecycle_state,
+                "created_at": f.created_at.isoformat() if f.created_at else None,
+                "updated_at": f.updated_at.isoformat() if f.updated_at else None,
+            })
+
+        # Keep by_domain for backwards compatibility (canonical view).
+        by_domain = {}
+        for domain, entries in canonical_by_domain.items():
+            by_domain[domain] = entries
+
+        conflict_detector = FactConflictDetector(self.session)
+        conflicts = await conflict_detector.find_conflicts(project_id)
+        conflict_summary = {
+            "total_unresolved_conflicts": len(conflicts),
+            "critical": len([c for c in conflicts if str(c.get("criticality", "")).lower() == "critical"]),
+            "material": len([c for c in conflicts if str(c.get("criticality", "")).lower() == "material"]),
+            "secondary": len([c for c in conflicts if str(c.get("criticality", "")).lower() == "secondary"]),
+        }
 
         return {
             "summary": {
                 "total": len(facts),
                 **status_counts,
+                "canonical_total": len(canonical_facts),
+                "ledger_total": len(facts),
+                "lifecycle": lifecycle_counts,
+                "duplicate_classification": duplicate_counts,
             },
             "by_domain": by_domain,
-            "conflicts": [],  # Would need conflict detection
+            "canonical_by_domain": dict(canonical_by_domain),
+            "ledger_by_domain": dict(ledger_by_domain),
+            "conflicts": conflicts,
+            "conflict_summary": conflict_summary,
         }
 
     def _build_assumption_register(self, facts: list[ExtractedFact]) -> dict:
@@ -447,7 +532,10 @@ class InternalReportService:
         # Filter to assumption-type facts (could be enhanced)
         assumptions = []
         for f in facts:
-            if f.review_status == ReviewStatus.APPROVED.value:
+            if (
+                f.review_status == ReviewStatus.APPROVED.value
+                and f.lifecycle_state != "archived"
+            ):
                 assumptions.append({
                     "schema_path": f.schema_path,
                     "value": str(f.value),
@@ -464,11 +552,10 @@ class InternalReportService:
         }
 
     async def _get_facts(self, project_id: UUID) -> list[ExtractedFact]:
-        """Get all facts for a project."""
+        """Get full fact ledger for a project, including archived rows."""
         result = await self.session.execute(
             select(ExtractedFact).where(
                 ExtractedFact.project_id == str(project_id),
-                ExtractedFact.lifecycle_state != "archived",
             )
         )
         return list(result.scalars().all())
@@ -623,7 +710,7 @@ class ExternalPackageService:
 
         # Get approved facts
         facts = await self._get_approved_facts(project_id)
-        facts_by_path = {f.schema_path: f for f in facts}
+        facts_by_path = FactService.select_preferred_facts_by_path(facts)
         risk_context = await self._build_risk_integration_context(project_id, facts=facts_by_path)
 
         # Build sections
@@ -651,8 +738,21 @@ class ExternalPackageService:
             package.critical_tbd_count = critical_tbd
             package.high_tbd_count = high_tbd
 
-        # Validate for distribution
-        validation = self._validate_for_distribution(package)
+        # Validate for distribution, including unresolved conflict checks.
+        conflict_detector = FactConflictDetector(self.session)
+        unresolved_conflicts = await conflict_detector.find_conflicts(project_id)
+        critical_conflict_count = len(
+            [c for c in unresolved_conflicts if str(c.get("criticality", "")).lower() == "critical"]
+        )
+        material_conflict_count = len(
+            [c for c in unresolved_conflicts if str(c.get("criticality", "")).lower() == "material"]
+        )
+        validation = self._validate_for_distribution(
+            package,
+            critical_conflict_count=critical_conflict_count,
+            material_conflict_count=material_conflict_count,
+            unresolved_conflict_count=len(unresolved_conflicts),
+        )
         package.ready_for_distribution = validation.ready_for_distribution
         package.distribution_issues = validation.issues
 
@@ -1153,7 +1253,14 @@ Before any financing transaction:
 
 Prepared by Bond Facility Management System v2.0"""
 
-    def _validate_for_distribution(self, package: ExternalAdvisoryPackage) -> DistributionValidation:
+    def _validate_for_distribution(
+        self,
+        package: ExternalAdvisoryPackage,
+        *,
+        critical_conflict_count: int = 0,
+        material_conflict_count: int = 0,
+        unresolved_conflict_count: int = 0,
+    ) -> DistributionValidation:
         """Validate package for external distribution."""
         issues = []
         warnings = []
@@ -1174,6 +1281,29 @@ Prepared by Bond Facility Management System v2.0"""
         # Check for key sections
         if not package.deal_overview:
             issues.append("Missing deal overview")
+
+        # Conflict gate: unresolved critical conflicts block external distribution.
+        if critical_conflict_count > 0:
+            issues.append(
+                f"Unresolved critical fact conflicts: {critical_conflict_count}"
+            )
+            recommendations.append(
+                "Resolve critical-path fact conflicts in Facts Review before external distribution."
+            )
+
+        if material_conflict_count > 0:
+            warnings.append(
+                f"Unresolved material fact conflicts: {material_conflict_count}"
+            )
+
+        non_critical_conflicts = max(
+            0,
+            unresolved_conflict_count - critical_conflict_count,
+        )
+        if non_critical_conflicts > 0:
+            recommendations.append(
+                "Review remaining non-critical conflicts and archive superseded facts to improve package quality."
+            )
 
         return DistributionValidation(
             ready_for_distribution=len(issues) == 0,
@@ -1204,14 +1334,8 @@ Prepared by Bond Facility Management System v2.0"""
 
     async def _get_approved_facts(self, project_id: UUID) -> list[ExtractedFact]:
         """Get approved facts for a project."""
-        result = await self.session.execute(
-            select(ExtractedFact).where(
-                ExtractedFact.project_id == str(project_id),
-                ExtractedFact.review_status == ReviewStatus.APPROVED.value,
-                ExtractedFact.lifecycle_state != "archived",
-            )
-        )
-        return list(result.scalars().all())
+        fact_service = FactService(self.session)
+        return await fact_service.get_active_approved_facts(project_id)
 
     async def _get_project(self, project_id: UUID) -> Project | None:
         """Get project metadata for cohort inference."""

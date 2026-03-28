@@ -260,6 +260,104 @@ class TestFactService:
         assert len(all_facts) == 1
         assert len(approved_facts) == 1
 
+    async def test_select_preferred_facts_by_path_prefers_canonical(self, service, factory, db_session):
+        """Canonical facts should be selected ahead of higher-confidence non-canonical facts."""
+        playbook = await factory.create_playbook()
+        project = await factory.create_project(playbook["id"])
+        artifact = await factory.create_artifact(project["id"])
+        job = await factory.create_extraction_job(project["id"], artifact["id"])
+
+        first = await factory.create_fact(
+            project["id"],
+            job["id"],
+            schema_path="capital.project-cost",
+            value=40000000.0,
+            review_status=ReviewStatus.APPROVED.value,
+            confidence_score=0.99,
+        )
+        second = await factory.create_fact(
+            project["id"],
+            job["id"],
+            schema_path="capital.project-cost",
+            value=45000000.0,
+            review_status=ReviewStatus.APPROVED.value,
+            confidence_score=0.80,
+        )
+        await db_session.commit()
+
+        first_model = await service.get_fact(UUID(first["id"]))
+        second_model = await service.get_fact(UUID(second["id"]))
+        assert first_model is not None
+        assert second_model is not None
+
+        first_model.is_canonical = False
+        first_model.canonical_score = 0.99
+        second_model.is_canonical = True
+        second_model.canonical_score = 0.60
+        await db_session.commit()
+
+        selected = FactService.select_preferred_facts_by_path([first_model, second_model])
+        assert selected["capital.project-cost"].id == second_model.id
+
+    async def test_get_active_approved_facts_by_path_uses_canonical_first(
+        self,
+        service,
+        factory,
+        db_session,
+    ):
+        """Active approved selector should ignore non-active facts and return one preferred row."""
+        playbook = await factory.create_playbook()
+        project = await factory.create_project(playbook["id"])
+        artifact = await factory.create_artifact(project["id"])
+        job = await factory.create_extraction_job(project["id"], artifact["id"])
+
+        canonical = await factory.create_fact(
+            project["id"],
+            job["id"],
+            schema_path="revenue.gross.annual",
+            value=10000000.0,
+            review_status=ReviewStatus.APPROVED.value,
+            confidence_score=0.82,
+        )
+        non_canonical = await factory.create_fact(
+            project["id"],
+            job["id"],
+            schema_path="revenue.gross.annual",
+            value=9000000.0,
+            review_status=ReviewStatus.APPROVED.value,
+            confidence_score=0.95,
+        )
+        archived = await factory.create_fact(
+            project["id"],
+            job["id"],
+            schema_path="revenue.gross.annual",
+            value=8000000.0,
+            review_status=ReviewStatus.APPROVED.value,
+            confidence_score=0.99,
+        )
+        await db_session.commit()
+
+        canonical_model = await service.get_fact(UUID(canonical["id"]))
+        non_canonical_model = await service.get_fact(UUID(non_canonical["id"]))
+        archived_model = await service.get_fact(UUID(archived["id"]))
+        assert canonical_model is not None
+        assert non_canonical_model is not None
+        assert archived_model is not None
+
+        canonical_model.is_canonical = True
+        canonical_model.canonical_score = 0.62
+        non_canonical_model.is_canonical = False
+        non_canonical_model.canonical_score = 0.95
+        archived_model.lifecycle_state = FactLifecycleState.ARCHIVED.value
+        await db_session.commit()
+
+        selected = await service.get_active_approved_facts_by_path(
+            UUID(project["id"]),
+            schema_paths=["revenue.gross.annual"],
+        )
+        assert list(selected.keys()) == ["revenue.gross.annual"]
+        assert selected["revenue.gross.annual"].id == canonical_model.id
+
     async def test_get_pending_review_count(self, service, project_with_facts):
         """Test getting counts by review status."""
         project_id = project_with_facts["project"]["id"]

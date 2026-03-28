@@ -240,6 +240,19 @@ def extract_financial_report(ingestion: IngestionResult) -> FinancialReportRecor
         record.compute_completeness()
         return record
 
+    # Guard: skip AI extraction if Tier 2 is disabled
+    if not settings.tier2_enabled:
+        logger.info("Tier 2 (AI) disabled, skipping AI extraction for %s", ingestion.source_file)
+        record = FinancialReportRecord(
+            extraction_id=str(uuid.uuid4()),
+            source_file=ingestion.source_file,
+            source_hash=ingestion.source_hash,
+            extraction_timestamp=datetime.now(tz=None),
+            confidence_scores={},
+        )
+        record.compute_completeness()
+        return record
+
     text_for_ai = _build_financial_text(ingestion)
 
     cache_key = compute_cache_key(ingestion.source_hash, "full_doc", "financial_report_v4")

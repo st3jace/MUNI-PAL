@@ -522,13 +522,34 @@ def _generate_internal_report_markdown(report) -> str:
             lines.append(f"- **Approved:** {summary.get('approved', 0)}")
             lines.append(f"- **Pending Review:** {summary.get('pending', 0)}")
             lines.append(f"- **Rejected:** {summary.get('rejected', 0)}")
+            if "canonical_total" in summary:
+                lines.append(f"- **Canonical Facts (Publish View):** {summary.get('canonical_total', 0)}")
+            if "ledger_total" in summary:
+                lines.append(f"- **Ledger Facts (Full History):** {summary.get('ledger_total', 0)}")
 
-            by_domain = evidence.get('by_domain', {})
-            if by_domain:
-                lines.append("\n### Facts by Domain\n")
+            conflict_summary = evidence.get("conflict_summary", {})
+            if conflict_summary:
+                lines.append(
+                    f"- **Unresolved Conflicts:** {conflict_summary.get('total_unresolved_conflicts', 0)} "
+                    f"(critical: {conflict_summary.get('critical', 0)}, "
+                    f"material: {conflict_summary.get('material', 0)}, "
+                    f"secondary: {conflict_summary.get('secondary', 0)})"
+                )
+
+            canonical_by_domain = evidence.get('canonical_by_domain', {}) or evidence.get('by_domain', {})
+            if canonical_by_domain:
+                lines.append("\n### Canonical Facts by Domain\n")
                 lines.append("| Domain | Count |")
                 lines.append("|--------|-------|")
-                for domain, facts in sorted(by_domain.items()):
+                for domain, facts in sorted(canonical_by_domain.items()):
+                    lines.append(f"| {domain} | {len(facts)} |")
+
+            ledger_by_domain = evidence.get("ledger_by_domain", {})
+            if ledger_by_domain:
+                lines.append("\n### Ledger Appendix by Domain\n")
+                lines.append("| Domain | Ledger Rows |")
+                lines.append("|--------|-------------|")
+                for domain, facts in sorted(ledger_by_domain.items()):
                     lines.append(f"| {domain} | {len(facts)} |")
 
     # Footer

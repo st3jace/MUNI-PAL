@@ -2,6 +2,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { RevenueDiversificationVisualizationResponse } from '../models/RevenueDiversificationVisualizationResponse';
 import type { RiskActionAcceptanceRequest } from '../models/RiskActionAcceptanceRequest';
 import type { RiskActionAcceptanceResponse } from '../models/RiskActionAcceptanceResponse';
 import type { RiskActionSyncResponse } from '../models/RiskActionSyncResponse';
@@ -22,6 +23,7 @@ export class RiskService {
      * @param requestBody
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns RiskActionAcceptanceResponse Successful Response
      * @throws ApiError
@@ -31,6 +33,7 @@ export class RiskService {
         requestBody: RiskActionAcceptanceRequest,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<RiskActionAcceptanceResponse> {
         return __request(OpenAPI, {
@@ -42,6 +45,7 @@ export class RiskService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             body: requestBody,
@@ -62,6 +66,7 @@ export class RiskService {
      * @param sampleSize
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns RiskBfmsIntegrationResponse Successful Response
      * @throws ApiError
@@ -75,6 +80,7 @@ export class RiskService {
         sampleSize: number,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<RiskBfmsIntegrationResponse> {
         return __request(OpenAPI, {
@@ -83,6 +89,7 @@ export class RiskService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {
@@ -109,6 +116,7 @@ export class RiskService {
      * @param sampleSize
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns RiskDiagnosticsResponse Successful Response
      * @throws ApiError
@@ -122,6 +130,7 @@ export class RiskService {
         sampleSize: number,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<RiskDiagnosticsResponse> {
         return __request(OpenAPI, {
@@ -130,6 +139,7 @@ export class RiskService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {
@@ -156,6 +166,7 @@ export class RiskService {
      * @param sampleSize
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns RiskExternalBriefResponse Successful Response
      * @throws ApiError
@@ -169,6 +180,7 @@ export class RiskService {
         sampleSize: number,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<RiskExternalBriefResponse> {
         return __request(OpenAPI, {
@@ -177,6 +189,7 @@ export class RiskService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {
@@ -203,6 +216,7 @@ export class RiskService {
      * @param sampleSize
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns RiskInternalReportResponse Successful Response
      * @throws ApiError
@@ -216,6 +230,7 @@ export class RiskService {
         sampleSize: number,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<RiskInternalReportResponse> {
         return __request(OpenAPI, {
@@ -224,6 +239,7 @@ export class RiskService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {
@@ -245,6 +261,7 @@ export class RiskService {
      * @param requestBody
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns RiskOverrideDecisionResponse Successful Response
      * @throws ApiError
@@ -253,6 +270,7 @@ export class RiskService {
         requestBody: RiskOverrideDecisionRequest,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<RiskOverrideDecisionResponse> {
         return __request(OpenAPI, {
@@ -261,10 +279,46 @@ export class RiskService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             body: requestBody,
             mediaType: 'application/json',
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
+     * Get Revenue Diversification Visualization
+     * Typed visualization payload for the revenue diversification comparison chart.
+     * @param projectId
+     * @param authorization Authorization: Bearer <token>
+     * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
+     * @param xUserRole User role for development auth
+     * @returns RevenueDiversificationVisualizationResponse Successful Response
+     * @throws ApiError
+     */
+    public static getRevenueDiversificationVisualizationApiV1RiskRevenueDiversificationGet(
+        projectId: string,
+        authorization?: (string | null),
+        xUserId?: (string | null),
+        xTenantId?: (string | null),
+        xUserRole?: (string | null),
+    ): CancelablePromise<RevenueDiversificationVisualizationResponse> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/risk/revenue-diversification',
+            headers: {
+                'authorization': authorization,
+                'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
+                'x-user-role': xUserRole,
+            },
+            query: {
+                'project_id': projectId,
+            },
             errors: {
                 422: `Validation Error`,
             },
@@ -281,6 +335,7 @@ export class RiskService {
      * @param sampleSize
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
      * @param xUserRole User role for development auth
      * @returns RiskActionSyncResponse Successful Response
      * @throws ApiError
@@ -294,6 +349,7 @@ export class RiskService {
         sampleSize: number,
         authorization?: (string | null),
         xUserId?: (string | null),
+        xTenantId?: (string | null),
         xUserRole?: (string | null),
     ): CancelablePromise<RiskActionSyncResponse> {
         return __request(OpenAPI, {
@@ -302,6 +358,7 @@ export class RiskService {
             headers: {
                 'authorization': authorization,
                 'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
                 'x-user-role': xUserRole,
             },
             query: {

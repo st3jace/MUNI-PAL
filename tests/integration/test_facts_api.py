@@ -17,6 +17,13 @@ from munipal.services.fact_service import FactService
 class TestFactsAPI:
     """Test suite for Facts API."""
 
+    @pytest.fixture(autouse=True)
+    def _use_jwt_auth_headers(self, test_client, auth_headers):
+        """Run this suite against JWT-enforced auth without per-request boilerplate."""
+        test_client.headers.update(auth_headers)
+        yield
+        test_client.headers.pop("Authorization", None)
+
     @pytest.fixture
     async def project_with_facts(self, factory, db_session):
         """Create project with facts for testing."""

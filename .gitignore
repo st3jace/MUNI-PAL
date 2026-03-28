@@ -37,6 +37,7 @@ env/
 .env
 .env.local
 .env.*.local
+.env.sensing
 
 # Database
 *.db
@@ -73,3 +74,48 @@ Thumbs.db
 # Project specific
 uploads/
 artifacts/
+
+# ---------------------------------------------------------------
+# EMMA crawling & extraction data (37 GB+ — never commit)
+# ---------------------------------------------------------------
+emma/emma_crawler/
+emma/bond_os_extractor/data/
+emma/bond_os_extractor/data_seed/
+emma/.claude/
+
+# Keep EMMA source code: emma/bond_os_extractor/src/, configs/, tests/
+
+# ---------------------------------------------------------------
+# Large / generated directories
+# ---------------------------------------------------------------
+V1/
+Bond Facility Development/
+data/
+pdfs/
+files/
+research/
+reports/
+synth/
+workplan_files/
+
+# ---------------------------------------------------------------
+# Generated / binary artifacts in root
+# ---------------------------------------------------------------
+*.pdf
+*.code-workspace
+nul
+munipal_dev.db
+tmp_*.log
+muni-pal/
+
+# ---------------------------------------------------------------
+# Frontend build output
+# ---------------------------------------------------------------
+frontend/dist/
+frontend/node_modules/
+
+# ---------------------------------------------------------------
+# Claude / MCP local config (machine-specific)
+# ---------------------------------------------------------------
+.claude/
+.mcp.json

@@ -16,7 +16,9 @@ from munipal.core.models.deliverable import DeliverablePack
 from munipal.core.models.fact import ExtractedFact
 from munipal.core.models.project import Project
 from munipal.core.schemas.base import ReviewStatus
+from munipal.core.schemas.fact import FactLifecycleState
 from munipal.db.session import get_sync_session
+from munipal.services.fact_service import FactService
 from munipal.workers.celery_app import celery_app
 
 logger = logging.getLogger(__name__)
@@ -68,11 +70,13 @@ def generate_pack(self, pack_id: str) -> dict:
                     select(ExtractedFact).where(
                         ExtractedFact.project_id == pack.project_id,
                         ExtractedFact.review_status == ReviewStatus.APPROVED.value,
+                        ExtractedFact.lifecycle_state == FactLifecycleState.ACTIVE.value,
                     )
                 ).scalars().all()
             )
 
-            facts_by_path = {f.schema_path: f for f in facts}
+            facts_by_path = FactService.select_preferred_facts_by_path(facts)
+            facts = list(facts_by_path.values())
 
             sections = []
             warnings = []

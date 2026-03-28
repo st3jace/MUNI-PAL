@@ -2,6 +2,7 @@
 Unit tests for risk reporting foundation service.
 """
 
+from datetime import UTC, datetime, timedelta
 from types import SimpleNamespace
 from uuid import uuid4
 
@@ -10,6 +11,8 @@ from pydantic import ValidationError
 from sqlalchemy import select
 
 from munipal.config import get_settings
+from munipal.core.models.information_request import InformationRequest
+from munipal.core.schemas.information_request import RequestStatus
 from munipal.core.schemas.risk_reporting import (
     RiskActionItem,
     RiskActionPriority,
@@ -27,9 +30,10 @@ from munipal.core.schemas.risk_reporting import (
     RiskOverallPosture,
     RiskReliabilityBand,
 )
-from munipal.core.models.information_request import InformationRequest
-from munipal.core.schemas.information_request import RequestStatus
-from munipal.services.risk_reporting_service import ADVANCED_ANALYTICS_PATHS, RiskReportingService
+from munipal.services.risk_reporting_service import (
+    ADVANCED_ANALYTICS_PATHS,
+    RiskReportingService,
+)
 
 
 def test_risk_schema_roundtrip_serialization():
@@ -95,6 +99,13 @@ def test_cohort_validator_requires_positive_sample_size():
         )
 
 
+def test_scoring_profile_metadata_has_version_and_checksum():
+    metadata = RiskReportingService.scoring_profile_metadata()
+    assert metadata["scoring_profile_version"].startswith("risk-scoring-profile-")
+    assert metadata["governance_policy_version"].startswith("risk-governance-policy-")
+    assert len(metadata["scoring_profile_checksum"]) == 12
+
+
 @pytest.mark.asyncio
 async def test_reliability_low_when_sample_size_below_threshold(db_session):
     service = RiskReportingService(db_session)
@@ -137,6 +148,48 @@ async def test_reliability_marks_missing_source_quality_inputs(db_session):
 
     assert confidence.uncertainty_note is not None
     assert "source quality inputs missing" in confidence.uncertainty_note.lower()
+
+
+@pytest.mark.asyncio
+async def test_age_weighting_disabled_preserves_confidence_score(db_session, monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setenv("RISK_REPORTING_V2_AGE_WEIGHTING", "false")
+    get_settings.cache_clear()
+    service = RiskReportingService(db_session)
+
+    confidence = service._compute_confidence(
+        sample_size=80,
+        evidence_count=2,
+        conflict_count=0,
+        stale_ratio_365=1.0,
+    )
+
+    assert confidence.score == 0.91
+    assert confidence.reliability_band == RiskReliabilityBand.HIGH
+    note = (confidence.uncertainty_note or "").lower()
+    assert "age-weighting penalty applied" not in note
+    get_settings.cache_clear()
+
+
+@pytest.mark.asyncio
+async def test_age_weighting_enabled_penalizes_stale_evidence(db_session, monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setenv("RISK_REPORTING_V2_AGE_WEIGHTING", "true")
+    monkeypatch.setenv("RISK_REPORTING_V2_AGE_WEIGHTING_MAX_PENALTY", "0.20")
+    monkeypatch.setenv("RISK_REPORTING_V2_AGE_WEIGHTING_FULL_WEIGHT_DAYS", "365")
+    get_settings.cache_clear()
+    service = RiskReportingService(db_session)
+
+    confidence = service._compute_confidence(
+        sample_size=80,
+        evidence_count=2,
+        conflict_count=0,
+        stale_ratio_365=1.0,
+    )
+
+    assert confidence.score == 0.728
+    assert confidence.reliability_band == RiskReliabilityBand.MEDIUM
+    assert confidence.uncertainty_note is not None
+    assert "age-weighting penalty applied" in confidence.uncertainty_note.lower()
+    get_settings.cache_clear()
 
 
 @pytest.mark.asyncio
@@ -239,6 +292,43 @@ async def test_guardrail_status_minimum_thresholds(db_session):
 
 
 @pytest.mark.asyncio
+async def test_guardrail_dscr_scenario_sensitivity_thresholds(db_session):
+    service = RiskReportingService(db_session)
+
+    def _status(base: float, stress: float) -> RiskGuardrailStatus:
+        guardrail = service._guardrail_dscr_scenario_sensitivity(
+            {
+                "finmodel.outputs.dscrbase": [SimpleNamespace(value=base)],
+                "finmodel.outputs.dscrstress": [SimpleNamespace(value=stress)],
+            }
+        )
+        return guardrail.status
+
+    assert _status(1.50, 1.35) == RiskGuardrailStatus.PASS
+    assert _status(1.50, 1.42) == RiskGuardrailStatus.WATCH
+    assert _status(1.50, 1.49) == RiskGuardrailStatus.BREACH
+
+
+@pytest.mark.asyncio
+async def test_guardrail_dscr_ratio_consistency_detects_ordering_breaks(db_session):
+    service = RiskReportingService(db_session)
+
+    def _status(base: float, stress: float, minimum: float) -> RiskGuardrailStatus:
+        guardrail = service._guardrail_dscr_ratio_consistency(
+            {
+                "finmodel.outputs.dscrbase": [SimpleNamespace(value=base)],
+                "finmodel.outputs.dscrstress": [SimpleNamespace(value=stress)],
+                "finmodel.inputs.dscr.minimum": [SimpleNamespace(value=minimum)],
+            }
+        )
+        return guardrail.status
+
+    assert _status(1.40, 1.25, 1.20) == RiskGuardrailStatus.PASS
+    assert _status(1.40, 1.19, 1.20) == RiskGuardrailStatus.WATCH
+    assert _status(1.40, 1.10, 1.20) == RiskGuardrailStatus.BREACH
+
+
+@pytest.mark.asyncio
 async def test_synthesize_actions_deduplicates_dscr_guardrails(db_session):
     service = RiskReportingService(db_session)
     guardrails = [
@@ -315,6 +405,16 @@ async def test_build_external_brief_returns_sanitized_contract(db_session):
 
     assert isinstance(brief, RiskExternalBriefResponse)
     assert brief.contract_version == "risk-external-v1"
+    assert brief.interpretation_guide_version == "risk-consumer-guide-v1"
+    assert brief.scoring_profile_version.startswith("risk-scoring-profile-")
+    assert brief.scoring_profile_checksum != "unknown"
+    assert len(brief.consumer_interpretation_guide) >= 3
+    assert all("[ref:" in assumption.lower() for assumption in brief.key_assumptions)
+    traceability_checks = {
+        check.rule_id: check.passed for check in brief.compliance_checks
+    }
+    assert traceability_checks["assumption_traceability_tags_present"] is True
+    assert traceability_checks["consumer_interpretation_guide_present"] is True
     serialized = brief.model_dump()
     assert "diagnostics" not in serialized
     assert "readiness_input" not in serialized
@@ -550,3 +650,87 @@ async def test_advanced_analytics_bridge_disabled_by_default(db_session, monkeyp
     assert score == 0.52
     assert note is not None and "disabled" in note.lower()
     get_settings.cache_clear()
+
+
+@pytest.mark.asyncio
+async def test_cohort_adjustment_applies_to_healthcare_conduit_feedstock(db_session):
+    service = RiskReportingService(db_session)
+    cohort = RiskBenchmarkCohort(
+        sector="healthcare",
+        issuer_size_band="mid",
+        deal_type="conduit",
+        recency_window="5y",
+        sample_size=50,
+    )
+
+    adjustment = service._cohort_adjustment_for_dimension(
+        dimension_id="risk.feedstock",
+        cohort=cohort,
+    )
+    stats = service._build_benchmark_stats(
+        dimension_id="risk.feedstock",
+        cohort=cohort,
+        gap_severity=RiskGapSeverity.LOW,
+        cohort_adjustment=adjustment,
+    )
+
+    assert adjustment == -0.03
+    assert stats.mitigation_rate == 0.61
+
+
+@pytest.mark.asyncio
+async def test_feedstock_context_alias_applies_for_non_waste_sector(db_session):
+    service = RiskReportingService(db_session)
+    cohort = RiskBenchmarkCohort(
+        sector="healthcare",
+        issuer_size_band="mid",
+        deal_type="revenue",
+        recency_window="5y",
+        sample_size=50,
+    )
+
+    contextualized = service._apply_dimension_context(
+        dimension_id="risk.feedstock",
+        cohort=cohort,
+        posture_explainer="Baseline explainer.",
+    )
+    assert "demand and reimbursement continuity" in contextualized.lower()
+
+
+@pytest.mark.asyncio
+async def test_dimension_evidence_diagnostics_add_uncertainty_notes(db_session):
+    service = RiskReportingService(db_session)
+    evaluated_at = datetime.now(UTC)
+    old_ts = evaluated_at - timedelta(days=400)
+
+    facts = [
+        SimpleNamespace(
+            extraction_job_id="job-1",
+            id="fact-1",
+            source_type="extracted",
+            created_at=old_ts,
+        ),
+        SimpleNamespace(
+            extraction_job_id="job-1",
+            id="fact-2",
+            source_type="extracted",
+            created_at=old_ts,
+        ),
+    ]
+    metrics, notes = service._dimension_evidence_diagnostics(
+        facts=facts,
+        evaluated_at=evaluated_at,
+    )
+    confidence = RiskConfidence(
+        score=0.70,
+        reliability_band=RiskReliabilityBand.MEDIUM,
+        uncertainty_note="Base uncertainty note.",
+    )
+    augmented = service._augment_confidence_with_notes(confidence=confidence, notes=notes)
+
+    assert metrics["source_artifact_count"] == 1.0
+    assert metrics["stale_ratio_365"] == 1.0
+    assert any("source diversity below target" in note.lower() for note in notes)
+    assert augmented.uncertainty_note is not None
+    assert "base uncertainty note" in augmented.uncertainty_note.lower()
+    assert "source diversity below target" in augmented.uncertainty_note.lower()

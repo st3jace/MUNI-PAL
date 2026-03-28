@@ -7,12 +7,14 @@ Auth enforcement is feature-flagged for safe rollout.
 
 from collections.abc import Mapping
 from typing import Annotated
+from uuid import UUID
 
 from fastapi import Depends, Header, HTTPException, status
 from jose import JWTError, jwt
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from munipal.config import get_settings
+from munipal.core.models import User
 from munipal.db.session import get_async_session
 
 # Type alias for database session dependency
@@ -23,6 +25,7 @@ DEV_FALLBACK_USER_ID = "00000000-0000-0000-0000-000000000001"
 DEFAULT_TENANT_ID = "default"
 DEFAULT_COMPAT_ROLE = "admin"
 ALLOWED_ROLES = {"admin", "analyst", "viewer"}
+JWT_SHADOW_EMAIL_DOMAIN = "jwt.local"
 
 
 def _unauthorized(detail: str = "Authentication required") -> HTTPException:
@@ -94,7 +97,13 @@ async def get_current_user_id(
         if not isinstance(subject, str) or not subject.strip():
             raise _unauthorized("Token subject is missing")
 
-        return subject.strip()
+        subject = subject.strip()
+        try:
+            UUID(subject)
+        except (ValueError, AttributeError):
+            raise _unauthorized("Token subject must be a valid UUID")
+
+        return subject
 
     if x_user_id:
         return x_user_id
@@ -177,12 +186,44 @@ CurrentUserRole = Annotated[str, Depends(get_current_user_role)]
 
 async def require_auth(
     user_id: CurrentUserId,
+    tenant_id: CurrentTenantId,
+    db: DbSession,
 ) -> str:
     """
     Require authentication.
     """
     if not user_id:
         raise _unauthorized()
+
+    # Keep compatibility mode flexible for non-UUID test/dev IDs, but provision
+    # UUID-backed JWT identities so FK-constrained writes do not fail.
+    try:
+        UUID(user_id)
+    except (ValueError, AttributeError):
+        return user_id
+
+    user = await db.get(User, user_id)
+    if user:
+        if (
+            isinstance(tenant_id, str)
+            and tenant_id.strip()
+            and not (user.organization and user.organization.strip())
+        ):
+            user.organization = _normalize_tenant(tenant_id)
+            await db.flush()
+        return user_id
+
+    db.add(
+        User(
+            id=user_id,
+            email=f"{user_id}@{JWT_SHADOW_EMAIL_DOMAIN}",
+            hashed_password="external-jwt-auth",
+            organization=_normalize_tenant(tenant_id),
+            is_active=True,
+            is_superuser=False,
+        )
+    )
+    await db.flush()
     return user_id
 
 

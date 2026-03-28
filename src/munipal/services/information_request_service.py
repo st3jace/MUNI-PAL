@@ -16,7 +16,7 @@ from datetime import date, datetime, timezone
 from typing import Any
 from uuid import UUID, uuid4
 
-from sqlalchemy import select, func, and_, or_
+from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
@@ -24,8 +24,9 @@ from munipal.core.models.information_request import (
     InformationRequest,
     InformationRequestNote,
 )
+from munipal.core.models.project import Project
 from munipal.core.models.fact import ExtractedFact
-from munipal.core.schemas.base import ReviewStatus
+from munipal.core.models.user import User
 from munipal.core.schemas.information_request import (
     InformationRequestCreate,
     InformationRequestRead,
@@ -38,6 +39,7 @@ from munipal.core.schemas.information_request import (
     RequestStatus,
     EvidenceExample,
 )
+from munipal.services.fact_service import FactService
 from munipal.services.playbook_data import (
     INFORMATION_REQUEST_TEMPLATES,
     OWNER_MAP,
@@ -113,6 +115,7 @@ class InformationRequestService:
 
         self.session.add(info_request)
         await self.session.flush()
+        await self.session.refresh(info_request)
         return info_request
 
     async def get_request(self, request_id: UUID) -> InformationRequest | None:
@@ -193,7 +196,7 @@ class InformationRequestService:
                 and old_status == RequestStatus.OPEN.value
             ):
                 request.acknowledged_at = now
-                request.acknowledged_by = str(user_id) if user_id else None
+                request.acknowledged_by = await self._resolve_existing_user_id(user_id)
             elif new_status == RequestStatus.SUBMITTED.value:
                 request.submitted_at = now
             elif new_status == RequestStatus.RESOLVED.value:
@@ -220,6 +223,7 @@ class InformationRequestService:
             self.session.add(note)
 
         await self.session.flush()
+        await self.session.refresh(request)
         return request
 
     async def resolve_request(
@@ -239,6 +243,7 @@ class InformationRequestService:
         request.resolution_notes = resolution_notes
 
         await self.session.flush()
+        await self.session.refresh(request)
         return request
 
     async def link_evidence(
@@ -264,6 +269,7 @@ class InformationRequestService:
             self.session.add(note)
 
         await self.session.flush()
+        await self.session.refresh(request)
         return request
 
     # -------------------------------------------------------------------------
@@ -282,7 +288,7 @@ class InformationRequestService:
 
         # Get approved facts
         facts = await self._get_approved_facts(project_id)
-        facts_by_path = {f.schema_path: f for f in facts}
+        facts_by_path = FactService.select_preferred_facts_by_path(facts)
 
         # Get existing requests to avoid duplicates
         existing_requests = await self._get_existing_request_paths(project_id)
@@ -372,6 +378,8 @@ class InformationRequestService:
             generated_requests.append(request)
 
         await self.session.flush()
+        for request in generated_requests:
+            await self.session.refresh(request)
         logger.info(f"Generated {len(generated_requests)} information requests")
 
         return generated_requests
@@ -547,16 +555,29 @@ class InformationRequestService:
     # Helper Methods
     # -------------------------------------------------------------------------
 
+    async def _resolve_existing_user_id(self, user_id: UUID | None) -> str | None:
+        """Return a user-id string only when a matching user row exists."""
+        if user_id is None:
+            return None
+
+        user_id_str = str(user_id)
+        user = await self.session.get(User, user_id_str)
+        if user is None:
+            logger.warning(
+                "Skipping information-request user link because user does not exist: %s",
+                user_id_str,
+            )
+            return None
+        return user_id_str
+
+    async def project_exists(self, project_id: UUID) -> bool:
+        """Return True when project exists, False otherwise."""
+        return await self.session.get(Project, str(project_id)) is not None
+
     async def _get_approved_facts(self, project_id: UUID) -> list[ExtractedFact]:
         """Get all approved facts for a project."""
-        result = await self.session.execute(
-            select(ExtractedFact).where(
-                ExtractedFact.project_id == str(project_id),
-                ExtractedFact.review_status == ReviewStatus.APPROVED.value,
-                ExtractedFact.lifecycle_state != "archived",
-            )
-        )
-        return list(result.scalars().all())
+        fact_service = FactService(self.session)
+        return await fact_service.get_active_approved_facts(project_id)
 
     async def _get_existing_request_paths(self, project_id: UUID) -> set[str]:
         """Get path keys for existing non-resolved requests."""

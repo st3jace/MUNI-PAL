@@ -92,7 +92,10 @@ class EvidenceIndexSection(BaseSchema):
 
     summary: dict = Field(default_factory=dict)  # counts by status
     by_domain: dict[str, list[dict]] = Field(default_factory=dict)  # domain -> facts
+    canonical_by_domain: dict[str, list[dict]] = Field(default_factory=dict)  # canonical publish view
+    ledger_by_domain: dict[str, list[dict]] = Field(default_factory=dict)  # full fact ledger
     conflicts: list[dict] = Field(default_factory=list)
+    conflict_summary: dict = Field(default_factory=dict)
 
 
 class AssumptionRegisterSection(BaseSchema):

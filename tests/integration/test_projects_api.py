@@ -17,7 +17,7 @@ class TestProjectsAPI:
         await db_session.commit()
         return playbook
 
-    async def test_create_project(self, test_client, setup_playbook):
+    async def test_create_project(self, test_client, setup_playbook, auth_headers):
         """Test creating a new project."""
         response = await test_client.post(
             "/api/v1/projects/",
@@ -28,6 +28,7 @@ class TestProjectsAPI:
                 "project_location": "Test City, TX",
                 "target_bond_amount": 25000000.0,
             },
+            headers=auth_headers,
         )
 
         assert response.status_code == 201
@@ -37,7 +38,7 @@ class TestProjectsAPI:
         assert "id" in data
         assert data["playbook_id"] == setup_playbook["id"]
 
-    async def test_create_project_with_playbook(self, test_client, setup_playbook):
+    async def test_create_project_with_playbook(self, test_client, setup_playbook, auth_headers):
         """Test creating a project with explicit playbook."""
         response = await test_client.post(
             "/api/v1/projects/",
@@ -46,13 +47,14 @@ class TestProjectsAPI:
                 "issuer_name": "Issuer",
                 "playbook_id": setup_playbook["id"],
             },
+            headers=auth_headers,
         )
 
         assert response.status_code == 201
         data = response.json()
         assert data["playbook_id"] == setup_playbook["id"]
 
-    async def test_create_project_minimal(self, test_client, setup_playbook):
+    async def test_create_project_minimal(self, test_client, setup_playbook, auth_headers):
         """Test creating a project with minimal required fields."""
         response = await test_client.post(
             "/api/v1/projects/",
@@ -60,13 +62,14 @@ class TestProjectsAPI:
                 "name": "Minimal Project",
                 "issuer_name": "Issuer",
             },
+            headers=auth_headers,
         )
 
         assert response.status_code == 201
         data = response.json()
         assert data["name"] == "Minimal Project"
 
-    async def test_create_project_invalid_playbook(self, test_client, setup_playbook):
+    async def test_create_project_invalid_playbook(self, test_client, setup_playbook, auth_headers):
         """Test creating a project with invalid playbook returns error."""
         response = await test_client.post(
             "/api/v1/projects/",
@@ -75,58 +78,59 @@ class TestProjectsAPI:
                 "issuer_name": "Issuer",
                 "playbook_id": str(uuid4()),  # Non-existent
             },
+            headers=auth_headers,
         )
 
         assert response.status_code == 404
 
-    async def test_get_project(self, test_client, factory, db_session):
+    async def test_get_project(self, test_client, factory, db_session, auth_headers):
         """Test retrieving a project by ID."""
         playbook = await factory.create_playbook()
         project = await factory.create_project(playbook["id"])
         await db_session.commit()
 
-        response = await test_client.get(f"/api/v1/projects/{project['id']}")
+        response = await test_client.get(f"/api/v1/projects/{project['id']}", headers=auth_headers)
 
         assert response.status_code == 200
         data = response.json()
         assert data["id"] == project["id"]
         assert data["name"] == project["name"]
 
-    async def test_get_nonexistent_project(self, test_client):
+    async def test_get_nonexistent_project(self, test_client, auth_headers):
         """Test retrieving nonexistent project returns 404."""
-        response = await test_client.get(f"/api/v1/projects/{uuid4()}")
+        response = await test_client.get(f"/api/v1/projects/{uuid4()}", headers=auth_headers)
 
         assert response.status_code == 404
 
-    async def test_list_projects(self, test_client, factory, db_session):
+    async def test_list_projects(self, test_client, factory, db_session, auth_headers):
         """Test listing projects."""
         playbook = await factory.create_playbook()
         for i in range(3):
             await factory.create_project(playbook["id"], name=f"Project {i}")
         await db_session.commit()
 
-        response = await test_client.get("/api/v1/projects/")
+        response = await test_client.get("/api/v1/projects/", headers=auth_headers)
 
         assert response.status_code == 200
         data = response.json()
         assert data["total"] == 3
         assert len(data["projects"]) == 3
 
-    async def test_list_projects_pagination(self, test_client, factory, db_session):
+    async def test_list_projects_pagination(self, test_client, factory, db_session, auth_headers):
         """Test listing projects with pagination."""
         playbook = await factory.create_playbook()
         for i in range(5):
             await factory.create_project(playbook["id"], name=f"Project {i}")
         await db_session.commit()
 
-        response = await test_client.get("/api/v1/projects/?limit=2&skip=0")
+        response = await test_client.get("/api/v1/projects/?limit=2&skip=0", headers=auth_headers)
 
         assert response.status_code == 200
         data = response.json()
         assert data["total"] == 5
         assert len(data["projects"]) == 2
 
-    async def test_update_project(self, test_client, factory, db_session):
+    async def test_update_project(self, test_client, factory, db_session, auth_headers):
         """Test updating a project."""
         playbook = await factory.create_playbook()
         project = await factory.create_project(playbook["id"])
@@ -138,6 +142,7 @@ class TestProjectsAPI:
                 "name": "Updated Name",
                 "description": "Updated description",
             },
+            headers=auth_headers,
         )
 
         assert response.status_code == 200
@@ -145,31 +150,32 @@ class TestProjectsAPI:
         assert data["name"] == "Updated Name"
         assert data["description"] == "Updated description"
 
-    async def test_update_nonexistent_project(self, test_client):
+    async def test_update_nonexistent_project(self, test_client, auth_headers):
         """Test updating nonexistent project returns 404."""
         response = await test_client.patch(
             f"/api/v1/projects/{uuid4()}",
             json={"name": "New Name"},
+            headers=auth_headers,
         )
 
         assert response.status_code == 404
 
-    async def test_delete_project(self, test_client, factory, db_session):
+    async def test_delete_project(self, test_client, factory, db_session, auth_headers):
         """Test deleting a project."""
         playbook = await factory.create_playbook()
         project = await factory.create_project(playbook["id"])
         await db_session.commit()
 
-        response = await test_client.delete(f"/api/v1/projects/{project['id']}")
+        response = await test_client.delete(f"/api/v1/projects/{project['id']}", headers=auth_headers)
 
         assert response.status_code == 204
 
         # Verify deletion
-        get_response = await test_client.get(f"/api/v1/projects/{project['id']}")
+        get_response = await test_client.get(f"/api/v1/projects/{project['id']}", headers=auth_headers)
         assert get_response.status_code == 404
 
-    async def test_delete_nonexistent_project(self, test_client):
+    async def test_delete_nonexistent_project(self, test_client, auth_headers):
         """Test deleting nonexistent project returns 404."""
-        response = await test_client.delete(f"/api/v1/projects/{uuid4()}")
+        response = await test_client.delete(f"/api/v1/projects/{uuid4()}", headers=auth_headers)
 
         assert response.status_code == 404

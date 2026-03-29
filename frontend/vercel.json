@@ -1,6 +1,6 @@
 {
-  "framework": "vite",
-  "installCommand": "npm install && ls node_modules/vite/dist/node/cli.js 2>/dev/null || (echo 'vite/dist missing — force reinstalling vite' && npm install vite@5 --force)",
+  "framework": null,
+  "installCommand": "npm install",
   "buildCommand": "npx vite build --config vite.config.sensing.ts",
   "outputDirectory": "dist",
   "rewrites": [

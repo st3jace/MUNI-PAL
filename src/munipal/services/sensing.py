@@ -187,19 +187,13 @@ async def get_benchmark(
 # ---------------------------------------------------------------------------
 
 def _enrich_credit_spreads(result: dict[str, Any], sector: str) -> dict[str, Any]:
-    """Overlay seed corpus spread data when live corpus observations are empty.
+    """Overlay seed corpus spread data for entries missing observations.
 
-    The EMMA corpus path may generate a report with zero spread observations
-    (e.g. when crawler JSON data is missing). In that case, fall back to
-    pre-computed seed data for corpus_spreads and per-entry n_corpus_obs.
+    The EMMA corpus path may produce partial results — some rating buckets
+    have trade data while others don't (e.g. AA trades missing but A trades
+    present). For each cost_grid entry and corpus_spreads bucket with zero
+    observations, overlay the pre-computed seed values.
     """
-    has_corpus_obs = any(
-        entry.get("n_corpus_obs", 0) > 0
-        for entry in result.get("cost_grid", [])
-    )
-    if has_corpus_obs:
-        return result
-
     if sector not in _SEED_SECTORS:
         return result
 
@@ -208,23 +202,32 @@ def _enrich_credit_spreads(result: dict[str, Any], sector: str) -> dict[str, Any
     except FileNotFoundError:
         return result
 
-    logger.info("Overlaying seed corpus spreads for %s (live corpus had 0 observations)", sector)
+    # Merge corpus_spreads: fill missing rating buckets from seed
+    live_spreads = result.get("corpus_spreads") or {}
+    seed_spreads = seed.get("corpus_spreads") or {}
+    if seed_spreads:
+        merged = dict(seed_spreads)  # start with seed as base
+        merged.update(live_spreads)  # live data takes precedence
+        result["corpus_spreads"] = merged
 
-    # Overlay corpus_spreads section
-    if seed.get("corpus_spreads"):
-        result["corpus_spreads"] = seed["corpus_spreads"]
-
-    # Overlay n_corpus_obs and corpus_observed_yield into cost_grid entries
+    # Overlay n_corpus_obs and corpus_observed_yield per cost_grid entry
     seed_grid_map: dict[tuple[str, int], dict[str, Any]] = {}
     for entry in seed.get("cost_grid", []):
         seed_grid_map[(entry["rating"], entry["tenor"])] = entry
 
+    patched = False
     for entry in result.get("cost_grid", []):
+        if entry.get("n_corpus_obs", 0) > 0:
+            continue
         key = (entry["rating"], entry["tenor"])
         seed_entry = seed_grid_map.get(key)
-        if seed_entry and entry.get("n_corpus_obs", 0) == 0:
-            entry["n_corpus_obs"] = seed_entry.get("n_corpus_obs", 0)
+        if seed_entry and seed_entry.get("n_corpus_obs", 0) > 0:
+            entry["n_corpus_obs"] = seed_entry["n_corpus_obs"]
             entry["corpus_observed_yield"] = seed_entry.get("corpus_observed_yield")
+            patched = True
+
+    if patched:
+        logger.info("Overlaid seed corpus spreads for %s (filled gaps in live data)", sector)
 
     return result
 

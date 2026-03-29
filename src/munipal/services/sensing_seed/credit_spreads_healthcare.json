@@ -1,0 +1,679 @@
+{
+  "sector": "healthcare",
+  "generated_at": "2026-03-29T14:14:27.546397+00:00",
+  "aaa_curve_source": "reference",
+  "aaa_curve_date": "2026-03-27",
+  "yield_curves": {
+    "AAA": {
+      "1": 2.85,
+      "2": 2.95,
+      "3": 3.1,
+      "5": 3.35,
+      "7": 3.6,
+      "10": 3.85,
+      "15": 4.15,
+      "20": 4.35,
+      "25": 4.42,
+      "30": 4.45
+    },
+    "AA": {
+      "1": 3.05,
+      "2": 3.15,
+      "3": 3.3,
+      "5": 3.55,
+      "7": 3.8,
+      "10": 4.05,
+      "15": 4.35,
+      "20": 4.55,
+      "25": 4.62,
+      "30": 4.65
+    },
+    "A": {
+      "1": 3.47,
+      "2": 3.57,
+      "3": 3.72,
+      "5": 3.97,
+      "7": 4.22,
+      "10": 4.47,
+      "15": 4.77,
+      "20": 4.97,
+      "25": 5.04,
+      "30": 5.07
+    },
+    "BBB": {
+      "1": 4.3,
+      "2": 4.4,
+      "3": 4.55,
+      "5": 4.8,
+      "7": 5.05,
+      "10": 5.3,
+      "15": 5.6,
+      "20": 5.8,
+      "25": 5.87,
+      "30": 5.9
+    },
+    "BB": {
+      "1": 6.25,
+      "2": 6.35,
+      "3": 6.5,
+      "5": 6.75,
+      "7": 7.0,
+      "10": 7.25,
+      "15": 7.55,
+      "20": 7.75,
+      "25": 7.82,
+      "30": 7.85
+    },
+    "B": {
+      "1": 10.85,
+      "2": 10.95,
+      "3": 11.1,
+      "5": 11.35,
+      "7": 11.6,
+      "10": 11.85,
+      "15": 12.15,
+      "20": 12.35,
+      "25": 12.42,
+      "30": 12.45
+    }
+  },
+  "cost_grid": [
+    {
+      "rating": "AA",
+      "tenor": 10,
+      "base_aaa_yield": 3.85,
+      "sector_spread_bps": -12.6,
+      "estimated_yield": 3.724,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 4.744,
+      "corpus_observed_yield": 3.465,
+      "n_corpus_obs": 15
+    },
+    {
+      "rating": "AA",
+      "tenor": 20,
+      "base_aaa_yield": 4.35,
+      "sector_spread_bps": -12.6,
+      "estimated_yield": 4.224,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 5.244,
+      "corpus_observed_yield": 3.465,
+      "n_corpus_obs": 15
+    },
+    {
+      "rating": "AA",
+      "tenor": 30,
+      "base_aaa_yield": 4.45,
+      "sector_spread_bps": -12.6,
+      "estimated_yield": 4.324,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 5.344,
+      "corpus_observed_yield": 3.465,
+      "n_corpus_obs": 15
+    },
+    {
+      "rating": "A",
+      "tenor": 10,
+      "base_aaa_yield": 3.85,
+      "sector_spread_bps": 23.9,
+      "estimated_yield": 4.088,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 5.108,
+      "corpus_observed_yield": 3.774,
+      "n_corpus_obs": 28
+    },
+    {
+      "rating": "A",
+      "tenor": 20,
+      "base_aaa_yield": 4.35,
+      "sector_spread_bps": 23.9,
+      "estimated_yield": 4.588,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 5.608,
+      "corpus_observed_yield": 3.774,
+      "n_corpus_obs": 28
+    },
+    {
+      "rating": "A",
+      "tenor": 30,
+      "base_aaa_yield": 4.45,
+      "sector_spread_bps": 23.9,
+      "estimated_yield": 4.689,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 5.709,
+      "corpus_observed_yield": 3.774,
+      "n_corpus_obs": 28
+    },
+    {
+      "rating": "BBB",
+      "tenor": 10,
+      "base_aaa_yield": 3.85,
+      "sector_spread_bps": 100.0,
+      "estimated_yield": 4.851,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 5.87,
+      "corpus_observed_yield": 4.973,
+      "n_corpus_obs": 12
+    },
+    {
+      "rating": "BBB",
+      "tenor": 20,
+      "base_aaa_yield": 4.35,
+      "sector_spread_bps": 100.0,
+      "estimated_yield": 5.35,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 6.37,
+      "corpus_observed_yield": 4.973,
+      "n_corpus_obs": 12
+    },
+    {
+      "rating": "BBB",
+      "tenor": 30,
+      "base_aaa_yield": 4.45,
+      "sector_spread_bps": 100.0,
+      "estimated_yield": 5.45,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 6.47,
+      "corpus_observed_yield": 4.973,
+      "n_corpus_obs": 12
+    },
+    {
+      "rating": "BB",
+      "tenor": 10,
+      "base_aaa_yield": 3.85,
+      "sector_spread_bps": 340,
+      "estimated_yield": 7.25,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 8.27,
+      "corpus_observed_yield": null,
+      "n_corpus_obs": 0
+    },
+    {
+      "rating": "BB",
+      "tenor": 20,
+      "base_aaa_yield": 4.35,
+      "sector_spread_bps": 340,
+      "estimated_yield": 7.75,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 8.77,
+      "corpus_observed_yield": null,
+      "n_corpus_obs": 0
+    },
+    {
+      "rating": "BB",
+      "tenor": 30,
+      "base_aaa_yield": 4.45,
+      "sector_spread_bps": 340,
+      "estimated_yield": 7.85,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 8.87,
+      "corpus_observed_yield": null,
+      "n_corpus_obs": 0
+    }
+  ],
+  "issuer_comparisons": [
+    {
+      "rating": "A",
+      "tenor": 20,
+      "base_yield": 4.97,
+      "comparisons": [
+        {
+          "issuer": "IDA of the City of Sierra Vista",
+          "issuer_key": "ida_sierra_vista",
+          "issuer_fee_bps": 7.0,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 102.0,
+          "all_in_tic": 5.99,
+          "annual_fee_on_par": 35000.0
+        },
+        {
+          "issuer": "Public Finance Authority (WI)",
+          "issuer_key": "pfa_wisconsin",
+          "issuer_fee_bps": 10.78,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 105.8,
+          "all_in_tic": 6.028,
+          "annual_fee_on_par": 50000.0
+        },
+        {
+          "issuer": "Local Health Facilities Authority",
+          "issuer_key": "generic_hfa",
+          "issuer_fee_bps": 8.52,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 103.5,
+          "all_in_tic": 6.005,
+          "annual_fee_on_par": 40000.0
+        }
+      ]
+    },
+    {
+      "rating": "A",
+      "tenor": 30,
+      "base_yield": 5.07,
+      "comparisons": [
+        {
+          "issuer": "IDA of the City of Sierra Vista",
+          "issuer_key": "ida_sierra_vista",
+          "issuer_fee_bps": 7.0,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 102.0,
+          "all_in_tic": 6.09,
+          "annual_fee_on_par": 35000.0
+        },
+        {
+          "issuer": "Public Finance Authority (WI)",
+          "issuer_key": "pfa_wisconsin",
+          "issuer_fee_bps": 10.52,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 105.5,
+          "all_in_tic": 6.125,
+          "annual_fee_on_par": 50000.0
+        },
+        {
+          "issuer": "Local Health Facilities Authority",
+          "issuer_key": "generic_hfa",
+          "issuer_fee_bps": 8.34,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 103.3,
+          "all_in_tic": 6.103,
+          "annual_fee_on_par": 40000.0
+        }
+      ]
+    },
+    {
+      "rating": "BBB",
+      "tenor": 20,
+      "base_yield": 5.8,
+      "comparisons": [
+        {
+          "issuer": "IDA of the City of Sierra Vista",
+          "issuer_key": "ida_sierra_vista",
+          "issuer_fee_bps": 7.0,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 102.0,
+          "all_in_tic": 6.82,
+          "annual_fee_on_par": 35000.0
+        },
+        {
+          "issuer": "Public Finance Authority (WI)",
+          "issuer_key": "pfa_wisconsin",
+          "issuer_fee_bps": 10.78,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 105.8,
+          "all_in_tic": 6.858,
+          "annual_fee_on_par": 50000.0
+        },
+        {
+          "issuer": "Local Health Facilities Authority",
+          "issuer_key": "generic_hfa",
+          "issuer_fee_bps": 8.52,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 103.5,
+          "all_in_tic": 6.835,
+          "annual_fee_on_par": 40000.0
+        }
+      ]
+    },
+    {
+      "rating": "BBB",
+      "tenor": 30,
+      "base_yield": 5.9,
+      "comparisons": [
+        {
+          "issuer": "IDA of the City of Sierra Vista",
+          "issuer_key": "ida_sierra_vista",
+          "issuer_fee_bps": 7.0,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 102.0,
+          "all_in_tic": 6.92,
+          "annual_fee_on_par": 35000.0
+        },
+        {
+          "issuer": "Public Finance Authority (WI)",
+          "issuer_key": "pfa_wisconsin",
+          "issuer_fee_bps": 10.52,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 105.5,
+          "all_in_tic": 6.955,
+          "annual_fee_on_par": 50000.0
+        },
+        {
+          "issuer": "Local Health Facilities Authority",
+          "issuer_key": "generic_hfa",
+          "issuer_fee_bps": 8.34,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 103.3,
+          "all_in_tic": 6.933,
+          "annual_fee_on_par": 40000.0
+        }
+      ]
+    }
+  ],
+  "corpus_spreads": {
+    "AA": {
+      "n_observations": 15,
+      "median_yield": 3.465,
+      "min_yield": 2.603,
+      "max_yield": 4.999,
+      "spread_over_aaa_bps": -45.2
+    },
+    "A": {
+      "n_observations": 28,
+      "median_yield": 3.774,
+      "min_yield": 2.62,
+      "max_yield": 6.864,
+      "spread_over_aaa_bps": -14.3
+    },
+    "BBB": {
+      "n_observations": 12,
+      "median_yield": 4.973,
+      "min_yield": 2.74,
+      "max_yield": 5.891,
+      "spread_over_aaa_bps": 55.1
+    }
+  },
+  "recent_comps": [
+    {
+      "cusip": "AB2ADFF7D175079AFE0C5F0AE585F1D51",
+      "issuer": "MICHIGAN FINANCE AUTHORITY / HOSPITAL REVENUE BONDS (TRINITY HEALTH CREDIT GROUP) SERIES 2016 MI-2 FIXED RATE",
+      "rating_bucket": "A",
+      "yield": 4.651,
+      "par_amount": 46160000.0,
+      "maturity_date": "03/01/2051",
+      "trade_date": "12/31/2025 12:52 PM",
+      "trade_type": "Customer bought",
+      "tenor_years": 24.9,
+      "spread_vs_aaa_bps": 23.2
+    },
+    {
+      "cusip": "A3B00149EC0059211D634EA5B075B8403",
+      "issuer": "MICHIGAN FINANCE AUTHORITY / HOSPITAL REVENUE REFUNDING BONDS (BEAUMONT-SPECTRUM CONSOLIDATION) SERIES 2022A (FIXED MODE)",
+      "rating_bucket": "A",
+      "yield": 3.281,
+      "par_amount": 48470000.0,
+      "maturity_date": "04/15/2036",
+      "trade_date": "12/31/2025 12:50 PM",
+      "trade_type": "Customer sold",
+      "tenor_years": 10.0,
+      "spread_vs_aaa_bps": -56.9
+    },
+    {
+      "cusip": "A15129B4A50F7E5D76F7F464596124F3D",
+      "issuer": "HARRIS COUNTY CULTURAL EDUCATION FACILITIES FINANCE CORPORATION / HOSPITAL REVENUE BONDS (MEMORIAL HERMANN HEALTH SYSTEM) 2024B",
+      "rating_bucket": "AA",
+      "yield": 2.908,
+      "par_amount": 103910000.0,
+      "maturity_date": "07/01/2034",
+      "trade_date": "12/31/2025 11:15 AM",
+      "trade_type": "Customer bought",
+      "tenor_years": 8.3,
+      "spread_vs_aaa_bps": -80.0
+    },
+    {
+      "cusip": "A81436BF683958B50B3E3A699A8889267",
+      "issuer": "HARRIS COUNTY CULTURAL EDUCATION FACILITIES FINANCE CORPORATION HOSPITAL REVENUE BONDS / (TEXAS CHILDREN'S HOSPITAL) SERIES 2021-A",
+      "rating_bucket": "AA",
+      "yield": 4.71,
+      "par_amount": 50000000.0,
+      "maturity_date": "10/01/2047",
+      "trade_date": "12/31/2025 10:53 AM",
+      "trade_type": "Customer sold",
+      "tenor_years": 21.5,
+      "spread_vs_aaa_bps": 33.9
+    },
+    {
+      "cusip": "A36CC21AE5442789F5F69303CE6407FF3",
+      "issuer": "MICHIGAN FINANCE AUTHORITY / HOSPITAL REVENUE BONDS (TRINITY HEALTH CREDIT GROUP), SERIES MI 2022A, (FIXED RATE MODE)",
+      "rating_bucket": "A",
+      "yield": 2.9,
+      "par_amount": 30000000.0,
+      "maturity_date": "12/01/2032",
+      "trade_date": "12/31/2025 10:05 AM",
+      "trade_type": "Customer bought",
+      "tenor_years": 6.7,
+      "spread_vs_aaa_bps": -66.2
+    },
+    {
+      "cusip": "A5B0241E988D51EF49544AEB0008A3656",
+      "issuer": "STATE OF OHIO / HOSPITAL REVENUE BONDS, SERIES 2024A (CLEVELAND CLINIC HEALTH SYSTEM OBLIGATED GROUP)",
+      "rating_bucket": "AA",
+      "yield": 2.603,
+      "par_amount": 220000000.0,
+      "maturity_date": "01/01/2032",
+      "trade_date": "12/31/2025 08:51 AM",
+      "trade_type": "Inter-dealer trade",
+      "tenor_years": 5.8,
+      "spread_vs_aaa_bps": -84.7
+    },
+    {
+      "cusip": "A2CF70CB2FBD5D6FAB79532C7E95B4A45",
+      "issuer": "COUNTY OF HAMILTON, OHIO / HOSPITAL FACILITIES REVENUE BONDS, SERIES 2020 (UC HEALTH)",
+      "rating_bucket": "BBB",
+      "yield": 5.261,
+      "par_amount": 132550000.0,
+      "maturity_date": "09/15/2050",
+      "trade_date": "12/31/2025 01:12 PM",
+      "trade_type": "Customer sold",
+      "tenor_years": 24.5,
+      "spread_vs_aaa_bps": 84.8
+    },
+    {
+      "cusip": "AC5E7B2411BC939E459E2C9E2A9FB030B",
+      "issuer": "HARRIS COUNTY CULTURAL EDUCATION FACILITIES FINANCE CORPORATION HOSPITAL REVENUE BONDS / (TEXAS CHILDREN'S HOSPITAL) SERIES 2021-A",
+      "rating_bucket": "AA",
+      "yield": 4.935,
+      "par_amount": 116810000.0,
+      "maturity_date": "10/01/2051",
+      "trade_date": "12/30/2025 12:59 PM",
+      "trade_type": "Inter-dealer trade",
+      "tenor_years": 25.5,
+      "spread_vs_aaa_bps": 51.2
+    },
+    {
+      "cusip": "A5C496CF6213AD1FD59A258E1BCD25EFD",
+      "issuer": "THE INDUSTRIAL DEVELOPMENT AUTHORITY OF THE COUNTY OF MARICOPA / HOSPITAL REVENUE BONDS (HONORHEALTH) SERIES 2021A",
+      "rating_bucket": "BBB",
+      "yield": 5.1,
+      "par_amount": 55000000.0,
+      "maturity_date": "09/01/2051",
+      "trade_date": "12/30/2025 11:47 AM",
+      "trade_type": "Inter-dealer trade",
+      "tenor_years": 25.4,
+      "spread_vs_aaa_bps": 67.8
+    },
+    {
+      "cusip": "A59A7DA1639EE59B1B64D8EFD5542D9E8",
+      "issuer": "HARRIS COUNTY CULTURAL EDUCATION FACILITIES FINANCE CORPORATION / HOSPITAL REVENUE BONDS (MEMORIAL HERMANN HEALTH SYSTEM) 2024B",
+      "rating_bucket": "AA",
+      "yield": 3.465,
+      "par_amount": 35765000.0,
+      "maturity_date": "07/01/2038",
+      "trade_date": "12/30/2025 11:27 AM",
+      "trade_type": "Customer sold",
+      "tenor_years": 12.3,
+      "spread_vs_aaa_bps": -52.3
+    },
+    {
+      "cusip": "AEE7897B18C253E3FB6A9C1526C841A80",
+      "issuer": "HARRIS COUNTY CULTURAL EDUCATION FACILITIES FINANCE CORPORATION / HOSPITAL REVENUE BONDS SERIES 2022A (FIXED RATE)",
+      "rating_bucket": "AA",
+      "yield": 4.677,
+      "par_amount": 114100000.0,
+      "maturity_date": "07/01/2052",
+      "trade_date": "12/30/2025 10:52 AM",
+      "trade_type": "Customer bought",
+      "tenor_years": 26.3,
+      "spread_vs_aaa_bps": 24.9
+    },
+    {
+      "cusip": "A2B800CD02A2D8439C0C0ADD7D7FD711B",
+      "issuer": "THE INDUSTRIAL DEVELOPMENT AUTHORITY OF THE COUNTY OF MARICOPA / HOSPITAL REVENUE BONDS (HONORHEALTH) SERIES 2024A",
+      "rating_bucket": "BBB",
+      "yield": 3.227,
+      "par_amount": 44225000.0,
+      "maturity_date": "12/01/2034",
+      "trade_date": "12/30/2025 10:51 AM",
+      "trade_type": "Customer sold",
+      "tenor_years": 8.7,
+      "spread_vs_aaa_bps": -51.5
+    },
+    {
+      "cusip": "AA0BE63C225632E71CC4C595C0B79DCC2",
+      "issuer": "WEST VIRGINIA HOSPITAL FINANCE AUTHORITY / HOSPITAL REFUNDING AND IMPROVEMENT REVENUE BONDS (VANDALIA HEALTH GROUP) SERIES 2023B",
+      "rating_bucket": "A",
+      "yield": 4.75,
+      "par_amount": 100000000.0,
+      "maturity_date": "09/01/2053",
+      "trade_date": "12/30/2025 09:59 AM",
+      "trade_type": "Customer bought",
+      "tenor_years": 27.4,
+      "spread_vs_aaa_bps": 31.6
+    },
+    {
+      "cusip": "A4238C342E55A5FCBBED66ED651501D56",
+      "issuer": "HARRIS COUNTY CULTURAL EDUCATION FACILITIES FINANCE CORPORATION / HOSPITAL REVENUE BONDS (MEMORIAL HERMANN HEALTH SYSTEM) 2024B",
+      "rating_bucket": "AA",
+      "yield": 2.876,
+      "par_amount": 31175000.0,
+      "maturity_date": "07/01/2033",
+      "trade_date": "12/30/2025 09:57 AM",
+      "trade_type": "Customer bought",
+      "tenor_years": 7.3,
+      "spread_vs_aaa_bps": -74.9
+    },
+    {
+      "cusip": "AFAEEF98B921BADF8BA3EA36B0F48C042",
+      "issuer": "WEST VIRGINIA HOSPITAL FINANCE AUTHORITY / HOSPITAL REFUNDING AND IMPROVEMENT REVENUE BONDS (VANDALIA HEALTH GROUP) SERIES 2023B",
+      "rating_bucket": "A",
+      "yield": 4.539,
+      "par_amount": 88715000.0,
+      "maturity_date": "09/01/2053",
+      "trade_date": "12/30/2025 09:57 AM",
+      "trade_type": "Customer sold",
+      "tenor_years": 27.4,
+      "spread_vs_aaa_bps": 10.5
+    },
+    {
+      "cusip": "A238B405761287E900A6B0C3AD63FA8C1",
+      "issuer": "MICHIGAN FINANCE AUTHORITY / HOSPITAL REVENUE REFUNDING BONDS (BEAUMONT-SPECTRUM CONSOLIDATION) SERIES 2022A (FIXED MODE)",
+      "rating_bucket": "A",
+      "yield": 2.7,
+      "par_amount": 43540000.0,
+      "maturity_date": "04/15/2027",
+      "trade_date": "12/30/2025 07:51 AM",
+      "trade_type": "Customer bought",
+      "tenor_years": 1.0,
+      "spread_vs_aaa_bps": -15.0
+    },
+    {
+      "cusip": "AFFB7338DAFDBA0AE5E967F60C3D4F8EB",
+      "issuer": "COUNTY OF HAMILTON, OHIO / HOSPITAL FACILITIES REVENUE REFUNDING AND IMPROVEMENT BONDS, SERIES 2020A (TRIHEALTH, INC. OBLIGATED GROUP PROJECT) (FIXED RATE MODE)",
+      "rating_bucket": "BBB",
+      "yield": 4.808,
+      "par_amount": 30000000.0,
+      "maturity_date": "08/15/2050",
+      "trade_date": "12/30/2025 03:42 PM",
+      "trade_type": "Inter-dealer trade",
+      "tenor_years": 24.4,
+      "spread_vs_aaa_bps": 39.6
+    },
+    {
+      "cusip": "A54F610B9D2DDC8C409086E5F54898F8B",
+      "issuer": "COUNTY OF HAMILTON, OHIO / HOSPITAL FACILITIES REVENUE REFUNDING AND IMPROVEMENT BONDS, SERIES 2020A (TRIHEALTH, INC. OBLIGATED GROUP PROJECT) (FIXED RATE MODE)",
+      "rating_bucket": "BBB",
+      "yield": 5.316,
+      "par_amount": 33000000.0,
+      "maturity_date": "08/15/2050",
+      "trade_date": "12/30/2025 03:18 PM",
+      "trade_type": "Customer sold",
+      "tenor_years": 24.4,
+      "spread_vs_aaa_bps": 90.4
+    },
+    {
+      "cusip": "A5E5FAF5BAAF808F7B58DD58F61B21FFF",
+      "issuer": "WEST VIRGINIA HOSPITAL FINANCE AUTHORITY / HOSPITAL REVENUE IMPROVEMENT BONDS (WEST VIRGINIA UNIVERSITY HEALTH SYSTEM OBLIGATED GROUP) 2023 SERIES A",
+      "rating_bucket": "A",
+      "yield": 4.693,
+      "par_amount": 112485000.0,
+      "maturity_date": "06/01/2053",
+      "trade_date": "12/30/2025 02:42 PM",
+      "trade_type": "Customer bought",
+      "tenor_years": 27.2,
+      "spread_vs_aaa_bps": 26.0
+    },
+    {
+      "cusip": "A936ABA1F4B89B265421BDC41AEB5AA80",
+      "issuer": "TARRANT COUNTY CULTURAL EDUCATION FACILITIES FINANCE CORPORATION / HOSPITAL REVENUE BONDS (BAYLOR SCOTT & WHITE HEALTH PROJECT) SERIES 2022D (FIXED RATE)",
+      "rating_bucket": "AA",
+      "yield": 4.574,
+      "par_amount": 175115000.0,
+      "maturity_date": "11/15/2051",
+      "trade_date": "12/30/2025 01:11 PM",
+      "trade_type": "Inter-dealer trade",
+      "tenor_years": 25.6,
+      "spread_vs_aaa_bps": 15.0
+    }
+  ],
+  "fee_schedules": [
+    {
+      "key": "ida_sierra_vista",
+      "display_name": "IDA of the City of Sierra Vista",
+      "annual_fee_bps": 7.0,
+      "annual_fee_min_usd": 3000.0,
+      "upfront_fee_bps": 0.0,
+      "upfront_fee_flat_usd": 0.0,
+      "out_of_state_surcharge_bps": 3.0,
+      "notes": [
+        "Annual fee: 7 bps on outstanding, $3,000 minimum",
+        "President may approve one-time PV lump sum in lieu of annual fees",
+        "Out-of-state surcharge at President's discretion",
+        "Fee shall not impact tax-exempt status of bonds",
+        "Authority retains right to adjust fees per resolution"
+      ],
+      "example_annual_on_50m": 35000.0
+    },
+    {
+      "key": "pfa_wisconsin",
+      "display_name": "Public Finance Authority (WI)",
+      "annual_fee_bps": 10.0,
+      "annual_fee_min_usd": 5000.0,
+      "upfront_fee_bps": 15.0,
+      "upfront_fee_flat_usd": 2500.0,
+      "out_of_state_surcharge_bps": 0.0,
+      "notes": [
+        "National conduit issuer \u2014 no geographic restrictions",
+        "Typical annual fee ~10 bps (varies by deal)",
+        "One-time issuance fee ~15 bps + $2,500",
+        "Fees negotiable on larger transactions"
+      ],
+      "example_annual_on_50m": 50000.0
+    },
+    {
+      "key": "generic_hfa",
+      "display_name": "Local Health Facilities Authority",
+      "annual_fee_bps": 8.0,
+      "annual_fee_min_usd": 4000.0,
+      "upfront_fee_bps": 10.0,
+      "upfront_fee_flat_usd": 1500.0,
+      "out_of_state_surcharge_bps": 0.0,
+      "notes": [
+        "Representative local HFA fee structure",
+        "Actual fees vary by jurisdiction",
+        "May offer local market advantages (investor familiarity)"
+      ],
+      "example_annual_on_50m": 40000.0
+    }
+  ]
+}

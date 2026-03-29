@@ -1,0 +1,264 @@
+{
+  "meta": {
+    "generated_at": "2026-03-29T07:14:35.415628",
+    "sector": "waste",
+    "generator": "benchmarking_calculator_v1"
+  },
+  "inputs": {
+    "deal_size_usd": 50000000.0,
+    "state": "TX",
+    "expected_rating": "A",
+    "maturity_years": 30.0
+  },
+  "spread_estimate": {
+    "expected_spread_bps": 62,
+    "rating_normalized": "A",
+    "sector_median_spread_bps": 62,
+    "spread_vs_sector": "at_median",
+    "sector_spread_range_bps": [
+      0,
+      1000
+    ],
+    "n_rated_peers": 57,
+    "note": "Spread based on A over AAA MMD"
+  },
+  "peer_comparison": {
+    "n_peers_found": 10,
+    "peer_deals": [
+      {
+        "issuer_name": "Mission Economic Development Corporation",
+        "state": "TX",
+        "par_amount_usd": 50000000.0,
+        "rating": "",
+        "bond_type": "conduit_revenue",
+        "maturity": "2048-06-01",
+        "similarity_score": 0.755
+      },
+      {
+        "issuer_name": "Mission Economic Development Corporation",
+        "state": "TX",
+        "par_amount_usd": 50000000.0,
+        "rating": "",
+        "bond_type": "conduit_revenue",
+        "maturity": "2055-06-01",
+        "similarity_score": 0.755
+      },
+      {
+        "issuer_name": "Mission Economic Development Corporation",
+        "state": "TX",
+        "par_amount_usd": 50000000.0,
+        "rating": "",
+        "bond_type": "conduit_revenue",
+        "maturity": "2054-06-01",
+        "similarity_score": 0.755
+      },
+      {
+        "issuer_name": "Angelina and Neches River Authority Industrial Development Corporation",
+        "state": "TX",
+        "par_amount_usd": 53330000.0,
+        "rating": "",
+        "bond_type": "industrial_development",
+        "maturity": "2045-12-01",
+        "similarity_score": 0.736
+      },
+      {
+        "issuer_name": "Port of Corpus Christi Authority of Nueces County, Texas",
+        "state": "TX",
+        "par_amount_usd": 42000000.0,
+        "rating": "",
+        "bond_type": "revenue",
+        "maturity": "2030-01-01",
+        "similarity_score": 0.707
+      },
+      {
+        "issuer_name": "Port of Corpus Christi Authority of Nueces County, Texas",
+        "state": "TX",
+        "par_amount_usd": 35000000.0,
+        "rating": "",
+        "bond_type": "revenue",
+        "maturity": "2032-01-01",
+        "similarity_score": 0.665
+      },
+      {
+        "issuer_name": "Guadalupe-Blanco River Authority",
+        "state": "TX",
+        "par_amount_usd": 34885000.0,
+        "rating": "",
+        "bond_type": "revenue",
+        "maturity": "2054-08-15",
+        "similarity_score": 0.664
+      },
+      {
+        "issuer_name": "Mission Economic Development Corporation",
+        "state": "TX",
+        "par_amount_usd": 30000000.0,
+        "rating": "",
+        "bond_type": "revenue",
+        "maturity": "2048-11-01",
+        "similarity_score": 0.635
+      },
+      {
+        "issuer_name": "Mission Economic Development Corporation",
+        "state": "TX",
+        "par_amount_usd": 30000000.0,
+        "rating": "",
+        "bond_type": "conduit_revenue",
+        "maturity": "2048-11-01",
+        "similarity_score": 0.635
+      },
+      {
+        "issuer_name": "Mission Economic Development Corporation",
+        "state": "TX",
+        "par_amount_usd": 30000000.0,
+        "rating": "",
+        "bond_type": "conduit_revenue",
+        "maturity": "2048-11-01",
+        "similarity_score": 0.635
+      }
+    ],
+    "size_percentile": 58.6,
+    "peer_par_median_usd": 38500000.0,
+    "peer_par_range_usd": [
+      30000000.0,
+      53330000.0
+    ]
+  },
+  "structural_norms": {
+    "pledge_type_distribution": {
+      "specific_revenue": 71,
+      "net_revenue": 4,
+      "gross_revenue": 4
+    },
+    "typical_coverage_ratio": 1.225,
+    "coverage_ratio_range": [
+      1.1,
+      1.35
+    ],
+    "abt_coverage_median": 1.2,
+    "dsrf_prevalence_pct": 1.9,
+    "dsrf_types": {
+      "fixed_amount": 2
+    },
+    "enhancement_types": {
+      "letter_of_credit": 22,
+      "federal_guarantee": 3,
+      "standby_purchase_agreement": 1
+    },
+    "lien_position_distribution": {
+      "pari_passu": 13,
+      "first": 2
+    },
+    "n_packages": 105
+  },
+  "risk_profile": {
+    "top_risk_categories": [
+      {
+        "category": "financial",
+        "count": 211,
+        "pct_of_total": 57.18157181571816,
+        "mitigation_rate_pct": 4.0
+      },
+      {
+        "category": "tax_law",
+        "count": 32,
+        "pct_of_total": 8.672086720867208,
+        "mitigation_rate_pct": 69.0
+      },
+      {
+        "category": "regulatory",
+        "count": 28,
+        "pct_of_total": 7.588075880758807,
+        "mitigation_rate_pct": 0.0
+      },
+      {
+        "category": "interest_rate",
+        "count": 21,
+        "pct_of_total": 5.691056910569105,
+        "mitigation_rate_pct": 5.0
+      },
+      {
+        "category": "feedstock_supply",
+        "count": 20,
+        "pct_of_total": 5.420054200542006,
+        "mitigation_rate_pct": 90.0
+      },
+      {
+        "category": "technology",
+        "count": 19,
+        "pct_of_total": 5.149051490514905,
+        "mitigation_rate_pct": 89.0
+      },
+      {
+        "category": "construction",
+        "count": 16,
+        "pct_of_total": 4.336043360433604,
+        "mitigation_rate_pct": 100.0
+      },
+      {
+        "category": "market_demand",
+        "count": 7,
+        "pct_of_total": 1.8970189701897018,
+        "mitigation_rate_pct": 14.0
+      }
+    ],
+    "overall_mitigation_rate_pct": 23.0,
+    "n_risk_factors": 369,
+    "rating_agency_strengths": [
+      "Diverse economy and exceptionally large tax base",
+      "Low governmental debt that retires rapidly",
+      "Fees are related to an essential governmental service provided across a very large and stable economic base",
+      "diverse economy and exceptionally large tax base",
+      "Strong alternate liquidity"
+    ],
+    "rating_agency_challenges": [
+      "modest cash position",
+      "Resident incomes below average at 89.7% of US",
+      "history of aggressive debt financed acquisition growth which has tempered deleveraging",
+      "short time frame between acquisitions which increases the potential for integration risks and adds analytical complexity",
+      "private equity and founder ownership, which may hinder deleveraging"
+    ],
+    "prospect_risk_flags": []
+  },
+  "financial_benchmarks": {
+    "dscr": {
+      "median": 1.37,
+      "iqr": [
+        1.31,
+        1.73
+      ]
+    },
+    "operating_margin_median": 0.16535608722324466,
+    "leverage_median": 0.6759041103667537,
+    "days_cash_on_hand_median": 188.0,
+    "n_reports": 117
+  },
+  "pfa_comparison": {
+    "conduit_deals_in_corpus": 68,
+    "conduit_median_par_usd": 50000000.0,
+    "conduit_rating_profile": "",
+    "conduit_states": [
+      "TX",
+      "WV",
+      "SD",
+      "AL",
+      "PA"
+    ],
+    "prospect_advantages": [
+      "Investment-grade rating supports direct issuance \u2014 potentially lower all-in cost vs. conduit structure"
+    ],
+    "prospect_considerations": [
+      "Conduit issuance provides access to tax-exempt status for qualified private-activity projects",
+      "Direct issuance requires own credit standing; conduit uses authority's borrowing capacity"
+    ]
+  },
+  "market_context": {
+    "n_trades": 0,
+    "median_yield_pct": null,
+    "yield_range_pct": [
+      0.0,
+      0.0
+    ],
+    "median_price": null,
+    "n_bonds_trading": 0
+  }
+}

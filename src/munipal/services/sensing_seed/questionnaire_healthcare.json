@@ -1,0 +1,317 @@
+[
+  {
+    "item_id": "risk.technology.description",
+    "dimension": "risk.technology",
+    "dimension_label": "Technology & Clinical Systems Risk",
+    "category": "description",
+    "question": "Have you prepared a comprehensive technology & clinical systems risk assessment for your project?",
+    "help_text": "Assess technology and clinical systems risk including EHR/EMR reliability, medical equipment lifecycle, cybersecurity posture, and telehealth platform maturity. Describe system dependencies, HIPAA compliance status, and IT infrastructure resilience.",
+    "points": 5.0
+  },
+  {
+    "item_id": "risk.technology.mitigants",
+    "dimension": "risk.technology",
+    "dimension_label": "Technology & Clinical Systems Risk",
+    "category": "mitigants",
+    "question": "Have you documented specific mitigants for technology & clinical systems risk?",
+    "help_text": "Example mitigants: Annual HIPAA security risk assessment; cyber liability insurance ($10M coverage); EHR vendor SLA with 99.9% uptime guarantee; redundant data center with 4-hour RTO.",
+    "points": 5.0
+  },
+  {
+    "item_id": "risk.technology.evidence.0",
+    "dimension": "risk.technology",
+    "dimension_label": "Technology & Clinical Systems Risk",
+    "category": "evidence",
+    "question": "Do you have: HIPAA security risk assessment (within 12 months)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.technology.evidence.1",
+    "dimension": "risk.technology",
+    "dimension_label": "Technology & Clinical Systems Risk",
+    "category": "evidence",
+    "question": "Do you have: EHR vendor contract with SLA?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.technology.evidence.2",
+    "dimension": "risk.technology",
+    "dimension_label": "Technology & Clinical Systems Risk",
+    "category": "evidence",
+    "question": "Do you have: Cybersecurity penetration test results?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.technology.evidence.3",
+    "dimension": "risk.technology",
+    "dimension_label": "Technology & Clinical Systems Risk",
+    "category": "evidence",
+    "question": "Do you have: Clinical technology capital plan?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.technology.evidence.4",
+    "dimension": "risk.technology",
+    "dimension_label": "Technology & Clinical Systems Risk",
+    "category": "evidence",
+    "question": "Do you have: IT disaster recovery / business continuity plan?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.construction.description",
+    "dimension": "risk.construction",
+    "dimension_label": "Facility & Capital Risk",
+    "category": "description",
+    "question": "Have you prepared a comprehensive facility & capital risk assessment for your project?",
+    "help_text": "Assess facility and capital risks including construction projects, renovation schedules, equipment installation, and Certificate of Need requirements. Describe facility condition, capital project timelines, and deferred maintenance exposure.",
+    "points": 5.0
+  },
+  {
+    "item_id": "risk.construction.mitigants",
+    "dimension": "risk.construction",
+    "dimension_label": "Facility & Capital Risk",
+    "category": "mitigants",
+    "question": "Have you documented specific mitigants for facility & capital risk?",
+    "help_text": "Example mitigants: GMP contract with experienced healthcare contractor; $2M construction contingency; Certificate of Need obtained; facility condition assessment within 3 years.",
+    "points": 5.0
+  },
+  {
+    "item_id": "risk.construction.evidence.0",
+    "dimension": "risk.construction",
+    "dimension_label": "Facility & Capital Risk",
+    "category": "evidence",
+    "question": "Do you have: Certificate of Need approval (if applicable)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.construction.evidence.1",
+    "dimension": "risk.construction",
+    "dimension_label": "Facility & Capital Risk",
+    "category": "evidence",
+    "question": "Do you have: Architect/engineering contract (GMP or fixed-price)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.construction.evidence.2",
+    "dimension": "risk.construction",
+    "dimension_label": "Facility & Capital Risk",
+    "category": "evidence",
+    "question": "Do you have: Construction performance bond?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.construction.evidence.3",
+    "dimension": "risk.construction",
+    "dimension_label": "Facility & Capital Risk",
+    "category": "evidence",
+    "question": "Do you have: Facility condition assessment (within 3 years)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.construction.evidence.4",
+    "dimension": "risk.construction",
+    "dimension_label": "Facility & Capital Risk",
+    "category": "evidence",
+    "question": "Do you have: Capital improvement plan (5-year horizon)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.market.description",
+    "dimension": "risk.market",
+    "dimension_label": "Market & Volume Risk",
+    "category": "description",
+    "question": "Have you prepared a comprehensive market & volume risk assessment for your project?",
+    "help_text": "Assess market and volume risks including patient volume trends, service area demographics, physician recruitment, payer mix, and competitive dynamics. Describe market position drivers and vulnerability to volume shifts.",
+    "points": 5.0
+  },
+  {
+    "item_id": "risk.market.mitigants",
+    "dimension": "risk.market",
+    "dimension_label": "Market & Volume Risk",
+    "category": "mitigants",
+    "question": "Have you documented specific mitigants for market & volume risk?",
+    "help_text": "Example mitigants: Essential provider status with limited competition; physician recruitment partnership with regional medical school; service line diversification across 8 specialties; growing outpatient network.",
+    "points": 5.0
+  },
+  {
+    "item_id": "risk.market.evidence.0",
+    "dimension": "risk.market",
+    "dimension_label": "Market & Volume Risk",
+    "category": "evidence",
+    "question": "Do you have: Independent demand / market study?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.market.evidence.1",
+    "dimension": "risk.market",
+    "dimension_label": "Market & Volume Risk",
+    "category": "evidence",
+    "question": "Do you have: Service area demographic analysis?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.market.evidence.2",
+    "dimension": "risk.market",
+    "dimension_label": "Market & Volume Risk",
+    "category": "evidence",
+    "question": "Do you have: Payer mix analysis (3-year trend)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.market.evidence.3",
+    "dimension": "risk.market",
+    "dimension_label": "Market & Volume Risk",
+    "category": "evidence",
+    "question": "Do you have: Physician recruitment and retention plan?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.market.evidence.4",
+    "dimension": "risk.market",
+    "dimension_label": "Market & Volume Risk",
+    "category": "evidence",
+    "question": "Do you have: Competitive landscape assessment?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.regulatory.description",
+    "dimension": "risk.regulatory",
+    "dimension_label": "Regulatory & Compliance Risk",
+    "category": "description",
+    "question": "Have you prepared a comprehensive regulatory & compliance risk assessment for your project?",
+    "help_text": "Assess regulatory and compliance risks including CMS Conditions of Participation, state licensure, accreditation (Joint Commission or HFAP), Stark Law/Anti-Kickback compliance, and 340B program eligibility. Describe compliance infrastructure and survey readiness.",
+    "points": 5.0
+  },
+  {
+    "item_id": "risk.regulatory.mitigants",
+    "dimension": "risk.regulatory",
+    "dimension_label": "Regulatory & Compliance Risk",
+    "category": "mitigants",
+    "question": "Have you documented specific mitigants for regulatory & compliance risk?",
+    "help_text": "Example mitigants: Joint Commission accreditation (current); dedicated Chief Compliance Officer; annual compliance training program; quarterly board compliance reporting; external compliance audit.",
+    "points": 5.0
+  },
+  {
+    "item_id": "risk.regulatory.evidence.0",
+    "dimension": "risk.regulatory",
+    "dimension_label": "Regulatory & Compliance Risk",
+    "category": "evidence",
+    "question": "Do you have: Current accreditation certificate (Joint Commission/HFAP)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.regulatory.evidence.1",
+    "dimension": "risk.regulatory",
+    "dimension_label": "Regulatory & Compliance Risk",
+    "category": "evidence",
+    "question": "Do you have: Most recent CMS survey results?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.regulatory.evidence.2",
+    "dimension": "risk.regulatory",
+    "dimension_label": "Regulatory & Compliance Risk",
+    "category": "evidence",
+    "question": "Do you have: State licensure documentation (current)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.regulatory.evidence.3",
+    "dimension": "risk.regulatory",
+    "dimension_label": "Regulatory & Compliance Risk",
+    "category": "evidence",
+    "question": "Do you have: Compliance program description and officer designation?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.regulatory.evidence.4",
+    "dimension": "risk.regulatory",
+    "dimension_label": "Regulatory & Compliance Risk",
+    "category": "evidence",
+    "question": "Do you have: Regulatory change impact analysis?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.reimbursement.description",
+    "dimension": "risk.reimbursement",
+    "dimension_label": "Reimbursement & Payer Risk",
+    "category": "description",
+    "question": "Have you prepared a comprehensive reimbursement & payer risk assessment for your project?",
+    "help_text": "Assess reimbursement and payer risks including Medicare/Medicaid rate trends, managed care contract terms, payer concentration, bad debt/charity care levels, and revenue cycle effectiveness. Describe payer mix stability and exposure to rate changes.",
+    "points": 5.0
+  },
+  {
+    "item_id": "risk.reimbursement.mitigants",
+    "dimension": "risk.reimbursement",
+    "dimension_label": "Reimbursement & Payer Risk",
+    "category": "mitigants",
+    "question": "Have you documented specific mitigants for reimbursement & payer risk?",
+    "help_text": "Example mitigants: Diversified payer mix with no single payer >42% of net revenue; multi-year managed care contracts with annual escalators; revenue cycle management partnership achieving 98% clean claim rate; financial assistance policy reducing bad debt exposure.",
+    "points": 5.0
+  },
+  {
+    "item_id": "risk.reimbursement.evidence.0",
+    "dimension": "risk.reimbursement",
+    "dimension_label": "Reimbursement & Payer Risk",
+    "category": "evidence",
+    "question": "Do you have: Payer mix analysis with trend (3+ years)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.reimbursement.evidence.1",
+    "dimension": "risk.reimbursement",
+    "dimension_label": "Reimbursement & Payer Risk",
+    "category": "evidence",
+    "question": "Do you have: Top managed care contract summaries?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.reimbursement.evidence.2",
+    "dimension": "risk.reimbursement",
+    "dimension_label": "Reimbursement & Payer Risk",
+    "category": "evidence",
+    "question": "Do you have: Revenue cycle performance metrics (days in A/R, clean claim rate)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.reimbursement.evidence.3",
+    "dimension": "risk.reimbursement",
+    "dimension_label": "Reimbursement & Payer Risk",
+    "category": "evidence",
+    "question": "Do you have: Bad debt and charity care trend analysis?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.reimbursement.evidence.4",
+    "dimension": "risk.reimbursement",
+    "dimension_label": "Reimbursement & Payer Risk",
+    "category": "evidence",
+    "question": "Do you have: Medicare cost report (most recent)?",
+    "help_text": "",
+    "points": 2.0
+  }
+]

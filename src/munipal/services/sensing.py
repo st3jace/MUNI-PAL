@@ -5,17 +5,45 @@ benchmarking calculator, readiness assessment) into the FastAPI backend.
 
 These tools use synchronous SQLAlchemy against a separate SQLite corpus.db,
 so all calls are run in a threadpool executor.
+
+When the EMMA corpus data is not available (e.g., production deployments
+where corpus.db is gitignored), falls back to pre-computed seed data
+stored in sensing_seed/.
 """
 from __future__ import annotations
 
 import asyncio
+import json
+import logging
 import sys
 from pathlib import Path
 from typing import Any
 
+logger = logging.getLogger("munipal.services.sensing")
+
 # EMMA bond_os_extractor lives at a known path relative to the Muni-Pal root.
 _MUNIPAL_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 _EMMA_EXTRACTOR = _MUNIPAL_ROOT / "emma" / "bond_os_extractor"
+
+# Pre-computed seed data directory (committed to git, always available).
+_SEED_DIR = Path(__file__).resolve().parent / "sensing_seed"
+
+# Sectors that have seed data available (even without corpus.db).
+_SEED_SECTORS = ["waste", "healthcare"]
+
+
+def _corpus_available(sector: str) -> bool:
+    """Check whether the EMMA corpus.db exists for a sector."""
+    return (_EMMA_EXTRACTOR / "data" / sector / "corpus.db").is_file()
+
+
+def _load_seed(filename: str) -> Any:
+    """Load a pre-computed seed JSON file."""
+    path = _SEED_DIR / filename
+    if not path.exists():
+        raise FileNotFoundError(f"Seed file not found: {path}")
+    with open(path) as f:
+        return json.load(f)
 
 
 def _ensure_emma_path() -> None:
@@ -41,6 +69,10 @@ def _get_corpus_engine(sector: str):
 
 def _run_market_intelligence(sector: str) -> dict[str, Any]:
     """Generate market intelligence report (sync, runs in threadpool)."""
+    if not _corpus_available(sector):
+        logger.info("Corpus unavailable for %s — serving seed data", sector)
+        return _load_seed(f"market_intelligence_{sector}.json")
+
     _ensure_emma_path()
     from src.config import set_sector
     from src.analysis.market_intelligence import generate_market_intelligence
@@ -69,6 +101,19 @@ def _run_benchmark(
     maturity: float,
 ) -> dict[str, Any]:
     """Generate issuance benchmark (sync, runs in threadpool)."""
+    if not _corpus_available(sector):
+        logger.info("Corpus unavailable for %s — serving seed benchmark", sector)
+        seed = _load_seed(f"benchmark_baseline_{sector}.json")
+        # Overlay the prospect's inputs onto the seed baseline
+        seed["prospect_inputs"] = {
+            "sector": sector,
+            "deal_size": deal_size,
+            "state": state.upper(),
+            "expected_rating": rating,
+            "maturity_years": maturity,
+        }
+        return seed
+
     _ensure_emma_path()
     from src.config import set_sector
     from src.analysis.benchmarking_calculator import (
@@ -113,6 +158,10 @@ def _run_credit_spread_monitor(
     out_of_state: bool,
 ) -> dict[str, Any]:
     """Generate credit spread monitor report (sync, runs in threadpool)."""
+    if not _corpus_available(sector):
+        logger.info("Corpus unavailable for %s — serving seed credit spreads", sector)
+        return _load_seed(f"credit_spreads_{sector}.json")
+
     _ensure_emma_path()
     from src.config import set_sector
     from src.analysis.credit_spread_monitor import generate_credit_spread_report
@@ -198,6 +247,120 @@ def _readiness_result_to_dict(result) -> dict[str, Any]:  # type: ignore[no-unty
     return data
 
 
+def _score_readiness_from_seed(
+    sector: str,
+    project_name: str,
+    responses: dict[str, bool],
+    dscr: float | None,
+    revenue: float | None,
+    coverage_ratio: float | None,
+) -> dict[str, Any]:
+    """Simplified readiness scoring using seed questionnaire (no corpus)."""
+    from datetime import datetime, timezone
+
+    questionnaire = _load_seed(f"questionnaire_{sector}.json")
+    # Group items by dimension
+    dims: dict[str, list[dict]] = {}
+    for item in questionnaire:
+        dims.setdefault(item["dimension"], []).append(item)
+
+    total_score = 0.0
+    total_max = 0.0
+    dim_scores = []
+    gap_analysis = []
+
+    for dim_key, items in dims.items():
+        dim_max = sum(it["points"] for it in items)
+        dim_earned = sum(
+            it["points"] for it in items
+            if responses.get(it["item_id"], False)
+        )
+        pct = (dim_earned / dim_max * 100) if dim_max else 0
+        total_score += dim_earned
+        total_max += dim_max
+
+        evidence_items = [it for it in items if it["category"] == "evidence"]
+        desc_items = [it for it in items if it["category"] == "description"]
+        mitigant_items = [it for it in items if it["category"] == "mitigant"]
+
+        dim_scores.append({
+            "dimension": dim_key,
+            "display_name": items[0].get("dimension_label", dim_key),
+            "score": round(dim_earned, 1),
+            "max_score": dim_max,
+            "pct": round(pct, 1),
+            "description_provided": any(responses.get(it["item_id"]) for it in desc_items),
+            "mitigants_provided": any(responses.get(it["item_id"]) for it in mitigant_items),
+            "evidence_count": sum(1 for it in evidence_items if responses.get(it["item_id"])),
+            "evidence_total": len(evidence_items),
+        })
+
+        severity = "acceptable" if pct >= 60 else ("material" if pct >= 30 else "critical")
+        if severity != "acceptable":
+            gap_analysis.append({
+                "dimension": dim_key,
+                "dimension_name": items[0].get("dimension_label", dim_key),
+                "severity": severity,
+                "narrative": f"Score {pct:.0f}% — additional documentation needed.",
+                "recommendations": [it["question"] for it in items if not responses.get(it["item_id"])],
+            })
+
+    raw_pct = (total_score / total_max * 100) if total_max else 0
+
+    # Financial adjustment
+    fin_adj = 0.0
+    fin_flags = []
+    if dscr is not None:
+        if dscr >= 1.5:
+            fin_adj += 5
+        elif dscr >= 1.2:
+            fin_adj += 2
+        else:
+            fin_flags.append(f"DSCR {dscr:.2f}x below 1.2x threshold")
+
+    adjusted = min(raw_pct + fin_adj, 100)
+    tier = (
+        "Bond Ready" if adjusted >= 75
+        else "Near Ready" if adjusted >= 50
+        else "Developing" if adjusted >= 25
+        else "Early Stage"
+    )
+
+    return {
+        "project_name": project_name,
+        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "sector": sector,
+        "readiness_score": round(adjusted, 1),
+        "raw_score": round(raw_pct, 1),
+        "tier": tier,
+        "tier_guidance": f"Your project scored {adjusted:.0f}% on the bond readiness assessment.",
+        "dimensions_addressed": sum(1 for d in dim_scores if d["pct"] >= 60),
+        "dimensions_partial": sum(1 for d in dim_scores if 0 < d["pct"] < 60),
+        "dimensions_missing": sum(1 for d in dim_scores if d["pct"] == 0),
+        "evidence_present": sum(d["evidence_count"] for d in dim_scores),
+        "evidence_possible": sum(d["evidence_total"] for d in dim_scores),
+        "evidence_completeness_pct": round(
+            sum(d["evidence_count"] for d in dim_scores)
+            / max(sum(d["evidence_total"] for d in dim_scores), 1)
+            * 100, 1
+        ),
+        "dimensions": dim_scores,
+        "financial_assessment": {
+            "dscr_assessment": f"DSCR: {dscr}" if dscr else "Not provided",
+            "dscr_score": fin_adj if dscr else 0,
+            "coverage_assessment": f"Coverage ratio: {coverage_ratio}" if coverage_ratio else "Not provided",
+            "coverage_score": 0,
+            "revenue_assessment": f"Revenue: ${revenue:,.0f}" if revenue else "Not provided",
+            "revenue_score": 0,
+            "total_adjustment": fin_adj,
+            "flags": fin_flags,
+        },
+        "priority_actions": [g["narrative"] for g in gap_analysis[:3]],
+        "gap_analysis": gap_analysis,
+        "corpus_summary": {"note": "Scored using pre-computed sector benchmarks"},
+    }
+
+
 def _run_readiness_assessment(
     sector: str,
     project_name: str,
@@ -208,6 +371,17 @@ def _run_readiness_assessment(
     coverage_ratio: float | None,
 ) -> dict[str, Any]:
     """Score readiness assessment (sync, runs in threadpool)."""
+    # Merge evidence IDs into responses dict
+    merged_responses = dict(responses)
+    for eid in evidence_ids:
+        merged_responses[eid] = True
+
+    if not _corpus_available(sector):
+        logger.info("Corpus unavailable for %s — using seed-based readiness scoring", sector)
+        return _score_readiness_from_seed(
+            sector, project_name, merged_responses, dscr, revenue, coverage_ratio,
+        )
+
     _ensure_emma_path()
     from src.config import set_sector
     from src.analysis.readiness_assessment import (
@@ -217,12 +391,6 @@ def _run_readiness_assessment(
 
     set_sector(sector)
     engine = _get_corpus_engine(sector)
-
-    # Merge evidence IDs into responses dict (evidence items use
-    # the same item_id format: risk.{dim}.evidence.{n})
-    merged_responses = dict(responses)
-    for eid in evidence_ids:
-        merged_responses[eid] = True
 
     response = AssessmentResponse(
         project_name=project_name,
@@ -265,6 +433,12 @@ async def get_readiness_assessment(
 
 def _get_questionnaire(sector: str = "waste") -> list[dict[str, Any]]:
     """Get the readiness questionnaire items for a given sector."""
+    # Try seed data first (always available, no EMMA imports needed)
+    seed_path = _SEED_DIR / f"questionnaire_{sector}.json"
+    if seed_path.exists() and not _corpus_available(sector):
+        logger.info("Corpus unavailable for %s — serving seed questionnaire", sector)
+        return _load_seed(f"questionnaire_{sector}.json")
+
     _ensure_emma_path()
     from src.analysis.readiness_assessment import build_questionnaire
     from src.analysis.risk_benchmark import get_readiness_path_config
@@ -299,13 +473,30 @@ async def get_questionnaire(sector: str = "waste") -> list[dict[str, Any]]:
 # ---------------------------------------------------------------------------
 
 def get_available_sectors() -> list[dict[str, str]]:
-    """List sectors that have a corpus.db file."""
+    """List sectors that have corpus data or seed data available."""
+    sectors: list[dict[str, str]] = []
+    seen: set[str] = set()
+
+    # Check for live corpus data
     data_root = _EMMA_EXTRACTOR / "data"
-    sectors = []
-    for sector_dir in sorted(data_root.iterdir()):
-        if sector_dir.is_dir() and (sector_dir / "corpus.db").exists():
-            sectors.append({
-                "id": sector_dir.name,
-                "name": sector_dir.name.replace("_", " ").title(),
-            })
+    if data_root.is_dir():
+        for sector_dir in sorted(data_root.iterdir()):
+            if sector_dir.is_dir() and (sector_dir / "corpus.db").exists():
+                name = sector_dir.name
+                sectors.append({
+                    "id": name,
+                    "name": name.replace("_", " ").title(),
+                })
+                seen.add(name)
+
+    # Fall back to seed sectors if no live corpus found
+    if not seen:
+        for name in _SEED_SECTORS:
+            if name not in seen and (_SEED_DIR / f"market_intelligence_{name}.json").exists():
+                sectors.append({
+                    "id": name,
+                    "name": name.replace("_", " ").title(),
+                })
+                seen.add(name)
+
     return sectors

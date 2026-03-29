@@ -1,0 +1,409 @@
+{
+  "analysis": "Sector Market Intelligence Report",
+  "sector": "healthcare",
+  "generated_at": "2026-03-29T14:14:17.976753Z",
+  "report_version": "1.0",
+  "executive_summary": {
+    "sector": "healthcare",
+    "report_completeness": {
+      "available_sections": 5,
+      "partial_sections": 0,
+      "pending_sections": 0,
+      "total_sections": 5
+    },
+    "key_findings": [
+      "866 deals analyzed totaling $199.5B in par value",
+      "95% investment grade; modal rating A",
+      "Median DSCR 6.52x (IQR: 3.90x - 7.21x)",
+      "156 risk factors across 11 issuances; top category: financial (25%)",
+      "362 CUSIPs tracked with 25485 secondary market trades"
+    ],
+    "data_freshness": "2026-03-29"
+  },
+  "deal_structure": {
+    "n_deals": 866,
+    "par_amount_total_usd": 199530787823.31,
+    "par_amount_median_usd": 76600000.0,
+    "par_amount_range_usd": [
+      140754.0,
+      5268546530.0
+    ],
+    "bond_type_distribution": {
+      "revenue": 19,
+      "conduit_revenue": 8,
+      "general_obligation": 1
+    },
+    "tax_status_distribution": {
+      "tax_exempt": 19,
+      "taxable": 5
+    },
+    "interest_type_distribution": {
+      "fixed_rate": 13,
+      "variable_rate": 9
+    },
+    "state_distribution": {
+      "FL": 7,
+      "WI": 5,
+      "LA": 3,
+      "OH": 2,
+      "MA": 2,
+      "AZ": 1,
+      "TX": 1,
+      "CO": 1
+    },
+    "enhancement_distribution": {
+      "letter_of_credit": 4,
+      "bond_insurance": 2
+    },
+    "top_issuers": [
+      {
+        "name": "Unknown",
+        "deal_count": 838
+      },
+      {
+        "name": "Healthcare Research Corpus",
+        "deal_count": 5
+      },
+      {
+        "name": "Public Finance Authority",
+        "deal_count": 3
+      },
+      {
+        "name": "Louisiana Public Facilities Authority",
+        "deal_count": 3
+      },
+      {
+        "name": "Wisconsin Health and Educational Facilities Authority",
+        "deal_count": 2
+      },
+      {
+        "name": "Brevard County Health Facilities Authority",
+        "deal_count": 2
+      },
+      {
+        "name": "State of Ohio",
+        "deal_count": 2
+      },
+      {
+        "name": "St. Johns County Industrial Development Authority",
+        "deal_count": 2
+      },
+      {
+        "name": "Massachusetts Development Finance Agency",
+        "deal_count": 2
+      },
+      {
+        "name": "Industrial Development Authority of the City of Sierra Vista",
+        "deal_count": 1
+      }
+    ],
+    "data_availability": {
+      "source": "official_statements",
+      "n_records": 866,
+      "status": "available"
+    }
+  },
+  "rating_distribution": {
+    "by_agency": {
+      "moodys": {
+        "A2": 3,
+        "Aa1": 2,
+        "Aa2": 2,
+        "A1": 1,
+        "Baa2": 1
+      },
+      "null": {
+        "A": 1
+      },
+      "fitch": {
+        "BBB": 2,
+        "AA-": 2,
+        "BBB+": 1,
+        "AA+": 1
+      },
+      "sp": {
+        "BBB+": 1,
+        "A-1+": 1,
+        "AA-": 1,
+        "BBB-": 1,
+        "A": 1,
+        "A+": 1
+      }
+    },
+    "investment_grade_pct": 95.5,
+    "modal_rating": "A",
+    "total_rated": 22,
+    "data_availability": {
+      "source": "ratings",
+      "n_records": 22,
+      "status": "available"
+    }
+  },
+  "financial_benchmarks": {
+    "dscr": {
+      "median": 6.52,
+      "p25": 3.9,
+      "p75": 7.21,
+      "n_values": 8
+    },
+    "operating_margin_median": 0.0129,
+    "net_margin_median": 0.0516,
+    "days_cash_on_hand_median": 202.0,
+    "leverage_median": 0.4488,
+    "n_reports": 1318,
+    "data_availability": {
+      "source": "financial_reports",
+      "n_records": 1318,
+      "status": "available"
+    }
+  },
+  "security_profile": {
+    "pledge_type_distribution": {
+      "gross_revenue": 9,
+      "specific_revenue": 4
+    },
+    "lien_position_distribution": {
+      "first": 6,
+      "pari_passu": 3,
+      "subordinate": 1
+    },
+    "coverage_ratio": {
+      "median": 1.1,
+      "n_values": 5
+    },
+    "additional_bonds_test_median": null,
+    "dsrf_type_distribution": {
+      "fixed_amount": 6
+    },
+    "n_packages": 19,
+    "data_availability": {
+      "source": "security_packages",
+      "n_records": 19,
+      "status": "available"
+    }
+  },
+  "risk_profile": {
+    "n_risk_factors": 156,
+    "n_issuances_with_risk_disclosures": 11,
+    "category_distribution": {
+      "financial": 39,
+      "regulatory": 31,
+      "feedstock_supply": 20,
+      "construction": 20,
+      "market_demand": 13,
+      "cybersecurity": 10,
+      "technology": 10,
+      "management": 8,
+      "pandemic": 3,
+      "tax_law": 2
+    },
+    "severity_distribution": {
+      "material": 134,
+      "significant": 22
+    },
+    "overall_mitigation_rate": 0.462,
+    "mitigation_by_category": {
+      "financial": 0.231,
+      "management": 0.625,
+      "regulatory": 0.387,
+      "feedstock_supply": 0.6,
+      "cybersecurity": 0.5,
+      "construction": 0.7,
+      "market_demand": 0.385,
+      "technology": 1.0,
+      "pandemic": 0.0,
+      "tax_law": 0.0
+    },
+    "top_categories": [
+      {
+        "category": "financial",
+        "count": 39,
+        "pct_of_total": 25.0,
+        "mitigation_rate": 23.1
+      },
+      {
+        "category": "regulatory",
+        "count": 31,
+        "pct_of_total": 19.9,
+        "mitigation_rate": 38.7
+      },
+      {
+        "category": "feedstock_supply",
+        "count": 20,
+        "pct_of_total": 12.8,
+        "mitigation_rate": 60.0
+      },
+      {
+        "category": "construction",
+        "count": 20,
+        "pct_of_total": 12.8,
+        "mitigation_rate": 70.0
+      },
+      {
+        "category": "market_demand",
+        "count": 13,
+        "pct_of_total": 8.3,
+        "mitigation_rate": 38.5
+      },
+      {
+        "category": "cybersecurity",
+        "count": 10,
+        "pct_of_total": 6.4,
+        "mitigation_rate": 50.0
+      },
+      {
+        "category": "technology",
+        "count": 10,
+        "pct_of_total": 6.4,
+        "mitigation_rate": 100.0
+      },
+      {
+        "category": "management",
+        "count": 8,
+        "pct_of_total": 5.1,
+        "mitigation_rate": 62.5
+      },
+      {
+        "category": "pandemic",
+        "count": 3,
+        "pct_of_total": 1.9,
+        "mitigation_rate": 0.0
+      },
+      {
+        "category": "tax_law",
+        "count": 2,
+        "pct_of_total": 1.3,
+        "mitigation_rate": 0.0
+      }
+    ],
+    "data_availability": {
+      "source": "risk_factors",
+      "n_records": 156,
+      "status": "available"
+    }
+  },
+  "rating_agency_perspective": {
+    "n_rating_actions": 239,
+    "n_rating_factors": 271,
+    "action_distribution": {
+      "upgrades": 3,
+      "downgrades": 2,
+      "affirmations": 9
+    },
+    "top_strengths": [
+      "Strong market capture",
+      "Long-standing health plan",
+      "Strategic capital growth",
+      "Improved system performance",
+      "Increased state supplemental funding",
+      "Stronger patient demand",
+      "Solid health plan cash flow",
+      "Low Medicaid exposure",
+      "Partnership with AdventHealth",
+      "Experienced management team"
+    ],
+    "top_challenges": [
+      "Significant upcoming capital projects including hospital expansion and ambulatory projects",
+      "High capital expenditure needs",
+      "Relatively high age of plant at 16 years",
+      "Highly competitive market",
+      "Days cash and cash to debt tempered relative to historic levels",
+      "Ongoing negative outlook for hospital industry",
+      "Unprecedented staffing shortages",
+      "Wage and supply cost inflation",
+      "COVID-19 pandemic disruption",
+      "Increased labor and supply pressures"
+    ],
+    "agency_distribution": {
+      "null": 215,
+      "moodys": 11,
+      "fitch": 7,
+      "sp": 6
+    },
+    "data_availability": {
+      "source": "rating_actions",
+      "n_records": 510,
+      "status": "available"
+    }
+  },
+  "spread_curve": {
+    "rating_to_spread_bps": {
+      "AAA": 0,
+      "AA+": 12,
+      "AA": 20,
+      "AA-": 32,
+      "A+": 45,
+      "A": 62,
+      "A-": 82,
+      "BBB+": 110,
+      "BBB": 145,
+      "BBB-": 190,
+      "BB+": 250,
+      "BB": 340,
+      "BB-": 450,
+      "B+": 600,
+      "B": 800,
+      "B-": 1000
+    },
+    "sector_typical_range": "A- to BBB+ (62-110 bps over AAA MMD)",
+    "investment_grade_range_bps": [
+      0,
+      190
+    ]
+  },
+  "market_activity": {
+    "n_cusips_tracked": 362,
+    "n_secondary_trades": 25485,
+    "avg_trades_per_bond": 70.4,
+    "price_range": [
+      54.0,
+      135.4
+    ],
+    "yield_range": [
+      0.07,
+      9.512
+    ],
+    "trade_size_median_usd": 50000.0,
+    "data_availability": {
+      "source": "emma_crawler",
+      "n_records": 362,
+      "status": "available"
+    }
+  },
+  "methodology": {
+    "data_sources": [
+      {
+        "name": "Official Statement Extractions",
+        "description": "PDF extraction pipeline (pdfplumber + Claude AI)",
+        "n_records": 866
+      },
+      {
+        "name": "EMMA Secondary Market Data",
+        "description": "MSRB EMMA crawler (Playwright-based)",
+        "n_records": 362
+      },
+      {
+        "name": "Financial Reports",
+        "description": "10-K/CAFR extraction (table + AI)",
+        "n_records": 1318
+      },
+      {
+        "name": "Rating Actions",
+        "description": "Rating agency action extraction",
+        "n_records": 239
+      },
+      {
+        "name": "Risk Factor Disclosures",
+        "description": "OS risk factor extraction with severity/mitigation",
+        "n_records": 156
+      }
+    ],
+    "spread_curve_source": "Bloomberg Municipal Curve Analytics / ICE MMD curves. Spreads in basis points over AAA MMD.",
+    "limitations": [
+      "Corpus limited to bonds indexed on MSRB EMMA.",
+      "Financial metrics from extracted documents; may have extraction gaps.",
+      "Rating data reflects most recent extracted action, not real-time.",
+      "Spread curve is sector-generic; individual deals vary."
+    ]
+  }
+}

@@ -1,0 +1,431 @@
+{
+  "analysis": "Sector Market Intelligence Report",
+  "sector": "waste",
+  "generated_at": "2026-03-29T14:14:17.714308Z",
+  "report_version": "1.0",
+  "executive_summary": {
+    "sector": "waste",
+    "report_completeness": {
+      "available_sections": 5,
+      "partial_sections": 0,
+      "pending_sections": 0,
+      "total_sections": 5
+    },
+    "key_findings": [
+      "235 deals analyzed totaling $43.3B in par value",
+      "72% investment grade; modal rating AA",
+      "Median DSCR 1.37x (IQR: 1.31x - 1.73x)",
+      "369 risk factors across 52 issuances; top category: financial (57%)",
+      "198 CUSIPs tracked with 10698 secondary market trades"
+    ],
+    "data_freshness": "2026-03-29"
+  },
+  "deal_structure": {
+    "n_deals": 235,
+    "par_amount_total_usd": 43301044073.65,
+    "par_amount_median_usd": 36000000.0,
+    "par_amount_range_usd": [
+      188905.0,
+      28150000000.0
+    ],
+    "bond_type_distribution": {
+      "revenue": 65,
+      "conduit_revenue": 56,
+      "industrial_development": 20
+    },
+    "tax_status_distribution": {
+      "tax_exempt": 98,
+      "alternative_minimum_tax": 23
+    },
+    "interest_type_distribution": {
+      "variable_rate": 101,
+      "fixed_rate": 38
+    },
+    "state_distribution": {
+      "FL": 17,
+      "TX": 16,
+      "CA": 14,
+      "KS": 10,
+      "MN": 9,
+      "WV": 8,
+      "SD": 8,
+      "AL": 7,
+      "PA": 7,
+      "TN": 5,
+      "VA": 5,
+      "IA": 4,
+      "NH": 4,
+      "UT": 4,
+      "VT": 2
+    },
+    "enhancement_distribution": {
+      "letter_of_credit": 22,
+      "federal_guarantee": 3,
+      "standby_purchase_agreement": 1
+    },
+    "top_issuers": [
+      {
+        "name": "Unknown",
+        "deal_count": 93
+      },
+      {
+        "name": "California Municipal Finance Authority",
+        "deal_count": 12
+      },
+      {
+        "name": "Mission Economic Development Corporation",
+        "deal_count": 9
+      },
+      {
+        "name": "West Virginia Economic Development Authority",
+        "deal_count": 8
+      },
+      {
+        "name": "South Dakota Economic Development Finance Authority",
+        "deal_count": 8
+      },
+      {
+        "name": "Pennsylvania Economic Development Financing Authority",
+        "deal_count": 7
+      },
+      {
+        "name": "Miami-Dade County Industrial Development Authority",
+        "deal_count": 6
+      },
+      {
+        "name": "Port of Corpus Christi Authority of Nueces County, Texas",
+        "deal_count": 5
+      },
+      {
+        "name": "Minnesota Agricultural and Economic Development Board",
+        "deal_count": 5
+      },
+      {
+        "name": "National Finance Authority",
+        "deal_count": 4
+      }
+    ],
+    "data_availability": {
+      "source": "official_statements",
+      "n_records": 235,
+      "status": "available"
+    }
+  },
+  "rating_distribution": {
+    "by_agency": {
+      "moodys": {
+        "Aa2": 2,
+        "Ba2": 2,
+        "A3": 2,
+        "Baa1": 1,
+        "Aa3": 1,
+        "B3": 1,
+        "Ba3": 1
+      },
+      "fitch": {
+        "AAA": 3,
+        "A-": 2,
+        "BBB+": 1,
+        "AA": 1
+      },
+      "sp": {
+        "BB": 2,
+        "B+": 2,
+        "A+": 1,
+        "BBB+": 1,
+        "A-": 1
+      },
+      "kroll": {
+        "AA+": 3,
+        "AA": 2
+      }
+    },
+    "investment_grade_pct": 72.4,
+    "modal_rating": "AA",
+    "total_rated": 29,
+    "data_availability": {
+      "source": "ratings",
+      "n_records": 29,
+      "status": "available"
+    }
+  },
+  "financial_benchmarks": {
+    "dscr": {
+      "median": 1.37,
+      "p25": 1.31,
+      "p75": 1.73,
+      "n_values": 3
+    },
+    "operating_margin_median": 0.1654,
+    "net_margin_median": 0.1174,
+    "days_cash_on_hand_median": 188.0,
+    "leverage_median": 0.6759,
+    "n_reports": 117,
+    "data_availability": {
+      "source": "financial_reports",
+      "n_records": 117,
+      "status": "available"
+    }
+  },
+  "security_profile": {
+    "pledge_type_distribution": {
+      "specific_revenue": 71,
+      "net_revenue": 4,
+      "gross_revenue": 4
+    },
+    "lien_position_distribution": {
+      "pari_passu": 13,
+      "first": 2
+    },
+    "coverage_ratio": {
+      "median": 1.225,
+      "n_values": 4
+    },
+    "additional_bonds_test_median": 1.2,
+    "dsrf_type_distribution": {
+      "fixed_amount": 2
+    },
+    "n_packages": 105,
+    "data_availability": {
+      "source": "security_packages",
+      "n_records": 105,
+      "status": "available"
+    }
+  },
+  "risk_profile": {
+    "n_risk_factors": 369,
+    "n_issuances_with_risk_disclosures": 52,
+    "category_distribution": {
+      "financial": 211,
+      "tax_law": 32,
+      "regulatory": 28,
+      "interest_rate": 21,
+      "feedstock_supply": 20,
+      "technology": 19,
+      "construction": 16,
+      "market_demand": 7,
+      "force_majeure": 4,
+      "pandemic": 3,
+      "management": 2,
+      "environmental": 2,
+      "permitting": 2,
+      "cybersecurity": 1,
+      "climate": 1
+    },
+    "severity_distribution": {
+      "material": 259,
+      "significant": 75,
+      "boilerplate": 35
+    },
+    "overall_mitigation_rate": 0.23,
+    "mitigation_by_category": {
+      "financial": 0.038,
+      "interest_rate": 0.048,
+      "management": 0.0,
+      "tax_law": 0.688,
+      "feedstock_supply": 0.9,
+      "environmental": 0.0,
+      "market_demand": 0.143,
+      "regulatory": 0.0,
+      "permitting": 0.0,
+      "technology": 0.895,
+      "construction": 1.0,
+      "pandemic": 0.0,
+      "force_majeure": 0.0,
+      "cybersecurity": 1.0,
+      "climate": 1.0
+    },
+    "top_categories": [
+      {
+        "category": "financial",
+        "count": 211,
+        "pct_of_total": 57.2,
+        "mitigation_rate": 3.8
+      },
+      {
+        "category": "tax_law",
+        "count": 32,
+        "pct_of_total": 8.7,
+        "mitigation_rate": 68.8
+      },
+      {
+        "category": "regulatory",
+        "count": 28,
+        "pct_of_total": 7.6,
+        "mitigation_rate": 0.0
+      },
+      {
+        "category": "interest_rate",
+        "count": 21,
+        "pct_of_total": 5.7,
+        "mitigation_rate": 4.8
+      },
+      {
+        "category": "feedstock_supply",
+        "count": 20,
+        "pct_of_total": 5.4,
+        "mitigation_rate": 90.0
+      },
+      {
+        "category": "technology",
+        "count": 19,
+        "pct_of_total": 5.1,
+        "mitigation_rate": 89.5
+      },
+      {
+        "category": "construction",
+        "count": 16,
+        "pct_of_total": 4.3,
+        "mitigation_rate": 100.0
+      },
+      {
+        "category": "market_demand",
+        "count": 7,
+        "pct_of_total": 1.9,
+        "mitigation_rate": 14.3
+      },
+      {
+        "category": "force_majeure",
+        "count": 4,
+        "pct_of_total": 1.1,
+        "mitigation_rate": 0.0
+      },
+      {
+        "category": "pandemic",
+        "count": 3,
+        "pct_of_total": 0.8,
+        "mitigation_rate": 0.0
+      }
+    ],
+    "data_availability": {
+      "source": "risk_factors",
+      "n_records": 369,
+      "status": "available"
+    }
+  },
+  "rating_agency_perspective": {
+    "n_rating_actions": 41,
+    "n_rating_factors": 370,
+    "action_distribution": {
+      "upgrades": 13,
+      "downgrades": 2,
+      "affirmations": 8
+    },
+    "top_strengths": [
+      "Market leadership",
+      "scale and good market position as the second largest service provider in the US solid waste industry",
+      "predictable revenue stream",
+      "strong EBITDA margin",
+      "solid free cash flow",
+      "stable revenue base characterized by steady organic growth",
+      "pricing discipline",
+      "good cost controls",
+      "customer service",
+      "positive history of integrating acquisitions"
+    ],
+    "top_challenges": [
+      "Regulatory risks",
+      "acquisitive growth can be margin dilutive and increase leverage",
+      "volatile treatment-and-disposal event business",
+      "field service operations susceptible to cautious customer spending",
+      "debt-to-LTM EBITDA approached 3.",
+      "exposure to commodity price volatility in recycling operations",
+      "modest cash position",
+      "reliant on cash flow from operations and revolving credit facility for liquidity",
+      "Modest exposure to recycled commodity prices",
+      "Construction and energy-linked business exposure"
+    ],
+    "agency_distribution": {
+      "moodys": 12,
+      "fitch": 8,
+      "sp": 8,
+      "null": 8,
+      "kroll": 5
+    },
+    "data_availability": {
+      "source": "rating_actions",
+      "n_records": 411,
+      "status": "available"
+    }
+  },
+  "spread_curve": {
+    "rating_to_spread_bps": {
+      "AAA": 0,
+      "AA+": 12,
+      "AA": 20,
+      "AA-": 32,
+      "A+": 45,
+      "A": 62,
+      "A-": 82,
+      "BBB+": 110,
+      "BBB": 145,
+      "BBB-": 190,
+      "BB+": 250,
+      "BB": 340,
+      "BB-": 450,
+      "B+": 600,
+      "B": 800,
+      "B-": 1000
+    },
+    "sector_typical_range": "A- to BBB+ (62-110 bps over AAA MMD)",
+    "investment_grade_range_bps": [
+      0,
+      190
+    ]
+  },
+  "market_activity": {
+    "n_cusips_tracked": 198,
+    "n_secondary_trades": 10698,
+    "avg_trades_per_bond": 54.0,
+    "price_range": [
+      0.1,
+      121.35
+    ],
+    "yield_range": [
+      0.31,
+      13.067
+    ],
+    "trade_size_median_usd": 400000.0,
+    "data_availability": {
+      "source": "emma_crawler",
+      "n_records": 198,
+      "status": "available"
+    }
+  },
+  "methodology": {
+    "data_sources": [
+      {
+        "name": "Official Statement Extractions",
+        "description": "PDF extraction pipeline (pdfplumber + Claude AI)",
+        "n_records": 235
+      },
+      {
+        "name": "EMMA Secondary Market Data",
+        "description": "MSRB EMMA crawler (Playwright-based)",
+        "n_records": 198
+      },
+      {
+        "name": "Financial Reports",
+        "description": "10-K/CAFR extraction (table + AI)",
+        "n_records": 117
+      },
+      {
+        "name": "Rating Actions",
+        "description": "Rating agency action extraction",
+        "n_records": 41
+      },
+      {
+        "name": "Risk Factor Disclosures",
+        "description": "OS risk factor extraction with severity/mitigation",
+        "n_records": 369
+      }
+    ],
+    "spread_curve_source": "Bloomberg Municipal Curve Analytics / ICE MMD curves. Spreads in basis points over AAA MMD.",
+    "limitations": [
+      "Corpus limited to bonds indexed on MSRB EMMA.",
+      "Financial metrics from extracted documents; may have extraction gaps.",
+      "Rating data reflects most recent extracted action, not real-time.",
+      "Spread curve is sector-generic; individual deals vary."
+    ]
+  }
+}

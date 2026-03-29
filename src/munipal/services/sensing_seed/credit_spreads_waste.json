@@ -1,0 +1,686 @@
+{
+  "sector": "waste",
+  "generated_at": "2026-03-29T14:14:26.098032+00:00",
+  "aaa_curve_source": "reference",
+  "aaa_curve_date": "2026-03-27",
+  "yield_curves": {
+    "AAA": {
+      "1": 2.85,
+      "2": 2.95,
+      "3": 3.1,
+      "5": 3.35,
+      "7": 3.6,
+      "10": 3.85,
+      "15": 4.15,
+      "20": 4.35,
+      "25": 4.42,
+      "30": 4.45
+    },
+    "AA": {
+      "1": 3.05,
+      "2": 3.15,
+      "3": 3.3,
+      "5": 3.55,
+      "7": 3.8,
+      "10": 4.05,
+      "15": 4.35,
+      "20": 4.55,
+      "25": 4.62,
+      "30": 4.65
+    },
+    "A": {
+      "1": 3.47,
+      "2": 3.57,
+      "3": 3.72,
+      "5": 3.97,
+      "7": 4.22,
+      "10": 4.47,
+      "15": 4.77,
+      "20": 4.97,
+      "25": 5.04,
+      "30": 5.07
+    },
+    "BBB": {
+      "1": 4.3,
+      "2": 4.4,
+      "3": 4.55,
+      "5": 4.8,
+      "7": 5.05,
+      "10": 5.3,
+      "15": 5.6,
+      "20": 5.8,
+      "25": 5.87,
+      "30": 5.9
+    },
+    "BB": {
+      "1": 6.25,
+      "2": 6.35,
+      "3": 6.5,
+      "5": 6.75,
+      "7": 7.0,
+      "10": 7.25,
+      "15": 7.55,
+      "20": 7.75,
+      "25": 7.82,
+      "30": 7.85
+    },
+    "B": {
+      "1": 10.85,
+      "2": 10.95,
+      "3": 11.1,
+      "5": 11.35,
+      "7": 11.6,
+      "10": 11.85,
+      "15": 12.15,
+      "20": 12.35,
+      "25": 12.42,
+      "30": 12.45
+    }
+  },
+  "cost_grid": [
+    {
+      "rating": "AA",
+      "tenor": 10,
+      "base_aaa_yield": 3.85,
+      "sector_spread_bps": -32.0,
+      "estimated_yield": 3.53,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 4.55,
+      "corpus_observed_yield": 2.585,
+      "n_corpus_obs": 12
+    },
+    {
+      "rating": "AA",
+      "tenor": 20,
+      "base_aaa_yield": 4.35,
+      "sector_spread_bps": -32.0,
+      "estimated_yield": 4.029,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 5.05,
+      "corpus_observed_yield": 2.585,
+      "n_corpus_obs": 12
+    },
+    {
+      "rating": "AA",
+      "tenor": 30,
+      "base_aaa_yield": 4.45,
+      "sector_spread_bps": -32.0,
+      "estimated_yield": 4.13,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 5.149,
+      "corpus_observed_yield": 2.585,
+      "n_corpus_obs": 12
+    },
+    {
+      "rating": "A",
+      "tenor": 10,
+      "base_aaa_yield": 3.85,
+      "sector_spread_bps": 80.5,
+      "estimated_yield": 4.655,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 5.675,
+      "corpus_observed_yield": 3.858,
+      "n_corpus_obs": 12
+    },
+    {
+      "rating": "A",
+      "tenor": 20,
+      "base_aaa_yield": 4.35,
+      "sector_spread_bps": 80.5,
+      "estimated_yield": 5.155,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 6.175,
+      "corpus_observed_yield": 3.858,
+      "n_corpus_obs": 12
+    },
+    {
+      "rating": "A",
+      "tenor": 30,
+      "base_aaa_yield": 4.45,
+      "sector_spread_bps": 80.5,
+      "estimated_yield": 5.255,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 6.275,
+      "corpus_observed_yield": 3.858,
+      "n_corpus_obs": 12
+    },
+    {
+      "rating": "BBB",
+      "tenor": 10,
+      "base_aaa_yield": 3.85,
+      "sector_spread_bps": 366.1,
+      "estimated_yield": 7.511,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 8.53,
+      "corpus_observed_yield": 9.979,
+      "n_corpus_obs": 2
+    },
+    {
+      "rating": "BBB",
+      "tenor": 20,
+      "base_aaa_yield": 4.35,
+      "sector_spread_bps": 366.1,
+      "estimated_yield": 8.011,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 9.03,
+      "corpus_observed_yield": 9.979,
+      "n_corpus_obs": 2
+    },
+    {
+      "rating": "BBB",
+      "tenor": 30,
+      "base_aaa_yield": 4.45,
+      "sector_spread_bps": 366.1,
+      "estimated_yield": 8.111,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 9.13,
+      "corpus_observed_yield": 9.979,
+      "n_corpus_obs": 2
+    },
+    {
+      "rating": "BB",
+      "tenor": 10,
+      "base_aaa_yield": 3.85,
+      "sector_spread_bps": 227.9,
+      "estimated_yield": 6.13,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 7.149,
+      "corpus_observed_yield": 4.951,
+      "n_corpus_obs": 1
+    },
+    {
+      "rating": "BB",
+      "tenor": 20,
+      "base_aaa_yield": 4.35,
+      "sector_spread_bps": 227.9,
+      "estimated_yield": 6.63,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 7.649,
+      "corpus_observed_yield": 4.951,
+      "n_corpus_obs": 1
+    },
+    {
+      "rating": "BB",
+      "tenor": 30,
+      "base_aaa_yield": 4.45,
+      "sector_spread_bps": 227.9,
+      "estimated_yield": 6.729,
+      "issuer_fee_bps": 7.0,
+      "structural_cost_bps": 95.0,
+      "all_in_tic": 7.749,
+      "corpus_observed_yield": 4.951,
+      "n_corpus_obs": 1
+    }
+  ],
+  "issuer_comparisons": [
+    {
+      "rating": "A",
+      "tenor": 20,
+      "base_yield": 4.97,
+      "comparisons": [
+        {
+          "issuer": "IDA of the City of Sierra Vista",
+          "issuer_key": "ida_sierra_vista",
+          "issuer_fee_bps": 7.0,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 102.0,
+          "all_in_tic": 5.99,
+          "annual_fee_on_par": 35000.0
+        },
+        {
+          "issuer": "Public Finance Authority (WI)",
+          "issuer_key": "pfa_wisconsin",
+          "issuer_fee_bps": 10.78,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 105.8,
+          "all_in_tic": 6.028,
+          "annual_fee_on_par": 50000.0
+        },
+        {
+          "issuer": "Local Health Facilities Authority",
+          "issuer_key": "generic_hfa",
+          "issuer_fee_bps": 8.52,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 103.5,
+          "all_in_tic": 6.005,
+          "annual_fee_on_par": 40000.0
+        }
+      ]
+    },
+    {
+      "rating": "A",
+      "tenor": 30,
+      "base_yield": 5.07,
+      "comparisons": [
+        {
+          "issuer": "IDA of the City of Sierra Vista",
+          "issuer_key": "ida_sierra_vista",
+          "issuer_fee_bps": 7.0,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 102.0,
+          "all_in_tic": 6.09,
+          "annual_fee_on_par": 35000.0
+        },
+        {
+          "issuer": "Public Finance Authority (WI)",
+          "issuer_key": "pfa_wisconsin",
+          "issuer_fee_bps": 10.52,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 105.5,
+          "all_in_tic": 6.125,
+          "annual_fee_on_par": 50000.0
+        },
+        {
+          "issuer": "Local Health Facilities Authority",
+          "issuer_key": "generic_hfa",
+          "issuer_fee_bps": 8.34,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 103.3,
+          "all_in_tic": 6.103,
+          "annual_fee_on_par": 40000.0
+        }
+      ]
+    },
+    {
+      "rating": "BBB",
+      "tenor": 20,
+      "base_yield": 5.8,
+      "comparisons": [
+        {
+          "issuer": "IDA of the City of Sierra Vista",
+          "issuer_key": "ida_sierra_vista",
+          "issuer_fee_bps": 7.0,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 102.0,
+          "all_in_tic": 6.82,
+          "annual_fee_on_par": 35000.0
+        },
+        {
+          "issuer": "Public Finance Authority (WI)",
+          "issuer_key": "pfa_wisconsin",
+          "issuer_fee_bps": 10.78,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 105.8,
+          "all_in_tic": 6.858,
+          "annual_fee_on_par": 50000.0
+        },
+        {
+          "issuer": "Local Health Facilities Authority",
+          "issuer_key": "generic_hfa",
+          "issuer_fee_bps": 8.52,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 103.5,
+          "all_in_tic": 6.835,
+          "annual_fee_on_par": 40000.0
+        }
+      ]
+    },
+    {
+      "rating": "BBB",
+      "tenor": 30,
+      "base_yield": 5.9,
+      "comparisons": [
+        {
+          "issuer": "IDA of the City of Sierra Vista",
+          "issuer_key": "ida_sierra_vista",
+          "issuer_fee_bps": 7.0,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 102.0,
+          "all_in_tic": 6.92,
+          "annual_fee_on_par": 35000.0
+        },
+        {
+          "issuer": "Public Finance Authority (WI)",
+          "issuer_key": "pfa_wisconsin",
+          "issuer_fee_bps": 10.52,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 105.5,
+          "all_in_tic": 6.955,
+          "annual_fee_on_par": 50000.0
+        },
+        {
+          "issuer": "Local Health Facilities Authority",
+          "issuer_key": "generic_hfa",
+          "issuer_fee_bps": 8.34,
+          "structural_cost_bps": 95.0,
+          "total_cost_bps": 103.3,
+          "all_in_tic": 6.933,
+          "annual_fee_on_par": 40000.0
+        }
+      ]
+    }
+  ],
+  "corpus_spreads": {
+    "AA": {
+      "n_observations": 12,
+      "median_yield": 2.585,
+      "min_yield": 2.086,
+      "max_yield": 3.049,
+      "spread_over_aaa_bps": -84.1
+    },
+    "A": {
+      "n_observations": 12,
+      "median_yield": 3.858,
+      "min_yield": 0.9,
+      "max_yield": 4.513,
+      "spread_over_aaa_bps": 99.0
+    },
+    "BBB": {
+      "n_observations": 2,
+      "median_yield": 9.979,
+      "min_yield": 9.498,
+      "max_yield": 10.461,
+      "spread_over_aaa_bps": 587.1
+    },
+    "BB": {
+      "n_observations": 1,
+      "median_yield": 4.951,
+      "min_yield": 4.951,
+      "max_yield": 4.951,
+      "spread_over_aaa_bps": 115.9
+    }
+  },
+  "recent_comps": [
+    {
+      "cusip": "A7040ACF2596165903000E0847A053FD3",
+      "issuer": "PUBLIC FINANCE AUTHORITY / SOLID WASTE DISPOSAL REFUNDING REVENUE BONDS (WASTE MANAGEMENT, INC. PROJECT) SERIES 2016A-1, 2016A-2, 2016A-3 AND 2016A-4",
+      "rating_bucket": "A",
+      "yield": 3.716,
+      "par_amount": 40000000.0,
+      "maturity_date": "05/01/2027",
+      "trade_date": "12/31/2025 12:41 PM",
+      "trade_type": "Customer bought",
+      "tenor_years": 1.1,
+      "spread_vs_aaa_bps": 85.6
+    },
+    {
+      "cusip": "AF59414CAE956AD6CBF6DEA484219A060",
+      "issuer": "CITY OF LOS ANGELES, CALIFORNIA / SOLID WASTE RESOURCES REVENUE BONDS SERIES 2023-A",
+      "rating_bucket": "AA",
+      "yield": 3.028,
+      "par_amount": 14765000.0,
+      "maturity_date": "02/01/2036",
+      "trade_date": "12/31/2024 12:15 PM",
+      "trade_type": "Inter-dealer trade",
+      "tenor_years": 9.8,
+      "spread_vs_aaa_bps": -80.5
+    },
+    {
+      "cusip": "A6E040D672934D69674E8B884C45144C6",
+      "issuer": "CITY OF GRANITE CITY, ILLINOIS / SOLID WASTE DISPOSAL REVENUE BONDS (WASTE MANAGEMENT, INC. PROJECT) SERIES 2002",
+      "rating_bucket": "A",
+      "yield": 4.0,
+      "par_amount": 30320000.0,
+      "maturity_date": "05/01/2027",
+      "trade_date": "12/30/2025 08:41 AM",
+      "trade_type": "Inter-dealer trade",
+      "tenor_years": 1.1,
+      "spread_vs_aaa_bps": 114.0
+    },
+    {
+      "cusip": "ADFB528C377F5B3A9095445295E76C958",
+      "issuer": "CITY OF LOS ANGELES, CALIFORNIA / SOLID WASTE RESOURCES REVENUE BONDS SERIES 2023-A",
+      "rating_bucket": "AA",
+      "yield": 2.758,
+      "par_amount": 9990000.0,
+      "maturity_date": "02/01/2028",
+      "trade_date": "12/30/2024 02:32 PM",
+      "trade_type": "Customer sold",
+      "tenor_years": 1.8,
+      "spread_vs_aaa_bps": -17.2
+    },
+    {
+      "cusip": "A818C9C62F05041B3BD6248130DF93D5E",
+      "issuer": "CITY OF LOS ANGELES, CALIFORNIA / SOLID WASTE RESOURCES REVENUE BONDS SERIES 2023-A",
+      "rating_bucket": "AA",
+      "yield": 2.086,
+      "par_amount": 11565000.0,
+      "maturity_date": "02/01/2031",
+      "trade_date": "12/29/2025 12:19 PM",
+      "trade_type": "Customer bought",
+      "tenor_years": 4.8,
+      "spread_vs_aaa_bps": -123.9
+    },
+    {
+      "cusip": "A2050C75A1DBA10802269D2A21B6FBEC0",
+      "issuer": "CITY OF LOS ANGELES, CALIFORNIA / SOLID WASTE RESOURCES REVENUE BONDS SERIES 2023-A",
+      "rating_bucket": "AA",
+      "yield": 2.509,
+      "par_amount": 13390000.0,
+      "maturity_date": "02/01/2034",
+      "trade_date": "12/29/2025 12:14 PM",
+      "trade_type": "Customer sold",
+      "tenor_years": 7.8,
+      "spread_vs_aaa_bps": -115.8
+    },
+    {
+      "cusip": "AB73C500421120D9B08E7854266E015E4",
+      "issuer": "CITY OF LOS ANGELES, CALIFORNIA / SOLID WASTE RESOURCES REVENUE BONDS SERIES 2023-A",
+      "rating_bucket": "AA",
+      "yield": 2.545,
+      "par_amount": 14060000.0,
+      "maturity_date": "02/01/2035",
+      "trade_date": "12/29/2025 11:33 AM",
+      "trade_type": "Inter-dealer trade",
+      "tenor_years": 8.8,
+      "spread_vs_aaa_bps": -120.5
+    },
+    {
+      "cusip": "A4424DD08E4761C15045982078DBA6E37",
+      "issuer": "CITY OF LOS ANGELES, CALIFORNIA / SOLID WASTE RESOURCES REVENUE BONDS SERIES 2023-A",
+      "rating_bucket": "AA",
+      "yield": 2.713,
+      "par_amount": 16275000.0,
+      "maturity_date": "02/01/2038",
+      "trade_date": "12/29/2025 09:31 AM",
+      "trade_type": "Customer bought",
+      "tenor_years": 11.8,
+      "spread_vs_aaa_bps": -124.5
+    },
+    {
+      "cusip": "ADF6B7E9551D211200E10A5C686857597",
+      "issuer": "THE INDUSTRIAL DEVELOPMENT AUTHORITY OF THE COUNTY OF YAVAPAI / SOLID WASTE DISPOSAL REVENUE BONDS (WASTE MANAGEMENT, INC. PROJECT) SERIES 2002",
+      "rating_bucket": "A",
+      "yield": 1.35,
+      "par_amount": 30000000.0,
+      "maturity_date": "06/01/2027",
+      "trade_date": "12/29/2021 10:04 AM",
+      "trade_type": "Customer bought",
+      "tenor_years": 1.2,
+      "spread_vs_aaa_bps": -152.0
+    },
+    {
+      "cusip": "A7FCA81826B404DBFCE61852ADFC1335F",
+      "issuer": "CITY OF LOS ANGELES, CALIFORNIA / SOLID WASTE RESOURCES REVENUE BONDS SERIES 2023-A",
+      "rating_bucket": "AA",
+      "yield": 2.322,
+      "par_amount": 9515000.0,
+      "maturity_date": "02/01/2027",
+      "trade_date": "12/28/2023 12:11 PM",
+      "trade_type": "Customer sold",
+      "tenor_years": 0.8,
+      "spread_vs_aaa_bps": -52.8
+    },
+    {
+      "cusip": "A335DE423758D562FA452103E2AFD5041",
+      "issuer": "CITY OF LOS ANGELES, CALIFORNIA / SOLID WASTE RESOURCES REVENUE BONDS SERIES 2023-A",
+      "rating_bucket": "AA",
+      "yield": 3.049,
+      "par_amount": 15500000.0,
+      "maturity_date": "02/01/2037",
+      "trade_date": "12/27/2024 10:41 AM",
+      "trade_type": "Inter-dealer trade",
+      "tenor_years": 10.8,
+      "spread_vs_aaa_bps": -84.9
+    },
+    {
+      "cusip": "AFAA37539E454FC62548F7AB91185ADF4",
+      "issuer": "CITY OF LOS ANGELES, CALIFORNIA / SOLID WASTE RESOURCES REVENUE BONDS SERIES 2023-A",
+      "rating_bucket": "AA",
+      "yield": 2.79,
+      "par_amount": 12755000.0,
+      "maturity_date": "02/01/2033",
+      "trade_date": "12/24/2024 10:07 AM",
+      "trade_type": "Customer bought",
+      "tenor_years": 6.8,
+      "spread_vs_aaa_bps": -78.5
+    },
+    {
+      "cusip": "A2CC5FAB76FA7BBEFEA1CE900D696603B",
+      "issuer": "CITY OF LOS ANGELES, CALIFORNIA / SOLID WASTE RESOURCES REVENUE BONDS SERIES 2023-A",
+      "rating_bucket": "AA",
+      "yield": 2.237,
+      "par_amount": 10495000.0,
+      "maturity_date": "02/01/2029",
+      "trade_date": "12/23/2025 01:48 PM",
+      "trade_type": "Customer sold",
+      "tenor_years": 2.8,
+      "spread_vs_aaa_bps": -83.3
+    },
+    {
+      "cusip": "AA2FF75F60A865F2FFBCAAB288A8033A7",
+      "issuer": "CALIFORNIA POLLUTION CONTROL FINANCING AUTHORITY / SOLID WASTE DISPOSAL REVENUE BONDS (WASTE MANAGEMENT, INC. PROJECT) SERIES 2002C",
+      "rating_bucket": "A",
+      "yield": 1.998,
+      "par_amount": 15000000.0,
+      "maturity_date": "12/01/2027",
+      "trade_date": "12/22/2010 10:39 AM",
+      "trade_type": "Customer bought",
+      "tenor_years": 1.7,
+      "spread_vs_aaa_bps": -92.2
+    },
+    {
+      "cusip": "AB4139C8EED1311589AE1A6AFBF4B0E00",
+      "issuer": "THE INDUSTRIAL DEVELOPMENT BOARD OF THE METROPOLITAN GOVERNMENT OF NASHVILLE AND DAVIDSON COUNTY / TAX-EXEMPT ADJUSTABLE MODE EXEMPT FACILITIES REVENUE BONDS (WASTE MANAGEMENT, INC. OF TENNESSEE PROJECT) SERIES 2001",
+      "rating_bucket": "A",
+      "yield": 4.513,
+      "par_amount": 10000000.0,
+      "maturity_date": "08/01/2031",
+      "trade_date": "12/20/2006 12:37 PM",
+      "trade_type": "Customer bought",
+      "tenor_years": 5.3,
+      "spread_vs_aaa_bps": 112.5
+    },
+    {
+      "cusip": "AD9E1DE859A01273FDE0B548AD352BCEC",
+      "issuer": "MISSISSIPPI BUSINESS FINANCE CORPORATION / SOLID WASTE DISPOSAL REVENUE BONDS, (WASTE MANAGEMENT, INC. PROJECT) SERIES 2004",
+      "rating_bucket": "A",
+      "yield": 4.502,
+      "par_amount": 10000000.0,
+      "maturity_date": "03/01/2029",
+      "trade_date": "12/17/2013 03:29 PM",
+      "trade_type": "Customer bought",
+      "tenor_years": 2.9,
+      "spread_vs_aaa_bps": 141.7
+    },
+    {
+      "cusip": "ACB6AEF3EE1168D45015BEDF9DA31BA27",
+      "issuer": "CITY OF LOS ANGELES, CALIFORNIA / SOLID WASTE RESOURCES REVENUE BONDS SERIES 2023-A",
+      "rating_bucket": "AA",
+      "yield": 2.626,
+      "par_amount": 11015000.0,
+      "maturity_date": "02/01/2030",
+      "trade_date": "12/16/2024 02:15 PM",
+      "trade_type": "Customer sold",
+      "tenor_years": 3.8,
+      "spread_vs_aaa_bps": -57.4
+    },
+    {
+      "cusip": "AF5C6F38829F1E97A63E5A4479FD701D1",
+      "issuer": "CITY OF LOS ANGELES, CALIFORNIA / SOLID WASTE RESOURCES REVENUE BONDS SERIES 2023-A",
+      "rating_bucket": "AA",
+      "yield": 2.462,
+      "par_amount": 12145000.0,
+      "maturity_date": "02/01/2032",
+      "trade_date": "12/11/2023 10:02 AM",
+      "trade_type": "Customer bought",
+      "tenor_years": 5.8,
+      "spread_vs_aaa_bps": -98.8
+    },
+    {
+      "cusip": "AF8B8A0B39FCF54106F5A1C735C9640FF",
+      "issuer": "MIAMI-DADE COUNTY INDUSTRIAL DEVELOPMENT AUTHORITY / SOLID WASTE DISPOSAL REVENUE BONDS (WASTE MANAGEMENT, INC. OF FLORIDA PROJECT) SERIES 2007",
+      "rating_bucket": "A",
+      "yield": 4.204,
+      "par_amount": 25000000.0,
+      "maturity_date": "09/01/2027",
+      "trade_date": "12/09/2025 12:36 PM",
+      "trade_type": "Customer sold",
+      "tenor_years": 1.4,
+      "spread_vs_aaa_bps": 131.4
+    },
+    {
+      "cusip": "A753D34B07A3168E8D3F1AAFB2957531C",
+      "issuer": "MICHIGAN STRATEGIC FUND / TAX-EXEMPT ADJUSTABLE MODE EXEMPT FACILITIES REVENUE BONDS (WASTE MANAGEMENT, INC. PROJECT) SERIES 2001",
+      "rating_bucket": "A",
+      "yield": 4.321,
+      "par_amount": 35000000.0,
+      "maturity_date": "08/01/2027",
+      "trade_date": "11/15/2024 10:37 AM",
+      "trade_type": "Customer sold",
+      "tenor_years": 1.3,
+      "spread_vs_aaa_bps": 144.1
+    }
+  ],
+  "fee_schedules": [
+    {
+      "key": "ida_sierra_vista",
+      "display_name": "IDA of the City of Sierra Vista",
+      "annual_fee_bps": 7.0,
+      "annual_fee_min_usd": 3000.0,
+      "upfront_fee_bps": 0.0,
+      "upfront_fee_flat_usd": 0.0,
+      "out_of_state_surcharge_bps": 3.0,
+      "notes": [
+        "Annual fee: 7 bps on outstanding, $3,000 minimum",
+        "President may approve one-time PV lump sum in lieu of annual fees",
+        "Out-of-state surcharge at President's discretion",
+        "Fee shall not impact tax-exempt status of bonds",
+        "Authority retains right to adjust fees per resolution"
+      ],
+      "example_annual_on_50m": 35000.0
+    },
+    {
+      "key": "pfa_wisconsin",
+      "display_name": "Public Finance Authority (WI)",
+      "annual_fee_bps": 10.0,
+      "annual_fee_min_usd": 5000.0,
+      "upfront_fee_bps": 15.0,
+      "upfront_fee_flat_usd": 2500.0,
+      "out_of_state_surcharge_bps": 0.0,
+      "notes": [
+        "National conduit issuer \u2014 no geographic restrictions",
+        "Typical annual fee ~10 bps (varies by deal)",
+        "One-time issuance fee ~15 bps + $2,500",
+        "Fees negotiable on larger transactions"
+      ],
+      "example_annual_on_50m": 50000.0
+    },
+    {
+      "key": "generic_hfa",
+      "display_name": "Local Health Facilities Authority",
+      "annual_fee_bps": 8.0,
+      "annual_fee_min_usd": 4000.0,
+      "upfront_fee_bps": 10.0,
+      "upfront_fee_flat_usd": 1500.0,
+      "out_of_state_surcharge_bps": 0.0,
+      "notes": [
+        "Representative local HFA fee structure",
+        "Actual fees vary by jurisdiction",
+        "May offer local market advantages (investor familiarity)"
+      ],
+      "example_annual_on_50m": 40000.0
+    }
+  ]
+}

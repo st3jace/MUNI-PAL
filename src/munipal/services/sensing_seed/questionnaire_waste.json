@@ -1,0 +1,317 @@
+[
+  {
+    "item_id": "risk.technology.description",
+    "dimension": "risk.technology",
+    "dimension_label": "Technology Risk",
+    "category": "description",
+    "question": "Have you prepared a comprehensive technology risk assessment for your project?",
+    "help_text": "Assess technology risk including commercial readiness, performance track record, and execution uncertainties. Describe the technology's commercial maturity, any pilot/demonstration results, and key execution risks.",
+    "points": 5.0
+  },
+  {
+    "item_id": "risk.technology.mitigants",
+    "dimension": "risk.technology",
+    "dimension_label": "Technology Risk",
+    "category": "mitigants",
+    "question": "Have you documented specific mitigants for technology risk?",
+    "help_text": "Example mitigants: 5-year performance warranty from OEM; $10M performance bond; Technology Performance Insurance covering throughput shortfalls up to 20%.",
+    "points": 5.0
+  },
+  {
+    "item_id": "risk.technology.evidence.0",
+    "dimension": "risk.technology",
+    "dimension_label": "Technology Risk",
+    "category": "evidence",
+    "question": "Do you have: Independent engineer report on technology readiness?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.technology.evidence.1",
+    "dimension": "risk.technology",
+    "dimension_label": "Technology Risk",
+    "category": "evidence",
+    "question": "Do you have: OEM performance warranty (5+ years)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.technology.evidence.2",
+    "dimension": "risk.technology",
+    "dimension_label": "Technology Risk",
+    "category": "evidence",
+    "question": "Do you have: Performance bond ($10M+ from rated surety)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.technology.evidence.3",
+    "dimension": "risk.technology",
+    "dimension_label": "Technology Risk",
+    "category": "evidence",
+    "question": "Do you have: Technology Performance Insurance policy?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.technology.evidence.4",
+    "dimension": "risk.technology",
+    "dimension_label": "Technology Risk",
+    "category": "evidence",
+    "question": "Do you have: Pilot/demonstration operating data (24+ months)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.construction.description",
+    "dimension": "risk.construction",
+    "dimension_label": "Construction Risk",
+    "category": "description",
+    "question": "Have you prepared a comprehensive construction risk assessment for your project?",
+    "help_text": "Assess construction risks including schedule, budget, contractor experience, and force majeure exposure. Describe construction timeline risks, contractor qualifications, and potential cost overrun scenarios.",
+    "points": 5.0
+  },
+  {
+    "item_id": "risk.construction.mitigants",
+    "dimension": "risk.construction",
+    "dimension_label": "Construction Risk",
+    "category": "mitigants",
+    "question": "Have you documented specific mitigants for construction risk?",
+    "help_text": "Example mitigants: EPC fixed-price contract with $5M performance bond; Liquidated damages of $50K/day for delays beyond 30 days; 15% construction contingency reserve.",
+    "points": 5.0
+  },
+  {
+    "item_id": "risk.construction.evidence.0",
+    "dimension": "risk.construction",
+    "dimension_label": "Construction Risk",
+    "category": "evidence",
+    "question": "Do you have: EPC contract (fixed-price, lump-sum preferred)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.construction.evidence.1",
+    "dimension": "risk.construction",
+    "dimension_label": "Construction Risk",
+    "category": "evidence",
+    "question": "Do you have: Construction performance bond (100% of contract value)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.construction.evidence.2",
+    "dimension": "risk.construction",
+    "dimension_label": "Construction Risk",
+    "category": "evidence",
+    "question": "Do you have: Liquidated damages schedule?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.construction.evidence.3",
+    "dimension": "risk.construction",
+    "dimension_label": "Construction Risk",
+    "category": "evidence",
+    "question": "Do you have: Construction contingency budget (15%+ of hard costs)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.construction.evidence.4",
+    "dimension": "risk.construction",
+    "dimension_label": "Construction Risk",
+    "category": "evidence",
+    "question": "Do you have: Independent engineer construction monitoring plan?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.market.description",
+    "dimension": "risk.market",
+    "dimension_label": "Market & Revenue Risk",
+    "category": "description",
+    "question": "Have you prepared a comprehensive market & revenue risk assessment for your project?",
+    "help_text": "Assess market and offtake risks including commodity price volatility, counterparty credit, and demand uncertainty. Describe commodity pricing risks, offtake counterparty credit quality, and market demand factors.",
+    "points": 5.0
+  },
+  {
+    "item_id": "risk.market.mitigants",
+    "dimension": "risk.market",
+    "dimension_label": "Market & Revenue Risk",
+    "category": "mitigants",
+    "question": "Have you documented specific mitigants for market & revenue risk?",
+    "help_text": "Example mitigants: 7-year renewable diesel offtake with floor price at 85% of OPIS index; Biochar offtake LOI with industrial buyer; Revenue diversification across 3 product streams.",
+    "points": 5.0
+  },
+  {
+    "item_id": "risk.market.evidence.0",
+    "dimension": "risk.market",
+    "dimension_label": "Market & Revenue Risk",
+    "category": "evidence",
+    "question": "Do you have: Long-term offtake agreement (7+ years)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.market.evidence.1",
+    "dimension": "risk.market",
+    "dimension_label": "Market & Revenue Risk",
+    "category": "evidence",
+    "question": "Do you have: Price floor mechanism (85%+ of reference index)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.market.evidence.2",
+    "dimension": "risk.market",
+    "dimension_label": "Market & Revenue Risk",
+    "category": "evidence",
+    "question": "Do you have: Counterparty credit assessment (investment-grade or LC-backed)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.market.evidence.3",
+    "dimension": "risk.market",
+    "dimension_label": "Market & Revenue Risk",
+    "category": "evidence",
+    "question": "Do you have: Revenue diversification analysis (3+ product streams)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.market.evidence.4",
+    "dimension": "risk.market",
+    "dimension_label": "Market & Revenue Risk",
+    "category": "evidence",
+    "question": "Do you have: Market study from independent consultant?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.regulatory.description",
+    "dimension": "risk.regulatory",
+    "dimension_label": "Regulatory & Environmental Risk",
+    "category": "description",
+    "question": "Have you prepared a comprehensive regulatory & environmental risk assessment for your project?",
+    "help_text": "Assess regulatory risks including permit conditions, environmental compliance, and policy changes. Describe key regulatory exposures: permit conditions, compliance requirements, policy change scenarios.",
+    "points": 5.0
+  },
+  {
+    "item_id": "risk.regulatory.mitigants",
+    "dimension": "risk.regulatory",
+    "dimension_label": "Regulatory & Environmental Risk",
+    "category": "mitigants",
+    "question": "Have you documented specific mitigants for regulatory & environmental risk?",
+    "help_text": "Example mitigants: Continuous emissions monitoring system (CEMS) installed; Bond counsel opinion on tax-exempt eligibility; Quarterly regulatory compliance reporting to trustee.",
+    "points": 5.0
+  },
+  {
+    "item_id": "risk.regulatory.evidence.0",
+    "dimension": "risk.regulatory",
+    "dimension_label": "Regulatory & Environmental Risk",
+    "category": "evidence",
+    "question": "Do you have: Permit status summary (all required permits)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.regulatory.evidence.1",
+    "dimension": "risk.regulatory",
+    "dimension_label": "Regulatory & Environmental Risk",
+    "category": "evidence",
+    "question": "Do you have: Bond counsel tax opinion (unqualified)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.regulatory.evidence.2",
+    "dimension": "risk.regulatory",
+    "dimension_label": "Regulatory & Environmental Risk",
+    "category": "evidence",
+    "question": "Do you have: Environmental compliance plan?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.regulatory.evidence.3",
+    "dimension": "risk.regulatory",
+    "dimension_label": "Regulatory & Environmental Risk",
+    "category": "evidence",
+    "question": "Do you have: Regulatory change impact analysis?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.regulatory.evidence.4",
+    "dimension": "risk.regulatory",
+    "dimension_label": "Regulatory & Environmental Risk",
+    "category": "evidence",
+    "question": "Do you have: CEMS or equivalent monitoring system specification?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.feedstock.description",
+    "dimension": "risk.feedstock",
+    "dimension_label": "Feedstock & Supply Risk",
+    "category": "description",
+    "question": "Have you prepared a comprehensive feedstock & supply risk assessment for your project?",
+    "help_text": "Assess feedstock supply risks including availability, quality variability, supplier concentration, and pricing mechanisms. Describe feedstock availability risks, quality variability, supplier concentration, and pricing mechanisms.",
+    "points": 5.0
+  },
+  {
+    "item_id": "risk.feedstock.mitigants",
+    "dimension": "risk.feedstock",
+    "dimension_label": "Feedstock & Supply Risk",
+    "category": "mitigants",
+    "question": "Have you documented specific mitigants for feedstock & supply risk?",
+    "help_text": "Example mitigants: 10-year supply agreement with primary supplier; Secondary agreements covering 40% of capacity; 30-day feedstock storage on-site; Technology accepts alternative biomass types.",
+    "points": 5.0
+  },
+  {
+    "item_id": "risk.feedstock.evidence.0",
+    "dimension": "risk.feedstock",
+    "dimension_label": "Feedstock & Supply Risk",
+    "category": "evidence",
+    "question": "Do you have: Primary supply agreement (10+ years)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.feedstock.evidence.1",
+    "dimension": "risk.feedstock",
+    "dimension_label": "Feedstock & Supply Risk",
+    "category": "evidence",
+    "question": "Do you have: Secondary/backup supply agreements (40%+ of capacity)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.feedstock.evidence.2",
+    "dimension": "risk.feedstock",
+    "dimension_label": "Feedstock & Supply Risk",
+    "category": "evidence",
+    "question": "Do you have: Feedstock availability study?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.feedstock.evidence.3",
+    "dimension": "risk.feedstock",
+    "dimension_label": "Feedstock & Supply Risk",
+    "category": "evidence",
+    "question": "Do you have: On-site storage capacity (30+ days)?",
+    "help_text": "",
+    "points": 2.0
+  },
+  {
+    "item_id": "risk.feedstock.evidence.4",
+    "dimension": "risk.feedstock",
+    "dimension_label": "Feedstock & Supply Risk",
+    "category": "evidence",
+    "question": "Do you have: Technology feedstock flexibility documentation?",
+    "help_text": "",
+    "points": 2.0
+  }
+]

@@ -1,6 +1,20 @@
 {
   "framework": "vite",
-  "installCommand": "npm install && ls node_modules/vite/dist/node/cli.js 2>/dev/null || (echo 'vite/dist missing after install — force reinstalling vite' && npm install vite@5 --force)",
+  "installCommand": "npm install && ls node_modules/vite/dist/node/cli.js 2>/dev/null || (echo 'vite/dist missing — force reinstalling vite' && npm install vite@5 --force)",
   "buildCommand": "npx vite build --config vite.config.sensing.ts",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/api/v1/sensing/:path*",
+      "destination": "https://api.elaunchshop.com/api/v1/sensing/:path*"
+    },
+    {
+      "source": "/health",
+      "destination": "https://api.elaunchshop.com/health"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.sensing.html"
+    }
+  ]
 }

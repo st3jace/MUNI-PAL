@@ -36,30 +36,6 @@ function fmtBps(n: number | null | undefined): string {
   return `${n.toFixed(1)} bps`
 }
 
-function StatBox({
-  label,
-  value,
-  sub,
-  color,
-}: {
-  label: string
-  value: string
-  sub?: string
-  color?: string
-}) {
-  return (
-    <div className="bg-gray-50 rounded-lg px-4 py-3">
-      <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">
-        {label}
-      </div>
-      <div className={`text-lg font-semibold ${color || 'text-gray-900'}`}>
-        {value}
-      </div>
-      {sub && <div className="text-xs text-gray-400 mt-0.5">{sub}</div>}
-    </div>
-  )
-}
-
 // Rating color helper
 function ratingColor(rating: string): string {
   if (rating.startsWith('AAA')) return 'text-emerald-700 bg-emerald-50'

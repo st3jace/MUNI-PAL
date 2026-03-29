@@ -8,6 +8,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { SensingProvider } from './contexts/SensingContext'
 import ToolsHub from './pages/tools/ToolsHub'
 import MarketIntelligence from './pages/tools/MarketIntelligence'
@@ -17,10 +18,20 @@ import ReportExport from './pages/tools/ReportExport'
 import CreditSpreadMonitor from './pages/tools/CreditSpreadMonitor'
 import './styles/index.css'
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+      retry: 1,
+    },
+  },
+})
+
 const root = document.getElementById('root')!
 
 createRoot(root).render(
   <StrictMode>
+    <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <SensingProvider>
         <Routes>
@@ -37,5 +48,6 @@ createRoot(root).render(
         </Routes>
       </SensingProvider>
     </BrowserRouter>
+    </QueryClientProvider>
   </StrictMode>,
 )

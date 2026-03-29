@@ -1,6 +1,6 @@
 {
   "framework": "vite",
-  "buildCommand": "node ./node_modules/vite/bin/vite.js build --config vite.config.sensing.ts",
+  "buildCommand": "npx vite build --config vite.config.sensing.ts",
   "outputDirectory": "dist",
   "installCommand": "npm install"
 }

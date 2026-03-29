@@ -26,10 +26,22 @@ async def health_check() -> dict[str, Any]:
     Returns service status without checking dependencies.
     Use this for liveness probes.
     """
+    # Check EMMA corpus availability for sensing tools
+    from munipal.services.sensing import _EMMA_EXTRACTOR, _SEED_DIR, _corpus_available
+    corpus_status = {
+        "emma_path": str(_EMMA_EXTRACTOR),
+        "emma_exists": _EMMA_EXTRACTOR.exists(),
+        "seed_path": str(_SEED_DIR),
+        "seed_exists": _SEED_DIR.exists(),
+        "waste_corpus": _corpus_available("waste"),
+        "healthcare_corpus": _corpus_available("healthcare"),
+    }
+
     return {
         "status": "healthy",
         "version": __version__,
         "environment": settings.app_env,
+        "corpus": corpus_status,
     }
 
 

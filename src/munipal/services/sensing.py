@@ -92,11 +92,20 @@ def _get_corpus_engine(sector: str):
 # Market Intelligence
 # ---------------------------------------------------------------------------
 
+def _enrich_market_intelligence(result: dict[str, Any]) -> dict[str, Any]:
+    """Add top-level summary statistics extracted from the nested report."""
+    ds = result.get("deal_structure") or {}
+    result["total_deals"] = ds.get("n_deals")
+    result["total_par_value"] = ds.get("par_amount_total_usd")
+    result["median_deal_size"] = ds.get("par_amount_median_usd")
+    return result
+
+
 def _run_market_intelligence(sector: str) -> dict[str, Any]:
     """Generate market intelligence report (sync, runs in threadpool)."""
     if not _corpus_available(sector):
         logger.info("Corpus unavailable for %s — serving seed data", sector)
-        return _load_seed(f"market_intelligence_{sector}.json")
+        return _enrich_market_intelligence(_load_seed(f"market_intelligence_{sector}.json"))
 
     _ensure_emma_path()
     from src.config import set_sector
@@ -105,7 +114,7 @@ def _run_market_intelligence(sector: str) -> dict[str, Any]:
     set_sector(sector)
     engine = _get_corpus_engine(sector)
     report = generate_market_intelligence(engine)
-    return report.to_dict()
+    return _enrich_market_intelligence(report.to_dict())
 
 
 async def get_market_intelligence(sector: str) -> dict[str, Any]:
@@ -177,6 +186,49 @@ async def get_benchmark(
 # Credit Spread Monitor
 # ---------------------------------------------------------------------------
 
+def _enrich_credit_spreads(result: dict[str, Any], sector: str) -> dict[str, Any]:
+    """Overlay seed corpus spread data when live corpus observations are empty.
+
+    The EMMA corpus path may generate a report with zero spread observations
+    (e.g. when crawler JSON data is missing). In that case, fall back to
+    pre-computed seed data for corpus_spreads and per-entry n_corpus_obs.
+    """
+    has_corpus_obs = any(
+        entry.get("n_corpus_obs", 0) > 0
+        for entry in result.get("cost_grid", [])
+    )
+    if has_corpus_obs:
+        return result
+
+    if sector not in _SEED_SECTORS:
+        return result
+
+    try:
+        seed = _load_seed(f"credit_spreads_{sector}.json")
+    except FileNotFoundError:
+        return result
+
+    logger.info("Overlaying seed corpus spreads for %s (live corpus had 0 observations)", sector)
+
+    # Overlay corpus_spreads section
+    if seed.get("corpus_spreads"):
+        result["corpus_spreads"] = seed["corpus_spreads"]
+
+    # Overlay n_corpus_obs and corpus_observed_yield into cost_grid entries
+    seed_grid_map: dict[tuple[str, int], dict[str, Any]] = {}
+    for entry in seed.get("cost_grid", []):
+        seed_grid_map[(entry["rating"], entry["tenor"])] = entry
+
+    for entry in result.get("cost_grid", []):
+        key = (entry["rating"], entry["tenor"])
+        seed_entry = seed_grid_map.get(key)
+        if seed_entry and entry.get("n_corpus_obs", 0) == 0:
+            entry["n_corpus_obs"] = seed_entry.get("n_corpus_obs", 0)
+            entry["corpus_observed_yield"] = seed_entry.get("corpus_observed_yield")
+
+    return result
+
+
 def _run_credit_spread_monitor(
     sector: str,
     par_amount: float,
@@ -198,7 +250,7 @@ def _run_credit_spread_monitor(
         par_amount=par_amount,
         out_of_state=out_of_state,
     )
-    return report.to_dict()
+    return _enrich_credit_spreads(report.to_dict(), sector)
 
 
 async def get_credit_spread_monitor(

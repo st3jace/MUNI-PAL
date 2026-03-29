@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:sensing": "vite build --config vite.config.sensing.ts",
+    "build:sensing": "npx vite build --config vite.config.sensing.ts",
     "test": "vitest run",
     "lint": "eslint .",
     "preview": "vite preview",

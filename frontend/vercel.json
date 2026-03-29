@@ -1,5 +1,6 @@
 {
   "framework": "vite",
+  "installCommand": "npm install",
   "buildCommand": "node node_modules/vite/bin/vite.js build --config vite.config.sensing.ts",
   "outputDirectory": "dist"
 }

@@ -15,14 +15,39 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
+import os
 import sys
 from pathlib import Path
 from typing import Any
 
 logger = logging.getLogger("munipal.services.sensing")
 
-# EMMA bond_os_extractor lives at a known path relative to the Muni-Pal root.
-_MUNIPAL_ROOT = Path(__file__).resolve().parent.parent.parent.parent
+
+def _find_munipal_root() -> Path:
+    """Locate the Muni-Pal project root directory.
+
+    Handles both development (source tree) and production (pip-installed
+    into a venv) deployments.
+    """
+    # 1. Explicit environment variable (most reliable for production)
+    if env_root := os.environ.get("MUNIPAL_ROOT"):
+        return Path(env_root)
+    # 2. Relative to source file (works in development, not in venv installs)
+    candidate = Path(__file__).resolve().parent.parent.parent.parent
+    if (candidate / "emma" / "bond_os_extractor").is_dir():
+        return candidate
+    # 3. Railway / Docker default working directory
+    if Path("/app/emma/bond_os_extractor").is_dir():
+        return Path("/app")
+    # 4. Current working directory
+    cwd = Path.cwd()
+    if (cwd / "emma" / "bond_os_extractor").is_dir():
+        return cwd
+    # 5. Fall back to the relative path (seed data will cover gaps)
+    return candidate
+
+
+_MUNIPAL_ROOT = _find_munipal_root()
 _EMMA_EXTRACTOR = _MUNIPAL_ROOT / "emma" / "bond_os_extractor"
 
 # Pre-computed seed data directory (committed to git, always available).

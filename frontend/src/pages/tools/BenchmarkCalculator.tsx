@@ -319,7 +319,7 @@ function ResultsView({ data }: { data: any }) {
 
 export default function BenchmarkCalculator() {
   const sensing = useSensing()
-  const [sector, setSector] = useState(sensing.sector || 'waste')
+  const [sector, setSector] = useState(sensing.sector || 'healthcare')
   const [dealSize, setDealSize] = useState('')
   const [state, setState] = useState('')
   const [rating, setRating] = useState('A')

@@ -41,7 +41,7 @@ interface SensingState {
 const SensingContext = createContext<SensingState | null>(null)
 
 export function SensingProvider({ children }: { children: ReactNode }) {
-  const [sector, setSector] = useState('waste')
+  const [sector, setSector] = useState('healthcare')
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [marketIntel, setMarketIntel] = useState<any>(null)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

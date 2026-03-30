@@ -4,6 +4,15 @@ import { Link } from 'react-router-dom'
 import { ArrowLeft, ChevronDown, ChevronRight, Loader2, Download } from 'lucide-react'
 import { sensingApi } from '../../services/sensingApi'
 import { useSensing } from '../../contexts/SensingContext'
+import {
+  InformationGap,
+  ParetoAnalysis,
+  RiskProfileNarrative,
+  BondStructureNorms,
+  RegulatoryFramework,
+  PricingGrid,
+  EngagementPath,
+} from './HealthcareMIRContent'
 
 function SectionCard({
   title,
@@ -103,7 +112,7 @@ function pctDirect(n: number | null | undefined): string {
 
 export default function MarketIntelligence() {
   const sensing = useSensing()
-  const [sector, setSector] = useState(sensing.sector || 'waste')
+  const [sector, setSector] = useState(sensing.sector || 'healthcare')
 
   const sectorsQuery = useQuery({
     queryKey: ['sensing-sectors'],
@@ -184,7 +193,32 @@ export default function MarketIntelligence() {
         <div className="space-y-5">
           {/* Executive Summary */}
           <div className="bg-muni-navy rounded-lg p-6 text-white">
-            <h2 className="text-lg font-semibold mb-4">Executive Summary</h2>
+            <div className="flex items-start justify-between mb-4">
+              <h2 className="text-lg font-semibold">Executive Summary</h2>
+              {es?.data_freshness && (
+                <span className="text-xs bg-white/10 rounded-full px-3 py-1 text-gray-300">
+                  Data as of {es.data_freshness}
+                </span>
+              )}
+            </div>
+
+            {/* Opening narrative */}
+            <p className="text-sm text-gray-200 mb-3 leading-relaxed">
+              This is a data-driven market intelligence report for the{' '}
+              <strong className="text-white">
+                {es?.sector_title || sector.replace('_', ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())}
+              </strong>{' '}
+              municipal bond sector, built from analysis of real EMMA filings,
+              rating agency actions, and secondary market trading data.
+            </p>
+
+            {/* Audience intro */}
+            {es?.audience_intro && (
+              <p className="text-sm text-gray-300 mb-4 leading-relaxed italic">
+                {es.audience_intro}
+              </p>
+            )}
+
             {es?.report_completeness && (
               <div className="flex gap-6 text-sm mb-4">
                 <span>
@@ -207,17 +241,75 @@ export default function MarketIntelligence() {
                 </span>
               </div>
             )}
-            {es?.key_findings && (
-              <ul className="space-y-1.5 text-sm text-gray-300">
-                {es.key_findings.map((f: string, i: number) => (
-                  <li key={i} className="flex gap-2">
-                    <span className="text-muni-teal flex-shrink-0">-</span>
-                    <span>{f}</span>
-                  </li>
-                ))}
-              </ul>
+
+            {/* What You'll Find */}
+            {es?.report_guide && es.report_guide.length > 0 && (
+              <div className="mb-4">
+                <h3 className="text-sm font-semibold text-muni-teal mb-2">
+                  What You'll Find in This Report
+                </h3>
+                <ul className="space-y-1.5 text-sm text-gray-300">
+                  {es.report_guide.map((item: string, i: number) => (
+                    <li key={i} className="flex gap-2">
+                      <span className="text-muni-teal flex-shrink-0 mt-0.5">&#x2022;</span>
+                      <span dangerouslySetInnerHTML={{
+                        __html: item.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>')
+                      }} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Why This Matters */}
+            {es?.why_it_matters && (
+              <div className="mb-4">
+                <h3 className="text-sm font-semibold text-muni-teal mb-2">
+                  Why This Matters
+                </h3>
+                <p className="text-sm text-gray-300 leading-relaxed">
+                  {es.why_it_matters}
+                </p>
+              </div>
+            )}
+
+            {/* What You Should Take Away */}
+            {es?.takeaways && es.takeaways.length > 0 && (
+              <div className="mb-4">
+                <h3 className="text-sm font-semibold text-muni-teal mb-2">
+                  What You Should Take Away
+                </h3>
+                <ul className="space-y-1.5 text-sm text-gray-300">
+                  {es.takeaways.map((t: string, i: number) => (
+                    <li key={i} className="flex gap-2">
+                      <span className="text-muni-teal flex-shrink-0">&#x2713;</span>
+                      <span>{t}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Data at a Glance (legacy key_findings) */}
+            {es?.key_findings && es.key_findings.length > 0 && (
+              <div className="pt-3 border-t border-white/10">
+                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                  Data at a Glance
+                </h3>
+                <ul className="space-y-1.5 text-sm text-gray-300">
+                  {es.key_findings.map((f: string, i: number) => (
+                    <li key={i} className="flex gap-2">
+                      <span className="text-muni-teal flex-shrink-0">-</span>
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
           </div>
+
+          {/* Healthcare: Information Gap */}
+          {sector === 'healthcare' && <InformationGap />}
 
           {/* Deal Structure */}
           {report.deal_structure && (
@@ -327,36 +419,85 @@ export default function MarketIntelligence() {
           )}
 
           {/* Financial Benchmarks */}
-          {report.financial_benchmarks && (
-            <SectionCard title="Financial Benchmarks" defaultOpen>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {report.financial_benchmarks.dscr_median != null && (
+          {report.financial_benchmarks && (() => {
+            const fb = report.financial_benchmarks
+            const dscrMedian = fb.dscr?.median ?? fb.dscr_median
+            const dscrP25 = fb.dscr?.p25
+            const dscrP75 = fb.dscr?.p75
+            return (
+              <SectionCard title="Financial Benchmarks" defaultOpen>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {dscrMedian != null && (
+                    <StatBox
+                      label="DSCR Median"
+                      value={`${dscrMedian.toFixed(2)}x`}
+                    />
+                  )}
+                  {fb.operating_margin_median != null && (
+                    <StatBox
+                      label="Op. Margin"
+                      value={pctDecimal(fb.operating_margin_median)}
+                    />
+                  )}
+                  {fb.net_margin_median != null && (
+                    <StatBox
+                      label="Net Margin"
+                      value={pctDecimal(fb.net_margin_median)}
+                    />
+                  )}
+                  {fb.days_cash_on_hand_median != null && (
+                    <StatBox
+                      label="Days Cash"
+                      value={`${fb.days_cash_on_hand_median.toFixed(0)} days`}
+                    />
+                  )}
+                  {fb.leverage_median != null && (
+                    <StatBox
+                      label="Leverage"
+                      value={`${fb.leverage_median.toFixed(2)}x`}
+                    />
+                  )}
                   <StatBox
-                    label="DSCR Median"
-                    value={`${report.financial_benchmarks.dscr_median.toFixed(2)}x`}
+                    label="Reports"
+                    value={fb.n_reports ?? 0}
                   />
+                </div>
+                {dscrP25 != null && dscrP75 != null && (
+                  <div className="mt-4">
+                    <h4 className="text-sm font-medium text-gray-600 mb-2">
+                      DSCR Quartile Range (Pareto)
+                    </h4>
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 bg-gray-100 rounded-lg p-3">
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-amber-600 font-medium">
+                            Bottom 25%: &lt; {dscrP25.toFixed(2)}x
+                          </span>
+                          <span className="text-gray-400 px-4">|</span>
+                          <span className="text-gray-600 font-medium">
+                            Median: {dscrMedian?.toFixed(2)}x
+                          </span>
+                          <span className="text-gray-400 px-4">|</span>
+                          <span className="text-green-600 font-medium">
+                            Top 25%: &gt; {dscrP75.toFixed(2)}x
+                          </span>
+                        </div>
+                        <div className="mt-2 h-2 bg-gray-200 rounded-full relative">
+                          <div
+                            className="absolute h-2 bg-gradient-to-r from-amber-400 via-gray-400 to-green-400 rounded-full"
+                            style={{ left: '0%', right: '0%' }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 )}
-                {report.financial_benchmarks.operating_margin_median != null && (
-                  <StatBox
-                    label="Op. Margin"
-                    value={pctDecimal(
-                      report.financial_benchmarks.operating_margin_median
-                    )}
-                  />
-                )}
-                {report.financial_benchmarks.leverage_median != null && (
-                  <StatBox
-                    label="Leverage"
-                    value={`${report.financial_benchmarks.leverage_median.toFixed(2)}x`}
-                  />
-                )}
-                <StatBox
-                  label="Reports"
-                  value={report.financial_benchmarks.n_reports ?? 0}
-                />
-              </div>
-            </SectionCard>
-          )}
+              </SectionCard>
+            )
+          })()}
+
+          {/* Healthcare: Pareto Analysis */}
+          {sector === 'healthcare' && <ParetoAnalysis />}
 
           {/* Risk Profile */}
           {report.risk_profile && (
@@ -390,7 +531,7 @@ export default function MarketIntelligence() {
                       rows={report.risk_profile.top_categories.map(
                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         (cat: any) => [
-                          cat.category,
+                          cat.category.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase()),
                           cat.count,
                           `${cat.pct_of_total}%`,
                           `${cat.mitigation_rate}%`,
@@ -433,6 +574,9 @@ export default function MarketIntelligence() {
             </SectionCard>
           )}
 
+          {/* Healthcare: Risk Profile Narrative & Cybersecurity */}
+          {sector === 'healthcare' && <RiskProfileNarrative />}
+
           {/* Security Profile */}
           {report.security_profile && (
             <SectionCard title="Security & Covenant Profile">
@@ -474,6 +618,26 @@ export default function MarketIntelligence() {
                     </div>
                   </div>
                 )}
+              {report.security_profile.lien_position_distribution &&
+                Object.keys(report.security_profile.lien_position_distribution).length > 0 && (
+                  <div className="mt-4">
+                    <h4 className="text-sm font-medium text-gray-600 mb-2">
+                      Lien Position
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {Object.entries(
+                        report.security_profile.lien_position_distribution as Record<string, number>
+                      ).map(([type, count]) => (
+                        <span
+                          key={type}
+                          className="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700"
+                        >
+                          {type.replace(/_/g, ' ')}: {count}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
               {report.security_profile.dsrf_type_distribution &&
                 Object.keys(report.security_profile.dsrf_type_distribution).length > 0 && (
                   <div className="mt-4">
@@ -497,9 +661,9 @@ export default function MarketIntelligence() {
             </SectionCard>
           )}
 
-          {/* Spread Curve */}
+          {/* Spread Curve & Pricing Grid */}
           {report.spread_curve && report.spread_curve.rating_to_spread_bps && (
-            <SectionCard title="Credit Spread Reference Curve">
+            <SectionCard title="Credit Spread & Pricing Reference" defaultOpen>
               <DataTable
                 headers={['Rating', 'Spread (bps)', 'Over AAA MMD']}
                 rows={Object.entries(
@@ -507,15 +671,50 @@ export default function MarketIntelligence() {
                     string,
                     number
                   >
-                ).map(([rating, bps]) => [rating, bps, `+${bps}`])}
+                )
+                  .filter(([r]) => ['AA+','AA','AA-','A+','A','A-','BBB+','BBB','BBB-'].includes(r))
+                  .map(([rating, bps]) => [rating, bps, `+${bps}`])}
               />
               {report.spread_curve.sector_typical_range && (
                 <p className="mt-3 text-sm text-gray-500">
                   Typical range: {report.spread_curve.sector_typical_range}
                 </p>
               )}
+              {report.spread_curve.investment_grade_range_bps && (
+                <div className="mt-4 bg-blue-50 rounded-lg p-3">
+                  <h4 className="text-sm font-medium text-blue-800 mb-1">
+                    Estimated Cost-of-Capital Reference (25-Year Maturity)
+                  </h4>
+                  <p className="text-xs text-blue-600 mb-2">
+                    Based on AAA MMD curve + sector spreads. For detailed pricing, see Credit Spread Monitor.
+                  </p>
+                  <div className="grid grid-cols-3 gap-3">
+                    {(['AA', 'A', 'BBB'] as const).map((rating) => {
+                      const spread = (report.spread_curve.rating_to_spread_bps as Record<string, number>)[rating]
+                      if (spread == null) return null
+                      const estYield = (4.42 + spread / 100).toFixed(2)
+                      return (
+                        <div key={rating} className="bg-white rounded-lg px-3 py-2 text-center border border-blue-100">
+                          <div className="text-xs text-gray-500 uppercase">{rating}-Rated</div>
+                          <div className="text-lg font-semibold text-blue-900">{estYield}%</div>
+                          <div className="text-xs text-gray-400">+{spread} bps</div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
             </SectionCard>
           )}
+
+          {/* Healthcare: Bond Structure Norms */}
+          {sector === 'healthcare' && <BondStructureNorms />}
+
+          {/* Healthcare: Full Pricing Grid */}
+          {sector === 'healthcare' && <PricingGrid />}
+
+          {/* Healthcare: Regulatory Framework */}
+          {sector === 'healthcare' && <RegulatoryFramework />}
 
           {/* Market Activity */}
           {report.market_activity && (
@@ -659,6 +858,9 @@ export default function MarketIntelligence() {
                 )}
             </SectionCard>
           )}
+
+          {/* Healthcare: Engagement Path */}
+          {sector === 'healthcare' && <EngagementPath />}
 
           <div className="flex items-center justify-between pt-4">
             <Link

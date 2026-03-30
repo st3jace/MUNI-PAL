@@ -236,7 +236,7 @@ function ResultsView({ data }: { data: any }) {
 
 export default function ReadinessAssess() {
   const sensing = useSensing()
-  const [sector, setSector] = useState(sensing.sector || 'waste')
+  const [sector, setSector] = useState(sensing.sector || 'healthcare')
   const [projectName, setProjectName] = useState('')
   const [responses, setResponses] = useState<Record<string, boolean>>({})
   const [evidenceIds, setEvidenceIds] = useState<Set<string>>(new Set())

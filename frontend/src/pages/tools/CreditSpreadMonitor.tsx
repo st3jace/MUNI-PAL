@@ -566,7 +566,7 @@ function Section({
 
 export default function CreditSpreadMonitor() {
   const sensing = useSensing()
-  const [sector, setSector] = useState(sensing.sector || 'waste')
+  const [sector, setSector] = useState(sensing.sector || 'healthcare')
   const [parAmount, setParAmount] = useState('50000000')
   const [outOfState, setOutOfState] = useState(false)
 

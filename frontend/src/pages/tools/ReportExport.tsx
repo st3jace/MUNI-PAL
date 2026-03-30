@@ -107,7 +107,7 @@ export default function ReportExport() {
         organization,
         title: title || undefined,
         phone: phone || undefined,
-        sector: sensing.sector || 'waste',
+        sector: sensing.sector || 'healthcare',
         deal_size_estimate: dealSize ? parseFloat(dealSize.replace(/[,$]/g, '')) : undefined,
         state: state || undefined,
         expected_rating: rating || undefined,

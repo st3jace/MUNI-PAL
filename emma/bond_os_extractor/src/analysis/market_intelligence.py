@@ -842,7 +842,13 @@ def _build_executive_summary(
     risk_prof: RiskProfile,
     market_act: MarketActivitySummary,
 ) -> dict[str, Any]:
-    """Generate executive summary from aggregated sections."""
+    """Generate executive summary from aggregated sections.
+
+    The executive summary is designed to be the first thing a Healthcare
+    Operator or Finance Director reads. It frames the report in terms of
+    what they will learn, why it matters to their capital planning, and
+    what actionable benchmarks they can expect.
+    """
     # Count available vs. pending sections
     sections = [
         deal_structure.data,
@@ -855,34 +861,123 @@ def _build_executive_summary(
     pending = sum(1 for s in sections if s and s.status == "pending")
     partial = sum(1 for s in sections if s and s.status == "partial")
 
-    key_findings: list[str] = []
+    # --- Sector-aware narrative pieces ---
+    sector_lower = sector.lower().replace("_", " ")
+    sector_title = sector.replace("_", " ").title()
 
-    if deal_structure.n_deals > 0:
-        par_str = ""
-        if deal_structure.par_amount_total > 0:
-            par_b = deal_structure.par_amount_total / 1e9
-            if par_b >= 1:
-                par_str = f" totaling ${par_b:.1f}B in par value"
-            else:
-                par_m = deal_structure.par_amount_total / 1e6
-                par_str = f" totaling ${par_m:.0f}M in par value"
-        key_findings.append(
-            f"{deal_structure.n_deals} deals analyzed{par_str}"
+    # Build the par value string
+    par_str = ""
+    if deal_structure.par_amount_total > 0:
+        par_b = deal_structure.par_amount_total / 1e9
+        if par_b >= 1:
+            par_str = f"${par_b:.1f}B"
+        else:
+            par_m = deal_structure.par_amount_total / 1e6
+            par_str = f"${par_m:.0f}M"
+
+    # Audience-facing introduction
+    if sector_lower == "healthcare":
+        audience_intro = (
+            "Whether you are a hospital CFO evaluating a capital expansion, "
+            "a health system Finance Director weighing refinancing options, or "
+            "an administrator planning your next facility project — this report "
+            "gives you the market context you need before engaging advisors or "
+            "entering the bond market."
+        )
+    elif sector_lower == "waste":
+        audience_intro = (
+            "Whether you are a solid waste authority evaluating a new facility, "
+            "a county finance director considering revenue bond capacity, or an "
+            "operator planning a waste-to-energy project — this report gives you "
+            "the market context you need before engaging advisors or entering "
+            "the bond market."
+        )
+    else:
+        audience_intro = (
+            f"Whether you are a {sector_lower} operator planning a capital "
+            f"project or a finance director evaluating bond capacity — this "
+            f"report gives you the market context you need before engaging "
+            f"advisors or entering the bond market."
         )
 
+    # What's inside
+    report_guide_items: list[str] = []
+    if deal_structure.n_deals > 0:
+        report_guide_items.append(
+            f"**Deal structure benchmarks** drawn from "
+            f"{deal_structure.n_deals} comparable transactions"
+            f" ({par_str} in par value)" if par_str else
+            f"**Deal structure benchmarks** drawn from "
+            f"{deal_structure.n_deals} comparable transactions"
+        )
+    if rating_dist.total_rated > 0:
+        report_guide_items.append(
+            f"**Credit rating distribution** showing where your peers land "
+            f"({rating_dist.investment_grade_pct:.0f}% investment grade, "
+            f"modal rating {rating_dist.modal_rating})"
+        )
+    if fin_bench.dscr_median is not None:
+        report_guide_items.append(
+            f"**Financial benchmarks** including median debt service coverage "
+            f"of {fin_bench.dscr_median:.2f}x — the number rating agencies "
+            f"and underwriters will compare you against"
+        )
+    if risk_prof.n_risk_factors > 0:
+        top_cat = risk_prof.top_categories[0] if risk_prof.top_categories else {}
+        cat_name = top_cat.get("category", "financial")
+        report_guide_items.append(
+            f"**Risk factor analysis** cataloging {risk_prof.n_risk_factors} "
+            f"disclosed risks across {risk_prof.n_issuances_with_risk} "
+            f"issuances — so you know what rating agencies are flagging "
+            f"(top category: {cat_name})"
+        )
+    if market_act.n_trades > 0:
+        report_guide_items.append(
+            f"**Secondary market activity** across "
+            f"{market_act.n_cusips} tracked bonds and "
+            f"{market_act.n_trades:,} trades — showing real investor demand "
+            f"and pricing for {sector_lower} credits"
+        )
+
+    # Why it matters
+    why_it_matters = (
+        f"Bond issuance is one of the largest financial decisions a "
+        f"{sector_lower} organization will make. The difference between "
+        f"entering the market informed versus uninformed can mean millions "
+        f"of dollars in total debt service cost over the life of a bond. "
+        f"This report gives you the same market intelligence that "
+        f"institutional investors and rating agencies use — so you enter "
+        f"conversations with advisors and underwriters on equal footing."
+    )
+
+    # What you'll walk away with
+    takeaways = [
+        "A clear picture of how your sector's bond market is structured",
+        "Concrete financial benchmarks to measure your readiness against",
+        "Awareness of the risk factors that rating agencies care about most",
+        "Market pricing context so you understand what your credit profile "
+        "means in basis points and dollars",
+    ]
+
+    # Legacy key_findings (kept for JSON consumers)
+    key_findings: list[str] = []
+    if deal_structure.n_deals > 0:
+        key_findings.append(
+            f"{deal_structure.n_deals} deals analyzed"
+            f" totaling {par_str} in par value" if par_str else
+            f"{deal_structure.n_deals} deals analyzed"
+        )
     if rating_dist.total_rated > 0:
         key_findings.append(
             f"{rating_dist.investment_grade_pct:.0f}% investment grade; "
             f"modal rating {rating_dist.modal_rating}"
         )
-
     if fin_bench.dscr_median is not None:
         key_findings.append(
             f"Median DSCR {fin_bench.dscr_median:.2f}x "
             f"(IQR: {fin_bench.dscr_p25 or 0:.2f}x - "
             f"{fin_bench.dscr_p75 or 0:.2f}x)"
         )
-
     if risk_prof.n_risk_factors > 0:
         top_cat = risk_prof.top_categories[0] if risk_prof.top_categories else {}
         key_findings.append(
@@ -891,7 +986,6 @@ def _build_executive_summary(
             f"top category: {top_cat.get('category', 'N/A')} "
             f"({top_cat.get('pct_of_total', 0):.0f}%)"
         )
-
     if market_act.n_trades > 0:
         key_findings.append(
             f"{market_act.n_cusips} CUSIPs tracked with "
@@ -900,12 +994,17 @@ def _build_executive_summary(
 
     return {
         "sector": sector,
+        "sector_title": sector_title,
         "report_completeness": {
             "available_sections": available,
             "partial_sections": partial,
             "pending_sections": pending,
             "total_sections": len(sections),
         },
+        "audience_intro": audience_intro,
+        "report_guide": report_guide_items,
+        "why_it_matters": why_it_matters,
+        "takeaways": takeaways,
         "key_findings": key_findings,
         "data_freshness": datetime.utcnow().strftime("%Y-%m-%d"),
     }
@@ -1080,23 +1179,60 @@ def export_markdown(
     _a("## Executive Summary")
     _a("")
     _a(
-        f"This report covers the **{sector_title}** municipal bond sector "
-        f"with **{comp.get('available_sections', 0)}** of "
-        f"{comp.get('total_sections', 0)} data sections fully populated."
+        f"This is a data-driven market intelligence report for the "
+        f"**{sector_title}** municipal bond sector, built from analysis of "
+        f"real EMMA filings, rating agency actions, and secondary market "
+        f"trading data."
     )
-    if comp.get("pending_sections", 0) > 0:
-        _a(
-            f"\n> **Note:** {comp['pending_sections']} section(s) are pending "
-            f"additional data extraction. Run `batch_ingest --all-types` to "
-            f"populate remaining sections."
-        )
     _a("")
+
+    # Audience introduction — who this is for
+    audience_intro = es.get("audience_intro", "")
+    if audience_intro:
+        _a(audience_intro)
+        _a("")
+
+    # What's inside this report
+    guide_items = es.get("report_guide", [])
+    if guide_items:
+        _a("### What You'll Find in This Report")
+        _a("")
+        for item in guide_items:
+            _a(f"- {item}")
+        _a("")
+
+    # Why it matters
+    why_it_matters = es.get("why_it_matters", "")
+    if why_it_matters:
+        _a("### Why This Matters")
+        _a("")
+        _a(why_it_matters)
+        _a("")
+
+    # What you'll walk away with
+    takeaways = es.get("takeaways", [])
+    if takeaways:
+        _a("### What You Should Take Away")
+        _a("")
+        for t in takeaways:
+            _a(f"- {t}")
+        _a("")
+
+    # Key metrics at a glance (the original key_findings, relabeled)
     findings = es.get("key_findings", [])
     if findings:
-        _a("### Key Findings")
+        _a("### Data at a Glance")
         _a("")
         for f_text in findings:
             _a(f"- {f_text}")
+        _a("")
+
+    if comp.get("pending_sections", 0) > 0:
+        _a(
+            f"> **Note:** {comp['pending_sections']} section(s) are pending "
+            f"additional data extraction. Run `batch_ingest --all-types` to "
+            f"populate remaining sections."
+        )
         _a("")
 
     # Deal Structure

@@ -205,6 +205,129 @@ class SeriesExtractor(BaseExtractor):
 
 
 # ---------------------------------------------------------------------------
+# Filename Issuer Extractor
+# ---------------------------------------------------------------------------
+
+# Healthcare EMMA filings embed the health-system or hospital name in the
+# document filename.  Pattern examples:
+#   A005B8…_0004_Letter_of_Credit_Reimbursement_Agreement_pdf_3_5_M.pdf
+#   A005B8…_0017_Hospital_Sisters_Health_System_monthly_Self_Liquid.pdf
+#
+# Two strategies are used:
+# 1. Leading-word extraction: strip prefix, take words until a document-type
+#    keyword is hit.
+# 2. Deep health-org scan: search anywhere in the filename for a known
+#    health-system anchor word with surrounding context.
+
+_DOC_NOISE_RE = re.compile(
+    r"^(?:monthly|quarterly|annual|continuing|disclosure|operating|"
+    r"statistics|statisti|liquidity|summary|self|liquid|"
+    r"disclosures|redacted|amendment|credit|standard|poor|downgrade|"
+    r"upgrade|rating|compilation|report|cover|letter|incorporate|"
+    r"preliminary|official|statement|supplement|swap|agreement|"
+    r"construction|update|incurrence|obligation|financial|package|"
+    r"information|government|agency|securities|purchase|bond|exhibit|"
+    r"income|balance|sheet|stand|series|cfo|ceo|coo|announcement|"
+    r"announces|conference|presentation|investor|barclays|jpm|citi|"
+    r"truist|pnc|usbank|renewal|dated|notice|certificate|regarding|"
+    r"compliance|modification|rights|bondholder|call|results|"
+    r"management|discussion|voluntary|fiscal|invitation|amending|"
+    r"retire|joins|quarter|certain|utilization|officers|pdf|"
+    r"invest|KB|MB|GB)$",
+    re.IGNORECASE,
+)
+
+_HEALTH_ORG_DEEP_RE = re.compile(
+    r"((?:[A-Z][a-z]+[_ ])*"
+    r"(?:Health|Hospital|Medical|Baptist|Methodist|Memorial|Children|"
+    r"Community|Advent|Mercy|Trinity|Providence|Ascension|"
+    r"Lifespan|Bronson|Carilion|Intermountain|Summa|"
+    r"Dignity|Kaiser|Sutter|Tenet|HCA|UHS|"
+    r"Sentara|Novant|WellSpan|Geisinger|UPMC|Cedars|"
+    r"Sinai|Mount|Mayo|Cleveland|Duke|Johns|Hopkins|"
+    r"Vanderbilt|Emory|Stanford|UCLA|NYU|Mass|General|"
+    r"Cook|Baylor|Scott|White|Ochsner|SSM|Avera|"
+    r"Sanford|Essentia|Atrium|Advocate|Aurora|"
+    r"NorthShore|Rush|Beaumont|Spectrum|Corewell|"
+    r"IU|OSF|Froedtert|Gundersen|Marshfield|"
+    r"Ballad|WVU|UofL|Penn|Highlands|Hendrick|"
+    r"Parkview|Genesis|Charleston|Vandalia|HonorHealth|"
+    r"AdventHealth|Southeastern|Regional)"
+    r"(?:[_ ][A-Za-z]+)*"
+    r"(?:[_ ](?:System|Group|Network|Center|Corp|Inc|"
+    r"Alliance|Clinic|Care|Healthcare|Health))*)",
+    re.IGNORECASE,
+)
+
+
+class FilenameIssuerExtractor(BaseExtractor):
+    """Tier 1 extractor that infers issuer/borrower from document filename.
+
+    Pass source_file at construction time so it works with the standard
+    safe_extract(section_text, section_id) interface.
+    """
+
+    tier = ExtractionTier.TIER_1
+    name = "filename_issuer_extractor"
+
+    def __init__(self, source_file: str | None = None) -> None:
+        self._source_file = source_file
+
+    def extract(
+        self, section_text: str, section_id: str, tables=None,
+    ) -> dict[str, Any]:
+        if not self._source_file:
+            return {}
+
+        # Strip hex CUSIP prefix + sequence number
+        cleaned = re.sub(r"^[A-F0-9]+_\d+_", "", self._source_file, flags=re.I)
+        cleaned = re.sub(r"_?pdf_.*$", "", cleaned, flags=re.I)
+        cleaned = re.sub(r"\.pdf$", "", cleaned, flags=re.I)
+
+        # Strategy 1: leading-word extraction
+        name = self._leading_word_extract(cleaned)
+
+        # Strategy 2: deep health-org scan (anywhere in filename)
+        if not name:
+            name = self._deep_org_scan(cleaned)
+
+        if not name or len(name) < 4:
+            return {}
+
+        return {
+            "borrower_name": name,
+            "_confidence": {"borrower_name": 0.65},
+        }
+
+    @staticmethod
+    def _leading_word_extract(cleaned: str) -> str | None:
+        words = cleaned.split("_")
+        name_words: list[str] = []
+        for w in words:
+            if _DOC_NOISE_RE.match(w):
+                break
+            if re.match(r"^\d{4}$", w):
+                break
+            if re.match(r"^\d+$", w) and len(w) <= 2:
+                break
+            if len(w) <= 1:
+                break
+            name_words.append(w)
+        name = " ".join(name_words).strip()
+        name = re.sub(
+            r"\s+(?:for|the|as|of|to|in|at|by|on|and|or)$",
+            "", name, flags=re.I,
+        ).strip()
+        return name if name and len(name) >= 4 else None
+
+    @staticmethod
+    def _deep_org_scan(cleaned: str) -> str | None:
+        spaced = cleaned.replace("_", " ")
+        m = _HEALTH_ORG_DEEP_RE.search(spaced)
+        return m.group(0).strip() if m else None
+
+
+# ---------------------------------------------------------------------------
 # Registry of all Tier 1 extractors
 # ---------------------------------------------------------------------------
 
@@ -214,4 +337,5 @@ ALL_DETERMINISTIC_EXTRACTORS: list[type[BaseExtractor]] = [
     DateExtractor,
     RatingExtractor,
     SeriesExtractor,
+    FilenameIssuerExtractor,
 ]

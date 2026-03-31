@@ -103,6 +103,17 @@ class ProjectInputs(BaseModel):
     has_feedstock_risk: bool = False
     has_regulatory_risk: bool = False
 
+    # Healthcare-specific inputs
+    payer_mix_medicaid_pct: float | None = None  # % Medicaid/Medicare vs commercial
+    payer_mix_commercial_pct: float | None = None
+    has_certificate_of_need: bool | None = None  # CON state requirement
+    has_certificate_of_need_risk: bool = False  # CON regulatory barrier risk
+    has_reimbursement_rate_risk: bool = False
+    has_payer_concentration_risk: bool = False
+    age_of_plant_years: float | None = None  # Average age of physical plant
+    days_cash_on_hand: float | None = None  # Liquidity metric critical for hospitals
+    patient_revenue_pledge: str | None = None  # "gross_patient", "net_patient", "specific_patient"
+
 
 # ---------------------------------------------------------------------------
 # 5 Cs Scoring

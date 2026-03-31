@@ -43,7 +43,7 @@ from ..schema.revenue_streams import (
     RevenueStreamProfile,
     TippingFeeStructure,
 )
-from .deterministic import ALL_DETERMINISTIC_EXTRACTORS
+from .deterministic import ALL_DETERMINISTIC_EXTRACTORS, FilenameIssuerExtractor
 from .table_extractor import ALL_TABLE_EXTRACTORS
 from .ai_extractor import (
     AnthropicClient,
@@ -145,8 +145,12 @@ class ExtractionOrchestrator:
         if not cover_text:
             cover_text = "\n\n".join(p.text for p in ingestion.pages[:5])
 
+        source_file = ingestion.source_file
         for extractor_cls in ALL_DETERMINISTIC_EXTRACTORS:
-            ext = extractor_cls()
+            if extractor_cls is FilenameIssuerExtractor:
+                ext = extractor_cls(source_file=source_file)
+            else:
+                ext = extractor_cls()
             result = ext.safe_extract(cover_text, "COVER_PAGE")
             if result:
                 results[ext.name] = result

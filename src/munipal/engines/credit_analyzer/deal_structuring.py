@@ -19,19 +19,43 @@ from .models import (
 
 logger = logging.getLogger("credit_analyzer.deal_structuring")
 
-# Corpus-derived benchmarks (from EMMA waste sector analysis)
-CORPUS_MEDIAN_COVERAGE = 1.37
-CORPUS_P25_COVERAGE = 1.20
-CORPUS_P75_COVERAGE = 1.50
+# Sector-specific corpus-derived covenant coverage benchmarks.
+# Healthcare typically requires higher coverage (1.50x-1.75x) than WTE (1.37x)
+# because hospital revenue pledges carry reimbursement and payer-mix risk.
+SECTOR_CORPUS_BENCHMARKS = {
+    "waste": {
+        "median_coverage": 1.37,
+        "p25_coverage": 1.20,
+        "p75_coverage": 1.50,
+    },
+    "healthcare": {
+        "median_coverage": 1.60,
+        "p25_coverage": 1.40,
+        "p75_coverage": 1.75,
+    },
+}
+_DEFAULT_CORPUS = SECTOR_CORPUS_BENCHMARKS["waste"]
 
-# Spread table (simplified, from spread_table.py)
-RATING_SPREADS_BPS = {
+# Spread table — sector-aware.  Healthcare A-rated credits trade at ~62 bps
+# (per MIR), so the default table uses that.  62 vs 65 is a rounding
+# difference; we keep the MIR-aligned value for healthcare.
+_BASE_SPREADS_BPS = {
     "AAA": 10, "AA+": 20, "AA": 30, "AA-": 45,
     "A+": 55, "A": 65, "A-": 80,
     "BBB+": 100, "BBB": 120, "BBB-": 150,
     "BB+": 200, "BB": 250, "BB-": 300,
     "B+": 375, "B": 450,
 }
+_HEALTHCARE_SPREAD_OVERRIDES = {"A": 62}
+
+RATING_SPREADS_BPS = _BASE_SPREADS_BPS  # default; callers may override
+
+
+def _get_spread_table(sector: str) -> dict[str, int]:
+    """Return sector-adjusted spread table."""
+    if sector == "healthcare":
+        return {**_BASE_SPREADS_BPS, **_HEALTHCARE_SPREAD_OVERRIDES}
+    return _BASE_SPREADS_BPS
 
 
 def structure_deal(
@@ -91,22 +115,23 @@ def structure_deal(
         mat_type = "term"
         notes.append("Term bond structure")
 
-    # --- Spread Estimation ---
+    # --- Spread Estimation (sector-aware) ---
+    spread_table = _get_spread_table(project.sector)
     estimated_spread = None
     estimated_yield = None
     rating = project.credit_rating
-    if rating and rating.upper() in RATING_SPREADS_BPS:
-        estimated_spread = RATING_SPREADS_BPS[rating.upper()]
+    if rating and rating.upper() in spread_table:
+        estimated_spread = spread_table[rating.upper()]
         estimated_yield = coupon  # Simplified; real pricing uses MMD curve
         notes.append(f"Estimated spread: {estimated_spread} bps over AAA MMD ({rating})")
     elif composite >= 70:
-        estimated_spread = 65  # A-range proxy
+        estimated_spread = spread_table.get("A", 65)
         notes.append("No rating — estimated A-range spread based on credit profile")
     elif composite >= 55:
-        estimated_spread = 120  # BBB proxy
+        estimated_spread = spread_table.get("BBB", 120)
         notes.append("No rating — estimated BBB-range spread")
     else:
-        estimated_spread = 250  # BB proxy
+        estimated_spread = spread_table.get("BB", 250)
         notes.append("No rating — estimated BB-range spread (consider enhancement)")
 
     # --- Comparable Deals ---
@@ -143,6 +168,7 @@ def _recommend_covenants(
 ) -> CovenantPackage:
     """Recommend covenant structure based on credit quality and corpus norms."""
     rationale: list[str] = []
+    corpus = SECTOR_CORPUS_BENCHMARKS.get(project.sector, _DEFAULT_CORPUS)
 
     # Rate covenant type
     if project.pledge_type in ("gross_revenue", "net_revenue"):
@@ -152,19 +178,32 @@ def _recommend_covenants(
         cov_type = "coverage"
         rationale.append("Coverage covenant only — no rate-setting authority")
 
-    # Coverage ratio — calibrated to credit quality
+    # Coverage ratio — calibrated to credit quality and sector norms.
+    # Healthcare covenants are typically 1.50x-1.75x; WTE is 1.20x-1.50x.
+    sector_floor = corpus["p25_coverage"]
+    sector_median = corpus["median_coverage"]
+    sector_ceiling = corpus["p75_coverage"]
+
     if composite >= 75:
-        min_coverage = 1.20
-        rationale.append(f"1.20x coverage — strong credit supports lower threshold")
+        min_coverage = sector_floor
+        rationale.append(
+            f"{min_coverage:.2f}x coverage — strong credit, sector floor"
+        )
     elif composite >= 60:
-        min_coverage = 1.25
-        rationale.append(f"1.25x coverage — standard for investment-grade")
+        min_coverage = round((sector_floor + sector_median) / 2, 2)
+        rationale.append(
+            f"{min_coverage:.2f}x coverage — investment-grade, sector-calibrated"
+        )
     elif composite >= 45:
-        min_coverage = 1.35
-        rationale.append(f"1.35x coverage — tighter covenant for weaker credit")
+        min_coverage = sector_median
+        rationale.append(
+            f"{min_coverage:.2f}x coverage — sector median, tighter for weaker credit"
+        )
     else:
-        min_coverage = 1.50
-        rationale.append(f"1.50x coverage — restrictive covenant, credit enhancement needed")
+        min_coverage = sector_ceiling
+        rationale.append(
+            f"{min_coverage:.2f}x coverage — restrictive, credit enhancement needed"
+        )
 
     # Additional bonds test
     abt_hist = min_coverage + 0.10  # 10 bps above rate covenant

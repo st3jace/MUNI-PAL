@@ -384,6 +384,50 @@ def _score_collateral(p: ProjectInputs) -> CScore:
             score += 5
             findings.append(f"Investment-grade rating: {p.credit_rating}")
 
+    # Healthcare-specific collateral factors
+    if p.sector == "healthcare":
+        # Payer mix — high Medicaid concentration weakens revenue quality
+        if p.payer_mix_medicaid_pct is not None:
+            if p.payer_mix_medicaid_pct >= 0.60:
+                score -= 10
+                risks.append(
+                    f"High Medicaid/Medicare concentration: "
+                    f"{p.payer_mix_medicaid_pct:.0%} — reimbursement rate "
+                    f"risk and margin pressure"
+                )
+            elif p.payer_mix_medicaid_pct >= 0.40:
+                score -= 5
+                risks.append(
+                    f"Moderate Medicaid/Medicare: {p.payer_mix_medicaid_pct:.0%}"
+                )
+            elif p.payer_mix_commercial_pct and p.payer_mix_commercial_pct >= 0.50:
+                score += 5
+                mitigants.append(
+                    f"Favorable payer mix: "
+                    f"{p.payer_mix_commercial_pct:.0%} commercial"
+                )
+
+        # Certificate of Need — market barrier can be positive or negative
+        if p.has_certificate_of_need is not None:
+            if p.has_certificate_of_need:
+                mitigants.append("Certificate of Need provides market barrier")
+            else:
+                risks.append("No CON protection — competitive entry risk")
+
+        # Patient revenue pledge structure
+        if p.patient_revenue_pledge:
+            pledge_quality = {
+                "gross_patient": (8, "Gross patient revenue pledge — strongest hospital security"),
+                "net_patient": (5, "Net patient revenue pledge — standard hospital security"),
+                "specific_patient": (3, "Specific patient revenue pledge — limited security"),
+            }
+            pts, desc = pledge_quality.get(
+                p.patient_revenue_pledge, (0, None)
+            )
+            score += pts
+            if desc:
+                findings.append(desc)
+
     score = max(0, min(score, 100))
     return CScore(
         dimension="Collateral",
@@ -447,6 +491,21 @@ def _score_conditions(p: ProjectInputs) -> CScore:
         (p.has_feedstock_risk, "Feedstock supply risk"),
         (p.has_regulatory_risk, "Regulatory risk"),
     ]
+    # Healthcare-specific risk flags
+    if p.sector == "healthcare":
+        risk_flags.extend([
+            (p.has_reimbursement_rate_risk, "Reimbursement rate risk (CMS/state Medicaid)"),
+            (p.has_payer_concentration_risk, "Payer concentration risk"),
+            (p.has_certificate_of_need_risk, "Certificate of need regulatory risk"),
+        ])
+        # Age of plant — older facilities face higher capex needs
+        if p.age_of_plant_years is not None and p.age_of_plant_years > 15:
+            risks.append(
+                f"Aging plant ({p.age_of_plant_years:.0f} years) — "
+                f"elevated capital renewal requirements"
+            )
+            score -= 3
+
     for flag, label in risk_flags:
         if flag:
             score -= 3

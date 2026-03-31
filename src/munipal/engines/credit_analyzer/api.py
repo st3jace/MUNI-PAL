@@ -36,9 +36,15 @@ app = FastAPI(
     version="0.1.0",
 )
 
+_ALLOWED_ORIGINS = [
+    "https://muni-pal.io",
+    "https://www.muni-pal.io",
+    "http://localhost:5173",
+    "http://localhost:3000",
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],
+    allow_origins=_ALLOWED_ORIGINS,
     allow_methods=["*"],
     allow_headers=["*"],
 )

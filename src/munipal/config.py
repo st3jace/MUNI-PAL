@@ -140,8 +140,11 @@ class Settings(BaseSettings):
     # -------------------------------------------------------------------------
     # Sensing Microservice
     # -------------------------------------------------------------------------
+    # Comma-separated list of allowed CORS origins for the main BFMS API.
+    # Example: "https://muni-pal.io,https://www.muni-pal.io"
+    cors_origins: str = ""
     # Comma-separated list of allowed CORS origins for the public sensing API.
-    # Example: "https://assess.launchshop.io,https://launchshop.io"
+    # Example: "https://muni-pal.io,https://www.muni-pal.io,https://assess.launchshop.io"
     sensing_cors_origins: str = ""
     # Rate limit for sensing endpoints (requests per minute per IP)
     sensing_rate_limit: str = "60/minute"

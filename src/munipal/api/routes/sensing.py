@@ -308,6 +308,201 @@ async def list_leads(
 
 
 # ---------------------------------------------------------------------------
+# Lead Qualification & Project Conversion
+# ---------------------------------------------------------------------------
+
+VALID_FUNNEL_STAGES = [
+    "report_requested",
+    "report_downloaded",
+    "contacted",
+    "qualified",
+    "engaged",
+]
+
+
+class LeadFunnelUpdate(BaseModel):
+    """Update a lead's funnel stage."""
+    funnel_stage: str = Field(
+        ..., description="New funnel stage (report_downloaded, contacted, qualified, engaged)"
+    )
+
+
+class LeadConvertRequest(BaseModel):
+    """Convert a sensing lead to a BFMS project."""
+    project_name: str | None = Field(
+        default=None,
+        description="Override project name (defaults to '{org} Bond Advisory')",
+    )
+    owner_id: str = Field(..., description="User ID to own the new project")
+    tenant_id: str = Field(default="default", description="Tenant ID")
+    playbook_id: str | None = Field(default=None, description="Playbook ID (uses default if omitted)")
+
+
+@router.get("/leads/{lead_id}")
+async def get_lead(
+    lead_id: str,
+    db: AsyncSession = Depends(get_async_session),
+) -> dict[str, Any]:
+    """Get a single sensing lead with full detail including report snapshots."""
+    from munipal.core.models.lead import SensingLead
+
+    lead = await db.get(SensingLead, lead_id)
+    if not lead:
+        raise HTTPException(status_code=404, detail=f"Lead {lead_id} not found")
+
+    return {
+        "id": lead.id,
+        "email": lead.email,
+        "name": lead.name,
+        "organization": lead.organization,
+        "title": lead.title,
+        "phone": lead.phone,
+        "sector": lead.sector,
+        "deal_size_estimate": lead.deal_size_estimate,
+        "state": lead.state,
+        "expected_rating": lead.expected_rating,
+        "funnel_stage": lead.funnel_stage,
+        "referral_source": lead.referral_source,
+        "market_intel_json": lead.market_intel_json,
+        "benchmark_json": lead.benchmark_json,
+        "readiness_json": lead.readiness_json,
+        "created_at": lead.created_at.isoformat() if lead.created_at else None,
+    }
+
+
+@router.patch("/leads/{lead_id}/funnel")
+async def update_lead_funnel(
+    lead_id: str,
+    body: LeadFunnelUpdate,
+    db: AsyncSession = Depends(get_async_session),
+) -> dict[str, Any]:
+    """Advance a lead through the funnel stages.
+
+    Stages: report_requested > report_downloaded > contacted > qualified > engaged
+    """
+    from munipal.core.models.lead import SensingLead, SensingEvent
+
+    if body.funnel_stage not in VALID_FUNNEL_STAGES:
+        raise HTTPException(
+            status_code=422,
+            detail=f"Invalid stage '{body.funnel_stage}'. Valid: {VALID_FUNNEL_STAGES}",
+        )
+
+    lead = await db.get(SensingLead, lead_id)
+    if not lead:
+        raise HTTPException(status_code=404, detail=f"Lead {lead_id} not found")
+
+    old_stage = lead.funnel_stage
+    lead.funnel_stage = body.funnel_stage
+
+    # Record the funnel transition as an event
+    db.add(SensingEvent(
+        lead_id=lead.id,
+        session_id=f"admin-{lead.id}",
+        event_type=f"funnel_{body.funnel_stage}",
+        sector=lead.sector,
+        event_data=json.dumps({"from_stage": old_stage, "to_stage": body.funnel_stage}),
+    ))
+
+    await db.commit()
+    await db.refresh(lead)
+
+    return {
+        "lead_id": lead.id,
+        "previous_stage": old_stage,
+        "funnel_stage": lead.funnel_stage,
+    }
+
+
+@router.post("/leads/{lead_id}/convert-to-project")
+async def convert_lead_to_project(
+    lead_id: str,
+    body: LeadConvertRequest,
+    db: AsyncSession = Depends(get_async_session),
+) -> dict[str, Any]:
+    """Convert a sensing lead into a BFMS project.
+
+    This is the critical handoff from top-of-funnel sensing to the advisory
+    engagement workflow. It:
+    1. Creates a new Project pre-populated from lead data
+    2. Advances the lead funnel stage to 'engaged'
+    3. Records a conversion event
+    4. Returns the new project ID for immediate use
+
+    The project is created with:
+    - name: derived from organization + sector
+    - issuer_name: from lead organization
+    - target_bond_amount: from lead deal_size_estimate
+    - project_location: from lead state
+    """
+    from munipal.core.models.lead import SensingLead, SensingEvent
+
+    lead = await db.get(SensingLead, lead_id)
+    if not lead:
+        raise HTTPException(status_code=404, detail=f"Lead {lead_id} not found")
+
+    if lead.funnel_stage == "engaged":
+        raise HTTPException(
+            status_code=409,
+            detail="Lead already converted to a project",
+        )
+
+    # Build project name
+    project_name = body.project_name or f"{lead.organization} Bond Advisory"
+
+    # Create the project via the service
+    from munipal.core.schemas.project import ProjectCreate
+    from munipal.services.project_service import ProjectService
+
+    project_data = ProjectCreate(
+        name=project_name,
+        description=(
+            f"Advisory engagement originated from sensing lead. "
+            f"Sector: {lead.sector}. Contact: {lead.name} ({lead.email}). "
+            f"Rating expectation: {lead.expected_rating or 'TBD'}."
+        ),
+        issuer_name=lead.organization,
+        project_location=lead.state,
+        target_bond_amount=lead.deal_size_estimate,
+        playbook_id=body.playbook_id,
+    )
+
+    service = ProjectService(db)
+    project = await service.create(
+        project_data,
+        owner_id=body.owner_id,
+        tenant_id=body.tenant_id,
+    )
+
+    # Advance lead funnel to engaged
+    old_stage = lead.funnel_stage
+    lead.funnel_stage = "engaged"
+
+    # Record conversion event
+    db.add(SensingEvent(
+        lead_id=lead.id,
+        session_id=f"conversion-{lead.id}",
+        event_type="converted_to_project",
+        sector=lead.sector,
+        event_data=json.dumps({
+            "project_id": str(project.id),
+            "project_name": project_name,
+            "from_stage": old_stage,
+        }),
+    ))
+
+    await db.commit()
+
+    return {
+        "lead_id": lead.id,
+        "project_id": str(project.id),
+        "project_name": project_name,
+        "funnel_stage": "engaged",
+        "status": "converted",
+    }
+
+
+# ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
 

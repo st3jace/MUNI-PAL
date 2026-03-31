@@ -4,7 +4,7 @@ Muni-Pal Sensing Microservice — Standalone FastAPI Application
 Public-facing sensing layer for the Bond Readiness Accelerator.
 Exposes ONLY the /api/sensing/* endpoints with rate limiting and CORS.
 
-Deploy this instead of main.py for the public assess.launchshop.io service.
+Deploy this instead of main.py for the public muni-pal.io service.
 All BFMS, project, admin, and extraction routes are excluded entirely.
 """
 

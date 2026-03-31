@@ -20,8 +20,9 @@ export default {
           900: '#1e3a8a',
         },
         muni: {
-          navy: '#1e3a5f',
-          teal: '#2dd4bf',
+          navy: '#1B3A5C',
+          teal: '#2DAEAC',
+          orange: '#E8913A',
           gold: '#f59e0b',
         }
       },

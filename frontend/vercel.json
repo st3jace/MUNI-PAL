@@ -1,20 +1,24 @@
 {
   "framework": null,
   "installCommand": "npm install",
-  "buildCommand": "npx vite build --config vite.config.sensing.ts",
-  "outputDirectory": "dist",
+  "buildCommand": "npx vite build --config vite.config.healthcare.ts && npx vite build --config vite.config.sensing.ts --base /tools/ --outDir dist-healthcare/tools",
+  "outputDirectory": "dist-healthcare",
   "rewrites": [
     {
       "source": "/api/v1/sensing/:path*",
-      "destination": "https://api.elaunchshop.com/api/v1/sensing/:path*"
+      "destination": "https://api.muni-pal.io/api/v1/sensing/:path*"
     },
     {
       "source": "/health",
-      "destination": "https://api.elaunchshop.com/health"
+      "destination": "https://api.muni-pal.io/health"
+    },
+    {
+      "source": "/tools/:path*",
+      "destination": "/tools/index.sensing.html"
     },
     {
       "source": "/(.*)",
-      "destination": "/index.sensing.html"
+      "destination": "/index.healthcare.html"
     }
   ]
 }

@@ -10,6 +10,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "build:sensing": "npx vite build --config vite.config.sensing.ts",
+    "build:healthcare": "npx vite build --config vite.config.healthcare.ts",
+    "build:combined": "npx vite build --config vite.config.healthcare.ts && npx vite build --config vite.config.sensing.ts --base /tools/ --outDir dist-healthcare/tools",
+    "dev:healthcare": "npx vite --config vite.config.healthcare.ts",
     "test": "vitest run",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -18,6 +21,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.17.0",
+    "@vercel/analytics": "^2.0.1",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.17",
     "axios": "^1.6.5",

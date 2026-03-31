@@ -1,0 +1,80 @@
+# =============================================================================
+# Muni-Pal — Production Compose (muni-pal.io)
+# =============================================================================
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+#
+# Requires:
+#   - DNS A record pointing muni-pal.io to this server's IP
+#   - Ports 80 and 443 open (Caddy handles ACME/TLS automatically)
+#   - .env.prod with production secrets (see .env.prod.example)
+# =============================================================================
+
+services:
+  # ==========================================================================
+  # Caddy — TLS termination + reverse proxy
+  # ==========================================================================
+  caddy:
+    image: caddy:2-alpine
+    container_name: munipal-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"   # HTTP/3
+    volumes:
+      - ./docker/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+      - caddy_logs:/var/log/caddy
+    environment:
+      MUNIPAL_DOMAIN: ${MUNIPAL_DOMAIN:-muni-pal.io}
+    depends_on:
+      - api
+      - frontend
+
+  # ==========================================================================
+  # FastAPI Backend — production mode
+  # ==========================================================================
+  api:
+    environment:
+      - APP_ENV=production
+      - DEBUG=false
+      - USE_SQLITE=false
+      - CORS_ORIGINS=https://muni-pal.io,https://www.muni-pal.io
+      - SENSING_CORS_ORIGINS=https://muni-pal.io,https://www.muni-pal.io
+    command: uvicorn munipal.main:app --host 0.0.0.0 --port 4120 --workers 4
+    ports:
+      - "4120:4120"
+
+  # ==========================================================================
+  # Vite Frontend — production build served by preview
+  # ==========================================================================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: munipal-frontend
+    restart: unless-stopped
+    ports:
+      - "4121:4121"
+    environment:
+      VITE_API_BASE_URL: https://muni-pal.io/api
+
+  # ==========================================================================
+  # Celery Worker — production mode
+  # ==========================================================================
+  celery-worker:
+    environment:
+      - APP_ENV=production
+    command: celery -A munipal.workers.celery_app worker --loglevel=warning --concurrency=4
+
+  celery-beat:
+    environment:
+      - APP_ENV=production
+    command: celery -A munipal.workers.celery_app beat --loglevel=warning
+
+volumes:
+  caddy_data:
+  caddy_config:
+  caddy_logs:

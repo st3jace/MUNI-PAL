@@ -1,8 +1,8 @@
 /**
- * Sensing Microservice — Standalone Frontend Entry Point
+ * Healthcare CFO Landing — Standalone Frontend Entry Point
  *
- * Renders only the /tools/* pages for the public muni-pal.io site.
- * No BFMS, project management, or auth routes are included.
+ * Renders the healthcare CFO landing page for muni-pal.io.
+ * Includes the landing page + MIR tools flow so CTAs work end-to-end.
  */
 
 import { StrictMode } from 'react'
@@ -11,13 +11,12 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Analytics } from '@vercel/analytics/react'
 import { SensingProvider } from './contexts/SensingContext'
-import ToolsHub from './pages/tools/ToolsHub'
+import HealthcareCFOLanding from './pages/tools/HealthcareCFOLanding'
 import MarketIntelligence from './pages/tools/MarketIntelligence'
 import BenchmarkCalculator from './pages/tools/BenchmarkCalculator'
 import ReadinessAssess from './pages/tools/ReadinessAssess'
-import ReportExport from './pages/tools/ReportExport'
 import CreditSpreadMonitor from './pages/tools/CreditSpreadMonitor'
-import HealthcareCFOLanding from './pages/tools/HealthcareCFOLanding'
+import ReportExport from './pages/tools/ReportExport'
 import './styles/index.css'
 
 const queryClient = new QueryClient({
@@ -36,28 +35,22 @@ createRoot(root).render(
     <QueryClientProvider client={queryClient}>
     <BrowserRouter>
       <SensingProvider>
-        <div className="min-h-screen flex flex-col">
-          <div className="flex-1">
+        <div className="min-h-screen bg-gray-50">
+          <div className="py-8 px-4 sm:px-6 lg:px-8">
             <Routes>
-              {/* Sector landing pages */}
+              {/* Landing page is the root */}
+              <Route path="/" element={<HealthcareCFOLanding />} />
               <Route path="/healthcare" element={<HealthcareCFOLanding />} />
-              {/* Redirect root to tools hub */}
-              <Route path="/" element={<Navigate to="/tools" replace />} />
-              <Route path="/tools" element={<ToolsHub />} />
+              {/* MIR tools flow — CTAs link here */}
               <Route path="/tools/market-intelligence" element={<MarketIntelligence />} />
               <Route path="/tools/benchmark" element={<BenchmarkCalculator />} />
               <Route path="/tools/readiness" element={<ReadinessAssess />} />
               <Route path="/tools/credit-spreads" element={<CreditSpreadMonitor />} />
               <Route path="/tools/export" element={<ReportExport />} />
-              {/* Catch-all back to tools */}
-              <Route path="*" element={<Navigate to="/tools" replace />} />
+              {/* Catch-all back to landing */}
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </div>
-          <footer className="border-t border-gray-200 bg-white px-6 py-4">
-            <p className="text-center text-sm text-gray-500">
-              Muni-Pal &mdash; A Launch Shop product. Built by Innovation Factory.
-            </p>
-          </footer>
         </div>
       </SensingProvider>
     </BrowserRouter>

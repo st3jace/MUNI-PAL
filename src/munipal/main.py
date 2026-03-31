@@ -72,9 +72,13 @@ app.add_middleware(
     jsonl_path=settings.telemetry_jsonl_path,
     enabled=settings.telemetry_enabled,
 )
+_cors_origins: list[str] = []
+if settings.cors_origins:
+    _cors_origins = [o.strip() for o in settings.cors_origins.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"] if settings.debug else [],  # Configure for production
+    allow_origins=_cors_origins if _cors_origins else (["*"] if settings.debug else []),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -161,7 +161,7 @@ export function ParetoAnalysis() {
         {/* Best Performers */}
         <h4 className="text-sm font-semibold text-green-700 mb-3 flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-green-500" />
-          Best Performer Profile (Top Quartile: DSCR &gt; 7.21x, Ratings
+          Best Performer Profile (Top Quartile: DSCR &gt; 4.30x, Ratings
           Aa1–A1)
         </h4>
         <div className="space-y-3 mb-6">
@@ -193,7 +193,7 @@ export function ParetoAnalysis() {
         {/* Worst Performers */}
         <h4 className="text-sm font-semibold text-amber-700 mb-3 flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-amber-500" />
-          Warning Signs (Bottom Quartile: DSCR &lt; 3.90x, BBB or below)
+          Warning Signs (Bottom Quartile: DSCR &lt; 2.10x, BBB or below)
         </h4>
         <div className="overflow-x-auto">
           <table className="min-w-full text-sm">

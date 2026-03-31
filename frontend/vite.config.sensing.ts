@@ -1,7 +1,7 @@
 /**
  * Vite config — Sensing Microservice Frontend
  *
- * Builds a standalone SPA for assess.launchshop.io that contains only
+ * Builds a standalone SPA for muni-pal.io that contains only
  * the /tools/* sensing pages. Output goes to dist/ (served by Nginx).
  *
  * Build:  npx vite build --config vite.config.sensing.ts

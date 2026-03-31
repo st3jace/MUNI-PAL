@@ -20,6 +20,7 @@ import BenchmarkCalculator from './pages/tools/BenchmarkCalculator'
 import ReadinessAssess from './pages/tools/ReadinessAssess'
 import ReportExport from './pages/tools/ReportExport'
 import CreditSpreadMonitor from './pages/tools/CreditSpreadMonitor'
+import HealthcareCFOLanding from './pages/tools/HealthcareCFOLanding'
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
             <Route path="tools/readiness" element={<ReadinessAssess />} />
             <Route path="tools/credit-spreads" element={<CreditSpreadMonitor />} />
             <Route path="tools/export" element={<ReportExport />} />
+            <Route path="healthcare" element={<HealthcareCFOLanding />} />
           </Route>
         </Routes>
       </SensingProvider>

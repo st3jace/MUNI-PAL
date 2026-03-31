@@ -6,11 +6,11 @@
   "rewrites": [
     {
       "source": "/api/v1/sensing/:path*",
-      "destination": "https://api.elaunchshop.com/api/v1/sensing/:path*"
+      "destination": "https://api.muni-pal.io/api/v1/sensing/:path*"
     },
     {
       "source": "/health",
-      "destination": "https://api.elaunchshop.com/health"
+      "destination": "https://api.muni-pal.io/health"
     },
     {
       "source": "/(.*)",

@@ -1,0 +1,57 @@
+# =============================================================================
+# Muni-Pal — Caddy Reverse Proxy Configuration
+# =============================================================================
+# Domain: muni-pal.io
+# Routes:
+#   /api/*      → FastAPI backend (port 4120)
+#   /docs, /redoc → FastAPI docs (if enabled)
+#   /*          → React-Vite frontend (port 4121)
+#
+# SSL is handled automatically by Caddy (ACME / Let's Encrypt) when the
+# domain resolves to this server. If running behind Cloudflare proxy (orange
+# cloud), set tls mode to "Full (strict)" in Cloudflare SSL/TLS settings.
+# =============================================================================
+
+{$MUNIPAL_DOMAIN:muni-pal.io} {
+    # ── API backend ──────────────────────────────────────────────────────
+    handle /api/* {
+        reverse_proxy localhost:4120
+    }
+
+    # ── FastAPI docs (development only) ──────────────────────────────────
+    handle /docs {
+        reverse_proxy localhost:4120
+    }
+    handle /redoc {
+        reverse_proxy localhost:4120
+    }
+    handle /openapi.json {
+        reverse_proxy localhost:4120
+    }
+
+    # ── Health check ─────────────────────────────────────────────────────
+    handle /health {
+        reverse_proxy localhost:4120
+    }
+    handle /healthz {
+        reverse_proxy localhost:4120
+    }
+
+    # ── Frontend (React-Vite) ────────────────────────────────────────────
+    handle {
+        reverse_proxy localhost:4121
+    }
+
+    # ── Logging ──────────────────────────────────────────────────────────
+    log {
+        output file /var/log/caddy/munipal-access.log
+        format json
+    }
+}
+
+# =============================================================================
+# Readiness redirect (activate once muni-pal.io is stable)
+# =============================================================================
+# readiness.elaunchshop.com {
+#     redir https://muni-pal.io/readiness permanent
+# }

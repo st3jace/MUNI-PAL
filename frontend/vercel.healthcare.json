@@ -1,0 +1,20 @@
+{
+  "framework": null,
+  "installCommand": "npm install",
+  "buildCommand": "npx vite build --config vite.config.healthcare.ts",
+  "outputDirectory": "dist-healthcare",
+  "rewrites": [
+    {
+      "source": "/api/v1/sensing/:path*",
+      "destination": "https://api.elaunchshop.com/api/v1/sensing/:path*"
+    },
+    {
+      "source": "/health",
+      "destination": "https://api.elaunchshop.com/health"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.healthcare.html"
+    }
+  ]
+}

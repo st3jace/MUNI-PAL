@@ -140,6 +140,13 @@ export default function Layout() {
         <main className="p-6">
           <Outlet />
         </main>
+
+        {/* Footer */}
+        <footer className="border-t border-gray-200 bg-white px-6 py-4">
+          <p className="text-center text-sm text-gray-500">
+            Muni-Pal — A Launch Shop product. Built by Innovation Factory.
+          </p>
+        </footer>
       </div>
 
       {/* Municipal Advisor Chat Widget */}

@@ -89,6 +89,20 @@ class RatingDistribution:
         }
 
 
+_DSCR_SMALL_SAMPLE_THRESHOLD = 30
+
+# Sector-specific DSCR plausibility upper bounds.  Values above these
+# thresholds almost certainly reflect a total-revenue / debt-service
+# calculation error (should be net-revenue / debt-service).
+# Source: Moody's Investor Service, S&P Global Ratings sector medians.
+_DSCR_PLAUSIBILITY_UPPER: dict[str, float] = {
+    "healthcare": 5.0,   # Moody's A-rated hospital median ~3.5x; values above 5x
+                         # almost certainly use total revenue instead of net revenue
+    "waste":      6.0,   # WTE/solid waste typical range 1.2x–4.0x
+}
+_DSCR_PLAUSIBILITY_DEFAULT = 20.0  # generous fallback for unknown sectors
+
+
 @dataclass
 class FinancialBenchmarks:
     """Aggregate financial metrics from corpus."""
@@ -96,6 +110,7 @@ class FinancialBenchmarks:
     dscr_p25: float | None = None
     dscr_p75: float | None = None
     dscr_values: list[float] = field(default_factory=list)
+    dscr_sample_warning: str | None = None
     operating_margin_median: float | None = None
     net_margin_median: float | None = None
     days_cash_median: float | None = None
@@ -110,6 +125,7 @@ class FinancialBenchmarks:
                 "p25": self.dscr_p25,
                 "p75": self.dscr_p75,
                 "n_values": len(self.dscr_values),
+                "sample_warning": self.dscr_sample_warning,
             },
             "operating_margin_median": self.operating_margin_median,
             "net_margin_median": self.net_margin_median,
@@ -518,6 +534,8 @@ def _build_rating_distribution(
 
 def _build_financial_benchmarks(
     financial_reports: list[dict[str, Any]],
+    *,
+    sector: str = "",
 ) -> FinancialBenchmarks:
     """Aggregate financial metrics from extracted reports."""
     fb = FinancialBenchmarks()
@@ -538,7 +556,8 @@ def _build_financial_benchmarks(
 
     for r in financial_reports:
         dscr = r.get("debt_service_coverage_ratio")
-        if dscr and isinstance(dscr, (int, float)) and 0 < dscr < 100:
+        dscr_upper = _DSCR_PLAUSIBILITY_UPPER.get(sector, _DSCR_PLAUSIBILITY_DEFAULT)
+        if dscr and isinstance(dscr, (int, float)) and 0 < dscr < dscr_upper:
             dscr_vals.append(float(dscr))
 
         rev = r.get("total_revenue")
@@ -563,6 +582,18 @@ def _build_financial_benchmarks(
     fb.dscr_median = _safe_median(dscr_vals)
     fb.dscr_p25 = _safe_percentile(dscr_vals, 0.25)
     fb.dscr_p75 = _safe_percentile(dscr_vals, 0.75)
+
+    # Flag small DSCR sample sizes — a median from < 30 values is not
+    # statistically representative and should not be presented as a benchmark.
+    if dscr_vals and len(dscr_vals) < _DSCR_SMALL_SAMPLE_THRESHOLD:
+        fb.dscr_sample_warning = (
+            f"Based on {len(dscr_vals)} extracted values "
+            f"(out of {len(financial_reports)} reports). "
+            f"Sample is too small (< {_DSCR_SMALL_SAMPLE_THRESHOLD}) "
+            f"to be a reliable sector benchmark. "
+            f"Treat as indicative only."
+        )
+
     fb.operating_margin_median = _safe_median(op_margins)
     fb.net_margin_median = _safe_median(net_margins)
     fb.days_cash_median = _safe_median(days_cash)
@@ -630,10 +661,42 @@ def _build_security_profile(
     return sp
 
 
+# Risk categories that are sector-specific and should be excluded from
+# other sectors to avoid cross-sector contamination in the MIR.
+_SECTOR_EXCLUDED_RISK_CATEGORIES: dict[str, set[str]] = {
+    "healthcare": {
+        "feedstock_supply",    # WTE-specific
+        "waste_volume",        # WTE-specific
+        "tipping_fee",         # WTE-specific
+        "landfill_capacity",   # WTE-specific
+    },
+    "waste": {
+        "payer_mix",                   # Healthcare-specific
+        "reimbursement_rate",          # Healthcare-specific
+        "certificate_of_need",         # Healthcare-specific
+        "patient_volume",              # Healthcare-specific
+    },
+}
+
+
 def _build_risk_profile(
     risk_factors: list[dict[str, Any]],
+    sector: str | None = None,
 ) -> RiskProfile:
-    """Aggregate risk factor analysis."""
+    """Aggregate risk factor analysis.
+
+    When *sector* is provided, filters out risk categories that belong to
+    other sectors (e.g. feedstock_supply in a healthcare report).
+    """
+    excluded = _SECTOR_EXCLUDED_RISK_CATEGORIES.get(
+        (sector or "").lower(), set()
+    )
+    if excluded:
+        risk_factors = [
+            rf for rf in risk_factors
+            if rf.get("category", "unknown") not in excluded
+        ]
+
     rp = RiskProfile()
     rp.n_risk_factors = len(risk_factors)
 
@@ -917,10 +980,15 @@ def _build_executive_summary(
             f"modal rating {rating_dist.modal_rating})"
         )
     if fin_bench.dscr_median is not None:
+        dscr_n = len(fin_bench.dscr_values)
+        dscr_caveat = (
+            f" (based on {dscr_n} extracted values — treat as indicative)"
+            if dscr_n < _DSCR_SMALL_SAMPLE_THRESHOLD else ""
+        )
         report_guide_items.append(
             f"**Financial benchmarks** including median debt service coverage "
-            f"of {fin_bench.dscr_median:.2f}x — the number rating agencies "
-            f"and underwriters will compare you against"
+            f"of {fin_bench.dscr_median:.2f}x{dscr_caveat} — the number "
+            f"rating agencies and underwriters will compare you against"
         )
     if risk_prof.n_risk_factors > 0:
         top_cat = risk_prof.top_categories[0] if risk_prof.top_categories else {}
@@ -973,10 +1041,12 @@ def _build_executive_summary(
             f"modal rating {rating_dist.modal_rating}"
         )
     if fin_bench.dscr_median is not None:
+        dscr_n = len(fin_bench.dscr_values)
+        dscr_note = f", n={dscr_n}" if dscr_n < _DSCR_SMALL_SAMPLE_THRESHOLD else ""
         key_findings.append(
             f"Median DSCR {fin_bench.dscr_median:.2f}x "
             f"(IQR: {fin_bench.dscr_p25 or 0:.2f}x - "
-            f"{fin_bench.dscr_p75 or 0:.2f}x)"
+            f"{fin_bench.dscr_p75 or 0:.2f}x{dscr_note})"
         )
     if risk_prof.n_risk_factors > 0:
         top_cat = risk_prof.top_categories[0] if risk_prof.top_categories else {}
@@ -1057,9 +1127,9 @@ def generate_market_intelligence(
     rating_dist = _build_rating_distribution(
         os_records, rating_actions, emma_data,
     )
-    fin_bench = _build_financial_benchmarks(financial_reports)
+    fin_bench = _build_financial_benchmarks(financial_reports, sector=sector)
     security_prof = _build_security_profile(security_packages)
-    risk_prof = _build_risk_profile(risk_factors)
+    risk_prof = _build_risk_profile(risk_factors, sector=sector)
     rating_perspective = _build_rating_agency_perspective(
         rating_actions, rating_factors,
     )
@@ -1310,11 +1380,15 @@ def export_markdown(
     fb = report.financial_benchmarks
     if fb.n_reports > 0:
         _a(f"**Reports analyzed:** {fb.n_reports}")
+        if fb.dscr_sample_warning:
+            _a("")
+            _a(f"> **⚠ Small sample size:** {fb.dscr_sample_warning}")
         _a("")
         _a("| Metric | Value |")
         _a("|--------|-------|")
         if fb.dscr_median is not None:
-            _a(f"| DSCR (median) | {fb.dscr_median:.2f}x |")
+            n_dscr = len(fb.dscr_values)
+            _a(f"| DSCR (median, n={n_dscr}) | {fb.dscr_median:.2f}x |")
         if fb.dscr_p25 is not None:
             _a(f"| DSCR (25th pct) | {fb.dscr_p25:.2f}x |")
         if fb.dscr_p75 is not None:

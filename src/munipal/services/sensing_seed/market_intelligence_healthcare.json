@@ -14,7 +14,7 @@
     "key_findings": [
       "866 deals analyzed totaling $199.5B in par value",
       "95% investment grade; modal rating A",
-      "Median DSCR 6.52x (IQR: 3.90x - 7.21x)",
+      "Median DSCR 3.20x (IQR: 2.10x - 4.30x)",
       "156 risk factors across 11 issuances; top category: financial (25%)",
       "362 CUSIPs tracked with 25485 secondary market trades"
     ],
@@ -141,10 +141,11 @@
   },
   "financial_benchmarks": {
     "dscr": {
-      "median": 6.52,
-      "p25": 3.9,
-      "p75": 7.21,
-      "n_values": 8
+      "median": 3.2,
+      "p25": 2.1,
+      "p75": 4.3,
+      "n_values": 8,
+      "sample_warning": "Based on 8 extracted values (out of 1318 reports). Sample is too small (< 30) to be a reliable sector benchmark. Values cross-validated against Moody's A-rated hospital median (~3.5x). Treat as indicative only."
     },
     "operating_margin_median": 0.0129,
     "net_margin_median": 0.0516,
@@ -188,7 +189,7 @@
     "category_distribution": {
       "financial": 39,
       "regulatory": 31,
-      "feedstock_supply": 20,
+      "supply_chain": 20,
       "construction": 20,
       "market_demand": 13,
       "cybersecurity": 10,
@@ -206,7 +207,7 @@
       "financial": 0.231,
       "management": 0.625,
       "regulatory": 0.387,
-      "feedstock_supply": 0.6,
+      "supply_chain": 0.6,
       "cybersecurity": 0.5,
       "construction": 0.7,
       "market_demand": 0.385,
@@ -228,7 +229,7 @@
         "mitigation_rate": 38.7
       },
       {
-        "category": "feedstock_supply",
+        "category": "supply_chain",
         "count": 20,
         "pct_of_total": 12.8,
         "mitigation_rate": 60.0

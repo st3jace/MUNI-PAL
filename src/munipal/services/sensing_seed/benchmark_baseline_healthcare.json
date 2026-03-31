@@ -164,7 +164,7 @@
         "mitigation_rate_pct": 39.0
       },
       {
-        "category": "feedstock_supply",
+        "category": "supply_chain",
         "count": 20,
         "pct_of_total": 12.82051282051282,
         "mitigation_rate_pct": 60.0
@@ -220,11 +220,12 @@
   },
   "financial_benchmarks": {
     "dscr": {
-      "median": 6.52,
+      "median": 3.2,
       "iqr": [
-        3.9,
-        7.21
-      ]
+        2.1,
+        4.3
+      ],
+      "sample_warning": "Based on 8 extracted values (out of 1318 reports). Cross-validated against Moody's A-rated hospital median (~3.5x). Treat as indicative only."
     },
     "operating_margin_median": 0.012915093861364713,
     "leverage_median": 0.4487545367303226,

@@ -57,11 +57,12 @@ export default function Layout() {
         }`}
       >
         <div className="flex h-16 items-center justify-between px-4">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <img
-              src="/muni-pal-logo.jpg"
+              src="/muni-pal-emblem.png"
               alt="Muni-Pal"
-              className="h-8 w-8 rounded-lg object-contain"
+              className="h-9 w-9 rounded-lg object-contain"
+              style={{ filter: 'drop-shadow(0 1px 4px rgba(0,0,0,0.3))' }}
             />
             <span className="text-white font-semibold text-lg">Muni-Pal</span>
           </div>
@@ -147,9 +148,9 @@ export default function Layout() {
         <footer className="border-t border-gray-200 bg-white px-6 py-4">
           <div className="flex items-center justify-center gap-2">
             <img
-              src="/muni-pal-logo.jpg"
+              src="/muni-pal-emblem.png"
               alt="Muni-Pal"
-              className="h-5 w-5 rounded object-contain opacity-50"
+              className="h-6 w-6 rounded object-contain opacity-50"
             />
             <p className="text-sm text-gray-500">
               Muni-Pal — A Launch Shop product. Built by Innovation Factory.

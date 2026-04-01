@@ -238,26 +238,16 @@ function pctDirect(n: number | null | undefined): string {
 /* ------------------------------------------------------------------ */
 function MuniPalLogo({ size = 40 }: { size?: number }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 100 100"
+    <img
+      src="/muni-pal-emblem.png"
+      alt="Muni-Pal"
       width={size}
       height={size}
-      className="flex-shrink-0"
-    >
-      <rect width="100" height="100" rx="15" fill={BRAND.navy} />
-      <text
-        x="50"
-        y="65"
-        fontFamily="Arial, sans-serif"
-        fontSize="50"
-        fontWeight="bold"
-        fill={BRAND.teal}
-        textAnchor="middle"
-      >
-        M
-      </text>
-    </svg>
+      className="flex-shrink-0 rounded-xl"
+      style={{
+        filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.3))',
+      }}
+    />
   )
 }
 
@@ -418,16 +408,8 @@ export default function MarketIntelligence() {
         </div>
 
         <div className="flex items-center gap-4 mb-4">
-          <MuniPalLogo size={48} />
+          <MuniPalLogo size={56} />
           <div>
-            <div className="flex items-center gap-3 mb-1">
-              <span
-                className="text-xs font-semibold uppercase tracking-wide px-2.5 py-0.5 rounded-full"
-                style={{ backgroundColor: `${BRAND.teal}30`, color: BRAND.teal }}
-              >
-                {sectorLabel}
-              </span>
-            </div>
             <h1 className="text-2xl md:text-3xl font-bold leading-tight">
               {sectorLabel} Municipal Bond Market Intelligence
             </h1>

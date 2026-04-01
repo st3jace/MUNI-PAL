@@ -85,7 +85,7 @@ export default function HealthcareCFOLanding() {
             <ArrowRight className="h-4 w-4" />
           </Link>
           <a
-            href="#engagement-path"
+            href="/tools"
             className="inline-flex items-center justify-center gap-2 border border-white/30 hover:border-white/60 text-white font-medium px-6 py-3 rounded-lg transition-colors"
           >
             See the Bond Readiness Path

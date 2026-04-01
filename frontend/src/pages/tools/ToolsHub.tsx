@@ -51,6 +51,22 @@ export default function ToolsHub() {
         </p>
       </div>
 
+      <a
+        href="/healthcare"
+        className="mb-8 flex items-center justify-between rounded-lg border border-indigo-100 bg-indigo-50/60 px-5 py-3 text-sm hover:bg-indigo-50 transition-colors group"
+      >
+        <span className="text-gray-700">
+          Healthcare operator?{' '}
+          <span className="text-gray-500">
+            See how the Bond Readiness Path maps to these tools.
+          </span>
+        </span>
+        <span className="flex items-center gap-1 font-medium text-indigo-600 group-hover:text-indigo-700 whitespace-nowrap ml-4">
+          Healthcare Bond Readiness Overview
+          <ArrowRight className="h-4 w-4" />
+        </span>
+      </a>
+
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {tools.map((tool) => (
           <Link

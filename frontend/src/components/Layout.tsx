@@ -58,9 +58,11 @@ export default function Layout() {
       >
         <div className="flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-lg bg-muni-teal flex items-center justify-center">
-              <span className="text-muni-navy font-bold text-lg">M</span>
-            </div>
+            <img
+              src="/muni-pal-logo.jpg"
+              alt="Muni-Pal"
+              className="h-8 w-8 rounded-lg object-contain"
+            />
             <span className="text-white font-semibold text-lg">Muni-Pal</span>
           </div>
           <button
@@ -143,9 +145,16 @@ export default function Layout() {
 
         {/* Footer */}
         <footer className="border-t border-gray-200 bg-white px-6 py-4">
-          <p className="text-center text-sm text-gray-500">
-            Muni-Pal — A Launch Shop product. Built by Innovation Factory.
-          </p>
+          <div className="flex items-center justify-center gap-2">
+            <img
+              src="/muni-pal-logo.jpg"
+              alt="Muni-Pal"
+              className="h-5 w-5 rounded object-contain opacity-50"
+            />
+            <p className="text-sm text-gray-500">
+              Muni-Pal — A Launch Shop product. Built by Innovation Factory.
+            </p>
+          </div>
         </footer>
       </div>
 

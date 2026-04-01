@@ -63,9 +63,16 @@ export default function HealthcareCFOLanding() {
     <div className="max-w-5xl mx-auto">
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-muni-navy via-[#1B3A5C] to-indigo-900 rounded-2xl p-8 md:p-12 text-white mb-10">
-        <p className="text-sm font-semibold tracking-wide text-[#2DAEAC] uppercase mb-4">
-          Healthcare Bond Intelligence
-        </p>
+        <div className="flex items-center gap-3 mb-4">
+          <img
+            src="/muni-pal-logo.jpg"
+            alt="Muni-Pal"
+            className="h-10 w-10 rounded-lg object-contain bg-white/10 p-0.5"
+          />
+          <p className="text-sm font-semibold tracking-wide text-[#2DAEAC] uppercase">
+            Healthcare Bond Intelligence
+          </p>
+        </div>
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight max-w-3xl mb-4">
           You're planning a bond issuance. Here's what your advisors won't tell
           you for free.
@@ -252,7 +259,12 @@ export default function HealthcareCFOLanding() {
       </section>
 
       {/* Footer */}
-      <footer className="text-center text-xs text-gray-400 py-6 border-t border-gray-100">
+      <footer className="flex items-center justify-center gap-2 text-xs text-gray-400 py-6 border-t border-gray-100">
+        <img
+          src="/muni-pal-logo.jpg"
+          alt="Muni-Pal"
+          className="h-5 w-5 rounded object-contain opacity-60"
+        />
         <p>Muni-Pal &mdash; A Launch Shop product. Built by Innovation Factory.</p>
       </footer>
     </div>

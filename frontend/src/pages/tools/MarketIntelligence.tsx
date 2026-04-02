@@ -1281,7 +1281,7 @@ export default function MarketIntelligence() {
                 before approaching the market.
               </p>
               <Link
-                to="/tools/readiness-assessment"
+                to="/tools/readiness"
                 className="inline-flex items-center gap-2 font-semibold px-8 py-3 rounded-lg transition-colors"
                 style={{
                   backgroundColor: BRAND.orange,

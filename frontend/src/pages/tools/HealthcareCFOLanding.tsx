@@ -7,13 +7,16 @@ import {
   ArrowRight,
   CheckCircle2,
   ChevronRight,
+  Clock,
+  FileText,
+  TrendingUp,
 } from 'lucide-react'
 
 const VALUE_PROPS = [
   {
     icon: BarChart3,
     headline: 'Know what "good" looks like',
-    copy: 'See the exact DSCR, payer mix, days cash on hand, and pledge structures that separate AA-rated healthcare systems from BBB — drawn from real EMMA data, not industry averages.',
+    copy: 'See the exact DSCR (gross revenue pledge, healthcare-adjusted), payer mix, days cash on hand, and pledge structures that separate AA-rated healthcare systems from BBB — drawn from real EMMA data, not industry averages.',
   },
   {
     icon: DollarSign,
@@ -54,7 +57,7 @@ const ENGAGEMENT_PATH = [
     name: 'Bond Readiness Accelerator',
     price: '$45K–$75K',
     description:
-      'Evidence assembly, disclosure prep, underwriter coordination',
+      'Evidence assembly, disclosure prep, underwriter coordination *',
   },
 ]
 
@@ -136,6 +139,7 @@ export default function HealthcareCFOLanding() {
               3.20x
             </span>
             Median healthcare DSCR
+            <span className="block text-[10px] text-gray-400">(gross revenue pledge basis)</span>
           </div>
           <div>
             <span className="block text-2xl font-bold text-muni-navy">5</span>
@@ -191,6 +195,145 @@ export default function HealthcareCFOLanding() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* MSRB G-42 Disclaimer */}
+      <p className="text-[11px] text-gray-400 mt-3 max-w-3xl">
+        * Bond Readiness Accelerator is an educational and analytical service. It does not constitute municipal advisory services as defined under Section 15B of the Securities Exchange Act.
+      </p>
+
+      {/* Cost of Inaction — ROI Callout */}
+      <section className="mb-12 bg-gradient-to-r from-red-50 to-orange-50 rounded-lg border border-red-100 p-6 md:p-8">
+        <div className="flex items-start gap-4">
+          <div className="h-10 w-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+            <TrendingUp className="h-5 w-5 text-red-600" />
+          </div>
+          <div>
+            <h3 className="text-base font-bold text-gray-900 mb-2">
+              The Cost of Inaction
+            </h3>
+            <p className="text-sm text-gray-700 leading-relaxed mb-3">
+              The difference between an A-rated and BBB-rated issuance costs{' '}
+              <span className="font-semibold text-red-700">$27M+</span> over 25
+              years on a $75M deal. The Accelerator helps you document your way
+              to a better rating — for{' '}
+              <span className="font-semibold">less than 0.04%</span> of deal
+              size.
+            </p>
+            <p className="text-xs text-gray-500">
+              Based on observed AA vs. BBB spread differentials in EMMA
+              healthcare revenue bond data (gross revenue pledge basis).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* When to Engage — Timeline */}
+      <section className="mb-12">
+        <h2 className="text-xl font-bold text-gray-900 mb-2 flex items-center gap-2">
+          <Clock className="h-5 w-5 text-[#2DAEAC]" />
+          When to Engage
+        </h2>
+        <p className="text-sm text-gray-600 mb-6 max-w-2xl">
+          A typical healthcare bond transaction takes 5–8 months. Here's how the
+          Bond Readiness Path maps to your deal timeline.
+        </p>
+        <div className="relative">
+          <div className="absolute left-4 top-2 bottom-2 w-px bg-gray-200 hidden md:block" />
+          <div className="space-y-4">
+            {[
+              {
+                months: 'Month 1–2',
+                label: 'Discovery',
+                step: 'Market Intelligence Report + Readiness Scan',
+                detail:
+                  'Benchmark your system against peers. Identify top gaps before engaging advisors.',
+              },
+              {
+                months: 'Month 2–3',
+                label: 'Diagnostic',
+                step: 'Bond Readiness Diagnostic',
+                detail:
+                  'Full scoring, gap analysis, and critical path. Know exactly what underwriters will scrutinize.',
+              },
+              {
+                months: 'Month 3–5',
+                label: 'Preparation',
+                step: 'Bond Readiness Accelerator',
+                detail:
+                  'Evidence assembly, disclosure prep, and underwriter coordination. Close documentation gaps.',
+              },
+              {
+                months: 'Month 5–8',
+                label: 'Execution',
+                step: 'Market entry',
+                detail:
+                  'Go to market with a complete, defensible credit story. Advisors execute — you negotiate from strength.',
+              },
+            ].map((phase) => (
+              <div
+                key={phase.months}
+                className="flex items-start gap-4 md:pl-10 relative"
+              >
+                <div className="absolute left-2.5 top-1.5 h-3 w-3 rounded-full bg-[#2DAEAC] border-2 border-white shadow hidden md:block" />
+                <div className="min-w-[80px]">
+                  <span className="text-xs font-semibold text-[#2DAEAC] uppercase">
+                    {phase.months}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-gray-900">
+                    {phase.label}{' '}
+                    <span className="font-normal text-gray-500">
+                      — {phase.step}
+                    </span>
+                  </p>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    {phase.detail}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Secondary Trust-Building CTAs */}
+      <section className="mb-12 grid gap-4 sm:grid-cols-2">
+        <Link
+          to="/tools/market-intelligence"
+          className="flex items-start gap-4 bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md transition-shadow group"
+        >
+          <div className="h-10 w-10 rounded-lg bg-[#2DAEAC]/10 flex items-center justify-center flex-shrink-0">
+            <FileText className="h-5 w-5 text-[#2DAEAC]" />
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-gray-900 group-hover:text-[#2DAEAC] transition-colors">
+              View a Sample MIR Report
+            </p>
+            <p className="text-xs text-gray-500 mt-1">
+              See the exact benchmarks, risk scoring, and pricing data a
+              healthcare CFO receives — before you request your own.
+            </p>
+          </div>
+        </Link>
+        <Link
+          to="/tools/market-intelligence#risk-profile"
+          className="flex items-start gap-4 bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md transition-shadow group"
+        >
+          <div className="h-10 w-10 rounded-lg bg-muni-navy/10 flex items-center justify-center flex-shrink-0">
+            <BarChart3 className="h-5 w-5 text-muni-navy" />
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-gray-900 group-hover:text-muni-navy transition-colors">
+              Compare Risk Profiles by Rating Tier
+            </p>
+            <p className="text-xs text-gray-500 mt-1">
+              How does your system's risk profile stack up against AA, A, and
+              BBB-rated peers? See the gap analysis framework.
+            </p>
+          </div>
+        </Link>
       </section>
 
       {/* Primary CTA Block */}

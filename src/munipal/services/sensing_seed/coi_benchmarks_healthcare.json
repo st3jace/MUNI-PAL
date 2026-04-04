@@ -1,0 +1,74 @@
+{
+  "hospital": {
+    "total_items": 69,
+    "required_items": 48,
+    "agent_assistable_pct": 68,
+    "baseline_weeks_min": 9,
+    "baseline_weeks_max": 24,
+    "compressed_weeks_min": 6,
+    "compressed_weeks_max": 14,
+    "timeline_compression_pct": 38,
+    "coi_gap_cost_min": 200000,
+    "coi_gap_cost_max": 630000,
+    "agent_displacement_per_deal": 62500,
+    "category_weights": {
+      "required": 5,
+      "recommended": 3,
+      "optional": 1
+    }
+  },
+  "senior_living": {
+    "total_items": 72,
+    "required_items": 61,
+    "agent_assistable_pct": 72,
+    "baseline_weeks_min": 12,
+    "baseline_weeks_max": 36,
+    "compressed_weeks_min": 8,
+    "compressed_weeks_max": 24,
+    "timeline_compression_pct": 37,
+    "coi_gap_cost_min": 250000,
+    "coi_gap_cost_max": 750000,
+    "agent_displacement_per_deal": 95000,
+    "category_weights": {
+      "required": 5,
+      "recommended": 3,
+      "optional": 1
+    }
+  },
+  "fqhc_bond": {
+    "total_items": 68,
+    "required_items": 58,
+    "agent_assistable_pct": 72,
+    "baseline_weeks_min": 12,
+    "baseline_weeks_max": 20,
+    "compressed_weeks_min": 8,
+    "compressed_weeks_max": 14,
+    "timeline_compression_pct": 35,
+    "coi_gap_cost_min": 120000,
+    "coi_gap_cost_max": 350000,
+    "agent_displacement_per_deal": 54000,
+    "category_weights": {
+      "required": 5,
+      "recommended": 3,
+      "optional": 1
+    }
+  },
+  "fqhc_cdfi": {
+    "total_items": 38,
+    "required_items": 34,
+    "agent_assistable_pct": 79,
+    "baseline_weeks_min": 8,
+    "baseline_weeks_max": 16,
+    "compressed_weeks_min": 4,
+    "compressed_weeks_max": 10,
+    "timeline_compression_pct": 44,
+    "coi_gap_cost_min": 0,
+    "coi_gap_cost_max": 0,
+    "agent_displacement_per_deal": 30500,
+    "category_weights": {
+      "required": 5,
+      "recommended": 3,
+      "optional": 1
+    }
+  }
+}

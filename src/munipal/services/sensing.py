@@ -56,6 +56,58 @@ _SEED_DIR = Path(__file__).resolve().parent / "sensing_seed"
 # Sectors that have seed data available (even without corpus.db).
 _SEED_SECTORS = ["waste", "healthcare"]
 
+# Healthcare sub-sectors supported by the enhanced readiness engine.
+_HEALTHCARE_SUB_SECTORS = {
+    "healthcare_hospital": {
+        "id": "healthcare_hospital",
+        "name": "Hospital / Health System",
+        "parent": "healthcare",
+        "coi_key": "hospital",
+    },
+    "healthcare_senior_living": {
+        "id": "healthcare_senior_living",
+        "name": "Senior Living / CCRC",
+        "parent": "healthcare",
+        "coi_key": "senior_living",
+    },
+    "healthcare_fqhc_bond": {
+        "id": "healthcare_fqhc_bond",
+        "name": "FQHC Revenue Bond",
+        "parent": "healthcare",
+        "coi_key": "fqhc_bond",
+    },
+    "healthcare_fqhc_cdfi": {
+        "id": "healthcare_fqhc_cdfi",
+        "name": "FQHC CDFI / NMTC",
+        "parent": "healthcare",
+        "coi_key": "fqhc_cdfi",
+    },
+}
+
+
+def _resolve_questionnaire_sector(sector: str) -> str:
+    """Resolve a sector string to the questionnaire filename suffix.
+
+    For healthcare sub-sectors (e.g. ``healthcare_hospital``), try the
+    sub-sector-specific file first, falling back to the generic
+    ``questionnaire_healthcare.json`` if the specific one doesn't exist yet.
+    """
+    if sector in _HEALTHCARE_SUB_SECTORS:
+        sub_path = _SEED_DIR / f"questionnaire_{sector}.json"
+        if sub_path.exists():
+            return sector
+        # Fall back to generic healthcare questionnaire
+        return "healthcare"
+    return sector
+
+
+def _load_coi_benchmarks() -> dict[str, Any]:
+    """Load COI benchmark data for healthcare sub-sectors."""
+    try:
+        return _load_seed("coi_benchmarks_healthcare.json")
+    except FileNotFoundError:
+        return {}
+
 
 def _corpus_available(sector: str) -> bool:
     """Check whether the EMMA corpus.db exists for a sector."""
@@ -335,10 +387,24 @@ def _score_readiness_from_seed(
     revenue: float | None,
     coverage_ratio: float | None,
 ) -> dict[str, Any]:
-    """Simplified readiness scoring using seed questionnaire (no corpus)."""
+    """Simplified readiness scoring using seed questionnaire (no corpus).
+
+    For healthcare sub-sectors, applies category-weighted scoring
+    (Required > Recommended > Optional) and returns COI gap estimates,
+    timeline compression data, and agent displacement value.
+    """
     from datetime import datetime, timezone
 
-    questionnaire = _load_seed(f"questionnaire_{sector}.json")
+    # Resolve which questionnaire file to load
+    q_sector = _resolve_questionnaire_sector(sector)
+    questionnaire = _load_seed(f"questionnaire_{q_sector}.json")
+
+    # Load COI benchmarks for healthcare sub-sectors
+    sub_meta = _HEALTHCARE_SUB_SECTORS.get(sector)
+    coi_benchmarks = _load_coi_benchmarks()
+    coi_data = coi_benchmarks.get(sub_meta["coi_key"]) if sub_meta else None
+    category_weights = (coi_data or {}).get("category_weights")
+
     # Group items by dimension
     dims: dict[str, list[dict]] = {}
     for item in questionnaire:
@@ -346,15 +412,37 @@ def _score_readiness_from_seed(
 
     total_score = 0.0
     total_max = 0.0
+    required_total = 0
+    required_completed = 0
     dim_scores = []
     gap_analysis = []
 
     for dim_key, items in dims.items():
-        dim_max = sum(it["points"] for it in items)
-        dim_earned = sum(
-            it["points"] for it in items
-            if responses.get(it["item_id"], False)
-        )
+        if category_weights:
+            # Weighted scoring: Required items worth more than Optional
+            dim_max = sum(
+                it["points"] * category_weights.get(it.get("category", "optional"), 1)
+                for it in items
+            )
+            dim_earned = sum(
+                it["points"] * category_weights.get(it.get("category", "optional"), 1)
+                for it in items
+                if responses.get(it["item_id"], False)
+            )
+        else:
+            dim_max = sum(it["points"] for it in items)
+            dim_earned = sum(
+                it["points"] for it in items
+                if responses.get(it["item_id"], False)
+            )
+
+        # Track Required item completion for COI gap estimate
+        for it in items:
+            if it.get("category") == "required":
+                required_total += 1
+                if responses.get(it["item_id"], False):
+                    required_completed += 1
+
         pct = (dim_earned / dim_max * 100) if dim_max else 0
         total_score += dim_earned
         total_max += dim_max
@@ -377,12 +465,19 @@ def _score_readiness_from_seed(
 
         severity = "acceptable" if pct >= 60 else ("material" if pct >= 30 else "critical")
         if severity != "acceptable":
+            coi_impact_items = [
+                it for it in items
+                if not responses.get(it["item_id"])
+                and it.get("coi_impact")
+                and it["coi_impact"].upper() in ("HIGH", "VERY HIGH")
+            ]
             gap_analysis.append({
                 "dimension": dim_key,
                 "dimension_name": items[0].get("dimension_label", dim_key),
                 "severity": severity,
                 "narrative": f"Score {pct:.0f}% — additional documentation needed.",
                 "recommendations": [it["question"] for it in items if not responses.get(it["item_id"])],
+                "high_coi_impact_items": len(coi_impact_items),
             })
 
     raw_pct = (total_score / total_max * 100) if total_max else 0
@@ -406,7 +501,7 @@ def _score_readiness_from_seed(
         else "Early Stage"
     )
 
-    return {
+    result: dict[str, Any] = {
         "project_name": project_name,
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "sector": sector,
@@ -440,6 +535,31 @@ def _score_readiness_from_seed(
         "corpus_summary": {"note": "Scored using pre-computed sector benchmarks"},
     }
 
+    # Enhanced healthcare metrics (COI gap, timeline, agent displacement)
+    if coi_data:
+        required_gap_pct = (
+            (1 - required_completed / required_total) if required_total else 0
+        )
+        result["coi_estimate"] = {
+            "low": round(coi_data["coi_gap_cost_min"] * required_gap_pct),
+            "high": round(coi_data["coi_gap_cost_max"] * required_gap_pct),
+            "required_items_total": required_total,
+            "required_items_completed": required_completed,
+            "required_items_gap": required_total - required_completed,
+        }
+        result["timeline_baseline_weeks"] = [
+            coi_data["baseline_weeks_min"],
+            coi_data["baseline_weeks_max"],
+        ]
+        result["timeline_compressed_weeks"] = [
+            coi_data["compressed_weeks_min"],
+            coi_data["compressed_weeks_max"],
+        ]
+        result["timeline_compression_pct"] = coi_data["timeline_compression_pct"]
+        result["agent_displacement_value"] = coi_data["agent_displacement_per_deal"]
+
+    return result
+
 
 def _run_readiness_assessment(
     sector: str,
@@ -450,14 +570,27 @@ def _run_readiness_assessment(
     revenue: float | None,
     coverage_ratio: float | None,
 ) -> dict[str, Any]:
-    """Score readiness assessment (sync, runs in threadpool)."""
+    """Score readiness assessment (sync, runs in threadpool).
+
+    Accepts healthcare sub-sectors (e.g. ``healthcare_hospital``) and
+    routes them through the enhanced seed-based scoring path with COI
+    metrics. The corpus-based path uses the parent sector.
+    """
     # Merge evidence IDs into responses dict
     merged_responses = dict(responses)
     for eid in evidence_ids:
         merged_responses[eid] = True
 
-    if not _corpus_available(sector):
-        logger.info("Corpus unavailable for %s — using seed-based readiness scoring", sector)
+    # For healthcare sub-sectors, always use seed-based scoring
+    # (the corpus path doesn't understand sub-sectors)
+    corpus_sector = (
+        _HEALTHCARE_SUB_SECTORS[sector]["parent"]
+        if sector in _HEALTHCARE_SUB_SECTORS
+        else sector
+    )
+
+    if sector in _HEALTHCARE_SUB_SECTORS or not _corpus_available(corpus_sector):
+        logger.info("Using seed-based readiness scoring for %s", sector)
         return _score_readiness_from_seed(
             sector, project_name, merged_responses, dscr, revenue, coverage_ratio,
         )
@@ -469,8 +602,8 @@ def _run_readiness_assessment(
         score_assessment,
     )
 
-    set_sector(sector)
-    engine = _get_corpus_engine(sector)
+    set_sector(corpus_sector)
+    engine = _get_corpus_engine(corpus_sector)
 
     response = AssessmentResponse(
         project_name=project_name,
@@ -479,7 +612,7 @@ def _run_readiness_assessment(
         revenue=revenue,
         coverage_ratio=coverage_ratio,
     )
-    result = score_assessment(engine, response, sector=sector)
+    result = score_assessment(engine, response, sector=corpus_sector)
     return _readiness_result_to_dict(result)
 
 
@@ -512,22 +645,29 @@ async def get_readiness_assessment(
 # ---------------------------------------------------------------------------
 
 def _get_questionnaire(sector: str = "waste") -> list[dict[str, Any]]:
-    """Get the readiness questionnaire items for a given sector."""
+    """Get the readiness questionnaire items for a given sector.
+
+    For healthcare sub-sectors (e.g. ``healthcare_hospital``), loads the
+    sub-sector-specific questionnaire if available, otherwise falls back
+    to the generic healthcare questionnaire.
+    """
+    q_sector = _resolve_questionnaire_sector(sector)
+    corpus_sector = _HEALTHCARE_SUB_SECTORS[sector]["parent"] if sector in _HEALTHCARE_SUB_SECTORS else sector
+
     # Try seed data first (always available, no EMMA imports needed)
-    seed_path = _SEED_DIR / f"questionnaire_{sector}.json"
-    if seed_path.exists() and not _corpus_available(sector):
-        logger.info("Corpus unavailable for %s — serving seed questionnaire", sector)
-        return _load_seed(f"questionnaire_{sector}.json")
+    seed_path = _SEED_DIR / f"questionnaire_{q_sector}.json"
+    if seed_path.exists() and not _corpus_available(corpus_sector):
+        logger.info("Corpus unavailable for %s — serving seed questionnaire (%s)", sector, q_sector)
+        return _load_seed(f"questionnaire_{q_sector}.json")
 
     _ensure_emma_path()
     from src.analysis.readiness_assessment import build_questionnaire
     from src.analysis.risk_benchmark import get_readiness_path_config
 
-    path_config = get_readiness_path_config(sector)
-    # Build a dimension -> display_name lookup
+    path_config = get_readiness_path_config(corpus_sector)
     dim_names = {path: cfg["display_name"] for path, cfg in path_config.items()}
 
-    items = build_questionnaire(sector=sector)
+    items = build_questionnaire(sector=corpus_sector)
     return [
         {
             "item_id": item.item_id,
@@ -552,9 +692,13 @@ async def get_questionnaire(sector: str = "waste") -> list[dict[str, Any]]:
 # Available Sectors
 # ---------------------------------------------------------------------------
 
-def get_available_sectors() -> list[dict[str, str]]:
-    """List sectors that have corpus data or seed data available."""
-    sectors: list[dict[str, str]] = []
+def get_available_sectors() -> list[dict[str, Any]]:
+    """List sectors that have corpus data or seed data available.
+
+    Healthcare is returned with ``children`` listing the available
+    sub-sectors (hospital, senior_living, fqhc_bond, fqhc_cdfi).
+    """
+    sectors: list[dict[str, Any]] = []
     seen: set[str] = set()
 
     # Check for live corpus data
@@ -563,20 +707,34 @@ def get_available_sectors() -> list[dict[str, str]]:
         for sector_dir in sorted(data_root.iterdir()):
             if sector_dir.is_dir() and (sector_dir / "corpus.db").exists():
                 name = sector_dir.name
-                sectors.append({
+                entry: dict[str, Any] = {
                     "id": name,
                     "name": name.replace("_", " ").title(),
-                })
+                }
+                if name == "healthcare":
+                    entry["children"] = _healthcare_sub_sector_list()
+                sectors.append(entry)
                 seen.add(name)
 
     # Fall back to seed sectors if no live corpus found
     if not seen:
         for name in _SEED_SECTORS:
             if name not in seen and (_SEED_DIR / f"market_intelligence_{name}.json").exists():
-                sectors.append({
+                entry = {
                     "id": name,
                     "name": name.replace("_", " ").title(),
-                })
+                }
+                if name == "healthcare":
+                    entry["children"] = _healthcare_sub_sector_list()
+                sectors.append(entry)
                 seen.add(name)
 
     return sectors
+
+
+def _healthcare_sub_sector_list() -> list[dict[str, str]]:
+    """Return the list of healthcare sub-sectors for the sectors endpoint."""
+    return [
+        {"id": meta["id"], "name": meta["name"]}
+        for meta in _HEALTHCARE_SUB_SECTORS.values()
+    ]

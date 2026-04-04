@@ -194,7 +194,7 @@ function ResultsView({ data }: { data: any }) {
                 </div>
                 {data.timeline_compression_pct != null && (
                   <p className="text-xs text-gray-500 mt-1">
-                    {Math.round(data.timeline_compression_pct * 100)}% faster
+                    {Math.round(data.timeline_compression_pct)}% faster
                     with agent-assisted preparation
                   </p>
                 )}

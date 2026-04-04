@@ -13,6 +13,7 @@ const client = axios.create({ baseURL: BASE })
 export interface SectorInfo {
   id: string
   name: string
+  children?: SectorInfo[]
 }
 
 export interface BenchmarkParams {

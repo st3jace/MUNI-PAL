@@ -103,17 +103,13 @@ export default function HealthcareCFOLanding() {
             Get Your Free Market Intelligence Report
             <ArrowRight className="h-4 w-4" />
           </Link>
-          <a
-            href="#engagement-path"
-            onClick={(e) => {
-              e.preventDefault()
-              document.getElementById('engagement-path')?.scrollIntoView({ behavior: 'smooth' })
-            }}
+          <Link
+            to="/tools"
             className="inline-flex items-center justify-center gap-2 border border-white/30 hover:border-white/60 text-white font-medium px-6 py-3 rounded-lg transition-colors"
           >
             See the Bond Readiness Path
             <ChevronRight className="h-4 w-4" />
-          </a>
+          </Link>
         </div>
       </section>
 
@@ -350,7 +346,7 @@ export default function HealthcareCFOLanding() {
           </div>
         </Link>
         <Link
-          to="/tools/market-intelligence#risk-profile"
+          to="/tools"
           className="flex items-start gap-4 bg-white rounded-lg border border-gray-200 p-5 hover:shadow-md transition-shadow group"
         >
           <div className="h-10 w-10 rounded-lg bg-muni-navy/10 flex items-center justify-center flex-shrink-0">

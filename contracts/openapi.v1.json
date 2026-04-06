@@ -22907,9 +22907,7 @@
               "application/json": {
                 "schema": {
                   "items": {
-                    "additionalProperties": {
-                      "type": "string"
-                    },
+                    "additionalProperties": true,
                     "type": "object"
                   },
                   "title": "Response List Sectors Api V1 Sensing Sectors Get",

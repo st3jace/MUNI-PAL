@@ -10,6 +10,7 @@ import {
   Clock,
   FileText,
   TrendingUp,
+  Handshake,
 } from 'lucide-react'
 
 const VALUE_PROPS = [
@@ -87,7 +88,7 @@ export default function HealthcareCFOLanding() {
           knowing what top-performing credits look like, what borrowing actually
           costs, and where risk disclosures go wrong.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-col sm:flex-row flex-wrap gap-4">
           <Link
             to="/tools/market-intelligence"
             className="inline-flex items-center justify-center gap-2 bg-[#E8913A] hover:bg-[#d47e2e] text-white font-semibold px-6 py-3 rounded-lg transition-colors"
@@ -95,8 +96,19 @@ export default function HealthcareCFOLanding() {
             Get Your Free Market Intelligence Report
             <ArrowRight className="h-4 w-4" />
           </Link>
+          <Link
+            to="/tools/readiness"
+            className="inline-flex items-center justify-center gap-2 bg-[#2DAEAC] hover:bg-[#259e9c] text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+          >
+            Take the Free Bond Readiness Scan
+            <ArrowRight className="h-4 w-4" />
+          </Link>
           <a
-            href="/tools"
+            href="#engagement-path"
+            onClick={(e) => {
+              e.preventDefault()
+              document.getElementById('engagement-path')?.scrollIntoView({ behavior: 'smooth' })
+            }}
             className="inline-flex items-center justify-center gap-2 border border-white/30 hover:border-white/60 text-white font-medium px-6 py-3 rounded-lg transition-colors"
           >
             See the Bond Readiness Path
@@ -295,6 +307,26 @@ export default function HealthcareCFOLanding() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Works With Your Advisors */}
+      <section className="mb-12">
+        <div className="bg-white rounded-lg border border-gray-200 p-6 md:p-8">
+          <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <Handshake className="h-6 w-6 text-[#2DAEAC]" />
+            Works With Your Advisors, Not Against Them
+          </h2>
+          <p className="text-sm text-gray-700 leading-relaxed mb-3">
+            Muni-Pal is independent due diligence — not a replacement for your
+            financial advisor. We give you the benchmarks, risk analysis, and
+            market context so you walk into advisor meetings asking better
+            questions and validating recommendations with data.
+          </p>
+          <p className="text-sm text-gray-700 leading-relaxed">
+            Your advisor brings deal execution. Muni-Pal brings evidence.
+            Together, you get a stronger credit story and better terms.
+          </p>
         </div>
       </section>
 

@@ -10,7 +10,7 @@ import {
   Clock,
   FileText,
   TrendingUp,
-  Handshake,
+  Users,
 } from 'lucide-react'
 
 const VALUE_PROPS = [
@@ -314,7 +314,7 @@ export default function HealthcareCFOLanding() {
       <section className="mb-12">
         <div className="bg-white rounded-lg border border-gray-200 p-6 md:p-8">
           <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-3">
-            <Handshake className="h-6 w-6 text-[#2DAEAC]" />
+            <Users className="h-6 w-6 text-[#2DAEAC]" />
             Works With Your Advisors, Not Against Them
           </h2>
           <p className="text-sm text-gray-700 leading-relaxed mb-3">

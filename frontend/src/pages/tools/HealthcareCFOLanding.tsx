@@ -34,17 +34,17 @@ const VALUE_PROPS = [
 const ENGAGEMENT_PATH = [
   {
     step: 1,
+    name: 'Bond Readiness Assessment',
+    price: 'Free',
+    description:
+      'Score your facility across 6 dimensions — gaps, priorities, timeline',
+  },
+  {
+    step: 2,
     name: 'Market Intelligence Report',
     price: 'Free',
     description:
       'Sector benchmarks — DSCR, pricing, risk profile, Pareto framework',
-  },
-  {
-    step: 2,
-    name: 'Readiness Scan',
-    price: 'Free',
-    description:
-      'Automated pre-screen — sector fit, deal size, top 3 gaps',
   },
   {
     step: 3,
@@ -83,24 +83,24 @@ export default function HealthcareCFOLanding() {
           you for free.
         </h1>
         <p className="text-base md:text-lg text-gray-300 max-w-2xl mb-8">
-          Muni-Pal's Healthcare Market Intelligence Report benchmarks your deal
-          against 866 actual EMMA transactions — so you walk into the room
-          knowing what top-performing credits look like, what borrowing actually
-          costs, and where risk disclosures go wrong.
+          Muni-Pal's free Bond Readiness Assessment scores your facility across
+          6 dimensions that drive bond outcomes — backed by benchmarks from 866
+          actual EMMA transactions. Know where you stand, what it costs, and
+          what to fix first.
         </p>
         <div className="flex flex-col sm:flex-row flex-wrap gap-4">
           <Link
-            to="/tools/market-intelligence"
+            to="/tools/readiness"
             className="inline-flex items-center justify-center gap-2 bg-[#E8913A] hover:bg-[#d47e2e] text-white font-semibold px-6 py-3 rounded-lg transition-colors"
           >
-            Get Your Free Market Intelligence Report
+            Take the Free Bond Readiness Assessment
             <ArrowRight className="h-4 w-4" />
           </Link>
           <Link
-            to="/tools/readiness"
+            to="/tools/market-intelligence"
             className="inline-flex items-center justify-center gap-2 bg-[#2DAEAC] hover:bg-[#259e9c] text-white font-semibold px-6 py-3 rounded-lg transition-colors"
           >
-            Take the Free Bond Readiness Scan
+            Get Your Free Market Intelligence Report
             <ArrowRight className="h-4 w-4" />
           </Link>
           <a
@@ -154,8 +154,8 @@ export default function HealthcareCFOLanding() {
             <span className="block text-[10px] text-gray-400">(gross revenue pledge basis)</span>
           </div>
           <div>
-            <span className="block text-2xl font-bold text-muni-navy">5</span>
-            Risk categories scored
+            <span className="block text-2xl font-bold text-muni-navy">10</span>
+            Risk categories tracked
           </div>
           <div>
             <span className="block text-2xl font-bold text-muni-navy">
@@ -257,9 +257,9 @@ export default function HealthcareCFOLanding() {
               {
                 months: 'Month 1–2',
                 label: 'Discovery',
-                step: 'Market Intelligence Report + Readiness Scan',
+                step: 'Bond Readiness Assessment + Market Intelligence Report',
                 detail:
-                  'Benchmark your system against peers. Identify top gaps before engaging advisors.',
+                  'Score your facility and benchmark against peers. Identify top gaps before engaging advisors.',
               },
               {
                 months: 'Month 2–3',
@@ -371,17 +371,17 @@ export default function HealthcareCFOLanding() {
       {/* Primary CTA Block */}
       <section className="mb-12 bg-muni-navy rounded-lg p-8 text-white text-center">
         <h2 className="text-xl font-bold mb-2">
-          Get Your Free Market Intelligence Report
+          How Bond-Ready Is Your Facility?
         </h2>
         <p className="text-sm text-gray-300 mb-6 max-w-lg mx-auto">
-          No login required. No sales call. Just the data your advisors charge
-          $25K to compile.
+          No login required. No sales call. Score your facility across 6
+          dimensions in about 10 minutes — and see exactly what to fix first.
         </p>
         <Link
-          to="/tools/market-intelligence"
+          to="/tools/readiness"
           className="inline-flex items-center gap-2 bg-[#E8913A] hover:bg-[#d47e2e] text-white font-semibold px-8 py-3 rounded-lg transition-colors"
         >
-          Start Now — It's Free
+          Take the Free Readiness Assessment
           <ArrowRight className="h-4 w-4" />
         </Link>
       </section>

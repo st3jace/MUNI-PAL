@@ -41,18 +41,18 @@ def _format_date(dt: datetime) -> str:
 
 
 def generate_year_chunks(date_from: str, date_to: str) -> list[tuple[str, str]]:
-    """Split a date range into calendar-year chunks, most recent year first."""
+    """Split a date range into calendar-year chunks in chronological order."""
     start = _parse_date(date_from)
     end = _parse_date(date_to)
     if start >= end:
         return [(date_from, date_to)]
     chunks: list[tuple[str, str]] = []
-    cursor = end
-    while cursor > start:
-        year_start = datetime(cursor.year, 1, 1)
-        chunk_start = max(year_start, start)
-        chunks.append((_format_date(chunk_start), _format_date(cursor)))
-        cursor = datetime(cursor.year - 1, 12, 31)
+    cursor = start
+    while cursor < end:
+        year_end = datetime(cursor.year, 12, 31)
+        chunk_end = min(year_end, end)
+        chunks.append((_format_date(cursor), _format_date(chunk_end)))
+        cursor = datetime(cursor.year + 1, 1, 1)
     return chunks
 
 
@@ -147,10 +147,11 @@ async def _run_search_chunk(
     await ensure_principal_sort_desc(page, wait_ms=int(timing.get("action_delay", 2000)))
 
     # Reset Phase 2 pagination state so each chunk scans from page 1.
+    # IMPORTANT: Copy the lists to avoid mutating master checkpoint during Phase 2.
     chunk_checkpoint: dict[str, Any] = {
-        "processed_urls": checkpoint.get("processed_urls", []),
-        "failed_urls": checkpoint.get("failed_urls", []),
-        "partial_urls": checkpoint.get("partial_urls", []),
+        "processed_urls": list(checkpoint.get("processed_urls", [])),
+        "failed_urls": list(checkpoint.get("failed_urls", [])),
+        "partial_urls": list(checkpoint.get("partial_urls", [])),
     }
     try:
         queue_list = await collect_all_qualifying_securities(page, config, chunk_checkpoint, checkpoint_path)
@@ -264,6 +265,7 @@ async def run(args: argparse.Namespace) -> None:
                 max_securities=1, dry_run=args.dry_run,
             )
             await context.storage_state(path=str(storage_state_path))
+            await context.close()
             await browser.close()
             return
 
@@ -285,10 +287,11 @@ async def run(args: argparse.Namespace) -> None:
                 max_securities=args.max_securities, dry_run=args.dry_run,
             )
             await context.storage_state(path=str(storage_state_path))
+            await context.close()
             await browser.close()
             return
 
-        # --- Normal mode: search → discover → extract (with auto-chunking) ---
+        # --- Normal mode: search -> discover -> extract (with auto-chunking) ---
         security_info = config["search"].get("search_filters", {}).get("security_information", {})
         date_from = security_info.get("closing_date_from", "1/1/2020")
         date_to = security_info.get("closing_date_to", "TODAY")
@@ -364,6 +367,7 @@ async def run(args: argparse.Namespace) -> None:
         )
 
         await context.storage_state(path=str(storage_state_path))
+        await context.close()
         await browser.close()
 
 

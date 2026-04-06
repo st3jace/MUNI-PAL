@@ -12,6 +12,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Analytics } from '@vercel/analytics/react'
 import { SensingProvider } from './contexts/SensingContext'
 import HealthcareCFOLanding from './pages/tools/HealthcareCFOLanding'
+import ToolsHub from './pages/tools/ToolsHub'
 import MarketIntelligence from './pages/tools/MarketIntelligence'
 import BenchmarkCalculator from './pages/tools/BenchmarkCalculator'
 import ReadinessAssess from './pages/tools/ReadinessAssess'
@@ -41,6 +42,8 @@ createRoot(root).render(
               {/* Landing page is the root */}
               <Route path="/" element={<HealthcareCFOLanding />} />
               <Route path="/healthcare" element={<HealthcareCFOLanding />} />
+              {/* Tools hub */}
+              <Route path="/tools" element={<ToolsHub />} />
               {/* MIR tools flow — CTAs link here */}
               <Route path="/tools/market-intelligence" element={<MarketIntelligence />} />
               <Route path="/tools/benchmark" element={<BenchmarkCalculator />} />

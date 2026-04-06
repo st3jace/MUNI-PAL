@@ -51,8 +51,8 @@ export default function ToolsHub() {
         </p>
       </div>
 
-      <a
-        href="/healthcare"
+      <Link
+        to="/healthcare"
         className="mb-8 flex items-center justify-between rounded-lg border border-indigo-100 bg-indigo-50/60 px-5 py-3 text-sm hover:bg-indigo-50 transition-colors group"
       >
         <span className="text-gray-700">
@@ -65,7 +65,7 @@ export default function ToolsHub() {
           Healthcare Bond Readiness Overview
           <ArrowRight className="h-4 w-4" />
         </span>
-      </a>
+      </Link>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {tools.map((tool) => (

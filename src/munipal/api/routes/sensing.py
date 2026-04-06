@@ -101,7 +101,7 @@ class EventRequest(BaseModel):
 # ---------------------------------------------------------------------------
 
 @router.get("/sectors")
-async def list_sectors() -> list[dict[str, str]]:
+async def list_sectors() -> list[dict[str, Any]]:
     """List available sectors with corpus data."""
     return sensing.get_available_sectors()
 
@@ -507,7 +507,22 @@ async def convert_lead_to_project(
 # ---------------------------------------------------------------------------
 
 def _validate_sector(sector: str) -> None:
-    """Raise 404 if sector doesn't have a corpus."""
+    """Raise 404 if sector doesn't have a corpus or seed data.
+
+    Accepts both top-level sectors (``waste``, ``healthcare``) and
+    healthcare sub-sectors (``healthcare_hospital``, etc.).
+    """
+    # Healthcare sub-sectors are always valid if the parent sector exists
+    if sector in sensing._HEALTHCARE_SUB_SECTORS:
+        parent = sensing._HEALTHCARE_SUB_SECTORS[sector]["parent"]
+        available = [s["id"] for s in sensing.get_available_sectors()]
+        if parent in available:
+            return
+        raise HTTPException(
+            status_code=404,
+            detail=f"Parent sector '{parent}' for sub-sector '{sector}' not available.",
+        )
+
     available = [s["id"] for s in sensing.get_available_sectors()]
     if sector not in available:
         raise HTTPException(

@@ -22,7 +22,7 @@ const tools = [
   {
     name: 'Readiness Assessment',
     description:
-      'Evaluate your bond readiness across 5 risk dimensions. Get a scored packet with gap analysis and recommendations.',
+      'Healthcare sub-sector scoring (Hospital, Senior Living, FQHC) with 177-item assessment, COI gap estimates, and timeline compression analysis.',
     href: '/tools/readiness',
     icon: ClipboardCheck,
     color: 'bg-muni-gold',

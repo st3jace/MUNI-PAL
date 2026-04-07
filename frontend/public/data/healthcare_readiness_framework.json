@@ -1,0 +1,320 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-04-07",
+  "source": "Readiness Researcher Phase 1 — 174-item healthcare bond readiness scoring framework",
+  "baseWeights": {
+    "required": 3,
+    "recommended": 1,
+    "optional": 0.5
+  },
+  "coiMultipliers": {
+    "critical": 2.0,
+    "very_high": 1.5,
+    "high": 1.25,
+    "medium": 1.0,
+    "low": 1.0
+  },
+  "statusFactors": {
+    "complete": 1.0,
+    "partial": 0.5,
+    "in_progress": 0.25,
+    "missing": 0.0
+  },
+  "tiers": [
+    { "id": "bond_ready", "label": "Bond-Ready", "minScore": 90, "color": "#22c55e", "baselineWeeks": "0-2", "agentWeeks": "0-1", "compression": "50%" },
+    { "id": "near_ready", "label": "Near-Ready", "minScore": 75, "color": "#eab308", "baselineWeeks": "4-12", "agentWeeks": "3-8", "compression": "30-40%" },
+    { "id": "preparation", "label": "Preparation Phase", "minScore": 50, "color": "#f97316", "baselineWeeks": "12-24", "agentWeeks": "8-16", "compression": "30-35%" },
+    { "id": "pre_preparation", "label": "Pre-Preparation", "minScore": 0, "color": "#ef4444", "baselineWeeks": "24-52", "agentWeeks": "16-36", "compression": "30-35%" }
+  ],
+  "categories": {
+    "hospital": [
+      { "id": "organizational_legal", "label": "Organizational & Legal", "section": 1 },
+      { "id": "regulatory_licensing", "label": "Regulatory & Licensing", "section": 2 },
+      { "id": "financial", "label": "Financial", "section": 3 },
+      { "id": "operational", "label": "Clinical & Operational", "section": 4 },
+      { "id": "capital_project", "label": "Capital Project", "section": 5, "conditional": { "deal_type": "new_money" } },
+      { "id": "tax_compliance", "label": "Tax & Compliance", "section": 6 },
+      { "id": "rating_market", "label": "Rating & Market Readiness", "section": 7 }
+    ],
+    "ccrc": [
+      { "id": "organizational_legal", "label": "Organizational & Legal", "section": 1 },
+      { "id": "regulatory_licensing", "label": "Regulatory & Licensing", "section": 2 },
+      { "id": "financial", "label": "Financial", "section": 3 },
+      { "id": "occupancy_demographic", "label": "Occupancy, Waitlist & Demographics", "section": 4 },
+      { "id": "capital_project", "label": "Capital Project", "section": 5, "conditional": { "deal_type": "new_money" } },
+      { "id": "tax_compliance", "label": "Tax & Compliance", "section": 6 },
+      { "id": "rating_market", "label": "Rating & Market Readiness", "section": 7 }
+    ],
+    "fqhc": [
+      { "id": "federal_compliance", "label": "Federal Compliance & HRSA Status", "section": 1 },
+      { "id": "organizational_legal", "label": "Organizational & Legal", "section": 2 },
+      { "id": "regulatory_licensing", "label": "Regulatory & Licensing", "section": 3 },
+      { "id": "financial", "label": "Financial", "section": 4 },
+      { "id": "capital_project", "label": "Capital Project Readiness", "section": 5 },
+      { "id": "compliance_reporting", "label": "Compliance & Reporting", "section": 6 },
+      { "id": "bond_specific", "label": "Revenue Bond Specific", "section": 7, "conditional": { "track": "bond" } },
+      { "id": "cdfi_nmtc", "label": "CDFI/NMTC/Grant Specific", "section": 8, "conditional": { "track": "cdfi_nmtc" } }
+    ]
+  },
+  "items": [
+    {
+      "id": "H-1.1", "name": "IRS 501(c)(3) determination letter", "category": "organizational_legal",
+      "requirement": "required", "coiImpact": "critical", "leadTimeWeeks": 0,
+      "agentAssistable": "partial", "subSectors": ["hospital", "ccrc", "fqhc"],
+      "question": "Does your organization have a current IRS 501(c)(3) determination letter?"
+    },
+    {
+      "id": "H-1.2", "name": "Articles of Incorporation & Bylaws", "category": "organizational_legal",
+      "requirement": "required", "coiImpact": "medium", "leadTimeWeeks": 0,
+      "agentAssistable": "yes", "subSectors": ["hospital", "ccrc", "fqhc"],
+      "question": "Are your Articles of Incorporation and Bylaws current and reflecting all amendments?"
+    },
+    {
+      "id": "H-1.3", "name": "Board authorization resolution", "category": "organizational_legal",
+      "requirement": "required", "coiImpact": "medium", "leadTimeWeeks": 3,
+      "agentAssistable": "yes", "subSectors": ["hospital", "ccrc", "fqhc"],
+      "question": "Has your board passed (or can it pass within 4 weeks) a resolution authorizing this bond transaction?"
+    },
+    {
+      "id": "H-1.8", "name": "Existing debt schedule & bond documents", "category": "organizational_legal",
+      "requirement": "required", "coiImpact": "high", "leadTimeWeeks": 1,
+      "agentAssistable": "yes", "subSectors": ["hospital", "ccrc"],
+      "question": "Do you have a complete inventory of all outstanding debt and bond documents?"
+    },
+    {
+      "id": "H-1.9", "name": "Pending litigation", "category": "organizational_legal",
+      "requirement": "required", "coiImpact": "high", "leadTimeWeeks": 1,
+      "agentAssistable": "partial", "subSectors": ["hospital", "ccrc", "fqhc"],
+      "question": "Are there any pending material litigation matters (claims above $1M or 1% of revenue)?"
+    },
+    {
+      "id": "H-2.1", "name": "State hospital operating license", "category": "regulatory_licensing",
+      "requirement": "required", "coiImpact": "critical", "leadTimeWeeks": 0,
+      "agentAssistable": "yes", "subSectors": ["hospital"],
+      "question": "Is your state hospital operating license current through the projected closing date?"
+    },
+    {
+      "id": "H-2.2", "name": "Medicare Certification (CMS-855)", "category": "regulatory_licensing",
+      "requirement": "required", "coiImpact": "critical", "leadTimeWeeks": 0,
+      "agentAssistable": "partial", "subSectors": ["hospital"],
+      "question": "Is your Medicare certification (CMS-855) current and in good standing?"
+    },
+    {
+      "id": "H-2.3", "name": "Medicaid Provider Agreement", "category": "regulatory_licensing",
+      "requirement": "required", "coiImpact": "critical", "leadTimeWeeks": 0,
+      "agentAssistable": "partial", "subSectors": ["hospital"],
+      "question": "Is your Medicaid provider agreement current and in good standing?"
+    },
+    {
+      "id": "H-2.5", "name": "Certificate of Need (CON)", "category": "regulatory_licensing",
+      "requirement": "required", "coiImpact": "very_high", "leadTimeWeeks": 18,
+      "agentAssistable": "partial", "subSectors": ["hospital", "ccrc"],
+      "conditional": { "con_state": true, "deal_type": "new_money" },
+      "question": "Are you in a CON state? If yes, do you have CON approval for your capital project?"
+    },
+    {
+      "id": "H-3.1", "name": "Audited financial statements (3 years)", "category": "financial",
+      "requirement": "required", "coiImpact": "critical", "leadTimeWeeks": 0,
+      "agentAssistable": "no", "subSectors": ["hospital", "ccrc", "fqhc"],
+      "question": "Do you have completed audited financial statements for the 3 most recent fiscal years?"
+    },
+    {
+      "id": "H-3.2", "name": "Interim financial statements (YTD)", "category": "financial",
+      "requirement": "required", "coiImpact": "medium", "leadTimeWeeks": 3,
+      "agentAssistable": "yes", "subSectors": ["hospital", "ccrc", "fqhc"],
+      "question": "Do you have interim financial statements within the last 60-90 days?"
+    },
+    {
+      "id": "H-3.4", "name": "5-year financial projections", "category": "financial",
+      "requirement": "required", "coiImpact": "high", "leadTimeWeeks": 6,
+      "agentAssistable": "yes", "subSectors": ["hospital", "ccrc", "fqhc"],
+      "question": "Do you have 5-year financial projections that align with your strategic plan?"
+    },
+    {
+      "id": "H-3.8", "name": "Days cash on hand (DCOH)", "category": "financial",
+      "requirement": "required", "coiImpact": "critical", "leadTimeWeeks": 1,
+      "agentAssistable": "yes", "subSectors": ["hospital", "ccrc", "fqhc"],
+      "question": "What is your current Days Cash on Hand (DCOH)?",
+      "inputType": "number",
+      "thresholds": { "hospital": { "strong": 200, "adequate": 100, "concern": 50 }, "ccrc": { "strong": 250, "adequate": 150, "concern": 80 }, "fqhc": { "strong": 90, "adequate": 60, "concern": 30 } }
+    },
+    {
+      "id": "H-3.9", "name": "Debt service coverage ratio (DSCR)", "category": "financial",
+      "requirement": "required", "coiImpact": "critical", "leadTimeWeeks": 1,
+      "agentAssistable": "yes", "subSectors": ["hospital", "ccrc", "fqhc"],
+      "question": "What is your most recent Debt Service Coverage Ratio (DSCR)?",
+      "inputType": "number",
+      "thresholds": { "hospital": { "strong": 3.0, "adequate": 1.5, "concern": 1.25 }, "ccrc": { "strong": 2.5, "adequate": 1.5, "concern": 1.1 }, "fqhc": { "strong": 2.0, "adequate": 1.25, "concern": 1.0 } }
+    },
+    {
+      "id": "H-3.12", "name": "Existing rate covenant compliance", "category": "financial",
+      "requirement": "required", "coiImpact": "critical", "leadTimeWeeks": 1,
+      "agentAssistable": "yes", "subSectors": ["hospital", "ccrc"],
+      "question": "Have any existing bond covenants been breached or waived in the last 3 years?"
+    },
+    {
+      "id": "H-4.1", "name": "Average daily census (3-year trend)", "category": "operational",
+      "requirement": "required", "coiImpact": "medium", "leadTimeWeeks": 1,
+      "agentAssistable": "yes", "subSectors": ["hospital"],
+      "question": "Do you track and can you provide 3-year average daily census (ADC) data?"
+    },
+    {
+      "id": "H-5.1", "name": "Feasibility study", "category": "capital_project",
+      "requirement": "required", "coiImpact": "very_high", "leadTimeWeeks": 12,
+      "agentAssistable": "partial", "subSectors": ["hospital"],
+      "conditional": { "deal_type": "new_money" },
+      "question": "Have you commissioned an independent feasibility study for this project?"
+    },
+    {
+      "id": "H-5.6", "name": "Environmental assessment (Phase I ESA)", "category": "capital_project",
+      "requirement": "required", "coiImpact": "high", "leadTimeWeeks": 6,
+      "agentAssistable": "partial", "subSectors": ["hospital", "ccrc", "fqhc"],
+      "conditional": { "deal_type": "new_money" },
+      "question": "Have you completed a Phase I Environmental Site Assessment for the project site?"
+    },
+    {
+      "id": "H-5.10", "name": "Architect/engineer plans", "category": "capital_project",
+      "requirement": "required", "coiImpact": "medium", "leadTimeWeeks": 8,
+      "agentAssistable": "no", "subSectors": ["hospital", "ccrc"],
+      "conditional": { "deal_type": "new_money" },
+      "question": "Do you have architectural/engineering plans at any stage (schematic or beyond) for the project?"
+    },
+    {
+      "id": "H-7.1", "name": "Rating agency presentation package", "category": "rating_market",
+      "requirement": "required", "coiImpact": "high", "leadTimeWeeks": 6,
+      "agentAssistable": "yes", "subSectors": ["hospital", "ccrc"],
+      "question": "Have you prepared (or begun preparing) a rating agency presentation package?"
+    },
+    {
+      "id": "H-7.3", "name": "Strategic plan (3-5 year)", "category": "rating_market",
+      "requirement": "required", "coiImpact": "medium", "leadTimeWeeks": 0,
+      "agentAssistable": "yes", "subSectors": ["hospital", "ccrc"],
+      "question": "Do you have a current strategic plan (3-5 year) that aligns with financial projections?"
+    },
+    {
+      "id": "C-1.10", "name": "Continuing Care / Residency Agreements", "category": "organizational_legal",
+      "requirement": "required", "coiImpact": "very_high", "leadTimeWeeks": 0,
+      "agentAssistable": "yes", "subSectors": ["ccrc"],
+      "question": "Do you have all continuing care/residency agreement forms (Type A/B/C) available for review?"
+    },
+    {
+      "id": "C-1.11", "name": "Entrance fee refund policy documentation", "category": "organizational_legal",
+      "requirement": "required", "coiImpact": "very_high", "leadTimeWeeks": 0,
+      "agentAssistable": "yes", "subSectors": ["ccrc"],
+      "question": "Is your entrance fee refund policy fully documented with refund obligation quantification?"
+    },
+    {
+      "id": "C-2.13", "name": "State CCRC license / Certificate of Authority", "category": "regulatory_licensing",
+      "requirement": "required", "coiImpact": "very_high", "leadTimeWeeks": 0,
+      "agentAssistable": "yes", "subSectors": ["ccrc"],
+      "question": "Is your state CCRC license / Certificate of Authority current?"
+    },
+    {
+      "id": "C-3.26", "name": "Actuarial feasibility study", "category": "financial",
+      "requirement": "required", "coiImpact": "very_high", "leadTimeWeeks": 16,
+      "agentAssistable": "partial", "subSectors": ["ccrc"],
+      "question": "Do you have a current actuarial feasibility study? When was it last updated?"
+    },
+    {
+      "id": "C-3.30", "name": "Entrance fee cash flow model", "category": "financial",
+      "requirement": "required", "coiImpact": "very_high", "leadTimeWeeks": 3,
+      "agentAssistable": "yes", "subSectors": ["ccrc"],
+      "question": "Do you have a current entrance fee cash flow model (receipts, refunds, net cash flow projections)?"
+    },
+    {
+      "id": "C-4.39", "name": "Occupancy rates by level of care (3-year trend)", "category": "occupancy_demographic",
+      "requirement": "required", "coiImpact": "high", "leadTimeWeeks": 1,
+      "agentAssistable": "yes", "subSectors": ["ccrc"],
+      "question": "What are your current occupancy rates by level of care (IL, AL, SNF, Memory Care)?",
+      "inputType": "number",
+      "thresholds": { "ccrc": { "strong": 95, "adequate": 90, "concern": 80 } }
+    },
+    {
+      "id": "C-4.40", "name": "Waitlist depth and conversion rate", "category": "occupancy_demographic",
+      "requirement": "required", "coiImpact": "high", "leadTimeWeeks": 1,
+      "agentAssistable": "yes", "subSectors": ["ccrc"],
+      "question": "What is your current waitlist depth (ratio to annual turnover) and deposit-to-move-in conversion rate?"
+    },
+    {
+      "id": "C-4.46", "name": "Absorption / fill-up schedule", "category": "occupancy_demographic",
+      "requirement": "required", "coiImpact": "very_high", "leadTimeWeeks": 3,
+      "agentAssistable": "yes", "subSectors": ["ccrc"],
+      "conditional": { "deal_type": "new_money" },
+      "question": "Do you have a realistic absorption/fill-up schedule with evidence from comparable projects?"
+    },
+    {
+      "id": "C-4.47", "name": "Pre-sale / priority deposit count", "category": "occupancy_demographic",
+      "requirement": "required", "coiImpact": "very_high", "leadTimeWeeks": 1,
+      "agentAssistable": "yes", "subSectors": ["ccrc"],
+      "conditional": { "deal_type": "new_money" },
+      "question": "What is your current pre-sale/priority deposit percentage? (Most underwriters require 50-70%)"
+    },
+    {
+      "id": "F-1.1", "name": "Active HRSA Section 330 grant (H80 award)", "category": "federal_compliance",
+      "requirement": "required", "coiImpact": "very_high", "leadTimeWeeks": 0,
+      "agentAssistable": "partial", "subSectors": ["fqhc"],
+      "question": "Is your HRSA Section 330 grant (H80 award) current with no conditions?"
+    },
+    {
+      "id": "F-1.2", "name": "HRSA scope of project (approved sites & services)", "category": "federal_compliance",
+      "requirement": "required", "coiImpact": "high", "leadTimeWeeks": 0,
+      "agentAssistable": "yes", "subSectors": ["fqhc"],
+      "question": "Does the proposed capital project fall within your currently approved HRSA scope of project?"
+    },
+    {
+      "id": "F-1.3", "name": "BPHC Operational Site Visit (OSV) results", "category": "federal_compliance",
+      "requirement": "required", "coiImpact": "high", "leadTimeWeeks": 0,
+      "agentAssistable": "yes", "subSectors": ["fqhc"],
+      "question": "What were the results of your most recent BPHC Operational Site Visit? Any outstanding conditions?"
+    },
+    {
+      "id": "F-1.5", "name": "Section 330 compliance (19 program requirements)", "category": "federal_compliance",
+      "requirement": "required", "coiImpact": "high", "leadTimeWeeks": 3,
+      "agentAssistable": "yes", "subSectors": ["fqhc"],
+      "question": "Can you demonstrate compliance with all 19 Section 330 program requirements (governance, sliding fee, QI/QA, etc.)?"
+    },
+    {
+      "id": "F-1.6", "name": "FTCA deeming letter (current)", "category": "federal_compliance",
+      "requirement": "required", "coiImpact": "high", "leadTimeWeeks": 0,
+      "agentAssistable": "yes", "subSectors": ["fqhc"],
+      "question": "Is your FTCA (Federal Tort Claims Act) deeming letter current?"
+    },
+    {
+      "id": "F-2.9", "name": "Board composition — 51%+ patient majority", "category": "organizational_legal",
+      "requirement": "required", "coiImpact": "high", "leadTimeWeeks": 0,
+      "agentAssistable": "yes", "subSectors": ["fqhc"],
+      "question": "Does your board have 51%+ patient majority as required by Section 330?"
+    },
+    {
+      "id": "F-2.16", "name": "HRSA property records & federal interest inventory", "category": "organizational_legal",
+      "requirement": "required", "coiImpact": "very_high", "leadTimeWeeks": 3,
+      "agentAssistable": "yes", "subSectors": ["fqhc"],
+      "question": "Have you compiled a complete HRSA property record with federal interest calculations for all HRSA-funded assets?"
+    },
+    {
+      "id": "F-4.2", "name": "Single Audit findings & corrective action plans", "category": "financial",
+      "requirement": "required", "coiImpact": "very_high", "leadTimeWeeks": 0,
+      "agentAssistable": "yes", "subSectors": ["fqhc"],
+      "question": "Were there any findings on your most recent Single Audit? Are corrective action plans in place?"
+    },
+    {
+      "id": "F-4.10", "name": "Operating margin (with and without grant revenue)", "category": "financial",
+      "requirement": "required", "coiImpact": "high", "leadTimeWeeks": 1,
+      "agentAssistable": "yes", "subSectors": ["fqhc"],
+      "question": "What is your operating margin with and without federal grant revenue?"
+    },
+    {
+      "id": "F-5.1", "name": "HRSA Change in Scope (CIS) approval", "category": "capital_project",
+      "requirement": "required", "coiImpact": "very_high", "leadTimeWeeks": 16,
+      "agentAssistable": "partial", "subSectors": ["fqhc"],
+      "conditional": { "new_site": true },
+      "question": "If adding a new site or service type, do you have HRSA Change in Scope (CIS) approval?"
+    },
+    {
+      "id": "F-5.4", "name": "Community needs assessment (CNA)", "category": "capital_project",
+      "requirement": "required", "coiImpact": "high", "leadTimeWeeks": 0,
+      "agentAssistable": "yes", "subSectors": ["fqhc"],
+      "question": "Is your Community Needs Assessment (CNA) current (within 3 years)?"
+    }
+  ]
+}

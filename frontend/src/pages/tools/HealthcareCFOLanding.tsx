@@ -113,6 +113,32 @@ export default function HealthcareCFOLanding() {
         </div>
       </section>
 
+      {/* Healthcare Readiness Assessment CTA */}
+      <section className="mb-10 bg-gradient-to-r from-[#2DAEAC]/5 to-[#2DAEAC]/15 rounded-xl border-2 border-[#2DAEAC]/30 p-6 md:p-8">
+        <div className="flex items-start gap-4">
+          <div className="h-12 w-12 rounded-xl bg-[#2DAEAC] flex items-center justify-center flex-shrink-0">
+            <CheckCircle2 className="h-6 w-6 text-white" />
+          </div>
+          <div className="flex-1">
+            <p className="text-xs font-semibold text-[#2DAEAC] uppercase tracking-wide mb-1">New</p>
+            <h2 className="text-lg font-bold text-gray-900 mb-2">
+              Healthcare Bond Readiness Assessment
+            </h2>
+            <p className="text-sm text-gray-600 leading-relaxed mb-4 max-w-2xl">
+              Built from 174 readiness items across hospitals, CCRCs, and FQHCs — scored by COI impact
+              and deal criticality. Know exactly where you stand and what to fix first, in about 10 minutes.
+            </p>
+            <Link
+              to="/tools/healthcare-readiness"
+              className="inline-flex items-center gap-2 bg-[#2DAEAC] hover:bg-[#259e9c] text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+            >
+              Start Your Bond Readiness Assessment
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* 3-Point Value Proposition */}
       <section className="mb-12">
         <div className="grid gap-6 md:grid-cols-3">

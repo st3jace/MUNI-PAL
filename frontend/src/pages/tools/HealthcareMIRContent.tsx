@@ -769,7 +769,7 @@ const ENGAGEMENT_STEPS: { step: string; description: string; cost: string }[] = 
   },
   {
     step: 'Bond Readiness Accelerator',
-    description: 'Full pre-issuance support through rating agency preparation',
+    description: 'Full pre-issuance support — gap remediation, benchmarking, and timeline optimization',
     cost: '$75,000+',
   },
 ]

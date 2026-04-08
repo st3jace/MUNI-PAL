@@ -65,7 +65,7 @@ const ENGAGEMENT_PATH = [
     name: 'Bond Readiness Accelerator',
     price: '$75K+',
     description:
-      'Full pre-issuance support through rating agency preparation *',
+      'Full pre-issuance support — gap remediation, benchmarking, and timeline optimization',
   },
 ]
 
@@ -240,7 +240,7 @@ export default function HealthcareCFOLanding() {
 
       {/* MSRB G-42 Disclaimer */}
       <p className="text-[11px] text-gray-400 mt-3 max-w-3xl">
-        * Bond Readiness Accelerator is an educational and analytical service. It does not constitute municipal advisory services as defined under Section 15B of the Securities Exchange Act.
+        Bond Readiness Accelerator is an educational and analytical service. It does not constitute municipal advisory services as defined under Section 15B of the Securities Exchange Act.
       </p>
 
       {/* Cost of Inaction — ROI Callout */}
@@ -309,7 +309,7 @@ export default function HealthcareCFOLanding() {
                 label: 'Acceleration',
                 step: 'Bond Readiness Accelerator',
                 detail:
-                  'Full pre-issuance support — gap remediation, rating agency prep, and timeline optimization.',
+                  'Full pre-issuance support — gap remediation, benchmarking, and deal timeline optimization.',
               },
               {
                 months: 'Month 6–9',

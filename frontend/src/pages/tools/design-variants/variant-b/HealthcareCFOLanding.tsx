@@ -64,7 +64,7 @@ const ENGAGEMENT_PATH = [
     name: 'Bond Readiness Accelerator',
     price: '$75K+',
     description:
-      'Full pre-issuance support through rating agency preparation *',
+      'Full pre-issuance support — gap remediation, benchmarking, and timeline optimization',
   },
 ]
 
@@ -95,7 +95,7 @@ const TIMELINE = [
     label: 'Acceleration',
     step: 'Bond Readiness Accelerator',
     detail:
-      'Full pre-issuance support \u2014 gap remediation, rating agency prep, and timeline optimization.',
+      'Full pre-issuance support \u2014 gap remediation, benchmarking, and deal timeline optimization.',
   },
   {
     months: 'Month 6\u20139',
@@ -496,7 +496,7 @@ export default function HealthcareCFOLanding() {
             </p>
           </div>
           <p className="text-[11px] text-gray-300 text-center max-w-3xl mx-auto leading-relaxed">
-            * Bond Readiness Accelerator is an educational and analytical
+            Bond Readiness Accelerator is an educational and analytical
             service. It does not constitute municipal advisory services as
             defined under Section 15B of the Securities Exchange Act. Muni-Pal
             is not a registered municipal advisor under MSRB Rule G-42.

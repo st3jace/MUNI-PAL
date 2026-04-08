@@ -763,9 +763,14 @@ const ENGAGEMENT_STEPS: { step: string; description: string; cost: string }[] = 
     cost: '$15,000–$25,000',
   },
   {
+    step: 'Standard Engagement',
+    description: 'Diagnostic + active deal coordination + COI optimization',
+    cost: '$40,000–$50,000',
+  },
+  {
     step: 'Bond Readiness Accelerator',
-    description: 'Full evidence assembly, disclosure prep, underwriter coordination',
-    cost: '$45,000–$75,000',
+    description: 'Full pre-issuance support through rating agency preparation',
+    cost: '$75,000+',
   },
 ]
 

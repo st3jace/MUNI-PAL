@@ -112,14 +112,16 @@ const ENGAGEMENT_PATH = [
   { step: 1, name: 'Market Intelligence Report', price: 'Free', description: 'Sector benchmarks — DSCR, pricing, risk profile, Pareto framework' },
   { step: 2, name: 'Readiness Scan', price: 'Free', description: 'Automated pre-screen — sector fit, deal size, top 3 gaps' },
   { step: 3, name: 'Bond Readiness Diagnostic', price: '$15K\u2013$25K', description: 'Full score + gap analysis + critical path to close' },
-  { step: 4, name: 'Bond Readiness Accelerator', price: '$45K\u2013$75K', description: 'Evidence assembly, disclosure prep, underwriter coordination *' },
+  { step: 4, name: 'Standard Engagement', price: '$40K\u2013$50K', description: 'Diagnostic + active deal coordination + COI optimization' },
+  { step: 5, name: 'Bond Readiness Accelerator', price: '$75K+', description: 'Full pre-issuance support through rating agency preparation *' },
 ]
 
 const TIMELINE_PHASES = [
   { months: 'Month 1\u20132', label: 'Discovery', step: 'Market Intelligence Report + Readiness Scan', detail: 'Benchmark your system against peers. Identify top gaps before engaging advisors.', width: '25%' },
-  { months: 'Month 2\u20133', label: 'Diagnostic', step: 'Bond Readiness Diagnostic', detail: 'Full scoring, gap analysis, and critical path. Know exactly what underwriters will scrutinize.', width: '15%' },
-  { months: 'Month 3\u20135', label: 'Preparation', step: 'Bond Readiness Accelerator', detail: 'Evidence assembly, disclosure prep, and underwriter coordination. Close documentation gaps.', width: '30%' },
-  { months: 'Month 5\u20138', label: 'Execution', step: 'Market entry', detail: 'Go to market with a complete, defensible credit story. Advisors execute \u2014 you negotiate from strength.', width: '30%' },
+  { months: 'Month 2\u20133', label: 'Diagnostic', step: 'Bond Readiness Diagnostic', detail: 'Full scoring, gap analysis, and critical path. Know exactly what underwriters will scrutinize.', width: '12%' },
+  { months: 'Month 3\u20135', label: 'Coordination', step: 'Standard Engagement', detail: 'Active deal coordination, COI benchmarking, and milestone tracking. Your dedicated point of contact.', width: '22%' },
+  { months: 'Month 4\u20137', label: 'Acceleration', step: 'Bond Readiness Accelerator', detail: 'Full pre-issuance support \u2014 gap remediation, rating agency prep, and timeline optimization.', width: '22%' },
+  { months: 'Month 6\u20139', label: 'Execution', step: 'Market entry', detail: 'Go to market with a complete, defensible credit story. Advisors execute \u2014 you negotiate from strength.', width: '22%' },
 ]
 
 /* ================================================================== */
@@ -255,7 +257,7 @@ export default function HealthcareCFOLanding() {
             The Bond Readiness Path
           </h2>
           <p className="text-sm text-gray-600 mb-8 max-w-2xl">
-            From free benchmarks to deal-ready in four steps. Start with the data — escalate
+            From free benchmarks to deal-ready in five steps. Start with the data — escalate
             only when you're confident in the opportunity.
           </p>
           <div className="relative">

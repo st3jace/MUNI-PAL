@@ -54,10 +54,17 @@ const ENGAGEMENT_PATH = [
   },
   {
     step: 4,
-    name: 'Bond Readiness Accelerator',
-    price: '$45K\u2013$75K',
+    name: 'Standard Engagement',
+    price: '$40K\u2013$50K',
     description:
-      'Evidence assembly, disclosure prep, underwriter coordination *',
+      'Diagnostic + active deal coordination + COI optimization',
+  },
+  {
+    step: 5,
+    name: 'Bond Readiness Accelerator',
+    price: '$75K+',
+    description:
+      'Full pre-issuance support through rating agency preparation *',
   },
 ]
 
@@ -78,17 +85,24 @@ const TIMELINE = [
   },
   {
     months: 'Month 3\u20135',
-    label: 'Preparation',
-    step: 'Bond Readiness Accelerator',
+    label: 'Coordination',
+    step: 'Standard Engagement',
     detail:
-      'Evidence assembly, disclosure prep, and underwriter coordination. Close documentation gaps.',
+      'Active deal coordination, COI benchmarking, and milestone tracking. Your dedicated point of contact.',
   },
   {
-    months: 'Month 5\u20138',
+    months: 'Month 4\u20137',
+    label: 'Acceleration',
+    step: 'Bond Readiness Accelerator',
+    detail:
+      'Full pre-issuance support \u2014 gap remediation, rating agency prep, and timeline optimization.',
+  },
+  {
+    months: 'Month 6\u20139',
     label: 'Execution',
     step: 'Market entry',
     detail:
-      'Go to market with a complete, defensible credit story. Advisors execute — you negotiate from strength.',
+      'Go to market with a complete, defensible credit story. Advisors execute \u2014 you negotiate from strength.',
   },
 ]
 
@@ -237,7 +251,7 @@ export default function HealthcareCFOLanding() {
             The Bond Readiness Path
           </h2>
           <p className="text-sm text-gray-500 mb-12 max-w-xl">
-            From free benchmarks to deal-ready in four steps. Start with the
+            From free benchmarks to deal-ready in five steps. Start with the
             data — escalate only when you're confident in the opportunity.
           </p>
 
@@ -245,7 +259,7 @@ export default function HealthcareCFOLanding() {
             {/* Connecting line */}
             <div className="hidden md:block absolute top-6 left-[10%] right-[10%] h-px bg-gray-200" />
 
-            <div className="grid gap-6 md:grid-cols-4">
+            <div className="grid gap-6 md:grid-cols-5">
               {ENGAGEMENT_PATH.map((step) => (
                 <div key={step.name} className="relative text-center">
                   {/* Numbered circle */}
@@ -337,7 +351,7 @@ export default function HealthcareCFOLanding() {
           {/* Horizontal timeline */}
           <div className="relative">
             <div className="hidden md:block absolute top-3 left-0 right-0 h-px bg-[#2DAEAC]/20" />
-            <div className="grid gap-8 md:grid-cols-4">
+            <div className="grid gap-8 md:grid-cols-5">
               {TIMELINE.map((phase) => (
                 <div key={phase.months} className="relative">
                   {/* Teal dot */}

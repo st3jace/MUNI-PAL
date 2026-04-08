@@ -55,10 +55,17 @@ const ENGAGEMENT_PATH = [
   },
   {
     step: 4,
-    name: 'Bond Readiness Accelerator',
-    price: '$45K–$75K',
+    name: 'Standard Engagement',
+    price: '$40K–$50K',
     description:
-      'Evidence assembly, disclosure prep, underwriter coordination *',
+      'Diagnostic + active deal coordination + COI optimization',
+  },
+  {
+    step: 5,
+    name: 'Bond Readiness Accelerator',
+    price: '$75K+',
+    description:
+      'Full pre-issuance support through rating agency preparation *',
   },
 ]
 
@@ -194,10 +201,10 @@ export default function HealthcareCFOLanding() {
           The Bond Readiness Path
         </h2>
         <p className="text-sm text-gray-600 mb-6 max-w-2xl">
-          From free benchmarks to deal-ready in four steps. Start with the data
+          From free benchmarks to deal-ready in five steps. Start with the data
           — escalate only when you're confident in the opportunity.
         </p>
-        <div className="grid gap-4 md:grid-cols-4">
+        <div className="grid gap-4 md:grid-cols-5">
           {ENGAGEMENT_PATH.map((step, i) => (
             <div
               key={step.name}
@@ -292,13 +299,20 @@ export default function HealthcareCFOLanding() {
               },
               {
                 months: 'Month 3–5',
-                label: 'Preparation',
-                step: 'Bond Readiness Accelerator',
+                label: 'Coordination',
+                step: 'Standard Engagement',
                 detail:
-                  'Evidence assembly, disclosure prep, and underwriter coordination. Close documentation gaps.',
+                  'Active deal coordination, COI benchmarking, and milestone tracking. Your dedicated point of contact.',
               },
               {
-                months: 'Month 5–8',
+                months: 'Month 4–7',
+                label: 'Acceleration',
+                step: 'Bond Readiness Accelerator',
+                detail:
+                  'Full pre-issuance support — gap remediation, rating agency prep, and timeline optimization.',
+              },
+              {
+                months: 'Month 6–9',
                 label: 'Execution',
                 step: 'Market entry',
                 detail:

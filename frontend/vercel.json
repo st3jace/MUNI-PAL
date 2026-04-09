@@ -28,6 +28,7 @@
     },
     {
       "source": "/(.*)",
+      "missing": [{ "type": "host", "value": "readiness.elaunchshop.com" }],
       "destination": "/index.healthcare.html"
     }
   ]

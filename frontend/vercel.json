@@ -13,7 +13,12 @@
       "destination": "https://api.muni-pal.io/health"
     },
     {
-      "source": "/(.*)",
+      "source": "/",
+      "has": [{ "type": "host", "value": "readiness.elaunchshop.com" }],
+      "destination": "/readiness/index.readiness.html"
+    },
+    {
+      "source": "/:path*",
       "has": [{ "type": "host", "value": "readiness.elaunchshop.com" }],
       "destination": "/readiness/index.readiness.html"
     },

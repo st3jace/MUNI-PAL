@@ -20,6 +20,7 @@ import {
 } from 'lucide-react'
 import { sensingApi, SectorInfo } from '../../services/sensingApi'
 import { useSensing } from '../../contexts/SensingContext'
+import { getLocalSectors, getLocalQuestionnaire, scoreReadinessLocal } from '../../services/readinessLocal'
 
 const SUB_SECTOR_META: Record<
   string,
@@ -481,11 +482,23 @@ export default function ReadinessAssess() {
 
   const sectorsQuery = useQuery({
     queryKey: ['sensing-sectors'],
-    queryFn: sensingApi.listSectors,
+    queryFn: async () => {
+      try {
+        return await sensingApi.listSectors()
+      } catch {
+        return getLocalSectors()
+      }
+    },
   })
 
   const assessMutation = useMutation({
-    mutationFn: sensingApi.runReadinessAssessment,
+    mutationFn: async (params: Parameters<typeof sensingApi.runReadinessAssessment>[0]) => {
+      try {
+        return await sensingApi.runReadinessAssessment(params)
+      } catch {
+        return scoreReadinessLocal(params)
+      }
+    },
   })
 
   // Find healthcare sector children
@@ -501,7 +514,13 @@ export default function ReadinessAssess() {
 
   const questionnaireQuery = useQuery({
     queryKey: ['sensing-questionnaire', effectiveSector],
-    queryFn: () => sensingApi.getQuestionnaire(effectiveSector),
+    queryFn: async () => {
+      try {
+        return await sensingApi.getQuestionnaire(effectiveSector)
+      } catch {
+        return getLocalQuestionnaire(effectiveSector)
+      }
+    },
     enabled: !(isHealthcareSector(sector) && hasSubSectors && !subSector),
   })
 
@@ -589,12 +608,18 @@ export default function ReadinessAssess() {
     }
   }
 
+  const isStandalone = !window.location.pathname.startsWith('/tools')
+    && window.location.pathname === '/'
+    || window.location.hostname.includes('elaunchshop')
+
   return (
     <div className="max-w-5xl mx-auto">
       <div className="mb-8 flex items-start gap-4">
-        <Link to="/tools" className="mt-1 text-gray-400 hover:text-gray-600">
-          <ArrowLeft className="h-5 w-5" />
-        </Link>
+        {!isStandalone && (
+          <Link to="/tools" className="mt-1 text-gray-400 hover:text-gray-600">
+            <ArrowLeft className="h-5 w-5" />
+          </Link>
+        )}
         <div>
           <h1 className="text-2xl font-bold text-gray-900">
             Bond Readiness Assessment
@@ -618,18 +643,20 @@ export default function ReadinessAssess() {
               <RotateCcw className="h-4 w-4" />
               Start New Assessment
             </button>
-            <Link
-              to="/tools/export"
-              className="flex items-center gap-2 text-sm font-medium text-primary-600 hover:text-primary-700"
-            >
-              <Download className="h-4 w-4" />
-              Export Combined Report
-              {sensing.completedCount > 0 && (
-                <span className="bg-primary-100 text-primary-700 rounded-full px-2 py-0.5 text-xs">
-                  {sensing.completedCount}/3
-                </span>
-              )}
-            </Link>
+            {!isStandalone && (
+              <Link
+                to="/tools/export"
+                className="flex items-center gap-2 text-sm font-medium text-primary-600 hover:text-primary-700"
+              >
+                <Download className="h-4 w-4" />
+                Export Combined Report
+                {sensing.completedCount > 0 && (
+                  <span className="bg-primary-100 text-primary-700 rounded-full px-2 py-0.5 text-xs">
+                    {sensing.completedCount}/3
+                  </span>
+                )}
+              </Link>
+            )}
           </div>
           <ResultsView data={assessMutation.data} />
         </div>

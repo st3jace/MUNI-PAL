@@ -11,6 +11,9 @@ import {
   BarChart3,
   Zap,
   ChevronRight,
+  Mail,
+  Lock,
+  Loader2,
 } from 'lucide-react'
 import {
   type SubSector,
@@ -24,10 +27,11 @@ import {
   computeAssessment,
   responseToStatus,
 } from '../../lib/readinessScoring'
+import { sensingApi, getSensingSessionId } from '../../services/sensingApi'
 
 // ── Types ──
 
-type Step = 'facility' | 'fqhc_track' | 'deal_type' | 'assessment' | 'results'
+type Step = 'facility' | 'fqhc_track' | 'deal_type' | 'assessment' | 'lead_gate' | 'results'
 type Response = 'yes' | 'no' | 'partial' | 'na'
 
 interface FrameworkData {
@@ -79,6 +83,15 @@ export default function HealthcareReadiness() {
   const [numericValues, setNumericValues] = useState<Record<string, number>>({})
   const [framework, setFramework] = useState<FrameworkData | null>(null)
   const [result, setResult] = useState<AssessmentResult | null>(null)
+
+  // Track page view
+  useEffect(() => {
+    sensingApi.trackEvent({
+      session_id: getSensingSessionId(),
+      event_type: 'page_view',
+      event_data: JSON.stringify({ page: 'healthcare_readiness' }),
+    })
+  }, [])
 
   // Load framework data
   useEffect(() => {
@@ -155,11 +168,23 @@ export default function HealthcareReadiness() {
       return { item, status, numericValue: numericValues[item.id] }
     })
 
-    // Items NOT in the quick assessment default to 'missing' (pessimistic estimate)
-    // This gives a conservative score that improves as the CFO provides more info
     const assessmentResult = computeAssessment(assessed)
     setResult(assessmentResult)
-    setStep('results')
+
+    // Track scoring event
+    sensingApi.trackEvent({
+      session_id: getSensingSessionId(),
+      event_type: 'readiness_scored',
+      sector: subSector,
+      event_data: JSON.stringify({
+        score: assessmentResult.overallScore,
+        tier: assessmentResult.tier.label,
+        subSector,
+        dealType,
+      }),
+    })
+
+    setStep('lead_gate')
   }
 
   function reset() {
@@ -379,7 +404,25 @@ export default function HealthcareReadiness() {
         </div>
       )}
 
-      {/* Step 4: Results */}
+      {/* Step 4: Lead Capture Gate */}
+      {step === 'lead_gate' && result && (
+        <LeadCaptureGate
+          result={result}
+          subSector={subSector!}
+          dealType={dealType!}
+          onUnlock={() => {
+            sensingApi.trackEvent({
+              session_id: getSensingSessionId(),
+              event_type: 'readiness_results_unlocked',
+              sector: subSector!,
+            })
+            setStep('results')
+          }}
+          onSkip={() => setStep('results')}
+        />
+      )}
+
+      {/* Step 5: Results */}
       {step === 'results' && result && (
         <ResultsView result={result} subSector={subSector!} onReset={reset} />
       )}
@@ -513,6 +556,209 @@ function QuestionCard({
           })}
         </div>
       </div>
+    </div>
+  )
+}
+
+function LeadCaptureGate({
+  result,
+  subSector,
+  dealType,
+  onUnlock,
+  onSkip,
+}: {
+  result: AssessmentResult
+  subSector: SubSector
+  dealType: DealType
+  onUnlock: () => void
+  onSkip: () => void
+}) {
+  const [email, setEmail] = useState('')
+  const [name, setName] = useState('')
+  const [organization, setOrganization] = useState('')
+  const [title, setTitle] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
+
+  const sectorLabel = { hospital: 'Hospital', ccrc: 'Senior Living / CCRC', fqhc: 'FQHC' }[subSector]
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    setError('')
+    setSubmitting(true)
+
+    try {
+      await sensingApi.captureLead({
+        email,
+        name,
+        organization,
+        title: title || undefined,
+        sector: `healthcare_${subSector}`,
+        session_id: getSensingSessionId(),
+        readiness_json: JSON.stringify({
+          overallScore: result.overallScore,
+          tier: result.tier.label,
+          subSector,
+          dealType,
+          categoryScores: result.categoryScores,
+          criticalPathWeeks: result.criticalPathWeeks,
+          gapCount: result.gaps.length,
+        }),
+      })
+
+      sensingApi.trackEvent({
+        session_id: getSensingSessionId(),
+        event_type: 'readiness_lead_captured',
+        sector: subSector,
+        event_data: JSON.stringify({ email_domain: email.split('@')[1] }),
+      })
+
+      onUnlock()
+    } catch {
+      setError('Something went wrong. Please try again.')
+      setSubmitting(false)
+    }
+  }
+
+  return (
+    <div>
+      {/* Score teaser */}
+      <div
+        className="rounded-2xl p-8 text-white mb-8"
+        style={{ background: `linear-gradient(135deg, #1B3A5C 0%, ${result.tier.color}33 100%)` }}
+      >
+        <p className="text-sm font-medium text-gray-300 mb-1">{sectorLabel} Bond Readiness Score</p>
+        <div className="flex items-end gap-4 mb-4">
+          <span className="text-5xl font-bold">{result.overallScore}%</span>
+          <span
+            className="text-sm font-bold px-3 py-1 rounded-full mb-1"
+            style={{ backgroundColor: result.tier.color }}
+          >
+            {result.tier.label}
+          </span>
+        </div>
+        <div className="relative w-full h-3 bg-white/20 rounded-full overflow-hidden mb-4">
+          <div
+            className="absolute inset-y-0 left-0 rounded-full transition-all duration-1000"
+            style={{ width: `${result.overallScore}%`, backgroundColor: result.tier.color }}
+          />
+          {[50, 75, 90].map((mark) => (
+            <div
+              key={mark}
+              className="absolute top-0 bottom-0 w-px bg-white/40"
+              style={{ left: `${mark}%` }}
+            />
+          ))}
+        </div>
+        <p className="text-sm text-gray-300">
+          Your assessment identified <span className="font-semibold text-white">{result.gaps.length} readiness gaps</span> across {result.categoryScores.length} categories.
+        </p>
+      </div>
+
+      {/* Email gate */}
+      <div className="bg-white rounded-xl border-2 border-[#2DAEAC]/30 p-6 md:p-8 mb-6">
+        <div className="flex items-start gap-4 mb-6">
+          <div className="h-12 w-12 rounded-xl bg-[#2DAEAC] flex items-center justify-center flex-shrink-0">
+            <Mail className="h-6 w-6 text-white" />
+          </div>
+          <div>
+            <h2 className="text-lg font-bold text-gray-900 mb-1">
+              Get Your Full Readiness Report
+            </h2>
+            <p className="text-sm text-gray-600">
+              See your category-by-category breakdown, top gaps ranked by COI impact,
+              critical path timeline, and actionable next steps.
+            </p>
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label htmlFor="lead-name" className="block text-xs font-medium text-gray-700 mb-1">Name *</label>
+              <input
+                id="lead-name"
+                type="text"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Jane Smith"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#2DAEAC] focus:border-[#2DAEAC] outline-none"
+              />
+            </div>
+            <div>
+              <label htmlFor="lead-email" className="block text-xs font-medium text-gray-700 mb-1">Work Email *</label>
+              <input
+                id="lead-email"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="jane@hospital.org"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#2DAEAC] focus:border-[#2DAEAC] outline-none"
+              />
+            </div>
+            <div>
+              <label htmlFor="lead-org" className="block text-xs font-medium text-gray-700 mb-1">Organization *</label>
+              <input
+                id="lead-org"
+                type="text"
+                required
+                value={organization}
+                onChange={(e) => setOrganization(e.target.value)}
+                placeholder="Community Health System"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#2DAEAC] focus:border-[#2DAEAC] outline-none"
+              />
+            </div>
+            <div>
+              <label htmlFor="lead-title" className="block text-xs font-medium text-gray-700 mb-1">Title</label>
+              <input
+                id="lead-title"
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="CFO"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#2DAEAC] focus:border-[#2DAEAC] outline-none"
+              />
+            </div>
+          </div>
+
+          {error && (
+            <p className="text-sm text-red-600">{error}</p>
+          )}
+
+          <div className="flex items-center justify-between pt-2">
+            <p className="text-[11px] text-gray-400 flex items-center gap-1">
+              <Lock className="h-3 w-3" />
+              We never share your information. Used only for your readiness report.
+            </p>
+            <button
+              type="submit"
+              disabled={submitting}
+              className="inline-flex items-center gap-2 bg-[#E8913A] hover:bg-[#d47e2e] disabled:bg-gray-300 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+            >
+              {submitting ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  Unlock Full Report
+                  <ArrowRight className="h-4 w-4" />
+                </>
+              )}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <button
+        onClick={onSkip}
+        className="w-full text-center text-xs text-gray-400 hover:text-gray-600 transition-colors py-2"
+      >
+        Skip for now &mdash; view summary results
+      </button>
     </div>
   )
 }

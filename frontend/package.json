@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:sensing": "npx vite build --config vite.config.sensing.ts",
+    "build:sensing": "npx vite build --config vite.config.healthcare.ts --outDir dist && npx vite build --config vite.config.sensing.ts --base /tools/ --outDir dist/tools && npx vite build --config vite.config.readiness.ts --outDir dist/readiness",
     "build:healthcare": "npx vite build --config vite.config.healthcare.ts",
     "build:combined": "npx vite build --config vite.config.healthcare.ts && npx vite build --config vite.config.sensing.ts --base /tools/ --outDir dist-healthcare/tools",
     "dev:healthcare": "npx vite --config vite.config.healthcare.ts",
@@ -17,7 +17,10 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "generate:api-types": "openapi-typescript ../contracts/openapi.v1.json -o src/types/openapi.generated.ts",
-    "generate:api-client": "openapi --input ../contracts/openapi.v1.json --output src/generated/api-client --client axios"
+    "generate:api-client": "openapi --input ../contracts/openapi.v1.json --output src/generated/api-client --client axios",
+    "dev:variant-a": "npx vite --config vite.config.variant-a.ts",
+    "dev:variant-b": "npx vite --config vite.config.variant-b.ts",
+    "dev:variant-c": "npx vite --config vite.config.variant-c.ts"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.17.0",

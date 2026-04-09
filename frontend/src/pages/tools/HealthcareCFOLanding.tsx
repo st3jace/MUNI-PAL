@@ -58,7 +58,7 @@ const ENGAGEMENT_PATH = [
     name: 'Standard Engagement',
     price: '$40K–$50K',
     description:
-      'Diagnostic + active deal coordination + COI optimization',
+      'Diagnostic + active deal coordination + COI benchmarking',
   },
   {
     step: 5,
@@ -90,10 +90,9 @@ export default function HealthcareCFOLanding() {
           you for free.
         </h1>
         <p className="text-base md:text-lg text-gray-300 max-w-2xl mb-8">
-          Muni-Pal's free Bond Readiness Assessment scores your facility across
-          6 dimensions that drive bond outcomes — backed by benchmarks from 866
-          actual EMMA transactions. Know where you stand, what it costs, and
-          what to fix first.
+          Benchmarked against 186 real healthcare bond deals and $47B+ in
+          issuance data. Know exactly what your bond will cost — and what to
+          fix first — before you spend a dime.
         </p>
         <div className="flex flex-col sm:flex-row flex-wrap gap-4">
           <Link
@@ -132,8 +131,9 @@ export default function HealthcareCFOLanding() {
               Healthcare Bond Readiness Assessment
             </h2>
             <p className="text-sm text-gray-600 leading-relaxed mb-4 max-w-2xl">
-              Built from 174 readiness items across hospitals, CCRCs, and FQHCs — scored by COI impact
-              and deal criticality. Know exactly where you stand and what to fix first, in about 10 minutes.
+              68 readiness items determine your bond preparation path — and 93% are
+              agent-assistable. Most hospitals need 9–24 weeks to reach bond-ready status.
+              Our projected timeline compression: 6–14 weeks. Know where you stand in about 10 minutes.
             </p>
             <Link
               to="/tools/healthcare-readiness"
@@ -172,27 +172,54 @@ export default function HealthcareCFOLanding() {
       <section className="mb-12 bg-gray-50 rounded-lg p-6 border border-gray-100">
         <div className="flex flex-wrap justify-center gap-8 text-center text-sm text-gray-600">
           <div>
-            <span className="block text-2xl font-bold text-muni-navy">866</span>
-            EMMA transactions analyzed
+            <span className="block text-2xl font-bold text-muni-navy">186</span>
+            Healthcare bond deals analyzed
           </div>
           <div>
             <span className="block text-2xl font-bold text-muni-navy">
-              3.20x
+              $47B+
             </span>
-            Median healthcare DSCR
-            <span className="block text-[10px] text-gray-400">(gross revenue pledge basis)</span>
+            Total par value in corpus
           </div>
           <div>
-            <span className="block text-2xl font-bold text-muni-navy">10</span>
-            Risk categories tracked
+            <span className="block text-2xl font-bold text-muni-navy">45</span>
+            Fully itemized COI breakdowns
           </div>
           <div>
             <span className="block text-2xl font-bold text-muni-navy">
-              1,318
+              11
             </span>
-            Financial reports in corpus
+            Repeat issuers tracked
           </div>
         </div>
+      </section>
+
+      {/* COI Benchmark Highlight */}
+      <section className="mb-12 bg-white rounded-lg border border-gray-200 shadow-sm p-6 md:p-8">
+        <h2 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-3">
+          <DollarSign className="h-5 w-5 text-[#2DAEAC]" />
+          What Does a Healthcare Bond Actually Cost?
+        </h2>
+        <div className="grid gap-6 md:grid-cols-3">
+          <div className="text-center p-4 bg-gray-50 rounded-lg">
+            <span className="block text-2xl font-bold text-muni-navy">$8.23</span>
+            <span className="text-sm text-gray-600">Median hospital COI per $1,000 par</span>
+            <span className="block text-[10px] text-gray-400 mt-1">Based on 45 fully itemized deals</span>
+          </div>
+          <div className="text-center p-4 bg-gray-50 rounded-lg">
+            <span className="block text-2xl font-bold text-[#2DAEAC]">$1.50–$5.00</span>
+            <span className="text-sm text-gray-600">Repeat issuer savings per $1,000</span>
+            <span className="block text-[10px] text-gray-400 mt-1">Validated across 5 repeat-issuer pairs</span>
+          </div>
+          <div className="text-center p-4 bg-gray-50 rounded-lg">
+            <span className="block text-2xl font-bold text-[#E8913A]">53%</span>
+            <span className="text-sm text-gray-600">Of total COI goes to the underwriter</span>
+            <span className="block text-[10px] text-gray-400 mt-1">Median underwriter fee: $4.39/1000</span>
+          </div>
+        </div>
+        <p className="text-xs text-gray-500 mt-4">
+          See where you stand. Repeat issuers who know what to negotiate save $150K–$500K on a $100M deal.
+        </p>
       </section>
 
       {/* Bond Readiness Engagement Path */}
@@ -240,7 +267,10 @@ export default function HealthcareCFOLanding() {
 
       {/* MSRB G-42 Disclaimer */}
       <p className="text-[11px] text-gray-400 mt-3 max-w-3xl">
-        Bond Readiness Accelerator is an educational and analytical service. It does not constitute municipal advisory services as defined under Section 15B of the Securities Exchange Act.
+        Based on analysis of 186 publicly available healthcare bond official statements and CDIAC/DASNY filings.
+        Past issuance costs are not predictive of future deal pricing. Muni-Pal provides benchmarking and
+        preparation tools, not investment advice. This is an educational and analytical service. It does not
+        constitute municipal advisory services as defined under Section 15B of the Securities Exchange Act.
       </p>
 
       {/* Cost of Inaction — ROI Callout */}

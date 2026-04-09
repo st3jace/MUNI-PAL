@@ -211,7 +211,7 @@
             "title": "Display Name"
           },
           "file": {
-            "format": "binary",
+            "contentMediaType": "application/octet-stream",
             "title": "File",
             "type": "string"
           },
@@ -23027,6 +23027,55 @@
           }
         },
         "summary": "List Sectors",
+        "tags": [
+          "Sensing"
+        ]
+      }
+    },
+    "/api/v1/sensing/unsubscribe": {
+      "get": {
+        "description": "One-click unsubscribe from the email drip sequence.\n\nCAN-SPAM compliant: no login required, immediate effect.",
+        "operationId": "unsubscribe_api_v1_sensing_unsubscribe_get",
+        "parameters": [
+          {
+            "description": "Unsubscribe token",
+            "in": "query",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "description": "Unsubscribe token",
+              "title": "Token",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Unsubscribe Api V1 Sensing Unsubscribe Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Unsubscribe",
         "tags": [
           "Sensing"
         ]

@@ -12,6 +12,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Analytics } from '@vercel/analytics/react'
 import { SensingProvider } from './contexts/SensingContext'
 import HealthcareCFOLanding from './pages/tools/HealthcareCFOLanding'
+import HealthcareReadiness from './pages/tools/HealthcareReadiness'
 import ToolsHub from './pages/tools/ToolsHub'
 import MarketIntelligence from './pages/tools/MarketIntelligence'
 import BenchmarkCalculator from './pages/tools/BenchmarkCalculator'
@@ -49,6 +50,7 @@ createRoot(root).render(
               <Route path="/tools/benchmark" element={<BenchmarkCalculator />} />
               <Route path="/tools/readiness" element={<ReadinessAssess />} />
               <Route path="/tools/credit-spreads" element={<CreditSpreadMonitor />} />
+              <Route path="/tools/healthcare-readiness" element={<HealthcareReadiness />} />
               <Route path="/tools/export" element={<ReportExport />} />
               {/* Catch-all back to landing */}
               <Route path="*" element={<Navigate to="/" replace />} />

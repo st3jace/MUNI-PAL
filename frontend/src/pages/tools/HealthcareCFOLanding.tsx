@@ -440,11 +440,11 @@ export default function HealthcareCFOLanding() {
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                Hospital systems evaluating capital structure options
+                FQHCs, community hospitals, and senior living facilities
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                Deals above $10M in total issuance size
+                $5M&ndash;$100M issuance size
               </li>
             </ul>
           </div>
@@ -455,7 +455,7 @@ export default function HealthcareCFOLanding() {
             <ul className="space-y-1.5 text-sm text-gray-400">
               <li className="flex items-start gap-2">
                 <span className="mt-0.5 flex-shrink-0">—</span>
-                Sub-$10M deal sizes
+                Sub-$5M deal sizes
               </li>
               <li className="flex items-start gap-2">
                 <span className="mt-0.5 flex-shrink-0">—</span>

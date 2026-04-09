@@ -3,6 +3,16 @@
   "installCommand": "npm install",
   "buildCommand": "npx vite build --config vite.config.healthcare.ts && npx vite build --config vite.config.sensing.ts --base /tools/ --outDir dist-healthcare/tools && npx vite build --config vite.config.readiness.ts --outDir dist-healthcare/readiness",
   "outputDirectory": "dist-healthcare",
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "readiness.elaunchshop.com" }],
+      "destination": "/readiness/",
+      "statusCode": 308
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/v1/sensing/:path*",
@@ -13,7 +23,7 @@
       "destination": "https://api.muni-pal.io/health"
     },
     {
-      "source": "/",
+      "source": "/readiness/:path*",
       "has": [{ "type": "host", "value": "readiness.elaunchshop.com" }],
       "destination": "/readiness/index.readiness.html"
     },

@@ -26,6 +26,13 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="manifest" href="/site.webmanifest" />
 
+    <!-- Readiness domain redirect (before React loads) -->
+    <script>
+      if (location.hostname === 'readiness.elaunchshop.com' && !location.pathname.startsWith('/readiness')) {
+        location.replace('/readiness/' + location.search + location.hash);
+      }
+    </script>
+
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
     {

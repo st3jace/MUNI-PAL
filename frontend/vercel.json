@@ -1,8 +1,8 @@
 {
   "framework": null,
   "installCommand": "npm install",
-  "buildCommand": "npx vite build --config vite.config.healthcare.ts --outDir dist && npx vite build --config vite.config.sensing.ts --base /tools/ --outDir dist/tools && npx vite build --config vite.config.readiness.ts --outDir dist/readiness",
-  "outputDirectory": "dist",
+  "buildCommand": "npx vite build --config vite.config.healthcare.ts && npx vite build --config vite.config.sensing.ts --base /tools/ --outDir dist-healthcare/tools && npx vite build --config vite.config.readiness.ts --outDir dist-healthcare/readiness",
+  "outputDirectory": "dist-healthcare",
   "cleanUrls": false,
   "trailingSlash": false,
   "rewrites": [
@@ -15,12 +15,12 @@
       "destination": "https://api.muni-pal.io/health"
     },
     {
-      "source": "/tools/:path*",
-      "destination": "/tools/index.sensing.html"
-    },
-    {
       "source": "/readiness/:path*",
       "destination": "/readiness/index.readiness.html"
+    },
+    {
+      "source": "/tools/:path*",
+      "destination": "/tools/index.sensing.html"
     },
     {
       "source": "/(.*)",

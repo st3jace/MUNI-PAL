@@ -211,7 +211,7 @@
             "title": "Display Name"
           },
           "file": {
-            "contentMediaType": "application/octet-stream",
+            "format": "binary",
             "title": "File",
             "type": "string"
           },
@@ -22400,6 +22400,114 @@
           }
         },
         "summary": "Benchmark Issuance",
+        "tags": [
+          "Sensing"
+        ]
+      }
+    },
+    "/api/v1/sensing/coi-benchmarks": {
+      "get": {
+        "description": "COI line-item benchmarking data for healthcare sub-sectors.\n\nReturns questionnaire items grouped by dimension with COI impact\nratings, lead times, and agent-assistable flags, plus aggregate\nbenchmarks (COI gap range, timeline compression, displacement value).",
+        "operationId": "coi_benchmarks_api_v1_sensing_coi_benchmarks_get",
+        "parameters": [
+          {
+            "description": "Healthcare sub-sector (healthcare_hospital, healthcare_senior_living, etc.). Omit for all.",
+            "in": "query",
+            "name": "sub_sector",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Healthcare sub-sector (healthcare_hospital, healthcare_senior_living, etc.). Omit for all.",
+              "title": "Sub Sector"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Coi Benchmarks Api V1 Sensing Coi Benchmarks Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Coi Benchmarks",
+        "tags": [
+          "Sensing"
+        ]
+      }
+    },
+    "/api/v1/sensing/coi-deal-benchmarks": {
+      "get": {
+        "description": "Deal-level COI benchmark statistics from EMMA/CDIAC/DASNY research.\n\nReturns actual deal-level COI statistics (median, p25/p75, by size\nbucket, by period) for healthcare sub-sectors. Use alongside the\nexisting /coi-benchmarks endpoint which provides line-item checklist\ndata.",
+        "operationId": "coi_deal_benchmarks_api_v1_sensing_coi_deal_benchmarks_get",
+        "parameters": [
+          {
+            "description": "Sub-sector key (hospital, senior_living, fqhc). Omit for all.",
+            "in": "query",
+            "name": "sub_sector",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Sub-sector key (hospital, senior_living, fqhc). Omit for all.",
+              "title": "Sub Sector"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Coi Deal Benchmarks Api V1 Sensing Coi Deal Benchmarks Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Coi Deal Benchmarks",
         "tags": [
           "Sensing"
         ]

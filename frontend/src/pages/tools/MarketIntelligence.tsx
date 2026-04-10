@@ -66,7 +66,7 @@ const SECTION_META: Record<
 }
 
 /* ------------------------------------------------------------------ */
-/*  StatBox variants                                                   */
+/*  StatBox variants — glass morphism style                            */
 /* ------------------------------------------------------------------ */
 type StatVariant = 'financial' | 'count' | 'rating' | 'default'
 
@@ -79,30 +79,38 @@ function StatBox({
   value: string | number
   variant?: StatVariant
 }) {
-  const styles: Record<StatVariant, string> = {
-    financial: `bg-[${BRAND.navy}] text-white`,
-    count: 'bg-white border-l-4 border-muni-teal text-muni-navy',
-    rating: 'bg-white border-l-4 border-amber-400 text-muni-navy',
-    default: 'bg-white border border-gray-200 text-muni-navy',
+  const styles: Record<StatVariant, { bg: string; text: string; labelColor: string }> = {
+    financial: {
+      bg: 'bg-[#1B3A5C]',
+      text: 'text-white',
+      labelColor: 'text-gray-300',
+    },
+    count: {
+      bg: 'bg-white/80 backdrop-blur-sm border-l-4 border-[#2DAEAC]',
+      text: 'text-[#1B3A5C]',
+      labelColor: 'text-gray-500',
+    },
+    rating: {
+      bg: 'bg-white/80 backdrop-blur-sm border-l-4 border-[#f59e0b]',
+      text: 'text-[#1B3A5C]',
+      labelColor: 'text-gray-500',
+    },
+    default: {
+      bg: 'bg-white/80 backdrop-blur-sm border border-gray-200',
+      text: 'text-[#1B3A5C]',
+      labelColor: 'text-gray-500',
+    },
   }
-  // PDF-safe: use inline fallbacks for gradient backgrounds
+  const s = styles[variant]
   return (
     <div
-      className={`rounded-lg px-4 py-3 ${styles[variant]}`}
+      className={`rounded-xl px-5 py-4 shadow-sm ${s.bg}`}
       style={variant === 'financial' ? { backgroundColor: BRAND.navy, color: '#fff' } : undefined}
     >
-      <div
-        className={`text-xs uppercase tracking-wider mb-1 ${
-          variant === 'financial' ? 'text-gray-300' : 'text-gray-500'
-        }`}
-      >
+      <div className={`text-xs uppercase tracking-widest mb-1.5 font-medium ${s.labelColor}`}>
         {label}
       </div>
-      <div
-        className={`text-lg font-semibold ${
-          variant === 'financial' ? 'text-white' : ''
-        }`}
-      >
+      <div className={`text-xl font-bold ${s.text}`}>
         {String(value)}
       </div>
     </div>
@@ -110,7 +118,7 @@ function StatBox({
 }
 
 /* ------------------------------------------------------------------ */
-/*  SectionCard — defaults open, numbered, teal top border, icon       */
+/*  SectionCard — collapsible, numbered, teal accent, glass style      */
 /* ------------------------------------------------------------------ */
 function SectionCard({
   id,
@@ -133,27 +141,27 @@ function SectionCard({
   return (
     <div
       id={id}
-      className="bg-white rounded-lg border border-gray-200 shadow-sm scroll-mt-20 overflow-hidden"
+      className="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-200 shadow-lg scroll-mt-20 overflow-hidden"
       style={{ borderTop: `3px solid ${BRAND.teal}` }}
     >
       <button
-        className="flex items-center justify-between w-full text-left px-5 py-4"
+        className="flex items-center justify-between w-full text-left px-6 py-5"
         onClick={() => setOpen(!open)}
       >
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           {Icon && (
             <div
-              className="h-8 w-8 rounded-lg flex items-center justify-center flex-shrink-0"
+              className="h-10 w-10 rounded-xl flex items-center justify-center flex-shrink-0"
               style={{ backgroundColor: `${BRAND.navy}10` }}
             >
-              <Icon className="h-4 w-4" style={{ color: BRAND.teal }} />
+              <Icon className="h-5 w-5" style={{ color: BRAND.teal }} />
             </div>
           )}
           <div>
-            <span className="text-[10px] uppercase tracking-widest text-gray-400 font-medium">
+            <span className="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-medium">
               Section {sectionNumber} of {totalSections}
             </span>
-            <h3 className="font-semibold text-gray-900 text-base">{title}</h3>
+            <h3 className="font-semibold text-gray-900 text-lg">{title}</h3>
           </div>
         </div>
         {open ? (
@@ -162,7 +170,7 @@ function SectionCard({
           <ChevronRight className="h-5 w-5 text-gray-400 flex-shrink-0" />
         )}
       </button>
-      {open && <div className="px-5 pb-5 pt-1">{children}</div>}
+      {open && <div className="px-6 pb-6 pt-1">{children}</div>}
     </div>
   )
 }
@@ -178,14 +186,14 @@ function DataTable({
   rows: (string | number)[][]
 }) {
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto rounded-lg border border-gray-200">
       <table className="min-w-full text-sm">
         <thead>
           <tr className="border-b-2" style={{ borderColor: BRAND.teal }}>
             {headers.map((h) => (
               <th
                 key={h}
-                className="text-left py-2.5 px-3 font-medium"
+                className="text-left py-3 px-4 font-semibold text-xs uppercase tracking-wider"
                 style={{ color: BRAND.navy }}
               >
                 {h}
@@ -198,10 +206,10 @@ function DataTable({
             <tr
               key={i}
               className="border-b border-gray-100"
-              style={i % 2 === 1 ? { backgroundColor: `${BRAND.navy}08` } : undefined}
+              style={i % 2 === 1 ? { backgroundColor: `${BRAND.navy}06` } : undefined}
             >
               {row.map((cell, j) => (
-                <td key={j} className="py-2.5 px-3 text-gray-800">
+                <td key={j} className="py-3 px-4 text-gray-800">
                   {String(cell)}
                 </td>
               ))}
@@ -1273,22 +1281,22 @@ export default function MarketIntelligence() {
               }}
             >
               <h2 className="text-xl font-bold mb-2">
-                Ready to see where you stand?
+                You've seen how your sector benchmarks.
               </h2>
               <p className="text-sm text-gray-300 mb-6 max-w-lg mx-auto">
-                Take the free Readiness Scan — an automated pre-screen that shows
-                your sector fit, deal size positioning, and top 3 gaps to close
-                before approaching the market.
+                Now see where your organization stands. Take the Bond Readiness
+                Scan — it's free, takes 10 minutes, and scores you across the 5
+                dimensions that drive your credit rating.
               </p>
               <Link
                 to="/tools/readiness"
-                className="inline-flex items-center gap-2 font-semibold px-8 py-3 rounded-lg transition-colors"
+                className="inline-flex items-center gap-2 font-semibold px-8 py-3 rounded-lg transition-all hover:scale-105 hover:shadow-lg"
                 style={{
                   backgroundColor: BRAND.orange,
                   color: '#fff',
                 }}
               >
-                Take the Free Readiness Scan
+                Take the Bond Readiness Scan
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>

@@ -514,7 +514,7 @@ export default function PricingPage() {
 
               {/* CTA */}
               <Link
-                to="/tools/healthcare-readiness"
+                to="/tools/readiness"
                 className="w-full text-center inline-flex items-center justify-center gap-2 bg-muni-navy hover:bg-[#15304d] text-white font-semibold px-4 py-2.5 rounded-lg transition-colors text-sm"
               >
                 Start with Free Assessment

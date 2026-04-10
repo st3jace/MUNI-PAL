@@ -10,6 +10,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Analytics } from '@vercel/analytics/react'
+import { AuthProvider } from './contexts/AuthContext'
 import { SensingProvider } from './contexts/SensingContext'
 import HealthcareCFOLanding from './pages/tools/HealthcareCFOLanding'
 import HealthcareReadiness from './pages/tools/HealthcareReadiness'
@@ -19,6 +20,8 @@ import BenchmarkCalculator from './pages/tools/BenchmarkCalculator'
 import ReadinessAssess from './pages/tools/ReadinessAssess'
 import CreditSpreadMonitor from './pages/tools/CreditSpreadMonitor'
 import ReportExport from './pages/tools/ReportExport'
+import PricingPage from './pages/tools/PricingPage'
+import AuthPage from './pages/tools/AuthPage'
 import './styles/index.css'
 
 const queryClient = new QueryClient({
@@ -36,6 +39,7 @@ createRoot(root).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
     <BrowserRouter>
+      <AuthProvider>
       <SensingProvider>
         <div className="min-h-screen bg-gray-50">
           <div className="py-8 px-4 sm:px-6 lg:px-8">
@@ -52,12 +56,15 @@ createRoot(root).render(
               <Route path="/tools/credit-spreads" element={<CreditSpreadMonitor />} />
               <Route path="/tools/healthcare-readiness" element={<HealthcareReadiness />} />
               <Route path="/tools/export" element={<ReportExport />} />
+              <Route path="/pricing" element={<PricingPage />} />
+              <Route path="/auth" element={<AuthPage />} />
               {/* Catch-all back to landing */}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </div>
         </div>
       </SensingProvider>
+      </AuthProvider>
     </BrowserRouter>
     <Analytics />
     </QueryClientProvider>

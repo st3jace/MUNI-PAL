@@ -14,6 +14,7 @@ import AdvisoryPackages from './pages/AdvisoryPackages'
 import RevenueDiversification from './pages/RevenueDiversification'
 // Sensing Component Tools
 import { SensingProvider } from './contexts/SensingContext'
+import { AuthProvider } from './contexts/AuthContext'
 import ToolsHub from './pages/tools/ToolsHub'
 import MarketIntelligence from './pages/tools/MarketIntelligence'
 import BenchmarkCalculator from './pages/tools/BenchmarkCalculator'
@@ -22,10 +23,13 @@ import ReportExport from './pages/tools/ReportExport'
 import CreditSpreadMonitor from './pages/tools/CreditSpreadMonitor'
 import HealthcareCFOLanding from './pages/tools/HealthcareCFOLanding'
 import HealthcareReadiness from './pages/tools/HealthcareReadiness'
+import CoiBenchmarking from './pages/tools/CoiBenchmarking'
+import PricingPage from './pages/tools/PricingPage'
 
 function App() {
   return (
     <BrowserRouter>
+      <AuthProvider>
       <SensingProvider>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -51,12 +55,15 @@ function App() {
             <Route path="tools/benchmark" element={<BenchmarkCalculator />} />
             <Route path="tools/readiness" element={<ReadinessAssess />} />
             <Route path="tools/credit-spreads" element={<CreditSpreadMonitor />} />
+            <Route path="tools/coi-benchmarking" element={<CoiBenchmarking />} />
             <Route path="tools/export" element={<ReportExport />} />
             <Route path="healthcare" element={<HealthcareCFOLanding />} />
             <Route path="tools/healthcare-readiness" element={<HealthcareReadiness />} />
+            <Route path="pricing" element={<PricingPage />} />
           </Route>
         </Routes>
       </SensingProvider>
+      </AuthProvider>
     </BrowserRouter>
   )
 }

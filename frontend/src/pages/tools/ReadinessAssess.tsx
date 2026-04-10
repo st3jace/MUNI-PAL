@@ -652,7 +652,7 @@ export default function ReadinessAssess() {
                 Export Combined Report
                 {sensing.completedCount > 0 && (
                   <span className="bg-primary-100 text-primary-700 rounded-full px-2 py-0.5 text-xs">
-                    {sensing.completedCount}/3
+                    {sensing.completedCount}/4
                   </span>
                 )}
               </Link>

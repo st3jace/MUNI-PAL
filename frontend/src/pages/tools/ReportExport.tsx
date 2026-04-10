@@ -18,6 +18,7 @@ import {
   BarChart3,
   Calculator,
   ClipboardCheck,
+  TrendingUp,
 } from 'lucide-react'
 import { sensingApi, getSensingSessionId } from '../../services/sensingApi'
 
@@ -91,7 +92,7 @@ export default function ReportExport() {
     })
   }, [sensing.sector])
 
-  const hasData = sensing.marketIntel || sensing.benchmark || sensing.readiness
+  const hasData = sensing.marketIntel || sensing.benchmark || sensing.readiness || sensing.creditSpreads
   const componentCount = sensing.completedCount
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -166,6 +167,7 @@ export default function ReportExport() {
   const mi = sensing.marketIntel
   const bm = sensing.benchmark
   const ra = sensing.readiness
+  const cs = sensing.creditSpreads
 
   return (
     <div className="max-w-5xl mx-auto">
@@ -212,7 +214,7 @@ export default function ReportExport() {
       ) : (
         <>
           {/* Report Status Cards */}
-          <div className="grid grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             <div
               className={`rounded-lg border p-4 ${mi ? 'border-green-200 bg-green-50' : 'border-gray-200 bg-gray-50'}`}
             >
@@ -256,6 +258,21 @@ export default function ReportExport() {
               </div>
               <p className="text-xs text-gray-500">
                 {ra ? 'Included in report' : 'Not generated'}
+              </p>
+            </div>
+            <div
+              className={`rounded-lg border p-4 ${cs ? 'border-green-200 bg-green-50' : 'border-gray-200 bg-gray-50'}`}
+            >
+              <div className="flex items-center gap-2 mb-1">
+                <TrendingUp
+                  className={`h-4 w-4 ${cs ? 'text-green-600' : 'text-gray-400'}`}
+                />
+                <span className="text-sm font-medium text-gray-800">
+                  Credit Spreads
+                </span>
+              </div>
+              <p className="text-xs text-gray-500">
+                {cs ? 'Included in report' : 'Not generated'}
               </p>
             </div>
           </div>
@@ -884,6 +901,126 @@ export default function ReportExport() {
                           </li>
                         ))}
                     </ol>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Section 4: Credit Spreads */}
+            {cs && (
+              <div style={{ marginBottom: '24px' }} className="pdf-section">
+                <h2
+                  style={{
+                    fontSize: '16px',
+                    fontWeight: 700,
+                    color: '#0f172a',
+                    borderBottom: '1px solid #e2e8f0',
+                    paddingBottom: '6px',
+                    marginBottom: '12px',
+                  }}
+                >
+                  4. Credit Spread Monitor
+                </h2>
+
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: '1fr 1fr 1fr',
+                    gap: '8px',
+                    marginBottom: '12px',
+                  }}
+                >
+                  <PdfStat
+                    label="AAA Curve Source"
+                    value={cs.aaa_curve_source || 'N/A'}
+                  />
+                  <PdfStat
+                    label="Curve Date"
+                    value={cs.aaa_curve_date || 'N/A'}
+                  />
+                  <PdfStat
+                    label="Comparable Trades"
+                    value={String(cs.recent_comps?.length ?? 0)}
+                  />
+                </div>
+
+                {cs.cost_grid && cs.cost_grid.length > 0 && (
+                  <div style={{ marginBottom: '12px' }}>
+                    <h3 style={{ fontSize: '13px', fontWeight: 600, marginBottom: '6px' }}>
+                      Cost Grid (Selected Maturities)
+                    </h3>
+                    <table
+                      style={{
+                        width: '100%',
+                        borderCollapse: 'collapse',
+                        fontSize: '10px',
+                      }}
+                    >
+                      <thead>
+                        <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
+                          <th style={{ textAlign: 'left', padding: '4px 6px' }}>Rating</th>
+                          <th style={{ textAlign: 'left', padding: '4px 6px' }}>Maturity</th>
+                          <th style={{ textAlign: 'left', padding: '4px 6px' }}>Spread (bps)</th>
+                          <th style={{ textAlign: 'left', padding: '4px 6px' }}>Yield</th>
+                          <th style={{ textAlign: 'left', padding: '4px 6px' }}>TIC Est.</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                        {cs.cost_grid.slice(0, 10).map((row: any, i: number) => (
+                          <tr key={i} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                            <td style={{ padding: '3px 6px' }}>{row.rating}</td>
+                            <td style={{ padding: '3px 6px' }}>{row.maturity}yr</td>
+                            <td style={{ padding: '3px 6px' }}>
+                              {row.spread_bps != null ? `${row.spread_bps.toFixed(1)}` : 'N/A'}
+                            </td>
+                            <td style={{ padding: '3px 6px' }}>
+                              {row.yield_pct != null ? `${row.yield_pct.toFixed(2)}%` : 'N/A'}
+                            </td>
+                            <td style={{ padding: '3px 6px' }}>
+                              {row.tic_estimate_pct != null ? `${row.tic_estimate_pct.toFixed(2)}%` : 'N/A'}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+
+                {cs.issuer_comparisons && cs.issuer_comparisons.length > 0 && (
+                  <div style={{ marginBottom: '12px' }}>
+                    <h3 style={{ fontSize: '13px', fontWeight: 600, marginBottom: '6px' }}>
+                      Issuer Comparisons ({cs.issuer_comparisons.length})
+                    </h3>
+                    <table
+                      style={{
+                        width: '100%',
+                        borderCollapse: 'collapse',
+                        fontSize: '10px',
+                      }}
+                    >
+                      <thead>
+                        <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
+                          <th style={{ textAlign: 'left', padding: '4px 6px' }}>Issuer</th>
+                          <th style={{ textAlign: 'left', padding: '4px 6px' }}>Rating</th>
+                          <th style={{ textAlign: 'left', padding: '4px 6px' }}>Par</th>
+                          <th style={{ textAlign: 'left', padding: '4px 6px' }}>Spread</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                        {cs.issuer_comparisons.slice(0, 8).map((comp: any, i: number) => (
+                          <tr key={i} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                            <td style={{ padding: '3px 6px' }}>{comp.issuer_name || comp.cusip_9}</td>
+                            <td style={{ padding: '3px 6px' }}>{comp.rating || 'N/A'}</td>
+                            <td style={{ padding: '3px 6px' }}>{fmt$(comp.par_amount)}</td>
+                            <td style={{ padding: '3px 6px' }}>
+                              {comp.spread_bps != null ? `${comp.spread_bps.toFixed(1)} bps` : 'N/A'}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
                 )}
               </div>

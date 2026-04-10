@@ -50,6 +50,104 @@ function StatBox({
   )
 }
 
+function CoiEstimateSection({
+  dealSize,
+  sector,
+}: {
+  dealSize: number
+  sector: string
+}) {
+  // Only show for healthcare sectors
+  const isHealthcare =
+    sector === 'healthcare' || sector.startsWith('healthcare_')
+  const subSector = sector.startsWith('healthcare_')
+    ? sector.replace('healthcare_', '')
+    : 'hospital'
+
+  const coiQuery = useQuery({
+    queryKey: ['coi-deal-benchmarks', subSector],
+    queryFn: () => sensingApi.getCoiDealBenchmarks(subSector),
+    enabled: isHealthcare && dealSize > 0,
+  })
+
+  if (!isHealthcare || !coiQuery.data) return null
+
+  const ssData = coiQuery.data.sub_sectors?.[subSector]
+  if (!ssData) return null
+
+  const coi = ssData.total_coi_per_1000 || ssData.coi_per_1000
+  if (!coi) return null
+
+  const parIn1000 = dealSize / 1000
+  const medianCoi = (coi.median || coi.value) * parIn1000
+  const lowCoi = (coi.p25 ?? coi.median ?? coi.value) * parIn1000
+  const highCoi = (coi.p75 ?? coi.median ?? coi.value) * parIn1000
+
+  // Find matching size bucket
+  const bySize = ssData.by_deal_size
+  let sizeLabel = ''
+  let sizeBucketMedian: number | null = null
+  if (bySize) {
+    const dealMM = dealSize / 1e6
+    const bucket =
+      dealMM < 100
+        ? bySize.small_under_100m
+        : dealMM <= 500
+          ? bySize.mid_100_500m
+          : bySize.large_over_500m
+    if (bucket) {
+      sizeLabel = bucket.label
+      sizeBucketMedian = (bucket.median_coi_per_1000 ?? bucket.median) * parIn1000
+    }
+  }
+
+  // Recent period data
+  const byPeriod = ssData.by_period
+  const recentMedian = byPeriod?.recent_2022_2025?.median_coi_per_1000 ??
+    byPeriod?.recent_2022_plus?.median
+
+  return (
+    <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-5">
+      <h3 className="font-semibold text-gray-900 mb-1">
+        COI Estimate
+      </h3>
+      <p className="text-xs text-gray-500 mb-4">
+        Based on {ssData.sample_size} actual {subSector.replace('_', ' ')} deals
+        {ssData.year_range
+          ? ` (${ssData.year_range[0]}–${ssData.year_range[1]})`
+          : ''}
+      </p>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <StatBox
+          label="Expected COI (median)"
+          value={fmt$(Math.round(medianCoi))}
+        />
+        <StatBox
+          label="COI Range (P25–P75)"
+          value={`${fmt$(Math.round(lowCoi))} – ${fmt$(Math.round(highCoi))}`}
+        />
+        {sizeBucketMedian != null && (
+          <StatBox
+            label={`Size Bucket (${sizeLabel})`}
+            value={fmt$(Math.round(sizeBucketMedian))}
+          />
+        )}
+        {recentMedian != null && (
+          <StatBox
+            label="Recent Deals (2022+)"
+            value={`$${recentMedian.toFixed(2)}/1000`}
+          />
+        )}
+      </div>
+      {ssData.repeat_issuer_savings && (
+        <p className="mt-3 text-sm text-gray-500">
+          Repeat issuers save ~${ssData.repeat_issuer_savings.median_raw_decline_per_1000 ?? ssData.repeat_issuer_insight?.median_coi_decline_per_1000}/1000 par on average.
+        </p>
+      )}
+    </div>
+  )
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function ResultsView({ data }: { data: any }) {
   const spread = data.spread_estimate
@@ -490,6 +588,12 @@ export default function BenchmarkCalculator() {
       {benchmarkMutation.data && (
         <>
           <ResultsView data={benchmarkMutation.data} />
+          <div className="mt-5">
+            <CoiEstimateSection
+              dealSize={parseFloat(dealSize.replace(/[,$]/g, '')) || 0}
+              sector={sector}
+            />
+          </div>
           <div className="mt-4 flex justify-end">
             <Link
               to="/tools/export"
@@ -499,7 +603,7 @@ export default function BenchmarkCalculator() {
               Export Combined Report
               {sensing.completedCount > 0 && (
                 <span className="bg-primary-100 text-primary-700 rounded-full px-2 py-0.5 text-xs">
-                  {sensing.completedCount}/3
+                  {sensing.completedCount}/4
                 </span>
               )}
             </Link>

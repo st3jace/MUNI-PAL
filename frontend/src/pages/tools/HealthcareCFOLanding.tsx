@@ -157,20 +157,23 @@ export default function HealthcareCFOLanding() {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
-                  to="/tools/market-intelligence"
+                  to="/tools/readiness"
                   className="inline-flex items-center justify-center gap-2 text-white font-semibold px-7 py-3.5 rounded-lg transition-colors text-base shadow-lg"
                   style={{ backgroundColor: BRAND.orange, boxShadow: `0 8px 24px ${BRAND.orange}33` }}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = BRAND.orangeHover)}
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = BRAND.orange)}
                 >
-                  Get Your Free Market Intelligence Report
+                  Start Your Readiness Scan
                   <ArrowRight className="h-5 w-5" />
                 </Link>
                 <Link
-                  to="#engagement-path"
-                  className="inline-flex items-center justify-center gap-2 border border-white/25 hover:border-white/50 text-white font-medium px-7 py-3.5 rounded-lg transition-colors backdrop-blur-sm bg-white/5"
+                  to="/tools/market-intelligence"
+                  className="inline-flex items-center justify-center gap-2 text-white font-medium px-7 py-3.5 rounded-lg transition-colors text-base shadow-lg"
+                  style={{ backgroundColor: BRAND.teal, boxShadow: `0 8px 24px ${BRAND.teal}33` }}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#259896')}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = BRAND.teal)}
                 >
-                  See the Bond Readiness Path
+                  Get Your Free Market Intelligence Report
                   <ChevronRight className="h-5 w-5" />
                 </Link>
               </div>

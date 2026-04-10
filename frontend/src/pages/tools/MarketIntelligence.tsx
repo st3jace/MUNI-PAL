@@ -1315,7 +1315,7 @@ export default function MarketIntelligence() {
                     className="rounded-full px-2 py-0.5 text-xs"
                     style={{ backgroundColor: `${BRAND.teal}20`, color: BRAND.navy }}
                   >
-                    {sensing.completedCount}/3
+                    {sensing.completedCount}/4
                   </span>
                 )}
               </Link>

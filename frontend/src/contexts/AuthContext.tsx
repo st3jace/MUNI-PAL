@@ -8,6 +8,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from 'react'
@@ -99,6 +100,40 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setState({ user: null, loading: false, error: null })
       })
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Proactive token refresh — refresh 2 minutes before expiry
+  const refreshTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    if (refreshTimerRef.current) clearTimeout(refreshTimerRef.current)
+    if (!tokens?.refresh_token || !tokens.expires_in) return
+
+    // Refresh 2 minutes before expiry (minimum 10s from now)
+    const refreshMs = Math.max((tokens.expires_in - 120) * 1000, 10_000)
+
+    refreshTimerRef.current = setTimeout(async () => {
+      try {
+        const res = await fetch(`${API_URL}/api/v1/auth/refresh`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ refresh_token: tokens.refresh_token }),
+        })
+        if (!res.ok) throw new Error('Refresh failed')
+        const newTokens: Tokens = await res.json()
+        saveTokens(newTokens)
+        setTokens(newTokens)
+      } catch {
+        // Refresh failed — clear session so user re-authenticates
+        clearTokens()
+        setTokens(null)
+        setState({ user: null, loading: false, error: null })
+      }
+    }, refreshMs)
+
+    return () => {
+      if (refreshTimerRef.current) clearTimeout(refreshTimerRef.current)
+    }
+  }, [tokens]) // re-arm whenever tokens change
 
   const login = useCallback(async (email: string, password: string) => {
     setState((s) => ({ ...s, loading: true, error: null }))

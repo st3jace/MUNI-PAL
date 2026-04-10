@@ -141,8 +141,7 @@ export default function HealthcareCFOLanding() {
                 Healthcare Bond Intelligence
               </p>
               <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold leading-tight text-white max-w-xl mb-6">
-                You're planning a bond issuance. Here's what your advisors won't
-                tell you for free.
+                Every basis point matters. Now you can prove it.
               </h1>
               <p className="text-base md:text-lg text-gray-300 max-w-lg mb-10 leading-relaxed">
                 Muni-Pal's Healthcare Market Intelligence Report benchmarks your
@@ -150,9 +149,8 @@ export default function HealthcareCFOLanding() {
                 <span className="text-white font-semibold">
                   866 actual EMMA transactions
                 </span>{' '}
-                — so you walk into the room knowing what top-performing credits
-                look like, what borrowing actually costs, and where risk
-                disclosures go wrong.
+                — showing you the real spread between good deals and great ones.
+                Know your true cost of capital before the term sheet hits your desk.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">

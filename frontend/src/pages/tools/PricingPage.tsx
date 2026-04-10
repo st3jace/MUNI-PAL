@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { useAuth } from '../../contexts/AuthContext'
 import {
   ArrowRight,
   Check,
@@ -136,10 +137,15 @@ const STRIPE_PRICES = {
   annual: import.meta.env.VITE_STRIPE_PRICE_ANNUAL ?? '',
 } as const
 
-async function startCheckout(priceId: string) {
-  const res = await fetch('/api/v1/stripe/create-checkout-session', {
+const API_URL = import.meta.env.VITE_SENSING_API_URL || 'http://127.0.0.1:8000'
+
+async function startCheckout(priceId: string, accessToken: string | null) {
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' }
+  if (accessToken) headers['Authorization'] = `Bearer ${accessToken}`
+
+  const res = await fetch(`${API_URL}/api/v1/stripe/create-checkout-session`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers,
     body: JSON.stringify({ price_id: priceId }),
   })
   if (!res.ok) {
@@ -153,6 +159,8 @@ async function startCheckout(priceId: string) {
 export default function PricingPage() {
   const [searchParams] = useSearchParams()
   const checkoutStatus = searchParams.get('checkout') // 'success' | 'cancel' | null
+  const navigate = useNavigate()
+  const { user, getAccessToken, isSubscribed } = useAuth()
 
   const [selectedFeatures, setSelectedFeatures] = useState<Set<string>>(new Set())
   const [bondSize, setBondSize] = useState<BondSize>('$15M–$35M')
@@ -161,11 +169,15 @@ export default function PricingPage() {
   const [checkoutError, setCheckoutError] = useState<string | null>(null)
 
   const handleSubscribe = async (priceId: string) => {
+    if (!user) {
+      navigate('/auth?mode=register&returnTo=/pricing')
+      return
+    }
     if (!priceId) return
     setCheckoutLoading(true)
     setCheckoutError(null)
     try {
-      await startCheckout(priceId)
+      await startCheckout(priceId, getAccessToken())
     } catch (err: unknown) {
       setCheckoutError(err instanceof Error ? err.message : 'Checkout failed')
       setCheckoutLoading(false)
@@ -307,14 +319,20 @@ export default function PricingPage() {
               <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-muni-teal mt-0.5 flex-shrink-0" /> Bond Structuring Checklist</li>
               <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-muni-teal mt-0.5 flex-shrink-0" /> Advisory Content Library</li>
             </ul>
-            <button
-              onClick={() => handleSubscribe(STRIPE_PRICES.monthly)}
-              disabled={checkoutLoading || !STRIPE_PRICES.monthly}
-              className="w-full text-center inline-flex items-center justify-center gap-2 bg-muni-teal hover:bg-[#259e9c] text-white font-semibold px-4 py-2.5 rounded-lg transition-colors text-sm disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              {checkoutLoading ? 'Redirecting…' : 'Subscribe — $499/mo'}
-              {!checkoutLoading && <ArrowRight className="h-4 w-4" />}
-            </button>
+            {isSubscribed ? (
+              <div className="w-full text-center inline-flex items-center justify-center gap-2 bg-green-100 text-green-700 font-semibold px-4 py-2.5 rounded-lg text-sm">
+                <CheckCircle2 className="h-4 w-4" /> Active
+              </div>
+            ) : (
+              <button
+                onClick={() => handleSubscribe(STRIPE_PRICES.monthly)}
+                disabled={checkoutLoading || !STRIPE_PRICES.monthly}
+                className="w-full text-center inline-flex items-center justify-center gap-2 bg-muni-teal hover:bg-[#259e9c] text-white font-semibold px-4 py-2.5 rounded-lg transition-colors text-sm disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {checkoutLoading ? 'Redirecting...' : user ? 'Subscribe — $499/mo' : 'Create Account to Subscribe'}
+                {!checkoutLoading && <ArrowRight className="h-4 w-4" />}
+              </button>
+            )}
           </div>
 
           {/* Per-Project Tier */}

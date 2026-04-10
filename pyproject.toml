@@ -46,6 +46,9 @@ dependencies = [
     "pandas>=2.1.4",
     "jinja2>=3.1.4",
 
+    # Payments
+    "stripe>=7.0.0",
+
     # Utilities
     "httpx>=0.26.0",
     "tenacity>=8.2.3",

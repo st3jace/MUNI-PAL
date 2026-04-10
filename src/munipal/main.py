@@ -15,6 +15,7 @@ from munipal import __version__
 from munipal.api.routes import (
     advisory_packages,
     artifacts,
+    auth,
     checklist,
     deal_documents,
     deliverables,
@@ -29,6 +30,7 @@ from munipal.api.routes import (
     readiness,
     risk_reporting,
     sensing,
+    stripe,
     templates,
 )
 from munipal.config import get_settings
@@ -119,6 +121,7 @@ async def global_exception_handler(request: Request, exc: Exception) -> JSONResp
 # Routes
 # -----------------------------------------------------------------------------
 app.include_router(health.router, tags=["Health"])
+app.include_router(auth.router, prefix="/api/v1/auth", tags=["Auth"])
 app.include_router(playbooks.router, prefix="/api/v1/playbooks", tags=["Playbooks"])
 app.include_router(projects.router, prefix="/api/v1/projects", tags=["Projects"])
 app.include_router(artifacts.router, prefix="/api/v1/artifacts", tags=["Artifacts"])
@@ -144,6 +147,9 @@ app.include_router(templates.router, prefix="/api/v1/templates", tags=["Template
 
 # Sensing Component (top-of-funnel lead generation tools)
 app.include_router(sensing.router, prefix="/api/v1/sensing", tags=["Sensing"])
+
+# Stripe Checkout & Webhooks
+app.include_router(stripe.router, prefix="/api/v1/stripe", tags=["Stripe"])
 
 
 # -----------------------------------------------------------------------------

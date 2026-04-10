@@ -7,6 +7,10 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/api/v1/stripe/:path*",
+      "destination": "https://api.muni-pal.io/api/v1/stripe/:path*"
+    },
+    {
       "source": "/api/v1/sensing/:path*",
       "destination": "https://api.muni-pal.io/api/v1/sensing/:path*"
     },

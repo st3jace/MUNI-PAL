@@ -610,7 +610,7 @@ export default function ReadinessAssess() {
 
   const isStandalone = !window.location.pathname.startsWith('/tools')
     && window.location.pathname === '/'
-    || window.location.hostname.includes('elaunchshop')
+    || window.location.hostname.includes('muni-pal')
 
   return (
     <div className="max-w-5xl mx-auto">

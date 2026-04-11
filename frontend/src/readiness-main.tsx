@@ -1,5 +1,5 @@
 /**
- * Readiness MVP — Standalone Entry Point for readiness.elaunchshop.com
+ * Readiness MVP — Standalone Entry Point for muni-pal.io/tools/readiness
  *
  * Routes `/` directly to the ReadinessAssess component.
  * Works fully client-side when the sensing API is unavailable.

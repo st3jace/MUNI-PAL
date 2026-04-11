@@ -206,6 +206,26 @@ class Settings(BaseSettings):
     telemetry_jsonl_path: str = "reports/phase10_postlaunch/ops1001_telemetry_events.jsonl"
 
     # -------------------------------------------------------------------------
+    # Email (Resend)
+    # -------------------------------------------------------------------------
+    resend_api_key: str = ""
+    email_from_address: str = "readiness@muni-pal.io"
+    email_from_name: str = "Muni-Pal Readiness"
+
+    # -------------------------------------------------------------------------
+    # Lead Notifications
+    # -------------------------------------------------------------------------
+    lead_notify_email: str = "operations@muni-pal.io"
+    telegram_bot_token: str = ""
+    telegram_chat_id: str = ""
+
+    # -------------------------------------------------------------------------
+    # Advisory CTA
+    # -------------------------------------------------------------------------
+    calendly_url: str = ""
+    app_base_url: str = "https://muni-pal.io"
+
+    # -------------------------------------------------------------------------
     # Logging
     # -------------------------------------------------------------------------
     log_level: str = "INFO"

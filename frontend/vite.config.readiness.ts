@@ -1,5 +1,5 @@
 /**
- * Vite config — Readiness MVP (readiness.elaunchshop.com)
+ * Vite config — Readiness MVP (muni-pal.io/tools/readiness)
  *
  * Builds a standalone SPA with the readiness assessment as the hero.
  * Works fully client-side when the backend sensing API is unavailable.

@@ -12,7 +12,7 @@ Muni-Pal is an **Endorsed Brand** under the Launch Shop / Innovation Factory par
 
 - **Product domain:** muni-pal.io
 - **Parent relationship:** "A Launch Shop product" (footer endorsement)
-- **Corporate domain:** elaunchshop.com (parent company, internal tools)
+- **Corporate domain:** muni-pal.io (product domain; parent company: Innovation Factory)
 
 Muni-Pal is the first Tier 1 product — customer-facing, trust-critical, independently branded.
 
@@ -304,7 +304,7 @@ Each sector gets its own landing page at the root level: `/healthcare`, `/educat
 
 | From | To | Type |
 |------|----|------|
-| `readiness.elaunchshop.com` | `muni-pal.io/healthcare` | 301 (after muni-pal.io is stable) |
+| `readiness.elaunchshop.com` (deprecated) | `muni-pal.io/healthcare` | 301 — completed |
 
 ---
 

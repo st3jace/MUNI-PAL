@@ -13,7 +13,7 @@ import {
   type ReactNode,
 } from 'react'
 
-const API_URL = import.meta.env.VITE_SENSING_API_URL || 'http://127.0.0.1:8000'
+const API_URL = ''  // Relative paths — Vercel/vite proxy rewrites to backend
 
 interface User {
   id: string

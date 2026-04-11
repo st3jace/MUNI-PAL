@@ -137,7 +137,7 @@ const STRIPE_PRICES = {
   annual: import.meta.env.VITE_STRIPE_PRICE_ANNUAL ?? '',
 } as const
 
-const API_URL = import.meta.env.VITE_SENSING_API_URL || 'http://127.0.0.1:8000'
+const API_URL = ''  // Relative paths — Vercel/vite proxy rewrites to backend
 
 async function startCheckout(priceId: string, accessToken: string | null) {
   const headers: Record<string, string> = { 'Content-Type': 'application/json' }

@@ -23,6 +23,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from munipal.api.dependencies import require_auth
 from munipal.db.session import get_async_session
 from munipal.services import sensing
 
@@ -167,6 +168,51 @@ async def readiness_assessment(request: ReadinessRequest) -> dict[str, Any]:
 
 
 # ---------------------------------------------------------------------------
+# COI Line-Item Benchmarking
+# ---------------------------------------------------------------------------
+
+@router.get("/coi-benchmarks")
+async def coi_benchmarks(
+    sub_sector: str | None = Query(
+        default=None,
+        description="Healthcare sub-sector (healthcare_hospital, healthcare_senior_living, etc.). Omit for all.",
+    ),
+) -> dict[str, Any]:
+    """COI line-item benchmarking data for healthcare sub-sectors.
+
+    Returns questionnaire items grouped by dimension with COI impact
+    ratings, lead times, and agent-assistable flags, plus aggregate
+    benchmarks (COI gap range, timeline compression, displacement value).
+    """
+    if sub_sector:
+        if sub_sector not in sensing._HEALTHCARE_SUB_SECTORS:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Unknown sub-sector '{sub_sector}'. Available: {list(sensing._HEALTHCARE_SUB_SECTORS.keys())}",
+            )
+        data = sensing._build_coi_line_items(sub_sector)
+        return {"comparison": None, "sub_sectors": [data]}
+    return sensing.get_coi_benchmarks_all()
+
+
+@router.get("/coi-deal-benchmarks")
+async def coi_deal_benchmarks(
+    sub_sector: str | None = Query(
+        default=None,
+        description="Sub-sector key (hospital, senior_living, fqhc). Omit for all.",
+    ),
+) -> dict[str, Any]:
+    """Deal-level COI benchmark statistics from EMMA/CDIAC/DASNY research.
+
+    Returns actual deal-level COI statistics (median, p25/p75, by size
+    bucket, by period) for healthcare sub-sectors. Use alongside the
+    existing /coi-benchmarks endpoint which provides line-item checklist
+    data.
+    """
+    return sensing.get_coi_deal_benchmarks(sub_sector=sub_sector)
+
+
+# ---------------------------------------------------------------------------
 # Lead Capture & Event Tracking
 # ---------------------------------------------------------------------------
 
@@ -225,6 +271,25 @@ async def capture_lead(
     await db.commit()
     await db.refresh(lead)
 
+    # Fire async notifications (email to team + Telegram)
+    from munipal.workers.tasks.notification_tasks import send_lead_notification, send_sequence_email
+    lead_snapshot = {
+        "id": lead.id,
+        "email": lead.email,
+        "name": lead.name,
+        "organization": lead.organization,
+        "title": lead.title,
+        "phone": lead.phone,
+        "sector": lead.sector,
+        "deal_size_estimate": lead.deal_size_estimate,
+        "state": lead.state,
+        "expected_rating": lead.expected_rating,
+        "readiness_json": lead.readiness_json,
+    }
+    send_lead_notification.delay(lead_snapshot)
+    # Send Email 1 (score recap) immediately
+    send_sequence_email.delay(lead.id, 1)
+
     return {
         "lead_id": lead.id,
         "status": "captured",
@@ -255,7 +320,7 @@ async def track_event(
     return {"status": "tracked"}
 
 
-@router.get("/leads")
+@router.get("/leads", dependencies=[Depends(require_auth)])
 async def list_leads(
     db: AsyncSession = Depends(get_async_session),
     limit: int = Query(default=50, le=200),
@@ -338,7 +403,7 @@ class LeadConvertRequest(BaseModel):
     playbook_id: str | None = Field(default=None, description="Playbook ID (uses default if omitted)")
 
 
-@router.get("/leads/{lead_id}")
+@router.get("/leads/{lead_id}", dependencies=[Depends(require_auth)])
 async def get_lead(
     lead_id: str,
     db: AsyncSession = Depends(get_async_session),
@@ -370,7 +435,7 @@ async def get_lead(
     }
 
 
-@router.patch("/leads/{lead_id}/funnel")
+@router.patch("/leads/{lead_id}/funnel", dependencies=[Depends(require_auth)])
 async def update_lead_funnel(
     lead_id: str,
     body: LeadFunnelUpdate,
@@ -414,7 +479,7 @@ async def update_lead_funnel(
     }
 
 
-@router.post("/leads/{lead_id}/convert-to-project")
+@router.post("/leads/{lead_id}/convert-to-project", dependencies=[Depends(require_auth)])
 async def convert_lead_to_project(
     lead_id: str,
     body: LeadConvertRequest,
@@ -500,6 +565,34 @@ async def convert_lead_to_project(
         "funnel_stage": "engaged",
         "status": "converted",
     }
+
+
+# ---------------------------------------------------------------------------
+# Unsubscribe (CAN-SPAM compliance)
+# ---------------------------------------------------------------------------
+
+@router.get("/unsubscribe")
+async def unsubscribe(
+    token: str = Query(..., description="Unsubscribe token"),
+    db: AsyncSession = Depends(get_async_session),
+) -> dict[str, str]:
+    """One-click unsubscribe from the email drip sequence.
+
+    CAN-SPAM compliant: no login required, immediate effect.
+    """
+    from sqlalchemy import select
+    from munipal.core.models.lead import SensingLead
+
+    stmt = select(SensingLead).where(SensingLead.unsubscribe_token == token)
+    result = await db.execute(stmt)
+    lead = result.scalar_one_or_none()
+
+    if not lead:
+        raise HTTPException(status_code=404, detail="Invalid unsubscribe link")
+
+    lead.unsubscribed = True
+    await db.commit()
+    return {"status": "unsubscribed", "message": "You have been unsubscribed from future emails."}
 
 
 # ---------------------------------------------------------------------------

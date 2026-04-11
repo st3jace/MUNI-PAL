@@ -34,6 +34,17 @@ class User(Base, TimestampMixin):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     is_superuser: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
 
+    # Subscription
+    subscription_tier: Mapped[str | None] = mapped_column(
+        String(50), default=None, nullable=True,
+    )  # "free", "subscription", "per_project"
+    stripe_customer_id: Mapped[str | None] = mapped_column(
+        String(255), default=None, nullable=True,
+    )
+    stripe_subscription_id: Mapped[str | None] = mapped_column(
+        String(255), default=None, nullable=True,
+    )
+
     # Relationships
     projects = relationship("Project", back_populates="owner")
     fact_revisions = relationship("FactRevision", back_populates="changed_by_user")

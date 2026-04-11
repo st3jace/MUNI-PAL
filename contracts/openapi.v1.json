@@ -211,7 +211,7 @@
             "title": "Display Name"
           },
           "file": {
-            "contentMediaType": "application/octet-stream",
+            "format": "binary",
             "title": "File",
             "type": "string"
           },
@@ -8819,13 +8819,6 @@
       },
       "ValidationError": {
         "properties": {
-          "ctx": {
-            "title": "Context",
-            "type": "object"
-          },
-          "input": {
-            "title": "Input"
-          },
           "loc": {
             "items": {
               "anyOf": [
@@ -23055,6 +23048,60 @@
               "title": "Offset",
               "type": "integer"
             }
+          },
+          {
+            "description": "Authorization: Bearer <token>",
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Authorization: Bearer <token>",
+              "title": "Authorization"
+            }
+          },
+          {
+            "description": "User ID for development auth",
+            "in": "header",
+            "name": "x-user-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "User ID for development auth",
+              "title": "X-User-Id"
+            }
+          },
+          {
+            "description": "Tenant ID for tenant isolation",
+            "in": "header",
+            "name": "x-tenant-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Tenant ID for tenant isolation",
+              "title": "X-Tenant-Id"
+            }
           }
         ],
         "responses": {
@@ -23103,6 +23150,60 @@
               "title": "Lead Id",
               "type": "string"
             }
+          },
+          {
+            "description": "Authorization: Bearer <token>",
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Authorization: Bearer <token>",
+              "title": "Authorization"
+            }
+          },
+          {
+            "description": "User ID for development auth",
+            "in": "header",
+            "name": "x-user-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "User ID for development auth",
+              "title": "X-User-Id"
+            }
+          },
+          {
+            "description": "Tenant ID for tenant isolation",
+            "in": "header",
+            "name": "x-tenant-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Tenant ID for tenant isolation",
+              "title": "X-Tenant-Id"
+            }
           }
         ],
         "responses": {
@@ -23147,6 +23248,60 @@
             "schema": {
               "title": "Lead Id",
               "type": "string"
+            }
+          },
+          {
+            "description": "Authorization: Bearer <token>",
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Authorization: Bearer <token>",
+              "title": "Authorization"
+            }
+          },
+          {
+            "description": "User ID for development auth",
+            "in": "header",
+            "name": "x-user-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "User ID for development auth",
+              "title": "X-User-Id"
+            }
+          },
+          {
+            "description": "Tenant ID for tenant isolation",
+            "in": "header",
+            "name": "x-tenant-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Tenant ID for tenant isolation",
+              "title": "X-Tenant-Id"
             }
           }
         ],
@@ -23202,6 +23357,60 @@
             "schema": {
               "title": "Lead Id",
               "type": "string"
+            }
+          },
+          {
+            "description": "Authorization: Bearer <token>",
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Authorization: Bearer <token>",
+              "title": "Authorization"
+            }
+          },
+          {
+            "description": "User ID for development auth",
+            "in": "header",
+            "name": "x-user-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "User ID for development auth",
+              "title": "X-User-Id"
+            }
+          },
+          {
+            "description": "Tenant ID for tenant isolation",
+            "in": "header",
+            "name": "x-tenant-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Tenant ID for tenant isolation",
+              "title": "X-Tenant-Id"
             }
           }
         ],

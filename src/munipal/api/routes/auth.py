@@ -2,9 +2,9 @@
 
 from datetime import datetime, timedelta, timezone
 
+import bcrypt
 from fastapi import APIRouter, Depends, HTTPException, status
 from jose import jwt
-from passlib.context import CryptContext
 from pydantic import BaseModel, EmailStr
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -14,7 +14,14 @@ from munipal.config import get_settings
 from munipal.core.models import User
 
 router = APIRouter()
-_pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
+def _hash_password(password: str) -> str:
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+
+
+def _verify_password(password: str, hashed: str) -> bool:
+    return bcrypt.checkpw(password.encode(), hashed.encode())
 
 
 # ---------------------------------------------------------------------------
@@ -96,7 +103,7 @@ async def register(payload: RegisterRequest, db: DbSession):
 
     user = User(
         email=payload.email,
-        hashed_password=_pwd_context.hash(payload.password),
+        hashed_password=_hash_password(payload.password),
         full_name=payload.full_name,
         organization=payload.organization,
         subscription_tier="free",
@@ -114,7 +121,7 @@ async def login(payload: LoginRequest, db: DbSession):
     result = await db.execute(select(User).where(User.email == payload.email))
     user = result.scalar_one_or_none()
 
-    if not user or not _pwd_context.verify(payload.password, user.hashed_password):
+    if not user or not _verify_password(payload.password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password.",

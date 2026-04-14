@@ -1,4 +1,5 @@
 import { Outlet, NavLink, useParams } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 import {
   LayoutDashboard,
   FolderKanban,
@@ -12,11 +13,13 @@ import {
   FileText,
   MessageSquareMore,
   Package,
+  BarChart3,
   // Sensing tools
   Wrench,
 } from 'lucide-react'
 import { useState } from 'react'
 import AdvisorChat from './AdvisorChat'
+import { api } from '../services/api'
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -24,7 +27,7 @@ const navigation = [
   { name: 'Sensing Tools', href: '/tools', icon: Wrench },
 ]
 
-const projectNavigation = [
+const baseProjectNavigation = [
   { name: 'Overview', href: '', icon: FolderKanban },
   { name: 'Facts Review', href: '/facts', icon: FileCheck },
   { name: 'Checklist', href: '/checklist', icon: ClipboardList },
@@ -39,6 +42,21 @@ const projectNavigation = [
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { projectId } = useParams()
+
+  const { data: project } = useQuery({
+    queryKey: ['project', projectId],
+    queryFn: () => api.getProject(projectId!),
+    enabled: !!projectId,
+  })
+
+  const projectNavigation = [
+    ...baseProjectNavigation,
+    ...(project?.sector === 'waste' ? [{
+      name: 'Revenue Mix',
+      href: '/revenue-diversification',
+      icon: BarChart3,
+    }] : []),
+  ]
 
   return (
     <div className="min-h-screen bg-gray-50">

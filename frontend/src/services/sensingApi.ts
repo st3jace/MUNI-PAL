@@ -91,7 +91,7 @@ export const sensingApi = {
   },
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async getQuestionnaire(sector: string = 'waste'): Promise<any[]> {
+  async getQuestionnaire(sector: string): Promise<any[]> {
     const { data } = await client.get('/questionnaire', {
       params: { sector },
     })
@@ -101,6 +101,22 @@ export const sensingApi = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async runReadinessAssessment(params: ReadinessParams): Promise<any> {
     const { data } = await client.post('/readiness', params)
+    return data
+  },
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async getCoiBenchmarks(subSector?: string): Promise<any> {
+    const { data } = await client.get('/coi-benchmarks', {
+      params: subSector ? { sub_sector: subSector } : {},
+    })
+    return data
+  },
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async getCoiDealBenchmarks(subSector?: string): Promise<any> {
+    const { data } = await client.get('/coi-deal-benchmarks', {
+      params: subSector ? { sub_sector: subSector } : {},
+    })
     return data
   },
 

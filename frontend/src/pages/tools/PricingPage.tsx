@@ -38,7 +38,6 @@ const FEATURES: TierFeature[] = [
   { name: 'Advanced Readiness Scoring (0-10)', free: false, subscription: true, perProject: true },
   { name: 'Full COI Benchmark Reports', free: false, subscription: true, perProject: true },
   { name: 'Bond Structuring Checklist', free: false, subscription: true, perProject: true },
-  { name: 'Advisory Content Library', free: false, subscription: true, perProject: true },
   { name: 'Evidence Extraction (AI)', free: false, subscription: false, perProject: true },
   { name: 'Disclosure Management', free: false, subscription: false, perProject: true },
   { name: 'Information Request Workflows', free: false, subscription: false, perProject: true },
@@ -317,7 +316,6 @@ export default function PricingPage() {
               <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-muni-teal mt-0.5 flex-shrink-0" /> Advanced Readiness Scoring</li>
               <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-muni-teal mt-0.5 flex-shrink-0" /> Full COI Benchmark Reports</li>
               <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-muni-teal mt-0.5 flex-shrink-0" /> Bond Structuring Checklist</li>
-              <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-muni-teal mt-0.5 flex-shrink-0" /> Advisory Content Library</li>
             </ul>
             {isSubscribed ? (
               <div className="w-full text-center inline-flex items-center justify-center gap-2 bg-green-100 text-green-700 font-semibold px-4 py-2.5 rounded-lg text-sm">

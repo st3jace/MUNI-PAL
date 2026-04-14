@@ -19,6 +19,7 @@ import MarketIntelligence from './pages/tools/MarketIntelligence'
 import BenchmarkCalculator from './pages/tools/BenchmarkCalculator'
 import ReadinessAssess from './pages/tools/ReadinessAssess'
 import CreditSpreadMonitor from './pages/tools/CreditSpreadMonitor'
+import CoiBenchmarking from './pages/tools/CoiBenchmarking'
 import ReportExport from './pages/tools/ReportExport'
 import PricingPage from './pages/tools/PricingPage'
 import AuthPage from './pages/tools/AuthPage'
@@ -54,6 +55,7 @@ createRoot(root).render(
               <Route path="/tools/benchmark" element={<BenchmarkCalculator />} />
               <Route path="/tools/readiness" element={<ReadinessAssess />} />
               <Route path="/tools/credit-spreads" element={<CreditSpreadMonitor />} />
+              <Route path="/tools/coi-benchmarking" element={<CoiBenchmarking />} />
               <Route path="/tools/healthcare-readiness" element={<HealthcareReadiness />} />
               <Route path="/tools/export" element={<ReportExport />} />
               <Route path="/pricing" element={<PricingPage />} />

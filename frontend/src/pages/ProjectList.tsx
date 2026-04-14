@@ -36,11 +36,27 @@ export default function ProjectList() {
     },
   })
 
+  const sectorOptions = [
+    { value: 'healthcare', label: 'Healthcare', subsectors: [
+      { value: 'healthcare_hospital', label: 'Hospital / Health System' },
+      { value: 'healthcare_senior_living', label: 'Senior Living / CCRC' },
+      { value: 'healthcare_fqhc_bond', label: 'FQHC Revenue Bond' },
+      { value: 'healthcare_fqhc_cdfi', label: 'FQHC CDFI / NMTC' },
+    ]},
+    { value: 'waste', label: 'Waste-to-Energy', subsectors: [] },
+  ]
+
+  const [selectedSector, setSelectedSector] = useState('')
+
   const handleCreate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
+    const sector = formData.get('sector') as string
+    const subsector = formData.get('subsector') as string || undefined
     createMutation.mutate({
       name: formData.get('name') as string,
+      sector,
+      subsector,
       issuer_name: formData.get('issuer_name') as string,
       description: formData.get('description') as string || undefined,
       project_location: formData.get('project_location') as string || undefined,
@@ -101,6 +117,11 @@ export default function ProjectList() {
                     <p className="mt-1 text-sm text-gray-500 truncate">
                       {project.issuer_name}
                     </p>
+                    {project.sector && (
+                      <span className="mt-1 inline-block rounded-full bg-primary-50 px-2 py-0.5 text-xs font-medium text-primary-700">
+                        {project.sector}{project.subsector ? ` / ${project.subsector.replace(`${project.sector}_`, '')}` : ''}
+                      </span>
+                    )}
                   </div>
                   <button
                     onClick={() => {
@@ -156,9 +177,39 @@ export default function ProjectList() {
                     name="name"
                     required
                     className="mt-1 input"
-                    placeholder="e.g., City of Springfield WTE Facility"
+                    placeholder="e.g., Oakport Regional Medical Center"
                   />
                 </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Sector *
+                  </label>
+                  <select
+                    name="sector"
+                    required
+                    className="mt-1 input"
+                    value={selectedSector}
+                    onChange={(e) => setSelectedSector(e.target.value)}
+                  >
+                    <option value="">Select sector...</option>
+                    {sectorOptions.map((s) => (
+                      <option key={s.value} value={s.value}>{s.label}</option>
+                    ))}
+                  </select>
+                </div>
+                {sectorOptions.find((s) => s.value === selectedSector)?.subsectors.length ? (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">
+                      Sub-Sector
+                    </label>
+                    <select name="subsector" className="mt-1 input">
+                      <option value="">Select sub-sector...</option>
+                      {sectorOptions.find((s) => s.value === selectedSector)?.subsectors.map((ss) => (
+                        <option key={ss.value} value={ss.value}>{ss.label}</option>
+                      ))}
+                    </select>
+                  </div>
+                ) : null}
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
                     Issuer Name *
@@ -168,7 +219,7 @@ export default function ProjectList() {
                     name="issuer_name"
                     required
                     className="mt-1 input"
-                    placeholder="e.g., Springfield Municipal Authority"
+                    placeholder="e.g., Oakport Health Authority"
                   />
                 </div>
                 <div>
@@ -190,7 +241,7 @@ export default function ProjectList() {
                     type="text"
                     name="project_location"
                     className="mt-1 input"
-                    placeholder="e.g., Springfield, IL"
+                    placeholder="e.g., Oakport, OH"
                   />
                 </div>
                 <div>

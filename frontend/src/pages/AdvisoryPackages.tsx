@@ -44,6 +44,12 @@ export default function AdvisoryPackages() {
   const [error, setError] = useState<string | null>(null)
   const [exportLoading, setExportLoading] = useState<string | null>(null)
 
+  const { data: project } = useQuery({
+    queryKey: ['project', projectId],
+    queryFn: () => api.getProject(projectId!),
+    enabled: !!projectId,
+  })
+
   // Internal Report Queries
   const { data: internalReport, isLoading: loadingInternal } = useQuery({
     queryKey: ['internal-report-latest', projectId],
@@ -75,9 +81,9 @@ export default function AdvisoryPackages() {
     isLoading: loadingRiskIntegration,
     isError: riskIntegrationError,
   } = useQuery({
-    queryKey: ['risk-bfms-integration', projectId],
-    queryFn: () => api.getRiskBfmsIntegration(projectId!),
-    enabled: !!projectId && activeTab === 'external',
+    queryKey: ['risk-bfms-integration', projectId, project?.sector],
+    queryFn: () => api.getRiskBfmsIntegration(projectId!, project!.sector!),
+    enabled: !!projectId && !!project?.sector && activeTab === 'external',
   })
 
   const { data: validation } = useQuery({

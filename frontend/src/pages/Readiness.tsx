@@ -35,6 +35,12 @@ export default function Readiness() {
     enabled: !!projectId,
   })
 
+  const { data: project } = useQuery({
+    queryKey: ['project', projectId],
+    queryFn: () => api.getProject(projectId!),
+    enabled: !!projectId,
+  })
+
   const { data: gaps } = useQuery({
     queryKey: ['readiness-gaps', projectId],
     queryFn: () => api.getReadinessGaps(projectId!),
@@ -42,9 +48,9 @@ export default function Readiness() {
   })
 
   const { data: riskIntegration } = useQuery({
-    queryKey: ['risk-bfms-integration', projectId],
-    queryFn: () => api.getRiskBfmsIntegration(projectId!),
-    enabled: !!projectId,
+    queryKey: ['risk-bfms-integration', projectId, project?.sector],
+    queryFn: () => api.getRiskBfmsIntegration(projectId!, project!.sector!),
+    enabled: !!projectId && !!project?.sector,
   })
 
   if (isLoading) {

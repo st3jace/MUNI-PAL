@@ -64,8 +64,7 @@ import {
 } from './generatedApi'
 
 const DEV_USER_ID = '00000000-0000-0000-0000-000000000001'
-const DEFAULT_RISK_BFMS_COHORT: RiskBfmsCohortParams = {
-  sector: 'waste_to_energy',
+const DEFAULT_RISK_BFMS_COHORT: Omit<RiskBfmsCohortParams, 'sector'> = {
   issuer_size_band: 'mid',
   deal_type: 'revenue',
   recency_window: '5y',
@@ -334,11 +333,13 @@ class ApiClient {
 
   async getRiskBfmsIntegration(
     projectId: UUID,
-    cohortOverrides: Partial<RiskBfmsCohortParams> = {}
+    sector: string,
+    cohortOverrides: Partial<Omit<RiskBfmsCohortParams, 'sector'>> = {}
   ): Promise<RiskBfmsIntegrationResponse | null> {
     const cohort = {
       ...DEFAULT_RISK_BFMS_COHORT,
       ...cohortOverrides,
+      sector,
     }
     try {
       const data = await RiskService.getRiskBfmsIntegrationPayloadApiV1RiskBfmsIntegrationGet(

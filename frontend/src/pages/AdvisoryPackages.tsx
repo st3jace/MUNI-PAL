@@ -370,29 +370,37 @@ export default function AdvisoryPackages() {
                 <h3 className="text-sm font-medium text-gray-700 mb-3">Export Report</h3>
                 <div className="flex gap-3">
                   <button
-                    className="btn btn-secondary flex items-center gap-2"
+                    className="btn btn-primary flex items-center gap-2"
                     onClick={() => handleExportInternalReport('md')}
                     disabled={exportLoading === 'internal-md'}
                   >
                     <Download className={`h-4 w-4 ${exportLoading === 'internal-md' ? 'animate-pulse' : ''}`} />
                     Markdown
                   </button>
-                  <button
-                    className="btn btn-secondary flex items-center gap-2"
-                    onClick={() => handleExportInternalReport('pdf')}
-                    disabled={exportLoading === 'internal-pdf'}
-                  >
-                    <Download className={`h-4 w-4 ${exportLoading === 'internal-pdf' ? 'animate-pulse' : ''}`} />
-                    PDF
-                  </button>
-                  <button
-                    className="btn btn-secondary flex items-center gap-2"
-                    onClick={() => handleExportInternalReport('html')}
-                    disabled={exportLoading === 'internal-html'}
-                  >
-                    <Download className={`h-4 w-4 ${exportLoading === 'internal-html' ? 'animate-pulse' : ''}`} />
-                    HTML
-                  </button>
+                  <span className="relative group">
+                    <button
+                      className="btn btn-secondary flex items-center gap-2 opacity-50 cursor-not-allowed"
+                      disabled
+                    >
+                      <Download className="h-4 w-4" />
+                      PDF
+                    </button>
+                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 hidden group-hover:block text-xs bg-gray-800 text-white px-2 py-1 rounded whitespace-nowrap">
+                      Coming soon
+                    </span>
+                  </span>
+                  <span className="relative group">
+                    <button
+                      className="btn btn-secondary flex items-center gap-2 opacity-50 cursor-not-allowed"
+                      disabled
+                    >
+                      <Download className="h-4 w-4" />
+                      HTML
+                    </button>
+                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 hidden group-hover:block text-xs bg-gray-800 text-white px-2 py-1 rounded whitespace-nowrap">
+                      Coming soon
+                    </span>
+                  </span>
                 </div>
               </div>
 
@@ -678,28 +686,36 @@ export default function AdvisoryPackages() {
                 <div className="flex gap-3">
                   <button
                     className="btn btn-primary flex items-center gap-2"
-                    onClick={() => handleExportExternalPackage('pdf')}
-                    disabled={exportLoading === 'external-pdf'}
-                  >
-                    <Download className={`h-4 w-4 ${exportLoading === 'external-pdf' ? 'animate-pulse' : ''}`} />
-                    PDF (Primary)
-                  </button>
-                  <button
-                    className="btn btn-secondary flex items-center gap-2"
-                    onClick={() => handleExportExternalPackage('docx')}
-                    disabled={exportLoading === 'external-docx'}
-                  >
-                    <Download className={`h-4 w-4 ${exportLoading === 'external-docx' ? 'animate-pulse' : ''}`} />
-                    Word
-                  </button>
-                  <button
-                    className="btn btn-secondary flex items-center gap-2"
                     onClick={() => handleExportExternalPackage('md')}
                     disabled={exportLoading === 'external-md'}
                   >
                     <Download className={`h-4 w-4 ${exportLoading === 'external-md' ? 'animate-pulse' : ''}`} />
                     Markdown
                   </button>
+                  <span className="relative group">
+                    <button
+                      className="btn btn-secondary flex items-center gap-2 opacity-50 cursor-not-allowed"
+                      disabled
+                    >
+                      <Download className="h-4 w-4" />
+                      PDF
+                    </button>
+                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 hidden group-hover:block text-xs bg-gray-800 text-white px-2 py-1 rounded whitespace-nowrap">
+                      Coming soon
+                    </span>
+                  </span>
+                  <span className="relative group">
+                    <button
+                      className="btn btn-secondary flex items-center gap-2 opacity-50 cursor-not-allowed"
+                      disabled
+                    >
+                      <Download className="h-4 w-4" />
+                      Word
+                    </button>
+                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1 hidden group-hover:block text-xs bg-gray-800 text-white px-2 py-1 rounded whitespace-nowrap">
+                      Coming soon
+                    </span>
+                  </span>
                 </div>
               </div>
 

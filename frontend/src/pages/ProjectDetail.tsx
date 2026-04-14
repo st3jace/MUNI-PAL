@@ -509,16 +509,43 @@ export default function ProjectDetail() {
         </div>
       )}
 
-      {/* Activity Summary */}
+      {/* Project Status Summary */}
       <div className="card">
         <div className="border-b border-gray-200 px-5 py-4">
-          <h2 className="text-lg font-medium text-gray-900">Recent Activity</h2>
+          <h2 className="text-lg font-medium text-gray-900">Project Status</h2>
         </div>
-        <div className="p-5">
-          <div className="flex items-center gap-3 text-sm text-gray-500">
-            <Clock className="h-4 w-4" />
+        <div className="p-5 space-y-3">
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-gray-500">Documents uploaded</span>
+            <span className="font-medium text-gray-900">{project.artifact_count}</span>
+          </div>
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-gray-500">Facts collected</span>
+            <span className="font-medium text-gray-900">{project.fact_count}</span>
+          </div>
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-gray-500">Facts approved</span>
+            <span className="font-medium text-gray-900">
+              {project.approved_fact_count}
+              {project.fact_count > 0 && (
+                <span className="text-gray-400 ml-1">
+                  ({Math.round((project.approved_fact_count / project.fact_count) * 100)}%)
+                </span>
+              )}
+            </span>
+          </div>
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-gray-500">Readiness score</span>
+            <span className="font-medium text-gray-900">
+              {project.overall_readiness_score != null
+                ? `${project.overall_readiness_score.toFixed(1)}/10`
+                : 'Not calculated'}
+            </span>
+          </div>
+          <div className="pt-2 border-t border-gray-100 flex items-center gap-3 text-xs text-gray-400">
+            <Clock className="h-3.5 w-3.5" />
             <span>
-              Last updated:{' '}
+              Last updated{' '}
               {new Date(project.updated_at).toLocaleDateString('en-US', {
                 year: 'numeric',
                 month: 'short',

@@ -4,33 +4,47 @@ import { FolderKanban, FileCheck, AlertCircle, TrendingUp } from 'lucide-react'
 import { api } from '../services/api'
 
 export default function Dashboard() {
+  const { data: allProjectsData } = useQuery({
+    queryKey: ['projects-all'],
+    queryFn: () => api.listProjects({ limit: 100 }),
+  })
+
   const { data: projectsData, isLoading } = useQuery({
     queryKey: ['projects'],
     queryFn: () => api.listProjects({ limit: 5 }),
   })
 
+  const projects = allProjectsData?.projects ?? []
+  const scoredProjects = projects.filter((p) => p.overall_readiness_score != null)
+  const avgReadiness =
+    scoredProjects.length > 0
+      ? scoredProjects.reduce((sum, p) => sum + (p.overall_readiness_score ?? 0), 0) /
+        scoredProjects.length
+      : null
+  const totalDocuments = projects.reduce((sum, p) => sum + p.artifact_count, 0)
+
   const stats = [
     {
       name: 'Total Projects',
-      value: projectsData?.total ?? 0,
+      value: allProjectsData?.total ?? 0,
       icon: FolderKanban,
       color: 'bg-blue-500',
     },
     {
-      name: 'Facts Pending Review',
-      value: '—',
+      name: 'Documents Uploaded',
+      value: totalDocuments,
       icon: FileCheck,
       color: 'bg-yellow-500',
     },
     {
-      name: 'Critical Gaps',
-      value: '—',
+      name: 'Projects Scored',
+      value: scoredProjects.length,
       icon: AlertCircle,
-      color: 'bg-red-500',
+      color: 'bg-indigo-500',
     },
     {
       name: 'Avg Readiness',
-      value: '—',
+      value: avgReadiness !== null ? `${avgReadiness.toFixed(1)}/10` : 'No data',
       icon: TrendingUp,
       color: 'bg-green-500',
     },

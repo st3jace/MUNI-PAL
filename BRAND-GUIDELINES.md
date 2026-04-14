@@ -161,7 +161,7 @@ Used as favicon, app icon, and compact brand mark.
 |---------|------|---------|
 | Landing page hero | Confident, slightly provocative | "Your advisors won't tell you this for free." |
 | Product UI | Clean, functional, helpful | "3 gaps identified. View recommendations." |
-| Engagement path / pricing | Transparent, structured | "Free → $15K–$25K → $45K–$75K" |
+| Engagement path / pricing | Transparent, structured | "Free → $15K–$25K → $40K–$50K → $75K+" |
 | Error states | Calm, actionable | "Report generation failed. Try again or contact support." |
 
 ### Copy Anti-Patterns

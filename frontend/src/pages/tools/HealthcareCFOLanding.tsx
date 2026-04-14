@@ -49,7 +49,8 @@ const ENGAGEMENT_PATH = [
   { step: 1, name: 'Market Intelligence Report', price: 'Free', description: 'Sector benchmarks — DSCR, pricing, risk profile, Pareto framework' },
   { step: 2, name: 'Readiness Scan', price: 'Free', description: 'Automated pre-screen — sector fit, deal size, top 3 gaps' },
   { step: 3, name: 'Bond Readiness Diagnostic', price: '$15K–$25K', description: 'Full score + gap analysis + critical path to close' },
-  { step: 4, name: 'Bond Readiness Accelerator', price: '$75K+', description: 'Full pre-issuance support — gap remediation, benchmarking, and timeline optimization' },
+  { step: 4, name: 'Standard Engagement', price: '$40K–$50K', description: 'Diagnostic + active deal coordination + COI optimization' },
+  { step: 5, name: 'Bond Readiness Accelerator', price: '$75K+', description: 'Full pre-issuance support — gap remediation, benchmarking, and timeline optimization' },
 ]
 
 const TIMELINE_PHASES = [
@@ -234,7 +235,7 @@ export default function HealthcareCFOLanding() {
       </section>
 
       {/* ============================================================ */}
-      {/*  ENGAGEMENT PATH — 4 Steps with pricing                       */}
+      {/*  ENGAGEMENT PATH — 5 Steps with pricing                       */}
       {/* ============================================================ */}
       <section id="engagement-path" className="max-w-6xl mx-auto px-6 lg:px-8 mb-14 scroll-mt-24">
         <h2 className="text-2xl font-bold text-gray-900 mb-2">

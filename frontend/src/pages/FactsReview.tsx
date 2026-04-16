@@ -50,14 +50,6 @@ export default function FactsReview() {
   const [showGuidance, setShowGuidance] = useState(false)
   const queryClient = useQueryClient()
 
-  // Fetch schema path metadata when a fact is selected
-  const { data: metadata } = useQuery({
-    queryKey: ['schema-path-metadata', selectedFact?.schema_path],
-    queryFn: () => api.getSchemaPathMetadata(selectedFact!.schema_path),
-    enabled: !!selectedFact,
-    staleTime: 1000 * 60 * 10, // Cache for 10 minutes
-  })
-
   // Reset edit state when selecting a new fact
   useEffect(() => {
     if (selectedFact) {
@@ -81,6 +73,23 @@ export default function FactsReview() {
       }),
     enabled: !!projectId,
   })
+
+  // Batch-fetch schema path metadata for all facts (display names + guidance)
+  const allPaths = data?.facts.map((f) => f.schema_path) ?? []
+  const uniquePaths = [...new Set(allPaths)]
+  const { data: metadataBatch } = useQuery({
+    queryKey: ['schema-path-metadata-batch', uniquePaths.join(',')],
+    queryFn: () => api.getSchemaPathsMetadataBatch(uniquePaths),
+    enabled: uniquePaths.length > 0,
+    staleTime: 1000 * 60 * 10, // Cache for 10 minutes
+  })
+
+  // Selected fact metadata from the batch
+  const metadata = selectedFact && metadataBatch?.[selectedFact.schema_path]
+
+  // Helper: get human-readable display name for a schema path
+  const getDisplayName = (schemaPath: string) =>
+    metadataBatch?.[schemaPath]?.display_name ?? schemaPath
 
   const reviewMutation = useMutation({
     mutationFn: ({
@@ -194,7 +203,7 @@ export default function FactsReview() {
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Schema Path
+                  Field
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                   Value
@@ -221,9 +230,12 @@ export default function FactsReview() {
                     onClick={() => setSelectedFact(fact)}
                   >
                     <td className="px-6 py-4">
-                      <code className="text-sm bg-gray-100 px-2 py-1 rounded">
+                      <div className="text-sm font-medium text-gray-900">
+                        {getDisplayName(fact.schema_path)}
+                      </div>
+                      <div className="text-xs text-gray-400 mt-0.5">
                         {fact.schema_path}
-                      </code>
+                      </div>
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-900 max-w-xs truncate">
                       {String(fact.value)}
@@ -289,7 +301,7 @@ export default function FactsReview() {
               <dl className="space-y-4">
                 <div>
                   <div className="flex items-center justify-between">
-                    <dt className="text-sm text-gray-500">Schema Path</dt>
+                    <dt className="text-sm text-gray-500">Field</dt>
                     <button
                       type="button"
                       onClick={() => setShowGuidance(!showGuidance)}
@@ -300,7 +312,10 @@ export default function FactsReview() {
                     </button>
                   </div>
                   <dd className="mt-1">
-                    <code className="bg-gray-100 px-2 py-1 rounded">
+                    <span className="font-medium text-gray-900">
+                      {getDisplayName(selectedFact.schema_path)}
+                    </span>
+                    <code className="ml-2 text-xs text-gray-400 bg-gray-50 px-1.5 py-0.5 rounded">
                       {selectedFact.schema_path}
                     </code>
                   </dd>

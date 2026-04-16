@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { BarChart3, Calculator, ClipboardCheck, ArrowRight, Download, TrendingUp } from 'lucide-react'
+import { BarChart3, Calculator, ClipboardCheck, ArrowRight, Download, TrendingUp, Layers } from 'lucide-react'
 import { useSensing } from '../../contexts/SensingContext'
 
 const tools = [
@@ -28,6 +28,14 @@ const tools = [
     color: 'bg-muni-gold',
   },
   {
+    name: 'COI Benchmarking',
+    description:
+      'Line-item cost-of-issuance comparison across healthcare sub-sectors. See COI impact, lead times, and agent displacement value per item.',
+    href: '/tools/coi-benchmarking',
+    icon: Layers,
+    color: 'bg-rose-600',
+  },
+  {
     name: 'Credit Spread Monitor',
     description:
       'Live yield curves, all-in cost of capital grid, and issuer channel comparison. Powered by AAA MMD base curve and EMMA corpus spreads.',
@@ -51,23 +59,7 @@ export default function ToolsHub() {
         </p>
       </div>
 
-      <Link
-        to="/healthcare"
-        className="mb-8 flex items-center justify-between rounded-lg border border-indigo-100 bg-indigo-50/60 px-5 py-3 text-sm hover:bg-indigo-50 transition-colors group"
-      >
-        <span className="text-gray-700">
-          Healthcare operator?{' '}
-          <span className="text-gray-500">
-            See how the Bond Readiness Path maps to these tools.
-          </span>
-        </span>
-        <span className="flex items-center gap-1 font-medium text-indigo-600 group-hover:text-indigo-700 whitespace-nowrap ml-4">
-          Healthcare Bond Readiness Overview
-          <ArrowRight className="h-4 w-4" />
-        </span>
-      </Link>
-
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {tools.map((tool) => (
           <Link
             key={tool.name}

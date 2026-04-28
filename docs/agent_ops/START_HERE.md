@@ -22,4 +22,5 @@ Root repository tree is canonical for active BFMS application work: `src/`, `fro
 2. Do not change code unless explicitly asked for engineering mode.
 3. Check the development workspace before implementation.
 4. Use the scoped source review paths from docs/development/CANONICAL_DEV_PATH.md.
-5. Do not expose secrets from .env files.
+5. For bounded inventory, run: python scripts/count_source_scope.py --json; do not do whole-repo traversal.
+6. Do not expose secrets from .env files.

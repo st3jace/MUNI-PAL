@@ -91,6 +91,15 @@ Avoid broad traversal of these directories unless a task explicitly calls for co
     emma/emma_crawler/
     emma/bond_os_extractor/data/
 
+## Source scope count command
+
+Use the dedicated source-scope command when an agent needs a bounded inventory instead of broad repository traversal:
+
+    python scripts/count_source_scope.py
+    python scripts/count_source_scope.py --json
+
+The command reports only the included paths above and omits archive, corpus, artifact, dependency, and log paths.
+
 ## Health check
 
 Run the workspace health check before implementation work:

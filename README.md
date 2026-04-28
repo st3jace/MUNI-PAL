@@ -2,6 +2,19 @@
 
 Bond Facility Management System - Evidence-first, advisor-grade platform for municipal bond structuring.
 
+
+## Development Workspace
+
+Active engineering work should run from the native WSL checkout, not the OneDrive-backed Windows tree:
+
+    /home/st3ja/Developer/MUNI-PAL
+
+Before implementation work, run:
+
+    python scripts/check_dev_environment.py
+
+See docs/development/CANONICAL_DEV_PATH.md for the OneDrive policy, setup command, and agent-safe source review scope.
+
 ## Quick Start
 
 ### Backend

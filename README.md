@@ -15,6 +15,19 @@ Before implementation work, run:
 
 See docs/development/CANONICAL_DEV_PATH.md for the OneDrive policy, setup command, and agent-safe source review scope.
 
+## Canonical application tree
+
+The Root repository tree is canonical for current BFMS application development. Active application changes belong in these root-level paths:
+
+- `src/` for the FastAPI/backend package.
+- `frontend/` for the React frontend.
+- `tests/` for unit, integration, and contract coverage.
+- `contracts/` for generated/public API contracts.
+- `alembic/` for database migrations.
+- Root manifests such as `pyproject.toml`, `uv.lock`, and deployment/configuration files.
+
+`V1/` and `V2/` are retained for lineage, auditability, and planning history. They are not the active application tree; do not add new production code, tests, migrations, or frontend work there unless a task explicitly says to edit historical/archive material.
+
 ## Quick Start
 
 ### Backend

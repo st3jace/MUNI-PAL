@@ -14,6 +14,8 @@ If launched from the OneDrive-backed path under /mnt/c/Users/st3ja/OneDrive/.../
 
 Then switch to the canonical WSL checkout before implementation. Full policy: docs/development/CANONICAL_DEV_PATH.md.
 
+Root repository tree is canonical for active BFMS application work: `src/`, `frontend/`, `tests/`, `contracts/`, `alembic/`, and root manifests/config. Do not edit V1/ or V2/ for active application work; treat `V1/` as archived historical application lineage and `V2/` as planning/execution-history material unless the task explicitly asks for archive or planning maintenance.
+
 ## Non-negotiable rules for agents
 
 1. Do not start with full codebase review.

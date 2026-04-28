@@ -39,6 +39,16 @@ Engineering changes should be made from the native WSL checkout and pushed throu
 
 Then switch to /home/st3ja/Developer/MUNI-PAL before editing code.
 
+## Canonical application tree and historical workspaces
+
+The root repository tree is the canonical active BFMS application tree. Current engineering work should target root-level application paths such as `src/`, `frontend/`, `tests/`, `contracts/`, `alembic/`, root manifests, deployment files, and active docs.
+
+V1/ is an archived historical application snapshot. Use it only as reference material when a task explicitly requires lineage review or migration comparison.
+
+V2/ is a planning and execution-history workspace. It contains phase plans, runbooks, trackers, and release history; it is not the active code tree.
+
+Do not implement active application changes under V1/ or V2/. If a request appears to point at those trees, first confirm whether the work is historical documentation/planning maintenance or should be redirected to the root application tree.
+
 ## Agent-safe source review scope
 
 For code review and planning, scope traversal to the active source/manifests first:

@@ -11,7 +11,11 @@ from typing import Literal
 from pydantic import Field
 
 from munipal.core.schemas.base import BaseSchema
-from munipal.services.sector_archetypes import UCS_WTE_CAB_SLB
+from munipal.services.sector_archetypes import (
+    HEALTHCARE_HOSPITAL,
+    HOUSING_AFFORDABLE_MULTIFAMILY,
+    UCS_WTE_CAB_SLB,
+)
 
 LifecycleStage = Literal["pilot", "production", "deprecated"]
 FactValueType = Literal["string", "number", "boolean", "currency", "percentage", "date", "list", "object"]
@@ -200,6 +204,305 @@ def migrate_pilot_to_production(
     return validate_sector_playbook(SectorPlaybook.model_validate(payload))
 
 
+
+def _display_from_path(path: str) -> str:
+    return path.replace(".", " ").replace("-", " ").title()
+
+
+_HEALTHCARE_ARTIFACTS = [
+    RequiredArtifact(
+        artifact_key="issuer_authority",
+        display_name="Issuer authority and 501(c)(3) borrower package",
+        requirement_level="required",
+        accepted_file_types=("pdf", "docx"),
+        description="Issuer jurisdiction, inducement, nonprofit borrower status, and revenue pledge evidence.",
+    ),
+    RequiredArtifact(
+        artifact_key="licensure_accreditation",
+        display_name="Healthcare licensure, CMS certification, and accreditation",
+        requirement_level="required",
+        accepted_file_types=("pdf", "docx"),
+        description="Hospital licensure, CMS certification, Joint Commission or equivalent accreditation, and EHR/clinical compliance support.",
+    ),
+    RequiredArtifact(
+        artifact_key="financial_operating_metrics",
+        display_name="Financial and operating metrics package",
+        requirement_level="required",
+        accepted_file_types=("pdf", "xlsx", "csv"),
+        description="Net patient revenue, payor mix, DSCR, days cash, cash-to-debt, margins, and utilization trends.",
+    ),
+    RequiredArtifact(
+        artifact_key="clinical_service_area",
+        display_name="Clinical service area and physician alignment evidence",
+        requirement_level="recommended",
+        accepted_file_types=("pdf", "docx", "xlsx"),
+        description="Service area, utilization, physician alignment, and strategic clinical positioning evidence.",
+    ),
+]
+
+_HEALTHCARE_FACT_ARTIFACTS = {
+    "parties.issuer.name": ("issuer_authority",),
+    "parties.issuer.jurisdiction": ("issuer_authority",),
+    "governance.inducement": ("issuer_authority",),
+    "security.revenue.pledge": ("issuer_authority",),
+    "healthcare.facility_type": ("licensure_accreditation",),
+    "healthcare.licensure": ("licensure_accreditation",),
+    "healthcare.cms_certification": ("licensure_accreditation",),
+    "healthcare.accreditation": ("licensure_accreditation",),
+    "healthcare.ehr_platform": ("licensure_accreditation",),
+    "healthcare.net_patient_revenue": ("financial_operating_metrics",),
+    "healthcare.payor_mix": ("financial_operating_metrics",),
+    "finmodel.outputs.dscrbase": ("financial_operating_metrics",),
+    "finmodel.inputs.dscr.minimum": ("financial_operating_metrics",),
+    "liquidity.days_cash_on_hand": ("financial_operating_metrics",),
+    "liquidity.cash_to_debt": ("financial_operating_metrics",),
+    "opex.margin": ("financial_operating_metrics",),
+    "capital.project-cost": ("financial_operating_metrics",),
+    "healthcare.service_area": ("clinical_service_area",),
+    "healthcare.physician_alignment": ("clinical_service_area",),
+    "healthcare.utilization.trend": ("clinical_service_area",),
+}
+
+_HEALTHCARE_FACT_PATHS = tuple(dict.fromkeys((*HEALTHCARE_HOSPITAL.required_evidence_paths, "healthcare.ehr_platform", "healthcare.physician_alignment", "healthcare.utilization.trend", "liquidity.cash_to_debt")))
+
+
+HEALTHCARE_SECTOR_PLAYBOOK = validate_sector_playbook(
+    SectorPlaybook(
+        metadata=SectorPlaybookMetadata(
+            playbook_id="healthcare_501c3_hospital_sector_playbook",
+            archetype_id=HEALTHCARE_HOSPITAL.id,
+            sector=HEALTHCARE_HOSPITAL.sector,
+            subsector=HEALTHCARE_HOSPITAL.subsector,
+            display_name=HEALTHCARE_HOSPITAL.display_name,
+            description="Production playbook for nonprofit hospital and health-system 501(c)(3) revenue bond readiness.",
+            version=HEALTHCARE_HOSPITAL.version,
+            lifecycle_stage="production",
+        ),
+        required_artifacts=_HEALTHCARE_ARTIFACTS,
+        fact_definitions=[
+            FactDefinition(
+                path=path,
+                display_name=_display_from_path(path),
+                value_type="currency" if path in {"healthcare.net_patient_revenue", "capital.project-cost"} else "percentage" if path in {"healthcare.payor_mix", "opex.margin", "liquidity.cash_to_debt"} else "number" if path in {"finmodel.outputs.dscrbase", "finmodel.inputs.dscr.minimum", "liquidity.days_cash_on_hand"} else "string",
+                required=True,
+                artifact_keys=_HEALTHCARE_FACT_ARTIFACTS.get(path, ()),
+                description=f"Healthcare sector fact required for hospital revenue bond readiness: {path}.",
+                liability_note="Subject to healthcare municipal advisor, bond counsel, and management verification before disclosure use.",
+            )
+            for path in _HEALTHCARE_FACT_PATHS
+        ],
+        readiness_rules=[
+            ReadinessRule(
+                rule_id="healthcare_regulatory_readiness",
+                display_name="Licensure, CMS, accreditation, and EHR readiness",
+                dimension="regulatory_clinical",
+                fact_paths=("healthcare.licensure", "healthcare.cms_certification", "healthcare.accreditation", "healthcare.ehr_platform"),
+                artifact_keys=("licensure_accreditation",),
+                weight=0.25,
+                pass_condition="Licensure, CMS participation, accreditation, and EHR evidence are source-backed.",
+            ),
+            ReadinessRule(
+                rule_id="healthcare_revenue_liquidity_readiness",
+                display_name="Revenue, payor mix, DSCR, liquidity, and leverage readiness",
+                dimension="financial_operating",
+                fact_paths=("healthcare.net_patient_revenue", "healthcare.payor_mix", "finmodel.outputs.dscrbase", "liquidity.days_cash_on_hand", "liquidity.cash_to_debt"),
+                artifact_keys=("financial_operating_metrics",),
+                weight=0.40,
+                pass_condition="Core financial and operating metrics are complete enough for advisor review.",
+            ),
+            ReadinessRule(
+                rule_id="healthcare_service_area_readiness",
+                display_name="Service area, utilization, and physician alignment readiness",
+                dimension="market_clinical_strategy",
+                fact_paths=("healthcare.service_area", "healthcare.utilization.trend", "healthcare.physician_alignment"),
+                artifact_keys=("clinical_service_area",),
+                weight=0.20,
+                pass_condition="Clinical market and utilization evidence supports the financing narrative.",
+            ),
+            ReadinessRule(
+                rule_id="healthcare_issuer_security_readiness",
+                display_name="Issuer authority and revenue pledge readiness",
+                dimension="issuer_security",
+                fact_paths=("parties.issuer.name", "parties.issuer.jurisdiction", "governance.inducement", "security.revenue.pledge"),
+                artifact_keys=("issuer_authority",),
+                weight=0.15,
+                pass_condition="Issuer authority and revenue pledge evidence is present.",
+            ),
+        ],
+        deliverable_templates=[
+            DeliverableTemplate(
+                output_key=output_key,
+                display_name=_display_from_path(output_key),
+                template_ref=f"sector_playbooks/healthcare/{output_key}.md",
+                required_fact_paths=HEALTHCARE_HOSPITAL.readiness_paths,
+                disclaimer_keys=("advisor_review_required", "healthcare_regulatory_review_required"),
+            )
+            for output_key in HEALTHCARE_HOSPITAL.deliverables
+        ],
+        liability_disclaimers=[
+            LiabilityDisclaimer(
+                disclaimer_key="advisor_review_required",
+                applies_to=("facts", "deliverables"),
+                text="Healthcare sector facts are decision-support inputs and require qualified municipal advisor and bond counsel review before disclosure use.",
+            ),
+            LiabilityDisclaimer(
+                disclaimer_key="healthcare_regulatory_review_required",
+                applies_to=("licensure_accreditation", "disclosure_summary"),
+                text="Licensure, CMS certification, accreditation, reimbursement, and clinical compliance statements require borrower management and regulatory counsel confirmation.",
+            ),
+        ],
+    )
+)
+
+_HOUSING_ARTIFACTS = [
+    RequiredArtifact(
+        artifact_key="issuer_borrower_authority",
+        display_name="Issuer, borrower, and revenue pledge package",
+        requirement_level="required",
+        accepted_file_types=("pdf", "docx"),
+        description="Issuer, borrower, bond authorization, and pledged revenue evidence for multifamily housing bonds.",
+    ),
+    RequiredArtifact(
+        artifact_key="subsidy_stack",
+        display_name="LIHTC, HAP, subsidy, and affordability restriction stack",
+        requirement_level="required",
+        accepted_file_types=("pdf", "docx", "xlsx"),
+        description="LIHTC status, HAP/Section 8 revenue, subordinate subsidies, and affordability covenant evidence.",
+    ),
+    RequiredArtifact(
+        artifact_key="rent_roll_operating",
+        display_name="Rent roll, occupancy, and operating revenue package",
+        requirement_level="required",
+        accepted_file_types=("xlsx", "csv", "pdf"),
+        description="Rental income, ancillary revenue, occupancy, expenses, and stabilized operating metrics.",
+    ),
+    RequiredArtifact(
+        artifact_key="site_control_permits",
+        display_name="Site control, permits, and construction readiness package",
+        requirement_level="required",
+        accepted_file_types=("pdf", "docx", "xlsx"),
+        description="Site control, permits, construction budget, sources/uses, and completion readiness evidence.",
+    ),
+    RequiredArtifact(
+        artifact_key="market_compliance",
+        display_name="Market, demographics, lease-up, and compliance risk package",
+        requirement_level="recommended",
+        accepted_file_types=("pdf", "docx", "xlsx", "csv"),
+        description="Demographic market data, lease-up assumptions, tenant eligibility, and ongoing compliance risk support.",
+    ),
+]
+
+_HOUSING_FACT_ARTIFACTS = {
+    "parties.issuer.name": ("issuer_borrower_authority",),
+    "parties.borrower.name": ("issuer_borrower_authority",),
+    "security.revenue.pledge": ("issuer_borrower_authority",),
+    "housing.project_type": ("subsidy_stack",),
+    "housing.lihtc_status": ("subsidy_stack",),
+    "housing.hap_section8_revenue": ("subsidy_stack",),
+    "housing.affordability_restrictions": ("subsidy_stack",),
+    "housing.rental_income": ("rent_roll_operating",),
+    "housing.ancillary_revenue": ("rent_roll_operating",),
+    "housing.occupancy_rate": ("rent_roll_operating",),
+    "housing.site_control": ("site_control_permits",),
+    "capital.project-cost": ("site_control_permits",),
+    "capital.equity_contribution": ("site_control_permits",),
+    "construction.permits.status": ("site_control_permits",),
+    "market.demographics.summary": ("market_compliance",),
+    "housing.lease_up_risk": ("market_compliance",),
+    "housing.compliance_risk": ("market_compliance",),
+}
+
+_HOUSING_FACT_PATHS = tuple(dict.fromkeys((*HOUSING_AFFORDABLE_MULTIFAMILY.required_evidence_paths, "housing.ancillary_revenue", "housing.lease_up_risk", "housing.compliance_risk")))
+
+
+HOUSING_SECTOR_PLAYBOOK = validate_sector_playbook(
+    SectorPlaybook(
+        metadata=SectorPlaybookMetadata(
+            playbook_id="housing_affordable_multifamily_sector_playbook",
+            archetype_id=HOUSING_AFFORDABLE_MULTIFAMILY.id,
+            sector=HOUSING_AFFORDABLE_MULTIFAMILY.sector,
+            subsector=HOUSING_AFFORDABLE_MULTIFAMILY.subsector,
+            display_name=HOUSING_AFFORDABLE_MULTIFAMILY.display_name,
+            description="Pilot playbook for affordable multifamily housing revenue bond readiness and sector expansion.",
+            version=f"{HOUSING_AFFORDABLE_MULTIFAMILY.version}-pilot",
+            lifecycle_stage="pilot",
+        ),
+        required_artifacts=_HOUSING_ARTIFACTS,
+        fact_definitions=[
+            FactDefinition(
+                path=path,
+                display_name=_display_from_path(path),
+                value_type="currency" if path in {"housing.hap_section8_revenue", "housing.rental_income", "housing.ancillary_revenue", "capital.project-cost", "capital.equity_contribution"} else "percentage" if path == "housing.occupancy_rate" else "string",
+                required=True,
+                artifact_keys=_HOUSING_FACT_ARTIFACTS.get(path, ()),
+                description=f"Housing sector fact required for affordable multifamily revenue bond readiness: {path}.",
+                liability_note="Subject to housing finance advisor, bond counsel, and tax-credit compliance review before disclosure use.",
+            )
+            for path in _HOUSING_FACT_PATHS
+        ],
+        readiness_rules=[
+            ReadinessRule(
+                rule_id="housing_subsidy_stack_readiness",
+                display_name="LIHTC, HAP, subsidy, and affordability readiness",
+                dimension="subsidy_affordability",
+                fact_paths=("housing.lihtc_status", "housing.hap_section8_revenue", "housing.affordability_restrictions"),
+                artifact_keys=("subsidy_stack",),
+                weight=0.30,
+                pass_condition="Subsidy sources and affordability restrictions are source-backed.",
+            ),
+            ReadinessRule(
+                rule_id="housing_operating_revenue_readiness",
+                display_name="Rental revenue, ancillary revenue, and occupancy readiness",
+                dimension="operating_revenue",
+                fact_paths=("housing.rental_income", "housing.ancillary_revenue", "housing.occupancy_rate"),
+                artifact_keys=("rent_roll_operating",),
+                weight=0.25,
+                pass_condition="Rent roll and operating revenue evidence supports underwriting assumptions.",
+            ),
+            ReadinessRule(
+                rule_id="housing_site_construction_readiness",
+                display_name="Site control, permits, and construction readiness",
+                dimension="site_construction",
+                fact_paths=("housing.site_control", "capital.project-cost", "capital.equity_contribution", "construction.permits.status"),
+                artifact_keys=("site_control_permits",),
+                weight=0.25,
+                pass_condition="Site control, permits, and construction financing evidence is present.",
+            ),
+            ReadinessRule(
+                rule_id="housing_market_compliance_readiness",
+                display_name="Market, lease-up, and compliance readiness",
+                dimension="market_compliance",
+                fact_paths=("market.demographics.summary", "housing.lease_up_risk", "housing.compliance_risk"),
+                artifact_keys=("market_compliance",),
+                weight=0.20,
+                pass_condition="Market data, lease-up risk, and compliance risk evidence is advisor-reviewable.",
+            ),
+        ],
+        deliverable_templates=[
+            DeliverableTemplate(
+                output_key=output_key,
+                display_name=_display_from_path(output_key),
+                template_ref=f"sector_playbooks/housing/{output_key}.md",
+                required_fact_paths=HOUSING_AFFORDABLE_MULTIFAMILY.readiness_paths,
+                disclaimer_keys=("advisor_review_required", "housing_tax_credit_compliance_review_required"),
+            )
+            for output_key in HOUSING_AFFORDABLE_MULTIFAMILY.deliverables
+        ],
+        liability_disclaimers=[
+            LiabilityDisclaimer(
+                disclaimer_key="advisor_review_required",
+                applies_to=("facts", "deliverables"),
+                text="Housing sector facts are decision-support inputs and require qualified municipal advisor and bond counsel review before disclosure use.",
+            ),
+            LiabilityDisclaimer(
+                disclaimer_key="housing_tax_credit_compliance_review_required",
+                applies_to=("subsidy_stack", "disclosure_summary"),
+                text="LIHTC, HAP, affordability, tenant eligibility, and compliance statements require housing finance, tax, and regulatory counsel confirmation.",
+            ),
+        ],
+    )
+)
+
 _UCS_ARTIFACTS = [
     RequiredArtifact(
         artifact_key="issuer_authority",
@@ -362,3 +665,37 @@ UCS_WTE_SECTOR_PLAYBOOK = validate_sector_playbook(
         ],
     )
 )
+
+_SECTOR_PLAYBOOKS = {
+    playbook.metadata.playbook_id: playbook
+    for playbook in (HEALTHCARE_SECTOR_PLAYBOOK, HOUSING_SECTOR_PLAYBOOK, UCS_WTE_SECTOR_PLAYBOOK)
+}
+_SECTOR_PLAYBOOK_ALIASES = {
+    "healthcare": HEALTHCARE_SECTOR_PLAYBOOK.metadata.playbook_id,
+    "healthcare_hospital": HEALTHCARE_SECTOR_PLAYBOOK.metadata.playbook_id,
+    "healthcare_501c3_hospital_revenue_bond": HEALTHCARE_SECTOR_PLAYBOOK.metadata.playbook_id,
+    "housing": HOUSING_SECTOR_PLAYBOOK.metadata.playbook_id,
+    "housing_affordable_multifamily": HOUSING_SECTOR_PLAYBOOK.metadata.playbook_id,
+    "housing_affordable_multifamily_revenue_bond": HOUSING_SECTOR_PLAYBOOK.metadata.playbook_id,
+    "waste": UCS_WTE_SECTOR_PLAYBOOK.metadata.playbook_id,
+    "wte": UCS_WTE_SECTOR_PLAYBOOK.metadata.playbook_id,
+    "ucs": UCS_WTE_SECTOR_PLAYBOOK.metadata.playbook_id,
+    "ucs_wte_cab_slb": UCS_WTE_SECTOR_PLAYBOOK.metadata.playbook_id,
+}
+
+
+def list_sector_playbooks() -> list[SectorPlaybook]:
+    """List focused-sector playbooks in current product strategy order."""
+
+    return [HEALTHCARE_SECTOR_PLAYBOOK, HOUSING_SECTOR_PLAYBOOK, UCS_WTE_SECTOR_PLAYBOOK]
+
+
+def get_sector_playbook(key: str) -> SectorPlaybook:
+    """Return a sector playbook by playbook id, archetype id, or sector alias."""
+
+    normalized = key.strip().lower().replace("-", "_").replace("/", "_").replace(" ", "_")
+    playbook_id = _SECTOR_PLAYBOOK_ALIASES.get(normalized, key)
+    try:
+        return _SECTOR_PLAYBOOKS[playbook_id]
+    except KeyError as exc:
+        raise KeyError(f"Unknown sector playbook: {key}") from exc

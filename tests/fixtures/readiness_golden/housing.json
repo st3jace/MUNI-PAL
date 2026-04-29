@@ -1,0 +1,162 @@
+{
+  "expected_output": {
+    "critical_gaps_count": 11,
+    "dimensions": {
+      "cab_financial": {
+        "critical_paths_covered": 1,
+        "critical_paths_total": 3,
+        "improvement_suggestions": [
+          "Upload documents containing: Accretion Rate, Equity Contribution",
+          "Gather evidence for 13 additional supporting items"
+        ],
+        "material_paths_covered": 0,
+        "material_paths_total": 13,
+        "score": 0.47,
+        "weighted_contribution": 0.094
+      },
+      "issuer_authority": {
+        "critical_paths_covered": 1,
+        "critical_paths_total": 2,
+        "improvement_suggestions": [
+          "Upload documents containing: Tax Status",
+          "Gather evidence for 6 additional supporting items"
+        ],
+        "material_paths_covered": 1,
+        "material_paths_total": 7,
+        "score": 1.31,
+        "weighted_contribution": 0.262
+      },
+      "project_tech": {
+        "critical_paths_covered": 0,
+        "critical_paths_total": 2,
+        "improvement_suggestions": [
+          "Upload documents containing: Nameplate Throughput, Technology Type",
+          "Gather evidence for 10 additional supporting items"
+        ],
+        "material_paths_covered": 1,
+        "material_paths_total": 11,
+        "score": 0.0,
+        "weighted_contribution": 0.0
+      },
+      "revenue_feedstock": {
+        "critical_paths_covered": 1,
+        "critical_paths_total": 3,
+        "improvement_suggestions": [
+          "Upload documents containing: Supply Mechanism, Offtake Status",
+          "Gather evidence for 7 additional supporting items"
+        ],
+        "material_paths_covered": 0,
+        "material_paths_total": 7,
+        "score": 0.7,
+        "weighted_contribution": 0.105
+      },
+      "risk_security_slb": {
+        "critical_paths_covered": 1,
+        "critical_paths_total": 3,
+        "improvement_suggestions": [
+          "Upload documents containing: Construction Risk Description, Technology Risk Description",
+          "Gather evidence for 15 additional supporting items"
+        ],
+        "material_paths_covered": 1,
+        "material_paths_total": 16,
+        "score": 0.63,
+        "weighted_contribution": 0.0945
+      },
+      "slb_verification": {
+        "critical_paths_covered": 0,
+        "critical_paths_total": 2,
+        "improvement_suggestions": [
+          "Upload documents containing: KPI 1 Baseline Methodology, Selected KPIs",
+          "Gather evidence for 5 additional supporting items"
+        ],
+        "material_paths_covered": 0,
+        "material_paths_total": 5,
+        "score": 0.0,
+        "weighted_contribution": 0.0
+      }
+    },
+    "material_gaps_count": 56,
+    "overall_score": 1.11,
+    "project_archetype": "affordable housing revenue bond",
+    "recommendation": "Not Yet Viable",
+    "recommendation_rationale": "The project lacks fundamental evidence required for bond structuring. Key areas like issuer authority, technology definition, or financial structure need substantial documentation before engaging advisors.",
+    "sector": "housing",
+    "selected_fact_ids_by_path": {
+      "finmodel.outputs.dscrbase": "housing-dscr",
+      "governance.inducement": "housing-inducement",
+      "parties.borrower.name": "housing-borrower",
+      "project.location.sitecontrol": "housing-site",
+      "revenue.gross.annual": "housing-revenue",
+      "risk.market.description": "housing-market-risk",
+      "security.revenue.pledge": "housing-security"
+    }
+  },
+  "facts": [
+    {
+      "canonical_score": 0.9,
+      "confidence_score": 0.94,
+      "created_at": "2026-03-01T00:00:00",
+      "id": "housing-inducement",
+      "review_status": "approved",
+      "schema_path": "governance.inducement",
+      "value": "TEFRA inducement resolution approved"
+    },
+    {
+      "canonical_score": 0.84,
+      "confidence_score": 0.9,
+      "created_at": "2026-03-02T00:00:00",
+      "id": "housing-borrower",
+      "review_status": "approved",
+      "schema_path": "parties.borrower.name",
+      "value": "Community Housing Partners LP"
+    },
+    {
+      "canonical_score": 0.82,
+      "confidence_score": 0.88,
+      "created_at": "2026-03-03T00:00:00",
+      "id": "housing-site",
+      "review_status": "approved",
+      "schema_path": "project.location.sitecontrol",
+      "value": "Purchase option and zoning entitlement in place"
+    },
+    {
+      "canonical_score": 0.75,
+      "confidence_score": 0.82,
+      "created_at": "2026-03-04T00:00:00",
+      "id": "housing-revenue",
+      "review_status": "approved",
+      "schema_path": "revenue.gross.annual",
+      "value": 2400000
+    },
+    {
+      "canonical_score": 0.74,
+      "confidence_score": 0.8,
+      "created_at": "2026-03-05T00:00:00",
+      "id": "housing-dscr",
+      "review_status": "approved",
+      "schema_path": "finmodel.outputs.dscrbase",
+      "value": 1.18
+    },
+    {
+      "canonical_score": 0.81,
+      "confidence_score": 0.86,
+      "created_at": "2026-03-06T00:00:00",
+      "id": "housing-security",
+      "review_status": "approved",
+      "schema_path": "security.revenue.pledge",
+      "value": "Mortgage and rental revenue pledge"
+    },
+    {
+      "canonical_score": 0.76,
+      "confidence_score": 0.83,
+      "created_at": "2026-03-07T00:00:00",
+      "id": "housing-market-risk",
+      "review_status": "approved",
+      "schema_path": "risk.market.description",
+      "value": "Lease-up and area median income compliance risk"
+    }
+  ],
+  "project_archetype": "affordable housing revenue bond",
+  "sector": "housing",
+  "sector_priority": 3
+}

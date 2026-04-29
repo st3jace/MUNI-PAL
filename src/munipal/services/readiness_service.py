@@ -305,7 +305,7 @@ class ReadinessService:
         suggestions = []
 
         # Find missing critical paths
-        missing_critical = [p for p in critical_paths if p not in facts_by_path]
+        missing_critical = sorted(p for p in critical_paths if p not in facts_by_path)
         if missing_critical:
             path_names = [
                 self._schema_path_config.get(p, {}).get("display_name", p)
@@ -327,7 +327,7 @@ class ReadinessService:
 
         # Find missing material paths
         material_paths = set(contributing_paths) - critical_paths
-        missing_material = [p for p in material_paths if p not in facts_by_path]
+        missing_material = sorted(p for p in material_paths if p not in facts_by_path)
         if missing_material and len(suggestions) < 3:
             suggestions.append(
                 f"Gather evidence for {len(missing_material)} additional supporting items"

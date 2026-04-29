@@ -1,0 +1,193 @@
+{
+  "expected_output": {
+    "critical_gaps_count": 11,
+    "dimensions": {
+      "cab_financial": {
+        "critical_paths_covered": 1,
+        "critical_paths_total": 3,
+        "improvement_suggestions": [
+          "Upload documents containing: Accretion Rate, Equity Contribution",
+          "Gather evidence for 13 additional supporting items"
+        ],
+        "material_paths_covered": 0,
+        "material_paths_total": 13,
+        "score": 0.5,
+        "weighted_contribution": 0.1
+      },
+      "issuer_authority": {
+        "critical_paths_covered": 2,
+        "critical_paths_total": 2,
+        "improvement_suggestions": [
+          "Gather evidence for 6 additional supporting items"
+        ],
+        "material_paths_covered": 1,
+        "material_paths_total": 7,
+        "score": 2.2,
+        "weighted_contribution": 0.44
+      },
+      "project_tech": {
+        "critical_paths_covered": 0,
+        "critical_paths_total": 2,
+        "improvement_suggestions": [
+          "Upload documents containing: Nameplate Throughput, Technology Type",
+          "Gather evidence for 9 additional supporting items"
+        ],
+        "material_paths_covered": 2,
+        "material_paths_total": 11,
+        "score": 0.0,
+        "weighted_contribution": 0.0
+      },
+      "revenue_feedstock": {
+        "critical_paths_covered": 0,
+        "critical_paths_total": 3,
+        "improvement_suggestions": [
+          "Upload documents containing: Supply Mechanism, Gross Annual Revenue, Offtake Status",
+          "Gather evidence for 7 additional supporting items"
+        ],
+        "material_paths_covered": 0,
+        "material_paths_total": 7,
+        "score": 0.0,
+        "weighted_contribution": 0.0
+      },
+      "risk_security_slb": {
+        "critical_paths_covered": 1,
+        "critical_paths_total": 3,
+        "improvement_suggestions": [
+          "Upload documents containing: Construction Risk Description, Technology Risk Description",
+          "Gather evidence for 15 additional supporting items"
+        ],
+        "material_paths_covered": 1,
+        "material_paths_total": 16,
+        "score": 0.65,
+        "weighted_contribution": 0.0975
+      },
+      "slb_verification": {
+        "critical_paths_covered": 0,
+        "critical_paths_total": 2,
+        "improvement_suggestions": [
+          "Upload documents containing: KPI 1 Baseline Methodology, Selected KPIs",
+          "Gather evidence for 5 additional supporting items"
+        ],
+        "material_paths_covered": 0,
+        "material_paths_total": 5,
+        "score": 0.0,
+        "weighted_contribution": 0.0
+      }
+    },
+    "material_gaps_count": 55,
+    "overall_score": 1.28,
+    "project_archetype": "501c3 healthcare revenue bond",
+    "recommendation": "Not Yet Viable",
+    "recommendation_rationale": "The project lacks fundamental evidence required for bond structuring. Key areas like issuer authority, technology definition, or financial structure need substantial documentation before engaging advisors.",
+    "sector": "healthcare",
+    "selected_fact_ids_by_path": {
+      "finmodel.outputs.dscrbase": "healthcare-dscr",
+      "governance.inducement": "healthcare-inducement",
+      "parties.issuer.name": "healthcare-issuer",
+      "project.canonicaldescription": "healthcare-description",
+      "project.location.sitecontrol": "healthcare-site-control",
+      "regulatory.tax-status": "healthcare-tax",
+      "risk.regulatory.description": "healthcare-reg-risk",
+      "security.revenue.pledge": "healthcare-security-stronger"
+    }
+  },
+  "facts": [
+    {
+      "canonical_score": 0.98,
+      "confidence_score": 0.96,
+      "created_at": "2026-01-10T00:00:00",
+      "id": "healthcare-inducement",
+      "is_canonical": true,
+      "review_status": "approved",
+      "schema_path": "governance.inducement",
+      "value": "Board inducement resolution adopted for clinic expansion"
+    },
+    {
+      "canonical_score": 0.86,
+      "confidence_score": 0.91,
+      "created_at": "2026-01-11T00:00:00",
+      "id": "healthcare-issuer",
+      "review_status": "approved",
+      "schema_path": "parties.issuer.name",
+      "value": "County Health Facilities Authority"
+    },
+    {
+      "canonical_score": 0.9,
+      "confidence_score": 0.93,
+      "created_at": "2026-01-12T00:00:00",
+      "id": "healthcare-tax",
+      "review_status": "approved",
+      "schema_path": "regulatory.tax-status",
+      "value": "501(c)(3) conduit tax-exempt eligible"
+    },
+    {
+      "canonical_score": 0.82,
+      "confidence_score": 0.88,
+      "created_at": "2026-01-13T00:00:00",
+      "id": "healthcare-description",
+      "review_status": "approved",
+      "schema_path": "project.canonicaldescription",
+      "value": "Federally qualified health center outpatient expansion"
+    },
+    {
+      "canonical_score": 0.8,
+      "confidence_score": 0.84,
+      "created_at": "2026-01-14T00:00:00",
+      "id": "healthcare-site-control",
+      "review_status": "approved",
+      "schema_path": "project.location.sitecontrol",
+      "value": "Long-term lease executed"
+    },
+    {
+      "canonical_score": 0.87,
+      "confidence_score": 0.9,
+      "created_at": "2026-01-15T00:00:00",
+      "id": "healthcare-dscr",
+      "review_status": "approved",
+      "schema_path": "finmodel.outputs.dscrbase",
+      "value": 1.38
+    },
+    {
+      "canonical_score": 0.62,
+      "confidence_score": 0.72,
+      "created_at": "2026-01-16T00:00:00",
+      "id": "healthcare-security-weaker",
+      "review_status": "approved",
+      "schema_path": "security.revenue.pledge",
+      "value": "Gross revenue pledge draft"
+    },
+    {
+      "canonical_score": 0.96,
+      "confidence_score": 0.94,
+      "created_at": "2026-01-17T00:00:00",
+      "id": "healthcare-security-stronger",
+      "is_canonical": true,
+      "review_status": "approved",
+      "schema_path": "security.revenue.pledge",
+      "value": "Gross revenue pledge adopted in bond resolution"
+    },
+    {
+      "canonical_score": 0.79,
+      "confidence_score": 0.87,
+      "created_at": "2026-01-18T00:00:00",
+      "id": "healthcare-reg-risk",
+      "review_status": "approved",
+      "schema_path": "risk.regulatory.description",
+      "value": "Medicaid reimbursement and licensure renewal risk disclosed"
+    },
+    {
+      "canonical_score": 0.95,
+      "confidence_score": 1.0,
+      "created_at": "2026-01-19T00:00:00",
+      "id": "healthcare-pending-not-used",
+      "review_status": "pending",
+      "schema_path": "slb.kpis.shortlist",
+      "value": [
+        "avoidable ED diversion"
+      ]
+    }
+  ],
+  "project_archetype": "501c3 healthcare revenue bond",
+  "sector": "healthcare",
+  "sector_priority": 1
+}

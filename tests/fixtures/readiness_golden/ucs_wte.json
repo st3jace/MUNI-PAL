@@ -1,0 +1,193 @@
+{
+  "expected_output": {
+    "critical_gaps_count": 5,
+    "dimensions": {
+      "cab_financial": {
+        "critical_paths_covered": 2,
+        "critical_paths_total": 3,
+        "improvement_suggestions": [
+          "Upload documents containing: Equity Contribution",
+          "Gather evidence for 13 additional supporting items"
+        ],
+        "material_paths_covered": 0,
+        "material_paths_total": 13,
+        "score": 1.0,
+        "weighted_contribution": 0.2
+      },
+      "issuer_authority": {
+        "critical_paths_covered": 1,
+        "critical_paths_total": 2,
+        "improvement_suggestions": [
+          "Upload documents containing: Tax Status",
+          "Gather evidence for 7 additional supporting items"
+        ],
+        "material_paths_covered": 0,
+        "material_paths_total": 7,
+        "score": 0.87,
+        "weighted_contribution": 0.174
+      },
+      "project_tech": {
+        "critical_paths_covered": 2,
+        "critical_paths_total": 2,
+        "improvement_suggestions": [
+          "Gather evidence for 11 additional supporting items"
+        ],
+        "material_paths_covered": 0,
+        "material_paths_total": 11,
+        "score": 1.28,
+        "weighted_contribution": 0.256
+      },
+      "revenue_feedstock": {
+        "critical_paths_covered": 2,
+        "critical_paths_total": 3,
+        "improvement_suggestions": [
+          "Upload documents containing: Offtake Status",
+          "Gather evidence for 7 additional supporting items"
+        ],
+        "material_paths_covered": 0,
+        "material_paths_total": 7,
+        "score": 1.45,
+        "weighted_contribution": 0.2175
+      },
+      "risk_security_slb": {
+        "critical_paths_covered": 2,
+        "critical_paths_total": 3,
+        "improvement_suggestions": [
+          "Upload documents containing: Construction Risk Description",
+          "Gather evidence for 16 additional supporting items"
+        ],
+        "material_paths_covered": 0,
+        "material_paths_total": 16,
+        "score": 0.83,
+        "weighted_contribution": 0.1245
+      },
+      "slb_verification": {
+        "critical_paths_covered": 1,
+        "critical_paths_total": 2,
+        "improvement_suggestions": [
+          "Upload documents containing: KPI 1 Baseline Methodology",
+          "Gather evidence for 5 additional supporting items"
+        ],
+        "material_paths_covered": 0,
+        "material_paths_total": 5,
+        "score": 1.03,
+        "weighted_contribution": 0.103
+      }
+    },
+    "material_gaps_count": 59,
+    "overall_score": 2.15,
+    "project_archetype": "UCS waste-to-energy CAB plus SLB",
+    "recommendation": "Not Yet Viable",
+    "recommendation_rationale": "The project lacks fundamental evidence required for bond structuring. Key areas like issuer authority, technology definition, or financial structure need substantial documentation before engaging advisors.",
+    "sector": "ucs_wte",
+    "selected_fact_ids_by_path": {
+      "cab.accretionrate": "wte-cab-rate",
+      "feedstock.supply.mechanism": "wte-feedstock",
+      "finmodel.outputs.dscrbase": "wte-dscr",
+      "governance.inducement": "wte-inducement",
+      "revenue.gross.annual": "wte-revenue",
+      "risk.technology.description": "wte-tech-risk",
+      "security.revenue.pledge": "wte-security",
+      "slb.kpis.shortlist": "wte-slb-kpi",
+      "technology.throughput.nameplate": "wte-throughput",
+      "technology.type": "wte-technology"
+    }
+  },
+  "facts": [
+    {
+      "canonical_score": 0.88,
+      "confidence_score": 0.92,
+      "created_at": "2026-02-01T00:00:00",
+      "id": "wte-inducement",
+      "review_status": "approved",
+      "schema_path": "governance.inducement",
+      "value": "Municipal inducement approved"
+    },
+    {
+      "canonical_score": 0.91,
+      "confidence_score": 0.95,
+      "created_at": "2026-02-02T00:00:00",
+      "id": "wte-technology",
+      "review_status": "approved",
+      "schema_path": "technology.type",
+      "value": "Advanced thermal conversion"
+    },
+    {
+      "canonical_score": 0.84,
+      "confidence_score": 0.89,
+      "created_at": "2026-02-03T00:00:00",
+      "id": "wte-throughput",
+      "review_status": "approved",
+      "schema_path": "technology.throughput.nameplate",
+      "value": "500 tons per day"
+    },
+    {
+      "canonical_score": 0.87,
+      "confidence_score": 0.9,
+      "created_at": "2026-02-04T00:00:00",
+      "id": "wte-feedstock",
+      "review_status": "approved",
+      "schema_path": "feedstock.supply.mechanism",
+      "value": "Municipal solid waste supply agreement"
+    },
+    {
+      "canonical_score": 0.78,
+      "confidence_score": 0.86,
+      "created_at": "2026-02-05T00:00:00",
+      "id": "wte-revenue",
+      "review_status": "approved",
+      "schema_path": "revenue.gross.annual",
+      "value": 18500000
+    },
+    {
+      "canonical_score": 0.89,
+      "confidence_score": 0.91,
+      "created_at": "2026-02-06T00:00:00",
+      "id": "wte-cab-rate",
+      "review_status": "approved",
+      "schema_path": "cab.accretionrate",
+      "value": "6.25%"
+    },
+    {
+      "canonical_score": 0.83,
+      "confidence_score": 0.88,
+      "created_at": "2026-02-07T00:00:00",
+      "id": "wte-dscr",
+      "review_status": "approved",
+      "schema_path": "finmodel.outputs.dscrbase",
+      "value": 1.31
+    },
+    {
+      "canonical_score": 0.8,
+      "confidence_score": 0.84,
+      "created_at": "2026-02-08T00:00:00",
+      "id": "wte-security",
+      "review_status": "approved",
+      "schema_path": "security.revenue.pledge",
+      "value": "Net system revenue pledge"
+    },
+    {
+      "canonical_score": 0.77,
+      "confidence_score": 0.83,
+      "created_at": "2026-02-09T00:00:00",
+      "id": "wte-tech-risk",
+      "review_status": "approved",
+      "schema_path": "risk.technology.description",
+      "value": "Commissioning risk for conversion line"
+    },
+    {
+      "canonical_score": 0.81,
+      "confidence_score": 0.86,
+      "created_at": "2026-02-10T00:00:00",
+      "id": "wte-slb-kpi",
+      "review_status": "approved",
+      "schema_path": "slb.kpis.shortlist",
+      "value": [
+        "landfill diversion rate"
+      ]
+    }
+  ],
+  "project_archetype": "UCS waste-to-energy CAB plus SLB",
+  "sector": "ucs_wte",
+  "sector_priority": 2
+}

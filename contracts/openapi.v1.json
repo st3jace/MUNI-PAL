@@ -3065,6 +3065,12 @@
             ],
             "title": "Archived By"
           },
+          "can_drive_outputs": {
+            "default": false,
+            "description": "True only for active, human-accepted facts eligible for readiness/export outputs.",
+            "title": "Can Drive Outputs",
+            "type": "boolean"
+          },
           "canonical_score": {
             "default": 0.0,
             "maximum": 1.0,
@@ -3169,6 +3175,12 @@
             ],
             "description": "Deterministic SHA-256 fingerprint of ordered source_refs.",
             "title": "Provenance Fingerprint"
+          },
+          "review_lifecycle_stage": {
+            "default": "proposed",
+            "description": "Human-review lifecycle stage: proposed, accepted, rejected, needs_revision, or archived.",
+            "title": "Review Lifecycle Stage",
+            "type": "string"
           },
           "review_note": {
             "anyOf": [
@@ -17400,7 +17412,7 @@
     },
     "/api/v1/facts/manual": {
       "post": {
-        "description": "Create a manually-entered fact.\n\nManual facts are entered by users when they have information but\ndon't have documentation to extract from. These facts:\n- Have source_type='manual'\n- Have confidence_score=1.0 (user is authoritative)\n- Don't require source chunks (no extraction job)\n- Follow the same approval workflow as extracted facts\n\nUse auto_approve=true if you trust the input and want to skip review.",
+        "description": "Create a manually-entered fact.\n\nManual facts are entered by users when they have information but\ndon't have documentation to extract from. These facts:\n- Have source_type='manual'\n- Have confidence_score=1.0 (user is authoritative)\n- Don't require source chunks (no extraction job)\n- Follow the same approval workflow as extracted facts\n\nauto_approve=true is refused; manual facts must enter human review before acceptance.",
         "operationId": "create_manual_fact_api_v1_facts_manual_post",
         "parameters": [
           {
@@ -17416,13 +17428,13 @@
             }
           },
           {
-            "description": "If true, fact is immediately approved without review",
+            "description": "Deprecated/refused: manual facts must enter human review",
             "in": "query",
             "name": "auto_approve",
             "required": false,
             "schema": {
               "default": false,
-              "description": "If true, fact is immediately approved without review",
+              "description": "Deprecated/refused: manual facts must enter human review",
               "title": "Auto Approve",
               "type": "boolean"
             }

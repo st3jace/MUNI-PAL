@@ -813,13 +813,18 @@ class FactService:
         Returns:
             Created ExtractedFact
         """
+        if auto_approve:
+            raise ValueError(
+                "Manual facts must enter human review before acceptance"
+            )
+
         # Look up criticality from schema path config
         schema_config = self._get_schema_path_config(request.schema_path)
         criticality = schema_config.get("criticality", "secondary")
 
         # Create the fact
         now = datetime.now(timezone.utc)
-        review_status = ReviewStatus.APPROVED.value if auto_approve else ReviewStatus.PENDING.value
+        review_status = ReviewStatus.PENDING.value
 
         fact = ExtractedFact(
             project_id=str(request.project_id),
@@ -832,18 +837,9 @@ class FactService:
             confidence_score=1.0,  # User is authoritative source
             confidence_rationale=request.note or "Manually entered by user",
             review_status=review_status,
-            lifecycle_state=(
-                FactLifecycleState.ACTIVE.value
-                if auto_approve
-                else FactLifecycleState.PENDING_REVIEW.value
-            ),
+            lifecycle_state=FactLifecycleState.PENDING_REVIEW.value,
             extraction_job_id=None,  # Manual facts don't have extraction jobs
         )
-
-        if auto_approve:
-            fact.reviewed_by = str(created_by)
-            fact.reviewed_at = now
-            fact.review_note = "Auto-approved on creation"
 
         self.session.add(fact)
         await self.session.flush()  # Get the ID
@@ -857,7 +853,7 @@ class FactService:
             previous_status=None,
             new_status=review_status,
             changed_by_id=str(created_by),
-            change_reason="Manual fact created" + (" (auto-approved)" if auto_approve else ""),
+            change_reason="Manual fact created; pending human review",
         )
         self.session.add(revision)
 
@@ -1164,6 +1160,37 @@ class FactService:
         return await self.review_fact(fact_id, reviewer_id, review)
 
     @staticmethod
+    def _effective_lifecycle_state(fact: ExtractedFact) -> FactLifecycleState:
+        """Expose pending facts as pending_review even for legacy rows with active default."""
+        if fact.lifecycle_state == FactLifecycleState.ARCHIVED.value:
+            return FactLifecycleState.ARCHIVED
+        if fact.review_status == ReviewStatus.REJECTED.value:
+            return FactLifecycleState.REJECTED
+        if fact.review_status in {
+            ReviewStatus.PENDING.value,
+            ReviewStatus.NEEDS_REVISION.value,
+        }:
+            return FactLifecycleState.PENDING_REVIEW
+        return FactLifecycleState(fact.lifecycle_state or FactLifecycleState.ACTIVE.value)
+
+    @classmethod
+    def _review_lifecycle_stage(cls, fact: ExtractedFact) -> str:
+        lifecycle_state = cls._effective_lifecycle_state(fact)
+        if lifecycle_state == FactLifecycleState.ARCHIVED:
+            return "archived"
+        if fact.review_status == ReviewStatus.APPROVED.value and lifecycle_state == FactLifecycleState.ACTIVE:
+            return "accepted"
+        if fact.review_status == ReviewStatus.REJECTED.value or lifecycle_state == FactLifecycleState.REJECTED:
+            return "rejected"
+        if fact.review_status == ReviewStatus.NEEDS_REVISION.value:
+            return "needs_revision"
+        return "proposed"
+
+    @classmethod
+    def _can_drive_outputs(cls, fact: ExtractedFact) -> bool:
+        return cls._review_lifecycle_stage(fact) == "accepted"
+
+    @staticmethod
     def _require_approvable_provenance(
         fact: ExtractedFact,
         review: FactReviewRequest,
@@ -1426,9 +1453,9 @@ class FactService:
             source_trust_score=fact.source_trust_score,
             canonical_score=fact.canonical_score,
             is_canonical=fact.is_canonical,
-            lifecycle_state=FactLifecycleState(
-                fact.lifecycle_state or FactLifecycleState.ACTIVE.value
-            ),
+            lifecycle_state=self._effective_lifecycle_state(fact),
+            review_lifecycle_stage=self._review_lifecycle_stage(fact),
+            can_drive_outputs=self._can_drive_outputs(fact),
             archive_reason_code=fact.archive_reason_code,
             archive_note=fact.archive_note,
             archived_by=UUID(fact.archived_by) if fact.archived_by else None,

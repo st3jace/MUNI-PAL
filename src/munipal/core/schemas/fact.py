@@ -176,6 +176,17 @@ class ExtractedFactRead(ExtractedFactBase, UUIDSchema, TimestampSchema):
     canonical_score: float = Field(0.0, ge=0.0, le=1.0)
     is_canonical: bool = False
     lifecycle_state: FactLifecycleState = FactLifecycleState.ACTIVE
+    review_lifecycle_stage: str = Field(
+        "proposed",
+        description=(
+            "Human-review lifecycle stage: proposed, accepted, rejected, "
+            "needs_revision, or archived."
+        ),
+    )
+    can_drive_outputs: bool = Field(
+        False,
+        description="True only for active, human-accepted facts eligible for readiness/export outputs.",
+    )
     archive_reason_code: str | None = None
     archive_note: str | None = None
     archived_by: UUID | None = None

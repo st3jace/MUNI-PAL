@@ -192,7 +192,7 @@ async def create_manual_fact(
     created_by: UUID = Query(..., description="ID of user creating the fact"),
     auto_approve: bool = Query(
         False,
-        description="If true, fact is immediately approved without review",
+        description="Deprecated/refused: manual facts must enter human review",
     ),
     service: FactService = Depends(get_fact_service),
     _: str = Depends(require_roles("admin", "analyst")),
@@ -207,17 +207,23 @@ async def create_manual_fact(
     - Don't require source chunks (no extraction job)
     - Follow the same approval workflow as extracted facts
 
-    Use auto_approve=true if you trust the input and want to skip review.
+    auto_approve=true is refused; manual facts must enter human review before acceptance.
     """
     authz = AuthorizationService(db)
     await authz.require_project_write(user_id, request.project_id)
 
-    fact = await service.create_manual_fact(
-        request=request,
-        created_by=created_by,
-        auto_approve=auto_approve,
-    )
-    return service.fact_to_read_schema(fact)
+    try:
+        fact = await service.create_manual_fact(
+            request=request,
+            created_by=created_by,
+            auto_approve=auto_approve,
+        )
+        return service.fact_to_read_schema(fact)
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e),
+        )
 
 
 # -----------------------------------------------------------------------------

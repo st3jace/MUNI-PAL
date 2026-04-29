@@ -13,7 +13,7 @@ Before implementation work, run:
 
     python scripts/check_dev_environment.py
 
-See docs/development/CANONICAL_DEV_PATH.md for the OneDrive policy, setup command, and agent-safe source review scope.
+See docs/development/CANONICAL_DEV_PATH.md for the OneDrive policy, setup command, and agent-safe source review scope. See docs/development/VERIFICATION_COMMANDS.md for canonical backend, frontend, contract, lint, and type-check commands.
 
 ## Canonical application tree
 

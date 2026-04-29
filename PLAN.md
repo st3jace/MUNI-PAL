@@ -44,7 +44,7 @@ A deal documentation platform built on top of Muni-Pal's existing FastAPI + Reac
 
 ---
 
-## Part 1: Database Schema (11 new tables)
+## Part 1: Database Schema (12 new tables)
 
 All tables use existing patterns: UUID PKs, `TimestampMixin`, `UUIDType` for FK/PK, `tenant_id` on root entities, PostgreSQL `JSON` columns.
 
@@ -70,7 +70,11 @@ All tables use existing patterns: UUID PKs, `TimestampMixin`, `UUIDType` for FK/
 - **User**: Add `role` column (analyst/admin/viewer)
 
 ### Single Alembic Migration
-One migration file creates all 11 tables + seeds `deal_document_types` with 25+ muni finance document types.
+One migration file creates all 12 tables + seeds `deal_document_types` with 25+ muni finance document types.
+
+### Deferred DMS/VDR Tables
+
+No additional DMS/VDR tables are part of this migration. Future operational tables such as e-signature webhook deliveries, document full-text search indexes, retention/legal-hold policies, or cross-deal VDR analytics are intentionally deferred and are not part of this migration until a later scoped implementation defines their models, migrations, and tests.
 
 ---
 

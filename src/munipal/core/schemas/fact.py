@@ -18,6 +18,7 @@ from pydantic import Field
 from munipal.core.schemas.base import (
     BaseSchema,
     ChunkReference,
+    SourceReference,
     CriticalityTier,
     ReviewStatus,
     SourceType,
@@ -150,6 +151,17 @@ class ExtractedFactRead(ExtractedFactBase, UUIDSchema, TimestampSchema):
 
     # Provenance - empty list for manual facts
     source_chunks: list[ChunkReference] = Field(default_factory=list)
+    source_refs: list[SourceReference] = Field(
+        default_factory=list,
+        description=(
+            "Advisor-facing stable source references: Artifact -> Chunk -> "
+            "Page/Sheet -> source file."
+        ),
+    )
+    provenance_fingerprint: str | None = Field(
+        None,
+        description="Deterministic SHA-256 fingerprint of ordered source_refs.",
+    )
 
     # If corrected during review
     original_value: Any | None = Field(

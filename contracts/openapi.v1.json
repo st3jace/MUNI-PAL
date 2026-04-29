@@ -211,7 +211,7 @@
             "title": "Display Name"
           },
           "file": {
-            "format": "binary",
+            "contentMediaType": "application/octet-stream",
             "title": "File",
             "type": "string"
           },
@@ -3158,6 +3158,18 @@
             "title": "Project Id",
             "type": "string"
           },
+          "provenance_fingerprint": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Deterministic SHA-256 fingerprint of ordered source_refs.",
+            "title": "Provenance Fingerprint"
+          },
           "review_note": {
             "anyOf": [
               {
@@ -3207,6 +3219,14 @@
               "$ref": "#/components/schemas/ChunkReference"
             },
             "title": "Source Chunks",
+            "type": "array"
+          },
+          "source_refs": {
+            "description": "Advisor-facing stable source references: Artifact -> Chunk -> Page/Sheet -> source file.",
+            "items": {
+              "$ref": "#/components/schemas/SourceReference"
+            },
+            "title": "Source Refs",
             "type": "array"
           },
           "source_trust_score": {
@@ -8269,6 +8289,109 @@
         "title": "SnapshotReason",
         "type": "string"
       },
+      "SourceReference": {
+        "description": "Advisor-facing immutable source reference for an accepted fact.\n\nExtends the compact chunk reference with stable file and chunk provenance so\nAPI/export consumers can trace an approved claim back to Artifact -> Chunk ->\nPage/Sheet -> source file without lazy-loading database models.",
+        "properties": {
+          "artifact_display_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Artifact Display Name"
+          },
+          "artifact_filename": {
+            "title": "Artifact Filename",
+            "type": "string"
+          },
+          "artifact_id": {
+            "format": "uuid",
+            "title": "Artifact Id",
+            "type": "string"
+          },
+          "chunk_id": {
+            "format": "uuid",
+            "title": "Chunk Id",
+            "type": "string"
+          },
+          "chunk_type": {
+            "title": "Chunk Type",
+            "type": "string"
+          },
+          "content_hash": {
+            "title": "Content Hash",
+            "type": "string"
+          },
+          "excerpt": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Relevant text excerpt",
+            "title": "Excerpt"
+          },
+          "page_number": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Page Number"
+          },
+          "section_title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Section Title"
+          },
+          "sequence_number": {
+            "title": "Sequence Number",
+            "type": "integer"
+          },
+          "sheet_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sheet Name"
+          },
+          "storage_path": {
+            "title": "Storage Path",
+            "type": "string"
+          }
+        },
+        "required": [
+          "chunk_id",
+          "artifact_id",
+          "artifact_filename",
+          "storage_path",
+          "chunk_type",
+          "sequence_number",
+          "content_hash"
+        ],
+        "title": "SourceReference",
+        "type": "object"
+      },
       "SourceType": {
         "description": "Source type for ExtractedFacts.",
         "enum": [
@@ -8819,6 +8942,13 @@
       },
       "ValidationError": {
         "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
           "loc": {
             "items": {
               "anyOf": [

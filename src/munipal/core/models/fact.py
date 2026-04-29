@@ -8,7 +8,7 @@ with full provenance tracing.
 from datetime import datetime
 from uuid import uuid4
 
-from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Integer, String, Text
+from sqlalchemy import Boolean, DateTime, Float, ForeignKey, Integer, String, Text, event, select
 from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -222,3 +222,28 @@ class EvidenceLink(Base, TimestampMixin):
 
     # Relationships
     fact = relationship("ExtractedFact", back_populates="evidence_links")
+
+
+def _fact_has_completed_review(connection, fact_id: str) -> bool:
+    status = connection.execute(
+        select(ExtractedFact.review_status).where(ExtractedFact.id == str(fact_id))
+    ).scalar_one_or_none()
+    return status in {"approved", "rejected"}
+
+
+def _raise_if_reviewed_fact_provenance(target: FactChunkAssociation) -> None:
+    raise ValueError(
+        "Cannot mutate provenance for a reviewed fact; archive/supersede the fact instead"
+    )
+
+
+@event.listens_for(FactChunkAssociation, "before_update")
+def _prevent_reviewed_fact_chunk_update(mapper, connection, target):  # noqa: ANN001
+    if _fact_has_completed_review(connection, target.fact_id):
+        _raise_if_reviewed_fact_provenance(target)
+
+
+@event.listens_for(FactChunkAssociation, "before_delete")
+def _prevent_reviewed_fact_chunk_delete(mapper, connection, target):  # noqa: ANN001
+    if _fact_has_completed_review(connection, target.fact_id):
+        _raise_if_reviewed_fact_provenance(target)

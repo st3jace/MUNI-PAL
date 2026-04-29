@@ -512,6 +512,64 @@ This section provides a complete index of all approved facts with their sources.
                 )
             content += "\n"
 
+        provenance_rows: list[str] = []
+        for fact in sorted(facts, key=lambda f: f.schema_path):
+            source_chunks = sorted(
+                getattr(fact, "source_chunks", []) or [],
+                key=lambda assoc: (
+                    getattr(getattr(assoc, "chunk", None), "sequence_number", 0) or 0,
+                    str(getattr(assoc, "chunk_id", "")),
+                ),
+            )
+            if not source_chunks:
+                provenance_rows.append(
+                    f"| {fact.schema_path} | Missing source reference | "
+                    f"{fact.reviewed_at or ''} | {fact.reviewed_by or ''} | |"
+                )
+                continue
+
+            for assoc in source_chunks:
+                chunk = getattr(assoc, "chunk", None)
+                artifact = getattr(chunk, "artifact", None) if chunk else None
+                filename = (
+                    getattr(artifact, "display_name", None)
+                    or getattr(artifact, "filename", None)
+                    or "Unknown artifact"
+                )
+                sequence = getattr(chunk, "sequence_number", None) if chunk else None
+                page = getattr(chunk, "page_number", None) if chunk else None
+                location_parts = []
+                if sequence is not None:
+                    location_parts.append(f"chunk {sequence}")
+                if page is not None:
+                    location_parts.append(f"Page {page}")
+                section_title = getattr(chunk, "section_title", None) if chunk else None
+                if section_title:
+                    location_parts.append(str(section_title))
+                location = "; ".join(location_parts) or "source chunk"
+                content_hash = getattr(chunk, "content_hash", "") if chunk else ""
+                excerpt = (getattr(assoc, "excerpt", None) or "").replace("|", "\\|")[:80]
+                if len(getattr(assoc, "excerpt", None) or "") > 80:
+                    excerpt += "..."
+                artifact_id = getattr(artifact, "id", "") if artifact else ""
+                chunk_id = getattr(chunk, "id", getattr(assoc, "chunk_id", "")) if chunk else getattr(assoc, "chunk_id", "")
+                stable_id = f"artifact={artifact_id}; chunk={chunk_id}"
+                source_label = f"{filename} [{stable_id}] ({location})".replace("|", "\\|")
+                provenance_rows.append(
+                    f"| {fact.schema_path} | {source_label} | "
+                    f"{fact.reviewed_at or ''} | {fact.reviewed_by or ''} | "
+                    f"{content_hash[:12]} {excerpt} |"
+                )
+
+        if provenance_rows:
+            content += """## Advisor Review Provenance
+
+| Schema Path | Stable Source Reference | Reviewed At | Reviewed By | Evidence Fingerprint / Excerpt |
+|-------------|-------------------------|-------------|-------------|--------------------------------|
+"""
+            content += "\n".join(provenance_rows)
+            content += "\n\n"
+
         content += f"""
 ---
 

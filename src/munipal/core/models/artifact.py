@@ -8,7 +8,7 @@ Per spec:
 
 from uuid import uuid4
 
-from sqlalchemy import Boolean, ForeignKey, Integer, String, Text
+from sqlalchemy import Boolean, ForeignKey, Integer, String, Text, event, func, select
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from munipal.db.base import Base, TimestampMixin, UUIDType
@@ -97,3 +97,64 @@ class Chunk(Base, TimestampMixin):
         back_populates="chunk",
         cascade="all, delete-orphan",
     )
+
+
+def _chunk_has_reviewed_fact(connection, chunk_id: str) -> bool:
+    from munipal.core.models.fact import ExtractedFact, FactChunkAssociation
+
+    count = connection.execute(
+        select(func.count())
+        .select_from(FactChunkAssociation)
+        .join(ExtractedFact, ExtractedFact.id == FactChunkAssociation.fact_id)
+        .where(
+            FactChunkAssociation.chunk_id == str(chunk_id),
+            ExtractedFact.review_status.in_(["approved", "rejected"]),
+        )
+    ).scalar_one()
+    return bool(count)
+
+
+def _artifact_has_reviewed_fact(connection, artifact_id: str) -> bool:
+    from munipal.core.models.fact import ExtractedFact, FactChunkAssociation
+
+    count = connection.execute(
+        select(func.count())
+        .select_from(Chunk)
+        .join(FactChunkAssociation, FactChunkAssociation.chunk_id == Chunk.id)
+        .join(ExtractedFact, ExtractedFact.id == FactChunkAssociation.fact_id)
+        .where(
+            Chunk.artifact_id == str(artifact_id),
+            ExtractedFact.review_status.in_(["approved", "rejected"]),
+        )
+    ).scalar_one()
+    return bool(count)
+
+
+def _raise_provenance_mutation_error() -> None:
+    raise ValueError(
+        "Cannot mutate provenance for a reviewed fact; archive/supersede the fact instead"
+    )
+
+
+@event.listens_for(Chunk, "before_update")
+def _prevent_reviewed_chunk_update(mapper, connection, target):  # noqa: ANN001
+    if _chunk_has_reviewed_fact(connection, target.id):
+        _raise_provenance_mutation_error()
+
+
+@event.listens_for(Chunk, "before_delete")
+def _prevent_reviewed_chunk_delete(mapper, connection, target):  # noqa: ANN001
+    if _chunk_has_reviewed_fact(connection, target.id):
+        _raise_provenance_mutation_error()
+
+
+@event.listens_for(Artifact, "before_update")
+def _prevent_reviewed_artifact_update(mapper, connection, target):  # noqa: ANN001
+    if _artifact_has_reviewed_fact(connection, target.id):
+        _raise_provenance_mutation_error()
+
+
+@event.listens_for(Artifact, "before_delete")
+def _prevent_reviewed_artifact_delete(mapper, connection, target):  # noqa: ANN001
+    if _artifact_has_reviewed_fact(connection, target.id):
+        _raise_provenance_mutation_error()

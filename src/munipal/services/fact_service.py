@@ -27,6 +27,7 @@ from munipal.core.models.fact import (
 )
 from munipal.core.schemas.base import ReviewStatus, CriticalityTier, SourceType
 from munipal.core.schemas.fact import (
+    SourceReference,
     ExtractedFactCreate,
     ExtractedFactRead,
     ExtractedFactSummary,
@@ -577,11 +578,19 @@ class FactService:
     ) -> list[ExtractedFact]:
         """Return active approved facts for a project, optionally filtered by path."""
         project_id_str = str(project_id)
-        query = select(ExtractedFact).where(
-            and_(
-                ExtractedFact.project_id == project_id_str,
-                ExtractedFact.review_status == ReviewStatus.APPROVED.value,
-                ExtractedFact.lifecycle_state == FactLifecycleState.ACTIVE.value,
+        query = (
+            select(ExtractedFact)
+            .options(
+                selectinload(ExtractedFact.source_chunks)
+                .selectinload(FactChunkAssociation.chunk)
+                .selectinload(Chunk.artifact),
+            )
+            .where(
+                and_(
+                    ExtractedFact.project_id == project_id_str,
+                    ExtractedFact.review_status == ReviewStatus.APPROVED.value,
+                    ExtractedFact.lifecycle_state == FactLifecycleState.ACTIVE.value,
+                )
             )
         )
         if schema_paths is not None:
@@ -626,9 +635,9 @@ class FactService:
         result = await self.session.execute(
             select(ExtractedFact)
             .options(
-                selectinload(ExtractedFact.source_chunks).selectinload(
-                    FactChunkAssociation.chunk
-                ),
+                selectinload(ExtractedFact.source_chunks)
+                .selectinload(FactChunkAssociation.chunk)
+                .selectinload(Chunk.artifact),
                 selectinload(ExtractedFact.revisions),
                 selectinload(ExtractedFact.evidence_links),
             )
@@ -1020,6 +1029,8 @@ class FactService:
         if not fact:
             raise ValueError(f"Fact {fact_id} not found")
 
+        self._require_approvable_provenance(fact, review)
+
         # Capture previous state for revision
         previous_value = fact.value
         previous_status = fact.review_status
@@ -1151,6 +1162,47 @@ class FactService:
             note=revision_note,
         )
         return await self.review_fact(fact_id, reviewer_id, review)
+
+    @staticmethod
+    def _require_approvable_provenance(
+        fact: ExtractedFact,
+        review: FactReviewRequest,
+    ) -> None:
+        """Require extracted facts to carry immutable source evidence before approval."""
+        if review.action != ReviewStatus.APPROVED:
+            return
+        if fact.source_type == SourceType.MANUAL.value:
+            return
+        if not fact.source_chunks:
+            raise ValueError(
+                "Extracted facts require source evidence before they can be approved"
+            )
+        for assoc in fact.source_chunks:
+            chunk = getattr(assoc, "chunk", None)
+            if chunk is None or not getattr(chunk, "artifact_id", None):
+                raise ValueError(
+                    "Extracted facts require source evidence before they can be approved"
+                )
+
+    @staticmethod
+    def _source_ref_sort_key(source_ref: SourceReference) -> tuple[str, str, int, str]:
+        return (
+            str(source_ref.artifact_id),
+            source_ref.chunk_type,
+            int(source_ref.sequence_number),
+            str(source_ref.chunk_id),
+        )
+
+    @classmethod
+    def _provenance_fingerprint(cls, source_refs: list[SourceReference]) -> str | None:
+        if not source_refs:
+            return None
+        payload = [
+            ref.model_dump(mode="json")
+            for ref in sorted(source_refs, key=cls._source_ref_sort_key)
+        ]
+        encoded = json.dumps(payload, sort_keys=True, separators=(",", ":"))
+        return hashlib.sha256(encoded.encode("utf-8")).hexdigest()
 
     # -------------------------------------------------------------------------
     # Revision History
@@ -1305,6 +1357,7 @@ class FactService:
             Pydantic schema
         """
         source_chunks = []
+        source_refs = []
         # Manual facts don't have source chunks - check source_type first
         # to avoid triggering lazy load on the relationship
         if fact.source_type != SourceType.MANUAL.value:
@@ -1313,18 +1366,38 @@ class FactService:
                 if fact.source_chunks:
                     for assoc in fact.source_chunks:
                         chunk = assoc.chunk
-                        source_chunks.append(
-                            ChunkReference(
-                                chunk_id=UUID(chunk.id),
-                                artifact_id=UUID(chunk.artifact_id),
-                                page_number=chunk.page_number,
-                                sheet_name=chunk.sheet_name,
-                                excerpt=assoc.excerpt,
-                            )
+                        chunk_ref = ChunkReference(
+                            chunk_id=UUID(chunk.id),
+                            artifact_id=UUID(chunk.artifact_id),
+                            page_number=chunk.page_number,
+                            sheet_name=chunk.sheet_name,
+                            excerpt=assoc.excerpt,
                         )
+                        source_chunks.append(chunk_ref)
+
+                        artifact = getattr(chunk, "artifact", None)
+                        if artifact is not None:
+                            source_refs.append(
+                                SourceReference(
+                                    chunk_id=chunk_ref.chunk_id,
+                                    artifact_id=chunk_ref.artifact_id,
+                                    page_number=chunk.page_number,
+                                    sheet_name=chunk.sheet_name,
+                                    excerpt=assoc.excerpt,
+                                    artifact_filename=artifact.filename,
+                                    artifact_display_name=artifact.display_name,
+                                    storage_path=artifact.storage_path,
+                                    chunk_type=chunk.chunk_type,
+                                    sequence_number=chunk.sequence_number,
+                                    section_title=chunk.section_title,
+                                    content_hash=chunk.content_hash,
+                                )
+                            )
             except Exception:
-                # If lazy loading fails, just skip source chunks
+                # If lazy loading fails, keep the response available rather than
+                # failing unrelated reads; get_fact eagerly loads provenance.
                 pass
+        source_refs = sorted(source_refs, key=self._source_ref_sort_key)
 
         return ExtractedFactRead(
             id=UUID(fact.id),
@@ -1343,6 +1416,8 @@ class FactService:
             reviewed_at=fact.reviewed_at,
             review_note=fact.review_note,
             source_chunks=source_chunks,
+            source_refs=source_refs,
+            provenance_fingerprint=self._provenance_fingerprint(source_refs),
             original_value=fact.original_value,
             fingerprint=fact.fingerprint,
             duplicate_classification=FactDuplicateClassification(

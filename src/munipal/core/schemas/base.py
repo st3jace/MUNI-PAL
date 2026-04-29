@@ -159,3 +159,20 @@ class ChunkReference(BaseSchema):
     page_number: int | None = None
     sheet_name: str | None = None
     excerpt: str | None = Field(None, max_length=500, description="Relevant text excerpt")
+
+
+class SourceReference(ChunkReference):
+    """Advisor-facing immutable source reference for an accepted fact.
+
+    Extends the compact chunk reference with stable file and chunk provenance so
+    API/export consumers can trace an approved claim back to Artifact -> Chunk ->
+    Page/Sheet -> source file without lazy-loading database models.
+    """
+
+    artifact_filename: str
+    artifact_display_name: str | None = None
+    storage_path: str
+    chunk_type: str
+    sequence_number: int
+    section_title: str | None = None
+    content_hash: str

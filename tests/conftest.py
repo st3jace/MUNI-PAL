@@ -390,9 +390,12 @@ class TestDataFactory:
         confidence_score: float = 0.95,
         review_status: str = "pending",
         criticality: str = "critical",
+        with_source_refs: bool = True,
     ) -> dict[str, Any]:
         """Create a test extracted fact."""
-        from munipal.core.models.fact import ExtractedFact
+        from munipal.core.models.artifact import Chunk
+        from munipal.core.models.extraction import ExtractionJob
+        from munipal.core.models.fact import ExtractedFact, FactChunkAssociation
 
         fact_id = str(uuid4())
 
@@ -411,6 +414,31 @@ class TestDataFactory:
 
         self.session.add(fact)
         await self.session.flush()
+
+        if with_source_refs:
+            job = await self.session.get(ExtractionJob, extraction_job_id)
+            artifact_ids = list(job.artifact_ids or []) if job else []
+            if artifact_ids:
+                chunk_id = str(uuid4())
+                chunk = Chunk(
+                    id=chunk_id,
+                    artifact_id=artifact_ids[0],
+                    chunk_type="page",
+                    sequence_number=1,
+                    page_number=1,
+                    text_content=f"Evidence for {schema_path}: {value}",
+                    content_hash=f"test-hash-{chunk_id}",
+                )
+                self.session.add(chunk)
+                await self.session.flush()
+                self.session.add(
+                    FactChunkAssociation(
+                        fact_id=fact_id,
+                        chunk_id=chunk_id,
+                        excerpt=f"Evidence for {schema_path}",
+                    )
+                )
+                await self.session.flush()
 
         return {
             "id": fact_id,

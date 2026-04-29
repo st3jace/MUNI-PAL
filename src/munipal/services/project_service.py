@@ -205,11 +205,8 @@ class ProjectService:
         return total, approved
 
     async def _get_readiness_score(self, project_id: str) -> float | None:
-        """
-        Calculate overall readiness score for a project.
+        """Calculate deterministic overall readiness score for a project."""
+        from munipal.services.readiness_service import ReadinessService
 
-        TODO: Implement full readiness calculation per playbook rules.
-        For now, returns None (not yet calculated).
-        """
-        # This will be implemented in the readiness service
-        return None
+        assessment = await ReadinessService(self.db).compute_assessment(UUID(project_id))
+        return round(assessment.overall_score, 2)

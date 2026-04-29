@@ -163,3 +163,64 @@ class TestProjectService:
         """Test deleting a nonexistent project returns False."""
         result = await service.delete(uuid4())
         assert result is False
+
+
+    async def test_get_project_computes_deterministic_readiness_score_from_approved_facts(
+        self,
+        service,
+        factory,
+        db_session,
+    ):
+        """Project read schema includes stable rules-based readiness score."""
+        playbook = await factory.create_playbook()
+        project = await factory.create_project(playbook["id"])
+        artifact = await factory.create_artifact(project["id"])
+        job = await factory.create_extraction_job(project["id"], artifact["id"])
+        await factory.create_fact(
+            project["id"],
+            job["id"],
+            schema_path="governance.inducement",
+            value="Adopted inducement resolution",
+            review_status="approved",
+            criticality="critical",
+            confidence_score=0.95,
+        )
+        await db_session.commit()
+
+        first = await service.get(UUID(project["id"]))
+        second = await service.get(UUID(project["id"]))
+        summaries, _ = await service.list(owner_id=project["owner_id"])
+
+        assert first is not None
+        assert second is not None
+        assert first.overall_readiness_score is not None
+        assert first.overall_readiness_score > 0
+        assert first.overall_readiness_score == second.overall_readiness_score
+        assert summaries[0].overall_readiness_score == first.overall_readiness_score
+
+    async def test_get_project_does_not_infer_readiness_from_pending_or_absent_facts(
+        self,
+        service,
+        factory,
+        db_session,
+    ):
+        """Absent or unaccepted evidence contributes zero instead of inferred readiness."""
+        playbook = await factory.create_playbook()
+        project = await factory.create_project(playbook["id"])
+        artifact = await factory.create_artifact(project["id"])
+        job = await factory.create_extraction_job(project["id"], artifact["id"])
+        await factory.create_fact(
+            project["id"],
+            job["id"],
+            schema_path="project.name",
+            value="Pending Only Project",
+            review_status="pending",
+            criticality="critical",
+            confidence_score=1.0,
+        )
+        await db_session.commit()
+
+        result = await service.get(UUID(project["id"]))
+
+        assert result is not None
+        assert result.overall_readiness_score == 0.0

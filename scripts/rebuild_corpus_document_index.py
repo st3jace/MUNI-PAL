@@ -13,7 +13,22 @@ import argparse
 import sqlite3
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+
+_ALLOWED_SQL_IDENTIFIERS = {
+    "document_index",
+    "ix_docidx_doc_type",
+    "ix_docidx_issuer",
+    "ix_docidx_provenance",
+    "ix_docidx_source_hash_doc_type",
+    "sqlite_autoindex_document_index_1",
+}
+
+
+def _quote_allowed_identifier(identifier: str) -> str:
+    """Quote a known-safe SQLite identifier used in maintenance SQL."""
+    if identifier not in _ALLOWED_SQL_IDENTIFIERS:
+        raise ValueError(f"Unsafe SQL identifier: {identifier!r}")
+    return '"' + identifier.replace('"', '""') + '"'
 
 
 @dataclass
@@ -87,7 +102,7 @@ def _has_composite_unique_index(conn: sqlite3.Connection) -> bool:
             continue
         columns = [
             str(col_row[2] or "")
-            for col_row in conn.execute(f'PRAGMA index_info("{index_name}")').fetchall()
+            for col_row in conn.execute(f"PRAGMA index_info({_quote_allowed_identifier(index_name)})").fetchall()
         ]
         if columns == ["source_hash", "doc_type"]:
             return True
@@ -276,7 +291,7 @@ def rebuild_document_index(
     indexed_rows = 0
     skipped_missing_hash = 0
     skipped_collisions = 0
-    by_doc_type = {doc_type: 0 for doc_type in DOC_TYPE_ORDER}
+    by_doc_type = dict.fromkeys(DOC_TYPE_ORDER, 0)
     seen_pairs: set[tuple[str, str]] = set()
 
     try:

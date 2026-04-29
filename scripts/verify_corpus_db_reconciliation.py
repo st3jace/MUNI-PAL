@@ -37,6 +37,27 @@ BACKFILL_PROVENANCE_BY_MARKER = {
 }
 
 
+
+_ALLOWED_SQL_IDENTIFIERS = {
+    "document_index",
+    "documents",
+    "event_filings",
+    "financial_reports",
+    "rating_actions",
+    "ix_docidx_doc_type",
+    "ix_docidx_issuer",
+    "ix_docidx_provenance",
+    "ix_docidx_source_hash_doc_type",
+    "sqlite_autoindex_document_index_1",
+}
+
+
+def _quote_allowed_identifier(identifier: str) -> str:
+    """Quote a known-safe SQLite identifier used in maintenance SQL."""
+    if identifier not in _ALLOWED_SQL_IDENTIFIERS:
+        raise ValueError(f"Unsafe SQL identifier: {identifier!r}")
+    return '"' + identifier.replace('"', '""') + '"'
+
 @dataclass
 class TypeReconciliation:
     extracted_unique_hashes: int
@@ -106,7 +127,7 @@ def _load_db_hashes(conn: sqlite3.Connection) -> dict[str, set[str]]:
     output: dict[str, set[str]] = {}
     for doc_type, table in TABLE_BY_DOC_TYPE.items():
         rows = conn.execute(
-            f"SELECT source_hash FROM {table} WHERE source_hash IS NOT NULL"
+            f"SELECT source_hash FROM {_quote_allowed_identifier(table)} WHERE source_hash IS NOT NULL"
         ).fetchall()
         output[doc_type] = {str(row[0]).strip() for row in rows if str(row[0]).strip()}
     return output
@@ -116,7 +137,7 @@ def _load_db_rows(conn: sqlite3.Connection) -> dict[str, dict[str, str]]:
     output: dict[str, dict[str, str]] = {}
     for doc_type, table in TABLE_BY_DOC_TYPE.items():
         rows = conn.execute(
-            f"SELECT source_hash, source_file FROM {table} WHERE source_hash IS NOT NULL"
+            f"SELECT source_hash, source_file FROM {_quote_allowed_identifier(table)} WHERE source_hash IS NOT NULL"
         ).fetchall()
         output[doc_type] = {
             str(row[0]).strip(): str(row[1] or "")
@@ -127,7 +148,7 @@ def _load_db_rows(conn: sqlite3.Connection) -> dict[str, dict[str, str]]:
 
 
 def _table_has_column(conn: sqlite3.Connection, table_name: str, column: str) -> bool:
-    rows = conn.execute(f"PRAGMA table_info({table_name})").fetchall()
+    rows = conn.execute(f"PRAGMA table_info({_quote_allowed_identifier(table_name)})").fetchall()
     return any(str(row[1] or "").strip() == column for row in rows)
 
 
@@ -140,7 +161,7 @@ def _has_composite_unique_index(conn: sqlite3.Connection) -> bool:
             continue
         columns = [
             str(col_row[2] or "")
-            for col_row in conn.execute(f'PRAGMA index_info("{index_name}")').fetchall()
+            for col_row in conn.execute(f"PRAGMA index_info({_quote_allowed_identifier(index_name)})").fetchall()
         ]
         if columns == ["source_hash", "doc_type"]:
             return True
@@ -195,7 +216,7 @@ def _duplicate_counts(conn: sqlite3.Connection) -> dict[str, int]:
             f"""
             SELECT COUNT(*) FROM (
                 SELECT source_hash
-                FROM {table}
+                FROM {_quote_allowed_identifier(table)}
                 WHERE source_hash IS NOT NULL
                 GROUP BY source_hash
                 HAVING COUNT(*) > 1

@@ -56,7 +56,7 @@ RECOMMENDATION_RATIONALES = {
     ),
     "structurally_viable": (
         "The project has a viable foundation but needs additional evidence in key areas. "
-        "Consider gathering more documentation on revenue model, CAB terms, or SLB structure "
+        "Consider gathering more documentation on revenue model, debt structure, and key risk mitigants "
         "before broader market engagement."
     ),
     "ready_for_selective_engagement": (

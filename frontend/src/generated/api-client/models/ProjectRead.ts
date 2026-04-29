@@ -7,6 +7,8 @@
  */
 export type ProjectRead = {
     approved_fact_count?: number;
+    archetype_id?: (string | null);
+    archetype_version?: (string | null);
     artifact_count?: number;
     created_at: string;
     description?: (string | null);
@@ -18,6 +20,8 @@ export type ProjectRead = {
     owner_id: string;
     playbook_id: string;
     project_location?: (string | null);
+    sector?: (string | null);
+    subsector?: (string | null);
     /**
      * Target bond amount in USD
      */

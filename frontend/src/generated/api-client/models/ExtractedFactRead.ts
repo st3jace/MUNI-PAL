@@ -7,6 +7,7 @@ import type { CriticalityTier } from './CriticalityTier';
 import type { FactDuplicateClassification } from './FactDuplicateClassification';
 import type { FactLifecycleState } from './FactLifecycleState';
 import type { ReviewStatus } from './ReviewStatus';
+import type { SourceReference } from './SourceReference';
 import type { SourceType } from './SourceType';
 /**
  * Schema for reading a fact (extracted or manual).
@@ -16,6 +17,10 @@ export type ExtractedFactRead = {
     archive_reason_code?: (string | null);
     archived_at?: (string | null);
     archived_by?: (string | null);
+    /**
+     * True only for active, human-accepted facts eligible for readiness/export outputs.
+     */
+    can_drive_outputs?: boolean;
     canonical_score?: number;
     /**
      * Why the AI assigned this confidence, or note for manual facts
@@ -41,6 +46,14 @@ export type ExtractedFactRead = {
      */
     original_value?: null;
     project_id: string;
+    /**
+     * Deterministic SHA-256 fingerprint of ordered source_refs.
+     */
+    provenance_fingerprint?: (string | null);
+    /**
+     * Human-review lifecycle stage: proposed, accepted, rejected, needs_revision, or archived.
+     */
+    review_lifecycle_stage?: string;
     review_note?: (string | null);
     review_status?: ReviewStatus;
     reviewed_at?: (string | null);
@@ -50,6 +63,10 @@ export type ExtractedFactRead = {
      */
     schema_path: string;
     source_chunks?: Array<ChunkReference>;
+    /**
+     * Advisor-facing stable source references: Artifact -> Chunk -> Page/Sheet -> source file.
+     */
+    source_refs?: Array<SourceReference>;
     source_trust_score?: number;
     /**
      * Whether fact was AI-extracted or manually entered

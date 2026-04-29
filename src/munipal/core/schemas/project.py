@@ -23,6 +23,10 @@ class ProjectBase(BaseSchema):
     issuer_name: str | None = Field(None, max_length=255)
     project_location: str | None = Field(None, max_length=500)
     target_bond_amount: float | None = Field(None, ge=0, description="Target bond amount in USD")
+    sector: str | None = Field(None, max_length=100, description="Project sector, e.g. healthcare, housing, or waste")
+    subsector: str | None = Field(None, max_length=150, description="Project subsector, e.g. healthcare_hospital")
+    archetype_id: str | None = Field(None, max_length=150, description="Stable sector archetype id")
+    archetype_version: str | None = Field(None, max_length=20, description="Sector archetype version")
 
 
 class ProjectCreate(ProjectBase):
@@ -30,7 +34,7 @@ class ProjectCreate(ProjectBase):
 
     playbook_id: UUID | None = Field(
         None,
-        description="Optional playbook to use. Defaults to latest UCS CAB+SLB playbook.",
+        description="Optional playbook to use. Defaults to the canonical Healthcare archetype playbook when configured.",
     )
 
 
@@ -42,6 +46,10 @@ class ProjectUpdate(BaseSchema):
     issuer_name: str | None = Field(None, max_length=255)
     project_location: str | None = Field(None, max_length=500)
     target_bond_amount: float | None = Field(None, ge=0)
+    sector: str | None = Field(None, max_length=100)
+    subsector: str | None = Field(None, max_length=150)
+    archetype_id: str | None = Field(None, max_length=150)
+    archetype_version: str | None = Field(None, max_length=20)
 
 
 class ProjectRead(ProjectBase, UUIDSchema, TimestampSchema):
@@ -50,6 +58,12 @@ class ProjectRead(ProjectBase, UUIDSchema, TimestampSchema):
     playbook_id: UUID
     owner_id: UUID
     tenant_id: str
+
+    # Sector archetype metadata
+    sector: str | None = None
+    subsector: str | None = None
+    archetype_id: str | None = None
+    archetype_version: str | None = None
 
     # Computed summary fields
     artifact_count: int = 0
@@ -64,6 +78,10 @@ class ProjectSummary(UUIDSchema):
     name: str
     tenant_id: str
     issuer_name: str | None
+    sector: str | None = None
+    subsector: str | None = None
+    archetype_id: str | None = None
+    archetype_version: str | None = None
     artifact_count: int = 0
     overall_readiness_score: float | None = None
     updated_at: datetime

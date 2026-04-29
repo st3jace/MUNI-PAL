@@ -306,10 +306,10 @@ export class FactsService {
      * - Don't require source chunks (no extraction job)
      * - Follow the same approval workflow as extracted facts
      *
-     * Use auto_approve=true if you trust the input and want to skip review.
+     * auto_approve=true is refused; manual facts must enter human review before acceptance.
      * @param createdBy ID of user creating the fact
      * @param requestBody
-     * @param autoApprove If true, fact is immediately approved without review
+     * @param autoApprove Deprecated/refused: manual facts must enter human review
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
      * @param xTenantId Tenant ID for tenant isolation

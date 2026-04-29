@@ -293,6 +293,7 @@ export class RiskService {
      * Get Revenue Diversification Visualization
      * Typed visualization payload for the revenue diversification comparison chart.
      * @param projectId
+     * @param mode
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth
      * @param xTenantId Tenant ID for tenant isolation
@@ -302,6 +303,7 @@ export class RiskService {
      */
     public static getRevenueDiversificationVisualizationApiV1RiskRevenueDiversificationGet(
         projectId: string,
+        mode: 'auto' | 'native' | 'packet' = 'auto',
         authorization?: (string | null),
         xUserId?: (string | null),
         xTenantId?: (string | null),
@@ -318,6 +320,7 @@ export class RiskService {
             },
             query: {
                 'project_id': projectId,
+                'mode': mode,
             },
             errors: {
                 422: `Validation Error`,

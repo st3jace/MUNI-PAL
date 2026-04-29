@@ -70,6 +70,10 @@ export interface Project {
   issuer_name: string;
   project_location?: string;
   target_bond_amount?: number;
+  sector?: string;
+  subsector?: string;
+  archetype_id?: string;
+  archetype_version?: string;
   playbook_id: UUID;
   owner_id: UUID;
   artifact_count: number;
@@ -84,6 +88,10 @@ export interface ProjectSummary {
   id: UUID;
   name: string;
   issuer_name: string;
+  sector?: string;
+  subsector?: string;
+  archetype_id?: string;
+  archetype_version?: string;
   artifact_count: number;
   overall_readiness_score?: number;
   updated_at: string;
@@ -95,6 +103,10 @@ export interface ProjectCreate {
   issuer_name: string;
   project_location?: string;
   target_bond_amount?: number;
+  sector?: string;
+  subsector?: string;
+  archetype_id?: string;
+  archetype_version?: string;
   playbook_id?: UUID;
 }
 

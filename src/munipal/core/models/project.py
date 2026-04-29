@@ -32,6 +32,10 @@ class Project(Base, TimestampMixin):
     issuer_name: Mapped[str | None] = mapped_column(String(255))
     project_location: Mapped[str | None] = mapped_column(String(500))
     target_bond_amount: Mapped[float | None] = mapped_column(Float)
+    sector: Mapped[str | None] = mapped_column(String(100), index=True)
+    subsector: Mapped[str | None] = mapped_column(String(150), index=True)
+    archetype_id: Mapped[str | None] = mapped_column(String(150), index=True)
+    archetype_version: Mapped[str | None] = mapped_column(String(20))
     tenant_id: Mapped[str] = mapped_column(
         String(100), nullable=False, default="default", index=True
     )

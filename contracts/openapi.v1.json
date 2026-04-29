@@ -5662,6 +5662,32 @@
       "ProjectCreate": {
         "description": "Schema for creating a new project.",
         "properties": {
+          "archetype_id": {
+            "anyOf": [
+              {
+                "maxLength": 150,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Stable sector archetype id",
+            "title": "Archetype Id"
+          },
+          "archetype_version": {
+            "anyOf": [
+              {
+                "maxLength": 20,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Sector archetype version",
+            "title": "Archetype Version"
+          },
           "description": {
             "anyOf": [
               {
@@ -5702,7 +5728,7 @@
                 "type": "null"
               }
             ],
-            "description": "Optional playbook to use. Defaults to latest UCS CAB+SLB playbook.",
+            "description": "Optional playbook to use. Defaults to the canonical Healthcare archetype playbook when configured.",
             "title": "Playbook Id"
           },
           "project_location": {
@@ -5716,6 +5742,32 @@
               }
             ],
             "title": "Project Location"
+          },
+          "sector": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Project sector, e.g. healthcare, housing, or waste",
+            "title": "Sector"
+          },
+          "subsector": {
+            "anyOf": [
+              {
+                "maxLength": 150,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Project subsector, e.g. healthcare_hospital",
+            "title": "Subsector"
           },
           "target_bond_amount": {
             "anyOf": [
@@ -5744,6 +5796,28 @@
             "default": 0,
             "title": "Approved Fact Count",
             "type": "integer"
+          },
+          "archetype_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Archetype Id"
+          },
+          "archetype_version": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Archetype Version"
           },
           "artifact_count": {
             "default": 0,
@@ -5828,6 +5902,28 @@
             ],
             "title": "Project Location"
           },
+          "sector": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sector"
+          },
+          "subsector": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subsector"
+          },
           "target_bond_amount": {
             "anyOf": [
               {
@@ -5866,6 +5962,30 @@
       "ProjectUpdate": {
         "description": "Schema for updating a project.",
         "properties": {
+          "archetype_id": {
+            "anyOf": [
+              {
+                "maxLength": 150,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Archetype Id"
+          },
+          "archetype_version": {
+            "anyOf": [
+              {
+                "maxLength": 20,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Archetype Version"
+          },
           "description": {
             "anyOf": [
               {
@@ -5914,6 +6034,30 @@
               }
             ],
             "title": "Project Location"
+          },
+          "sector": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sector"
+          },
+          "subsector": {
+            "anyOf": [
+              {
+                "maxLength": 150,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subsector"
           },
           "target_bond_amount": {
             "anyOf": [

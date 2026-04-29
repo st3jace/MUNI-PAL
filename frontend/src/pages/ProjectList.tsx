@@ -43,7 +43,12 @@ export default function ProjectList() {
       { value: 'healthcare_fqhc_bond', label: 'FQHC Revenue Bond' },
       { value: 'healthcare_fqhc_cdfi', label: 'FQHC CDFI / NMTC' },
     ]},
-    { value: 'waste', label: 'Waste-to-Energy', subsectors: [] },
+    { value: 'housing', label: 'Affordable Housing', subsectors: [
+      { value: 'housing_affordable_multifamily', label: 'Affordable Multifamily' },
+    ]},
+    { value: 'waste', label: 'Waste-to-Energy', subsectors: [
+      { value: 'waste_to_energy', label: 'Waste-to-Energy / UCS' },
+    ]},
   ]
 
   const [selectedSector, setSelectedSector] = useState('')

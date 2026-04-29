@@ -12,6 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from munipal.core.models import Artifact, ExtractedFact, Playbook, Project
 from munipal.core.schemas.project import ProjectCreate, ProjectRead, ProjectSummary, ProjectUpdate
+from munipal.services.sector_archetypes import resolve_archetype
 
 
 class ProjectService:
@@ -45,12 +46,18 @@ class ProjectService:
             if not playbook:
                 raise ValueError("No default playbook configured. Please create one first.")
 
+        archetype = resolve_archetype(data.sector, data.subsector)
+
         project = Project(
             name=data.name,
             description=data.description,
             issuer_name=data.issuer_name,
             project_location=data.project_location,
             target_bond_amount=data.target_bond_amount,
+            sector=data.sector or archetype.sector,
+            subsector=data.subsector or archetype.subsector,
+            archetype_id=data.archetype_id or archetype.id,
+            archetype_version=data.archetype_version or archetype.version,
             owner_id=owner_id,
             playbook_id=playbook.id,
             tenant_id=tenant_id,
@@ -112,6 +119,10 @@ class ProjectService:
                     name=project.name,
                     tenant_id=project.tenant_id,
                     issuer_name=project.issuer_name,
+                    sector=project.sector,
+                    subsector=project.subsector,
+                    archetype_id=project.archetype_id,
+                    archetype_version=project.archetype_version,
                     artifact_count=artifact_count,
                     overall_readiness_score=readiness_score,
                     updated_at=project.updated_at,
@@ -167,6 +178,10 @@ class ProjectService:
             issuer_name=project.issuer_name,
             project_location=project.project_location,
             target_bond_amount=project.target_bond_amount,
+            sector=project.sector,
+            subsector=project.subsector,
+            archetype_id=project.archetype_id,
+            archetype_version=project.archetype_version,
             playbook_id=UUID(project.playbook_id),
             owner_id=UUID(project.owner_id),
             tenant_id=project.tenant_id,

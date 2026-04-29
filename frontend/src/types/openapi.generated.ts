@@ -387,6 +387,86 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/auth/login": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Login
+         * @description Authenticate with email and password.
+         */
+        post: operations["login_api_v1_auth_login_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/me": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Profile
+         * @description Get the current user's profile.
+         */
+        get: operations["get_profile_api_v1_auth_me_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/refresh": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Refresh Token
+         * @description Exchange a refresh token for new access + refresh tokens.
+         */
+        post: operations["refresh_token_api_v1_auth_refresh_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/auth/register": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Register
+         * @description Create a new user account and return tokens.
+         */
+        post: operations["register_api_v1_auth_register_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/checklist/": {
         parameters: {
             query?: never;
@@ -1425,7 +1505,7 @@ export interface paths {
          *     - Don't require source chunks (no extraction job)
          *     - Follow the same approval workflow as extracted facts
          *
-         *     Use auto_approve=true if you trust the input and want to skip review.
+         *     auto_approve=true is refused; manual facts must enter human review before acceptance.
          */
         post: operations["create_manual_fact_api_v1_facts_manual_post"];
         delete?: never;
@@ -2398,6 +2478,78 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/sensing/coi-benchmarks": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Coi Benchmarks
+         * @description COI line-item benchmarking data for healthcare sub-sectors.
+         *
+         *     Returns questionnaire items grouped by dimension with COI impact
+         *     ratings, lead times, and agent-assistable flags, plus aggregate
+         *     benchmarks (COI gap range, timeline compression, displacement value).
+         */
+        get: operations["coi_benchmarks_api_v1_sensing_coi_benchmarks_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/sensing/coi-deal-benchmarks": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Coi Deal Benchmarks
+         * @description Deal-level COI benchmark statistics from EMMA/CDIAC/DASNY research.
+         *
+         *     Returns actual deal-level COI statistics (median, p25/p75, by size
+         *     bucket, by period) for healthcare sub-sectors. Use alongside the
+         *     existing /coi-benchmarks endpoint which provides line-item checklist
+         *     data.
+         */
+        get: operations["coi_deal_benchmarks_api_v1_sensing_coi_deal_benchmarks_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/sensing/credit-spreads": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Credit Spread Monitor
+         * @description Generate Credit Spread Monitor & All-In Cost of Capital report.
+         *
+         *     Returns yield curves, cost-of-capital grid, issuer fee comparisons,
+         *     corpus-derived spread observations, and recent comparable deals.
+         */
+        post: operations["credit_spread_monitor_api_v1_sensing_credit_spreads_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/sensing/event": {
         parameters: {
             query?: never;
@@ -2464,6 +2616,81 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/sensing/leads/{lead_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Lead
+         * @description Get a single sensing lead with full detail including report snapshots.
+         */
+        get: operations["get_lead_api_v1_sensing_leads__lead_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/sensing/leads/{lead_id}/convert-to-project": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Convert Lead To Project
+         * @description Convert a sensing lead into a BFMS project.
+         *
+         *     This is the critical handoff from top-of-funnel sensing to the advisory
+         *     engagement workflow. It:
+         *     1. Creates a new Project pre-populated from lead data
+         *     2. Advances the lead funnel stage to 'engaged'
+         *     3. Records a conversion event
+         *     4. Returns the new project ID for immediate use
+         *
+         *     The project is created with:
+         *     - name: derived from organization + sector
+         *     - issuer_name: from lead organization
+         *     - target_bond_amount: from lead deal_size_estimate
+         *     - project_location: from lead state
+         */
+        post: operations["convert_lead_to_project_api_v1_sensing_leads__lead_id__convert_to_project_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/sensing/leads/{lead_id}/funnel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update Lead Funnel
+         * @description Advance a lead through the funnel stages.
+         *
+         *     Stages: report_requested > report_downloaded > contacted > qualified > engaged
+         */
+        patch: operations["update_lead_funnel_api_v1_sensing_leads__lead_id__funnel_patch"];
+        trace?: never;
+    };
     "/api/v1/sensing/market-intelligence": {
         parameters: {
             query?: never;
@@ -2493,7 +2720,7 @@ export interface paths {
         };
         /**
          * Get Questionnaire
-         * @description Get the readiness self-assessment questionnaire.
+         * @description Get the readiness self-assessment questionnaire for a sector.
          */
         get: operations["get_questionnaire_api_v1_sensing_questionnaire_get"];
         put?: never;
@@ -2538,6 +2765,68 @@ export interface paths {
         get: operations["list_sectors_api_v1_sensing_sectors_get"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/sensing/unsubscribe": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Unsubscribe
+         * @description One-click unsubscribe from the email drip sequence.
+         *
+         *     CAN-SPAM compliant: no login required, immediate effect.
+         */
+        get: operations["unsubscribe_api_v1_sensing_unsubscribe_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/stripe/create-checkout-session": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create Checkout Session
+         * @description Create a Stripe Checkout Session for an authenticated user.
+         */
+        post: operations["create_checkout_session_api_v1_stripe_create_checkout_session_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/stripe/webhook": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Stripe Webhook
+         * @description Handle Stripe webhook events.
+         */
+        post: operations["stripe_webhook_api_v1_stripe_webhook_post"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3006,6 +3295,16 @@ export interface components {
                 };
             };
         };
+        /** CheckoutRequest */
+        CheckoutRequest: {
+            /** Price Id */
+            price_id: string;
+        };
+        /** CheckoutResponse */
+        CheckoutResponse: {
+            /** Url */
+            url: string;
+        };
         /**
          * ChunkReference
          * @description Reference to a specific chunk for provenance tracking.
@@ -3294,6 +3593,29 @@ export interface components {
             project_name: string;
             /** Structure Description */
             structure_description: string;
+        };
+        /**
+         * CreditSpreadRequest
+         * @description Parameters for the credit spread monitor.
+         */
+        CreditSpreadRequest: {
+            /**
+             * Out Of State
+             * @description Whether borrower is out-of-state (affects IDA fees)
+             * @default false
+             */
+            out_of_state: boolean;
+            /**
+             * Par Amount
+             * @description Representative par amount for fee calculations
+             * @default 50000000
+             */
+            par_amount: number;
+            /**
+             * Sector
+             * @description Sector (waste, healthcare, etc.)
+             */
+            sector: string;
         };
         /**
          * CriticalityTier
@@ -4179,6 +4501,12 @@ export interface components {
             /** Archived By */
             archived_by?: string | null;
             /**
+             * Can Drive Outputs
+             * @description True only for active, human-accepted facts eligible for readiness/export outputs.
+             * @default false
+             */
+            can_drive_outputs: boolean;
+            /**
              * Canonical Score
              * @default 0
              */
@@ -4231,6 +4559,17 @@ export interface components {
              * Format: uuid
              */
             project_id: string;
+            /**
+             * Provenance Fingerprint
+             * @description Deterministic SHA-256 fingerprint of ordered source_refs.
+             */
+            provenance_fingerprint?: string | null;
+            /**
+             * Review Lifecycle Stage
+             * @description Human-review lifecycle stage: proposed, accepted, rejected, needs_revision, or archived.
+             * @default proposed
+             */
+            review_lifecycle_stage: string;
             /** Review Note */
             review_note?: string | null;
             /** @default pending */
@@ -4246,6 +4585,11 @@ export interface components {
             schema_path: string;
             /** Source Chunks */
             source_chunks?: components["schemas"]["ChunkReference"][];
+            /**
+             * Source Refs
+             * @description Advisor-facing stable source references: Artifact -> Chunk -> Page/Sheet -> source file.
+             */
+            source_refs?: components["schemas"]["SourceReference"][];
             /**
              * Source Trust Score
              * @default 0.5
@@ -5219,6 +5563,44 @@ export interface components {
             title?: string | null;
         };
         /**
+         * LeadConvertRequest
+         * @description Convert a sensing lead to a BFMS project.
+         */
+        LeadConvertRequest: {
+            /**
+             * Owner Id
+             * @description User ID to own the new project
+             */
+            owner_id: string;
+            /**
+             * Playbook Id
+             * @description Playbook ID (uses default if omitted)
+             */
+            playbook_id?: string | null;
+            /**
+             * Project Name
+             * @description Override project name (defaults to '{org} Bond Advisory')
+             */
+            project_name?: string | null;
+            /**
+             * Tenant Id
+             * @description Tenant ID
+             * @default default
+             */
+            tenant_id: string;
+        };
+        /**
+         * LeadFunnelUpdate
+         * @description Update a lead's funnel stage.
+         */
+        LeadFunnelUpdate: {
+            /**
+             * Funnel Stage
+             * @description New funnel stage (report_downloaded, contacted, qualified, engaged)
+             */
+            funnel_stage: string;
+        };
+        /**
          * LinkEvidenceRequest
          * @description Request to link evidence to an information request.
          */
@@ -5230,6 +5612,16 @@ export interface components {
             artifact_id: string;
             /** Notes */
             notes?: string | null;
+        };
+        /** LoginRequest */
+        LoginRequest: {
+            /**
+             * Email
+             * Format: email
+             */
+            email: string;
+            /** Password */
+            password: string;
         };
         /**
          * ManualFactCreate
@@ -5443,6 +5835,16 @@ export interface components {
          * @description Schema for creating a new project.
          */
         ProjectCreate: {
+            /**
+             * Archetype Id
+             * @description Stable sector archetype id
+             */
+            archetype_id?: string | null;
+            /**
+             * Archetype Version
+             * @description Sector archetype version
+             */
+            archetype_version?: string | null;
             /** Description */
             description?: string | null;
             /** Issuer Name */
@@ -5451,11 +5853,21 @@ export interface components {
             name: string;
             /**
              * Playbook Id
-             * @description Optional playbook to use. Defaults to latest UCS CAB+SLB playbook.
+             * @description Optional playbook to use. Defaults to the canonical Healthcare archetype playbook when configured.
              */
             playbook_id?: string | null;
             /** Project Location */
             project_location?: string | null;
+            /**
+             * Sector
+             * @description Project sector, e.g. healthcare, housing, or waste
+             */
+            sector?: string | null;
+            /**
+             * Subsector
+             * @description Project subsector, e.g. healthcare_hospital
+             */
+            subsector?: string | null;
             /**
              * Target Bond Amount
              * @description Target bond amount in USD
@@ -5472,6 +5884,10 @@ export interface components {
              * @default 0
              */
             approved_fact_count: number;
+            /** Archetype Id */
+            archetype_id?: string | null;
+            /** Archetype Version */
+            archetype_version?: string | null;
             /**
              * Artifact Count
              * @default 0
@@ -5512,6 +5928,10 @@ export interface components {
             playbook_id: string;
             /** Project Location */
             project_location?: string | null;
+            /** Sector */
+            sector?: string | null;
+            /** Subsector */
+            subsector?: string | null;
             /**
              * Target Bond Amount
              * @description Target bond amount in USD
@@ -5530,6 +5950,10 @@ export interface components {
          * @description Schema for updating a project.
          */
         ProjectUpdate: {
+            /** Archetype Id */
+            archetype_id?: string | null;
+            /** Archetype Version */
+            archetype_version?: string | null;
             /** Description */
             description?: string | null;
             /** Issuer Name */
@@ -5538,6 +5962,10 @@ export interface components {
             name?: string | null;
             /** Project Location */
             project_location?: string | null;
+            /** Sector */
+            sector?: string | null;
+            /** Subsector */
+            subsector?: string | null;
             /** Target Bond Amount */
             target_bond_amount?: number | null;
         };
@@ -5716,6 +6144,25 @@ export interface components {
              */
             sector: string;
         };
+        /** RefreshRequest */
+        RefreshRequest: {
+            /** Refresh Token */
+            refresh_token: string;
+        };
+        /** RegisterRequest */
+        RegisterRequest: {
+            /**
+             * Email
+             * Format: email
+             */
+            email: string;
+            /** Full Name */
+            full_name?: string | null;
+            /** Organization */
+            organization?: string | null;
+            /** Password */
+            password: string;
+        };
         /**
          * ReportDimensionScore
          * @description Dimension score for reports.
@@ -5804,6 +6251,22 @@ export interface components {
          */
         RetentionPolicy: "standard_6yr" | "indefinite" | "bond_life_plus_3yr";
         /**
+         * RevenueDiversificationRiskProof
+         * @description Packet-level proof that diversification changes the risk profile.
+         */
+        RevenueDiversificationRiskProof: {
+            /** Baseline Label */
+            baseline_label: string;
+            /** Diversified Label */
+            diversified_label: string;
+            /** Metrics */
+            metrics?: components["schemas"]["RevenueRiskProofMetric"][];
+            /** Takeaway */
+            takeaway: string;
+            /** Title */
+            title: string;
+        };
+        /**
          * RevenueDiversificationVisualizationResponse
          * @description Versioned visualization contract for revenue diversification rendering.
          */
@@ -5824,6 +6287,10 @@ export interface components {
              * Format: date-time
              */
             generated_at: string;
+            /** Non Diesel Combined Coverage Dscr */
+            non_diesel_combined_coverage_dscr?: number | null;
+            /** Non Diesel Senior Coverage Dscr */
+            non_diesel_senior_coverage_dscr?: number | null;
             /**
              * Project Id
              * Format: uuid
@@ -5833,8 +6300,25 @@ export interface components {
             project_name: string;
             /** Revenue Scenarios */
             revenue_scenarios?: components["schemas"]["RevenueScenarioMix"][];
+            risk_proof?: components["schemas"]["RevenueDiversificationRiskProof"] | null;
             /** Stream Definitions */
             stream_definitions?: components["schemas"]["RevenueStreamDefinition"][];
+        };
+        /**
+         * RevenueRiskProofMetric
+         * @description One packet-sourced proof metric comparing baseline and diversified cases.
+         */
+        RevenueRiskProofMetric: {
+            /** Baseline Value */
+            baseline_value: string;
+            /** Delta Label */
+            delta_label: string;
+            /** Diversified Value */
+            diversified_value: string;
+            /** Label */
+            label: string;
+            /** Metric Id */
+            metric_id: string;
         };
         /**
          * RevenueScenarioMix
@@ -5853,6 +6337,8 @@ export interface components {
             dscr_mean: number;
             /** Dscr Minimum */
             dscr_minimum: number;
+            /** Dscr Parity Diesel Price */
+            dscr_parity_diesel_price?: number | null;
             /** Implied Rating */
             implied_rating: string;
             /** Label */
@@ -6633,6 +7119,49 @@ export interface components {
          */
         SnapshotReason: "auto_save" | "manual_save" | "pre_review" | "pre_signature" | "status_change";
         /**
+         * SourceReference
+         * @description Advisor-facing immutable source reference for an accepted fact.
+         *
+         *     Extends the compact chunk reference with stable file and chunk provenance so
+         *     API/export consumers can trace an approved claim back to Artifact -> Chunk ->
+         *     Page/Sheet -> source file without lazy-loading database models.
+         */
+        SourceReference: {
+            /** Artifact Display Name */
+            artifact_display_name?: string | null;
+            /** Artifact Filename */
+            artifact_filename: string;
+            /**
+             * Artifact Id
+             * Format: uuid
+             */
+            artifact_id: string;
+            /**
+             * Chunk Id
+             * Format: uuid
+             */
+            chunk_id: string;
+            /** Chunk Type */
+            chunk_type: string;
+            /** Content Hash */
+            content_hash: string;
+            /**
+             * Excerpt
+             * @description Relevant text excerpt
+             */
+            excerpt?: string | null;
+            /** Page Number */
+            page_number?: number | null;
+            /** Section Title */
+            section_title?: string | null;
+            /** Sequence Number */
+            sequence_number: number;
+            /** Sheet Name */
+            sheet_name?: string | null;
+            /** Storage Path */
+            storage_path: string;
+        };
+        /**
          * SourceType
          * @description Source type for ExtractedFacts.
          * @enum {string}
@@ -6823,6 +7352,35 @@ export interface components {
             variable_schema?: {
                 [key: string]: unknown;
             } | null;
+        };
+        /** TokenResponse */
+        TokenResponse: {
+            /** Access Token */
+            access_token: string;
+            /** Expires In */
+            expires_in: number;
+            /** Refresh Token */
+            refresh_token: string;
+            /**
+             * Token Type
+             * @default bearer
+             */
+            token_type: string;
+        };
+        /** UserProfile */
+        UserProfile: {
+            /** Email */
+            email: string;
+            /** Full Name */
+            full_name: string | null;
+            /** Id */
+            id: string;
+            /** Is Active */
+            is_active: boolean;
+            /** Organization */
+            organization: string | null;
+            /** Subscription Tier */
+            subscription_tier: string | null;
         };
         /**
          * UserSummary
@@ -7602,6 +8160,139 @@ export interface operations {
                     "application/json": {
                         [key: string]: unknown;
                     };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    login_api_v1_auth_login_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LoginRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TokenResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_profile_api_v1_auth_me_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserProfile"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    refresh_token_api_v1_auth_refresh_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RefreshRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TokenResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    register_api_v1_auth_register_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RegisterRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TokenResponse"];
                 };
             };
             /** @description Validation Error */
@@ -9724,7 +10415,7 @@ export interface operations {
             query: {
                 /** @description ID of user creating the fact */
                 created_by: string;
-                /** @description If true, fact is immediately approved without review */
+                /** @description Deprecated/refused: manual facts must enter human review */
                 auto_approve?: boolean;
             };
             header?: {
@@ -11529,6 +12220,7 @@ export interface operations {
         parameters: {
             query: {
                 project_id: string;
+                mode?: "auto" | "native" | "packet";
             };
             header?: {
                 /** @description Authorization: Bearer <token> */
@@ -11645,6 +12337,109 @@ export interface operations {
             };
         };
     };
+    coi_benchmarks_api_v1_sensing_coi_benchmarks_get: {
+        parameters: {
+            query?: {
+                /** @description Healthcare sub-sector (healthcare_hospital, healthcare_senior_living, etc.). Omit for all. */
+                sub_sector?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    coi_deal_benchmarks_api_v1_sensing_coi_deal_benchmarks_get: {
+        parameters: {
+            query?: {
+                /** @description Sub-sector key (hospital, senior_living, fqhc). Omit for all. */
+                sub_sector?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    credit_spread_monitor_api_v1_sensing_credit_spreads_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreditSpreadRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     track_event_api_v1_sensing_event_post: {
         parameters: {
             query?: never;
@@ -11721,7 +12516,14 @@ export interface operations {
                 limit?: number;
                 offset?: number;
             };
-            header?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+            };
             path?: never;
             cookie?: never;
         };
@@ -11736,6 +12538,134 @@ export interface operations {
                     "application/json": {
                         [key: string]: unknown;
                     }[];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_lead_api_v1_sensing_leads__lead_id__get: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+            };
+            path: {
+                lead_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    convert_lead_to_project_api_v1_sensing_leads__lead_id__convert_to_project_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+            };
+            path: {
+                lead_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LeadConvertRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_lead_funnel_api_v1_sensing_leads__lead_id__funnel_patch: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+            };
+            path: {
+                lead_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LeadFunnelUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
                 };
             };
             /** @description Validation Error */
@@ -11785,7 +12715,10 @@ export interface operations {
     };
     get_questionnaire_api_v1_sensing_questionnaire_get: {
         parameters: {
-            query?: never;
+            query?: {
+                /** @description Sector (waste, healthcare) */
+                sector?: string;
+            };
             header?: never;
             path?: never;
             cookie?: never;
@@ -11801,6 +12734,15 @@ export interface operations {
                     "application/json": {
                         [key: string]: unknown;
                     }[];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };
@@ -11856,8 +12798,100 @@ export interface operations {
                 };
                 content: {
                     "application/json": {
-                        [key: string]: string;
+                        [key: string]: unknown;
                     }[];
+                };
+            };
+        };
+    };
+    unsubscribe_api_v1_sensing_unsubscribe_get: {
+        parameters: {
+            query: {
+                /** @description Unsubscribe token */
+                token: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: string;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_checkout_session_api_v1_stripe_create_checkout_session_post: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CheckoutRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CheckoutResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    stripe_webhook_api_v1_stripe_webhook_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
                 };
             };
         };

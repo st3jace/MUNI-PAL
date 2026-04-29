@@ -14,6 +14,7 @@ export type RevenueScenarioMix = {
     covenant_trigger_diesel_price: number;
     dscr_mean: number;
     dscr_minimum: number;
+    dscr_parity_diesel_price?: (number | null);
     implied_rating: string;
     label: string;
     revenue_streams?: Array<RevenueStreamSlice>;

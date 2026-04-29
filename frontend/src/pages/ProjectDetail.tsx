@@ -192,7 +192,7 @@ export default function ProjectDetail() {
       icon: Gauge,
       color: 'bg-green-500',
     },
-    ...(project.sector === 'waste' ? [{
+    ...((project.sector === 'waste' || project.archetype_id === 'ucs_wte_cab_slb') ? [{
       name: 'Revenue Mix',
       description: 'Scenario diversification and DSCR view',
       href: `/projects/${projectId}/revenue-diversification`,

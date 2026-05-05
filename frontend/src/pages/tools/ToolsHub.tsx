@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { BarChart3, Calculator, ClipboardCheck, ArrowRight, Download, TrendingUp, Layers } from 'lucide-react'
+import { BarChart3, Calculator, ClipboardCheck, ArrowRight, Download, TrendingUp, Layers, Route } from 'lucide-react'
 import { useSensing } from '../../contexts/SensingContext'
 
 const tools = [
@@ -42,6 +42,14 @@ const tools = [
     href: '/tools/credit-spreads',
     icon: TrendingUp,
     color: 'bg-emerald-600',
+  },
+  {
+    name: 'Pilot Navigation',
+    description:
+      'Lead capture to pilot qualification path, BFMS project creation gate, pre-pilot checks, and advisor-safe handoff boundaries.',
+    href: '/tools/pilot-navigation',
+    icon: Route,
+    color: 'bg-indigo-600',
   },
 ]
 

@@ -25,6 +25,7 @@ import HealthcareCFOLanding from './pages/tools/HealthcareCFOLanding'
 import HealthcareReadiness from './pages/tools/HealthcareReadiness'
 import CoiBenchmarking from './pages/tools/CoiBenchmarking'
 import PricingPage from './pages/tools/PricingPage'
+import PilotNavigation from './pages/tools/PilotNavigation'
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
             <Route path="tools/benchmark" element={<BenchmarkCalculator />} />
             <Route path="tools/readiness" element={<ReadinessAssess />} />
             <Route path="tools/credit-spreads" element={<CreditSpreadMonitor />} />
+            <Route path="tools/pilot-navigation" element={<PilotNavigation />} />
             <Route path="tools/coi-benchmarking" element={<CoiBenchmarking />} />
             <Route path="tools/export" element={<ReportExport />} />
             <Route path="healthcare" element={<HealthcareCFOLanding />} />

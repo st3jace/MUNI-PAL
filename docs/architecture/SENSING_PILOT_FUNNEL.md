@@ -77,3 +77,10 @@ Gaps found during ELA-38 review that should be tracked separately:
 - ELA-45: Enforce qualified stage before /api/v1/sensing/leads/{lead_id}/convert-to-project can create a BFMS project.
 - ELA-46: Codify lead consent, retention, delete/export, and report-snapshot handling as production privacy controls.
 - ELA-47: Decide whether authenticated sensing-admin endpoints should be excluded from the public sensing deployment entirely or remain protected inside the sensing app.
+
+
+## ELA-56 public deployment entrypoint
+
+The public sensing deployment entrypoint is munipal.sensing_app, not munipal.main. Do not deploy munipal.main for the public sensing site: it mounts BFMS/admin route families such as auth, projects, artifacts, extraction, facts, deal documents, templates, and Stripe.
+
+The standalone public app includes only the sensing public_router plus health/root routes. Sensing lead-admin routes such as lead listing, funnel updates, privacy export/delete, and conversion to BFMS projects are excluded from the public route map rather than relying only on environment-dependent auth flags. This route-boundary check is covered by tests/unit/test_public_sensing_deployment_boundary.py.

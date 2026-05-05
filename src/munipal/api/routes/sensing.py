@@ -781,3 +781,30 @@ def _validate_sector(sector: str) -> None:
             status_code=404,
             detail=f"Sector '{sector}' not found. Available: {available}",
         )
+
+
+# Public sensing deployment router.
+#
+# The full  is used by the authenticated BFMS app so internal operators can
+# manage sensing leads and conversion. The standalone public sensing app must not
+# mount those admin routes at all because dev/staging auth flags can differ by
+# environment; exclusion is safer than relying on auth dependencies for public
+# deployment boundaries.
+public_router = APIRouter()
+_PUBLIC_SENSING_PATHS = {
+    "/privacy",
+    "/sectors",
+    "/market-intelligence",
+    "/benchmark",
+    "/credit-spreads",
+    "/questionnaire",
+    "/readiness",
+    "/coi-benchmarks",
+    "/coi-deal-benchmarks",
+    "/lead",
+    "/event",
+    "/unsubscribe",
+}
+for _route in router.routes:
+    if getattr(_route, "path", "") in _PUBLIC_SENSING_PATHS:
+        public_router.routes.append(_route)

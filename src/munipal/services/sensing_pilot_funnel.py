@@ -174,7 +174,7 @@ def standalone_sensing_app_route_violations(app: Any) -> list[str]:
     scope = SENSING_PILOT_FUNNEL_CONTRACT.deployment_scope
     allowed_exact = set(scope.allowed_non_sensing_routes)
     allowed_exact.update(scope.allowed_public_routes)
-    allowed_exact.update(scope.protected_sensing_admin_routes)
+    # Protected sensing-admin routes are intentionally excluded from the standalone public app.
 
     violations: list[str] = []
     for route in getattr(app, "routes", []):

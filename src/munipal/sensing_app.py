@@ -2,10 +2,10 @@
 Muni-Pal Sensing Microservice — Standalone FastAPI Application
 
 Public-facing sensing layer for the Bond Readiness Accelerator.
-Exposes ONLY the /api/sensing/* endpoints with rate limiting and CORS.
+Exposes ONLY public /api/v1/sensing/* endpoints with rate limiting and CORS.
 
 Deploy this instead of main.py for the public muni-pal.io service.
-All BFMS, project, admin, and extraction routes are excluded entirely.
+All BFMS, project, admin, extraction, and sensing-admin routes are excluded entirely.
 """
 
 from contextlib import asynccontextmanager
@@ -113,7 +113,7 @@ async def global_exception_handler(request: Request, exc: Exception) -> JSONResp
 # Routes — sensing only
 # ---------------------------------------------------------------------------
 app.include_router(health.router, tags=["Health"])
-app.include_router(sensing.router, prefix="/api/v1/sensing", tags=["Sensing"])
+app.include_router(sensing.public_router, prefix="/api/v1/sensing", tags=["Sensing"])
 
 
 # ---------------------------------------------------------------------------

@@ -1,0 +1,102 @@
+[
+  {
+    "file": "frontend/src/pages/tools/PricingPage.tsx",
+    "line": 135,
+    "context": "132: \n133: /* Stripe price IDs \u2014 monthly and annual for the Subscription tier */\n134: const STRIPE_PRICES = {\n135:   monthly: import.meta.env.VITE_STRIPE_PRICE_MONTHLY ?? '',\n136:   annual: import.meta.env.VITE_STRIPE_PRICE_ANNUAL ?? '',\n137: } as const\n138: \n139: const API_URL = ''  // Relative paths \u2014 Vercel/vite proxy rewrites to backend"
+  },
+  {
+    "file": "frontend/src/pages/tools/PricingPage.tsx",
+    "line": 136,
+    "context": "133: /* Stripe price IDs \u2014 monthly and annual for the Subscription tier */\n134: const STRIPE_PRICES = {\n135:   monthly: import.meta.env.VITE_STRIPE_PRICE_MONTHLY ?? '',\n136:   annual: import.meta.env.VITE_STRIPE_PRICE_ANNUAL ?? '',\n137: } as const\n138: \n139: const API_URL = ''  // Relative paths \u2014 Vercel/vite proxy rewrites to backend\n140: "
+  },
+  {
+    "file": "frontend/src/pages/tools/PricingPage.tsx",
+    "line": 145,
+    "context": "142:   const headers: Record<string, string> = { 'Content-Type': 'application/json' }\n143:   if (accessToken) headers['Authorization'] = `Bearer ${accessToken}`\n144: \n145:   const res = await fetch(`${API_URL}/api/v1/stripe/create-checkout-session`, {\n146:     method: 'POST',\n147:     headers,\n148:     body: JSON.stringify({ price_id: priceId }),\n149:   })"
+  },
+  {
+    "file": "frontend/src/pages/tools/PricingPage.tsx",
+    "line": 172,
+    "context": "169: \n170:   const handleSubscribe = async (priceId: string) => {\n171:     if (!user) {\n172:       navigate('/auth?mode=register&returnTo=/pricing')\n173:       return\n174:     }\n175:     if (!priceId) return\n176:     setCheckoutLoading(true)"
+  },
+  {
+    "file": "frontend/src/pages/tools/PricingPage.tsx",
+    "line": 330,
+    "context": "327:                 disabled={checkoutLoading || !STRIPE_PRICES.monthly}\n328:                 className=\"w-full text-center inline-flex items-center justify-center gap-2 bg-muni-teal hover:bg-[#259e9c] text-white font-semibold px-4 py-2.5 rounded-lg transition-colors text-sm disabled:opacity-60 disabled:cursor-not-allowed\"\n329:               >\n330:                 {checkoutLoading ? 'Redirecting...' : user ? 'Subscribe \u2014 $499/mo' : 'Create Account to Subscribe'}\n331:                 {!checkoutLoading && <ArrowRight className=\"h-4 w-4\" />}\n332:               </button>\n333:             )}\n334:           </div>"
+  },
+  {
+    "file": "frontend/src/pages/tools/PricingPage.tsx",
+    "line": 587,
+    "context": "584:       <p className=\"text-[11px] text-gray-400 mb-8 max-w-3xl\">\n585:         Pricing shown is indicative and subject to final scoping. Muni-Pal provides benchmarking,\n586:         preparation, and analytical tools \u2014 not investment advice. This is an educational and analytical\n587:         service. It does not constitute municipal advisory services as defined under Section 15B of the\n588:         Securities Exchange Act.\n589:       </p>\n590: \n591:       {/* Footer */}"
+  },
+  {
+    "file": "src/munipal/api/routes/stripe.py",
+    "line": 32,
+    "context": "29:     url: str\n30: \n31: \n32: @router.post(\"/create-checkout-session\", response_model=CheckoutResponse)\n33: async def create_checkout_session(\n34:     payload: CheckoutRequest,\n35:     user_id: CurrentUserId,\n36:     db: DbSession,"
+  },
+  {
+    "file": "src/munipal/api/routes/stripe.py",
+    "line": 47,
+    "context": "44:         session_params: dict = {\n45:             \"mode\": \"subscription\",\n46:             \"line_items\": [{\"price\": payload.price_id, \"quantity\": 1}],\n47:             \"success_url\": f\"{_FRONTEND_URL}/pricing?checkout=success\",\n48:             \"cancel_url\": f\"{_FRONTEND_URL}/pricing?checkout=cancel\",\n49:             \"customer_email\": user.email,\n50:             \"metadata\": {\"munipal_user_id\": user.id},\n51:         }"
+  },
+  {
+    "file": "src/munipal/api/routes/stripe.py",
+    "line": 48,
+    "context": "45:             \"mode\": \"subscription\",\n46:             \"line_items\": [{\"price\": payload.price_id, \"quantity\": 1}],\n47:             \"success_url\": f\"{_FRONTEND_URL}/pricing?checkout=success\",\n48:             \"cancel_url\": f\"{_FRONTEND_URL}/pricing?checkout=cancel\",\n49:             \"customer_email\": user.email,\n50:             \"metadata\": {\"munipal_user_id\": user.id},\n51:         }\n52:         if user.stripe_customer_id:"
+  },
+  {
+    "file": "src/munipal/api/routes/stripe.py",
+    "line": 97,
+    "context": "94:     event_type = event[\"type\"]\n95:     data = event[\"data\"][\"object\"]\n96: \n97:     if event_type == \"checkout.session.completed\":\n98:         await _provision_subscription(db, data)\n99:     elif event_type in (\n100:         \"customer.subscription.updated\",\n101:         \"customer.subscription.deleted\","
+  },
+  {
+    "file": "src/munipal/api/routes/stripe.py",
+    "line": 100,
+    "context": "97:     if event_type == \"checkout.session.completed\":\n98:         await _provision_subscription(db, data)\n99:     elif event_type in (\n100:         \"customer.subscription.updated\",\n101:         \"customer.subscription.deleted\",\n102:     ):\n103:         await _sync_subscription_status(db, data)\n104:     elif event_type == \"invoice.payment_failed\":"
+  },
+  {
+    "file": "src/munipal/api/routes/stripe.py",
+    "line": 101,
+    "context": "98:         await _provision_subscription(db, data)\n99:     elif event_type in (\n100:         \"customer.subscription.updated\",\n101:         \"customer.subscription.deleted\",\n102:     ):\n103:         await _sync_subscription_status(db, data)\n104:     elif event_type == \"invoice.payment_failed\":\n105:         customer_email = data.get(\"customer_email\")"
+  },
+  {
+    "file": "tests/integration/test_stripe_api.py",
+    "line": 49,
+    "context": "46: \n47: \n48: class TestCreateCheckoutSession:\n49:     \"\"\"POST /api/v1/stripe/create-checkout-session\"\"\"\n50: \n51:     @patch(\"munipal.api.routes.stripe.stripe.checkout.Session.create\")\n52:     async def test_checkout_success(self, mock_create, test_client, stripe_user):\n53:         mock_session = MagicMock()"
+  },
+  {
+    "file": "tests/integration/test_stripe_api.py",
+    "line": 58,
+    "context": "55:         mock_create.return_value = mock_session\n56: \n57:         resp = await test_client.post(\n58:             \"/api/v1/stripe/create-checkout-session\",\n59:             json={\"price_id\": \"price_abc\"},\n60:         )\n61:         assert resp.status_code == 200\n62:         assert resp.json()[\"url\"] == \"https://checkout.stripe.com/pay/cs_test_123\""
+  },
+  {
+    "file": "tests/integration/test_stripe_api.py",
+    "line": 77,
+    "context": "74:         mock_create.return_value = mock_session\n75: \n76:         resp = await test_client.post(\n77:             \"/api/v1/stripe/create-checkout-session\",\n78:             json={\"price_id\": \"price_xyz\"},\n79:         )\n80:         assert resp.status_code == 200\n81: "
+  },
+  {
+    "file": "tests/integration/test_stripe_api.py",
+    "line": 94,
+    "context": "91:             \"No such price\", param=\"price_id\"\n92:         )\n93:         resp = await test_client.post(\n94:             \"/api/v1/stripe/create-checkout-session\",\n95:             json={\"price_id\": \"price_bad\"},\n96:         )\n97:         assert resp.status_code == 400\n98: "
+  },
+  {
+    "file": "tests/integration/test_stripe_api.py",
+    "line": 106,
+    "context": "103:         mock_create.return_value = mock_session\n104: \n105:         resp = await test_client.post(\n106:             \"/api/v1/stripe/create-checkout-session\",\n107:             json={\"price_id\": \"price_ok\"},\n108:         )\n109:         assert resp.status_code == 502\n110: "
+  },
+  {
+    "file": "tests/integration/test_stripe_api.py",
+    "line": 136,
+    "context": "133:         await db_session.refresh(user)\n134: \n135:         event = self._build_event(\n136:             \"checkout.session.completed\",\n137:             {\n138:                 \"customer_details\": {\"email\": \"buyer@example.com\"},\n139:                 \"customer\": \"cus_new\",\n140:                 \"subscription\": \"sub_new\","
+  },
+  {
+    "file": "tests/integration/test_stripe_api.py",
+    "line": 174,
+    "context": "171:         await db_session.refresh(user)\n172: \n173:         event = self._build_event(\n174:             \"customer.subscription.deleted\",\n175:             {\"id\": \"sub_cancel\", \"status\": \"canceled\"},\n176:         )\n177:         mock_construct.return_value = event\n178: "
+  },
+  {
+    "file": "tests/integration/test_stripe_api.py",
+    "line": 206,
+    "context": "203:         await db_session.refresh(user)\n204: \n205:         event = self._build_event(\n206:             \"customer.subscription.updated\",\n207:             {\"id\": \"sub_active\", \"status\": \"active\"},\n208:         )\n209:         mock_construct.return_value = event\n210: "
+  }
+]

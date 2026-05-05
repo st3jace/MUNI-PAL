@@ -1,0 +1,78 @@
+{
+  "frontend/src/pages/tools/PricingPage.tsx": {
+    "exists": true,
+    "chars": 28413,
+    "contains": {
+      "Create Account to Subscribe": true,
+      "checkout=success": false,
+      "checkout=cancel": false,
+      "create-checkout-session": true,
+      "VITE_STRIPE_PRICE_MONTHLY": true,
+      "VITE_STRIPE_PRICE_ANNUAL": true,
+      "advisory services": true,
+      "municipal advisory": true,
+      "Stripe-Signature": false,
+      "checkout.session.completed": false,
+      "customer.subscription.updated": false,
+      "customer.subscription.deleted": false,
+      "/auth?mode=register&returnTo=/pricing": true
+    }
+  },
+  "frontend/src/pages/Auth.tsx": {
+    "exists": false,
+    "chars": 0,
+    "contains": {
+      "Create Account to Subscribe": false,
+      "checkout=success": false,
+      "checkout=cancel": false,
+      "create-checkout-session": false,
+      "VITE_STRIPE_PRICE_MONTHLY": false,
+      "VITE_STRIPE_PRICE_ANNUAL": false,
+      "advisory services": false,
+      "municipal advisory": false,
+      "Stripe-Signature": false,
+      "checkout.session.completed": false,
+      "customer.subscription.updated": false,
+      "customer.subscription.deleted": false,
+      "/auth?mode=register&returnTo=/pricing": false
+    }
+  },
+  "src/munipal/api/routes/stripe.py": {
+    "exists": true,
+    "chars": 5363,
+    "contains": {
+      "Create Account to Subscribe": false,
+      "checkout=success": true,
+      "checkout=cancel": true,
+      "create-checkout-session": true,
+      "VITE_STRIPE_PRICE_MONTHLY": false,
+      "VITE_STRIPE_PRICE_ANNUAL": false,
+      "advisory services": false,
+      "municipal advisory": false,
+      "Stripe-Signature": false,
+      "checkout.session.completed": true,
+      "customer.subscription.updated": true,
+      "customer.subscription.deleted": true,
+      "/auth?mode=register&returnTo=/pricing": false
+    }
+  },
+  "tests/integration/test_stripe_api.py": {
+    "exists": true,
+    "chars": 8765,
+    "contains": {
+      "Create Account to Subscribe": false,
+      "checkout=success": false,
+      "checkout=cancel": false,
+      "create-checkout-session": true,
+      "VITE_STRIPE_PRICE_MONTHLY": false,
+      "VITE_STRIPE_PRICE_ANNUAL": false,
+      "advisory services": false,
+      "municipal advisory": false,
+      "Stripe-Signature": false,
+      "checkout.session.completed": true,
+      "customer.subscription.updated": true,
+      "customer.subscription.deleted": true,
+      "/auth?mode=register&returnTo=/pricing": false
+    }
+  }
+}

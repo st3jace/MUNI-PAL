@@ -512,6 +512,16 @@ async def convert_lead_to_project(
             detail="Lead already converted to a project",
         )
 
+    if lead.funnel_stage != "qualified":
+        raise HTTPException(
+            status_code=409,
+            detail=(
+                "Lead must complete pilot qualification before BFMS project creation. "
+                f"Current funnel stage: {lead.funnel_stage}. "
+                "This qualified-stage gate is not deal approval and is not municipal advisory advice."
+            ),
+        )
+
     # Build project name
     project_name = body.project_name or f"{lead.organization} Bond Advisory"
 

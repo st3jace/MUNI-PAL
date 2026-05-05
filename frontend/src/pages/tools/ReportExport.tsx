@@ -64,6 +64,7 @@ export default function ReportExport() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [organization, setOrganization] = useState('')
+  const [privacyConsent, setPrivacyConsent] = useState(false)
   const [title, setTitle] = useState('')
   const [phone, setPhone] = useState('')
   const [dealSize, setDealSize] = useState('')
@@ -114,6 +115,8 @@ export default function ReportExport() {
         expected_rating: rating || undefined,
         referral_source: referralSource || undefined,
         session_id: getSensingSessionId(),
+        privacy_consent: privacyConsent,
+        consent_version: 'sensing-lead-v1',
         market_intel_json: sensing.marketIntel
           ? JSON.stringify(sensing.marketIntel)
           : undefined,
@@ -421,6 +424,22 @@ export default function ReportExport() {
                   </select>
                 </div>
               </div>
+
+              <label className="flex items-start gap-3 text-sm text-gray-600 mb-4">
+                <input
+                  type="checkbox"
+                  className="mt-1"
+                  checked={privacyConsent}
+                  onChange={(e) => setPrivacyConsent(e.target.checked)}
+                  required
+                />
+                <span>
+                  I consent to Muni-Pal collecting my contact details, organization context,
+                  sector/deal context, session events, and selected report snapshots to prepare
+                  this report and evaluate pilot fit. Outputs are screening artifacts, not legal
+                  advice, municipal advisory advice, deal approval, pricing, sizing, or issuance instructions.
+                </span>
+              </label>
 
               {error && (
                 <div className="bg-red-50 border border-red-200 text-red-700 rounded-lg p-3 text-sm mb-4">

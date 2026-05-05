@@ -6,8 +6,9 @@ and tracks their progression through the sensing tool funnel.
 """
 
 from datetime import datetime
+from uuid import uuid4
 
-from sqlalchemy import DateTime, Float, Integer, String, Text, func
+from sqlalchemy import Boolean, DateTime, Float, Integer, String, Text, func
 from sqlalchemy.orm import Mapped, mapped_column
 
 from munipal.db.base import Base, TimestampMixin, UUIDPrimaryKeyMixin
@@ -45,6 +46,20 @@ class SensingLead(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     market_intel_json: Mapped[str | None] = mapped_column(Text, nullable=True)
     benchmark_json: Mapped[str | None] = mapped_column(Text, nullable=True)
     readiness_json: Mapped[str | None] = mapped_column(Text, nullable=True)
+
+    # Email/privacy controls added by the email sequence migration.
+    email_sequence_step: Mapped[int] = mapped_column(
+        Integer, nullable=False, default=0, server_default="0"
+    )
+    last_email_sent_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    unsubscribed: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, default=False, server_default="0"
+    )
+    unsubscribe_token: Mapped[str] = mapped_column(
+        String(36), nullable=False, unique=True, default=lambda: str(uuid4())
+    )
 
 
 class SensingEvent(Base, UUIDPrimaryKeyMixin):

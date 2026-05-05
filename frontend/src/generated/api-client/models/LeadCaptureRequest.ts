@@ -11,6 +11,10 @@ export type LeadCaptureRequest = {
      */
     benchmark_json?: (string | null);
     /**
+     * Lead privacy consent version accepted by the submitter
+     */
+    consent_version?: string;
+    /**
      * Estimated deal size USD
      */
     deal_size_estimate?: (number | null);
@@ -38,6 +42,10 @@ export type LeadCaptureRequest = {
      * Phone number
      */
     phone?: (string | null);
+    /**
+     * Affirmative consent to collect contact details and report snapshots for report delivery and pilot-fit review
+     */
+    privacy_consent?: boolean;
     /**
      * Readiness assessment JSON
      */

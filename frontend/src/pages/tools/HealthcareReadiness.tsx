@@ -577,6 +577,7 @@ function LeadCaptureGate({
   const [name, setName] = useState('')
   const [organization, setOrganization] = useState('')
   const [title, setTitle] = useState('')
+  const [privacyConsent, setPrivacyConsent] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
 
@@ -595,6 +596,8 @@ function LeadCaptureGate({
         title: title || undefined,
         sector: `healthcare_${subSector}`,
         session_id: getSensingSessionId(),
+        privacy_consent: privacyConsent,
+        consent_version: 'sensing-lead-v1',
         readiness_json: JSON.stringify({
           overallScore: result.overallScore,
           tier: result.tier.label,
@@ -722,6 +725,22 @@ function LeadCaptureGate({
               />
             </div>
           </div>
+
+          <label className="flex items-start gap-3 text-xs text-gray-600">
+            <input
+              type="checkbox"
+              className="mt-0.5"
+              checked={privacyConsent}
+              onChange={(e) => setPrivacyConsent(e.target.checked)}
+              required
+            />
+            <span>
+              I consent to Muni-Pal collecting my contact details, organization context,
+              readiness snapshot, and session context to prepare this report and evaluate pilot fit.
+              Outputs are screening artifacts, not legal advice, municipal advisory advice, deal approval,
+              pricing, sizing, or issuance instructions.
+            </span>
+          </label>
 
           {error && (
             <p className="text-sm text-red-600">{error}</p>

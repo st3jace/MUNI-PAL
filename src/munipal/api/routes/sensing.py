@@ -29,6 +29,34 @@ from munipal.services import sensing
 
 router = APIRouter()
 
+LEAD_PRIVACY_CONTRACT: dict[str, Any] = {
+    "consent_version": "sensing-lead-v1",
+    "consent_copy": (
+        "I consent to Muni-Pal collecting my contact details, organization context, "
+        "sector/deal context, session events, and selected report snapshots to prepare "
+        "my requested report and evaluate pilot fit."
+    ),
+    "pii_categories": (
+        "contact_name",
+        "email",
+        "phone_optional",
+        "organization",
+        "title_optional",
+        "sector",
+        "estimated_deal_context_optional",
+        "report_snapshots_optional",
+    ),
+    "retention_days": 365,
+    "export_path": "/api/v1/sensing/leads/{lead_id}/privacy-export",
+    "delete_path": "/api/v1/sensing/leads/{lead_id}",
+    "unsubscribe_path": "/api/v1/sensing/unsubscribe",
+    "advisory_boundary": (
+        "Sensing outputs are screening artifacts for advisor/operator review and are "
+        "not legal advice, municipal advisory advice, deal approval, pricing, sizing, "
+        "or issuance instructions."
+    ),
+}
+
 
 # ---------------------------------------------------------------------------
 # Request/Response Models
@@ -83,6 +111,15 @@ class LeadCaptureRequest(BaseModel):
     referral_source: str | None = Field(default=None, description="How they heard about us")
     # Session link
     session_id: str = Field(..., description="Client session ID for event linkage")
+    # Privacy consent
+    privacy_consent: bool = Field(
+        default=False,
+        description="Affirmative consent to collect contact details and report snapshots for report delivery and pilot-fit review",
+    )
+    consent_version: str = Field(
+        default=LEAD_PRIVACY_CONTRACT["consent_version"],
+        description="Lead privacy consent version accepted by the submitter",
+    )
     # Report data snapshots (JSON strings)
     market_intel_json: str | None = Field(default=None, description="Market intelligence report JSON")
     benchmark_json: str | None = Field(default=None, description="Benchmark results JSON")
@@ -100,6 +137,12 @@ class EventRequest(BaseModel):
 # ---------------------------------------------------------------------------
 # Existing Sensing Endpoints
 # ---------------------------------------------------------------------------
+
+@router.get("/privacy")
+async def lead_privacy_contract() -> dict[str, Any]:
+    """Public lead-capture privacy, consent, retention, export, and delete posture."""
+    return LEAD_PRIVACY_CONTRACT
+
 
 @router.get("/sectors")
 async def list_sectors() -> list[dict[str, Any]]:
@@ -228,6 +271,15 @@ async def capture_lead(
     """
     from munipal.core.models.lead import SensingLead, SensingEvent
 
+    if not request.privacy_consent:
+        raise HTTPException(
+            status_code=422,
+            detail=(
+                "Privacy consent is required before collecting contact details, "
+                "organization context, and report snapshots for report delivery and pilot-fit review."
+            ),
+        )
+
     lead = SensingLead(
         email=request.email,
         name=request.name,
@@ -268,27 +320,53 @@ async def capture_lead(
         }),
     ))
 
+    db.add(SensingEvent(
+        lead_id=lead.id,
+        session_id=request.session_id,
+        event_type="lead_privacy_consent",
+        sector=request.sector,
+        event_data=json.dumps({
+            "consent_version": request.consent_version,
+            "consent_copy": LEAD_PRIVACY_CONTRACT["consent_copy"],
+            "pii_categories": LEAD_PRIVACY_CONTRACT["pii_categories"],
+            "report_snapshots": {
+                "market_intel": request.market_intel_json is not None,
+                "benchmark": request.benchmark_json is not None,
+                "readiness": request.readiness_json is not None,
+            },
+            "retention_days": LEAD_PRIVACY_CONTRACT["retention_days"],
+            "export_path": LEAD_PRIVACY_CONTRACT["export_path"],
+            "delete_path": LEAD_PRIVACY_CONTRACT["delete_path"],
+        }),
+    ))
+
     await db.commit()
     await db.refresh(lead)
 
-    # Fire async notifications (email to team + Telegram)
-    from munipal.workers.tasks.notification_tasks import send_lead_notification, send_sequence_email
-    lead_snapshot = {
-        "id": lead.id,
-        "email": lead.email,
-        "name": lead.name,
-        "organization": lead.organization,
-        "title": lead.title,
-        "phone": lead.phone,
-        "sector": lead.sector,
-        "deal_size_estimate": lead.deal_size_estimate,
-        "state": lead.state,
-        "expected_rating": lead.expected_rating,
-        "readiness_json": lead.readiness_json,
-    }
-    send_lead_notification.delay(lead_snapshot)
-    # Send Email 1 (score recap) immediately
-    send_sequence_email.delay(lead.id, 1)
+    # Fire async notifications (email to team + Telegram) when worker tasks are installed.
+    try:
+        from munipal.workers.tasks.notification_tasks import send_lead_notification, send_sequence_email
+    except ModuleNotFoundError:
+        send_lead_notification = None
+        send_sequence_email = None
+
+    if send_lead_notification is not None and send_sequence_email is not None:
+        lead_snapshot = {
+            "id": lead.id,
+            "email": lead.email,
+            "name": lead.name,
+            "organization": lead.organization,
+            "title": lead.title,
+            "phone": lead.phone,
+            "sector": lead.sector,
+            "deal_size_estimate": lead.deal_size_estimate,
+            "state": lead.state,
+            "expected_rating": lead.expected_rating,
+            "readiness_json": lead.readiness_json,
+        }
+        send_lead_notification.delay(lead_snapshot)
+        # Send Email 1 (score recap) immediately
+        send_sequence_email.delay(lead.id, 1)
 
     return {
         "lead_id": lead.id,
@@ -433,6 +511,77 @@ async def get_lead(
         "readiness_json": lead.readiness_json,
         "created_at": lead.created_at.isoformat() if lead.created_at else None,
     }
+
+
+@router.get("/leads/{lead_id}/privacy-export", dependencies=[Depends(require_auth)])
+async def export_lead_privacy_data(
+    lead_id: str,
+    db: AsyncSession = Depends(get_async_session),
+) -> dict[str, Any]:
+    """Export launch-scope lead PII, report snapshots, and privacy policy metadata."""
+    from munipal.core.models.lead import SensingLead
+
+    lead = await db.get(SensingLead, lead_id)
+    if not lead:
+        raise HTTPException(status_code=404, detail=f"Lead {lead_id} not found")
+
+    return {
+        "lead_id": lead.id,
+        "consent_contract": LEAD_PRIVACY_CONTRACT,
+        "contact": {
+            "email": lead.email,
+            "name": lead.name,
+            "organization": lead.organization,
+            "title": lead.title,
+            "phone": lead.phone,
+        },
+        "deal_context": {
+            "sector": lead.sector,
+            "deal_size_estimate": lead.deal_size_estimate,
+            "state": lead.state,
+            "expected_rating": lead.expected_rating,
+            "referral_source": lead.referral_source,
+            "funnel_stage": lead.funnel_stage,
+        },
+        "report_snapshots": {
+            "market_intel_json": lead.market_intel_json,
+            "benchmark_json": lead.benchmark_json,
+            "readiness_json": lead.readiness_json,
+        },
+        "email_preferences": {
+            "unsubscribed": getattr(lead, "unsubscribed", False),
+            "email_sequence_step": getattr(lead, "email_sequence_step", 0),
+            "last_email_sent_at": (
+                lead.last_email_sent_at.isoformat()
+                if getattr(lead, "last_email_sent_at", None) else None
+            ),
+        },
+        "created_at": lead.created_at.isoformat() if lead.created_at else None,
+        "updated_at": lead.updated_at.isoformat() if lead.updated_at else None,
+    }
+
+
+@router.delete("/leads/{lead_id}", dependencies=[Depends(require_auth)])
+async def delete_lead_privacy_data(
+    lead_id: str,
+    db: AsyncSession = Depends(get_async_session),
+) -> dict[str, str]:
+    """Delete a launch-scope sensing lead record after authenticated admin review."""
+    from munipal.core.models.lead import SensingLead, SensingEvent
+    from sqlalchemy import update
+
+    lead = await db.get(SensingLead, lead_id)
+    if not lead:
+        raise HTTPException(status_code=404, detail=f"Lead {lead_id} not found")
+
+    await db.execute(
+        update(SensingEvent)
+        .where(SensingEvent.lead_id == lead.id)
+        .values(lead_id=None, event_data=json.dumps({"privacy_delete": "lead_record_deleted"}))
+    )
+    await db.delete(lead)
+    await db.commit()
+    return {"lead_id": lead_id, "status": "deleted"}
 
 
 @router.patch("/leads/{lead_id}/funnel", dependencies=[Depends(require_auth)])

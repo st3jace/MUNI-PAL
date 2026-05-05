@@ -189,6 +189,38 @@ export class SensingService {
         });
     }
     /**
+     * Delete Lead Privacy Data
+     * Delete a launch-scope sensing lead record after authenticated admin review.
+     * @param leadId
+     * @param authorization Authorization: Bearer <token>
+     * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
+     * @returns string Successful Response
+     * @throws ApiError
+     */
+    public static deleteLeadPrivacyDataApiV1SensingLeadsLeadIdDelete(
+        leadId: string,
+        authorization?: (string | null),
+        xUserId?: (string | null),
+        xTenantId?: (string | null),
+    ): CancelablePromise<Record<string, string>> {
+        return __request(OpenAPI, {
+            method: 'DELETE',
+            url: '/api/v1/sensing/leads/{lead_id}',
+            path: {
+                'lead_id': leadId,
+            },
+            headers: {
+                'authorization': authorization,
+                'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Get Lead
      * Get a single sensing lead with full detail including report snapshots.
      * @param leadId
@@ -308,6 +340,38 @@ export class SensingService {
         });
     }
     /**
+     * Export Lead Privacy Data
+     * Export launch-scope lead PII, report snapshots, and privacy policy metadata.
+     * @param leadId
+     * @param authorization Authorization: Bearer <token>
+     * @param xUserId User ID for development auth
+     * @param xTenantId Tenant ID for tenant isolation
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static exportLeadPrivacyDataApiV1SensingLeadsLeadIdPrivacyExportGet(
+        leadId: string,
+        authorization?: (string | null),
+        xUserId?: (string | null),
+        xTenantId?: (string | null),
+    ): CancelablePromise<Record<string, any>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/sensing/leads/{lead_id}/privacy-export',
+            path: {
+                'lead_id': leadId,
+            },
+            headers: {
+                'authorization': authorization,
+                'x-user-id': xUserId,
+                'x-tenant-id': xTenantId,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+    /**
      * Market Intelligence
      * Generate Sector Market Intelligence Report.
      * @param sector Sector (waste, healthcare)
@@ -326,6 +390,18 @@ export class SensingService {
             errors: {
                 422: `Validation Error`,
             },
+        });
+    }
+    /**
+     * Lead Privacy Contract
+     * Public lead-capture privacy, consent, retention, export, and delete posture.
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static leadPrivacyContractApiV1SensingPrivacyGet(): CancelablePromise<Record<string, any>> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/sensing/privacy',
         });
     }
     /**

@@ -2630,7 +2630,11 @@ export interface paths {
         get: operations["get_lead_api_v1_sensing_leads__lead_id__get"];
         put?: never;
         post?: never;
-        delete?: never;
+        /**
+         * Delete Lead Privacy Data
+         * @description Delete a launch-scope sensing lead record after authenticated admin review.
+         */
+        delete: operations["delete_lead_privacy_data_api_v1_sensing_leads__lead_id__delete"];
         options?: never;
         head?: never;
         patch?: never;
@@ -2691,6 +2695,26 @@ export interface paths {
         patch: operations["update_lead_funnel_api_v1_sensing_leads__lead_id__funnel_patch"];
         trace?: never;
     };
+    "/api/v1/sensing/leads/{lead_id}/privacy-export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Export Lead Privacy Data
+         * @description Export launch-scope lead PII, report snapshots, and privacy policy metadata.
+         */
+        get: operations["export_lead_privacy_data_api_v1_sensing_leads__lead_id__privacy_export_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/sensing/market-intelligence": {
         parameters: {
             query?: never;
@@ -2703,6 +2727,26 @@ export interface paths {
          * @description Generate Sector Market Intelligence Report.
          */
         get: operations["market_intelligence_api_v1_sensing_market_intelligence_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/sensing/privacy": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Lead Privacy Contract
+         * @description Public lead-capture privacy, consent, retention, export, and delete posture.
+         */
+        get: operations["lead_privacy_contract_api_v1_sensing_privacy_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -5497,6 +5541,12 @@ export interface components {
              */
             benchmark_json?: string | null;
             /**
+             * Consent Version
+             * @description Lead privacy consent version accepted by the submitter
+             * @default sensing-lead-v1
+             */
+            consent_version: string;
+            /**
              * Deal Size Estimate
              * @description Estimated deal size USD
              */
@@ -5531,6 +5581,12 @@ export interface components {
              * @description Phone number
              */
             phone?: string | null;
+            /**
+             * Privacy Consent
+             * @description Affirmative consent to collect contact details and report snapshots for report delivery and pilot-fit review
+             * @default false
+             */
+            privacy_consent: boolean;
             /**
              * Readiness Json
              * @description Readiness assessment JSON
@@ -12591,6 +12647,46 @@ export interface operations {
             };
         };
     };
+    delete_lead_privacy_data_api_v1_sensing_leads__lead_id__delete: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+            };
+            path: {
+                lead_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: string;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     convert_lead_to_project_api_v1_sensing_leads__lead_id__convert_to_project_post: {
         parameters: {
             query?: never;
@@ -12679,6 +12775,46 @@ export interface operations {
             };
         };
     };
+    export_lead_privacy_data_api_v1_sensing_leads__lead_id__privacy_export_get: {
+        parameters: {
+            query?: never;
+            header?: {
+                /** @description Authorization: Bearer <token> */
+                authorization?: string | null;
+                /** @description User ID for development auth */
+                "x-user-id"?: string | null;
+                /** @description Tenant ID for tenant isolation */
+                "x-tenant-id"?: string | null;
+            };
+            path: {
+                lead_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
     market_intelligence_api_v1_sensing_market_intelligence_get: {
         parameters: {
             query: {
@@ -12709,6 +12845,28 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    lead_privacy_contract_api_v1_sensing_privacy_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
                 };
             };
         };

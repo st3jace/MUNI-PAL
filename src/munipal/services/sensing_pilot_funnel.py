@@ -75,12 +75,14 @@ SENSING_PILOT_FUNNEL_CONTRACT = SensingPilotFunnelContract(
             "/api/v1/sensing/lead",
             "/api/v1/sensing/event",
             "/api/v1/sensing/unsubscribe",
+            "/api/v1/sensing/privacy",
         ),
         protected_sensing_admin_routes=(
             "/api/v1/sensing/leads",
             "/api/v1/sensing/leads/{lead_id}",
             "/api/v1/sensing/leads/{lead_id}/funnel",
             "/api/v1/sensing/leads/{lead_id}/convert-to-project",
+            "/api/v1/sensing/leads/{lead_id}/privacy-export",
         ),
         blocked_bfms_route_prefixes=(
             "/api/v1/auth",
@@ -146,11 +148,11 @@ SENSING_PILOT_FUNNEL_CONTRACT = SensingPilotFunnelContract(
     privacy_compliance=PrivacyComplianceExpectations(
         public_surface_posture="lead-generation-only",
         required_controls=(
-            "Consent language must state why contact details and report snapshots are collected.",
+            "Consent language and consent version must state why contact details and report snapshots are collected.",
             "PII is minimized to contact, organization, sector, estimated deal context, and selected report snapshots.",
             "Protected sensing admin endpoints require auth and must not be exposed as public lead tools.",
             "Unsubscribe support is required for email drip follow-up.",
-            "Retention/export/delete policy must be defined before production lead-scale rollout.",
+            "Retention, export, and delete policy must be defined for launch-scope lead records and report snapshots.",
             "No legal advice, municipal advisory advice, deal approval, pricing recommendation, or issuance instruction may be implied by sensing outputs.",
         ),
         prohibited_uses=(

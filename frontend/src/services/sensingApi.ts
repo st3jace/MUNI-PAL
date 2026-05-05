@@ -52,6 +52,8 @@ export interface LeadCaptureParams {
   expected_rating?: string
   referral_source?: string
   session_id: string
+  privacy_consent: boolean
+  consent_version?: string
   market_intel_json?: string
   benchmark_json?: string
   readiness_json?: string

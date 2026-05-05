@@ -5137,6 +5137,12 @@
             "description": "Benchmark results JSON",
             "title": "Benchmark Json"
           },
+          "consent_version": {
+            "default": "sensing-lead-v1",
+            "description": "Lead privacy consent version accepted by the submitter",
+            "title": "Consent Version",
+            "type": "string"
+          },
           "deal_size_estimate": {
             "anyOf": [
               {
@@ -5199,6 +5205,12 @@
             ],
             "description": "Phone number",
             "title": "Phone"
+          },
+          "privacy_consent": {
+            "default": false,
+            "description": "Affirmative consent to collect contact details and report snapshots for report delivery and pilot-fit review",
+            "title": "Privacy Consent",
+            "type": "boolean"
           },
           "readiness_json": {
             "anyOf": [
@@ -23424,6 +23436,105 @@
       }
     },
     "/api/v1/sensing/leads/{lead_id}": {
+      "delete": {
+        "description": "Delete a launch-scope sensing lead record after authenticated admin review.",
+        "operationId": "delete_lead_privacy_data_api_v1_sensing_leads__lead_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "lead_id",
+            "required": true,
+            "schema": {
+              "title": "Lead Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Authorization: Bearer <token>",
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Authorization: Bearer <token>",
+              "title": "Authorization"
+            }
+          },
+          {
+            "description": "User ID for development auth",
+            "in": "header",
+            "name": "x-user-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "User ID for development auth",
+              "title": "X-User-Id"
+            }
+          },
+          {
+            "description": "Tenant ID for tenant isolation",
+            "in": "header",
+            "name": "x-tenant-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Tenant ID for tenant isolation",
+              "title": "X-Tenant-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Delete Lead Privacy Data Api V1 Sensing Leads  Lead Id  Delete",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete Lead Privacy Data",
+        "tags": [
+          "Sensing"
+        ]
+      },
       "get": {
         "description": "Get a single sensing lead with full detail including report snapshots.",
         "operationId": "get_lead_api_v1_sensing_leads__lead_id__get",
@@ -23740,6 +23851,105 @@
         ]
       }
     },
+    "/api/v1/sensing/leads/{lead_id}/privacy-export": {
+      "get": {
+        "description": "Export launch-scope lead PII, report snapshots, and privacy policy metadata.",
+        "operationId": "export_lead_privacy_data_api_v1_sensing_leads__lead_id__privacy_export_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "lead_id",
+            "required": true,
+            "schema": {
+              "title": "Lead Id",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Authorization: Bearer <token>",
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Authorization: Bearer <token>",
+              "title": "Authorization"
+            }
+          },
+          {
+            "description": "User ID for development auth",
+            "in": "header",
+            "name": "x-user-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "User ID for development auth",
+              "title": "X-User-Id"
+            }
+          },
+          {
+            "description": "Tenant ID for tenant isolation",
+            "in": "header",
+            "name": "x-tenant-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Tenant ID for tenant isolation",
+              "title": "X-Tenant-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Export Lead Privacy Data Api V1 Sensing Leads  Lead Id  Privacy Export Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Export Lead Privacy Data",
+        "tags": [
+          "Sensing"
+        ]
+      }
+    },
     "/api/v1/sensing/market-intelligence": {
       "get": {
         "description": "Generate Sector Market Intelligence Report.",
@@ -23782,6 +23992,30 @@
           }
         },
         "summary": "Market Intelligence",
+        "tags": [
+          "Sensing"
+        ]
+      }
+    },
+    "/api/v1/sensing/privacy": {
+      "get": {
+        "description": "Public lead-capture privacy, consent, retention, export, and delete posture.",
+        "operationId": "lead_privacy_contract_api_v1_sensing_privacy_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Lead Privacy Contract Api V1 Sensing Privacy Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Lead Privacy Contract",
         "tags": [
           "Sensing"
         ]

@@ -72,11 +72,13 @@ Production expectations:
 
 ## Follow-up implementation issues
 
-Gaps found during ELA-38 review that should be tracked separately:
+The original ELA-38 review identified three launch-readiness follow-up gaps. Those gaps are now resolved by the launch bridge issues below:
 
-- ELA-45: Enforce qualified stage before /api/v1/sensing/leads/{lead_id}/convert-to-project can create a BFMS project.
-- ELA-46: Codify lead consent, retention, delete/export, and report-snapshot handling as production privacy controls.
-- ELA-47: Decide whether authenticated sensing-admin endpoints should be excluded from the public sensing deployment entirely or remain protected inside the sensing app.
+- ELA-45 is superseded/resolved by ELA-54: qualified-stage enforcement now blocks /api/v1/sensing/leads/{lead_id}/convert-to-project before BFMS project creation unless the lead is qualified.
+- ELA-46 is superseded/resolved by ELA-55: lead privacy consent, consent event capture, unsubscribe model alignment, retention posture, privacy export, delete handling, and report-snapshot handling are now codified and tested.
+- ELA-47 is superseded/resolved by ELA-56: the standalone public sensing deployment uses munipal.sensing_app with sensing.public_router, excluding both BFMS/admin route families and sensing lead-admin routes from the public route map.
+
+Remaining launch review after these fixes should focus on live deployment configuration, full BFMS auth hardening, seeded walkthrough data, and pilot/demo QA rather than reopening the ELA-45/46/47 scope.
 
 
 ## ELA-56 public deployment entrypoint

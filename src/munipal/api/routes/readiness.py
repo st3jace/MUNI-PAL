@@ -223,7 +223,7 @@ async def get_readiness_explanation(
     assessment = await service.compute_assessment(project_id)
 
     dimension_explanations = {
-        dim.value: {
+        (dim.value if hasattr(dim, "value") else str(dim)): {
             "name": score.dimension_name,
             "score": score.score,
             "explanation": score.explanation,

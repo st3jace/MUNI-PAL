@@ -108,6 +108,24 @@ class TestReadinessAPI:
         assert "material_gaps" in data
         assert "priority_actions" in data
 
+    async def test_get_readiness_explanation_handles_string_dimension_keys(self, test_client, project_with_approved_facts, auth_headers):
+        """Readiness explanation should not crash when assessment dimension keys are strings."""
+        project_id = project_with_approved_facts["project"]["id"]
+
+        response = await test_client.get(
+            f"/api/v1/readiness/explanation?project_id={project_id}",
+            headers=auth_headers,
+        )
+
+        assert response.status_code == 200
+        data = response.json()
+        assert "summary" in data
+        assert "dimension_explanations" in data
+        assert "recommendation_rationale" in data
+        assert data["dimension_explanations"]
+        assert all(isinstance(key, str) for key in data["dimension_explanations"].keys())
+
+
     async def test_get_dimension_detail(self, test_client, project_with_approved_facts, auth_headers):
         """Test getting detail for a specific dimension."""
         project_id = project_with_approved_facts["project"]["id"]

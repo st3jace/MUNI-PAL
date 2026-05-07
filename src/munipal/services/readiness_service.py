@@ -18,6 +18,7 @@ from sqlalchemy import select, and_, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from munipal.core.models.fact import ExtractedFact
+from munipal.core.models.project import Project
 from munipal.core.schemas.base import ReadinessDimension, ReviewStatus, CriticalityTier
 from munipal.core.schemas.readiness import (
     DimensionScore,
@@ -72,6 +73,102 @@ RECOMMENDATION_RATIONALES = {
 }
 
 
+SECTOR_READINESS_PROFILES = {
+    "healthcare_hospital": {
+        "dimension_names": {
+            ReadinessDimension.ISSUER_AUTHORITY: "Issuer Authority & Tax-Exempt Eligibility",
+            ReadinessDimension.PROJECT_TECH: "Hospital / Healthcare Project Scope",
+            ReadinessDimension.REVENUE_FEEDSTOCK: "Audited Financials & Demand",
+            ReadinessDimension.CAB_FINANCIAL: "Revenue Pledge & Coverage",
+            ReadinessDimension.RISK_SECURITY_SLB: "Healthcare Risk & Disclosure",
+            ReadinessDimension.SLB_VERIFICATION: "Disclosure & Advisor Readiness",
+        },
+        "dimensions": {
+            ReadinessDimension.ISSUER_AUTHORITY: {
+                "contributing_paths": ["governance.inducement", "bond_counsel.tax_certificate"],
+                "critical_paths": ["governance.inducement", "bond_counsel.tax_certificate"],
+            },
+            ReadinessDimension.PROJECT_TECH: {
+                "contributing_paths": ["project.name", "project.location", "capital.project-cost"],
+                "critical_paths": ["project.name", "capital.project-cost"],
+            },
+            ReadinessDimension.REVENUE_FEEDSTOCK: {
+                "contributing_paths": ["financials.audited-statements", "market.demand"],
+                "critical_paths": ["financials.audited-statements", "market.demand"],
+            },
+            ReadinessDimension.CAB_FINANCIAL: {
+                "contributing_paths": ["security.revenue.pledge", "debt_service.reserve_policy"],
+                "critical_paths": ["security.revenue.pledge", "debt_service.reserve_policy"],
+            },
+            ReadinessDimension.RISK_SECURITY_SLB: {
+                "contributing_paths": ["disclosure.risk-factors"],
+                "critical_paths": ["disclosure.risk-factors"],
+            },
+            ReadinessDimension.SLB_VERIFICATION: {
+                "contributing_paths": ["rating.preliminary_indication"],
+                "critical_paths": ["rating.preliminary_indication"],
+            },
+        },
+        "path_labels": {
+            "bond_counsel.tax_certificate": "Bond counsel tax certificate",
+            "rating.preliminary_indication": "Preliminary rating indication",
+            "debt_service.reserve_policy": "Debt service reserve policy",
+            "financials.audited-statements": "Audited financial statements",
+            "market.demand": "Service-area demand evidence",
+            "security.revenue.pledge": "Healthcare revenue pledge",
+            "disclosure.risk-factors": "Healthcare disclosure risk factors",
+            "capital.project-cost": "Healthcare capital project cost",
+        },
+    },
+    "housing_affordable_multifamily": {
+        "dimension_names": {
+            ReadinessDimension.ISSUER_AUTHORITY: "Issuer & Inducement Readiness",
+            ReadinessDimension.PROJECT_TECH: "Affordable Housing Project Scope",
+            ReadinessDimension.REVENUE_FEEDSTOCK: "Affordability & Subsidy Stack",
+            ReadinessDimension.CAB_FINANCIAL: "Housing Finance Readiness",
+            ReadinessDimension.RISK_SECURITY_SLB: "Site Control & Diligence",
+            ReadinessDimension.SLB_VERIFICATION: "Housing Disclosure & Advisor Readiness",
+        },
+        "dimensions": {
+            ReadinessDimension.ISSUER_AUTHORITY: {
+                "contributing_paths": ["governance.inducement", "bond_counsel.inducement_resolution"],
+                "critical_paths": ["governance.inducement", "bond_counsel.inducement_resolution"],
+            },
+            ReadinessDimension.PROJECT_TECH: {
+                "contributing_paths": ["project.name", "project.location", "capital.project-cost", "housing.units.total"],
+                "critical_paths": ["project.name", "capital.project-cost", "housing.units.total"],
+            },
+            ReadinessDimension.REVENUE_FEEDSTOCK: {
+                "contributing_paths": ["housing.affordability.restrictions", "housing.tax_credit_allocation"],
+                "critical_paths": ["housing.affordability.restrictions", "housing.tax_credit_allocation"],
+            },
+            ReadinessDimension.CAB_FINANCIAL: {
+                "contributing_paths": ["housing.appraisal"],
+                "critical_paths": ["housing.appraisal"],
+            },
+            ReadinessDimension.RISK_SECURITY_SLB: {
+                "contributing_paths": ["project.location.sitecontrol", "environmental.phase_one"],
+                "critical_paths": ["project.location.sitecontrol", "environmental.phase_one"],
+            },
+            ReadinessDimension.SLB_VERIFICATION: {
+                "contributing_paths": ["bond_counsel.inducement_resolution"],
+                "critical_paths": ["bond_counsel.inducement_resolution"],
+            },
+        },
+        "path_labels": {
+            "bond_counsel.inducement_resolution": "Bond counsel inducement resolution",
+            "housing.appraisal": "Housing appraisal",
+            "housing.tax_credit_allocation": "Tax credit allocation",
+            "environmental.phase_one": "Phase One environmental report",
+            "housing.units.total": "Total affordable housing units",
+            "housing.affordability.restrictions": "Affordability restrictions",
+            "project.location.sitecontrol": "Site control evidence",
+            "capital.project-cost": "Housing development budget",
+        },
+    },
+}
+
+
 class ReadinessService:
     """
     Service for computing readiness scores.
@@ -87,6 +184,41 @@ class ReadinessService:
         self.session = session
         self._schema_path_config = {p["path"]: p for p in SCHEMA_PATHS}
         self._readiness_config = READINESS_CONFIG["dimensions"]
+        self._sector_profile = None
+
+
+    async def _get_sector_profile(self, project_id: UUID) -> dict | None:
+        """Return sector-specific readiness profile for the project, if configured."""
+        result = await self.session.execute(select(Project).where(Project.id == str(project_id)))
+        project = result.scalar_one_or_none()
+        if project is None:
+            return None
+        return (
+            SECTOR_READINESS_PROFILES.get(project.subsector or "")
+            or SECTOR_READINESS_PROFILES.get(project.sector or "")
+        )
+
+    def _dimension_config(self, dimension: ReadinessDimension) -> dict | None:
+        if getattr(self, "_sector_profile", None):
+            return self._sector_profile["dimensions"].get(dimension)
+        return self._readiness_config.get(dimension.value)
+
+    def _dimension_name(self, dimension: ReadinessDimension) -> str:
+        if getattr(self, "_sector_profile", None):
+            return self._sector_profile["dimension_names"].get(dimension, DIMENSION_NAMES[dimension])
+        return DIMENSION_NAMES[dimension]
+
+    def _path_label(self, path: str) -> str:
+        if getattr(self, "_sector_profile", None):
+            label = self._sector_profile.get("path_labels", {}).get(path)
+            if label:
+                return label
+        return self._schema_path_config.get(path, {}).get("display_name", path)
+
+    def _path_config(self, path: str) -> dict:
+        config = dict(self._schema_path_config.get(path, {}))
+        config["display_name"] = self._path_label(path)
+        return config
 
     # -------------------------------------------------------------------------
     # Score Computation
@@ -102,6 +234,8 @@ class ReadinessService:
         Returns:
             ReadinessAssessment with all dimension scores
         """
+        self._sector_profile = await self._get_sector_profile(project_id)
+
         # Get all approved facts for project
         approved_facts = await self._get_approved_facts(project_id)
         facts_by_path = FactService.select_preferred_facts_by_path(approved_facts)
@@ -158,25 +292,25 @@ class ReadinessService:
         5. Scale to 0-5
         """
         dim_key = dimension.value
-        if dim_key not in self._readiness_config:
+        if self._dimension_config(dimension) is None:
             # Handle missing config
             return DimensionScore(
                 dimension=dimension,
-                dimension_name=DIMENSION_NAMES[dimension],
+                dimension_name=self._dimension_name(dimension),
                 score=0.0,
                 weight=DIMENSION_WEIGHTS[dimension],
                 weighted_contribution=0.0,
                 explanation="Dimension configuration not found",
             )
 
-        config = self._readiness_config[dim_key]
+        config = self._dimension_config(dimension)
         contributing_paths = config.get("contributing_paths", [])
         critical_paths = set(config.get("critical_paths", []))
 
         if not contributing_paths:
             return DimensionScore(
                 dimension=dimension,
-                dimension_name=DIMENSION_NAMES[dimension],
+                dimension_name=self._dimension_name(dimension),
                 score=5.0,  # Full score if no paths required
                 weight=DIMENSION_WEIGHTS[dimension],
                 weighted_contribution=5.0 * DIMENSION_WEIGHTS[dimension],
@@ -247,7 +381,7 @@ class ReadinessService:
 
         return DimensionScore(
             dimension=dimension,
-            dimension_name=DIMENSION_NAMES[dimension],
+            dimension_name=self._dimension_name(dimension),
             score=score,
             weight=weight,
             weighted_contribution=weighted,
@@ -269,7 +403,7 @@ class ReadinessService:
         material_total: int,
     ) -> str:
         """Generate why-it-matters narrative for dimension."""
-        dim_name = DIMENSION_NAMES[dimension]
+        dim_name = self._dimension_name(dimension)
 
         if score >= 4.5:
             return (
@@ -308,7 +442,7 @@ class ReadinessService:
         missing_critical = sorted(p for p in critical_paths if p not in facts_by_path)
         if missing_critical:
             path_names = [
-                self._schema_path_config.get(p, {}).get("display_name", p)
+                self._path_label(p)
                 for p in missing_critical[:3]  # Limit to top 3
             ]
             suggestions.append(
@@ -360,6 +494,7 @@ class ReadinessService:
 
         Returns gaps organized by criticality with improvement suggestions.
         """
+        self._sector_profile = await self._get_sector_profile(project_id)
         approved_facts = await self._get_approved_facts(project_id)
         facts_by_path = FactService.select_preferred_facts_by_path(approved_facts)
 
@@ -371,11 +506,10 @@ class ReadinessService:
 
         # Analyze each dimension for gaps
         for dim in ReadinessDimension:
-            dim_key = dim.value
-            if dim_key not in self._readiness_config:
+            config = self._dimension_config(dim)
+            if config is None:
                 continue
 
-            config = self._readiness_config[dim_key]
             contributing_paths = config.get("contributing_paths", [])
             critical_paths = set(config.get("critical_paths", []))
 
@@ -384,7 +518,7 @@ class ReadinessService:
                     continue  # Not a gap
 
                 # Determine criticality
-                path_config = self._schema_path_config.get(path, {})
+                path_config = self._path_config(path)
                 path_criticality = path_config.get("criticality", "secondary")
 
                 # Override with dimension critical designation
@@ -392,14 +526,13 @@ class ReadinessService:
                     path_criticality = "critical"
 
                 # Get short_description from metadata
-                metadata = SCHEMA_PATH_METADATA.get(path, {})
-                short_desc = metadata.get("short_description", "")
+                short_desc = self._path_label(path)
 
                 gap = ReadinessGap(
                     schema_path=path,
                     dimension=dim,
                     criticality=path_criticality,
-                    description=path_config.get("display_name", path),
+                    description=self._path_label(path),
                     short_description=short_desc,
                     impact=self._get_gap_impact(path_criticality, dim),
                     suggested_evidence=self._suggest_evidence(path, path_config),
@@ -428,7 +561,7 @@ class ReadinessService:
 
     def _get_gap_impact(self, criticality: str, dimension: ReadinessDimension) -> str:
         """Generate impact statement for a gap."""
-        dim_name = DIMENSION_NAMES[dimension]
+        dim_name = self._dimension_name(dimension)
 
         if criticality == "critical":
             return f"Blocks {dim_name} from achieving full readiness. Required for deal progression."
@@ -440,7 +573,7 @@ class ReadinessService:
     def _suggest_evidence(self, path: str, path_config: dict) -> str:
         """Suggest what evidence would fill a gap."""
         value_type = path_config.get("value_type", "string")
-        display_name = path_config.get("display_name", path)
+        display_name = self._path_label(path)
 
         suggestions = {
             "currency": f"Financial document showing {display_name} (dollar amount)",
@@ -468,7 +601,7 @@ class ReadinessService:
         if critical_gaps:
             critical_by_dim = {}
             for gap in critical_gaps:
-                dim_name = DIMENSION_NAMES[gap.dimension]
+                dim_name = self._dimension_name(gap.dimension)
                 if dim_name not in critical_by_dim:
                     critical_by_dim[dim_name] = []
                 critical_by_dim[dim_name].append(gap.description)

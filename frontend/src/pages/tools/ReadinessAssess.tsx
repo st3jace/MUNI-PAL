@@ -50,7 +50,7 @@ const SUB_SECTOR_META: Record<
 
 function tierColor(tier: string): string {
   switch (tier) {
-    case 'Bond Ready':
+    case 'Advisor Review Ready':
       return 'text-green-700 bg-green-50 border-green-300'
     case 'Nearly Ready':
       return 'text-blue-700 bg-blue-50 border-blue-300'
@@ -123,13 +123,13 @@ function ResultsView({ data }: { data: any }) {
                 Cost of Issuance Impact
               </h3>
               <p className="text-sm text-amber-800 mt-1">
-                Incomplete readiness may add{' '}
+                Incomplete readiness may contribute to{' '}
                 <span className="font-bold">
                   {typeof data.coi_estimate === 'object'
                     ? `${formatCurrency(data.coi_estimate.low)}-${formatCurrency(data.coi_estimate.high)}`
                     : formatCurrency(data.coi_estimate)}
                 </span>{' '}
-                in additional issuance costs from advisory fees, expanded
+                in additional cost-of-issuance pressure from advisory fees, expanded
                 feasibility scope, and extended deal timelines.
               </p>
             </div>

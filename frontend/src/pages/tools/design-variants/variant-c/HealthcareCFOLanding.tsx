@@ -97,8 +97,8 @@ const VALUE_PROPS = [
   {
     icon: DollarSign,
     color: BRAND.orange,
-    headline: 'Know what it costs — right now',
-    copy: "Corpus-calibrated TIC estimates by rating tier. Not a vague \"market rate\" answer. Actual spread data so you can pressure-test your advisor's term sheet.",
+    headline: 'Understand cost context — right now',
+    copy: "Corpus-calibrated cost-of-capital context by rating tier. Not a vague \"market rate\" answer. Actual spread data so you can prepare better questions for your registered advisor and deal team.",
   },
   {
     icon: AlertTriangle,

@@ -830,7 +830,7 @@ function ResultsView({
           <span>Pre-Preparation</span>
           <span>Preparation</span>
           <span>Near-Ready</span>
-          <span>Bond-Ready</span>
+          <span>Advisor Review</span>
         </div>
       </div>
 
@@ -865,7 +865,7 @@ function ResultsView({
             Timeline Estimate
           </div>
           <p className="text-lg font-bold text-gray-900">{result.tier.agentWeeks} weeks</p>
-          <p className="text-xs text-gray-400">to bond-ready (agent-assisted)</p>
+          <p className="text-xs text-gray-400">to advisor-review-ready (agent-assisted)</p>
         </div>
       </div>
 
@@ -901,7 +901,7 @@ function ResultsView({
         <div className="bg-white rounded-lg border border-gray-200 p-6 mb-8">
           <h3 className="text-sm font-semibold text-gray-900 mb-1">Top Readiness Gaps</h3>
           <p className="text-xs text-gray-500 mb-4">
-            Ranked by COI impact weight — addressing these first will have the largest effect on your score and deal economics.
+            Ranked by readiness impact weight — addressing these first should strengthen the evidence package for advisor and deal-team review.
           </p>
           <div className="space-y-2">
             {result.gaps.slice(0, 5).map((gap, i) => {
@@ -946,17 +946,16 @@ function ResultsView({
 
       {/* CTA */}
       <div className="bg-muni-navy rounded-lg p-8 text-white text-center mb-8">
-        <h3 className="text-lg font-bold mb-2">Ready to Close Your Gaps?</h3>
+        <h3 className="text-lg font-bold mb-2">Ready to Organize Your Gaps for Review?</h3>
         <p className="text-sm text-gray-300 mb-6 max-w-lg mx-auto">
-          Our Bond Readiness Accelerator can compress your timeline by 30-40% with agent-assisted
-          document preparation, gap analysis, and advisor coordination.
+          Our Bond Readiness Accelerator helps organize document preparation, gap analysis, and registered advisor coordination; it does not replace professional judgment or transaction advice.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-3">
           <a
             href="mailto:hello@muni-pal.io?subject=Bond%20Readiness%20Assessment%20Follow-Up"
             className="inline-flex items-center justify-center gap-2 bg-[#E8913A] hover:bg-[#d47e2e] text-white font-semibold px-6 py-3 rounded-lg transition-colors"
           >
-            Talk to a Bond Advisor
+            Talk to a Readiness Specialist
             <ChevronRight className="h-4 w-4" />
           </a>
           <button

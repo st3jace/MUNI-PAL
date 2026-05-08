@@ -19,7 +19,7 @@ export class ReadinessService {
      * - 0.0-3.0: Not Yet Viable - Fundamental evidence gaps
      * - 3.0-5.5: Structurally Viable - Foundation established, gaps remain
      * - 5.5-7.5: Ready for Selective Engagement - Can begin advisor discussions
-     * - 7.5-10.0: Ready for Broad Market - Substantially documented
+     * - 7.5-10.0: Ready for Advisor-Led Market Review - Substantially documented
      * @param projectId
      * @param authorization Authorization: Bearer <token>
      * @param xUserId User ID for development auth

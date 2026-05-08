@@ -10,7 +10,7 @@ import type { DimensionScore } from './DimensionScore';
  * - 0.0-3.0: Not Yet Viable
  * - 3.0-5.5: Structurally Viable
  * - 5.6-7.5: Ready for Selective Engagement
- * - 7.6-10.0: Ready for Broad Market
+ * - 7.6-10.0: Ready for Advisor-Led Market Review
  */
 export type ReadinessAssessment = {
     critical_gaps_count?: number;
@@ -22,7 +22,7 @@ export type ReadinessAssessment = {
     overall_score: number;
     project_id: string;
     /**
-     * One of: Not Yet Viable, Structurally Viable, Ready for Selective Engagement, Ready for Broad Market
+     * One of: Not Yet Viable, Structurally Viable, Ready for Selective Engagement, Ready for Advisor-Led Market Review
      */
     recommendation: string;
     /**

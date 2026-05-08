@@ -68,8 +68,8 @@ def test_external_executive_summary_includes_risk_context_metrics() -> None:
     key_metrics = summary["key_metrics"]
     assert key_metrics["Risk Integration Mode"] == "Full"
     assert key_metrics["Risk Posture Score"] == "0.812"
-    assert key_metrics["Risk Guidance"] == "Execution Grade"
-    assert "full mode" in summary["next_steps"].lower()
+    assert key_metrics["Risk Guidance"] == "Review Ready"
+    assert "advisor review support" in summary["next_steps"].lower()
 
 
 def test_external_executive_summary_flags_fallback_mode() -> None:
@@ -242,3 +242,38 @@ async def test_internal_evidence_index_exposes_canonical_and_ledger_views(monkey
     assert "capital" in evidence["canonical_by_domain"]
     assert "capital" in evidence["ledger_by_domain"]
     assert evidence["conflict_summary"]["critical"] == 1
+
+
+def test_external_package_language_stays_advisor_review_safe() -> None:
+    service = _service()
+    summary = service._build_executive_summary(  # noqa: SLF001
+        facts={
+            "parties.issuer.name": _FactStub("County Health Facilities Authority"),
+            "project.canonicaldescription": _FactStub("hospital campus modernization"),
+            "cab.originalprincipial": _FactStub(25000000),
+        },
+        risk_context={
+            "integration_mode": "full",
+            "overall_posture_score": 0.812,
+            "directional_guidance_only": False,
+            "fallback_reasons": [],
+        },
+    )
+    overview = service._build_deal_overview({})  # noqa: SLF001
+    rendered = "\n".join([
+        str(summary),
+        str(overview),
+    ]).lower()
+
+    prohibited = (
+        "execution-grade advisory decisioning",
+        "stable for advisory decisioning",
+        "proposes to issue",
+        "proposed bond amount",
+        "issuance_intent': 'revenue bond financing",
+    )
+    for phrase in prohibited:
+        assert phrase not in rendered
+
+    assert "registered advisor" in rendered or "registered municipal advisor" in rendered
+    assert "review" in rendered

@@ -35,22 +35,22 @@ const VALUE_PROPS = [
   },
   {
     icon: DollarSign,
-    headline: 'Know what it costs — right now',
-    copy: "Corpus-calibrated TIC estimates by rating tier. Not a vague \"market rate\" answer. Actual spread data so you can pressure-test your advisor's term sheet.",
+    headline: 'Understand cost context before advisor review',
+    copy: "Corpus-calibrated cost-of-capital context by rating tier. Not a vague market-rate placeholder — evidence you can use to prepare better questions for your registered advisor and deal team.",
   },
   {
     icon: AlertTriangle,
-    headline: 'Know where deals fall apart',
-    copy: 'The 5 risk categories healthcare issuers consistently under-mitigate — and the specific actions upgraded credits took to close the gap.',
+    headline: 'Understand where readiness gaps emerge',
+    copy: 'The 5 risk categories healthcare issuers often under-document — and examples of evidence that strengthened comparable credits.',
   },
 ]
 
 const ENGAGEMENT_PATH = [
-  { step: 1, name: 'Market Intelligence Report', price: 'Free', description: 'Sector benchmarks — DSCR, pricing, risk profile, Pareto framework' },
+  { step: 1, name: 'Market Intelligence Report', price: 'Free', description: 'Sector benchmarks — DSCR, cost context, risk profile, Pareto framework' },
   { step: 2, name: 'Readiness Scan', price: 'Free', description: 'Automated pre-screen — sector fit, deal size, top 3 gaps' },
   { step: 3, name: 'Bond Readiness Diagnostic', price: '$15K–$25K', description: 'Full score + gap analysis + critical path to close' },
-  { step: 4, name: 'Standard Engagement', price: '$40K–$50K', description: 'Diagnostic + active deal coordination + COI optimization' },
-  { step: 5, name: 'Bond Readiness Accelerator', price: '$75K+', description: 'Full pre-issuance support — gap remediation, benchmarking, and timeline optimization' },
+  { step: 4, name: 'Standard Engagement', price: '$40K–$50K', description: 'Diagnostic + readiness coordination + cost-of-issuance planning support' },
+  { step: 5, name: 'Bond Readiness Accelerator', price: '$75K+', description: 'Expanded readiness support — gap remediation, benchmarking, and advisor-review preparation' },
 ]
 
 const TIMELINE_PHASES = [
@@ -99,7 +99,7 @@ function PreviewCard() {
         <div className="border-t border-gray-100 pt-3">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="h-4 w-4 text-green-500" />
-            <span className="text-xs text-gray-600">3 of 6 dimensions bond-ready</span>
+            <span className="text-xs text-gray-600">3 of 6 dimensions ready for advisor review</span>
           </div>
         </div>
       </div>

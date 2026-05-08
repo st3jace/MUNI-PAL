@@ -2180,7 +2180,7 @@ export interface paths {
          *     - 0.0-3.0: Not Yet Viable - Fundamental evidence gaps
          *     - 3.0-5.5: Structurally Viable - Foundation established, gaps remain
          *     - 5.5-7.5: Ready for Selective Engagement - Can begin advisor discussions
-         *     - 7.5-10.0: Ready for Broad Market - Substantially documented
+         *     - 7.5-10.0: Ready for Advisor-Led Market Review - Substantially documented
          */
         get: operations["get_readiness_scores_api_v1_readiness__get"];
         put?: never;
@@ -6033,7 +6033,7 @@ export interface components {
          *     - 0.0-3.0: Not Yet Viable
          *     - 3.0-5.5: Structurally Viable
          *     - 5.6-7.5: Ready for Selective Engagement
-         *     - 7.6-10.0: Ready for Broad Market
+         *     - 7.6-10.0: Ready for Advisor-Led Market Review
          */
         ReadinessAssessment: {
             /**
@@ -6059,7 +6059,7 @@ export interface components {
             project_id: string;
             /**
              * Recommendation
-             * @description One of: Not Yet Viable, Structurally Viable, Ready for Selective Engagement, Ready for Broad Market
+             * @description One of: Not Yet Viable, Structurally Viable, Ready for Selective Engagement, Ready for Advisor-Led Market Review
              */
             recommendation: string;
             /**

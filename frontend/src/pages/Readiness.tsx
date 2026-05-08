@@ -23,7 +23,7 @@ const recommendationColors: Record<string, string> = {
   'Not Yet Viable': 'bg-red-100 text-red-800 border-red-200',
   'Structurally Viable': 'bg-yellow-100 text-yellow-800 border-yellow-200',
   'Ready for Selective Engagement': 'bg-blue-100 text-blue-800 border-blue-200',
-  'Ready for Broad Market': 'bg-green-100 text-green-800 border-green-200',
+  'Ready for Advisor-Led Market Review': 'bg-green-100 text-green-800 border-green-200',
 }
 
 export default function Readiness() {

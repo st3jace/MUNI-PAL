@@ -1,7 +1,7 @@
 """
 Muni-Pal FastAPI Application
 
-Evidence-first, advisor-grade platform for municipal bond structuring.
+Evidence-first, advisor-facing platform for municipal bond readiness support.
 """
 
 from contextlib import asynccontextmanager
@@ -56,9 +56,9 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="Muni-Pal BFMS",
     description=(
-        "Bond Facility Management System - An evidence-first, advisor-grade platform "
-        "for municipal bond structuring. Converts messy project documentation into "
-        "structured, bond-issuance-ready outputs with full provenance tracking."
+        "Bond Facility Management System - An evidence-first, advisor-facing platform "
+        "for municipal bond readiness support. Converts messy project documentation into "
+        "structured, advisor-review-ready outputs with full provenance tracking."
     ),
     version=__version__,
     lifespan=lifespan,

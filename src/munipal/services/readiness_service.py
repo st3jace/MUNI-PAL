@@ -8,7 +8,7 @@ Scoring ranges (0-10 overall):
 - 0.0-3.0: Not Yet Viable
 - 3.0-5.5: Structurally Viable
 - 5.5-7.5: Ready for Selective Engagement
-- 7.5-10.0: Ready for Broad Market
+- 7.5-10.0: Ready for Advisor-Led Market Review
 """
 
 import logging
@@ -46,7 +46,7 @@ RECOMMENDATION_LABELS = {
     "not_yet_viable": "Not Yet Viable",
     "structurally_viable": "Structurally Viable",
     "ready_for_selective_engagement": "Ready for Selective Engagement",
-    "ready_for_broad_market": "Ready for Broad Market",
+    "ready_for_broad_market": "Ready for Advisor-Led Market Review",
 }
 
 RECOMMENDATION_RATIONALES = {
@@ -58,17 +58,18 @@ RECOMMENDATION_RATIONALES = {
     "structurally_viable": (
         "The project has a viable foundation but needs additional evidence in key areas. "
         "Consider gathering more documentation on revenue model, debt structure, and key risk mitigants "
-        "before broader market engagement."
+        "before broader registered advisor and deal-team review."
     ),
     "ready_for_selective_engagement": (
-        "The project has sufficient documentation for selective advisor discussions. "
-        "Targeted gaps remain but the overall structure is clear enough for "
-        "preliminary term sheet discussions with select underwriters."
+        "The project has sufficient documentation for selective registered advisor discussions. "
+        "Targeted gaps remain, so any term-sheet, underwriting, sizing, pricing, or issuance discussion "
+        "must remain advisor-led and subject to professional diligence."
     ),
     "ready_for_broad_market": (
-        "The project is substantially documented and ready for broad market engagement. "
-        "The evidence base supports formal RFP process and competitive underwriter selection. "
-        "Minor gaps can be addressed during document drafting phase."
+        "The project is substantially documented for registered advisor and deal-team review. "
+        "The evidence base can support advisor-led market planning, subject to professional diligence, "
+        "issuer/borrower direction, and counsel review. Muni-Pal does not recommend issuance, sizing, "
+        "pricing, sale method, underwriter selection, or transaction timing."
     ),
 }
 

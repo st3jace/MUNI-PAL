@@ -509,7 +509,7 @@ export default function AdvisoryPackages() {
                 >
                   {riskIntegration.directional_guidance_only
                     ? 'Directional Guidance'
-                    : 'Execution Grade'}
+                    : 'Review Ready'}
                 </span>
               </div>
 
@@ -521,8 +521,8 @@ export default function AdvisoryPackages() {
                 }`}
               >
                 {riskIntegration.integration_mode === 'fallback'
-                  ? 'Risk outputs are directional for advisory decisioning until reliability improves.'
-                  : 'Risk outputs are stable for advisory decisioning and package generation.'}
+                  ? 'Risk outputs are directional for registered advisor review until reliability improves.'
+                  : 'Risk outputs are stable for registered advisor review support and package generation; they are not approval, sizing, pricing, or issuance instructions.'}
               </p>
 
               {(riskIntegration.fallback_reasons ?? []).length > 0 && (

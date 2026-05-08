@@ -6088,7 +6088,7 @@
         "type": "object"
       },
       "ReadinessAssessment": {
-        "description": "Complete readiness assessment for a project.\n\nPer spec scoring ranges:\n- 0.0-3.0: Not Yet Viable\n- 3.0-5.5: Structurally Viable\n- 5.6-7.5: Ready for Selective Engagement\n- 7.6-10.0: Ready for Broad Market",
+        "description": "Complete readiness assessment for a project.\n\nPer spec scoring ranges:\n- 0.0-3.0: Not Yet Viable\n- 3.0-5.5: Structurally Viable\n- 5.6-7.5: Ready for Selective Engagement\n- 7.6-10.0: Ready for Advisor-Led Market Review",
         "properties": {
           "critical_gaps_count": {
             "default": 0,
@@ -6122,7 +6122,7 @@
             "type": "string"
           },
           "recommendation": {
-            "description": "One of: Not Yet Viable, Structurally Viable, Ready for Selective Engagement, Ready for Broad Market",
+            "description": "One of: Not Yet Viable, Structurally Viable, Ready for Selective Engagement, Ready for Advisor-Led Market Review",
             "title": "Recommendation",
             "type": "string"
           },
@@ -9202,7 +9202,7 @@
     }
   },
   "info": {
-    "description": "Bond Facility Management System - An evidence-first, advisor-grade platform for municipal bond structuring. Converts messy project documentation into structured, bond-issuance-ready outputs with full provenance tracking.",
+    "description": "Bond Facility Management System - An evidence-first, advisor-facing platform for municipal bond readiness support. Converts messy project documentation into structured, advisor-review-ready outputs with full provenance tracking.",
     "title": "Muni-Pal BFMS",
     "version": "0.1.0"
   },
@@ -21322,7 +21322,7 @@
     },
     "/api/v1/readiness/": {
       "get": {
-        "description": "Get complete readiness assessment for all dimensions.\n\nReturns dimension-by-dimension scores with weighted contributions\nto overall score, plus recommendation based on scoring thresholds:\n\n- 0.0-3.0: Not Yet Viable - Fundamental evidence gaps\n- 3.0-5.5: Structurally Viable - Foundation established, gaps remain\n- 5.5-7.5: Ready for Selective Engagement - Can begin advisor discussions\n- 7.5-10.0: Ready for Broad Market - Substantially documented",
+        "description": "Get complete readiness assessment for all dimensions.\n\nReturns dimension-by-dimension scores with weighted contributions\nto overall score, plus recommendation based on scoring thresholds:\n\n- 0.0-3.0: Not Yet Viable - Fundamental evidence gaps\n- 3.0-5.5: Structurally Viable - Foundation established, gaps remain\n- 5.5-7.5: Ready for Selective Engagement - Can begin advisor discussions\n- 7.5-10.0: Ready for Advisor-Led Market Review - Substantially documented",
         "operationId": "get_readiness_scores_api_v1_readiness__get",
         "parameters": [
           {

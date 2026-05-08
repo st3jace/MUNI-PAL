@@ -42,7 +42,7 @@ export function InformationGap() {
             <strong className="text-white">
               What borrowing actually costs right now
             </strong>{' '}
-            — corpus-calibrated TIC estimates by rating tier, not a vague
+            — corpus-calibrated cost-of-capital context by rating tier, not a vague
             "market rate" answer
           </span>
         </li>

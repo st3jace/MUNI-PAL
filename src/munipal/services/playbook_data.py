@@ -1373,7 +1373,7 @@ This document provides preliminary disclosure information for a proposed revenue
 The proposed financing contemplates {IF cab.enabled}Capital Appreciation Bonds with an accretion rate of {cab.accretionrate}%{ENDIF}{IF slb.enabled} incorporating Sustainability-Linked Bond features{ENDIF}.
 
 - **Total Project Cost:** ${capital.project-cost:formatted:TBD}
-- **Proposed Bond Amount:** ${cab.originalprincipial:formatted:TBD}
+- **Target Financing Amount for Advisor Review:** ${cab.originalprincipial:formatted:TBD}
 - **Security:** {IF security.revenue.pledge}Gross revenue pledge of ${security.revenue.pledge:formatted}{ELSE}[TBD: Security structure to be determined]{ENDIF}
 
 {IF capital.equity-percent}

@@ -16,7 +16,7 @@ Overall scoring ranges (0-10):
 - 0.0-3.0: Not Yet Viable
 - 3.0-5.5: Structurally Viable
 - 5.5-7.5: Ready for Selective Engagement
-- 7.5-10.0: Ready for Broad Market
+- 7.5-10.0: Ready for Advisor-Led Market Review
 """
 
 from uuid import UUID
@@ -63,7 +63,7 @@ async def get_readiness_scores(
     - 0.0-3.0: Not Yet Viable - Fundamental evidence gaps
     - 3.0-5.5: Structurally Viable - Foundation established, gaps remain
     - 5.5-7.5: Ready for Selective Engagement - Can begin advisor discussions
-    - 7.5-10.0: Ready for Broad Market - Substantially documented
+    - 7.5-10.0: Ready for Advisor-Led Market Review - Substantially documented
     """
     return await service.compute_assessment(project_id)
 
@@ -248,14 +248,14 @@ async def get_readiness_explanation(
     elif assessment.overall_score < 7.5:
         summary = (
             f"Project readiness score is {assessment.overall_score:.1f}/10 (Ready for Selective Engagement). "
-            "Documentation supports preliminary advisor discussions. "
-            "Remaining gaps can be addressed in parallel with engagement."
+            "Documentation supports preliminary registered advisor discussions. "
+            "Remaining gaps should be addressed with the deal team; this is not an issuance, sizing, pricing, or underwriting instruction."
         )
     else:
         summary = (
-            f"Project readiness score is {assessment.overall_score:.1f}/10 (Ready for Broad Market). "
-            "The evidence base is substantially complete. "
-            "Project is ready for formal underwriter selection process."
+            f"Project readiness score is {assessment.overall_score:.1f}/10 (Ready for Advisor-Led Market Review). "
+            "The evidence base is substantially complete for registered advisor and deal-team review. "
+            "Any market outreach, underwriter selection, sizing, pricing, or issuance decision remains subject to professional diligence and issuer/borrower direction."
         )
 
     # Generate next steps

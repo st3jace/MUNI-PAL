@@ -1,6 +1,6 @@
 """Warm Handoff Pack acceptance criteria and provenance contracts.
 
-ELA-35 defines the advisor-grade quality gate for BFMS handoff packs. The
+ELA-35 defines the advisor-review quality gate for BFMS handoff packs. The
 contract is intentionally sector-neutral: sector playbooks can determine which
 facts/artifacts are expected, while this module enforces that every outbound
 claim is either traced to accepted evidence or explicitly marked missing or
@@ -33,7 +33,7 @@ HandoffAudience = Literal["registered_municipal_advisor", "bond_counsel", "under
 
 
 class HandoffAcceptanceCriterion(BaseSchema):
-    """Single acceptance criterion for an advisor-grade Warm Handoff Pack."""
+    """Single acceptance criterion for an advisor-review Warm Handoff Pack."""
 
     key: str = Field(..., min_length=1)
     display_name: str = Field(..., min_length=1)

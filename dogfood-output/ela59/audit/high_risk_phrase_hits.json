@@ -1,0 +1,203 @@
+[
+  {
+    "file": "frontend/src/pages/tools/PilotNavigation.tsx",
+    "line": 39,
+    "hits": [
+      "deal approval"
+    ],
+    "text": "'This is not deal approval.',"
+  },
+  {
+    "file": "frontend/src/pages/tools/PilotNavigation.tsx",
+    "line": 40,
+    "hits": [
+      "municipal advisory advice"
+    ],
+    "text": "'This is not municipal advisory advice.',"
+  },
+  {
+    "file": "frontend/src/pages/tools/PilotNavigation.tsx",
+    "line": 41,
+    "hits": [
+      "pricing recommendation"
+    ],
+    "text": "'This is not legal advice, bond sizing, pricing recommendation, or issuance instruction.',"
+  },
+  {
+    "file": "frontend/src/pages/tools/ReportExport.tsx",
+    "line": 440,
+    "hits": [
+      "deal approval",
+      "municipal advisory advice"
+    ],
+    "text": "advice, municipal advisory advice, deal approval, pricing, sizing, or issuance instructions."
+  },
+  {
+    "file": "frontend/src/pages/tools/HealthcareMIRContent.tsx",
+    "line": 45,
+    "hits": [
+      "tic estimates"
+    ],
+    "text": "\u2014 corpus-calibrated TIC estimates by rating tier, not a vague"
+  },
+  {
+    "file": "frontend/src/pages/tools/HealthcareReadiness.tsx",
+    "line": 740,
+    "hits": [
+      "deal approval",
+      "municipal advisory advice"
+    ],
+    "text": "Outputs are screening artifacts, not legal advice, municipal advisory advice, deal approval,"
+  },
+  {
+    "file": "frontend/src/pages/tools/__tests__/PilotNavigation.test.tsx",
+    "line": 47,
+    "hits": [
+      "deal approval"
+    ],
+    "text": "expect(screen.getByText(/not deal approval/i)).toBeInTheDocument()"
+  },
+  {
+    "file": "frontend/src/pages/tools/__tests__/PilotNavigation.test.tsx",
+    "line": 48,
+    "hits": [
+      "municipal advisory advice"
+    ],
+    "text": "expect(screen.getByText(/not municipal advisory advice/i)).toBeInTheDocument()"
+  },
+  {
+    "file": "frontend/src/pages/tools/design-variants/variant-b/HealthcareCFOLanding.tsx",
+    "line": 24,
+    "hits": [
+      "pressure-test your advisor",
+      "tic estimates"
+    ],
+    "text": "copy: \"Corpus-calibrated TIC estimates by rating tier. Not a vague \\\"market rate\\\" answer. Actual spread data so you can pressure-test your advisor's term sheet.\","
+  },
+  {
+    "file": "frontend/src/pages/tools/design-variants/variant-c/HealthcareCFOLanding.tsx",
+    "line": 101,
+    "hits": [
+      "pressure-test your advisor",
+      "tic estimates"
+    ],
+    "text": "copy: \"Corpus-calibrated TIC estimates by rating tier. Not a vague \\\"market rate\\\" answer. Actual spread data so you can pressure-test your advisor's term sheet.\","
+  },
+  {
+    "file": "frontend/src/pages/tools/design-variants/variant-a/HealthcareCFOLanding.tsx",
+    "line": 63,
+    "hits": [
+      "pressure-test your advisor",
+      "tic estimates"
+    ],
+    "text": "copy: \"Corpus-calibrated TIC estimates by rating tier. Not a vague \\\"market rate\\\" answer. Actual spread data so you can pressure-test your advisor's term sheet.\","
+  },
+  {
+    "file": "src/munipal/services/playbook_data.py",
+    "line": 1376,
+    "hits": [
+      "proposed bond amount"
+    ],
+    "text": "- **Proposed Bond Amount:** ${cab.originalprincipial:formatted:TBD}"
+  },
+  {
+    "file": "src/munipal/services/warm_handoff.py",
+    "line": 3,
+    "hits": [
+      "advisor-grade"
+    ],
+    "text": "ELA-35 defines the advisor-grade quality gate for BFMS handoff packs. The"
+  },
+  {
+    "file": "src/munipal/services/warm_handoff.py",
+    "line": 36,
+    "hits": [
+      "advisor-grade"
+    ],
+    "text": "\"\"\"Single acceptance criterion for an advisor-grade Warm Handoff Pack.\"\"\""
+  },
+  {
+    "file": "src/munipal/services/warm_handoff.py",
+    "line": 144,
+    "hits": [
+      "issuance recommendation"
+    ],
+    "text": "\"Confirm risk statements avoid approval, pricing, or issuance recommendation language.\","
+  },
+  {
+    "file": "src/munipal/services/advisory_package_service.py",
+    "line": 217,
+    "hits": [
+      "ready for broad market"
+    ],
+    "text": "interpretation = \"Ready for broad market engagement\""
+  },
+  {
+    "file": "src/munipal/services/readiness_service.py",
+    "line": 11,
+    "hits": [
+      "ready for broad market"
+    ],
+    "text": "- 7.5-10.0: Ready for Broad Market"
+  },
+  {
+    "file": "src/munipal/services/pilot_onboarding.py",
+    "line": 292,
+    "hits": [
+      "deal approval"
+    ],
+    "text": "\"Output frames gaps and evidence status, not deal approval or issuance advice.\","
+  },
+  {
+    "file": "src/munipal/services/sensing_pilot_funnel.py",
+    "line": 156,
+    "hits": [
+      "pricing recommendation",
+      "deal approval",
+      "municipal advisory advice"
+    ],
+    "text": "\"No legal advice, municipal advisory advice, deal approval, pricing recommendation, or issuance instruction may be implied by sensing outputs.\","
+  },
+  {
+    "file": "src/munipal/services/sensing_pilot_funnel.py",
+    "line": 160,
+    "hits": [
+      "municipal advisory advice"
+    ],
+    "text": "\"Do not treat readiness scores as approval or municipal advisory advice.\","
+  },
+  {
+    "file": "src/munipal/api/routes/sensing.py",
+    "line": 55,
+    "hits": [
+      "deal approval",
+      "municipal advisory advice"
+    ],
+    "text": "\"not legal advice, municipal advisory advice, deal approval, pricing, sizing, \""
+  },
+  {
+    "file": "src/munipal/api/routes/sensing.py",
+    "line": 670,
+    "hits": [
+      "deal approval",
+      "municipal advisory advice"
+    ],
+    "text": "\"This qualified-stage gate is not deal approval and is not municipal advisory advice.\""
+  },
+  {
+    "file": "dogfood-output/ela59/http/muni-pal.io.html",
+    "line": 76,
+    "hits": [
+      "tic estimates"
+    ],
+    "text": "<li><strong>Know what it costs</strong> \u2014 corpus-calibrated TIC estimates by rating tier</li>"
+  },
+  {
+    "file": "dogfood-output/ela59/http/muni-pal.io_pricing.html",
+    "line": 76,
+    "hits": [
+      "tic estimates"
+    ],
+    "text": "<li><strong>Know what it costs</strong> \u2014 corpus-calibrated TIC estimates by rating tier</li>"
+  }
+]

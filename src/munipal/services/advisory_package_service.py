@@ -214,7 +214,7 @@ class InternalReportService:
 
         # Determine status
         if score >= 7.6:
-            interpretation = "Ready for broad market engagement"
+            interpretation = "Ready for advisor-led market review"
             emoji = "green_circle"
         elif score >= 5.6:
             interpretation = "Ready for selective advisor engagement"
@@ -812,14 +812,14 @@ class ExternalPackageService:
         if "capital.project-cost" in facts:
             metrics["Total Project Cost"] = f"${self._get_numeric_fact_value(facts, 'capital.project-cost', 0):,.0f}"
         if "cab.originalprincipial" in facts:
-            metrics["Proposed Bond Amount"] = f"${self._get_numeric_fact_value(facts, 'cab.originalprincipial', 0):,.0f}"
+            metrics["Target Financing Amount"] = f"${self._get_numeric_fact_value(facts, 'cab.originalprincipial', 0):,.0f}"
         if "capital.equity-contribution" in facts:
             metrics["Equity Contribution"] = f"${self._get_numeric_fact_value(facts, 'capital.equity-contribution', 0):,.0f}"
         if "finmodel.outputs.dscrbase" in facts:
             metrics["Base Case DSCR"] = f"{self._get_numeric_fact_value(facts, 'finmodel.outputs.dscrbase', 0):.2f}x"
 
         next_steps = (
-            "This package is provided to support preliminary discussions with the municipal advisory team."
+            "This package is provided to support preliminary discussions with the registered municipal advisory team; it is not a recommendation, approval, sizing, pricing, or issuance instruction."
         )
         if risk_context:
             integration_mode = str(risk_context.get("integration_mode", "full")).lower()
@@ -830,7 +830,7 @@ class ExternalPackageService:
             metrics["Risk Integration Mode"] = integration_mode.title()
             metrics["Risk Posture Score"] = f"{posture_score:.3f}"
             metrics["Risk Guidance"] = (
-                "Directional" if directional_guidance_only else "Execution Grade"
+                "Directional" if directional_guidance_only else "Review Ready"
             )
 
             if integration_mode == "fallback":
@@ -840,12 +840,12 @@ class ExternalPackageService:
                 next_steps = (
                     "BFMS risk integration is currently in fallback mode; treat risk outputs as directional."
                     f"{primary_reason} "
-                    "This package is provided to support preliminary discussions with the municipal advisory team."
+                    "This package is provided to support preliminary discussions with the registered municipal advisory team; it is not a recommendation, approval, sizing, pricing, or issuance instruction."
                 )
             else:
                 next_steps = (
-                    "BFMS risk integration is currently in full mode for execution-grade advisory decisioning. "
-                    "This package is provided to support preliminary discussions with the municipal advisory team."
+                    "BFMS risk integration is currently in full mode for evidence-backed advisor review support. "
+                    "This package is provided to support preliminary discussions with the registered municipal advisory team; it is not a recommendation, approval, sizing, pricing, or issuance instruction."
                 )
 
         # Structural highlights
@@ -862,7 +862,7 @@ class ExternalPackageService:
         project_desc = str(self._get_fact_value(facts, "project.canonicaldescription", "[Project description TBD]") or "[Project description TBD]")
 
         return {
-            "transaction_overview": f"{issuer} proposes to issue revenue bonds to finance {project_desc[:200]}...",
+            "transaction_overview": f"{issuer} is evaluating potential revenue bond financing for {project_desc[:200]}...",
             "key_metrics": metrics,
             "structural_highlights": highlights,
             "information_pending": [],  # Don't expose gaps
@@ -875,7 +875,7 @@ class ExternalPackageService:
             "project_summary": self._get_fact_value(
                 facts, "project.canonicaldescription", "[Project description pending]"
             ),
-            "issuance_intent": "Revenue bond financing with Capital Appreciation Bond structure",
+            "financing_context": "Potential revenue bond financing structure for registered advisor and deal-team review",
             "transaction_parties": {
                 "Issuer": self._get_fact_value(facts, "parties.issuer.name", "[TBD]"),
                 "Borrower": self._get_fact_value(facts, "parties.borrower.name", "[TBD]"),
@@ -883,7 +883,7 @@ class ExternalPackageService:
             },
             "use_of_proceeds": {
                 "Total Project Cost": self._get_fact_value(facts, "capital.project-cost", "[TBD]"),
-                "Bond Proceeds": self._get_fact_value(facts, "cab.originalprincipial", "[TBD]"),
+                "Target Financing Amount": self._get_fact_value(facts, "cab.originalprincipial", "[TBD]"),
                 "Equity Contribution": self._get_fact_value(facts, "capital.equity-contribution", "[TBD]"),
             },
             "revenue_model_summary": f"Revenue from {self._get_fact_value(facts, 'revenue.commodities.list', '[commodities TBD]')}",

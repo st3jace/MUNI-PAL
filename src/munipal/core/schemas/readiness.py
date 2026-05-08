@@ -67,7 +67,7 @@ class ReadinessAssessment(BaseSchema):
     - 0.0-3.0: Not Yet Viable
     - 3.0-5.5: Structurally Viable
     - 5.6-7.5: Ready for Selective Engagement
-    - 7.6-10.0: Ready for Broad Market
+    - 7.6-10.0: Ready for Advisor-Led Market Review
     """
 
     project_id: str
@@ -84,7 +84,7 @@ class ReadinessAssessment(BaseSchema):
     )
     recommendation: str = Field(
         ...,
-        description="One of: Not Yet Viable, Structurally Viable, Ready for Selective Engagement, Ready for Broad Market",
+        description="One of: Not Yet Viable, Structurally Viable, Ready for Selective Engagement, Ready for Advisor-Led Market Review",
     )
     recommendation_rationale: str = Field(
         ...,

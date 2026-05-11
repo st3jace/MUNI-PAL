@@ -66,3 +66,18 @@ Commands run from /home/st3ja/Developer/MUNI-PAL:
 ## Deployment note
 
 This report verifies the current canonical local checkout and generated healthcare build. ELA-93 should only be marked fully launch-complete after the committed changes are pushed and the deployed public site is rechecked to confirm production no longer serves stale copy.
+
+## Post-push production check
+
+After commit 946e61b was pushed to origin/master, a public HTTP and asset scan was run against https://muni-pal.io/ and https://muni-pal.io/pricing.
+
+Evidence file: dogfood-output/ela93/post_push_public/public_post_push_evidence.json
+
+Result:
+
+- Both public routes returned HTTP 200.
+- Production was still serving the older healthcare asset /assets/index.healthcare-XLnv45Ll.js.
+- Blocked stale phrases were still present in production assets, including advisor-replacement, TIC estimate, what-it-costs, and rating-improvement wording.
+- Required phrase registered advisor was present, but not municipal advisory advice was still missing in the production scan.
+
+Conclusion: current local HEAD is compliance-clean after the source fix and healthcare build scan, but production has not yet picked up the new healthcare build. ELA-93 should remain In Progress until Vercel production redeploys from origin/master and the public scan is rerun cleanly.

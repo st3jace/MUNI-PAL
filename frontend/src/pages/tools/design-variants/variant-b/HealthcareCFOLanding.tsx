@@ -57,14 +57,14 @@ const ENGAGEMENT_PATH = [
     name: 'Standard Engagement',
     price: '$40K\u2013$50K',
     description:
-      'Diagnostic + active deal coordination + COI optimization',
+      'Diagnostic + readiness workplan + registered-advisor review support',
   },
   {
     step: 5,
     name: 'Bond Readiness Accelerator',
     price: '$75K+',
     description:
-      'Full pre-issuance support — gap remediation, benchmarking, and timeline optimization',
+      'Readiness support — gap remediation, benchmarking, and preparation workflow',
   },
 ]
 
@@ -88,7 +88,7 @@ const TIMELINE = [
     label: 'Coordination',
     step: 'Standard Engagement',
     detail:
-      'Active deal coordination, COI benchmarking, and milestone tracking. Your dedicated point of contact.',
+      'Readiness workplan, cost-context benchmarking, and milestone tracking for advisor/deal-team review.',
   },
   {
     months: 'Month 4\u20137',
@@ -141,14 +141,14 @@ export default function HealthcareCFOLanding() {
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-light text-[#1B3A5C] leading-tight mb-6">
                 You're planning a bond issuance.{' '}
                 <span className="font-semibold">
-                  Here's what your advisors won't tell you for free.
+                  Bring better evidence into the advisor-led process.
                 </span>
               </h1>
 
               <p className="text-lg text-gray-500 leading-relaxed mb-10 max-w-lg">
                 Muni-Pal benchmarks your deal against 866 actual EMMA
                 transactions — so you walk into the room knowing what
-                top-performing credits look like, what borrowing actually costs,
+                top-performing credits look like, market context for advisor review,
                 and where risk disclosures go wrong.
               </p>
 
@@ -316,7 +316,7 @@ export default function HealthcareCFOLanding() {
                     $27M+
                   </span>{' '}
                   over 25 years on a $75M deal. The Accelerator helps you
-                  document your way to a better rating — for{' '}
+                  organize evidence for registered-advisor review — for{' '}
                   <span className="font-semibold text-[#1B3A5C]">
                     less than 0.04%
                   </span>{' '}

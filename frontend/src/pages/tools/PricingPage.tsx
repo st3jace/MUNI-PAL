@@ -238,8 +238,8 @@ export default function PricingPage() {
           Choose the right level for your bond journey
         </h1>
         <p className="text-sm text-gray-600 max-w-2xl">
-          Start free with sensing tools. Subscribe for ongoing advisory access.
-          Or scope a per-project engagement for full pre-issuance support.
+          Start free with sensing tools. Subscribe for ongoing readiness workspace access.
+          Or scope a registered-advisor-review support engagement for pre-issuance preparation.
         </p>
       </section>
 
@@ -583,9 +583,9 @@ export default function PricingPage() {
       {/* Disclaimer */}
       <p className="text-[11px] text-gray-400 mb-8 max-w-3xl">
         Pricing shown is indicative and subject to final scoping. Muni-Pal provides benchmarking,
-        preparation, and analytical tools — not investment advice. This is an educational and analytical
-        service. It does not constitute municipal advisory services as defined under Section 15B of the
-        Securities Exchange Act.
+        preparation, and analytical tools — not investment advice, not municipal advisory advice,
+        and not a pricing, sizing, issuance, or deal-execution recommendation. Registered advisors,
+        counsel, underwriters, issuers, and borrowers retain their professional roles.
       </p>
 
       {/* Footer */}

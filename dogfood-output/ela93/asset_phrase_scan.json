@@ -1,0 +1,67 @@
+{
+  "captured_at_epoch": 1778503085.6541834,
+  "assets": [
+    {
+      "url": "https://muni-pal.io/assets/index-CVehFKNm.css",
+      "bytes": 63151,
+      "status": 200
+    },
+    {
+      "url": "https://muni-pal.io/assets/index.healthcare-XLnv45Ll.js",
+      "bytes": 478741,
+      "status": 200
+    }
+  ],
+  "phrase_hits": [
+    {
+      "asset": "https://muni-pal.io/assets/index.healthcare-XLnv45Ll.js",
+      "phrase": "cost of issuance",
+      "snippet": "Name:\"h-5 w-5 text-amber-600 mt-0.5 flex-shrink-0\"}),s.jsxs(\"div\",{children:[s.jsx(\"h3\",{className:\"font-semibold text-amber-900\",children:\"Cost of Issuance Impact\"}),s.jsxs(\"p\",{className:\"text-sm text-amber-800 mt-1\",children:[\"Incomplete readiness may contribute to\",\" \",s.jsx(\"span\",{className:\"font-bold\",children:typeof e.coi_esti"
+    },
+    {
+      "asset": "https://muni-pal.io/assets/index.healthcare-XLnv45Ll.js",
+      "phrase": "advisory services",
+      "snippet": "ext-center leading-relaxed\",children:\"Bond Readiness Accelerator is an educational and analytical service. It does not constitute municipal advisory services as defined under Section 15B of the Securities Exchange Act.\"})]})})]})}const pb={required:3,recommended:1,optional:.5},xb={critical:2,very_high:1.5,high:1.25,medium:1,low:1},gb={"
+    },
+    {
+      "asset": "https://muni-pal.io/assets/index.healthcare-XLnv45Ll.js",
+      "phrase": "better rating",
+      "snippet": "an\",{className:\"font-bold text-red-700\",children:\"$27M+\"}),\" over 25 years on a $75M deal. The Accelerator helps you document your way to a better rating \u2014 for\",\" \",s.jsx(\"span\",{className:\"font-semibold\",children:\"less than 0.04%\"}),\" of deal size.\"]}),s.jsx(\"p\",{className:\"text-xs text-gray-500\",children:\"Based on observed AA vs."
+    },
+    {
+      "asset": "https://muni-pal.io/assets/index.healthcare-XLnv45Ll.js",
+      "phrase": "ongoing advisory access",
+      "snippet": "evel for your bond journey\"}),s.jsx(\"p\",{className:\"text-sm text-gray-600 max-w-2xl\",children:\"Start free with sensing tools. Subscribe for ongoing advisory access. Or scope a per-project engagement for full pre-issuance support.\"})]}),t===\"success\"&&s.jsxs(\"div\",{className:\"mb-6 rounded-lg border border-green-200 bg-green-50 px-5 py-3 text-"
+    },
+    {
+      "asset": "https://muni-pal.io/assets/index.healthcare-XLnv45Ll.js",
+      "phrase": "Healthcare",
+      "snippet": " Error(\"useAuth must be used within AuthProvider\");return e}const Hp=N.createContext(null);function Gv({children:e}){const[t,r]=N.useState(\"healthcare\"),[n,i]=N.useState(null),[a,l]=N.useState(null),[o,c]=N.useState(null),[u,d]=N.useState(null),[m,f]=N.useState(null),j=[n,a,u,m].filter(Boolean).length;return s.jsx(Hp.Provider,{v"
+    },
+    {
+      "asset": "https://muni-pal.io/assets/index.healthcare-XLnv45Ll.js",
+      "phrase": "registered advisor",
+      "snippet": "ted cost-of-capital context by rating tier. Not a vague market-rate placeholder \u2014 evidence you can use to prepare better questions for your registered advisor and deal team.\"},{icon:Ga,headline:\"Understand where readiness gaps emerge\",copy:\"The 5 risk categories healthcare issuers often under-document \u2014 and examples of evidence that str"
+    },
+    {
+      "asset": "https://muni-pal.io/assets/index.healthcare-XLnv45Ll.js",
+      "phrase": "readiness",
+      "snippet": "x(Hp.Provider,{value:{sector:t,setSector:r,marketIntel:n,setMarketIntel:i,benchmark:a,setBenchmark:l,benchmarkInputs:o,setBenchmarkInputs:c,readiness:u,setReadiness:d,creditSpreads:m,setCreditSpreads:f,completedCount:j},children:e})}function Ns(){const e=N.useContext(Hp);if(!e)throw new Error(\"useSensing must be used within Sen"
+    },
+    {
+      "asset": "https://muni-pal.io/assets/index.healthcare-XLnv45Ll.js",
+      "phrase": "pricing",
+      "snippet": "ildren:\"View a Sample MIR Report\"}),s.jsx(\"p\",{className:\"text-sm text-gray-500 mt-1\",children:\"See the exact benchmarks, risk scoring, and pricing data a healthcare CFO receives \u2014 before you request your own.\"})]})]}),s.jsxs(le,{to:\"/tools/market-intelligence\",className:\"flex items-start gap-4 bg-white rounded-xl border bord"
+    },
+    {
+      "asset": "https://muni-pal.io/assets/index.healthcare-XLnv45Ll.js",
+      "phrase": "Stripe",
+      "snippet": "=\"\";async function mw(e,t){const r={\"Content-Type\":\"application/json\"};t&&(r.Authorization=`Bearer ${t}`);const n=await fetch(`${dw}/api/v1/stripe/create-checkout-session`,{method:\"POST\",headers:r,body:JSON.stringify({price_id:e})});if(!n.ok){const a=await n.json().catch(()=>({}));throw new Error(a.detail??\"Failed to start c"
+    },
+    {
+      "asset": "https://muni-pal.io/assets/index.healthcare-XLnv45Ll.js",
+      "phrase": "checkout",
+      "snippet": "tion mw(e,t){const r={\"Content-Type\":\"application/json\"};t&&(r.Authorization=`Bearer ${t}`);const n=await fetch(`${dw}/api/v1/stripe/create-checkout-session`,{method:\"POST\",headers:r,body:JSON.stringify({price_id:e})});if(!n.ok){const a=await n.json().catch(()=>({}));throw new Error(a.detail??\"Failed to start checkout\")}const{"
+    }
+  ]
+}

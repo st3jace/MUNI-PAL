@@ -73,16 +73,16 @@ const ENGAGEMENT_PATH = [
   { step: 1, name: 'Market Intelligence Report', price: 'Free', description: 'Sector benchmarks — DSCR, pricing, risk profile, Pareto framework' },
   { step: 2, name: 'Readiness Scan', price: 'Free', description: 'Automated pre-screen — sector fit, deal size, top 3 gaps' },
   { step: 3, name: 'Bond Readiness Diagnostic', price: '$15K–$25K', description: 'Full score + gap analysis + critical path to close' },
-  { step: 4, name: 'Standard Engagement', price: '$40K–$50K', description: 'Diagnostic + active deal coordination + COI optimization' },
-  { step: 5, name: 'Bond Readiness Accelerator', price: '$75K+', description: 'Full pre-issuance support — gap remediation, benchmarking, and timeline optimization' },
+  { step: 4, name: 'Standard Engagement', price: '$40K–$50K', description: 'Diagnostic + readiness workplan + registered-advisor review support' },
+  { step: 5, name: 'Bond Readiness Accelerator', price: '$75K+', description: 'Readiness support — gap remediation, benchmarking, and preparation workflow' },
 ]
 
 const TIMELINE_PHASES = [
   { months: 'Month 1–2', label: 'Discovery', step: 'Market Intelligence Report + Readiness Scan', detail: 'Benchmark your system against peers. Identify top gaps before engaging advisors.', width: '25%' },
   { months: 'Month 2–3', label: 'Diagnostic', step: 'Bond Readiness Diagnostic', detail: 'Full scoring, gap analysis, and critical path. Know exactly what underwriters will scrutinize.', width: '12%' },
-  { months: 'Month 3–5', label: 'Coordination', step: 'Standard Engagement', detail: 'Active deal coordination, COI benchmarking, and milestone tracking. Your dedicated point of contact.', width: '22%' },
-  { months: 'Month 4–7', label: 'Acceleration', step: 'Bond Readiness Accelerator', detail: 'Full pre-issuance support — gap remediation, benchmarking, and deal timeline optimization.', width: '22%' },
-  { months: 'Month 6–9', label: 'Execution', step: 'Market entry', detail: 'Go to market with a complete, defensible credit story. Advisors execute — you negotiate from strength.', width: '22%' },
+  { months: 'Month 3–5', label: 'Coordination', step: 'Standard Engagement', detail: 'Readiness workplan, cost-context benchmarking, and milestone tracking for advisor/deal-team review.', width: '22%' },
+  { months: 'Month 4–7', label: 'Acceleration', step: 'Bond Readiness Accelerator', detail: 'Readiness support — gap remediation, benchmarking, and preparation workflow discipline.', width: '22%' },
+  { months: 'Month 6–9', label: 'Advisor-led execution', step: 'Market entry', detail: 'Bring a better-organized evidence record to your registered advisor and deal team for their execution process.', width: '22%' },
 ]
 
 /* ================================================================== */
@@ -120,8 +120,8 @@ export default function HealthcareCFOLanding() {
                 Healthcare Bond Intelligence
               </p>
               <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-white max-w-xl mb-6">
-                You're planning a bond issuance. Here's what your advisors won't
-                tell you for free.
+                You're planning a bond issuance. Bring better evidence into the
+                advisor-led process.
               </h1>
               <p className="text-lg text-gray-300 max-w-lg mb-10 leading-relaxed">
                 Muni-Pal's Healthcare Market Intelligence Report benchmarks your
@@ -129,9 +129,9 @@ export default function HealthcareCFOLanding() {
                 <span className="text-white font-semibold">
                   866 actual EMMA transactions
                 </span>{' '}
-                — so you walk into the room knowing what top-performing credits
-                look like, what borrowing actually costs, and where risk
-                disclosures go wrong.
+                — so your team can compare readiness signals, understand market context,
+                and prepare better questions for registered-advisor review.
+
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
@@ -271,12 +271,12 @@ export default function HealthcareCFOLanding() {
                 The Cost of Inaction
               </h3>
               <p className="text-base text-gray-700 leading-relaxed mb-4">
-                The difference between an A-rated and BBB-rated issuance costs{' '}
+                Spread differentials can materially affect long-term borrowing costs.
                 <span className="font-bold text-red-700">$27M+</span> over 25
                 years on a $75M deal. The Accelerator helps you document your way
-                to a better rating — for{' '}
+                advisor-review questions before your registered professionals
                 <span className="font-semibold">less than 0.04%</span> of deal
-                size.
+                make pricing, sizing, issuance, or execution recommendations.
               </p>
               <p className="text-sm text-gray-500">
                 Based on observed AA vs. BBB spread differentials in EMMA
@@ -508,8 +508,8 @@ export default function HealthcareCFOLanding() {
           </p>
           <p className="text-[11px] text-gray-400 max-w-2xl text-center leading-relaxed">
             Bond Readiness Accelerator is an educational and analytical service.
-            It does not constitute municipal advisory services as defined under
-            Section 15B of the Securities Exchange Act.
+            It is not municipal advisory advice and does not replace registered
+            advisors, counsel, underwriters, issuers, or borrowers.
           </p>
         </div>
       </footer>

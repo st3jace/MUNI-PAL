@@ -296,7 +296,7 @@ export default function HealthcareCFOLanding() {
                 The difference between an A-rated and BBB-rated issuance costs{' '}
                 <span className="font-bold text-red-700">$27M+</span> over 25
                 years on a $75M deal. The Accelerator helps you document your way
-                to a better rating — for{' '}
+                for registered-advisor review — for{' '}
                 <span className="font-semibold">less than 0.04%</span> of deal
                 size.
               </p>

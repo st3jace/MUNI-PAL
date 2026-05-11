@@ -112,14 +112,14 @@ const ENGAGEMENT_PATH = [
   { step: 1, name: 'Market Intelligence Report', price: 'Free', description: 'Sector benchmarks — DSCR, pricing, risk profile, Pareto framework' },
   { step: 2, name: 'Readiness Scan', price: 'Free', description: 'Automated pre-screen — sector fit, deal size, top 3 gaps' },
   { step: 3, name: 'Bond Readiness Diagnostic', price: '$15K\u2013$25K', description: 'Full score + gap analysis + critical path to close' },
-  { step: 4, name: 'Standard Engagement', price: '$40K\u2013$50K', description: 'Diagnostic + active deal coordination + COI optimization' },
+  { step: 4, name: 'Standard Engagement', price: '$40K\u2013$50K', description: 'Diagnostic + readiness workplan + registered-advisor review support' },
   { step: 5, name: 'Bond Readiness Accelerator', price: '$75K+', description: 'Full pre-issuance support \u2014 gap remediation, benchmarking, and timeline optimization' },
 ]
 
 const TIMELINE_PHASES = [
   { months: 'Month 1\u20132', label: 'Discovery', step: 'Market Intelligence Report + Readiness Scan', detail: 'Benchmark your system against peers. Identify top gaps before engaging advisors.', width: '25%' },
   { months: 'Month 2\u20133', label: 'Diagnostic', step: 'Bond Readiness Diagnostic', detail: 'Full scoring, gap analysis, and critical path. Know exactly what underwriters will scrutinize.', width: '12%' },
-  { months: 'Month 3\u20135', label: 'Coordination', step: 'Standard Engagement', detail: 'Active deal coordination, COI benchmarking, and milestone tracking. Your dedicated point of contact.', width: '22%' },
+  { months: 'Month 3\u20135', label: 'Coordination', step: 'Standard Engagement', detail: 'Readiness workplan, cost-context benchmarking, and milestone tracking for advisor/deal-team review.', width: '22%' },
   { months: 'Month 4\u20137', label: 'Acceleration', step: 'Bond Readiness Accelerator', detail: 'Full pre-issuance support \u2014 gap remediation, benchmarking, and deal timeline optimization.', width: '22%' },
   { months: 'Month 6\u20139', label: 'Execution', step: 'Market entry', detail: 'Go to market with a complete, defensible credit story. Advisors execute \u2014 you negotiate from strength.', width: '22%' },
 ]
@@ -154,7 +154,7 @@ export default function HealthcareCFOLanding() {
                 Healthcare Bond Intelligence
               </p>
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-6">
-                You're planning a bond issuance. Here's what your advisors won't tell you for free.
+                You're planning a bond issuance. Bring better evidence into the advisor-led process.
               </h1>
               <p className="text-lg text-gray-300 mb-8 max-w-xl leading-relaxed">
                 Muni-Pal's Healthcare Market Intelligence Report benchmarks your deal
@@ -322,7 +322,7 @@ export default function HealthcareCFOLanding() {
                   The difference between an A-rated and BBB-rated issuance costs{' '}
                   <span className="text-4xl font-extrabold" style={{ color: BRAND.orange }}>$27M+</span>{' '}
                   over 25 years on a $75M deal. The Accelerator helps you document your way
-                  to a better rating — for less than{' '}
+                  for registered-advisor review — for less than{' '}
                   <span className="font-bold" style={{ color: BRAND.teal }}>0.04%</span>{' '}
                   of deal size.
                 </p>

@@ -40,7 +40,7 @@ export function InformationGap() {
           <span className="text-muni-teal flex-shrink-0 font-bold">2.</span>
           <span>
             <strong className="text-white">
-              What borrowing actually costs right now
+              Market context for advisor review
             </strong>{' '}
             — corpus-calibrated cost-of-capital context by rating tier, not a vague
             "market rate" answer
@@ -734,9 +734,9 @@ export function PricingGrid() {
             ))}
           </div>
           <p className="text-xs text-blue-800 mt-3 font-medium">
-            The AA vs. BBB spread costs approximately $27M over 25 years on a
-            $75M deal. The investment in achieving and maintaining an A or better
-            rating pays for itself multiple times over.
+            The AA vs. BBB spread illustration shows why rating-tier context
+            belongs in the preparation record for registered-advisor and deal-team
+            review.
           </p>
         </div>
       </div>
@@ -764,12 +764,12 @@ const ENGAGEMENT_STEPS: { step: string; description: string; cost: string }[] = 
   },
   {
     step: 'Standard Engagement',
-    description: 'Diagnostic + active deal coordination + COI optimization',
+    description: 'Diagnostic + readiness workplan + registered-advisor review support',
     cost: '$40,000–$50,000',
   },
   {
     step: 'Bond Readiness Accelerator',
-    description: 'Full pre-issuance support — gap remediation, benchmarking, and timeline optimization',
+    description: 'Readiness support — gap remediation, benchmarking, and preparation workflow',
     cost: '$75,000+',
   },
 ]

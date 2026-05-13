@@ -38,13 +38,7 @@ class ProjectService:
             if not playbook:
                 raise ValueError(f"Playbook {data.playbook_id} not found")
         else:
-            # Get default playbook
-            result = await self.db.execute(
-                select(Playbook).where(Playbook.is_default, Playbook.is_active)
-            )
-            playbook = result.scalar_one_or_none()
-            if not playbook:
-                raise ValueError("No default playbook configured. Please create one first.")
+            playbook = await self._resolve_create_playbook()
 
         archetype = resolve_archetype(data.sector, data.subsector)
 
@@ -68,6 +62,37 @@ class ProjectService:
         await self.db.refresh(project)
 
         return await self._to_read_schema(project)
+
+    async def _resolve_create_playbook(self) -> Playbook:
+        """Resolve the playbook used for project creation when none is supplied.
+
+        Prefer the explicit active default. In development/demo workspaces, tolerate
+        one active playbook with no default flag so the Create Project form remains
+        usable after seeding demo data. Multiple active non-default playbooks still
+        require a configured default to avoid silently selecting the wrong playbook.
+        """
+        default_result = await self.db.execute(
+            select(Playbook).where(
+                Playbook.is_default.is_(True),
+                Playbook.is_active.is_(True),
+            )
+        )
+        default_playbook = default_result.scalar_one_or_none()
+        if default_playbook:
+            return default_playbook
+
+        active_result = await self.db.execute(
+            select(Playbook).where(Playbook.is_active.is_(True)).order_by(Playbook.created_at.asc())
+        )
+        active_playbooks = active_result.scalars().all()
+        if len(active_playbooks) == 1:
+            return active_playbooks[0]
+
+        if active_playbooks:
+            raise ValueError(
+                "No default playbook configured. Please mark one active playbook as default before creating a project."
+            )
+        raise ValueError("No active playbook configured. Please create one first.")
 
     async def get(self, project_id: UUID) -> ProjectRead | None:
         """Get a project by ID with computed fields."""

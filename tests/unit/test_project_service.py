@@ -65,10 +65,24 @@ class TestProjectService:
 
         assert result.playbook_id == UUID(playbook["id"])
 
-    async def test_create_project_no_default_playbook_raises(self, service, factory, db_session):
-        """Test creating project without playbook when no default exists raises error."""
-        # Create a non-default playbook
-        await factory.create_playbook(is_default=False)
+    async def test_create_project_uses_single_active_playbook_without_default(self, service, factory, db_session):
+        """Test project creation tolerates one active playbook when none is marked default."""
+        playbook = await factory.create_playbook(is_default=False)
+        await db_session.commit()
+
+        data = ProjectCreate(
+            name="Project",
+            issuer_name="Issuer",
+        )
+
+        result = await service.create(data, str(uuid4()))
+
+        assert result.playbook_id == UUID(playbook["id"])
+
+    async def test_create_project_multiple_active_playbooks_without_default_raises(self, service, factory, db_session):
+        """Test creating project without default is ambiguous with multiple active playbooks."""
+        await factory.create_playbook(name="Playbook A", is_default=False)
+        await factory.create_playbook(name="Playbook B", is_default=False)
         await db_session.commit()
 
         data = ProjectCreate(

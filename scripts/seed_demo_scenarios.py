@@ -4,9 +4,8 @@ import argparse
 import asyncio
 from dataclasses import dataclass
 from typing import Any
-from uuid import uuid5, NAMESPACE_URL
+from uuid import NAMESPACE_URL, uuid5
 
-from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from munipal.api.dependencies import DEV_FALLBACK_USER_ID
@@ -141,6 +140,8 @@ async def ensure_demo_owner(session: AsyncSession) -> None:
 async def ensure_demo_playbook(session: AsyncSession) -> Playbook:
     playbook = await session.get(Playbook, PLAYBOOK_ID)
     if playbook:
+        playbook.is_active = True
+        playbook.is_default = True
         return playbook
     playbook = Playbook(
         id=PLAYBOOK_ID,
@@ -149,7 +150,7 @@ async def ensure_demo_playbook(session: AsyncSession) -> Playbook:
         description="Synthetic launch-demo playbook for Healthcare and Housing walkthroughs.",
         bond_archetype="Launch demo revenue bond",
         is_active=True,
-        is_default=False,
+        is_default=True,
         schema_paths=[],
         extractors=[],
         checklist_items=[],

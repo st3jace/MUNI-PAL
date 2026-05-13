@@ -222,6 +222,10 @@ class DealWorkflow(BaseSchema):
     def document_state_matrix(self) -> dict[str, str]:
         return {document.id: document.current_state for document in self.documents}
 
+    @property
+    def open_items_by_id(self) -> dict[str, OpenItem]:
+        return {item.id: item for item in self.open_items}
+
 
 def _slug(value: str) -> str:
     safe = "".join(ch.lower() if ch.isalnum() else "-" for ch in value)
@@ -437,3 +441,298 @@ def build_deal_workflow_rollup(workflows: list[DealWorkflow], *, as_of: date | N
             upcoming.append(UpcomingClosing(deal_id=workflow.deal.id, deal_name=workflow.deal.name, closing_date=workflow.deal.closing_date, days_to_closing=(workflow.deal.closing_date - as_of).days))
     upcoming.sort(key=lambda closing: closing.closing_date)
     return DealWorkflowRollup(human_confirmation_required=True, active_deal_count=len([workflow for workflow in valid if workflow.deal.phase != "closed"]), blocking_item_count=blocking_count, self_owned_open_items=self_owned, stale_items=stale, upcoming_closings=upcoming)
+
+
+class ParsedCounselItem(BaseSchema):
+    """Open-item line conservatively extracted from a counsel punchlist email."""
+
+    description: str = Field(..., min_length=1)
+    inferred_owner: str = Field(..., min_length=1)
+    status_verb: str = Field(..., min_length=1)
+    status: OpenItemStatus
+    owner_individual: str | None = None
+    audit_breadcrumb: SourceBreadcrumb = Field(default_factory=SourceBreadcrumb)
+
+
+class ParsedDocumentSignal(BaseSchema):
+    document_id: str
+    next_state: DocumentState
+    action: str
+    confidence: float = Field(..., ge=0, le=1)
+    source: SourceBreadcrumb = Field(default_factory=SourceBreadcrumb)
+
+
+class ParsedCounselPunchlistEmail(BaseSchema):
+    source: SourceBreadcrumb
+    open_items: list[ParsedCounselItem] = Field(default_factory=list)
+    forward_commitments: list[ForwardCommitment] = Field(default_factory=list)
+    document_signals: list[ParsedDocumentSignal] = Field(default_factory=list)
+    private_body_redacted: bool = True
+
+
+class CounselRefreshDiff(SnapshotDiff):
+    refreshed_workflow: DealWorkflow
+
+
+def _normalized_owner(owner: str) -> str:
+    owner = owner.strip().strip(":")
+    lowered = owner.lower().replace("/", " ")
+    aliases = {
+        "authority": "SVIDA",
+        "svida": "SVIDA",
+        "svida authority": "SVIDA",
+        "issuer": "SVIDA",
+        "trustee": "UMB Bank",
+        "umb": "UMB Bank",
+        "umb bank": "UMB Bank",
+        "bond counsel": "Ice Miller",
+        "ice miller": "Ice Miller",
+        "borrower counsel": "Borrower Counsel",
+    }
+    for key, value in aliases.items():
+        if lowered == key or lowered.startswith(f"{key} "):
+            return value
+    if "authority" in lowered and "svida" in lowered:
+        return "SVIDA"
+    return owner.replace(" Open Items", "").strip()
+
+
+def _canonical_status(verb: str) -> OpenItemStatus:
+    normalized = verb.lower().replace("_", " ").replace("-", " ").strip(" .")
+    if any(token in normalized for token in ("received", "complete", "completed", "done", "resolved", "closed")):
+        return OpenItemStatus.COMPLETED
+    if "circulated" in normalized and "signature" in normalized:
+        return OpenItemStatus.CIRCULATED_FOR_SIGNATURE
+    if "await" in normalized or "waiting" in normalized or "response" in normalized:
+        return OpenItemStatus.AWAITING_RESPONSE
+    if "block" in normalized or "hold" in normalized:
+        return OpenItemStatus.BLOCKED
+    if "progress" in normalized or "working" in normalized or "draft" in normalized:
+        return OpenItemStatus.IN_PROGRESS
+    return OpenItemStatus.PENDING
+
+
+def _extract_owner_individual(text: str) -> tuple[str, str | None]:
+    stripped = text.strip()
+    if stripped.endswith(")") and "(" in stripped:
+        body, individual = stripped.rsplit("(", 1)
+        return body.strip(" -"), individual[:-1].strip() or None
+    return stripped, None
+
+
+def _split_description_status(text: str) -> tuple[str, str]:
+    import re
+
+    parts = re.split(r"\s+-\s+", text.strip(), maxsplit=1)
+    if len(parts) == 2:
+        return parts[0].strip(), parts[1].strip()
+    lowered = text.lower()
+    for marker in (" is blocked", " is outstanding", " is pending", " is received", " is complete", " is completed"):
+        if marker in lowered:
+            idx = lowered.rfind(marker)
+            return text[:idx].strip(), marker.replace(" is ", "").strip()
+    return text.strip(), "pending"
+
+
+def _source(system: str, message_id: str | None, source_author: str | None, audit_date: date | None, excerpt_ref: str | None = None) -> SourceBreadcrumb:
+    return SourceBreadcrumb(system=system, message_id=message_id, source_author=source_author, audit_date=audit_date, excerpt_ref=excerpt_ref)
+
+
+def _parse_document_signals(subject: str, breadcrumb: SourceBreadcrumb) -> list[ParsedDocumentSignal]:
+    subject_l = subject.lower()
+    document_id: str | None = None
+    if "closing memo" in subject_l or "closing memorandum" in subject_l:
+        document_id = "closing-memo"
+    elif "lom" in subject_l or "limited offering memorandum" in subject_l:
+        document_id = "limited-offering-memorandum"
+    elif "bpa" in subject_l or "bond purchase agreement" in subject_l:
+        document_id = "bond-purchase-agreement"
+    if not document_id:
+        return []
+    signals: list[tuple[str, DocumentState, float]] = [
+        ("filed", "filed", 0.9),
+        ("executed", "executed", 0.85),
+        ("sign off", "for_sign_off", 0.8),
+        ("sign-off", "for_sign_off", 0.8),
+        ("proof", "proof", 0.75),
+        ("rev 3", "rev_3", 0.72),
+        ("rev 2", "rev_2", 0.7),
+        ("rev 1", "rev_1", 0.68),
+        ("draft", "initial_draft", 0.65),
+    ]
+    found: list[ParsedDocumentSignal] = []
+    for action, state, confidence in signals:
+        if action in subject_l:
+            found.append(ParsedDocumentSignal(document_id=document_id, next_state=state, action=action, confidence=confidence, source=breadcrumb))
+            break
+    return found
+
+
+def parse_counsel_punchlist_email(*, subject: str, body: str, source_author: str | None, audit_date: date | None, message_id: str | None = None) -> ParsedCounselPunchlistEmail:
+    import re
+
+    breadcrumb = _source("counsel_email", message_id, source_author, audit_date)
+    items: list[ParsedCounselItem] = []
+    commitments: list[ForwardCommitment] = []
+    current_owner: str | None = None
+    in_commitments = False
+    for raw in body.splitlines():
+        line = raw.strip()
+        if not line:
+            continue
+        line_l = line.lower()
+        if "expect to complete" in line_l or "in preparation for closing" in line_l or "forward-looking" in line_l:
+            in_commitments = True
+            current_owner = None
+            continue
+        header = re.match(r"^([A-Za-z0-9&/ .-]+?)\s+Open Items:?$", line, flags=re.I)
+        if header:
+            current_owner = _normalized_owner(header.group(1))
+            in_commitments = False
+            continue
+        if not line.startswith(("-", "*", "•")):
+            continue
+        content = line.lstrip("-*• ").strip()
+        if in_commitments:
+            commitments.append(ForwardCommitment(id=f"counsel-commitment-{_slug(content)}", owner="Counsel", description=content, source=breadcrumb))
+            continue
+        owner = current_owner
+        inline = re.match(r"^([A-Za-z0-9&/ .-]+?):\s+(.+)$", content)
+        if inline:
+            owner = _normalized_owner(inline.group(1))
+            content = inline.group(2).strip()
+        if not owner:
+            owner = "Counsel"
+        content, individual = _extract_owner_individual(content)
+        description, status_verb = _split_description_status(content)
+        items.append(
+            ParsedCounselItem(
+                description=description,
+                inferred_owner=owner,
+                status_verb=status_verb.lower().strip(),
+                status=_canonical_status(status_verb),
+                owner_individual=individual,
+                audit_breadcrumb=breadcrumb,
+            )
+        )
+    return ParsedCounselPunchlistEmail(source=breadcrumb, open_items=items, forward_commitments=commitments, document_signals=_parse_document_signals(subject, breadcrumb), private_body_redacted=True)
+
+
+def _item_key(owner: str, description: str) -> str:
+    return f"{_slug(owner)}::{_slug(description)}"
+
+
+def _owner_in_workflow(workflow: DealWorkflow, parsed_owner: str) -> str:
+    owners = {party.counterparty for party in workflow.working_group}
+    if parsed_owner in owners:
+        return parsed_owner
+    normalized = _normalized_owner(parsed_owner)
+    if normalized in owners:
+        return normalized
+    for party in workflow.working_group:
+        if parsed_owner.lower() in party.role.lower() or party.role.lower() in parsed_owner.lower():
+            return party.counterparty
+    return parsed_owner
+
+
+def _latest_or_same_author(existing: OpenItem, parsed: ParsedCounselPunchlistEmail) -> bool:
+    if existing.source.source_author != parsed.source.source_author:
+        return False
+    if existing.source.audit_date and parsed.source.audit_date and parsed.source.audit_date < existing.source.audit_date:
+        return False
+    return True
+
+
+def apply_counsel_refresh(workflow: DealWorkflow, parsed: ParsedCounselPunchlistEmail) -> CounselRefreshDiff:
+    added: list[str] = []
+    updated: list[str] = []
+    closed: list[str] = []
+    document_changes: list[str] = []
+    parsed_keys: set[str] = set()
+    existing_by_key = {_item_key(item.owner, item.description): item for item in workflow.open_items}
+
+    for parsed_item in parsed.open_items:
+        owner = _owner_in_workflow(workflow, parsed_item.inferred_owner)
+        key = _item_key(owner, parsed_item.description)
+        parsed_keys.add(key)
+        existing = existing_by_key.get(key)
+        if existing:
+            changed = False
+            if existing.status != parsed_item.status:
+                existing.status = parsed_item.status
+                changed = True
+            if parsed_item.status == OpenItemStatus.COMPLETED and existing.completed_date is None:
+                existing.completed_date = parsed.source.audit_date
+                changed = True
+            existing.owner_individual = parsed_item.owner_individual or existing.owner_individual
+            existing.last_updated = parsed.source.audit_date or existing.last_updated
+            existing.source = parsed.source
+            existing.human_confirmation_required = True
+            if changed:
+                updated.append(existing.id)
+            continue
+        new_id = f"counsel-{_slug(owner)}-{_slug(parsed_item.description)}"
+        workflow.open_items.append(
+            OpenItem(
+                id=new_id,
+                owner=owner,
+                description=parsed_item.description,
+                status=parsed_item.status,
+                owner_individual=parsed_item.owner_individual,
+                blocks_closing=parsed_item.status != OpenItemStatus.COMPLETED,
+                first_seen=parsed.source.audit_date,
+                last_updated=parsed.source.audit_date,
+                completed_date=parsed.source.audit_date if parsed_item.status == OpenItemStatus.COMPLETED else None,
+                source=parsed.source,
+                human_confirmation_required=True,
+            )
+        )
+        added.append(new_id)
+
+    for item in workflow.open_items:
+        key = _item_key(item.owner, item.description)
+        if key not in parsed_keys and item.is_active and _latest_or_same_author(item, parsed):
+            item.status = OpenItemStatus.COMPLETED
+            item.completed_date = parsed.source.audit_date
+            item.last_updated = parsed.source.audit_date
+            item.source = parsed.source
+            item.human_confirmation_required = True
+            closed.append(item.id)
+
+    documents = {document.id: document for document in workflow.documents}
+    for signal in parsed.document_signals:
+        document = documents.get(signal.document_id)
+        if document and signal.confidence >= 0.7 and document.current_state != signal.next_state:
+            states = tuple(dict.fromkeys(document.states_completed + (signal.next_state,)))
+            document.current_state = signal.next_state
+            document.states_completed = states
+            document.last_updated = parsed.source.audit_date
+            document_changes.append(f"{document.id}:{signal.next_state}")
+
+    for commitment in parsed.forward_commitments:
+        owner = workflow.deal.bond_counsel or "Counsel"
+        if owner not in {party.counterparty for party in workflow.working_group}:
+            owner = workflow.working_group[0].counterparty
+        workflow.forward_commitments.append(commitment.model_copy(update={"owner": owner}))
+
+    snapshot = SnapshotDiff(
+        snapshot_id=f"counsel-refresh-{parsed.source.message_id or parsed.source.audit_date or len(workflow.snapshots)+1}",
+        captured_at=parsed.source.audit_date or date.today(),
+        source=parsed.source,
+        added_item_ids=tuple(added),
+        updated_item_ids=tuple(updated),
+        closed_item_ids=tuple(closed),
+        document_state_changes=tuple(document_changes),
+    )
+    workflow.snapshots.append(snapshot)
+    refreshed = validate_deal_workflow(workflow)
+    return CounselRefreshDiff(
+        snapshot_id=snapshot.snapshot_id,
+        captured_at=snapshot.captured_at,
+        source=snapshot.source,
+        added_item_ids=snapshot.added_item_ids,
+        updated_item_ids=snapshot.updated_item_ids,
+        closed_item_ids=snapshot.closed_item_ids,
+        document_state_changes=snapshot.document_state_changes,
+        refreshed_workflow=refreshed,
+    )

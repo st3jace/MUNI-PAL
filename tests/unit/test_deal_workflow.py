@@ -111,3 +111,167 @@ def test_rollup_returns_self_owned_items_blockers_stale_items_and_human_confirma
     assert rollup.self_owned_open_items[0].deal_id == "oakport-healthcare-2026"
     assert rollup.stale_items[0].item_id == active.open_items[0].id
     assert rollup.upcoming_closings[0].deal_id == "oakport-healthcare-2026"
+
+
+def test_parse_counsel_email_extracts_owner_grouped_items_statuses_and_commitments() -> None:
+    from munipal.services.deal_workflow import parse_counsel_punchlist_email
+
+    parsed = parse_counsel_punchlist_email(
+        subject="ALA Johnston - updated open items and LOM proof",
+        body="""
+        Brian Magorien sent the following open items we are tracking for closing:
+
+        SVIDA/Authority Open Items:
+        - Return issuer signature pages - pending (Stephen Peterson)
+        - Confirm wire instructions - awaiting response (Michael Slania)
+
+        Ice Miller Open Items:
+        - LOM proof circulated for signature - circulated for signature (Brian Magorien)
+
+        In preparation for closing, we expect to complete the following:
+        - Open pre-closing file on Monday
+        - Circulate final closing memorandum
+        """,
+        source_author="Brian Magorien",
+        audit_date=date(2026, 4, 24),
+        message_id="ice-2026-04-24",
+    )
+
+    assert parsed.private_body_redacted is True
+    assert [item.inferred_owner for item in parsed.open_items] == ["SVIDA", "SVIDA", "Ice Miller"]
+    assert [item.status for item in parsed.open_items] == [
+        OpenItemStatus.PENDING,
+        OpenItemStatus.AWAITING_RESPONSE,
+        OpenItemStatus.CIRCULATED_FOR_SIGNATURE,
+    ]
+    assert parsed.open_items[0].description == "Return issuer signature pages"
+    assert parsed.open_items[0].status_verb == "pending"
+    assert parsed.open_items[0].owner_individual == "Stephen Peterson"
+    assert parsed.open_items[0].audit_breadcrumb.message_id == "ice-2026-04-24"
+    assert [commitment.description for commitment in parsed.forward_commitments] == [
+        "Open pre-closing file on Monday",
+        "Circulate final closing memorandum",
+    ]
+
+
+def test_parse_counsel_email_handles_slight_counsel_variation_and_document_signals() -> None:
+    from munipal.services.deal_workflow import parse_counsel_punchlist_email
+
+    parsed = parse_counsel_punchlist_email(
+        subject="Re: ALA Johnston Closing Memo executed and filed",
+        body="""
+        Updated short list of the open items:
+        * Authority: Confirm resolution certificate - outstanding (Stephen Peterson)
+        * Trustee: UMB to release authentication receipt - received (Katie Carlson)
+        * Borrower Counsel: Title endorsement is blocked (Monika Calamita)
+        Thanks,
+        Counsel Team
+        """,
+        source_author="Martha Martinez Karasch",
+        audit_date=date(2026, 4, 25),
+        message_id="pca-2026-04-25",
+    )
+
+    assert [item.inferred_owner for item in parsed.open_items] == ["SVIDA", "UMB Bank", "Borrower Counsel"]
+    assert [item.status for item in parsed.open_items] == [
+        OpenItemStatus.PENDING,
+        OpenItemStatus.COMPLETED,
+        OpenItemStatus.BLOCKED,
+    ]
+    assert parsed.document_signals[0].document_id == "closing-memo"
+    assert parsed.document_signals[0].next_state == "filed"
+    assert parsed.document_signals[0].confidence >= 0.75
+
+
+def test_refresh_diff_adds_updates_conservatively_closes_and_advances_documents() -> None:
+    from munipal.services.deal_workflow import apply_counsel_refresh, parse_counsel_punchlist_email
+
+    workflow = build_deal_workflow_from_seed(
+        deal_id="ala-johnston-2026",
+        name="ALA Johnston",
+        year=2026,
+        borrower="American Leadership Academy - Johnston",
+        conduit_issuer="SVIDA",
+        sector="education",
+        bond_counsel="Ice Miller",
+        trustee="UMB Bank",
+        target_closing_date=date(2026, 4, 29),
+    )
+    workflow.open_items[0].id = "svida-signature-pages"
+    workflow.open_items[0].description = "Return issuer signature pages"
+    workflow.open_items[0].owner = "SVIDA"
+    workflow.open_items[0].status = OpenItemStatus.PENDING
+    workflow.open_items[0].source.source_author = "Brian Magorien"
+    workflow.open_items[0].source.audit_date = date(2026, 4, 24)
+    workflow.open_items.append(
+        workflow.open_items[0].model_copy(
+            deep=True,
+            update={
+                "id": "stale-issuer-certificate",
+                "description": "Confirm issuer certificate",
+                "status": OpenItemStatus.PENDING,
+                "source": workflow.open_items[0].source.model_copy(deep=True),
+            },
+        )
+    )
+
+    parsed = parse_counsel_punchlist_email(
+        subject="ALA Johnston Closing Memo executed and filed",
+        body="""
+        Open items we are tracking for closing:
+        SVIDA/Authority Open Items:
+        - Return issuer signature pages - received (Stephen Peterson)
+        UMB Bank Open Items:
+        - Release authentication receipt - awaiting response (Katie Carlson)
+        """,
+        source_author="Brian Magorien",
+        audit_date=date(2026, 4, 25),
+        message_id="ice-2026-04-25",
+    )
+
+    diff = apply_counsel_refresh(workflow, parsed)
+
+    assert diff.added_item_ids == ("counsel-umb-bank-release-authentication-receipt",)
+    assert diff.updated_item_ids == ("svida-signature-pages",)
+    assert diff.closed_item_ids == ("stale-issuer-certificate",)
+    assert diff.document_state_changes == ("closing-memo:filed",)
+    refreshed = diff.refreshed_workflow
+    assert refreshed.open_items_by_id["svida-signature-pages"].status == OpenItemStatus.COMPLETED
+    assert refreshed.open_items_by_id["svida-signature-pages"].completed_date == date(2026, 4, 25)
+    assert refreshed.open_items_by_id["stale-issuer-certificate"].status == OpenItemStatus.COMPLETED
+    assert refreshed.open_items_by_id["stale-issuer-certificate"].human_confirmation_required is True
+    assert refreshed.document_state_matrix()["closing-memo"] == "filed"
+    assert refreshed.snapshots[-1].source.message_id == "ice-2026-04-25"
+
+
+def test_refresh_diff_does_not_close_missing_items_from_different_author_or_older_email() -> None:
+    from munipal.services.deal_workflow import apply_counsel_refresh, parse_counsel_punchlist_email
+
+    workflow = build_deal_workflow_from_seed(
+        deal_id="ala-johnston-2026",
+        name="ALA Johnston",
+        year=2026,
+        borrower="American Leadership Academy - Johnston",
+        conduit_issuer="SVIDA",
+        sector="education",
+        bond_counsel="Ice Miller",
+    )
+    workflow.open_items[0].source.source_author = "Brian Magorien"
+    workflow.open_items[0].source.audit_date = date(2026, 4, 25)
+
+    parsed = parse_counsel_punchlist_email(
+        subject="ALA Johnston - older update",
+        body="""
+        Open items we are tracking for closing:
+        Ice Miller Open Items:
+        - Circulate LOM proof - in progress (Brian Magorien)
+        """,
+        source_author="Different Counsel",
+        audit_date=date(2026, 4, 24),
+        message_id="older-different-author",
+    )
+
+    diff = apply_counsel_refresh(workflow, parsed)
+
+    assert diff.closed_item_ids == ()
+    assert workflow.open_items[0].status == OpenItemStatus.PENDING

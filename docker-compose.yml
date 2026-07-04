@@ -48,6 +48,7 @@ services:
     container_name: munipal-api
     environment:
       - APP_ENV=development
+      - USE_SQLITE=false
       - DEBUG=true
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=5432
@@ -80,6 +81,7 @@ services:
     container_name: munipal-celery-worker
     environment:
       - APP_ENV=development
+      - USE_SQLITE=false
       - POSTGRES_HOST=postgres
       - POSTGRES_PORT=5432
       - POSTGRES_USER=munipal
@@ -109,6 +111,12 @@ services:
     container_name: munipal-celery-beat
     environment:
       - APP_ENV=development
+      - USE_SQLITE=false
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=munipal
+      - POSTGRES_PASSWORD=munipal_dev_password
+      - POSTGRES_DB=munipal
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - CELERY_BROKER_URL=redis://redis:6379/0

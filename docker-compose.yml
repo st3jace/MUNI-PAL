@@ -126,7 +126,7 @@ services:
     depends_on:
       redis:
         condition: service_healthy
-    command: celery -A munipal.workers.celery_app beat --loglevel=info
+    command: celery -A munipal.workers.celery_app beat --loglevel=info --schedule /tmp/celerybeat-schedule
 
 volumes:
   postgres_data:

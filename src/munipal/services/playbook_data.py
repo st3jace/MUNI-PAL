@@ -696,9 +696,175 @@ SCHEMA_PATHS = [
 ]
 
 
+# Healthcare and common BFMS schema paths used by sector-specific extraction.
+# These are appended outside the legacy UCS list so existing playbook ordering remains stable
+# while metadata endpoints can still guide review for healthcare facts.
+HEALTHCARE_SCHEMA_PATHS = [
+    {"path": "project.name", "display_name": "Project Name", "value_type": "string", "criticality": "critical", "min_confidence": 0.70},
+    {"path": "project.location", "display_name": "Project Location", "value_type": "string", "criticality": "critical", "min_confidence": 0.70},
+    {"path": "healthcare.facility_type", "display_name": "Facility Type", "value_type": "string", "criticality": "critical", "min_confidence": 0.70},
+    {"path": "healthcare.licensure", "display_name": "Healthcare Licensure", "value_type": "string", "criticality": "critical", "min_confidence": 0.70},
+    {"path": "healthcare.cms_certification", "display_name": "CMS Certification", "value_type": "string", "criticality": "critical", "min_confidence": 0.70},
+    {"path": "healthcare.accreditation", "display_name": "Accreditation", "value_type": "string", "criticality": "material", "min_confidence": 0.70},
+    {"path": "healthcare.utilization.trend", "display_name": "Utilization Trend", "value_type": "string", "criticality": "material", "min_confidence": 0.70},
+    {"path": "healthcare.service_area", "display_name": "Healthcare Service Area", "value_type": "string", "criticality": "material", "min_confidence": 0.70},
+    {"path": "healthcare.physician_alignment", "display_name": "Physician Alignment", "value_type": "string", "criticality": "material", "min_confidence": 0.70},
+    {"path": "healthcare.ehr_platform", "display_name": "EHR Platform", "value_type": "string", "criticality": "secondary", "min_confidence": 0.70},
+    {"path": "healthcare.payor_mix", "display_name": "Payor Mix", "value_type": "string", "criticality": "material", "min_confidence": 0.70},
+    {"path": "healthcare.net_patient_revenue", "display_name": "Net Patient Revenue", "value_type": "currency", "unit": "USD", "criticality": "critical", "min_confidence": 0.70},
+    {"path": "liquidity.days_cash_on_hand", "display_name": "Days Cash on Hand", "value_type": "number", "unit": "days", "criticality": "critical", "min_confidence": 0.70},
+    {"path": "market.demand", "display_name": "Market Demand", "value_type": "string", "criticality": "material", "min_confidence": 0.70},
+    {"path": "environmental.phase_one", "display_name": "Phase I Environmental Review", "value_type": "string", "criticality": "material", "min_confidence": 0.70},
+    {"path": "financials.audited-statements", "display_name": "Audited Financial Statements", "value_type": "string", "criticality": "critical", "min_confidence": 0.70},
+]
+
+_existing_schema_paths = {item["path"] for item in SCHEMA_PATHS}
+SCHEMA_PATHS.extend(item for item in HEALTHCARE_SCHEMA_PATHS if item["path"] not in _existing_schema_paths)
+
+SCHEMA_PATH_METADATA.update({
+    "project.name": {
+        "description": "The legal or commonly used name of the project or facility being financed.",
+        "short_description": "Name of the financed project or facility",
+        "guidance": "Confirm the name against organizational, offering, authorization, or feasibility documents. Use the legal facility/project name when available.",
+        "example": "Oakport Regional Medical Center",
+        "who_needs_it": ["Issuer", "Bond Counsel", "Financial Advisor", "Underwriter"],
+    },
+    "project.location": {
+        "description": "The jurisdiction or physical location where the project or financed facility is located.",
+        "short_description": "Project city/state or jurisdiction",
+        "guidance": "Confirm the location from project descriptions, feasibility studies, market studies, or authorization documents.",
+        "example": "Silverhaven, Virginia",
+        "who_needs_it": ["Issuer", "Bond Counsel", "Financial Advisor"],
+    },
+    "healthcare.facility_type": {
+        "description": "The healthcare facility category, such as acute care hospital, medical office building, clinic, or specialty facility.",
+        "short_description": "Healthcare facility category",
+        "guidance": "Use license, accreditation, feasibility, or project description documents to confirm the facility type.",
+        "example": "General Acute Care Hospital",
+        "who_needs_it": ["Financial Advisor", "Underwriter", "Rating Agency"],
+    },
+    "healthcare.licensure": {
+        "description": "Evidence of state healthcare licensure or license identifiers for the facility/operator.",
+        "short_description": "State healthcare license evidence",
+        "guidance": "Confirm license number, status, issuing state agency, expiration date, and any limitations from license documents.",
+        "example": "License LIC-770487; Active",
+        "who_needs_it": ["Bond Counsel", "Underwriter", "Rating Agency"],
+    },
+    "healthcare.cms_certification": {
+        "description": "CMS/Medicare certification or provider enrollment evidence for the healthcare facility/operator.",
+        "short_description": "CMS or Medicare provider certification",
+        "guidance": "Confirm provider number, certification status, provider type, and effective dates from CMS or Medicare certification documents.",
+        "example": "Medicare Provider Number 06896233790",
+        "who_needs_it": ["Underwriter", "Rating Agency", "Disclosure Counsel"],
+    },
+    "healthcare.accreditation": {
+        "description": "Third-party accreditation status, such as Joint Commission accreditation.",
+        "short_description": "Healthcare accreditation status",
+        "guidance": "Confirm accrediting body, decision/status, effective dates, and any contingencies from accreditation documents.",
+        "example": "Joint Commission: Accredited",
+        "who_needs_it": ["Underwriter", "Rating Agency"],
+    },
+    "healthcare.utilization.trend": {
+        "description": "Utilization trend evidence such as inpatient days, admissions, outpatient visits, occupancy, or procedure volumes.",
+        "short_description": "Healthcare utilization trend",
+        "guidance": "Review utilization reports for period-over-period volume trends and whether they support the financing case.",
+        "example": "Outpatient visits increased 8% year over year",
+        "who_needs_it": ["Financial Advisor", "Underwriter", "Rating Agency"],
+    },
+    "healthcare.service_area": {
+        "description": "The geographic population or market served by the healthcare facility.",
+        "short_description": "Healthcare service-area evidence",
+        "guidance": "Use demographic, market, feasibility, or strategic-plan documents to confirm service-area size, growth, and competitive context.",
+        "example": "Primary service area population of 475,000",
+        "who_needs_it": ["Financial Advisor", "Underwriter", "Rating Agency"],
+    },
+    "healthcare.physician_alignment": {
+        "description": "Evidence of physician recruitment, affiliation, employment, or referral alignment supporting facility demand.",
+        "short_description": "Physician alignment evidence",
+        "guidance": "Review strategic plans, feasibility studies, or management documents for physician alignment commitments and risks.",
+        "example": "42 aligned physicians across key outpatient specialties",
+        "who_needs_it": ["Financial Advisor", "Rating Agency"],
+    },
+    "healthcare.ehr_platform": {
+        "description": "Electronic health record platform or clinical systems environment relevant to operations and integration risk.",
+        "short_description": "EHR or clinical systems platform",
+        "guidance": "Confirm named EHR/vendor and implementation status from management, IT, or strategic-plan materials.",
+        "example": "Epic EHR platform",
+        "who_needs_it": ["Management", "Underwriter"],
+    },
+    "healthcare.payor_mix": {
+        "description": "Revenue or volume distribution by payor category, such as Medicare, Medicaid, commercial, self-pay, or other.",
+        "short_description": "Healthcare payor mix",
+        "guidance": "Use audited statements, financial summaries, feasibility studies, or management reports; note whether percentages are revenue- or volume-based.",
+        "example": "Medicare 42%, Commercial 38%, Medicaid 15%, Self-pay/Other 5%",
+        "who_needs_it": ["Financial Advisor", "Underwriter", "Rating Agency"],
+    },
+    "healthcare.net_patient_revenue": {
+        "description": "Net patient service revenue after contractual allowances and deductions, used as a core healthcare credit metric.",
+        "short_description": "Net patient service revenue",
+        "guidance": "Confirm amount and fiscal period from audited financial statements or financial summaries.",
+        "example": "160523313",
+        "who_needs_it": ["Financial Advisor", "Underwriter", "Rating Agency"],
+    },
+    "liquidity.days_cash_on_hand": {
+        "description": "Liquidity metric showing how many days an organization can operate using unrestricted cash and investments.",
+        "short_description": "Days cash on hand",
+        "guidance": "Confirm calculation basis from audited financials, rating presentations, or management financial summaries.",
+        "example": "75",
+        "who_needs_it": ["Financial Advisor", "Underwriter", "Rating Agency"],
+    },
+    "market.demand": {
+        "description": "Evidence supporting demand for the financed healthcare project or services.",
+        "short_description": "Market demand support",
+        "guidance": "Review market studies, feasibility studies, demographic data, and strategic plans for explicit demand drivers.",
+        "example": "Population growth and outpatient demand support facility expansion",
+        "who_needs_it": ["Financial Advisor", "Underwriter", "Rating Agency"],
+    },
+    "environmental.phase_one": {
+        "description": "Phase I environmental site assessment status and whether recognized environmental conditions were identified.",
+        "short_description": "Phase I ESA findings",
+        "guidance": "Confirm report date, consultant, findings, and any recognized environmental conditions or recommended follow-up.",
+        "example": "No recognized environmental conditions identified",
+        "who_needs_it": ["Bond Counsel", "Underwriter", "Issuer"],
+    },
+    "financials.audited-statements": {
+        "description": "Availability and status of audited financial statements relevant to the borrower or obligated group.",
+        "short_description": "Audited financial statement evidence",
+        "guidance": "Confirm fiscal year, auditor, audit opinion, and whether statements cover the borrower/obligated group.",
+        "example": "FY2025 audited financial statements available; unmodified opinion",
+        "who_needs_it": ["Financial Advisor", "Underwriter", "Rating Agency", "Disclosure Counsel"],
+    },
+})
+
+
 def get_schema_path_metadata(schema_path: str) -> dict | None:
-    """Get metadata for a schema path including description, guidance, and examples."""
-    return SCHEMA_PATH_METADATA.get(schema_path)
+    """Get schema path definition enriched with description, guidance, and examples."""
+    path_def = next((item for item in SCHEMA_PATHS if item["path"] == schema_path), None)
+    metadata = SCHEMA_PATH_METADATA.get(schema_path)
+    if path_def is None and metadata is None:
+        return None
+
+    enriched = {"path": schema_path}
+    if path_def:
+        enriched.update(path_def)
+    if metadata:
+        enriched.update({
+            "description": metadata.get("description", ""),
+            "short_description": metadata.get("short_description", ""),
+            "guidance": metadata.get("guidance", ""),
+            "example": metadata.get("example", ""),
+            "who_needs_it": metadata.get("who_needs_it", []),
+        })
+    else:
+        display_name = enriched.get("display_name", schema_path)
+        enriched.update({
+            "description": "",
+            "short_description": display_name,
+            "guidance": "Review the source evidence and confirm the extracted value is accurate for this field.",
+            "example": "",
+            "who_needs_it": [],
+        })
+    return enriched
 
 
 def get_all_schema_paths_with_metadata() -> list[dict]:

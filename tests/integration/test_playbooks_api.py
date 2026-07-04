@@ -83,6 +83,29 @@ class TestPlaybooksAPI:
         assert data["is_default"] is True
         assert data["name"] == "Default Playbook"
 
+    async def test_get_global_schema_path_detail(self, test_client):
+        """Static schema metadata route should not be captured by playbook_id route."""
+        response = await test_client.get("/api/v1/playbooks/schema-paths/capital.project-cost")
+
+        assert response.status_code == 200
+        data = response.json()
+        assert data["path"] == "capital.project-cost"
+        assert data["display_name"] == "Total Project Cost"
+        assert data["description"]
+        assert data["guidance"]
+
+    async def test_get_global_schema_paths_batch(self, test_client):
+        """Batch schema metadata route should not be captured by playbook_id route."""
+        response = await test_client.get(
+            "/api/v1/playbooks/schema-paths-batch",
+            params={"paths": ["capital.project-cost", "finmodel.outputs.dscrbase"]},
+        )
+
+        assert response.status_code == 200
+        data = response.json()
+        assert data["capital.project-cost"]["display_name"] == "Total Project Cost"
+        assert data["finmodel.outputs.dscrbase"]["path"] == "finmodel.outputs.dscrbase"
+
     async def test_get_schema_paths(self, test_client, playbooks, auth_headers):
         """Test retrieving schema paths from a playbook."""
         playbook = playbooks[0]

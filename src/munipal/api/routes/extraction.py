@@ -15,6 +15,8 @@ from pydantic import BaseModel, Field
 from munipal.api.dependencies import AuthenticatedUserId, DbSession, require_roles
 from munipal.core.models import Artifact, ExtractionJob, Project
 from munipal.services.authorization_service import AuthorizationService
+from munipal.services.extraction.anthropic_client import AnthropicClient
+from munipal.services.extraction.rules_based_extractor import RulesBasedExtractor
 
 router = APIRouter()
 
@@ -138,7 +140,6 @@ async def run_extraction_job(
 
     from munipal.core.models import Chunk
     from munipal.core.models.fact import ExtractedFact, FactChunkAssociation
-    from munipal.services.extraction.anthropic_client import AnthropicClient
     from munipal.services.fact_service import FactService
     from munipal.services.playbook_data import EXTRACTORS, SCHEMA_PATHS
 
@@ -165,8 +166,18 @@ async def run_extraction_job(
     await db.flush()
 
     try:
-        # Initialize Anthropic client
-        client = AnthropicClient()
+        # Initialize Anthropic client when available; otherwise use the deterministic
+        # evidence-rules fallback so local/dev extraction still feeds human review.
+        extraction_mode = "anthropic"
+        try:
+            client = AnthropicClient()
+        except Exception as client_error:
+            logger.warning(
+                "Anthropic extraction unavailable; using rules-based fallback: %s",
+                client_error,
+            )
+            client = None
+            extraction_mode = "rules_based_fallback"
 
         total_facts = 0
         total_chunks = 0
@@ -198,6 +209,61 @@ async def run_extraction_job(
             )
 
             if not combined_content.strip():
+                continue
+
+            if client is None:
+                target_paths = list(job.target_schema_paths or [])
+                if not target_paths:
+                    for extractor in EXTRACTORS:
+                        for path in extractor.get("target_schema_paths", []):
+                            if path not in target_paths:
+                                target_paths.append(path)
+                chunk_payloads = [
+                    {"id": c.id, "text_content": c.text_content or ""}
+                    for c in chunks
+                ]
+                facts_data = [
+                    fact.to_extraction_fact()
+                    for fact in RulesBasedExtractor().extract(chunk_payloads, target_paths)
+                ]
+                for fact_data in facts_data:
+                    schema_path = fact_data.get("schema_path")
+                    if not schema_path:
+                        continue
+
+                    criticality = "secondary"
+                    for sp in SCHEMA_PATHS:
+                        if sp["path"] == schema_path:
+                            criticality = sp.get("criticality", "secondary")
+                            break
+
+                    fact = ExtractedFact(
+                        id=str(gen_uuid4()),
+                        schema_path=schema_path,
+                        criticality=criticality,
+                        value=fact_data.get("value"),
+                        value_type=fact_data.get("value_type", "string"),
+                        unit=fact_data.get("unit"),
+                        confidence_score=fact_data.get("confidence", 0.7),
+                        confidence_rationale=fact_data.get("confidence_rationale"),
+                        project_id=job.project_id,
+                        extraction_job_id=job.id,
+                        review_status="pending",
+                        lifecycle_state="pending_review",
+                    )
+                    db.add(fact)
+                    await db.flush()
+                    touched_schema_paths.add(schema_path)
+
+                    source_quote = fact_data.get("source_quote", "")
+                    source_chunk_id = fact_data.get("chunk_id") or chunks[0].id
+                    assoc = FactChunkAssociation(
+                        fact_id=fact.id,
+                        chunk_id=source_chunk_id,
+                        excerpt=source_quote[:500] if source_quote else None,
+                    )
+                    db.add(assoc)
+                    total_facts += 1
                 continue
 
             # Run each extractor
@@ -253,11 +319,12 @@ async def run_extraction_job(
                         await db.flush()
                         touched_schema_paths.add(schema_path)
 
-                        # Link fact to source chunk (use first chunk as primary source)
+                        # Link fact to source chunk. Model responses may not include a
+                        # chunk id, so keep the historical first-chunk fallback.
                         source_quote = fact_data.get("source_quote", "")
                         assoc = FactChunkAssociation(
                             fact_id=fact.id,
-                            chunk_id=chunks[0].id,
+                            chunk_id=fact_data.get("chunk_id") or chunks[0].id,
                             excerpt=source_quote[:500] if source_quote else None,
                         )
                         db.add(assoc)
@@ -302,6 +369,7 @@ async def run_extraction_job(
             "message": f"Extracted {total_facts} facts from {total_chunks} chunks",
             "facts_extracted": total_facts,
             "total_chunks": total_chunks,
+            "extraction_mode": extraction_mode,
         }
 
     except Exception as e:

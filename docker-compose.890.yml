@@ -1,0 +1,18 @@
+# 890 second-brain deployment overlay.
+# Usage: docker compose -f docker-compose.yml -f docker-compose.890.yml up -d
+# Adds restart policies (the WSL distro is kept alive by the wsl-keepalive
+# scheduled task; containers must survive daemon restarts) and exposes the
+# API on 4120 to match the Visibility Dashboard port convention.
+services:
+  postgres:
+    restart: unless-stopped
+  redis:
+    restart: unless-stopped
+  api:
+    restart: unless-stopped
+    ports:
+      - "4120:8000"
+  celery-worker:
+    restart: unless-stopped
+  celery-beat:
+    restart: unless-stopped

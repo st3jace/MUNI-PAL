@@ -17,9 +17,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
-COPY pyproject.toml ./
+# hatchling metadata needs README.md, and wheeling the project needs src/
+COPY pyproject.toml README.md ./
+COPY src/ ./src/
 RUN pip install --no-cache-dir build && \
-    pip wheel --no-cache-dir --wheel-dir /app/wheels -e .
+    pip wheel --no-cache-dir --wheel-dir /app/wheels .
 
 # -----------------------------------------------------------------------------
 # Stage 2: Runtime

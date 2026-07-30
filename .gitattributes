@@ -1,0 +1,16 @@
+# core.autocrlf is true on this estate, which means git would happily rewrite
+# LF to CRLF on checkout. Two files must not let it.
+
+# SOPS ciphertext has to arrive byte-identical. A CRLF rewrite appends \r to
+# every encrypted value, so decryption fails the MAC check and the file looks
+# corrupt. The one thing you must never do at that point is byte-edit the
+# encrypted file to "repair" it — the MAC covers the key names too, and editing
+# makes it permanently undecryptable. Just don't let git touch it.
+#
+# This is not theoretical: the same omission corrupted the arthur repo's
+# secrets file on checkout during the 2026-07-30 rollout.
+secrets/*.enc.env -text
+
+# Shell helpers run under git-bash. CRLF line endings break the shebang and
+# produce the classic `\r: command not found`.
+*.sh text eol=lf

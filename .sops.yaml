@@ -1,0 +1,32 @@
+# ============================================================================
+# SOPS creation rules — MUNI-PAL
+# ============================================================================
+# This file decides WHO can decrypt WHAT. It contains no secrets and is safe
+# to commit and to read over anyone's shoulder.
+#
+# Every age key listed below is a PUBLIC key. Adding one grants that holder
+# the ability to decrypt. Removing one revokes it — but you must then run
+#     sops updatekeys secrets/muni-pal.enc.env
+# to re-encrypt, otherwise the old holder can still read the existing file.
+#
+# Recipient roster (keep in sync with KEYS.md):
+#   stephen-laptop  age13sqt2mfhs46g3ldyyqqsk7ck0fuasm8km88sc678hjvddw6ekauqhgk0kz
+#
+# Deliberately a roster of ONE. The only consumer of MUNI-PAL's Resend key is
+# local development on the laptop — the deployed 890 stack does not receive it
+# (compose passes no RESEND_API_KEY and the container has none). Do not add
+# arthur-890 here out of habit; that identity belongs to Arthur, and granting
+# it would hand a different agent read access to MUNI-PAL's credentials for no
+# consumer that exists. Add a muni-pal-890 identity if and when the deployed
+# stack actually needs to send mail.
+# ============================================================================
+
+# NOTE: path_regex is deliberately separator-agnostic. Windows hands SOPS
+# backslash paths (secrets\foo.enc.env) while git-bash hands it forward
+# slashes, so anchoring on the extension alone is what makes one config work
+# identically on both machines.
+creation_rules:
+  - path_regex: \.enc\.env$
+    key_groups:
+      - age:
+          - age13sqt2mfhs46g3ldyyqqsk7ck0fuasm8km88sc678hjvddw6ekauqhgk0kz

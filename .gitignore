@@ -127,3 +127,8 @@ frontend/package-lock.json
 
 # Compound Engineering local config (machine-local, not committed)
 .compound-engineering/*.local.yaml
+
+# local artifacts (never commit)
+munipal_dev.db.bak*
+tmp_test.py
+dogfood-output/

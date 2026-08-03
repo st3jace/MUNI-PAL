@@ -1,0 +1,174 @@
+{
+  "project": {
+    "name": "Muni-Pal Site Truth & Education Expansion",
+    "description": "Scrub all public EMMA/MSRB references from muni-pal.io, rewrite pages in the Hormozi copy standard, and stand up the education-facility sector (corpus -> benchmarks -> readiness form) with the EMMA system running on the 890.",
+    "content": "# Muni-Pal Site Truth & Education Expansion\n\nInitiated 2026-08-03 by Stephen (via COS). Three driving ideas:\n\n1. **Eliminate all public EMMA references.** We do not have MSRB/EMMA's permission to reference their brand or attribute our data to them publicly. Internal use of publicly available data retrieval continues; public attribution stops until written approval exists.\n2. **Hormozi-style copy.** Pages should read plain and outcome-first: what the visitor gets, why it's credible, what to do next. Less muni jargon. Source library: `MEGA/AREAS/BUSINESS/ACQUISITION` ($100M Offers/Leads/Money Models, Proof Checklist, Branding Playbook).\n3. **Education facility sector.** The readiness tooling is over-indexed on healthcare (+ WTE). Add education as a sector — additive, never removing existing sector selection — with categories derived from our own education deals (SVIDA charter-school pipeline) plus EMMA-pulled public deals. Corpus, cost-of-issuance benchmarks, and the knowledge base inform BOTH the new sector AND the constraint plane for what site copy may claim.\n\n## Ground truth (verified 2026-08-03)\n\n- **Canonical repo:** WSL `~/Developer/MUNI-PAL` (GitHub `st3jace/MUNI-PAL`; 890 bare mirror `/c/Users/st3ja/muni-pal.git`). The OneDrive copy is superseded — do not commit there.\n- **Deployments:** marketing site = Vercel (project `muni-pal`, `frontend/vercel.json`, three Vite builds: healthcare root, sensing `/tools/`, readiness `/readiness/`); API = Railway `api.muni-pal.io` (env currently unreadable by agents).\n- **EMMA/MSRB inventory:** 11 deployed frontend files carry user-visible references (8 React pages + 3 HTML shells), ~31 instances, incl. two internal-crawler leaks in `CreditSpreadMonitor.tsx` empty states (\"Run the EMMA crawler...\"). Full list embedded in the M1 issues.\n- **Sector plumbing:** top-level sector list is data-driven — `src/munipal/services/sensing.py` `_SEED_SECTORS = [\"waste\", \"healthcare\"]`, questionnaires from `sensing_seed/questionnaire_{sector}.json`. Education exists only as an unreferenced stub `EDUCATION_PLAYBOOK_CONFIG` (`playbook_data.py` ~:4224) with 6 empty readiness dimensions, plus `education_facilities` keys in `risk_reporting_service.py`.\n- **EMMA system relocation:** crawler/PDF corpus must run and live on the 890, not the ST3 laptop (Stephen 2026-08-03). This aligns with Knowledge Plane issues ART-82 (landing-to-890 sweep), ART-83 (catalog regen on 890), ART-84 (EMMA metadata ingestion).\n- **Per-token API costs** for corpus synthesis route through Arthur's stack on the 890, not laptop sessions.\n\n## Relationship to other ART projects\n\n- **Muni-Pal Canonical Knowledge Plane** (ART-62..114) owns KB infrastructure: ingestion, policy engine, retrieval, evidence/citation policy (ART-64), corpus expansion side quest (ART-113). This project CONSUMES that plane for the education sector and the copy constraint plane; it does not rebuild it.\n- **Muni-Pal Relationship Intelligence Platform** (ART-17..61) — unrelated buildout; do not mix repos (`muni-pal-platform` is a different repo where Arthur has WIP).\n\n## Owners\n\n- Arthur (890): education corpus/taxonomy/benchmarks/questionnaire, claims certification, EMMA permission research.\n- Laptop/COS lane: site copy edits, sector wiring, Vercel deploy verification.\n- Stephen: final tone approval, sending EMMA/MSRB outreach, Vercel/Railway credentials where agents are blocked."
+  },
+  "milestones": [
+    {
+      "slug": "m0-language-governance",
+      "phase": "P1",
+      "title": "M0 — Language governance & copy standard",
+      "description": "Decide the rules before touching pages: what we may say (EMMA/MSRB policy + replacement lexicon), how we say it (Hormozi copy standard), and the path to eventually saying more (MSRB permission track). Everything in M1/M2 executes against these two documents.",
+      "labels": ["phase:1"]
+    },
+    {
+      "slug": "m1-emma-scrub",
+      "phase": "P1",
+      "title": "M1 — De-EMMA the public site",
+      "description": "Remove every user-visible EMMA/MSRB reference from muni-pal.io — React copy, HTML shell meta/OG/noscript tags, committed dist bundles — and verify zero references on the live site post-deploy. Ships fast and independently of the M2 rewrite. Compliance-driven: we lack permission to use the EMMA name publicly.",
+      "labels": ["phase:1"]
+    },
+    {
+      "slug": "m2-hormozi-rewrite",
+      "phase": "P2",
+      "title": "M2 — Hormozi-style page rewrites",
+      "description": "Rewrite the public pages to the copy standard from M0: outcome-first headlines, plain language, proof we can substantiate, one clear CTA per page. Includes a claims audit so every quantitative statement traces to corpus artifacts we can stand behind WITHOUT EMMA attribution.",
+      "labels": ["phase:2"]
+    },
+    {
+      "slug": "m3-education-sector",
+      "phase": "P2",
+      "title": "M3 — Education facility sector build (890 / Arthur)",
+      "description": "Stand up education as a first-class sector: taxonomy from our own deals + EMMA-pulled public data, corpus crawl running ON THE 890 (PDFs never land on the ST3 laptop), COI/spread benchmarks, questionnaire + readiness framework, and additive end-to-end registration so Education appears alongside Healthcare and Waste-to-Energy in the readiness sector picker. Leans on Knowledge Plane ART-82/83/84; per-token API work routes through Arthur.",
+      "labels": ["phase:2"]
+    },
+    {
+      "slug": "m4-launch",
+      "phase": "P3",
+      "title": "M4 — Launch & verification",
+      "description": "Education readiness live on muni-pal.io, scrubbed + rewritten copy verified in production, carry-forward list recorded.",
+      "labels": ["phase:3"]
+    }
+  ],
+  "deliverables": [
+    {
+      "slug": "d-emma-policy",
+      "phase": "P1",
+      "milestone": "m0-language-governance",
+      "title": "EMMA/MSRB reference policy + approved replacement lexicon",
+      "description": "**Owner: COS drafts, Arthur reviews, Stephen approves.**\n\nWrite `docs/marketing/LANGUAGE-POLICY.md` in the MUNI-PAL repo (WSL canonical).\n\n**Policy core:**\n- Zero public-facing use of \"EMMA\" or \"MSRB\" (names, logos, attribution) on muni-pal.io, exports, PDFs, emails, or marketing until written permission exists (see d-emma-permission-track).\n- Internal use of publicly available EMMA data retrieval CONTINUES for KB/corpus building — public data access is not the issue; public brand attribution is.\n- Aligns with Knowledge Plane ART-64 (evidence & citation policy) — cite that issue, don't fork the policy.\n\n**Replacement lexicon to codify (draft — finalize in the doc):**\n- \"866 actual EMMA transactions\" -> \"866 actual municipal bond transactions\" / \"866 deals in our municipal bond corpus\"\n- \"the EMMA corpus\" -> \"our municipal bond corpus\"\n- \"real EMMA data\" / \"EMMA filings\" -> \"public municipal disclosure filings\" / \"observed market data\"\n- \"filed with EMMA\" (continuing-disclosure context) -> \"filed in the public municipal disclosure system\" (check each usage — some describe the ISSUER's obligations and may need different phrasing)\n- \"MSRB EMMA municipal bond corpus\" (ReportExport attribution) -> \"our corpus of public municipal disclosure data\"\n- Empty-state crawler language (\"Run the EMMA crawler...\") -> visitor-appropriate copy (\"Data for this sector is coming soon\").\n\n**Also decide and record:** whether transaction counts (866) stay (they can — the number is ours), and the disclaimer posture (current live landing has NO MSRB G-42 advisor disclaimer; the undeployed variant-b/c drafts do — flag to Stephen as a separate legal question, do NOT silently add or remove).",
+      "labels": ["phase:1", "governance"]
+    },
+    {
+      "slug": "d-emma-permission-track",
+      "phase": "P1",
+      "milestone": "m0-language-governance",
+      "title": "MSRB/EMMA data-use permission track (workaround now, approval later)",
+      "description": "**Owner: Arthur (research + draft), Stephen (send/sign).**\n\nWe want to eventually reference EMMA openly. Until then we operate on workarounds (generic attribution per d-emma-policy).\n\n**Tasks:**\n1. Research MSRB's actual licensing path: EMMA subscription products, commercial data-use agreements, what redistribution/attribution rights each grants, cost, and whether our use (aggregated benchmarks derived from public disclosures, no bulk redistribution) even requires a license vs. merely brand-name permission.\n2. Document findings in the MUNI-PAL repo (`docs/marketing/EMMA-PERMISSION-TRACK.md`): what we can already do freely with public data, what requires agreement, recommended ask.\n3. Draft the outreach letter/application for Stephen to send.\n4. Record status; this issue stays open until approval or a documented decision not to pursue.\n\n**Constraint:** nothing external goes out without Stephen (Arthur is tickets-only / nothing-external).",
+      "labels": ["phase:1", "governance", "arthur"]
+    },
+    {
+      "slug": "d-hormozi-standard",
+      "phase": "P1",
+      "milestone": "m0-language-governance",
+      "title": "Muni-Pal copy standard distilled from the Hormozi library",
+      "description": "**Owner: COS/laptop lane. Source library:** `C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\AREAS\\BUSINESS\\ACQUISITION` — $100M Offers / Leads / Money Models course transcripts, $100M Branding Playbook, Proof Checklist, ACQ Ads Handbook, Lead Nurture Playbook.\n\nProduce `docs/marketing/COPY-STANDARD.md` in the MUNI-PAL repo: a working standard any page rewrite can be checked against, not a book report.\n\n**Must cover:**\n- **Value equation framing** (dream outcome x perceived likelihood / time delay x effort): every page leads with the outcome the CFO/board gets, not the tool's mechanism.\n- **Offer clarity:** name what each tool does in plain words (\"Know what a bond will cost you before you talk to anyone\" beats \"COI benchmarking powered by corpus spreads\").\n- **Proof-first:** use the Proof Checklist — real numbers (866 deals, spread differentials), specificity over adjectives; every proof point must survive the d-claims-audit constraint plane.\n- **Jargon policy:** define the allowed technical floor (DSCR, spread, COI need one-line plain-English glosses on first use; internal terms like \"corpus\", \"sensing\", \"crawler\" never appear).\n- **One CTA per page** and what it is (free readiness assessment as the lead magnet, per $100M Leads).\n- **Page checklist** (10 items max) used as the acceptance test in M2 issues.",
+      "labels": ["phase:1", "copy"]
+    },
+    {
+      "slug": "d-scrub-react",
+      "phase": "P1",
+      "milestone": "m1-emma-scrub",
+      "title": "Scrub EMMA/MSRB from deployed React page copy",
+      "description": "**Owner: laptop/COS lane. Repo: WSL `~/Developer/MUNI-PAL`. Blocked by: d-emma-policy (lexicon).**\n\nReplace every user-visible EMMA/MSRB reference in the deployed React sources using the approved lexicon. Verified inventory (line numbers at origin/master 2026-08-03; re-grep before editing):\n\n- `frontend/src/pages/tools/HealthcareCFOLanding.tsx` — :34 (\"drawn from real EMMA data\"), :151 (\"866 actual EMMA transactions\"), :220 (stat label \"EMMA transactions analyzed\"), :304 (\"spread differentials in EMMA\")\n- `frontend/src/pages/tools/HealthcareMIRContent.tsx` — :36, :61, :555 (\"filed with EMMA\")\n- `frontend/src/pages/tools/ToolsHub.tsx` — :41, :64\n- `frontend/src/pages/tools/MarketIntelligence.tsx` — :429, :479\n- `frontend/src/pages/tools/BenchmarkCalculator.tsx` — :473\n- `frontend/src/pages/tools/CreditSpreadMonitor.tsx` — :625, :824 (section title \"EMMA Corpus: Observed Spreads\"), :830, :859; empty-state leaks :843 + :872 handled in d-scrub-leaks\n- `frontend/src/pages/tools/PricingPage.tsx` — :542\n- `frontend/src/pages/tools/ReportExport.tsx` — :1060 (\"MSRB EMMA municipal bond corpus\")\n\n**Excluded (not deployed):** `design-variants/`, `__tests__/`, generated API client docstrings, `V1/`. But grep them anyway and scrub `design-variants/` too if cheap — they're one build-config away from shipping.\n\n**Acceptance:** `git grep -i -e emma -e msrb -- frontend/src/pages/tools frontend/index*.html` returns zero user-visible hits (generated files excepted).",
+      "labels": ["phase:1", "scrub"]
+    },
+    {
+      "slug": "d-scrub-meta",
+      "phase": "P1",
+      "milestone": "m1-emma-scrub",
+      "title": "Scrub meta/OG/noscript tags in HTML shells + regenerate dist bundles",
+      "description": "**Owner: laptop/COS lane. Blocked by: d-emma-policy.**\n\nSEO/social/noscript surfaces carry EMMA too:\n\n- `frontend/index.healthcare.html` — :6 meta description, :10 og:description, :21 twitter:description, :70 + :73 noscript body\n- `frontend/index.readiness.html` — :6, :10, :33\n- `frontend/index.sensing.html` — :6, :8\n\n**Also:** the committed build outputs (`frontend/dist-healthcare/`, `frontend/dist-readiness/`) embed the old strings — regenerate via the vercel.json buildCommand after source scrub, or confirm dists are build artifacts that Vercel rebuilds (then consider untracking them).\n\n**Watch out:** `frontend/.vercel/project.json` dashboard settings (`build:sensing` -> `dist`) conflict with `frontend/vercel.json` (`dist-healthcare`). vercel.json wins today; align the dashboard while in here so a config wobble doesn't resurrect stale EMMA bundles.\n\n**Acceptance:** zero EMMA/MSRB strings in shells and regenerated dists; social-card preview (og:) shows new copy.",
+      "labels": ["phase:1", "scrub"]
+    },
+    {
+      "slug": "d-scrub-leaks",
+      "phase": "P1",
+      "milestone": "m1-emma-scrub",
+      "title": "Fix internal-crawler leaks and adjacent public-surface defects",
+      "description": "**Owner: laptop/COS lane.**\n\n1. `CreditSpreadMonitor.tsx` :843 (\"Run the EMMA crawler on the {sector} sector...\") and :872 (\"As the EMMA crawler discovers and extracts...\") — internal tooling language shown to anonymous visitors in empty states. Replace with visitor-appropriate copy (e.g., \"Observed-spread data for this sector is coming soon\"). These will surface for the education sector until its corpus fills, so fix BEFORE education ships.\n2. `ReportExport.tsx` :1061 publishes `info@munipal.com` — wrong domain (we own muni-pal.io). Confirm the real contact address with Stephen and fix.\n3. Verify the ToolsHub \"Pilot Navigation System\" card route: commit 670f595e (\"surface pilot navigation in sensing tools\") may have registered `/tools/pilot-navigation-system`; if the route is still missing from `healthcare-main.tsx`/`sensing-main.tsx`, the card dead-ends through the SPA catch-all back to the landing page.\n4. Offline-fallback gap: `frontend/public/data/` has no `questionnaire_waste.json`, so when the sensing API is down the WTE path silently serves the HEALTHCARE questionnaire (`readinessLocal.ts` ~:101). Add the waste JSON (and education's, once it exists — see d-edu-questionnaire).",
+      "labels": ["phase:1", "scrub", "bug"]
+    },
+    {
+      "slug": "d-scrub-verify",
+      "phase": "P1",
+      "milestone": "m1-emma-scrub",
+      "title": "Deploy scrub + verify zero EMMA/MSRB on live muni-pal.io",
+      "description": "**Owner: laptop/COS lane executes; Stephen holds Vercel access if agent lacks it. Blocked by: d-scrub-react, d-scrub-meta, d-scrub-leaks.**\n\n1. Deploy via the normal Vercel path (project `muni-pal`, root `frontend/`).\n2. Crawl the live site (all routes in `healthcare-main.tsx`: /, /healthcare, /tools, /tools/market-intelligence, /tools/benchmark, /tools/readiness, /tools/healthcare-readiness, /tools/credit-spreads, /tools/coi-benchmarking, /tools/export, /pricing, /auth, plus /readiness/) and grep rendered HTML + JS bundles for \"EMMA\" and \"MSRB\" — case-insensitive.\n3. Check view-source meta tags and og: cards specifically (SEO caches: also request re-crawl in Google Search Console if wired).\n4. Record the verification output in the issue.\n\n**Acceptance:** zero case-insensitive matches on every deployed route and bundle.",
+      "labels": ["phase:1", "scrub", "verify"]
+    },
+    {
+      "slug": "d-rewrite-landing",
+      "phase": "P2",
+      "milestone": "m2-hormozi-rewrite",
+      "title": "Rewrite the landing page (HealthcareCFOLanding) to the copy standard",
+      "description": "**Owner: laptop/COS lane drafts, Stephen approves tone. Blocked by: d-hormozi-standard, d-scrub-react.**\n\n`frontend/src/pages/tools/HealthcareCFOLanding.tsx` (~552 lines, sections at :119, :192, :216, :240, :285, :315, :353, :401, :441, :508) is the site root (/ and /healthcare).\n\nApply the M0 standard: headline = the CFO's dream outcome (know if a bond is achievable + what it will cost, before engaging advisors); proof block with our substantiated numbers; plain-language section rewrites; single CTA to the free readiness assessment. Every claim must pass the d-claims-audit constraint plane. Keep the recent \"advisor compliance launch language\" hardening (commits 946e61b9 / da4b5431) intact in substance — plain-English it, don't delete it.\n\n**Acceptance:** page passes the COPY-STANDARD checklist; no jargon-floor violations; claims all trace.",
+      "labels": ["phase:2", "copy"]
+    },
+    {
+      "slug": "d-rewrite-tools",
+      "phase": "P2",
+      "milestone": "m2-hormozi-rewrite",
+      "title": "Rewrite ToolsHub, tool pages, and PricingPage to the copy standard",
+      "description": "**Owner: laptop/COS lane drafts, Stephen approves. Blocked by: d-hormozi-standard, d-scrub-react.**\n\nPages: `ToolsHub.tsx` (tool cards :5-53), `MarketIntelligence.tsx` + `HealthcareMIRContent.tsx`, `BenchmarkCalculator.tsx`, `ReadinessAssess.tsx`, `HealthcareReadiness.tsx`, `CreditSpreadMonitor.tsx`, `CoiBenchmarking.tsx`, `ReportExport.tsx`, `PricingPage.tsx`.\n\nEach tool card and page header answers: what you get, in what time, with what proof, and one next action. Kill mechanism-speak (\"powered by AAA MMD base curve and corpus spreads\") in favor of outcomes (\"see the all-in rate deals like yours actually priced at\"). Pricing page: apply $100M Offers value framing (price anchored against cost of one mispriced deal / advisor hours saved).\n\n**Acceptance:** each page passes the COPY-STANDARD checklist; terminology consistent across pages; claims all trace to the constraint plane.",
+      "labels": ["phase:2", "copy"]
+    },
+    {
+      "slug": "d-claims-audit",
+      "phase": "P2",
+      "milestone": "m2-hormozi-rewrite",
+      "title": "Claims audit — build the constraint plane and certify every public claim",
+      "description": "**Owner: Arthur certifies (keeper of bond intelligence); COS assembles. Blocked by: d-emma-policy.**\n\nBuild the \"what we can say vs. what we stay away from\" plane that Stephen described, then run every quantitative/empirical claim on the site against it.\n\n**Method:**\n1. Extract every claim from current + rewritten copy (866 transactions; AA vs BBB spread differentials; DSCR/payer-mix/days-cash benchmarks; COI figures; \"6 readiness dimensions\"; etc.).\n2. For each: source artifact (corpus DB, benchmarks JSON, playbook), whether it survives no-EMMA attribution, freshness, and known data-quality caveats (e.g., the housing corpus's implausible $3.25B Canyon Ridge principal shows extraction can produce garbage — education corpus will need the same scrutiny before its numbers go public).\n3. Output: `docs/marketing/CLAIMS-REGISTER.md` — claim | source | status (approved / rephrase / remove) | owner.\n4. Arthur signs off via ticket comment; COS applies removals/rephrases.\n\nThis register becomes the standing gate for ALL future site claims, including education benchmarks from M3.",
+      "labels": ["phase:2", "governance", "arthur"]
+    },
+    {
+      "slug": "d-edu-taxonomy",
+      "phase": "P2",
+      "milestone": "m3-education-sector",
+      "title": "Education sector taxonomy & archetypes from our deals + public data",
+      "description": "**Owner: Arthur (890).**\n\nDefine the education-facility sector the way housing was defined (archetypes + quotas), seeded from BOTH:\n1. **Our own deal experience** — the SVIDA pipeline is charter-school heavy (Paideia 2022/2026, ALA Johnston, Harvest Prep, etc.; see the Deal Pipeline workbook via bond-mirror). Extract the deal-type patterns we have actually closed.\n2. **EMMA-pulled public education deals** — categories we can only derive from what's actually in the public record.\n\n**Candidate archetypes to validate (not prescriptive):** charter school revenue bonds; private/independent K-12; higher-ed auxiliary/revenue; student housing (may overlap housing sector — decide the boundary); cultural/education facility conduit deals.\n\n**Deliverables:**\n- `emma/emma_core/sectors/education.yaml` sector profile (mirror `housing.yaml` structure) with archetype quotas sized to actual EMMA availability (lesson from housing: 9% LIHTC quota was structurally unfillable — size quotas from a discovery pass, not aspiration).\n- Alignment with `docs/development/SECTOR_ARCHETYPES.md` (canonical archetypes, commit 30ebfe5a) and the 6 readiness dimensions already stubbed in `EDUCATION_PLAYBOOK_CONFIG` (issuer_authority, enrollment_demand, financial_operations, facility_capital, accreditation_compliance, security_collateral).\n- Short taxonomy memo into the knowledge base for retrieval.",
+      "labels": ["phase:2", "education", "arthur"]
+    },
+    {
+      "slug": "d-edu-crawl",
+      "phase": "P2",
+      "milestone": "m3-education-sector",
+      "title": "Education EMMA crawl running on the 890",
+      "description": "**Owner: Arthur (890). Blocked by: d-edu-taxonomy (needs education.yaml). Depends on Knowledge Plane ART-82 (landing-to-890 sweep) + ART-83 (catalog regen on 890).**\n\n**Hard constraint from Stephen (2026-08-03): the EMMA system runs on the 890. PDFs and corpus artifacts do NOT land on the ST3 laptop.** Historically the housing crawl ran laptop-side (scheduled tasks, C:\\Python314 + Playwright user-site); this workstream moves/execs education crawling 890-side.\n\n**Inherit the housing crawl lessons (all verified 2026-07-28, may have moved since):**\n- `click_tab` selectors are STALE vs EMMA's current detail-page markup -> all secondary tabs (interest_rate/trade_activity/ratings/disclosures) come back empty, deals score `critical`. Top blocker; needs a live-markup diagnostic before bulk crawling (EMMA gates on a terms click-through — don't run diagnostic concurrent with a crawl).\n- `--resume` has never worked at single-pass level (`sector_crawler._run_single_pass()` drops it); every run restarts at item #1 and the corpus caps at `--max-per-pass` per run.\n- Timeout fix (bounded networkidle waits) took throughput 36min -> ~3min per deal; keep it.\n- Run per-archetype passes — principal-descending queues starve small archetypes.\n- Data-quality gate before benchmarks: implausible extracted values (housing had a $3.25B apartment deal) must be quarantined.\n\n**Deliverables:** education crawl operational on the 890 (Playwright env + scheduling — Hermes cron with pinned provider/model per estate rule), first corpus batch landed under the knowledge plane's storage layout, crawl-state runbook committed.",
+      "labels": ["phase:2", "education", "arthur", "890"]
+    },
+    {
+      "slug": "d-edu-benchmarks",
+      "phase": "P2",
+      "milestone": "m3-education-sector",
+      "title": "Education cost-of-issuance + spread benchmarks",
+      "description": "**Owner: Arthur (890). Blocked by: d-edu-crawl (needs corpus volume).**\n\nBuild the education equivalents of the healthcare data plane that powers the public tools:\n- COI benchmarks by deal size band and archetype (feeds `CoiBenchmarking` + `BenchmarkCalculator`).\n- Observed spread data by rating/archetype (feeds `CreditSpreadMonitor`).\n- Readiness benchmark thresholds for the questionnaire scoring (enrollment trends, debt-service coverage, days cash, facility utilization — final set from d-edu-taxonomy dimensions).\n\n**Cost routing per Stephen:** any per-token LLM extraction/synthesis runs through Arthur's stack on the 890 — NOT laptop Claude API calls.\n\n**Quality gates:** benchmarks ship only from deals passing the data-quality quarantine; every published number gets a row in the CLAIMS-REGISTER (d-claims-audit) with its source artifact; until corpus N is adequate, thresholds may be methodology-derived but MUST be labeled as such internally (housing playbook precedent: synth-labeled numbers, never silently presented as observed).",
+      "labels": ["phase:2", "education", "arthur", "890"]
+    },
+    {
+      "slug": "d-edu-questionnaire",
+      "phase": "P2",
+      "milestone": "m3-education-sector",
+      "title": "Education readiness questionnaire + framework JSON",
+      "description": "**Owner: Arthur drafts (890), COS lands frontend copies. Blocked by: d-edu-taxonomy.**\n\n1. `src/munipal/services/sensing_seed/questionnaire_education.json` — mirror the structure of `questionnaire_healthcare.json` (42 items) / `questionnaire_waste.json` (35 items). Questions organized under the 6 stubbed readiness dimensions from `EDUCATION_PLAYBOOK_CONFIG`: issuer_authority, enrollment_demand, financial_operations, facility_capital, accreditation_compliance, security_collateral.\n2. If taxonomy justifies sub-sectors (e.g., charter vs. higher-ed), follow the healthcare sub-sector pattern (`_HEALTHCARE_SUB_SECTORS` in `sensing.py` :61-86 + per-subsector questionnaire files) — but ship a single education questionnaire first if sub-sector data is thin.\n3. Populate `EDUCATION_PLAYBOOK_CONFIG` (playbook_data.py ~:4224) — replace the `0.1.0-stub` with real contributing_paths/critical_paths per dimension.\n4. Offline fallback: copy `questionnaire_education.json` into `frontend/public/data/` (and fix the missing waste fallback per d-scrub-leaks while in there).\n5. Question WORDING follows the M0 copy standard — plain language, no jargon without gloss (a charter-school CFO should never need a muni glossary to answer).",
+      "labels": ["phase:2", "education", "arthur"]
+    },
+    {
+      "slug": "d-edu-wire",
+      "phase": "P2",
+      "milestone": "m3-education-sector",
+      "title": "Register education sector end-to-end (ADDITIVE — existing sectors untouched)",
+      "description": "**Owner: laptop/COS lane (code lands in WSL repo). Blocked by: d-edu-questionnaire.**\n\n**Stephen's explicit constraint: do NOT remove the existing readiness sector selection — education is ADDED alongside Healthcare and Waste-to-Energy.**\n\nWiring checklist (all paths verified 2026-08-03):\n1. `src/munipal/services/sensing.py` `_SEED_SECTORS` (:58) — add `\"education\"` (list currently `[\"waste\", \"healthcare\"]`). Note the sector list also derives from `emma/bond_os_extractor/data/*/corpus.db` scan — confirm behavior when the 890-resident corpus isn't on the API host (Railway); the seed list is the guarantee.\n2. `src/munipal/services/sector_profiles.py` — add `education` to `_PROFILES` (:189-193) and aliases (`education`, `education_facilities`, `edu`, `schools`) to `_SECTOR_ALIASES` (:198-209).\n3. Register the populated `EDUCATION_PLAYBOOK_CONFIG` wherever healthcare/waste playbooks register (currently referenced NOWHERE — find the registry).\n4. `risk_reporting_service.py` already has `education_facilities` keys (:99, :148, :179, :212) — verify key-name consistency (`education` vs `education_facilities`) across the whole path.\n5. Frontend `ReadinessAssess.tsx`: sector picker is API-driven (sectorsQuery :483-489) so education should appear automatically — verify, and add presentation metadata if the picker needs an icon/label entry. Internal `ProjectList.tsx` :46 hardcodes sector options — add education there too.\n6. `readinessLocal.ts` `getLocalSectors()` (:125-136) currently returns healthcare only — add education (+ waste) so offline fallback matches.\n7. Tests: sector round-trip (list sectors -> questionnaire -> submit) for education; regression: healthcare + waste questionnaires still resolve.\n\n**Acceptance:** /tools/readiness shows Education alongside Healthcare and Waste-to-Energy; full assessment completes with real questions; existing sectors unchanged.",
+      "labels": ["phase:2", "education", "backend", "frontend"]
+    },
+    {
+      "slug": "d-launch",
+      "phase": "P3",
+      "milestone": "m4-launch",
+      "title": "Launch: education readiness live + full-site verification",
+      "description": "**Owner: laptop/COS lane + Stephen. Blocked by: d-edu-wire, d-scrub-verify, d-rewrite-landing, d-rewrite-tools.**\n\n1. Deploy backend (Railway — Stephen may need to be hands for env/deploy given agent access is blocked) and frontend (Vercel).\n2. End-to-end on production: select Education in /tools/readiness, complete the questionnaire, receive scored results; education benchmarks render where wired (or show the new visitor-appropriate empty states, never crawler language).\n3. Re-run the zero-EMMA/MSRB grep on all live routes (regression check on d-scrub-verify).\n4. Copy spot-check against the COPY-STANDARD checklist on the live pages.\n5. Record carry-forwards (thin-corpus caveats, benchmarks still methodology-derived, permission-track status) in the issue and hand the list to the Knowledge Plane project where relevant.",
+      "labels": ["phase:3", "verify"]
+    }
+  ]
+}

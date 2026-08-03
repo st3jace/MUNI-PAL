@@ -55,7 +55,7 @@ const VALUE_PROPS = [
   {
     icon: BarChart3,
     headline: 'Know what "good" looks like',
-    copy: 'See the exact DSCR (gross revenue pledge, healthcare-adjusted), payer mix, days cash on hand, and pledge structures that separate AA-rated healthcare systems from BBB — drawn from real EMMA data, not industry averages.',
+    copy: 'See the exact DSCR (gross revenue pledge, healthcare-adjusted), payer mix, days cash on hand, and pledge structures that separate AA-rated healthcare systems from BBB — drawn from real public-disclosure data, not industry averages.',
   },
   {
     icon: DollarSign,
@@ -127,7 +127,7 @@ export default function HealthcareCFOLanding() {
                 Muni-Pal's Healthcare Market Intelligence Report benchmarks your
                 deal against{' '}
                 <span className="text-white font-semibold">
-                  866 actual EMMA transactions
+                  866 actual municipal bond transactions
                 </span>{' '}
                 — so your team can compare readiness signals, understand market context,
                 and prepare better questions for registered-advisor review.
@@ -194,7 +194,7 @@ export default function HealthcareCFOLanding() {
         <div className="bg-white/80 backdrop-blur-sm border border-white/20 shadow-lg rounded-xl py-8 px-6">
           <div className="flex flex-wrap justify-center gap-12 text-center">
             {[
-              { value: '866', label: 'EMMA transactions analyzed' },
+              { value: '866', label: 'municipal bond transactions analyzed' },
               { value: '3.20x', label: 'Median healthcare DSCR', sub: '(gross revenue pledge basis)' },
               { value: '5', label: 'Risk categories scored' },
               { value: '1,318', label: 'Financial reports in corpus' },
@@ -279,8 +279,8 @@ export default function HealthcareCFOLanding() {
                 make pricing, sizing, issuance, or execution recommendations.
               </p>
               <p className="text-sm text-gray-500">
-                Based on observed AA vs. BBB spread differentials in EMMA
-                healthcare revenue bond data (gross revenue pledge basis).
+                Based on observed AA vs. BBB spread differentials in public
+                healthcare revenue bond disclosures (gross revenue pledge basis).
               </p>
             </div>
           </div>

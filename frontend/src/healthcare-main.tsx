@@ -21,6 +21,7 @@ import ReadinessAssess from './pages/tools/ReadinessAssess'
 import CreditSpreadMonitor from './pages/tools/CreditSpreadMonitor'
 import CoiBenchmarking from './pages/tools/CoiBenchmarking'
 import ReportExport from './pages/tools/ReportExport'
+import PilotNavigation from './pages/tools/PilotNavigation'
 import PricingPage from './pages/tools/PricingPage'
 import AuthPage from './pages/tools/AuthPage'
 import './styles/index.css'
@@ -58,6 +59,7 @@ createRoot(root).render(
               <Route path="/tools/coi-benchmarking" element={<CoiBenchmarking />} />
               <Route path="/tools/healthcare-readiness" element={<HealthcareReadiness />} />
               <Route path="/tools/export" element={<ReportExport />} />
+              <Route path="/tools/pilot-navigation" element={<PilotNavigation />} />
               <Route path="/pricing" element={<PricingPage />} />
               <Route path="/auth" element={<AuthPage />} />
               {/* Catch-all back to landing */}

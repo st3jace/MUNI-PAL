@@ -539,7 +539,7 @@ export default function PricingPage() {
           Per-Project engagement typically costs less than <span className="font-semibold">0.1%</span> of deal size.
         </p>
         <p className="text-xs text-gray-500">
-          Based on observed COI and spread differentials in EMMA healthcare revenue bond data.
+          Based on observed cost-of-issuance and spread differentials in public healthcare revenue bond disclosures.
         </p>
       </section>
 

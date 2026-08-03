@@ -1,0 +1,63 @@
+{
+  "dimension_explanations": {
+    "cab_financial": {
+      "explanation": "Revenue Pledge & Coverage needs substantial documentation. Only 1/2 critical items covered. This dimension is blocking deal progression.",
+      "name": "Revenue Pledge & Coverage",
+      "score": 1.5,
+      "suggestions": [
+        "Upload documents containing: Debt service reserve policy"
+      ]
+    },
+    "issuer_authority": {
+      "explanation": "Issuer Authority & Tax-Exempt Eligibility needs substantial documentation. Only 1/2 critical items covered. This dimension is blocking deal progression.",
+      "name": "Issuer Authority & Tax-Exempt Eligibility",
+      "score": 1.5,
+      "suggestions": [
+        "Upload documents containing: Bond counsel tax certificate"
+      ]
+    },
+    "project_tech": {
+      "explanation": "Hospital / Healthcare Project Scope is substantially documented. All critical requirements met with strong evidence base.",
+      "name": "Hospital / Healthcare Project Scope",
+      "score": 4.8,
+      "suggestions": []
+    },
+    "revenue_feedstock": {
+      "explanation": "Audited Financials & Demand is substantially documented. All critical requirements met with strong evidence base.",
+      "name": "Audited Financials & Demand",
+      "score": 4.8,
+      "suggestions": []
+    },
+    "risk_security_slb": {
+      "explanation": "Healthcare Risk & Disclosure needs substantial documentation. Only 0/1 critical items covered. This dimension is blocking deal progression.",
+      "name": "Healthcare Risk & Disclosure",
+      "score": 0.0,
+      "suggestions": [
+        "Upload documents containing: Healthcare disclosure risk factors"
+      ]
+    },
+    "slb_verification": {
+      "explanation": "Disclosure & Advisor Readiness needs substantial documentation. Only 0/1 critical items covered. This dimension is blocking deal progression.",
+      "name": "Disclosure & Advisor Readiness",
+      "score": 0.0,
+      "suggestions": [
+        "Upload documents containing: Preliminary rating indication"
+      ]
+    }
+  },
+  "metrics": {
+    "critical_gaps": 4,
+    "material_gaps": 0,
+    "total_facts_approved": 7,
+    "total_facts_pending": 1
+  },
+  "next_steps": [
+    "Upload documents for Issuer Authority & Tax-Exempt Eligibility: Bond counsel tax certificate",
+    "Upload documents for Revenue Pledge & Coverage: Debt service reserve policy",
+    "Consider preliminary advisor discussions while gathering remaining evidence"
+  ],
+  "overall_score": 4.5600000000000005,
+  "recommendation": "Structurally Viable",
+  "recommendation_rationale": "The project has a viable foundation but needs additional evidence in key areas. Consider gathering more documentation on revenue model, debt structure, and key risk mitigants before broader market engagement.",
+  "summary": "Project readiness score is 4.6/10 (Structurally Viable). The foundation is in place but 4 gaps should be addressed to strengthen the package."
+}

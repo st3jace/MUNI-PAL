@@ -1,0 +1,67 @@
+{
+  "critical_gaps": [
+    {
+      "criticality": "critical",
+      "description": "Bond counsel inducement resolution",
+      "dimension": "issuer_authority",
+      "impact": "Blocks Issuer & Inducement Readiness from achieving full readiness. Required for deal progression.",
+      "schema_path": "bond_counsel.inducement_resolution",
+      "short_description": "Bond counsel inducement resolution",
+      "suggested_evidence": "Document containing Bond counsel inducement resolution"
+    },
+    {
+      "criticality": "critical",
+      "description": "Tax credit allocation",
+      "dimension": "revenue_feedstock",
+      "impact": "Blocks Affordability & Subsidy Stack from achieving full readiness. Required for deal progression.",
+      "schema_path": "housing.tax_credit_allocation",
+      "short_description": "Tax credit allocation",
+      "suggested_evidence": "Document containing Tax credit allocation"
+    },
+    {
+      "criticality": "critical",
+      "description": "Housing appraisal",
+      "dimension": "cab_financial",
+      "impact": "Blocks Housing Finance Readiness from achieving full readiness. Required for deal progression.",
+      "schema_path": "housing.appraisal",
+      "short_description": "Housing appraisal",
+      "suggested_evidence": "Document containing Housing appraisal"
+    },
+    {
+      "criticality": "critical",
+      "description": "Site control evidence",
+      "dimension": "risk_security_slb",
+      "impact": "Blocks Site Control & Diligence from achieving full readiness. Required for deal progression.",
+      "schema_path": "project.location.sitecontrol",
+      "short_description": "Site control evidence",
+      "suggested_evidence": "Document confirming Site control evidence status/type"
+    },
+    {
+      "criticality": "critical",
+      "description": "Phase One environmental report",
+      "dimension": "risk_security_slb",
+      "impact": "Blocks Site Control & Diligence from achieving full readiness. Required for deal progression.",
+      "schema_path": "environmental.phase_one",
+      "short_description": "Phase One environmental report",
+      "suggested_evidence": "Document containing Phase One environmental report"
+    },
+    {
+      "criticality": "critical",
+      "description": "Bond counsel inducement resolution",
+      "dimension": "slb_verification",
+      "impact": "Blocks Housing Disclosure & Advisor Readiness from achieving full readiness. Required for deal progression.",
+      "schema_path": "bond_counsel.inducement_resolution",
+      "short_description": "Bond counsel inducement resolution",
+      "suggested_evidence": "Document containing Bond counsel inducement resolution"
+    }
+  ],
+  "material_gaps": [],
+  "overall_score": 2.9699999999999998,
+  "priority_actions": [
+    "Upload documents for Issuer & Inducement Readiness: Bond counsel inducement resolution",
+    "Upload documents for Affordability & Subsidy Stack: Tax credit allocation",
+    "Focus on critical path documentation before engaging advisors"
+  ],
+  "project_id": "b7d9fdc3-b137-5362-a990-d4aa234f86bf",
+  "secondary_gaps": []
+}

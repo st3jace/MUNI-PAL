@@ -426,7 +426,7 @@ export default function MarketIntelligence() {
         </div>
 
         <p className="text-sm text-gray-300 leading-relaxed max-w-3xl">
-          Sector benchmark from the EMMA municipal bond corpus — deal structures,
+          Sector benchmark from our municipal bond corpus — deal structures,
           financial benchmarks, risk profiles, credit spreads, and rating agency
           perspectives.
         </p>
@@ -476,7 +476,8 @@ export default function MarketIntelligence() {
                 <strong className="text-white">
                   {es?.sector_title || sectorLabel}
                 </strong>{' '}
-                municipal bond sector, built from analysis of real EMMA filings,
+                municipal bond sector, built from analysis of real public
+                municipal securities disclosures,
                 rating agency actions, and secondary market trading data.
               </p>
 

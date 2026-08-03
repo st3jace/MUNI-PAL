@@ -33,7 +33,7 @@ export function InformationGap() {
             </strong>{' '}
             — the specific financial profile, pledge structure, and strategic
             characteristics that separate AA-rated systems from BBB-rated ones,
-            drawn from 866 actual EMMA deals
+            drawn from 866 actual municipal bond deals
           </span>
         </li>
         <li className="flex gap-2">
@@ -58,7 +58,7 @@ export function InformationGap() {
         </li>
       </ul>
       <p className="text-xs text-gray-400 mt-4 border-t border-white/10 pt-3">
-        All benchmarks are empirical — sourced from 866 EMMA official
+        All benchmarks are empirical — sourced from 866 public official
         statements, 1,318 financial reports, and 239 rating agency actions.
       </p>
     </div>
@@ -552,7 +552,8 @@ export function RegulatoryFramework() {
               <span className="text-gray-400 flex-shrink-0">-</span>
               <span>
                 <strong>Continuing disclosure (SEC 15c2-12):</strong> Annual
-                financial report + material event notices filed with EMMA
+                financial report + material event notices filed in the public
+                municipal disclosure system
               </span>
             </li>
             <li className="flex gap-2">

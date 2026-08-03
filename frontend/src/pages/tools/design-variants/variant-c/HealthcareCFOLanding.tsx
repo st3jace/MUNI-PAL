@@ -92,7 +92,7 @@ const VALUE_PROPS = [
     icon: BarChart3,
     color: BRAND.teal,
     headline: 'Know what "good" looks like',
-    copy: 'See the exact DSCR (gross revenue pledge, healthcare-adjusted), payer mix, days cash on hand, and pledge structures that separate AA-rated healthcare systems from BBB — drawn from real EMMA data, not industry averages.',
+    copy: 'See the exact DSCR (gross revenue pledge, healthcare-adjusted), payer mix, days cash on hand, and pledge structures that separate AA-rated healthcare systems from BBB — drawn from real public-disclosure data, not industry averages.',
   },
   {
     icon: DollarSign,
@@ -158,7 +158,7 @@ export default function HealthcareCFOLanding() {
               </h1>
               <p className="text-lg text-gray-300 mb-8 max-w-xl leading-relaxed">
                 Muni-Pal's Healthcare Market Intelligence Report benchmarks your deal
-                against <span className="text-white font-semibold">866 actual EMMA transactions</span> — so
+                against <span className="text-white font-semibold">866 actual municipal bond transactions</span> — so
                 you walk into the room knowing what top-performing credits look like, what
                 borrowing actually costs, and where risk disclosures go wrong.
               </p>
@@ -196,7 +196,7 @@ export default function HealthcareCFOLanding() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { value: '866', label: 'EMMA transactions analyzed' },
+              { value: '866', label: 'municipal bond transactions analyzed' },
               { value: '3.20x', label: 'Median healthcare DSCR', sub: '(gross revenue pledge basis)' },
               { value: '5', label: 'Risk categories scored' },
               { value: '1,318', label: 'Financial reports in corpus' },
@@ -327,8 +327,8 @@ export default function HealthcareCFOLanding() {
                   of deal size.
                 </p>
                 <p className="text-xs text-gray-400">
-                  Based on observed AA vs. BBB spread differentials in EMMA healthcare revenue
-                  bond data (gross revenue pledge basis).
+                  Based on observed AA vs. BBB spread differentials in public healthcare revenue
+                  bond disclosures (gross revenue pledge basis).
                 </p>
               </div>
             </div>
@@ -520,7 +520,8 @@ export default function HealthcareCFOLanding() {
           <p className="text-[11px] text-gray-400 mt-4 max-w-3xl mx-auto text-center">
             Bond Readiness Accelerator is an educational and analytical service. It does not
             constitute municipal advisory services as defined under Section 15B of the Securities
-            Exchange Act. Muni-Pal operates in compliance with MSRB Rule G-42.
+            Exchange Act. Muni-Pal provides educational and analytical services and is not a
+            registered municipal advisor.
           </p>
         </div>
       </footer>

@@ -38,7 +38,7 @@ const tools = [
   {
     name: 'Credit Spread Monitor',
     description:
-      'Live yield curves, all-in cost of capital grid, and issuer channel comparison. Powered by AAA MMD base curve and EMMA corpus spreads.',
+      'Live yield curves, all-in cost of capital grid, and issuer channel comparison. Powered by the AAA benchmark curve and observed spreads from our municipal bond corpus.',
     href: '/tools/credit-spreads',
     icon: TrendingUp,
     color: 'bg-emerald-600',
@@ -61,7 +61,8 @@ export default function ToolsHub() {
       <div className="mb-10">
         <h1 className="text-2xl font-bold text-gray-900">Sensing Tools</h1>
         <p className="mt-2 text-gray-600 max-w-2xl">
-          Data-driven tools powered by the EMMA municipal bond corpus. Analyze
+          Data-driven tools powered by our municipal bond corpus, built from
+          public disclosure filings. Analyze
           sector benchmarks, compare your issuance, and assess your bond
           readiness.
         </p>

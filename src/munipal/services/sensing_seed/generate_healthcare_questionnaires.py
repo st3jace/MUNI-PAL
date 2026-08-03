@@ -591,7 +591,7 @@ FQHC_BOND_ITEMS = [
     _item("compliance_reporting", 7, "recommended", "Value-based payment readiness assessment",
           "Relevant for demonstrating financial sustainability beyond fee-for-service.", 1, "2-4 weeks", True, "Medium"),
     _item("compliance_reporting", 8, "required", "Continuing disclosure compliance history",
-          "Only applicable if FQHC has prior bond issuance. Check EMMA filings.", 1, "1-2 weeks", True, "Medium"),
+          "Only applicable if FQHC has prior bond issuance. Check your public municipal disclosure filings.", 1, "1-2 weeks", True, "Medium"),
 
     # Section 7: Revenue Bond Specific Items (7 items)
     _item("bond_specific", 1, "required", "Feasibility study (or financial advisory report)",

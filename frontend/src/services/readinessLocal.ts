@@ -82,6 +82,11 @@ export function getLocalSectors() {
         name: s.name,
       })),
     },
+    {
+      id: 'waste',
+      name: 'Waste-to-Energy',
+      children: [],
+    },
   ]
 }
 

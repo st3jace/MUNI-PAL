@@ -1,6 +1,6 @@
 # Muni-Pal Public Language & Data-Provenance Policy
 
-**Status:** v0.1 DRAFT — pending Stephen approval (Linear ART-120)
+**Status:** v1.0 — APPROVED by Stephen 2026-08-03 (Linear ART-120)
 **Owner:** Stephen (approver) · COS (author) · Arthur (bond-intelligence reviewer)
 **Scope:** every public surface — muni-pal.io pages, meta/OG/SEO tags, PDF/report
 exports, emails, decks, social posts, and any client deliverable.

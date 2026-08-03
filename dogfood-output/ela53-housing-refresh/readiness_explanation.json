@@ -1,0 +1,65 @@
+{
+  "dimension_explanations": {
+    "cab_financial": {
+      "explanation": "Housing Finance Readiness needs substantial documentation. Only 0/1 critical items covered. This dimension is blocking deal progression.",
+      "name": "Housing Finance Readiness",
+      "score": 0.0,
+      "suggestions": [
+        "Upload documents containing: Housing appraisal"
+      ]
+    },
+    "issuer_authority": {
+      "explanation": "Issuer & Inducement Readiness needs substantial documentation. Only 1/2 critical items covered. This dimension is blocking deal progression.",
+      "name": "Issuer & Inducement Readiness",
+      "score": 1.5,
+      "suggestions": [
+        "Upload documents containing: Bond counsel inducement resolution"
+      ]
+    },
+    "project_tech": {
+      "explanation": "Affordable Housing Project Scope is substantially documented. All critical requirements met with strong evidence base.",
+      "name": "Affordable Housing Project Scope",
+      "score": 4.8,
+      "suggestions": []
+    },
+    "revenue_feedstock": {
+      "explanation": "Affordability & Subsidy Stack needs substantial documentation. Only 1/2 critical items covered. This dimension is blocking deal progression.",
+      "name": "Affordability & Subsidy Stack",
+      "score": 1.5,
+      "suggestions": [
+        "Upload documents containing: Tax credit allocation"
+      ]
+    },
+    "risk_security_slb": {
+      "explanation": "Site Control & Diligence needs substantial documentation. Only 0/2 critical items covered. This dimension is blocking deal progression.",
+      "name": "Site Control & Diligence",
+      "score": 0.0,
+      "suggestions": [
+        "Upload documents containing: Phase One environmental report, Site control evidence"
+      ]
+    },
+    "slb_verification": {
+      "explanation": "Housing Disclosure & Advisor Readiness needs substantial documentation. Only 0/1 critical items covered. This dimension is blocking deal progression.",
+      "name": "Housing Disclosure & Advisor Readiness",
+      "score": 0.0,
+      "suggestions": [
+        "Upload documents containing: Bond counsel inducement resolution"
+      ]
+    }
+  },
+  "metrics": {
+    "critical_gaps": 6,
+    "material_gaps": 0,
+    "total_facts_approved": 6,
+    "total_facts_pending": 1
+  },
+  "next_steps": [
+    "Upload documents for Issuer & Inducement Readiness: Bond counsel inducement resolution",
+    "Upload documents for Affordability & Subsidy Stack: Tax credit allocation",
+    "Focus on critical path documentation before engaging advisors"
+  ],
+  "overall_score": 2.9699999999999998,
+  "recommendation": "Not Yet Viable",
+  "recommendation_rationale": "The project lacks fundamental evidence required for bond structuring. Key areas like issuer authority, technology definition, or financial structure need substantial documentation before engaging advisors.",
+  "summary": "Project readiness score is 3.0/10 (Not Yet Viable). There are 6 critical gaps that need to be addressed before engaging bond counsel or underwriters."
+}

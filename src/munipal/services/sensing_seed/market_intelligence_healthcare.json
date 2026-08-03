@@ -379,8 +379,8 @@
         "n_records": 866
       },
       {
-        "name": "EMMA Secondary Market Data",
-        "description": "MSRB EMMA crawler (Playwright-based)",
+        "name": "Secondary Market Trade Data",
+        "description": "Public secondary-market municipal trade data",
         "n_records": 362
       },
       {
@@ -401,7 +401,7 @@
     ],
     "spread_curve_source": "Bloomberg Municipal Curve Analytics / ICE MMD curves. Spreads in basis points over AAA MMD.",
     "limitations": [
-      "Corpus limited to bonds indexed on MSRB EMMA.",
+      "Corpus limited to bonds indexed in public disclosure sources.",
       "Financial metrics from extracted documents; may have extraction gaps.",
       "Rating data reflects most recent extracted action, not real-time.",
       "Spread curve is sector-generic; individual deals vary."

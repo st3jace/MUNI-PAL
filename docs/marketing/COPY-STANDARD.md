@@ -1,6 +1,6 @@
 # Muni-Pal Copy Standard
 
-**Status:** v0.1 DRAFT — pending Stephen approval (Linear ART-122)
+**Status:** v1.0 — APPROVED by Stephen 2026-08-03 (Linear ART-122)
 **Owner:** Stephen (tone approver) · COS (author)
 **Applies to:** every visitor-facing page and export on muni-pal.io. Acceptance
 test for ART-127/ART-128 rewrites is the checklist in §7.

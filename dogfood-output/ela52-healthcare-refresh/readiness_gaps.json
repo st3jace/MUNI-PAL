@@ -1,0 +1,49 @@
+{
+  "critical_gaps": [
+    {
+      "criticality": "critical",
+      "description": "Bond counsel tax certificate",
+      "dimension": "issuer_authority",
+      "impact": "Blocks Issuer Authority & Tax-Exempt Eligibility from achieving full readiness. Required for deal progression.",
+      "schema_path": "bond_counsel.tax_certificate",
+      "short_description": "Bond counsel tax certificate",
+      "suggested_evidence": "Document containing Bond counsel tax certificate"
+    },
+    {
+      "criticality": "critical",
+      "description": "Debt service reserve policy",
+      "dimension": "cab_financial",
+      "impact": "Blocks Revenue Pledge & Coverage from achieving full readiness. Required for deal progression.",
+      "schema_path": "debt_service.reserve_policy",
+      "short_description": "Debt service reserve policy",
+      "suggested_evidence": "Document containing Debt service reserve policy"
+    },
+    {
+      "criticality": "critical",
+      "description": "Healthcare disclosure risk factors",
+      "dimension": "risk_security_slb",
+      "impact": "Blocks Healthcare Risk & Disclosure from achieving full readiness. Required for deal progression.",
+      "schema_path": "disclosure.risk-factors",
+      "short_description": "Healthcare disclosure risk factors",
+      "suggested_evidence": "Document containing Healthcare disclosure risk factors"
+    },
+    {
+      "criticality": "critical",
+      "description": "Preliminary rating indication",
+      "dimension": "slb_verification",
+      "impact": "Blocks Disclosure & Advisor Readiness from achieving full readiness. Required for deal progression.",
+      "schema_path": "rating.preliminary_indication",
+      "short_description": "Preliminary rating indication",
+      "suggested_evidence": "Document containing Preliminary rating indication"
+    }
+  ],
+  "material_gaps": [],
+  "overall_score": 4.5600000000000005,
+  "priority_actions": [
+    "Upload documents for Issuer Authority & Tax-Exempt Eligibility: Bond counsel tax certificate",
+    "Upload documents for Revenue Pledge & Coverage: Debt service reserve policy",
+    "Consider preliminary advisor discussions while gathering remaining evidence"
+  ],
+  "project_id": "62150913-a6b1-5e05-9ecb-be635ae35381",
+  "secondary_gaps": []
+}

@@ -1,0 +1,145 @@
+{
+  "team_id": "7e5365f6-1058-4e31-b55b-f0a5b17d717c",
+  "team_key": "ART",
+  "team_states": {
+    "In Review": "fc2f777a-7147-4ef8-b90f-d065a26277a1",
+    "Canceled": "cf9ad576-7e03-439a-a84e-2e4ad79baa86",
+    "In Progress": "869c0713-aefa-45e4-bd79-bf1deb9cd465",
+    "Done": "83929282-e517-41a5-8518-9cdfd3c34345",
+    "Todo": "4a28c0cf-7b85-4364-b06e-330a014b530c",
+    "Duplicate": "442d2d16-757f-434d-be10-c8c08092b5b2",
+    "Backlog": "25a440c5-c717-441c-a956-4c5b3e5b9699"
+  },
+  "project_id": "1c45e571-8c84-4bed-be12-2fba61ef9269",
+  "project_url": "https://linear.app/elaunchshop/project/muni-pal-site-truth-and-education-expansion-15a9ea3f62ed",
+  "milestones": {
+    "m0-language-governance": {
+      "id": "c0853194-e93e-475b-af3b-87eb8eecf93d",
+      "identifier": "ART-115",
+      "title": "M0 \u2014 Language governance & copy standard",
+      "url": "https://linear.app/elaunchshop/issue/ART-115/m0-language-governance-and-copy-standard"
+    },
+    "m1-emma-scrub": {
+      "id": "e919449f-d143-4683-bf32-dddaea7caa2c",
+      "identifier": "ART-116",
+      "title": "M1 \u2014 De-EMMA the public site",
+      "url": "https://linear.app/elaunchshop/issue/ART-116/m1-de-emma-the-public-site"
+    },
+    "m2-hormozi-rewrite": {
+      "id": "4ba6a05c-0a97-47f2-825e-5ca12a0755e4",
+      "identifier": "ART-117",
+      "title": "M2 \u2014 Hormozi-style page rewrites",
+      "url": "https://linear.app/elaunchshop/issue/ART-117/m2-hormozi-style-page-rewrites"
+    },
+    "m3-education-sector": {
+      "id": "892a0a85-3514-446c-b564-a1e61b5af521",
+      "identifier": "ART-118",
+      "title": "M3 \u2014 Education facility sector build (890 / Arthur)",
+      "url": "https://linear.app/elaunchshop/issue/ART-118/m3-education-facility-sector-build-890-arthur"
+    },
+    "m4-launch": {
+      "id": "c483cbed-70b3-4710-aba0-e6071321a34d",
+      "identifier": "ART-119",
+      "title": "M4 \u2014 Launch & verification",
+      "url": "https://linear.app/elaunchshop/issue/ART-119/m4-launch-and-verification"
+    }
+  },
+  "deliverables": {
+    "d-emma-policy": {
+      "id": "0951892e-ed97-401e-81bb-685757113a41",
+      "identifier": "ART-120",
+      "title": "EMMA/MSRB reference policy + approved replacement lexicon",
+      "url": "https://linear.app/elaunchshop/issue/ART-120/emmamsrb-reference-policy-approved-replacement-lexicon"
+    },
+    "d-emma-permission-track": {
+      "id": "687776c7-5eaa-4f82-a4ab-a2dc79398ba8",
+      "identifier": "ART-121",
+      "title": "MSRB/EMMA data-use permission track (workaround now, approval later)",
+      "url": "https://linear.app/elaunchshop/issue/ART-121/msrbemma-data-use-permission-track-workaround-now-approval-later"
+    },
+    "d-hormozi-standard": {
+      "id": "2833e7a0-3d65-49f3-951a-f9cd378939ba",
+      "identifier": "ART-122",
+      "title": "Muni-Pal copy standard distilled from the Hormozi library",
+      "url": "https://linear.app/elaunchshop/issue/ART-122/muni-pal-copy-standard-distilled-from-the-hormozi-library"
+    },
+    "d-scrub-react": {
+      "id": "c3f4df88-cf99-48c0-8103-3bb4e4e6471c",
+      "identifier": "ART-123",
+      "title": "Scrub EMMA/MSRB from deployed React page copy",
+      "url": "https://linear.app/elaunchshop/issue/ART-123/scrub-emmamsrb-from-deployed-react-page-copy"
+    },
+    "d-scrub-meta": {
+      "id": "b778c005-9f14-42b8-9c4e-fc00a7ffe7eb",
+      "identifier": "ART-124",
+      "title": "Scrub meta/OG/noscript tags in HTML shells + regenerate dist bundles",
+      "url": "https://linear.app/elaunchshop/issue/ART-124/scrub-metaognoscript-tags-in-html-shells-regenerate-dist-bundles"
+    },
+    "d-scrub-leaks": {
+      "id": "74b91aef-9eed-4cec-81a2-434cbf7e583f",
+      "identifier": "ART-125",
+      "title": "Fix internal-crawler leaks and adjacent public-surface defects",
+      "url": "https://linear.app/elaunchshop/issue/ART-125/fix-internal-crawler-leaks-and-adjacent-public-surface-defects"
+    },
+    "d-scrub-verify": {
+      "id": "a312e6de-06ff-46ff-92ee-64faef047c82",
+      "identifier": "ART-126",
+      "title": "Deploy scrub + verify zero EMMA/MSRB on live muni-pal.io",
+      "url": "https://linear.app/elaunchshop/issue/ART-126/deploy-scrub-verify-zero-emmamsrb-on-live-muni-palio"
+    },
+    "d-rewrite-landing": {
+      "id": "6499e195-8643-43fc-9255-698bfaec55ec",
+      "identifier": "ART-127",
+      "title": "Rewrite the landing page (HealthcareCFOLanding) to the copy standard",
+      "url": "https://linear.app/elaunchshop/issue/ART-127/rewrite-the-landing-page-healthcarecfolanding-to-the-copy-standard"
+    },
+    "d-rewrite-tools": {
+      "id": "644e6848-d80d-4baf-b2ab-3c5f681c8d42",
+      "identifier": "ART-128",
+      "title": "Rewrite ToolsHub, tool pages, and PricingPage to the copy standard",
+      "url": "https://linear.app/elaunchshop/issue/ART-128/rewrite-toolshub-tool-pages-and-pricingpage-to-the-copy-standard"
+    },
+    "d-claims-audit": {
+      "id": "ccd7a1e6-0616-48ad-8bc5-4d36d73a9a9b",
+      "identifier": "ART-129",
+      "title": "Claims audit \u2014 build the constraint plane and certify every public claim",
+      "url": "https://linear.app/elaunchshop/issue/ART-129/claims-audit-build-the-constraint-plane-and-certify-every-public-claim"
+    },
+    "d-edu-taxonomy": {
+      "id": "57dd7810-dbbb-46bd-811c-13952cb6bf58",
+      "identifier": "ART-130",
+      "title": "Education sector taxonomy & archetypes from our deals + public data",
+      "url": "https://linear.app/elaunchshop/issue/ART-130/education-sector-taxonomy-and-archetypes-from-our-deals-public-data"
+    },
+    "d-edu-crawl": {
+      "id": "e505c7ec-fbaa-4138-a87a-a00f39a2a36d",
+      "identifier": "ART-131",
+      "title": "Education EMMA crawl running on the 890",
+      "url": "https://linear.app/elaunchshop/issue/ART-131/education-emma-crawl-running-on-the-890"
+    },
+    "d-edu-benchmarks": {
+      "id": "1d7d4139-fd75-4a8c-9799-f069e6cbcb4b",
+      "identifier": "ART-132",
+      "title": "Education cost-of-issuance + spread benchmarks",
+      "url": "https://linear.app/elaunchshop/issue/ART-132/education-cost-of-issuance-spread-benchmarks"
+    },
+    "d-edu-questionnaire": {
+      "id": "e55bbed1-4fd2-4d06-90b6-be845068adae",
+      "identifier": "ART-133",
+      "title": "Education readiness questionnaire + framework JSON",
+      "url": "https://linear.app/elaunchshop/issue/ART-133/education-readiness-questionnaire-framework-json"
+    },
+    "d-edu-wire": {
+      "id": "449a7e2d-b1fe-45f8-8011-ec7972aae52d",
+      "identifier": "ART-134",
+      "title": "Register education sector end-to-end (ADDITIVE \u2014 existing sectors untouched)",
+      "url": "https://linear.app/elaunchshop/issue/ART-134/register-education-sector-end-to-end-additive-existing-sectors"
+    },
+    "d-launch": {
+      "id": "20740d6c-e835-4e9d-b887-43a1e79de6a0",
+      "identifier": "ART-135",
+      "title": "Launch: education readiness live + full-site verification",
+      "url": "https://linear.app/elaunchshop/issue/ART-135/launch-education-readiness-live-full-site-verification"
+    }
+  }
+}

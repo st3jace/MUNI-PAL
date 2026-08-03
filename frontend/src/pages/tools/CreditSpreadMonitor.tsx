@@ -622,7 +622,7 @@ export default function CreditSpreadMonitor() {
               Credit Spread Monitor
             </h1>
             <p className="text-sm text-gray-500 mt-1">
-              All-in cost of capital comparison powered by EMMA corpus &amp;
+              All-in cost of capital comparison powered by our municipal bond corpus &amp;
               live AAA MMD curve
             </p>
           </div>
@@ -821,13 +821,13 @@ export default function CreditSpreadMonitor() {
 
           {/* Corpus-Derived Spreads */}
           <Section
-            title="EMMA Corpus: Observed Spreads"
+            title="Observed Spreads"
             icon={Scale}
             defaultOpen={false}
           >
             <p className="text-sm text-gray-500 mb-4">
               Credit spreads derived from actual secondary market trades in
-              the EMMA corpus for this sector. These observations inform the
+              our corpus for this sector. These observations inform the
               blended spread estimates in the cost grid above.
             </p>
             {data.corpus_spreads &&
@@ -840,10 +840,7 @@ export default function CreditSpreadMonitor() {
                   No corpus trade observations yet for this sector
                 </p>
                 <p className="text-xs text-gray-400 mt-1 max-w-md mx-auto">
-                  Run the EMMA crawler on the{' '}
-                  <span className="font-medium">{data.sector}</span> sector to
-                  populate observed spreads from actual secondary market trades.
-                  Spreads will automatically blend with the reference table above.
+                  Observed data for this sector is coming soon.
                 </p>
               </div>
             )}
@@ -856,7 +853,7 @@ export default function CreditSpreadMonitor() {
             defaultOpen={false}
           >
             <p className="text-sm text-gray-500 mb-4">
-              Most recent trades from the EMMA corpus in this sector, sorted by
+              Most recent observed trades from our corpus in this sector, sorted by
               trade date. Use these as conversation-ready comps for borrower
               discussions.
             </p>
@@ -869,10 +866,7 @@ export default function CreditSpreadMonitor() {
                   No comparable deals in the corpus yet
                 </p>
                 <p className="text-xs text-gray-400 mt-1 max-w-md mx-auto">
-                  As the EMMA crawler discovers and extracts bond trades for the{' '}
-                  <span className="font-medium">{data.sector}</span> sector,
-                  recent comps will appear here with issuer, rating, yield, par
-                  amount, and trade date.
+                  As sector data is added, trades will appear here.
                 </p>
               </div>
             )}

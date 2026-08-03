@@ -470,7 +470,7 @@ export default function BenchmarkCalculator() {
             Benchmarking Calculator
           </h1>
           <p className="text-sm text-gray-500 mt-1">
-            Compare your prospective issuance against the EMMA corpus
+            Compare your prospective issuance against our municipal bond corpus
           </p>
         </div>
       </div>

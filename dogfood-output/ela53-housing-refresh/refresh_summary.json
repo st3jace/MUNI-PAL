@@ -1,0 +1,77 @@
+{
+  "critical_gaps_count": 6,
+  "dimensions": [
+    {
+      "key": "issuer_authority",
+      "name": "Issuer & Inducement Readiness",
+      "score": 1.5,
+      "suggestions": [
+        "Upload documents containing: Bond counsel inducement resolution"
+      ]
+    },
+    {
+      "key": "project_tech",
+      "name": "Affordable Housing Project Scope",
+      "score": 4.8,
+      "suggestions": []
+    },
+    {
+      "key": "revenue_feedstock",
+      "name": "Affordability & Subsidy Stack",
+      "score": 1.5,
+      "suggestions": [
+        "Upload documents containing: Tax credit allocation"
+      ]
+    },
+    {
+      "key": "cab_financial",
+      "name": "Housing Finance Readiness",
+      "score": 0.0,
+      "suggestions": [
+        "Upload documents containing: Housing appraisal"
+      ]
+    },
+    {
+      "key": "risk_security_slb",
+      "name": "Site Control & Diligence",
+      "score": 0.0,
+      "suggestions": [
+        "Upload documents containing: Phase One environmental report, Site control evidence"
+      ]
+    },
+    {
+      "key": "slb_verification",
+      "name": "Housing Disclosure & Advisor Readiness",
+      "score": 0.0,
+      "suggestions": [
+        "Upload documents containing: Bond counsel inducement resolution"
+      ]
+    }
+  ],
+  "endpoint_status": {
+    "project": 200,
+    "readiness": 200,
+    "readiness_explanation": 200,
+    "readiness_gaps": 200
+  },
+  "explanation_summary": "Project readiness score is 3.0/10 (Not Yet Viable). There are 6 critical gaps that need to be addressed before engaging bond counsel or underwriters.",
+  "legacy_visible_terms": [],
+  "material_gaps_count": 0,
+  "overall_score": 2.9699999999999998,
+  "priority_actions": [
+    "Upload documents for Issuer & Inducement Readiness: Bond counsel inducement resolution",
+    "Upload documents for Affordability & Subsidy Stack: Tax credit allocation",
+    "Focus on critical path documentation before engaging advisors"
+  ],
+  "project_id": "b7d9fdc3-b137-5362-a990-d4aa234f86bf",
+  "recommendation": "Not Yet Viable",
+  "route_status": {
+    "/dashboard": "<HTTPError 404: 'Not Found'>",
+    "/health": 200,
+    "/projects": "<HTTPError 404: 'Not Found'>",
+    "/tools": "<HTTPError 404: 'Not Found'>",
+    "/tools/pilot-navigation": "<HTTPError 404: 'Not Found'>"
+  },
+  "secondary_gaps_count": 0,
+  "sector": "housing"
+}

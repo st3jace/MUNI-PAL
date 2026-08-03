@@ -113,6 +113,12 @@ function ResultsView({ data }: { data: any }) {
         <p className="mt-3 text-sm leading-relaxed">{data.tier_guidance}</p>
       </div>
 
+      {/* What this isn't */}
+      <p className="text-xs text-gray-400">
+        This is an educational readiness snapshot based on what you told us —
+        not investment advice, municipal advisory advice, or a loan decision.
+      </p>
+
       {/* COI Gap Estimate Banner */}
       {hasCoi && (
         <div className="rounded-lg border border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 p-5">
@@ -120,17 +126,18 @@ function ResultsView({ data }: { data: any }) {
             <DollarSign className="h-5 w-5 text-amber-600 mt-0.5 flex-shrink-0" />
             <div>
               <h3 className="font-semibold text-amber-900">
-                Cost of Issuance Impact
+                Cost-of-Issuance (COI) Impact
               </h3>
               <p className="text-sm text-amber-800 mt-1">
-                Incomplete readiness may contribute to{' '}
+                Gaps like yours typically add{' '}
                 <span className="font-bold">
                   {typeof data.coi_estimate === 'object'
                     ? `${formatCurrency(data.coi_estimate.low)}-${formatCurrency(data.coi_estimate.high)}`
                     : formatCurrency(data.coi_estimate)}
                 </span>{' '}
-                in additional cost-of-issuance pressure from advisory fees, expanded
-                feasibility scope, and extended deal timelines.
+                in extra fees — more advisor hours, a bigger feasibility study,
+                and a longer timeline. Fixing them first is how you keep that
+                money.
               </p>
             </div>
           </div>
@@ -167,7 +174,7 @@ function ResultsView({ data }: { data: any }) {
                 </div>
                 <div>
                   <div className="flex justify-between text-xs text-gray-500 mb-1">
-                    <span>Agent-Assisted</span>
+                    <span>With Muni-Pal</span>
                     <span>
                       {Array.isArray(data.timeline_compressed_weeks)
                         ? `${data.timeline_compressed_weeks[0]}-${data.timeline_compressed_weeks[1]} weeks`
@@ -196,7 +203,7 @@ function ResultsView({ data }: { data: any }) {
                 {data.timeline_compression_pct != null && (
                   <p className="text-xs text-gray-500 mt-1">
                     {Math.round(data.timeline_compression_pct)}% faster
-                    with agent-assisted preparation
+                    with Muni-Pal-assisted preparation
                   </p>
                 )}
               </div>
@@ -208,7 +215,7 @@ function ResultsView({ data }: { data: any }) {
               <div className="flex items-center gap-2 mb-4">
                 <TrendingUp className="h-4 w-4 text-gray-500" />
                 <h3 className="font-semibold text-gray-900 text-sm">
-                  Agent Displacement Value
+                  Estimated Preparation Savings
                 </h3>
               </div>
               <div className="text-3xl font-bold text-primary-600">
@@ -217,7 +224,8 @@ function ResultsView({ data }: { data: any }) {
                   : formatCurrency(data.agent_displacement_value)}
               </div>
               <p className="text-xs text-gray-500 mt-2">
-                Estimated savings per deal through agent-assisted preparation.
+                What deals like yours typically save by closing these gaps
+                before engaging the deal team.
               </p>
             </div>
           )}
@@ -625,10 +633,8 @@ export default function ReadinessAssess() {
             Bond Readiness Assessment
           </h1>
           <p className="text-sm text-gray-500 mt-1">
-            Evaluate your project across {dimensions.length || 5}{' '}
-            {isHealthcareQuestionnaire
-              ? 'readiness categories'
-              : 'risk dimensions'}
+            Find out if your project is bond-ready — free, about 10 minutes,
+            no documents required to start
           </p>
         </div>
       </div>
@@ -721,7 +727,7 @@ export default function ReadinessAssess() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                  DSCR
+                  DSCR (debt-service coverage — cash flow vs. annual payments)
                 </label>
                 <input
                   type="number"
@@ -969,7 +975,7 @@ export default function ReadinessAssess() {
               ) : (
                 <>
                   <ClipboardCheck className="h-4 w-4" />
-                  Score Assessment
+                  See my readiness score
                 </>
               )}
             </button>

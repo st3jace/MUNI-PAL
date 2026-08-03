@@ -109,7 +109,7 @@ function CoiEstimateSection({
   return (
     <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-5">
       <h3 className="font-semibold text-gray-900 mb-1">
-        COI Estimate
+        Cost-of-Issuance (COI) Estimate
       </h3>
       <p className="text-xs text-gray-500 mb-4">
         Based on {ssData.sample_size} actual {subSector.replace('_', ' ')} deals
@@ -141,7 +141,7 @@ function CoiEstimateSection({
       </div>
       {ssData.repeat_issuer_savings && (
         <p className="mt-3 text-sm text-gray-500">
-          Repeat issuers save ~${ssData.repeat_issuer_savings.median_raw_decline_per_1000 ?? ssData.repeat_issuer_insight?.median_coi_decline_per_1000}/1000 par on average.
+          Repeat issuers pay about ${ssData.repeat_issuer_savings.median_raw_decline_per_1000 ?? ssData.repeat_issuer_insight?.median_coi_decline_per_1000} less per $1,000 borrowed, on average.
         </p>
       )}
     </div>
@@ -368,9 +368,13 @@ function ResultsView({ data }: { data: any }) {
       {/* PFA Comparison */}
       {pfa && pfa.n_pfa_deals > 0 && (
         <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-5">
-          <h3 className="font-semibold text-gray-900 mb-4">
+          <h3 className="font-semibold text-gray-900 mb-1">
             Public Finance Authority Comparison
           </h3>
+          <p className="text-xs text-gray-500 mb-4">
+            How deals issued through multi-state conduit issuers (authorities
+            that issue on your behalf) compare.
+          </p>
           <div className="grid grid-cols-2 gap-3">
             <StatBox label="PFA Deals" value={String(pfa.n_pfa_deals)} />
             <StatBox
@@ -467,10 +471,11 @@ export default function BenchmarkCalculator() {
         </Link>
         <div>
           <h1 className="text-2xl font-bold text-gray-900">
-            Benchmarking Calculator
+            Deal Benchmarks
           </h1>
           <p className="text-sm text-gray-500 mt-1">
-            Compare your prospective issuance against our municipal bond corpus
+            See what deals like yours actually cost — compared against real
+            municipal bond transactions
           </p>
         </div>
       </div>
@@ -571,7 +576,7 @@ export default function BenchmarkCalculator() {
               ) : (
                 <>
                   <Calculator className="h-4 w-4" />
-                  Run Benchmark
+                  Compare my deal
                 </>
               )}
             </button>
@@ -594,6 +599,16 @@ export default function BenchmarkCalculator() {
               sector={sector}
             />
           </div>
+          <p className="mt-5 text-sm text-gray-600">
+            Not sure you're ready to be in this table?{' '}
+            <Link
+              to="/tools/readiness"
+              className="font-medium text-primary-600 hover:text-primary-700 underline"
+            >
+              Take the free readiness assessment
+            </Link>{' '}
+            — about 10 minutes.
+          </p>
           <div className="mt-4 flex justify-end">
             <Link
               to="/tools/export"

@@ -7,9 +7,6 @@ import {
   ArrowRight,
   CheckCircle2,
   XCircle,
-  ChevronRight,
-  Clock,
-  FileText,
   TrendingUp,
 } from 'lucide-react'
 
@@ -30,34 +27,46 @@ const BRAND = {
 const VALUE_PROPS = [
   {
     icon: BarChart3,
-    headline: 'Know what "good" looks like',
-    copy: 'See the exact DSCR (gross revenue pledge, healthcare-adjusted), payer mix, days cash on hand, and pledge structures that separate AA-rated healthcare systems from BBB — drawn from real public-disclosure data, not industry averages.',
+    headline: 'Know what “good” looks like',
+    copy: 'See the debt-service coverage (DSCR — your cash flow vs. your annual payments), days cash on hand, and payer mix that separate highly rated hospitals from the rest — drawn from real public disclosure filings, not industry averages.',
   },
   {
     icon: DollarSign,
-    headline: 'Understand cost context before advisor review',
-    copy: "Corpus-calibrated cost-of-capital context by rating tier. Not a vague market-rate placeholder — evidence you can use to prepare better questions for your registered advisor and deal team.",
+    headline: 'Walk into advisor meetings with context',
+    copy: 'See typical borrowing costs by credit rating, so you can ask sharper questions of your registered advisor and deal team — instead of hearing every number for the first time.',
   },
   {
     icon: AlertTriangle,
-    headline: 'Understand where readiness gaps emerge',
-    copy: 'The 5 risk categories healthcare issuers often under-document — and examples of evidence that strengthened comparable credits.',
+    headline: 'See your gaps before a lender does',
+    copy: 'The readiness dimensions hospitals most often under-document — and the kind of evidence that strengthened comparable borrowers.',
   },
 ]
 
-const ENGAGEMENT_PATH = [
-  { step: 1, name: 'Market Intelligence Report', price: 'Free', description: 'Sector benchmarks — DSCR, cost context, risk profile, Pareto framework' },
-  { step: 2, name: 'Readiness Scan', price: 'Free', description: 'Automated pre-screen — sector fit, deal size, top 3 gaps' },
-  { step: 3, name: 'Bond Readiness Diagnostic', price: '$15K–$25K', description: 'Full score + gap analysis + critical path to close' },
-  { step: 4, name: 'Standard Engagement', price: '$40K–$50K', description: 'Diagnostic + readiness coordination + cost-of-issuance planning support' },
-  { step: 5, name: 'Bond Readiness Accelerator', price: '$75K+', description: 'Expanded readiness support — gap remediation, benchmarking, and advisor-review preparation' },
+const HOW_IT_WORKS = [
+  {
+    step: 1,
+    name: 'Answer questions about your facility',
+    description: 'Free, about 15 minutes, no documents required to start.',
+  },
+  {
+    step: 2,
+    name: 'See where you stand',
+    description:
+      'A readiness score across 6 dimensions, benchmarked against 866 real municipal bond transactions — plus your top gaps.',
+  },
+  {
+    step: 3,
+    name: 'Take it to your advisors',
+    description:
+      'You get a report you can put in front of your board and your registered advisor, with the questions worth asking.',
+  },
 ]
 
-const TIMELINE_PHASES = [
-  { months: 'Month 0–2', label: 'Discovery', color: BRAND.teal, width: '25%', ml: '0%' },
-  { months: 'Month 2–3', label: 'Diagnostic', color: BRAND.orange, width: '15%', ml: '15%' },
-  { months: 'Month 3–6', label: 'Preparation', color: '#6366f1', width: '30%', ml: '25%' },
-  { months: 'Month 6–9+', label: 'Execution', color: BRAND.navy, width: '30%', ml: '55%' },
+const WHAT_YOU_GET = [
+  'A readiness score across 6 dimensions',
+  'Sector benchmarks from 866 real municipal bond transactions',
+  'Your top gaps, with examples of what stronger borrowers documented',
+  'A report you can hand to your board and registered advisor',
 ]
 
 /* ------------------------------------------------------------------ */
@@ -85,7 +94,7 @@ function PreviewCard() {
         </div>
         <div className="grid grid-cols-2 gap-3">
           {[
-            { label: 'DSCR', value: '1.45x', color: BRAND.teal },
+            { label: 'DSCR (coverage)', value: '1.45x', color: BRAND.teal },
             { label: 'Rating', value: 'A-', color: BRAND.gold },
             { label: 'Coverage', value: '2.1x', color: BRAND.teal },
             { label: 'Risk Score', value: 'Low', color: '#22c55e' },
@@ -99,8 +108,11 @@ function PreviewCard() {
         <div className="border-t border-gray-100 pt-3">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="h-4 w-4 text-green-500" />
-            <span className="text-xs text-gray-600">3 of 6 dimensions ready for advisor review</span>
+            <span className="text-xs text-gray-600">3 of 6 readiness dimensions ready for advisor review</span>
           </div>
+          <p className="text-[10px] text-gray-400 mt-2">
+            Sample assessment &mdash; illustrative numbers, not a real facility.
+          </p>
         </div>
       </div>
     </div>
@@ -139,22 +151,25 @@ export default function HealthcareCFOLanding() {
                 className="text-sm font-semibold tracking-wide uppercase mb-4"
                 style={{ color: BRAND.teal }}
               >
-                Healthcare Bond Intelligence
+                For healthcare CFOs planning a first bond issue
               </p>
               <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold leading-tight text-white max-w-xl mb-6">
-                Every basis point matters. Now you can prove it.
+                Find out if your hospital is bond-ready &mdash; and what
+                borrowing will really cost &mdash; before you sit down with
+                anyone.
               </h1>
               <p className="text-base md:text-lg text-gray-300 max-w-lg mb-10 leading-relaxed">
-                Muni-Pal's Healthcare Market Intelligence Report benchmarks your
-                deal against{' '}
+                Muni-Pal shows you what municipal deals like yours actually
+                looked like, built from{' '}
                 <span className="text-white font-semibold">
-                  866 actual municipal bond transactions
+                  866 real municipal bond transactions
                 </span>{' '}
-                — showing you the real spread between good deals and great ones.
-                Know your true cost of capital before the term sheet hits your desk.
+                in public disclosure filings. See where you stand &mdash; for
+                free, in about 15 minutes &mdash; before your first advisor
+                meeting.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col items-start gap-3">
                 <Link
                   to="/tools/readiness"
                   className="inline-flex items-center justify-center gap-2 text-white font-semibold px-7 py-3.5 rounded-lg transition-colors text-base shadow-lg"
@@ -162,19 +177,12 @@ export default function HealthcareCFOLanding() {
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = BRAND.orangeHover)}
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = BRAND.orange)}
                 >
-                  Start Your Readiness Scan
+                  Start Your Free Readiness Assessment
                   <ArrowRight className="h-5 w-5" />
                 </Link>
-                <Link
-                  to="/tools/market-intelligence"
-                  className="inline-flex items-center justify-center gap-2 text-white font-medium px-7 py-3.5 rounded-lg transition-colors text-base shadow-lg"
-                  style={{ backgroundColor: BRAND.teal, boxShadow: `0 8px 24px ${BRAND.teal}33` }}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#259896')}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = BRAND.teal)}
-                >
-                  Get Your Free Market Intelligence Report
-                  <ChevronRight className="h-5 w-5" />
-                </Link>
+                <p className="text-sm text-gray-400">
+                  Free. About 15 minutes. No documents required to start.
+                </p>
               </div>
             </div>
 
@@ -187,10 +195,139 @@ export default function HealthcareCFOLanding() {
       </section>
 
       {/* ============================================================ */}
-      {/*  VALUE PROPS — Cards overlapping hero                         */}
+      {/*  AUDIENCE FILTER — who it's for                               */}
       {/* ============================================================ */}
-      <section className="max-w-6xl mx-auto px-6 lg:px-8 -mt-8 relative z-10 mb-14">
-        <div className="grid gap-6 md:grid-cols-3">
+      <section className="max-w-6xl mx-auto px-6 lg:px-8 mt-14 mb-14">
+        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+          <h3 className="text-base font-semibold text-gray-800 px-7 pt-7 pb-4 flex items-center gap-3">
+            <Shield className="h-5 w-5 text-gray-400" />
+            Who this is for &mdash; and who it isn't
+          </h3>
+          <div className="grid md:grid-cols-2 gap-0">
+            <div className="bg-white p-7 md:border-r border-gray-200">
+              <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BRAND.teal }}>
+                Built for
+              </p>
+              <ul className="space-y-2.5">
+                {[
+                  'Healthcare CFOs and finance directors thinking about a bond for the first time',
+                  'Hospital systems weighing how to fund a major project',
+                  'Deals above $10M',
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-2.5 text-sm text-gray-700">
+                    <CheckCircle2 className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: BRAND.teal }} />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="bg-gray-50 p-7">
+              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">
+                Not for
+              </p>
+              <ul className="space-y-2.5">
+                {[
+                  'Deals under $10M',
+                  'Issuers outside healthcare',
+                  'Anyone looking for personal investment advice',
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-2.5 text-sm text-gray-400">
+                    <XCircle className="h-4 w-4 flex-shrink-0 mt-0.5 text-gray-300" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/*  PROOF BLOCK — stats                                          */}
+      {/* ============================================================ */}
+      <section className="max-w-6xl mx-auto px-6 lg:px-8 mb-14">
+        <div className="bg-gray-50 border border-gray-100 rounded-xl py-8 px-6">
+          <div className="flex flex-wrap justify-center gap-10 md:gap-16 text-center">
+            {[
+              { value: '866', label: 'real municipal bond transactions analyzed' },
+              { value: '6', label: 'readiness dimensions scored on every assessment' },
+              { value: '15 min', label: 'to a first readiness read. Free.' },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <span className="block text-3xl font-bold" style={{ color: BRAND.navy }}>{stat.value}</span>
+                <span className="text-sm text-gray-500 mt-1 block">{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/*  PROOF BLOCK — why check early                                */}
+      {/* ============================================================ */}
+      <section className="max-w-6xl mx-auto px-6 lg:px-8 mb-14">
+        <div className="bg-gradient-to-r from-red-50 to-orange-50 rounded-xl border border-red-100 p-7 md:p-8">
+          <div className="flex items-start gap-4">
+            <div className="h-12 w-12 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+              <TrendingUp className="h-6 w-6 text-red-600" />
+            </div>
+            <div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2">
+                Why check early: your credit story is worth real money
+              </h3>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                In public healthcare bond filings, higher-rated hospitals
+                consistently borrow at lower rates than lower-rated ones
+                &mdash; and that gap (the &ldquo;spread,&rdquo; the premium
+                over the benchmark rate) compounds every year for the 25&ndash;30
+                year life of a deal. The cheapest time to close a readiness gap
+                is before anyone prices your deal.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================ */}
+      {/*  HOW IT WORKS — 3 free steps                                  */}
+      {/* ============================================================ */}
+      <section id="how-it-works" className="max-w-6xl mx-auto px-6 lg:px-8 mb-14 scroll-mt-24">
+        <h2 className="text-2xl font-bold text-gray-900 mb-8">
+          How it works
+        </h2>
+
+        <div className="grid gap-0 md:grid-cols-3 relative">
+          <div className="hidden md:block absolute top-7 left-[16.7%] right-[16.7%] h-px bg-gray-200" />
+          {HOW_IT_WORKS.map((step) => (
+            <div key={step.name} className="relative flex flex-col items-center text-center px-4 mb-8 md:mb-0">
+              <div className="relative z-10 h-14 w-14 rounded-full flex items-center justify-center text-lg font-bold mb-3 bg-[#2DAEAC] text-white">
+                {step.step}
+              </div>
+              <h3 className="text-sm font-semibold text-gray-900 mb-1.5">
+                {step.name}
+              </h3>
+              <p className="text-xs text-gray-500 leading-relaxed">
+                {step.description}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <p className="text-sm text-gray-600 mt-8 max-w-2xl">
+          A typical healthcare bond deal takes 6&ndash;9 months from first
+          conversation to closing &mdash; which is why the free assessment is
+          worth doing before you think you need it.
+        </p>
+        <p className="text-xs text-gray-400 mt-2">
+          Deeper paid engagements exist when you're ready &mdash; start free.
+        </p>
+      </section>
+
+      {/* ============================================================ */}
+      {/*  WHAT YOU GET — value props + assessment deliverables         */}
+      {/* ============================================================ */}
+      <section className="max-w-6xl mx-auto px-6 lg:px-8 mb-14">
+        <div className="grid gap-6 md:grid-cols-3 mb-10">
           {VALUE_PROPS.map((prop) => (
             <div
               key={prop.headline}
@@ -208,297 +345,52 @@ export default function HealthcareCFOLanding() {
             </div>
           ))}
         </div>
-      </section>
 
-      {/* ============================================================ */}
-      {/*  SOCIAL PROOF STATS                                           */}
-      {/* ============================================================ */}
-      <section className="max-w-6xl mx-auto px-6 lg:px-8 mb-14">
-        <div className="bg-gray-50 border border-gray-100 rounded-xl py-8 px-6">
-          <div className="flex flex-wrap justify-center gap-10 md:gap-16 text-center">
-            {[
-              { value: '866', label: 'municipal bond transactions analyzed' },
-              { value: '3.20x', label: 'Median healthcare DSCR', sub: '(gross revenue pledge basis)' },
-              { value: '5', label: 'Risk categories scored' },
-              { value: '1,318', label: 'Financial reports in corpus' },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <span className="block text-3xl font-bold" style={{ color: BRAND.navy }}>{stat.value}</span>
-                <span className="text-sm text-gray-500 mt-1 block">{stat.label}</span>
-                {stat.sub && (
-                  <span className="block text-[10px] text-gray-400">{stat.sub}</span>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  ENGAGEMENT PATH — 5 Steps with pricing                       */}
-      {/* ============================================================ */}
-      <section id="engagement-path" className="max-w-6xl mx-auto px-6 lg:px-8 mb-14 scroll-mt-24">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">
-          The Bond Readiness Path
-        </h2>
-        <p className="text-gray-600 mb-8 max-w-2xl">
-          From free benchmarks to deal-ready in four steps. Start with the data
-          — escalate only when you're confident in the opportunity.
-        </p>
-
-        <div className="grid gap-0 md:grid-cols-4 relative">
-          <div className="hidden md:block absolute top-10 left-[12.5%] right-[12.5%] h-px bg-gray-200" />
-          {ENGAGEMENT_PATH.map((step) => (
-            <div key={step.name} className="relative flex flex-col items-center text-center px-4 mb-8 md:mb-0">
-              <div
-                className={`relative z-10 h-14 w-14 rounded-full flex items-center justify-center text-lg font-bold mb-3 ${
-                  step.price === 'Free'
-                    ? 'bg-[#2DAEAC] text-white'
-                    : 'bg-[#1B3A5C] text-white'
-                }`}
-              >
-                {step.step}
-              </div>
-              <span
-                className={`text-xs font-semibold px-3 py-1 rounded-full mb-3 ${
-                  step.price === 'Free'
-                    ? 'bg-green-50 text-green-700'
-                    : 'bg-[#E8913A]/10 text-[#E8913A]'
-                }`}
-              >
-                {step.price}
-              </span>
-              <h3 className="text-sm font-semibold text-gray-900 mb-1.5">
-                {step.name}
-              </h3>
-              <p className="text-xs text-gray-500 leading-relaxed">
-                {step.description}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  COST OF INACTION                                             */}
-      {/* ============================================================ */}
-      <section className="max-w-6xl mx-auto px-6 lg:px-8 mb-14">
-        <div className="bg-gradient-to-r from-red-50 to-orange-50 rounded-xl border border-red-100 p-7 md:p-8">
-          <div className="flex items-start gap-4">
-            <div className="h-12 w-12 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
-              <TrendingUp className="h-6 w-6 text-red-600" />
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">
-                The Cost of Inaction
-              </h3>
-              <p className="text-sm text-gray-700 leading-relaxed mb-3">
-                The difference between an A-rated and BBB-rated issuance costs{' '}
-                <span className="font-bold text-red-700">$27M+</span> over 25
-                years on a $75M deal. The Accelerator helps you document your way
-                for registered-advisor review — for{' '}
-                <span className="font-semibold">less than 0.04%</span> of deal
-                size.
-              </p>
-              <p className="text-xs text-gray-500">
-                Based on observed AA vs. BBB spread differentials in public
-                healthcare revenue bond disclosures (gross revenue pledge basis).
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  WHEN TO ENGAGE — Timeline                                    */}
-      {/* ============================================================ */}
-      <section className="max-w-6xl mx-auto px-6 lg:px-8 mb-14">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-3">
-          <Clock className="h-6 w-6" style={{ color: BRAND.teal }} />
-          When to Engage
-        </h2>
-        <p className="text-gray-600 mb-8 max-w-2xl">
-          A typical healthcare bond transaction takes 6–9 months. Here's how the
-          Bond Readiness Path maps to your deal timeline.
-        </p>
-
-        <div className="space-y-3">
-          {TIMELINE_PHASES.map((phase) => (
-            <div key={phase.months} className="flex items-center gap-4">
-              <div className="w-28 text-right flex-shrink-0 hidden md:block">
-                <span className="text-xs font-semibold" style={{ color: BRAND.teal }}>
-                  {phase.months}
-                </span>
-              </div>
-              <div className="flex-1 relative">
-                <div
-                  className="rounded-lg py-3 px-4 text-white text-sm font-semibold"
-                  style={{
-                    width: phase.width,
-                    backgroundColor: phase.color,
-                    marginLeft: phase.ml,
-                  }}
-                >
-                  {phase.label}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  AUDIENCE FILTER                                              */}
-      {/* ============================================================ */}
-      <section className="max-w-6xl mx-auto px-6 lg:px-8 mb-14">
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-          <h3 className="text-base font-semibold text-gray-800 px-7 pt-7 pb-4 flex items-center gap-3">
-            <Shield className="h-5 w-5 text-gray-400" />
-            Who this is for — and who it isn't
+        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-7">
+          <h3 className="text-base font-semibold text-gray-900 mb-4">
+            What you get with the free assessment
           </h3>
-          <div className="grid md:grid-cols-2 gap-0">
-            <div className="bg-white p-7 md:border-r border-gray-200">
-              <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BRAND.teal }}>
-                Built for
-              </p>
-              <ul className="space-y-2.5">
-                {[
-                  'Healthcare CFOs and finance directors planning a bond issuance',
-                  'Hospital systems evaluating capital structure options',
-                  'Deals above $10M in total issuance size',
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-sm text-gray-700">
-                    <CheckCircle2 className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: BRAND.teal }} />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="bg-gray-50 p-7">
-              <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">
-                Not designed for
-              </p>
-              <ul className="space-y-2.5">
-                {[
-                  'Sub-$10M deal sizes',
-                  'Non-healthcare municipal issuers',
-                  'General financial advice seekers',
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-sm text-gray-400">
-                    <XCircle className="h-4 w-4 flex-shrink-0 mt-0.5 text-gray-300" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+          <ul className="space-y-2.5 mb-4">
+            {WHAT_YOU_GET.map((item) => (
+              <li key={item} className="flex items-start gap-2.5 text-sm text-gray-700">
+                <CheckCircle2 className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: BRAND.teal }} />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <p className="text-sm text-gray-600">
+            Want to see one first?{' '}
+            <Link
+              to="/tools/market-intelligence"
+              className="font-medium underline underline-offset-2"
+              style={{ color: BRAND.teal }}
+            >
+              View a sample market report
+            </Link>
+            .
+          </p>
         </div>
       </section>
 
       {/* ============================================================ */}
-      {/*  SECONDARY TRUST CTAs                                         */}
-      {/* ============================================================ */}
-      <section className="max-w-6xl mx-auto px-6 lg:px-8 mb-14 grid gap-5 sm:grid-cols-2">
-        <Link
-          to="/tools/market-intelligence"
-          className="flex items-start gap-4 bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow group"
-        >
-          <div className="h-11 w-11 rounded-xl bg-[#2DAEAC]/10 flex items-center justify-center flex-shrink-0">
-            <FileText className="h-5 w-5 text-[#2DAEAC]" />
-          </div>
-          <div>
-            <p className="font-semibold text-gray-900 group-hover:text-[#2DAEAC] transition-colors">
-              View a Sample MIR Report
-            </p>
-            <p className="text-sm text-gray-500 mt-1">
-              See the exact benchmarks, risk scoring, and pricing data a
-              healthcare CFO receives — before you request your own.
-            </p>
-          </div>
-        </Link>
-        <Link
-          to="/tools/market-intelligence"
-          className="flex items-start gap-4 bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow group"
-        >
-          <div className="h-11 w-11 rounded-xl bg-[#1B3A5C]/10 flex items-center justify-center flex-shrink-0">
-            <BarChart3 className="h-5 w-5 text-[#1B3A5C]" />
-          </div>
-          <div>
-            <p className="font-semibold text-gray-900 group-hover:text-[#1B3A5C] transition-colors">
-              Compare Risk Profiles by Rating Tier
-            </p>
-            <p className="text-sm text-gray-500 mt-1">
-              How does your system's risk profile stack up against AA, A, and
-              BBB-rated peers? See the gap analysis framework.
-            </p>
-          </div>
-        </Link>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  PLATFORM PREVIEW — Monte Carlo                               */}
+      {/*  ANALYSIS PREVIEW — plain-English stress test                 */}
       {/* ============================================================ */}
       <section className="max-w-6xl mx-auto px-6 lg:px-8 mb-14">
         <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-          See the Platform in Action
+          See what the analysis looks like
         </h2>
         <div className="bg-[#1B3A5C] rounded-xl p-6 md:p-8">
-          <h3 className="text-white font-semibold text-lg mb-1">Risk Analysis — Monte Carlo Simulation</h3>
-          <p className="text-gray-400 text-sm mb-6">
-            1,000 simulations over 25 years with 10.00% revenue volatility and 3.00% expense volatility.
+          <p className="text-gray-200 text-base leading-relaxed max-w-3xl">
+            Before your deal is ever priced, you can stress-test it: what
+            happens to your coverage if revenue dips, expenses run hot, or
+            both. The platform runs your numbers through hundreds of scenarios
+            and shows you the range &mdash; best case, worst case, and most
+            likely &mdash; in plain terms.
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            {[
-              { label: 'P(VR BREACH)', value: '4.10%', color: 'text-white' },
-              { label: 'NEGATIVE NET INCOME', value: '41.34%', color: 'text-white' },
-              { label: 'VaR (5TH)', value: '-45.52%', color: 'text-red-400' },
-              { label: 'EXPECTED COVERAGE RATIO', value: '-81.07%', color: 'text-red-400' },
-            ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className={`text-2xl md:text-3xl font-bold ${stat.color}`}>{stat.value}</p>
-                <p className="text-[10px] text-gray-400 uppercase mt-1 tracking-wider">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-          <div>
-            <h4 className="text-white font-semibold text-sm mb-3">Distribution Percentiles</h4>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="text-gray-400 text-xs uppercase">
-                    <th className="text-left py-2 pr-4">Metric</th>
-                    <th className="text-right py-2 px-3">P5 (Downside)</th>
-                    <th className="text-right py-2 px-3">P50 (Median)</th>
-                    <th className="text-right py-2 px-3">Mean</th>
-                    <th className="text-right py-2 px-3">P95 (Upside)</th>
-                  </tr>
-                </thead>
-                <tbody className="text-gray-300">
-                  <tr className="border-t border-white/10">
-                    <td className="py-2 pr-4 text-white">IRR</td>
-                    <td className="text-right px-3">-45.52%</td>
-                    <td className="text-right px-3">2.63%</td>
-                    <td className="text-right px-3">-2.28%</td>
-                    <td className="text-right px-3">15.92%</td>
-                  </tr>
-                  <tr className="border-t border-white/10">
-                    <td className="py-2 pr-4 text-white">Equity Multiple</td>
-                    <td className="text-right px-3">0.06x</td>
-                    <td className="text-right px-3">1.41x</td>
-                    <td className="text-right px-3">1.39x</td>
-                    <td className="text-right px-3">5.90x</td>
-                  </tr>
-                  <tr className="border-t border-white/10">
-                    <td className="py-2 pr-4 text-white">Min DSCR</td>
-                    <td className="text-right px-3">1.34x</td>
-                    <td className="text-right px-3">1.04x</td>
-                    <td className="text-right px-3">2.96x</td>
-                    <td className="text-right px-3">4.22x</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <p className="text-xs text-gray-400 mt-4">
+            Illustrative example using sample inputs &mdash; not a prediction
+            for your facility.
+          </p>
         </div>
       </section>
 
@@ -508,20 +400,21 @@ export default function HealthcareCFOLanding() {
       <section style={{ backgroundColor: BRAND.navy }} className="py-14 md:py-16">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-            Get Your Free Market Intelligence Report
+            Find out if your hospital is bond-ready.
           </h2>
           <p className="text-gray-300 mb-8 max-w-lg mx-auto text-sm">
-            No login required. No sales call. Just the data your advisors charge
-            $25K to compile.
+            Free. About 15 minutes. No documents required to start. No sales
+            call. This is an educational readiness snapshot &mdash; not
+            investment advice and not a loan application.
           </p>
           <Link
-            to="/tools/market-intelligence"
+            to="/tools/readiness"
             className="inline-flex items-center gap-2 text-white font-semibold px-10 py-4 rounded-lg transition-colors text-lg"
             style={{ backgroundColor: BRAND.orange, boxShadow: `0 8px 24px ${BRAND.orange}33` }}
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = BRAND.orangeHover)}
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = BRAND.orange)}
           >
-            Start Now — It's Free
+            Start Your Free Readiness Assessment
             <ArrowRight className="h-5 w-5" />
           </Link>
         </div>
@@ -541,9 +434,13 @@ export default function HealthcareCFOLanding() {
             Muni-Pal &mdash; A Launch Shop product. Built by Innovation Factory.
           </p>
           <p className="text-[11px] text-gray-400 max-w-2xl text-center leading-relaxed">
-            Bond Readiness Accelerator is an educational and analytical service.
-            It does not constitute municipal advisory services as defined under
-            Section 15B of the Securities Exchange Act.
+            Muni-Pal is an educational and analytical service. We help you
+            understand your numbers and prepare for conversations with your own
+            registered advisors &mdash; we are not your municipal advisor, and
+            nothing on this site is municipal advisory services as defined
+            under Section 15B of the Securities Exchange Act, investment
+            advice, or an offer to arrange financing. Bond decisions belong
+            with your board and your licensed professionals.
           </p>
         </div>
       </footer>

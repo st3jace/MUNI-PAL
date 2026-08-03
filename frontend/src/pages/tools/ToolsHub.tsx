@@ -4,52 +4,59 @@ import { useSensing } from '../../contexts/SensingContext'
 
 const tools = [
   {
-    name: 'Market Intelligence',
+    name: 'Bond Readiness Assessment',
     description:
-      'Comprehensive sector benchmark report covering deal structures, ratings, financial metrics, risk factors, and secondary market activity.',
-    href: '/tools/market-intelligence',
-    icon: BarChart3,
-    color: 'bg-blue-500',
-  },
-  {
-    name: 'Benchmarking Calculator',
-    description:
-      'Compare your prospective issuance against sector peers. Get spread estimates, structural norms, and risk context.',
-    href: '/tools/benchmark',
-    icon: Calculator,
-    color: 'bg-muni-teal',
-  },
-  {
-    name: 'Readiness Assessment',
-    description:
-      'Healthcare sub-sector scoring (Hospital, Senior Living, FQHC) with 177-item assessment, COI gap estimates, and timeline compression analysis.',
+      'Find out if your facility is bond-ready — free, about 10 minutes. Answer plain-English questions and get a scored action plan: your top gaps, what each one costs you, and what to fix first.',
     href: '/tools/readiness',
     icon: ClipboardCheck,
     color: 'bg-muni-gold',
+    cta: 'Check my readiness',
+    primary: true,
   },
   {
-    name: 'COI Benchmarking',
+    name: 'Deal Benchmarks',
     description:
-      'Line-item cost-of-issuance comparison across healthcare sub-sectors. See COI impact, lead times, and agent displacement value per item.',
-    href: '/tools/coi-benchmarking',
-    icon: Layers,
-    color: 'bg-rose-600',
+      'See what deals like yours actually cost. Enter your size, state, and expected rating, and compare against real municipal bond transactions — the spread you can expect (the premium over the benchmark rate), typical structures, and your closest peers.',
+    href: '/tools/benchmark',
+    icon: Calculator,
+    color: 'bg-muni-teal',
+    cta: 'Compare my deal',
   },
   {
-    name: 'Credit Spread Monitor',
+    name: "Today's Borrowing Costs",
     description:
-      'Live yield curves, all-in cost of capital grid, and issuer channel comparison. Powered by the AAA benchmark curve and observed spreads from our municipal bond corpus.',
+      'What each rating tier pays to borrow right now. Current tax-exempt yield curves and the all-in cost of a deal by credit level — built from the AAA benchmark curve and real observed trades.',
     href: '/tools/credit-spreads',
     icon: TrendingUp,
     color: 'bg-emerald-600',
+    cta: "See today's costs",
   },
   {
-    name: 'Pilot Navigation',
+    name: 'Cost-of-Issuance Benchmarks',
     description:
-      'Lead capture to pilot qualification path, BFMS project creation gate, pre-pilot checks, and advisor-safe handoff boundaries.',
+      "Every fee in a bond deal — and what's normal to pay. Cost of issuance (the fees to get a deal done) benchmarked against real healthcare deals, sized to your deal.",
+    href: '/tools/coi-benchmarking',
+    icon: Layers,
+    color: 'bg-rose-600',
+    cta: "See what's normal",
+  },
+  {
+    name: 'Sector Market Report',
+    description:
+      'What good looks like in your sector — the financial profile, ratings, deal structures, and borrowing costs lenders expect, built from 866 real municipal bond transactions.',
+    href: '/tools/market-intelligence',
+    icon: BarChart3,
+    color: 'bg-blue-500',
+    cta: 'Read the report',
+  },
+  {
+    name: 'Work With Us',
+    description:
+      'Thinking about a deeper engagement? See how a pilot works: what we check first, what you get, and where your registered advisor stays in charge.',
     href: '/tools/pilot-navigation',
     icon: Route,
     color: 'bg-indigo-600',
+    cta: 'See how it works',
   },
 ]
 
@@ -59,12 +66,12 @@ export default function ToolsHub() {
   return (
     <div className="max-w-5xl mx-auto">
       <div className="mb-10">
-        <h1 className="text-2xl font-bold text-gray-900">Sensing Tools</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Free Bond Tools</h1>
         <p className="mt-2 text-gray-600 max-w-2xl">
-          Data-driven tools powered by our municipal bond corpus, built from
-          public disclosure filings. Analyze
-          sector benchmarks, compare your issuance, and assess your bond
-          readiness.
+          Free tools that show you what municipal deals like yours actually
+          look like — built from 866 real transactions in public disclosure
+          filings. See what your sector pays, compare your deal, and find out
+          if you're bond-ready before you sit down with anyone.
         </p>
       </div>
 
@@ -73,7 +80,11 @@ export default function ToolsHub() {
           <Link
             key={tool.name}
             to={tool.href}
-            className="group bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md hover:border-gray-300 transition-all"
+            className={`group bg-white rounded-lg border shadow-sm p-6 hover:shadow-md transition-all ${
+              tool.primary
+                ? 'border-2 border-muni-gold hover:border-muni-gold'
+                : 'border-gray-200 hover:border-gray-300'
+            }`}
           >
             <div className="flex items-center gap-3 mb-4">
               <div
@@ -89,7 +100,7 @@ export default function ToolsHub() {
               {tool.description}
             </p>
             <div className="flex items-center text-sm font-medium text-primary-600 opacity-0 group-hover:opacity-100 transition-opacity">
-              Open tool <ArrowRight className="h-4 w-4 ml-1" />
+              {tool.cta} <ArrowRight className="h-4 w-4 ml-1" />
             </div>
           </Link>
         ))}
@@ -107,10 +118,10 @@ export default function ToolsHub() {
             </div>
             <div>
               <h2 className="text-base font-semibold text-gray-900">
-                Export Combined Report
+                Download Your Combined Report
               </h2>
               <p className="text-sm text-gray-500">
-                {sensing.completedCount} of 4 sections ready — download as PDF
+                {sensing.completedCount} of 4 sections ready — get everything as one PDF, free
               </p>
             </div>
           </div>
@@ -126,7 +137,8 @@ export default function ToolsHub() {
               1. Explore
             </span>
             <p className="mt-2 leading-relaxed">
-              Review sector benchmarks from the Market Intelligence report.
+              See what good looks like in your sector — ratings, financials,
+              and costs from real deals.
             </p>
           </div>
           <div className="flex-1">
@@ -134,7 +146,7 @@ export default function ToolsHub() {
               2. Compare
             </span>
             <p className="mt-2 leading-relaxed">
-              Benchmark your specific issuance against corpus peers.
+              Compare your specific deal against its closest real-world peers.
             </p>
           </div>
           <div className="flex-1">
@@ -142,7 +154,8 @@ export default function ToolsHub() {
               3. Assess
             </span>
             <p className="mt-2 leading-relaxed">
-              Complete the readiness assessment for a scored action plan.
+              Take the free readiness assessment and get a scored action plan
+              — about 10 minutes.
             </p>
           </div>
           <div className="flex-1">
@@ -150,7 +163,8 @@ export default function ToolsHub() {
               4. Price
             </span>
             <p className="mt-2 leading-relaxed">
-              View live credit spreads and all-in cost of capital by issuer channel.
+              See what borrowing costs today at your credit level — all fees
+              included.
             </p>
           </div>
         </div>

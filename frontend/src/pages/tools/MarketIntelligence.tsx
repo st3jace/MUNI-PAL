@@ -52,17 +52,17 @@ const SECTION_META: Record<
   'deal-structure': { icon: Briefcase, label: 'Deal Structure Profile' },
   'rating-distribution': { icon: Shield, label: 'Rating Distribution' },
   'financial-benchmarks': { icon: DollarSign, label: 'Financial Benchmarks' },
-  'pareto-analysis': { icon: BarChart3, label: 'Pareto Analysis' },
+  'pareto-analysis': { icon: BarChart3, label: 'What Best Performers Look Like' },
   'risk-factor': { icon: AlertTriangle, label: 'Risk Factor Analysis' },
-  'risk-narrative': { icon: FileText, label: 'Risk Profile & Cybersecurity' },
+  'risk-narrative': { icon: FileText, label: 'Where Risk Disclosures Go Wrong' },
   'security-covenant': { icon: Scale, label: 'Security & Covenant Profile' },
   'credit-spread': { icon: TrendingUp, label: 'Credit Spread & Pricing' },
   'bond-structure-norms': { icon: Briefcase, label: 'Bond Structure Norms' },
-  'pricing-grid': { icon: DollarSign, label: 'Full Pricing Grid' },
+  'pricing-grid': { icon: DollarSign, label: 'What Healthcare Bonds Cost' },
   'regulatory-framework': { icon: Scale, label: 'Regulatory Framework' },
   'market-activity': { icon: Activity, label: 'Secondary Market Activity' },
   'rating-agency': { icon: Shield, label: 'Rating Agency Perspective' },
-  'engagement-path': { icon: ArrowRight, label: 'Engagement Path' },
+  'engagement-path': { icon: ArrowRight, label: 'How to Work With Us' },
 }
 
 /* ------------------------------------------------------------------ */
@@ -419,16 +419,16 @@ export default function MarketIntelligence() {
           <MuniPalLogo size={56} />
           <div>
             <h1 className="text-2xl md:text-3xl font-bold leading-tight">
-              {sectorLabel} Municipal Bond Market Intelligence
+              {sectorLabel} Sector Market Report
             </h1>
             <p className="text-sm text-gray-300 mt-1">Q1 2026</p>
           </div>
         </div>
 
         <p className="text-sm text-gray-300 leading-relaxed max-w-3xl">
-          Sector benchmark from our municipal bond corpus — deal structures,
-          financial benchmarks, risk profiles, credit spreads, and rating agency
-          perspectives.
+          What deals in your sector actually look like — structures, financial
+          benchmarks, risk profiles, borrowing costs, and how rating agencies
+          see the sector. Built from real public disclosure filings.
         </p>
       </div>
 
@@ -472,13 +472,13 @@ export default function MarketIntelligence() {
               </div>
 
               <p className="text-sm text-gray-200 mb-3 leading-relaxed">
-                This is a data-driven market intelligence report for the{' '}
+                This report shows you the{' '}
                 <strong className="text-white">
                   {es?.sector_title || sectorLabel}
                 </strong>{' '}
-                municipal bond sector, built from analysis of real public
-                municipal securities disclosures,
-                rating agency actions, and secondary market trading data.
+                municipal bond market as it actually is — built from real
+                public municipal securities disclosures, rating agency
+                actions, and secondary market trades.
               </p>
 
               {es?.audience_intro && (
@@ -1021,7 +1021,7 @@ export default function MarketIntelligence() {
                 icon={SECTION_META['credit-spread']?.icon}
               >
                 <DataTable
-                  headers={['Rating', 'Spread (bps)', 'Over AAA MMD']}
+                  headers={['Rating', 'Spread (bps)', 'Over AAA benchmark']}
                   rows={Object.entries(
                     report.spread_curve.rating_to_spread_bps as Record<
                       string,
@@ -1047,8 +1047,8 @@ export default function MarketIntelligence() {
                       Estimated Cost-of-Capital Reference (25-Year Maturity)
                     </h4>
                     <p className="text-xs mb-2" style={{ color: `${BRAND.navy}99` }}>
-                      Based on AAA MMD curve + sector spreads. For detailed pricing, see
-                      Credit Spread Monitor.
+                      Based on the AAA benchmark curve plus sector spreads. For the
+                      full picture, see Today's Borrowing Costs.
                     </p>
                     <div className="grid grid-cols-3 gap-3">
                       {(['AA', 'A', 'BBB'] as const).map((rating) => {
@@ -1285,9 +1285,9 @@ export default function MarketIntelligence() {
                 You've seen how your sector benchmarks.
               </h2>
               <p className="text-sm text-gray-300 mb-6 max-w-lg mx-auto">
-                Now see where your organization stands. Take the Bond Readiness
-                Scan — it's free, takes 10 minutes, and scores you across the 5
-                dimensions that drive your credit rating.
+                Now see where your organization stands. Take the free Bond
+                Readiness Assessment — about 10 minutes, and you'll get a
+                score across the 6 dimensions that drive your credit rating.
               </p>
               <Link
                 to="/tools/readiness"
@@ -1297,7 +1297,7 @@ export default function MarketIntelligence() {
                   color: '#fff',
                 }}
               >
-                Take the Bond Readiness Scan
+                Take the Free Readiness Assessment
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>

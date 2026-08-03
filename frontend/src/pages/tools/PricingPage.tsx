@@ -32,7 +32,7 @@ interface TierFeature {
 const FEATURES: TierFeature[] = [
   { name: 'Bond Readiness Assessment', free: true, subscription: true, perProject: true },
   { name: 'Market Intelligence Report', free: true, subscription: true, perProject: true },
-  { name: 'COI Benchmarking Tool', free: true, subscription: true, perProject: true },
+  { name: 'Cost-of-Issuance (COI) Benchmarks', free: true, subscription: true, perProject: true },
   { name: 'Credit Spread Monitor', free: true, subscription: true, perProject: true },
   { name: 'Project Dashboard', free: false, subscription: true, perProject: true },
   { name: 'Advanced Readiness Scoring (0-10)', free: false, subscription: true, perProject: true },
@@ -62,7 +62,7 @@ const ESTIMATOR_FEATURES: EstimatorFeature[] = [
   {
     id: 'diagnostic',
     name: 'Bond Readiness Diagnostic',
-    description: 'Full readiness score, gap analysis, and critical path to close',
+    description: 'Full readiness score, gap analysis, and a step-by-step path to being deal-ready',
     baseCost: 15000,
     icon: BarChart3,
   },
@@ -235,11 +235,13 @@ export default function PricingPage() {
           </p>
         </div>
         <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
-          Choose the right level for your bond journey
+          The most expensive part of a bond deal is what you don't know
         </h1>
         <p className="text-sm text-gray-600 max-w-2xl">
-          Start free with sensing tools. Subscribe for ongoing readiness workspace access.
-          Or scope a registered-advisor-review support engagement for pre-issuance preparation.
+          Every tool here exists to make sure you never overpay for fees,
+          rates, or wasted advisor hours. Start free — no login. Subscribe
+          when you want an ongoing readiness workspace. Scope a per-project
+          engagement when a real deal is on the table.
         </p>
       </section>
 
@@ -260,6 +262,26 @@ export default function PricingPage() {
         </div>
       )}
 
+      {/* Value anchor */}
+      <section className="mb-12 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-100 p-6 md:p-8">
+        <h3 className="text-base font-bold text-gray-900 mb-2 flex items-center gap-2">
+          <TrendingUp className="h-5 w-5 text-green-600" />
+          Why This Pays for Itself
+        </h3>
+        <p className="text-sm text-gray-700 leading-relaxed mb-3">
+          Issuers who benchmark their costs before negotiating have saved <span className="font-semibold text-green-700">$150K&ndash;$500K</span> on
+          a $100M deal on underwriting alone. A one-tier rating improvement is
+          worth <span className="font-semibold text-green-700">$27M+</span> over 25 years of debt service. Against numbers
+          like that, the Per-Project engagement typically runs under <span className="font-semibold">0.1%</span> of
+          deal size &mdash; and the readiness assessment that starts the whole path is free.
+        </p>
+        <p className="text-xs text-gray-500">
+          Based on cost-of-issuance and rate differences observed in public healthcare bond
+          disclosures, and on our own deal analysis. Savings depend on your deal &mdash; these
+          are illustrations, not promises.
+        </p>
+      </section>
+
       {/* ---------------------------------------------------------------- */}
       {/*  Tier cards                                                       */}
       {/* ---------------------------------------------------------------- */}
@@ -275,7 +297,7 @@ export default function PricingPage() {
               $0<span className="text-sm font-normal text-gray-400">/forever</span>
             </p>
             <p className="text-xs text-gray-500 mb-5">
-              Sensing tools &mdash; no login required
+              Free tools &mdash; no login required
             </p>
             <ul className="space-y-2 text-sm text-gray-600 mb-6 flex-1">
               <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" /> Bond Readiness Assessment</li>
@@ -284,10 +306,10 @@ export default function PricingPage() {
               <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" /> Credit Spread Monitor</li>
             </ul>
             <Link
-              to="/tools"
+              to="/tools/readiness"
               className="w-full text-center inline-flex items-center justify-center gap-2 border border-gray-300 hover:border-muni-navy text-gray-700 font-semibold px-4 py-2.5 rounded-lg transition-colors text-sm"
             >
-              Explore Free Tools
+              Start with the free assessment
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -412,9 +434,9 @@ export default function PricingPage() {
           <h2 className="text-xl font-bold text-gray-900">Per-Project Estimator</h2>
         </div>
         <p className="text-sm text-gray-600 mb-6 max-w-2xl">
-          Select the features you need, set your bond size and complexity, and
-          get an indicative quote. Final pricing is confirmed after a scoping
-          conversation.
+          Pick what you need, set your deal size and complexity, and get an
+          honest ballpark. Final pricing is confirmed after a short scoping
+          call &mdash; no obligation.
         </p>
 
         <div className="grid gap-6 lg:grid-cols-3">
@@ -515,7 +537,7 @@ export default function PricingPage() {
                 to="/tools/readiness"
                 className="w-full text-center inline-flex items-center justify-center gap-2 bg-muni-navy hover:bg-[#15304d] text-white font-semibold px-4 py-2.5 rounded-lg transition-colors text-sm"
               >
-                Start with Free Assessment
+                Start with the free assessment
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <p className="text-[10px] text-gray-400 mt-2 text-center">
@@ -526,23 +548,6 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* ROI context */}
-      <section className="mb-12 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-100 p-6 md:p-8">
-        <h3 className="text-base font-bold text-gray-900 mb-2 flex items-center gap-2">
-          <TrendingUp className="h-5 w-5 text-green-600" />
-          Why This Pays for Itself
-        </h3>
-        <p className="text-sm text-gray-700 leading-relaxed mb-3">
-          Repeat issuers who benchmark costs save <span className="font-semibold text-green-700">$150K&ndash;$500K</span> on
-          a $100M deal through better underwriter negotiation alone. A one-tier
-          rating improvement saves <span className="font-semibold text-green-700">$27M+</span> over 25 years. The
-          Per-Project engagement typically costs less than <span className="font-semibold">0.1%</span> of deal size.
-        </p>
-        <p className="text-xs text-gray-500">
-          Based on observed cost-of-issuance and spread differentials in public healthcare revenue bond disclosures.
-        </p>
-      </section>
-
       {/* FAQ */}
       <section className="mb-12">
         <h2 className="text-xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
@@ -550,11 +555,11 @@ export default function PricingPage() {
           {[
             {
               q: 'Can I start free and upgrade later?',
-              a: 'Yes. Start with the free sensing tools today. When you\'re ready for deeper analysis, subscribe or request a per-project quote — your readiness data carries over.',
+              a: 'Yes. Start with the free tools today. When you\'re ready for deeper analysis, subscribe or request a per-project quote — your readiness data carries over.',
             },
             {
               q: 'What\'s included in the subscription vs. per-project?',
-              a: 'The subscription gives you ongoing access to advisory dashboards, advanced scoring, and benchmark reports. Per-project adds hands-on deal support: evidence extraction, disclosure management, deliverable packs, and dedicated support scoped to your specific issuance.',
+              a: 'The subscription gives you ongoing access to your project dashboard, advanced scoring, and full benchmark reports. Per-project adds hands-on deal support scoped to your specific issuance: document evidence extraction, disclosure tracking, deliverable packs for your advisors, and dedicated support.',
             },
             {
               q: 'How is per-project pricing determined?',
@@ -582,10 +587,10 @@ export default function PricingPage() {
 
       {/* Disclaimer */}
       <p className="text-[11px] text-gray-400 mb-8 max-w-3xl">
-        Pricing shown is indicative and subject to final scoping. Muni-Pal provides benchmarking,
-        preparation, and analytical tools — not investment advice, not municipal advisory advice,
-        and not a pricing, sizing, issuance, or deal-execution recommendation. Registered advisors,
-        counsel, underwriters, issuers, and borrowers retain their professional roles.
+        Pricing shown is indicative and subject to final scoping. Muni-Pal gives you benchmarks,
+        preparation tools, and analysis — it is not investment advice, not municipal advisory advice,
+        and not a recommendation on pricing, sizing, issuing, or executing a deal. Your registered
+        advisors, counsel, and underwriters keep their professional roles; we help you walk in prepared.
       </p>
 
       {/* Footer */}

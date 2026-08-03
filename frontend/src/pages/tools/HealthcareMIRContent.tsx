@@ -40,9 +40,9 @@ export function InformationGap() {
           <span className="text-muni-teal flex-shrink-0 font-bold">2.</span>
           <span>
             <strong className="text-white">
-              Market context for advisor review
+              Real cost-of-capital context by rating tier
             </strong>{' '}
-            — corpus-calibrated cost-of-capital context by rating tier, not a vague
+            — grounded in deals we've analyzed, not a vague
             "market rate" answer
           </span>
         </li>
@@ -58,7 +58,7 @@ export function InformationGap() {
         </li>
       </ul>
       <p className="text-xs text-gray-400 mt-4 border-t border-white/10 pt-3">
-        All benchmarks are empirical — sourced from 866 public official
+        All benchmarks come from real filings: 866 public official
         statements, 1,318 financial reports, and 239 rating agency actions.
       </p>
     </div>
@@ -72,7 +72,7 @@ const BEST_PERFORMER_TRAITS = [
     title: 'Strong and diversified market position',
     detail:
       'Defensible competitive position: trauma designation, academic affiliation, subspecialty depth, or system scale across a multi-county region.',
-    examples: 'AdventHealth (FL), Texas Children\'s Hospital (TX)',
+    examples: null,
   },
   {
     title: 'Low Medicaid/Medicare concentration (< 55% combined)',
@@ -89,7 +89,7 @@ const BEST_PERFORMER_TRAITS = [
   {
     title: 'Days Cash on Hand > 200 days',
     detail:
-      'Corpus median: 202 days. Best performers above 250 days. Below 150 days = credit concern. Below 100 days = likely requires credit enhancement.',
+      'Median across the deals we analyzed: 202 days. Best performers sit above 250. Below 150 days = credit concern. Below 100 days = likely requires credit enhancement.',
     examples: null,
   },
   {
@@ -107,7 +107,7 @@ const BEST_PERFORMER_TRAITS = [
   {
     title: 'First-lien gross revenue pledge',
     detail:
-      '69% of corpus uses gross revenue pledge. 60% have first lien. Best performers lock in both for broadest security basis.',
+      '69% of the deals we analyzed pledge gross revenues; 60% carry a first lien. Best performers lock in both for broadest security basis.',
     examples: null,
   },
 ]
@@ -150,7 +150,7 @@ export function ParetoAnalysis() {
     <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
       <div className="px-5 py-4 border-b border-gray-200">
         <h3 className="font-semibold text-gray-900 text-base">
-          Pareto Analysis: What Best Performers Look Like
+          What Best Performers Look Like
         </h3>
         <p className="text-sm text-gray-500 mt-1">
           The 20% of deal characteristics that explain 80% of the credit outcome
@@ -161,8 +161,8 @@ export function ParetoAnalysis() {
         {/* Best Performers */}
         <h4 className="text-sm font-semibold text-green-700 mb-3 flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-green-500" />
-          Best Performer Profile (Top Quartile: DSCR &gt; 4.30x, Ratings
-          Aa1–A1)
+          Best Performer Profile (top quartile: debt-service coverage above
+          4.30x, ratings Aa1–A1)
         </h4>
         <div className="space-y-3 mb-6">
           {BEST_PERFORMER_TRAITS.map((trait, i) => (
@@ -193,7 +193,7 @@ export function ParetoAnalysis() {
         {/* Worst Performers */}
         <h4 className="text-sm font-semibold text-amber-700 mb-3 flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-amber-500" />
-          Warning Signs (Bottom Quartile: DSCR &lt; 2.10x, BBB or below)
+          Warning Signs (bottom quartile: coverage below 2.10x, BBB or below)
         </h4>
         <div className="overflow-x-auto">
           <table className="min-w-full text-sm">
@@ -257,7 +257,7 @@ const RISK_CATEGORIES: {
   { category: 'Construction', factors: 20, pctTotal: '12.8%', mitigationRate: '70%', interpretation: 'Capital projects — well-mitigated via EPC/bonds' },
   { category: 'Market Demand', factors: 13, pctTotal: '8.3%', mitigationRate: '38%', interpretation: 'Patient volume, competition — limited mitigation' },
   { category: 'Cybersecurity', factors: 10, pctTotal: '6.4%', mitigationRate: '50%', interpretation: 'EHR/ransomware risk — sector-specific' },
-  { category: 'Technology (Health IT)', factors: 10, pctTotal: '6.4%', mitigationRate: '100%', interpretation: 'EHR implementations — fully mitigated in corpus' },
+  { category: 'Technology (Health IT)', factors: 10, pctTotal: '6.4%', mitigationRate: '100%', interpretation: 'EHR implementations — fully mitigated in the deals we analyzed' },
   { category: 'Management', factors: 8, pctTotal: '5.1%', mitigationRate: '62%', interpretation: 'Leadership stability — partially mitigated' },
 ]
 
@@ -269,8 +269,9 @@ export function RiskProfileNarrative() {
           Healthcare Risk Profile — Where Disclosures Go Wrong
         </h3>
         <p className="text-sm text-gray-500 mt-1">
-          Based on 156 risk factors across 11 issuances with risk disclosures.
-          Overall mitigation rate: 46% (vs. 23% for WTE).
+          Based on 156 risk factors disclosed across 11 healthcare issuances.
+          Overall, only 46% of disclosed risks came with a real mitigation
+          plan.
         </p>
       </div>
       <div className="px-5 pb-5 pt-4 space-y-5">
@@ -356,8 +357,8 @@ export function RiskProfileNarrative() {
 /* ---------- Section 7: Bond Structure Norms ---------- */
 
 const STRUCTURE_NORMS: { element: string; standard: string; guidance: string }[] = [
-  { element: 'Revenue pledge', standard: 'Gross revenue (69% of corpus)', guidance: 'Pledge gross revenues of the obligated group, not net' },
-  { element: 'Lien position', standard: 'First lien (60% of corpus)', guidance: 'First lien unless existing senior debt precludes it' },
+  { element: 'Revenue pledge', standard: 'Gross revenue (69% of deals analyzed)', guidance: 'Pledge gross revenues of the obligated group, not net' },
+  { element: 'Lien position', standard: 'First lien (60% of deals analyzed)', guidance: 'First lien unless existing senior debt precludes it' },
   { element: 'Coverage covenant', standard: '1.10x (median)', guidance: 'Set at 1.10x in documents; operate above 1.25x' },
   { element: 'DSRF', standard: '31.6% of deals use it', guidance: 'Required for BBB; optional for A+ with strong DCOH' },
   { element: 'Credit enhancement', standard: 'LOC (4 deals), bond insurance (2)', guidance: 'LOC-backed variable rate for sub-100-day DCOH' },
@@ -603,11 +604,12 @@ export function PricingGrid() {
     <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
       <div className="px-5 py-4 border-b border-gray-200">
         <h3 className="font-semibold text-gray-900 text-base">
-          Current Pricing — What Healthcare Bonds Cost Now
+          Q1 2026 Pricing — What Healthcare Bonds Cost
         </h3>
         <p className="text-sm text-gray-500 mt-1">
-          Municipal yield curve as of March 27, 2026. All-in TIC = yield +
-          issuer fees (~7 bps) + structural/underwriting costs (~95 bps).
+          Municipal yield curve as of March 27, 2026. 'All-in TIC' is the true
+          interest cost — the yield plus every fee: issuer fees (~7 bps) and
+          structural/underwriting costs (~95 bps). (100 bps = 1%.)
         </p>
       </div>
       <div className="px-5 pb-5 pt-4 space-y-5">
@@ -653,7 +655,7 @@ export function PricingGrid() {
         {/* All-In TIC Grid */}
         <div>
           <h4 className="text-sm font-medium text-gray-600 mb-2">
-            All-In TIC — Healthcare Borrowers (Corpus-Calibrated)
+            All-In TIC — Healthcare Borrowers (from observed deals)
           </h4>
           <div className="overflow-x-auto">
             <table className="min-w-full text-sm">
@@ -672,7 +674,7 @@ export function PricingGrid() {
                     30-Year TIC
                   </th>
                   <th className="text-right py-2.5 px-3 font-medium text-gray-600">
-                    Corpus Obs.
+                    Deals Observed
                   </th>
                 </tr>
               </thead>
@@ -700,9 +702,9 @@ export function PricingGrid() {
             </table>
           </div>
           <div className="mt-2 text-xs text-gray-500 space-y-1">
-            <p>AA healthcare bonds trade at <strong>-12.6 bps</strong> to AAA MMD — strong institutional demand</p>
-            <p>A healthcare bonds trade at <strong>+23.9 bps</strong> to AAA MMD — 28 corpus observations = reliable benchmark</p>
-            <p>BBB healthcare bonds carry <strong>+100 bps</strong> — materially higher cost but accessible to well-documented credits</p>
+            <p>AA healthcare bonds have traded <strong>12.6 bps</strong> below the AAA benchmark — strong institutional demand</p>
+            <p>A-rated healthcare bonds trade about <strong>23.9 bps</strong> over the AAA benchmark (28 observed deals — a solid sample)</p>
+            <p>BBB healthcare bonds carry roughly <strong>+100 bps</strong> — materially more expensive, but accessible to well-documented credits</p>
           </div>
         </div>
 
@@ -735,9 +737,9 @@ export function PricingGrid() {
             ))}
           </div>
           <p className="text-xs text-blue-800 mt-3 font-medium">
-            The AA vs. BBB spread illustration shows why rating-tier context
-            belongs in the preparation record for registered-advisor and deal-team
-            review.
+            This is why your rating tier belongs in the preparation record you
+            bring to your registered advisor and deal team: the gap between AA
+            and BBB is measured in millions.
           </p>
         </div>
       </div>
@@ -750,27 +752,27 @@ export function PricingGrid() {
 const ENGAGEMENT_STEPS: { step: string; description: string; cost: string }[] = [
   {
     step: 'Market Intelligence Report',
-    description: 'Market benchmarks: DSCR, pricing, risk profile, Pareto framework',
+    description: 'Market benchmarks: DSCR, pricing, risk profile, best-performer framework',
     cost: 'Free',
   },
   {
-    step: 'Readiness Scan',
-    description: 'Automated BFMS pre-screen: sector fit, deal size, top 3 gaps',
+    step: 'Bond Readiness Assessment',
+    description: 'Free automated pre-screen: sector fit, deal size, and your top 3 gaps',
     cost: 'Free',
   },
   {
     step: 'Bond Readiness Diagnostic',
-    description: 'BFMS score + gap analysis + critical path to close',
+    description: 'Full readiness score, gap analysis, and a step-by-step path to being deal-ready',
     cost: '$15,000–$25,000',
   },
   {
     step: 'Standard Engagement',
-    description: 'Diagnostic + readiness workplan + registered-advisor review support',
+    description: "Everything in the Diagnostic, plus a readiness workplan and support through your registered advisor's review",
     cost: '$40,000–$50,000',
   },
   {
     step: 'Bond Readiness Accelerator',
-    description: 'Readiness support — gap remediation, benchmarking, and preparation workflow',
+    description: 'Hands-on gap remediation, benchmarking, and preparation, start to finish',
     cost: '$75,000+',
   },
 ]
@@ -779,7 +781,7 @@ export function EngagementPath() {
   return (
     <div className="bg-gradient-to-br from-muni-navy to-indigo-900 rounded-lg p-6 text-white">
       <h3 className="font-semibold text-base mb-1">
-        How to Engage — The Bond Readiness Path
+        How to Work With Us — The Bond Readiness Path
       </h3>
       <p className="text-sm text-gray-300 mb-4">
         For a $75M healthcare bond, the Diagnostic costs less than 0.04% of deal

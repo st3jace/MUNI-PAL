@@ -151,7 +151,7 @@ function CostGrid({ rows }: { rows: any[] }) {
               All-In TIC
             </th>
             <th className="text-right py-3 px-3 font-semibold text-gray-500">
-              Corpus Obs.
+              Observed
             </th>
           </tr>
         </thead>
@@ -619,11 +619,13 @@ export default function CreditSpreadMonitor() {
           </Link>
           <div>
             <h1 className="text-2xl font-bold text-gray-900">
-              Credit Spread Monitor
+              Today's Borrowing Costs
             </h1>
             <p className="text-sm text-gray-500 mt-1">
-              All-in cost of capital comparison powered by our municipal bond corpus &amp;
-              live AAA MMD curve
+              What each rating tier pays to borrow right now &mdash; every fee
+              included, built from the AAA benchmark curve and real observed
+              trades. The 'spread' is simply the premium a borrower pays over
+              that benchmark.
             </p>
           </div>
         </div>
@@ -770,7 +772,7 @@ export default function CreditSpreadMonitor() {
               </div>
               <div>
                 <div className="text-xs text-gray-400 uppercase tracking-wider">
-                  Corpus Trades
+                  Trades Observed
                 </div>
                 <div className="text-xl font-semibold text-white">
                   {data.recent_comps?.length || 0}
@@ -784,8 +786,8 @@ export default function CreditSpreadMonitor() {
             <Section title="Municipal Yield Curves by Rating" icon={TrendingUp}>
               <p className="text-sm text-gray-500 mb-4">
                 Current estimated tax-exempt yields by rating tier and tenor.
-                AAA base from {data.aaa_curve_source}; spreads from reference
-                table blended with corpus observations.
+                The AAA base comes from {data.aaa_curve_source}; spreads blend
+                our reference table with real observed trades.
               </p>
               <YieldCurveTable curves={data.yield_curves} />
             </Section>
@@ -798,10 +800,11 @@ export default function CreditSpreadMonitor() {
               icon={BarChart3}
             >
               <p className="text-sm text-gray-500 mb-4">
-                Estimated all-in True Interest Cost (TIC) by rating and tenor,
-                including base yield, sector credit spread, issuer fees, and
-                structural costs (underwriter, counsel, trustee, rating agency,
-                DSRF).
+                The estimated all-in true interest cost (TIC) &mdash; the full
+                annual cost of borrowing &mdash; by rating and maturity.
+                Includes the base yield, sector spread, issuer fees, and every
+                structural cost: underwriter, counsel, trustee, rating agency,
+                and reserve fund.
               </p>
               <CostGrid rows={data.cost_grid} />
             </Section>
@@ -812,7 +815,7 @@ export default function CreditSpreadMonitor() {
             <Section title="Issuer Channel Comparison" icon={Building2}>
               <p className="text-sm text-gray-500 mb-4">
                 Side-by-side cost comparison across issuance channels. Shows how
-                issuer fee structures affect all-in TIC for representative
+                issuer fee structures change your all-in TIC for representative
                 rating/tenor combinations.
               </p>
               <IssuerComparisonPanel comparisons={data.issuer_comparisons} />
@@ -826,9 +829,9 @@ export default function CreditSpreadMonitor() {
             defaultOpen={false}
           >
             <p className="text-sm text-gray-500 mb-4">
-              Credit spreads derived from actual secondary market trades in
-              our corpus for this sector. These observations inform the
-              blended spread estimates in the cost grid above.
+              Spreads observed in actual secondary-market trades for this
+              sector. These real trades feed the blended estimates in the
+              grid above.
             </p>
             {data.corpus_spreads &&
             Object.keys(data.corpus_spreads).length > 0 ? (
@@ -837,7 +840,7 @@ export default function CreditSpreadMonitor() {
               <div className="text-center py-8 bg-gray-50 rounded-lg border border-dashed border-gray-200">
                 <Scale className="h-8 w-8 text-gray-300 mx-auto mb-3" />
                 <p className="text-sm font-medium text-gray-500">
-                  No corpus trade observations yet for this sector
+                  No observed trades yet for this sector
                 </p>
                 <p className="text-xs text-gray-400 mt-1 max-w-md mx-auto">
                   Observed data for this sector is coming soon.
@@ -853,9 +856,9 @@ export default function CreditSpreadMonitor() {
             defaultOpen={false}
           >
             <p className="text-sm text-gray-500 mb-4">
-              Most recent observed trades from our corpus in this sector, sorted by
-              trade date. Use these as conversation-ready comps for borrower
-              discussions.
+              The most recent observed trades in this sector, newest first.
+              Bring them to your advisor conversations as real reference
+              points.
             </p>
             {data.recent_comps && data.recent_comps.length > 0 ? (
               <RecentCompsTable comps={data.recent_comps} />
@@ -863,7 +866,7 @@ export default function CreditSpreadMonitor() {
               <div className="text-center py-8 bg-gray-50 rounded-lg border border-dashed border-gray-200">
                 <FileText className="h-8 w-8 text-gray-300 mx-auto mb-3" />
                 <p className="text-sm font-medium text-gray-500">
-                  No comparable deals in the corpus yet
+                  No comparable deals observed yet
                 </p>
                 <p className="text-xs text-gray-400 mt-1 max-w-md mx-auto">
                   As sector data is added, trades will appear here.
@@ -887,6 +890,18 @@ export default function CreditSpreadMonitor() {
               <FeeScheduleCards fees={data.fee_schedules} />
             </Section>
           )}
+
+          {/* Assessment funnel */}
+          <p className="text-sm text-gray-600 pt-2">
+            Want to know which of these rows you'd land in?{' '}
+            <Link
+              to="/tools/readiness"
+              className="font-medium text-primary-600 hover:text-primary-700 underline"
+            >
+              Take the free readiness assessment
+            </Link>{' '}
+            — about 10 minutes.
+          </p>
 
           {/* Footer */}
           <div className="flex items-center justify-between pt-4">

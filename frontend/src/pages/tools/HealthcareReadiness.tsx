@@ -211,7 +211,7 @@ export default function HealthcareReadiness() {
         <div>
           <h1 className="text-xl font-bold text-gray-900">Healthcare Bond Readiness Assessment</h1>
           <p className="text-sm text-gray-500">
-            Score your facility across critical readiness dimensions in about 10 minutes
+            Find out if your facility is bond-ready — free, about 10 minutes
           </p>
         </div>
       </div>
@@ -339,7 +339,11 @@ export default function HealthcareReadiness() {
             <div>
               <h2 className="text-lg font-semibold text-gray-900">Quick Assessment</h2>
               <p className="text-sm text-gray-500">
-                Answer these {totalQuestions} critical-path questions about your facility's readiness.
+                Answer these {totalQuestions} questions — they're the ones that most affect your cost and timeline.
+              </p>
+              <p className="text-xs text-gray-400 mt-1">
+                COI = cost of issuance, the fees to get a deal done. High-impact
+                items are the ones that cost you real money if they're missing.
               </p>
             </div>
             <div className="text-right">
@@ -496,7 +500,7 @@ function QuestionCard({
             {item.agentAssistable !== 'no' && (
               <span className="text-[10px] text-[#2DAEAC] flex items-center gap-0.5">
                 <Zap className="h-3 w-3" />
-                Agent-assistable
+                We can accelerate this
               </span>
             )}
           </div>
@@ -847,7 +851,7 @@ function ResultsView({
           {result.agentAssistedWeeks > 0 && (
             <p className="text-xs text-[#2DAEAC] flex items-center gap-1 mt-0.5">
               <Zap className="h-3 w-3" />
-              ~{result.agentAssistedWeeks} weeks with agent assistance
+              ~{result.agentAssistedWeeks} weeks with Muni-Pal's help
             </p>
           )}
         </div>
@@ -865,7 +869,7 @@ function ResultsView({
             Timeline Estimate
           </div>
           <p className="text-lg font-bold text-gray-900">{result.tier.agentWeeks} weeks</p>
-          <p className="text-xs text-gray-400">to advisor-review-ready (agent-assisted)</p>
+          <p className="text-xs text-gray-400">to advisor-review-ready, with our help</p>
         </div>
       </div>
 
@@ -927,7 +931,7 @@ function ResultsView({
                       )}
                       {gap.item.agentAssistable !== 'no' && (
                         <span className="text-[10px] text-[#2DAEAC] flex items-center gap-0.5">
-                          <Zap className="h-2.5 w-2.5" /> Accelerable
+                          <Zap className="h-2.5 w-2.5" /> We can accelerate this
                         </span>
                       )}
                     </div>
@@ -946,9 +950,9 @@ function ResultsView({
 
       {/* CTA */}
       <div className="bg-muni-navy rounded-lg p-8 text-white text-center mb-8">
-        <h3 className="text-lg font-bold mb-2">Ready to Organize Your Gaps for Review?</h3>
+        <h3 className="text-lg font-bold mb-2">Ready to close these gaps?</h3>
         <p className="text-sm text-gray-300 mb-6 max-w-lg mx-auto">
-          Our Bond Readiness Accelerator helps organize document preparation, gap analysis, and registered advisor coordination; it does not replace professional judgment or transaction advice.
+          The Bond Readiness Accelerator organizes your document preparation, gap fixes, and coordination with your registered advisor. It does not replace professional judgment or transaction advice — it makes their review faster and cheaper.
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-3">
           <a

@@ -19,6 +19,10 @@ export default {
           800: '#1e40af',
           900: '#1e3a8a',
         },
+        // CANONICAL brand palette — "Option A", decided 2026-08-09 (Stephen).
+        // Matches :root vars in src/styles/index.css (keep in sync) and
+        // BRAND-GUIDELINES.md. The retired pilot palette (#2B8C96/#D4882B)
+        // must not reappear. Use these named colors, never raw hex literals.
         muni: {
           navy: '#1B3A5C',
           teal: '#2DAEAC',

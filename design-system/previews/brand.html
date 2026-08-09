@@ -1,0 +1,40 @@
+<!-- @dsCard group="Brand" name="Muni-Pal — Option A palette (canon)" subtitle="Decided 2026-08-09 · retired pilot palette must not reappear" -->
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Muni-Pal Brand</title>
+<style>
+:root{--navy:#1B3A5C;--teal:#2DAEAC;--orange:#E8913A;--cta-hover:#d47e2e;--gold:#f59e0b;--ink:#1c2733;--muted:#5c6b7a;--line:#d9dee3;--sans:system-ui,-apple-system,'Segoe UI',sans-serif}
+*{box-sizing:border-box}body{margin:0;background:#f4f6f8;color:var(--ink);font:400 14px/1.5 var(--sans);padding:24px}
+h1{font-size:20px;margin:0 0 4px}.sub{color:var(--muted);font-size:13px;margin-bottom:16px;max-width:70ch}
+.appbar{background:var(--navy);color:#fff;border-radius:9px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;font-weight:600;max-width:640px}
+.appbar span{font-weight:400;font-size:12px;opacity:.85}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:14px 0;max-width:640px}
+.btn{border:none;border-radius:7px;padding:9px 14px;font:600 12.5px/1 var(--sans);color:#fff}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;max-width:640px;margin-top:6px}
+.sw{background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.sw .c{height:40px}.sw .m{padding:7px 9px;font-size:11px;color:var(--muted)}.sw .m b{display:block;color:var(--ink)}
+.rules{background:#fff;border:1px solid var(--line);border-radius:9px;padding:14px 16px;max-width:640px;margin-top:16px;font-size:13px}
+.rules li{margin-bottom:6px}
+.dead{background:#fff;border:1px dashed #c96;border-radius:9px;padding:10px 16px;max-width:640px;margin-top:10px;font-size:12.5px;color:var(--muted)}
+.dead s{color:#a55}
+</style></head><body>
+<h1>Muni-Pal — brand palette (Option A, canon)</h1>
+<div class="sub">Decided by Stephen 2026-08-09 after side-by-side comparison. Matches BRAND-GUIDELINES.md + the frontend Tailwind config. Governance follows BRAND-GUIDELINES.md §12 approval tiers.</div>
+<div class="appbar">MUNI-PAL <span>Projects · Sensing · Readiness</span></div>
+<div class="row">
+  <button class="btn" style="background:var(--teal)">Run readiness check</button>
+  <button class="btn" style="background:var(--orange)">Export hand-off pack</button>
+  <button class="btn" style="background:var(--gold);color:var(--navy)">New</button>
+</div>
+<div class="chips">
+  <div class="sw"><div class="c" style="background:var(--navy)"></div><div class="m"><b>muni-navy · brand-primary</b>#1B3A5C — nav, headings</div></div>
+  <div class="sw"><div class="c" style="background:var(--teal)"></div><div class="m"><b>muni-teal · brand-accent</b>#2DAEAC — actions, links, focus</div></div>
+  <div class="sw"><div class="c" style="background:var(--orange)"></div><div class="m"><b>muni-orange · brand-cta</b>#E8913A — CTAs, exports</div></div>
+  <div class="sw"><div class="c" style="background:var(--cta-hover)"></div><div class="m"><b>cta-hover</b>#d47e2e</div></div>
+  <div class="sw"><div class="c" style="background:var(--gold)"></div><div class="m"><b>muni-gold</b>#f59e0b — badges</div></div>
+</div>
+<div class="rules"><b>Usage rules</b><ul>
+<li>In className: named utilities only — <code>text-muni-teal</code>, <code>bg-muni-orange</code>, <code>focus:ring-muni-teal</code>. Never arbitrary hex (<code>text-[#2DAEAC]</code>).</li>
+<li>In style objects / plain CSS: <code>var(--brand-accent)</code> etc. from <code>src/styles/index.css</code>.</li>
+<li>Pilot client instancing = theme + content pack, not folder duplication (rollout in progress).</li>
+</ul></div>
+<div class="dead"><b>Retired:</b> the pilot palette <s>#2B8C96</s> / <s>#D4882B</s> (swapped out of pns + pilot command centers 2026-08-09) and the V1 variant <s>#2dd4bf</s>. If you see these hexes in a diff, it's a regression.</div>
+</body></html>

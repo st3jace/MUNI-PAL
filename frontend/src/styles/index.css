@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Muni-Pal brand tokens — Option A palette, decided 2026-08-09 (Stephen).
+   Canonical values ride here AND in tailwind.config.js theme.extend.colors.muni
+   (keep the two in sync). Estate design-system program:
+   INNOVATION FACTORY/docs/plans/2026-08-09-002-feat-design-system-portfolio-program.md.
+   Use named utilities (text-muni-teal, bg-muni-orange, …) in className;
+   use these vars in style objects and non-Tailwind CSS. Never a raw hex literal. */
+:root {
+  --brand-primary: #1B3A5C;   /* muni-navy */
+  --brand-accent: #2DAEAC;    /* muni-teal */
+  --brand-cta: #E8913A;       /* muni-orange */
+  --brand-cta-hover: #d47e2e;
+  --brand-gold: #f59e0b;
+}
+
 @layer base {
   body {
     @apply bg-gray-50 text-gray-900 antialiased;

@@ -134,11 +134,11 @@ export default function HealthcareCFOLanding() {
                 />
               </div>
 
-              <p className="text-xs font-semibold tracking-widest uppercase text-[#2DAEAC] mb-4">
+              <p className="text-xs font-semibold tracking-widest uppercase text-muni-teal mb-4">
                 Healthcare Bond Intelligence
               </p>
 
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-light text-[#1B3A5C] leading-tight mb-6">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-light text-muni-navy leading-tight mb-6">
                 You're planning a bond issuance.{' '}
                 <span className="font-semibold">
                   Bring better evidence into the advisor-led process.
@@ -155,14 +155,14 @@ export default function HealthcareCFOLanding() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   to="/tools/market-intelligence"
-                  className="inline-flex items-center justify-center gap-2 rounded-full px-8 py-3 bg-[#E8913A] hover:bg-[#d47e2e] text-white font-medium transition-colors"
+                  className="inline-flex items-center justify-center gap-2 rounded-full px-8 py-3 bg-muni-orange hover:bg-[var(--brand-cta-hover)] text-white font-medium transition-colors"
                 >
                   Get Your Free Market Intelligence Report
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
                   to="/tools"
-                  className="inline-flex items-center justify-center gap-2 rounded-full px-8 py-3 border border-[#1B3A5C]/20 text-[#1B3A5C] font-medium hover:border-[#1B3A5C]/40 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 rounded-full px-8 py-3 border border-muni-navy/20 text-muni-navy font-medium hover:border-muni-navy/40 transition-colors"
                 >
                   See the Bond Readiness Path
                   <ChevronRight className="h-4 w-4" />
@@ -203,9 +203,9 @@ export default function HealthcareCFOLanding() {
                 className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 hover:shadow-md transition-all duration-300 hover:scale-[1.02]"
               >
                 <div className="h-12 w-12 rounded-2xl bg-gray-50 flex items-center justify-center mb-6">
-                  <prop.icon className="h-6 w-6 text-[#2DAEAC]" />
+                  <prop.icon className="h-6 w-6 text-muni-teal" />
                 </div>
-                <h3 className="text-lg font-semibold text-[#1B3A5C] mb-3">
+                <h3 className="text-lg font-semibold text-muni-navy mb-3">
                   {prop.headline}
                 </h3>
                 <p className="text-sm text-gray-500 leading-relaxed">
@@ -230,7 +230,7 @@ export default function HealthcareCFOLanding() {
               { value: '1,318', label: 'Financial reports in corpus' },
             ].map((stat) => (
               <div key={stat.label}>
-                <div className="text-4xl md:text-5xl font-bold text-[#1B3A5C]">
+                <div className="text-4xl md:text-5xl font-bold text-muni-navy">
                   {stat.value}
                 </div>
                 <div className="text-xs text-gray-400 mt-2 uppercase tracking-wider">
@@ -247,7 +247,7 @@ export default function HealthcareCFOLanding() {
       {/* ============================================================ */}
       <section className="py-16 md:py-20">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-2xl font-light text-[#1B3A5C] mb-2">
+          <h2 className="text-2xl font-light text-muni-navy mb-2">
             The Bond Readiness Path
           </h2>
           <p className="text-sm text-gray-500 mb-12 max-w-xl">
@@ -263,7 +263,7 @@ export default function HealthcareCFOLanding() {
               {ENGAGEMENT_PATH.map((step) => (
                 <div key={step.name} className="relative text-center">
                   {/* Numbered circle */}
-                  <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-[#2DAEAC] text-white text-sm font-bold mb-4 relative z-10">
+                  <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-muni-teal text-white text-sm font-bold mb-4 relative z-10">
                     {step.step}
                   </div>
                   <div className="mb-2">
@@ -271,13 +271,13 @@ export default function HealthcareCFOLanding() {
                       className={`inline-block text-xs font-semibold px-3 py-1 rounded-full ${
                         step.price === 'Free'
                           ? 'bg-green-50 text-green-600'
-                          : 'bg-[#E8913A]/10 text-[#E8913A]'
+                          : 'bg-muni-orange/10 text-muni-orange'
                       }`}
                     >
                       {step.price}
                     </span>
                   </div>
-                  <h3 className="text-sm font-semibold text-[#1B3A5C] mb-2">
+                  <h3 className="text-sm font-semibold text-muni-navy mb-2">
                     {step.name}
                   </h3>
                   <p className="text-xs text-gray-400 leading-relaxed">
@@ -304,20 +304,20 @@ export default function HealthcareCFOLanding() {
           >
             <div className="flex items-start gap-6">
               <div className="h-14 w-14 rounded-2xl bg-white flex items-center justify-center flex-shrink-0 shadow-sm">
-                <TrendingUp className="h-7 w-7 text-[#E8913A]" />
+                <TrendingUp className="h-7 w-7 text-muni-orange" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-[#1B3A5C] mb-3">
+                <h3 className="text-lg font-semibold text-muni-navy mb-3">
                   The Cost of Inaction
                 </h3>
                 <p className="text-sm text-gray-600 leading-relaxed mb-4">
                   The difference between an A-rated and BBB-rated issuance costs{' '}
-                  <span className="text-3xl font-bold text-[#1B3A5C]">
+                  <span className="text-3xl font-bold text-muni-navy">
                     $27M+
                   </span>{' '}
                   over 25 years on a $75M deal. The Accelerator helps you
                   organize evidence for registered-advisor review — for{' '}
-                  <span className="font-semibold text-[#1B3A5C]">
+                  <span className="font-semibold text-muni-navy">
                     less than 0.04%
                   </span>{' '}
                   of deal size.
@@ -338,8 +338,8 @@ export default function HealthcareCFOLanding() {
       <section className="py-16 md:py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center gap-3 mb-2">
-            <Clock className="h-5 w-5 text-[#2DAEAC]" />
-            <h2 className="text-2xl font-light text-[#1B3A5C]">
+            <Clock className="h-5 w-5 text-muni-teal" />
+            <h2 className="text-2xl font-light text-muni-navy">
               When to Engage
             </h2>
           </div>
@@ -350,16 +350,16 @@ export default function HealthcareCFOLanding() {
 
           {/* Horizontal timeline */}
           <div className="relative">
-            <div className="hidden md:block absolute top-3 left-0 right-0 h-px bg-[#2DAEAC]/20" />
+            <div className="hidden md:block absolute top-3 left-0 right-0 h-px bg-muni-teal/20" />
             <div className="grid gap-8 md:grid-cols-5">
               {TIMELINE.map((phase) => (
                 <div key={phase.months} className="relative">
                   {/* Teal dot */}
-                  <div className="h-6 w-6 rounded-full bg-[#2DAEAC] border-4 border-white shadow-sm mb-4 relative z-10" />
-                  <span className="text-xs font-semibold text-[#2DAEAC] uppercase tracking-wider">
+                  <div className="h-6 w-6 rounded-full bg-muni-teal border-4 border-white shadow-sm mb-4 relative z-10" />
+                  <span className="text-xs font-semibold text-muni-teal uppercase tracking-wider">
                     {phase.months}
                   </span>
-                  <p className="text-sm font-semibold text-[#1B3A5C] mt-2">
+                  <p className="text-sm font-semibold text-muni-navy mt-2">
                     {phase.label}
                   </p>
                   <p className="text-xs text-gray-400 mt-1">{phase.step}</p>
@@ -380,8 +380,8 @@ export default function HealthcareCFOLanding() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="bg-white border border-gray-100 rounded-2xl p-8 md:p-10">
             <div className="flex items-center gap-3 mb-6">
-              <Users className="h-6 w-6 text-[#2DAEAC]" />
-              <h2 className="text-xl font-bold text-[#1B3A5C]">
+              <Users className="h-6 w-6 text-muni-teal" />
+              <h2 className="text-xl font-bold text-muni-navy">
                 Works With Your Advisors, Not Against Them
               </h2>
             </div>
@@ -460,7 +460,7 @@ export default function HealthcareCFOLanding() {
       {/* ============================================================ */}
       <section className="py-16 md:py-20">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="bg-[#1B3A5C] rounded-2xl p-10 md:p-14 text-center">
+          <div className="bg-muni-navy rounded-2xl p-10 md:p-14 text-center">
             <h2 className="text-2xl font-light text-white mb-3">
               Get Your Free Market Intelligence Report
             </h2>
@@ -470,7 +470,7 @@ export default function HealthcareCFOLanding() {
             </p>
             <Link
               to="/tools/market-intelligence"
-              className="inline-flex items-center gap-2 rounded-full px-10 py-4 bg-[#E8913A] hover:bg-[#d47e2e] text-white font-medium transition-colors"
+              className="inline-flex items-center gap-2 rounded-full px-10 py-4 bg-muni-orange hover:bg-[var(--brand-cta-hover)] text-white font-medium transition-colors"
             >
               Start Now — It's Free
               <ArrowRight className="h-4 w-4" />

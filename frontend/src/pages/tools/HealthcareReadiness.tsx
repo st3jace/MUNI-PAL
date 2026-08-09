@@ -227,15 +227,15 @@ export default function HealthcareReadiness() {
             const isActive = stepIndex >= thresholds[i]
             return (
               <div key={s} className="flex items-center gap-2">
-                {i > 0 && <div className={`w-8 h-px ${isActive ? 'bg-[#2DAEAC]' : 'bg-gray-200'}`} />}
+                {i > 0 && <div className={`w-8 h-px ${isActive ? 'bg-muni-teal' : 'bg-gray-200'}`} />}
                 <div
                   className={`flex items-center gap-1.5 text-xs font-medium ${
-                    isActive ? 'text-[#2DAEAC]' : 'text-gray-400'
+                    isActive ? 'text-muni-teal' : 'text-gray-400'
                   }`}
                 >
                   <span
                     className={`inline-flex items-center justify-center h-5 w-5 rounded-full text-[10px] font-bold ${
-                      isActive ? 'bg-[#2DAEAC] text-white' : 'bg-gray-200 text-gray-400'
+                      isActive ? 'bg-muni-teal text-white' : 'bg-gray-200 text-gray-400'
                     }`}
                   >
                     {i + 1}
@@ -260,12 +260,12 @@ export default function HealthcareReadiness() {
               <button
                 key={ft.id}
                 onClick={() => handleFacilitySelect(ft.id)}
-                className="text-left bg-white rounded-lg border-2 border-gray-200 p-5 hover:border-[#2DAEAC] hover:shadow-md transition-all group"
+                className="text-left bg-white rounded-lg border-2 border-gray-200 p-5 hover:border-muni-teal hover:shadow-md transition-all group"
               >
                 <div className="h-10 w-10 rounded-lg bg-muni-navy flex items-center justify-center mb-3">
-                  <ft.icon className="h-5 w-5 text-[#2DAEAC]" />
+                  <ft.icon className="h-5 w-5 text-muni-teal" />
                 </div>
-                <h3 className="text-sm font-semibold text-gray-900 group-hover:text-[#2DAEAC] transition-colors mb-1">
+                <h3 className="text-sm font-semibold text-gray-900 group-hover:text-muni-teal transition-colors mb-1">
                   {ft.label}
                 </h3>
                 <p className="text-xs text-gray-500">{ft.description}</p>
@@ -287,9 +287,9 @@ export default function HealthcareReadiness() {
               <button
                 key={track.id}
                 onClick={() => handleFqhcTrackSelect(track.id)}
-                className="text-left bg-white rounded-lg border-2 border-gray-200 p-5 hover:border-[#2DAEAC] hover:shadow-md transition-all group"
+                className="text-left bg-white rounded-lg border-2 border-gray-200 p-5 hover:border-muni-teal hover:shadow-md transition-all group"
               >
-                <h3 className="text-sm font-semibold text-gray-900 group-hover:text-[#2DAEAC] transition-colors mb-1">
+                <h3 className="text-sm font-semibold text-gray-900 group-hover:text-muni-teal transition-colors mb-1">
                   {track.label}
                 </h3>
                 <p className="text-xs text-gray-500">{track.description}</p>
@@ -314,9 +314,9 @@ export default function HealthcareReadiness() {
               <button
                 key={dt.id}
                 onClick={() => handleDealTypeSelect(dt.id)}
-                className="text-left bg-white rounded-lg border-2 border-gray-200 p-5 hover:border-[#2DAEAC] hover:shadow-md transition-all group"
+                className="text-left bg-white rounded-lg border-2 border-gray-200 p-5 hover:border-muni-teal hover:shadow-md transition-all group"
               >
-                <h3 className="text-sm font-semibold text-gray-900 group-hover:text-[#2DAEAC] transition-colors mb-1">
+                <h3 className="text-sm font-semibold text-gray-900 group-hover:text-muni-teal transition-colors mb-1">
                   {dt.label}
                 </h3>
                 <p className="text-xs text-gray-500">{dt.description}</p>
@@ -347,11 +347,11 @@ export default function HealthcareReadiness() {
               </p>
             </div>
             <div className="text-right">
-              <span className="text-2xl font-bold text-[#2DAEAC]">{answeredCount}</span>
+              <span className="text-2xl font-bold text-muni-teal">{answeredCount}</span>
               <span className="text-sm text-gray-400">/{totalQuestions}</span>
               <div className="w-24 h-1.5 bg-gray-200 rounded-full mt-1">
                 <div
-                  className="h-full bg-[#2DAEAC] rounded-full transition-all"
+                  className="h-full bg-muni-teal rounded-full transition-all"
                   style={{ width: `${progress}%` }}
                 />
               </div>
@@ -368,7 +368,7 @@ export default function HealthcareReadiness() {
             return Array.from(grouped.entries()).map(([catId, items]) => (
               <div key={catId} className="mb-8">
                 <h3 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide flex items-center gap-2">
-                  <div className="h-1.5 w-1.5 rounded-full bg-[#2DAEAC]" />
+                  <div className="h-1.5 w-1.5 rounded-full bg-muni-teal" />
                   {items[0]?.category && getCategoryLabel(items[0].category)}
                 </h3>
                 <div className="space-y-3">
@@ -395,7 +395,7 @@ export default function HealthcareReadiness() {
             <button
               onClick={computeResults}
               disabled={answeredCount < 3}
-              className="inline-flex items-center gap-2 bg-[#E8913A] hover:bg-[#d47e2e] disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+              className="inline-flex items-center gap-2 bg-muni-orange hover:bg-[var(--brand-cta-hover)] disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold px-6 py-3 rounded-lg transition-colors"
             >
               See Your Readiness Score
               <ArrowRight className="h-4 w-4" />
@@ -498,7 +498,7 @@ function QuestionCard({
               </span>
             )}
             {item.agentAssistable !== 'no' && (
-              <span className="text-[10px] text-[#2DAEAC] flex items-center gap-0.5">
+              <span className="text-[10px] text-muni-teal flex items-center gap-0.5">
                 <Zap className="h-3 w-3" />
                 We can accelerate this
               </span>
@@ -632,7 +632,7 @@ function LeadCaptureGate({
       {/* Score teaser */}
       <div
         className="rounded-2xl p-8 text-white mb-8"
-        style={{ background: `linear-gradient(135deg, #1B3A5C 0%, ${result.tier.color}33 100%)` }}
+        style={{ background: `linear-gradient(135deg, var(--brand-primary) 0%, ${result.tier.color}33 100%)` }}
       >
         <p className="text-sm font-medium text-gray-300 mb-1">{sectorLabel} Bond Readiness Score</p>
         <div className="flex items-end gap-4 mb-4">
@@ -663,9 +663,9 @@ function LeadCaptureGate({
       </div>
 
       {/* Email gate */}
-      <div className="bg-white rounded-xl border-2 border-[#2DAEAC]/30 p-6 md:p-8 mb-6">
+      <div className="bg-white rounded-xl border-2 border-muni-teal/30 p-6 md:p-8 mb-6">
         <div className="flex items-start gap-4 mb-6">
-          <div className="h-12 w-12 rounded-xl bg-[#2DAEAC] flex items-center justify-center flex-shrink-0">
+          <div className="h-12 w-12 rounded-xl bg-muni-teal flex items-center justify-center flex-shrink-0">
             <Mail className="h-6 w-6 text-white" />
           </div>
           <div>
@@ -690,7 +690,7 @@ function LeadCaptureGate({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Jane Smith"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#2DAEAC] focus:border-[#2DAEAC] outline-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-muni-teal focus:border-muni-teal outline-none"
               />
             </div>
             <div>
@@ -702,7 +702,7 @@ function LeadCaptureGate({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="jane@hospital.org"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#2DAEAC] focus:border-[#2DAEAC] outline-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-muni-teal focus:border-muni-teal outline-none"
               />
             </div>
             <div>
@@ -714,7 +714,7 @@ function LeadCaptureGate({
                 value={organization}
                 onChange={(e) => setOrganization(e.target.value)}
                 placeholder="Community Health System"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#2DAEAC] focus:border-[#2DAEAC] outline-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-muni-teal focus:border-muni-teal outline-none"
               />
             </div>
             <div>
@@ -725,7 +725,7 @@ function LeadCaptureGate({
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="CFO"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#2DAEAC] focus:border-[#2DAEAC] outline-none"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-muni-teal focus:border-muni-teal outline-none"
               />
             </div>
           </div>
@@ -758,7 +758,7 @@ function LeadCaptureGate({
             <button
               type="submit"
               disabled={submitting}
-              className="inline-flex items-center gap-2 bg-[#E8913A] hover:bg-[#d47e2e] disabled:bg-gray-300 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+              className="inline-flex items-center gap-2 bg-muni-orange hover:bg-[var(--brand-cta-hover)] disabled:bg-gray-300 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
             >
               {submitting ? (
                 <>
@@ -802,7 +802,7 @@ function ResultsView({
       {/* Score Hero */}
       <div
         className="rounded-2xl p-8 text-white mb-8"
-        style={{ background: `linear-gradient(135deg, #1B3A5C 0%, ${result.tier.color}33 100%)` }}
+        style={{ background: `linear-gradient(135deg, var(--brand-primary) 0%, ${result.tier.color}33 100%)` }}
       >
         <p className="text-sm font-medium text-gray-300 mb-1">{sectorLabel} Bond Readiness Score</p>
         <div className="flex items-end gap-4 mb-4">
@@ -849,7 +849,7 @@ function ResultsView({
             {result.criticalPathWeeks > 0 ? `${result.criticalPathWeeks} weeks` : 'No critical gaps'}
           </p>
           {result.agentAssistedWeeks > 0 && (
-            <p className="text-xs text-[#2DAEAC] flex items-center gap-1 mt-0.5">
+            <p className="text-xs text-muni-teal flex items-center gap-1 mt-0.5">
               <Zap className="h-3 w-3" />
               ~{result.agentAssistedWeeks} weeks with Muni-Pal's help
             </p>
@@ -930,7 +930,7 @@ function ResultsView({
                         </span>
                       )}
                       {gap.item.agentAssistable !== 'no' && (
-                        <span className="text-[10px] text-[#2DAEAC] flex items-center gap-0.5">
+                        <span className="text-[10px] text-muni-teal flex items-center gap-0.5">
                           <Zap className="h-2.5 w-2.5" /> We can accelerate this
                         </span>
                       )}
@@ -957,7 +957,7 @@ function ResultsView({
         <div className="flex flex-col sm:flex-row justify-center gap-3">
           <a
             href="mailto:hello@muni-pal.io?subject=Bond%20Readiness%20Assessment%20Follow-Up"
-            className="inline-flex items-center justify-center gap-2 bg-[#E8913A] hover:bg-[#d47e2e] text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+            className="inline-flex items-center justify-center gap-2 bg-muni-orange hover:bg-[var(--brand-cta-hover)] text-white font-semibold px-6 py-3 rounded-lg transition-colors"
           >
             Talk to a Readiness Specialist
             <ChevronRight className="h-4 w-4" />

@@ -14,10 +14,10 @@ import {
 /*  Brand constants                                                    */
 /* ------------------------------------------------------------------ */
 const BRAND = {
-  navy: '#1B3A5C',
-  teal: '#2DAEAC',
-  orange: '#E8913A',
-  orangeHover: '#d47e2e',
+  navy: 'var(--brand-primary)',
+  teal: 'var(--brand-accent)',
+  orange: 'var(--brand-cta)',
+  orangeHover: 'var(--brand-cta-hover)',
   gold: '#f59e0b',
 }
 
@@ -75,7 +75,7 @@ const WHAT_YOU_GET = [
 function PreviewCard() {
   return (
     <div className="bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-100 max-w-sm">
-      <div className="bg-gradient-to-r from-[#1B3A5C] to-[#2a4f7a] px-5 py-3">
+      <div className="bg-gradient-to-r from-muni-navy to-[#2a4f7a] px-5 py-3">
         <div className="flex items-center gap-2">
           <div className="h-2 w-2 rounded-full bg-green-400" />
           <span className="text-xs text-gray-300 font-mono">app.muni-pal.io</span>
@@ -85,11 +85,11 @@ function PreviewCard() {
         <div>
           <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1">Bond Readiness Score</p>
           <div className="flex items-end gap-2">
-            <span className="text-3xl font-bold text-[#1B3A5C]">72</span>
+            <span className="text-3xl font-bold text-muni-navy">72</span>
             <span className="text-sm text-gray-400 mb-1">/100</span>
           </div>
           <div className="w-full bg-gray-100 rounded-full h-2 mt-2">
-            <div className="bg-[#2DAEAC] h-2 rounded-full" style={{ width: '72%' }} />
+            <div className="bg-muni-teal h-2 rounded-full" style={{ width: '72%' }} />
           </div>
         </div>
         <div className="grid grid-cols-2 gap-3">
@@ -128,7 +128,7 @@ export default function HealthcareCFOLanding() {
       {/* ============================================================ */}
       {/*  HERO                                                        */}
       {/* ============================================================ */}
-      <section className="relative bg-gradient-to-br from-[#1B3A5C] via-[#1B3A5C] to-indigo-900 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-muni-navy via-muni-navy to-indigo-900 overflow-hidden">
         {/* Subtle radial glow */}
         <div
           className="absolute inset-0 opacity-20"
@@ -173,7 +173,7 @@ export default function HealthcareCFOLanding() {
                 <Link
                   to="/tools/readiness"
                   className="inline-flex items-center justify-center gap-2 text-white font-semibold px-7 py-3.5 rounded-lg transition-colors text-base shadow-lg"
-                  style={{ backgroundColor: BRAND.orange, boxShadow: `0 8px 24px ${BRAND.orange}33` }}
+                  style={{ backgroundColor: BRAND.orange, boxShadow: `0 8px 24px color-mix(in srgb, ${BRAND.orange} 20%, transparent)` }}
                   onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = BRAND.orangeHover)}
                   onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = BRAND.orange)}
                 >
@@ -300,7 +300,7 @@ export default function HealthcareCFOLanding() {
           <div className="hidden md:block absolute top-7 left-[16.7%] right-[16.7%] h-px bg-gray-200" />
           {HOW_IT_WORKS.map((step) => (
             <div key={step.name} className="relative flex flex-col items-center text-center px-4 mb-8 md:mb-0">
-              <div className="relative z-10 h-14 w-14 rounded-full flex items-center justify-center text-lg font-bold mb-3 bg-[#2DAEAC] text-white">
+              <div className="relative z-10 h-14 w-14 rounded-full flex items-center justify-center text-lg font-bold mb-3 bg-muni-teal text-white">
                 {step.step}
               </div>
               <h3 className="text-sm font-semibold text-gray-900 mb-1.5">
@@ -379,7 +379,7 @@ export default function HealthcareCFOLanding() {
         <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
           See what the analysis looks like
         </h2>
-        <div className="bg-[#1B3A5C] rounded-xl p-6 md:p-8">
+        <div className="bg-muni-navy rounded-xl p-6 md:p-8">
           <p className="text-gray-200 text-base leading-relaxed max-w-3xl">
             Before your deal is ever priced, you can stress-test it: what
             happens to your coverage if revenue dips, expenses run hot, or
@@ -410,7 +410,7 @@ export default function HealthcareCFOLanding() {
           <Link
             to="/tools/readiness"
             className="inline-flex items-center gap-2 text-white font-semibold px-10 py-4 rounded-lg transition-colors text-lg"
-            style={{ backgroundColor: BRAND.orange, boxShadow: `0 8px 24px ${BRAND.orange}33` }}
+            style={{ backgroundColor: BRAND.orange, boxShadow: `0 8px 24px color-mix(in srgb, ${BRAND.orange} 20%, transparent)` }}
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = BRAND.orangeHover)}
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = BRAND.orange)}
           >

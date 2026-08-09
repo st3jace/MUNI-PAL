@@ -18,10 +18,10 @@ import {
 /*  Brand constants                                                    */
 /* ------------------------------------------------------------------ */
 const BRAND = {
-  navy: '#1B3A5C',
-  teal: '#2DAEAC',
-  orange: '#E8913A',
-  orangeHover: '#d47e2e',
+  navy: 'var(--brand-primary)',
+  teal: 'var(--brand-accent)',
+  orange: 'var(--brand-cta)',
+  orangeHover: 'var(--brand-cta-hover)',
   gold: '#f59e0b',
 }
 
@@ -94,7 +94,7 @@ export default function HealthcareCFOLanding() {
       {/* ============================================================ */}
       {/*  HERO — A's gradient + C's side-by-side text/image layout    */}
       {/* ============================================================ */}
-      <section className="relative bg-gradient-to-br from-[#1B3A5C] via-[#1B3A5C] to-indigo-900 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-muni-navy via-muni-navy to-indigo-900 overflow-hidden">
         {/* Subtle radial glow (from A) */}
         <div
           className="absolute inset-0 opacity-20"
@@ -137,7 +137,7 @@ export default function HealthcareCFOLanding() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   to="/tools/market-intelligence"
-                  className="inline-flex items-center justify-center gap-2 bg-[#E8913A] hover:bg-[#d47e2e] text-white font-semibold px-8 py-4 rounded-lg transition-colors text-base shadow-lg shadow-[#E8913A]/20"
+                  className="inline-flex items-center justify-center gap-2 bg-muni-orange hover:bg-[var(--brand-cta-hover)] text-white font-semibold px-8 py-4 rounded-lg transition-colors text-base shadow-lg shadow-muni-orange/20"
                 >
                   Get Your Free Market Intelligence Report
                   <ArrowRight className="h-5 w-5" />
@@ -173,8 +173,8 @@ export default function HealthcareCFOLanding() {
               key={prop.headline}
               className="bg-white/80 backdrop-blur-sm border border-white/20 shadow-lg rounded-xl p-8 hover:shadow-xl transition-shadow"
             >
-              <div className="h-12 w-12 rounded-xl bg-[#1B3A5C] flex items-center justify-center mb-5">
-                <prop.icon className="h-6 w-6 text-[#2DAEAC]" />
+              <div className="h-12 w-12 rounded-xl bg-muni-navy flex items-center justify-center mb-5">
+                <prop.icon className="h-6 w-6 text-muni-teal" />
               </div>
               <h3 className="font-serif text-lg font-semibold text-gray-900 mb-3">
                 {prop.headline}
@@ -200,7 +200,7 @@ export default function HealthcareCFOLanding() {
               { value: '1,318', label: 'Financial reports in corpus' },
             ].map((stat) => (
               <div key={stat.label}>
-                <span className="block text-3xl font-bold text-[#1B3A5C] font-serif">{stat.value}</span>
+                <span className="block text-3xl font-bold text-muni-navy font-serif">{stat.value}</span>
                 <span className="text-sm text-gray-500 mt-1 block">{stat.label}</span>
                 {stat.sub && (
                   <span className="block text-[10px] text-gray-400">{stat.sub}</span>
@@ -232,7 +232,7 @@ export default function HealthcareCFOLanding() {
                 className={`relative z-10 h-16 w-16 rounded-full flex items-center justify-center text-lg font-bold mb-4 ${
                   step.price === 'Free'
                     ? 'bg-[#f59e0b] text-white shadow-lg shadow-[#f59e0b]/20'
-                    : 'bg-[#1B3A5C] text-white'
+                    : 'bg-muni-navy text-white'
                 }`}
               >
                 {step.step}
@@ -241,7 +241,7 @@ export default function HealthcareCFOLanding() {
                 className={`text-xs font-semibold px-3 py-1 rounded-full mb-3 ${
                   step.price === 'Free'
                     ? 'bg-[#f59e0b]/10 text-[#f59e0b]'
-                    : 'bg-[#E8913A]/10 text-[#E8913A]'
+                    : 'bg-muni-orange/10 text-muni-orange'
                 }`}
               >
                 {step.price}
@@ -293,7 +293,7 @@ export default function HealthcareCFOLanding() {
       <section className="max-w-6xl mx-auto px-6 lg:px-8 mb-16">
         <div className="w-16 h-px bg-[#f59e0b] mb-8" />
         <h2 className="font-serif text-2xl md:text-3xl font-bold text-gray-900 mb-2 flex items-center gap-3">
-          <Clock className="h-7 w-7 text-[#2DAEAC]" />
+          <Clock className="h-7 w-7 text-muni-teal" />
           When to Engage
         </h2>
         <p className="text-gray-600 mb-10 max-w-2xl">
@@ -348,7 +348,7 @@ export default function HealthcareCFOLanding() {
       <section className="max-w-6xl mx-auto px-6 lg:px-8 mb-16">
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-8 md:p-10">
           <div className="flex items-center gap-3 mb-6">
-            <div className="h-10 w-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${BRAND.teal}15` }}>
+            <div className="h-10 w-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: `color-mix(in srgb, ${BRAND.teal} 8%, transparent)` }}>
               <Users className="h-5 w-5" style={{ color: BRAND.teal }} />
             </div>
             <h2 className="font-serif text-xl md:text-2xl font-bold text-gray-900">
@@ -424,11 +424,11 @@ export default function HealthcareCFOLanding() {
           to="/tools/market-intelligence"
           className="flex items-start gap-5 bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow group"
         >
-          <div className="h-12 w-12 rounded-xl bg-[#2DAEAC]/10 flex items-center justify-center flex-shrink-0">
-            <FileText className="h-6 w-6 text-[#2DAEAC]" />
+          <div className="h-12 w-12 rounded-xl bg-muni-teal/10 flex items-center justify-center flex-shrink-0">
+            <FileText className="h-6 w-6 text-muni-teal" />
           </div>
           <div>
-            <p className="font-semibold text-gray-900 group-hover:text-[#2DAEAC] transition-colors">
+            <p className="font-semibold text-gray-900 group-hover:text-muni-teal transition-colors">
               View a Sample MIR Report
             </p>
             <p className="text-sm text-gray-500 mt-1.5">
@@ -441,11 +441,11 @@ export default function HealthcareCFOLanding() {
           to="/tools/market-intelligence"
           className="flex items-start gap-5 bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg transition-shadow group"
         >
-          <div className="h-12 w-12 rounded-xl bg-[#1B3A5C]/10 flex items-center justify-center flex-shrink-0">
-            <BarChart3 className="h-6 w-6 text-[#1B3A5C]" />
+          <div className="h-12 w-12 rounded-xl bg-muni-navy/10 flex items-center justify-center flex-shrink-0">
+            <BarChart3 className="h-6 w-6 text-muni-navy" />
           </div>
           <div>
-            <p className="font-semibold text-gray-900 group-hover:text-[#1B3A5C] transition-colors">
+            <p className="font-semibold text-gray-900 group-hover:text-muni-navy transition-colors">
               Compare Risk Profiles by Rating Tier
             </p>
             <p className="text-sm text-gray-500 mt-1.5">
@@ -473,7 +473,7 @@ export default function HealthcareCFOLanding() {
       {/* ============================================================ */}
       {/*  BOTTOM CTA (from A)                                          */}
       {/* ============================================================ */}
-      <section className="bg-[#1B3A5C] py-16 md:py-20">
+      <section className="bg-muni-navy py-16 md:py-20">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-white mb-4">
             Get Your Free Market Intelligence Report
@@ -484,7 +484,7 @@ export default function HealthcareCFOLanding() {
           </p>
           <Link
             to="/tools/market-intelligence"
-            className="inline-flex items-center gap-2 bg-[#E8913A] hover:bg-[#d47e2e] text-white font-semibold px-10 py-4 rounded-lg transition-colors text-lg shadow-lg shadow-[#E8913A]/20"
+            className="inline-flex items-center gap-2 bg-muni-orange hover:bg-[var(--brand-cta-hover)] text-white font-semibold px-10 py-4 rounded-lg transition-colors text-lg shadow-lg shadow-muni-orange/20"
           >
             Start Now — It's Free
             <ArrowRight className="h-5 w-5" />

@@ -17,10 +17,10 @@ import {
 /*  Brand constants                                                    */
 /* ------------------------------------------------------------------ */
 const BRAND = {
-  navy: '#1B3A5C',
-  teal: '#2DAEAC',
-  orange: '#E8913A',
-  orangeHover: '#d47e2e',
+  navy: 'var(--brand-primary)',
+  teal: 'var(--brand-accent)',
+  orange: 'var(--brand-cta)',
+  orangeHover: 'var(--brand-cta-hover)',
   gold: '#f59e0b',
 }
 
@@ -264,7 +264,7 @@ export default function HealthcareCFOLanding() {
             {/* Dotted connecting line */}
             <div
               className="absolute left-5 top-0 bottom-0 w-px hidden md:block"
-              style={{ borderLeft: `2px dotted ${BRAND.teal}40` }}
+              style={{ borderLeft: `2px dotted color-mix(in srgb, ${BRAND.teal} 25%, transparent)` }}
             />
             <div className="space-y-6">
               {ENGAGEMENT_PATH.map((step) => (

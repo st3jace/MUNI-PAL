@@ -35,10 +35,17 @@ import {
 /*  Brand constants                                                    */
 /* ------------------------------------------------------------------ */
 const BRAND = {
-  navy: '#1B3A5C',
-  teal: '#2DAEAC',
-  orange: '#E8913A',
+  navy: 'var(--brand-primary)',
+  teal: 'var(--brand-accent)',
+  orange: 'var(--brand-cta)',
 }
+
+/**
+ * Translucent tint of a brand color. Hex-alpha suffixes (e.g. tint(BRAND.navy, 6))
+ * don't compose with CSS variables, so tints are built with color-mix() instead.
+ */
+const tint = (color: string, pct: number) =>
+  `color-mix(in srgb, ${color} ${pct}%, transparent)`
 
 /* ------------------------------------------------------------------ */
 /*  Section metadata for navigation & numbering                        */
@@ -81,23 +88,23 @@ function StatBox({
 }) {
   const styles: Record<StatVariant, { bg: string; text: string; labelColor: string }> = {
     financial: {
-      bg: 'bg-[#1B3A5C]',
+      bg: 'bg-muni-navy',
       text: 'text-white',
       labelColor: 'text-gray-300',
     },
     count: {
-      bg: 'bg-white/80 backdrop-blur-sm border-l-4 border-[#2DAEAC]',
-      text: 'text-[#1B3A5C]',
+      bg: 'bg-white/80 backdrop-blur-sm border-l-4 border-muni-teal',
+      text: 'text-muni-navy',
       labelColor: 'text-gray-500',
     },
     rating: {
       bg: 'bg-white/80 backdrop-blur-sm border-l-4 border-[#f59e0b]',
-      text: 'text-[#1B3A5C]',
+      text: 'text-muni-navy',
       labelColor: 'text-gray-500',
     },
     default: {
       bg: 'bg-white/80 backdrop-blur-sm border border-gray-200',
-      text: 'text-[#1B3A5C]',
+      text: 'text-muni-navy',
       labelColor: 'text-gray-500',
     },
   }
@@ -152,7 +159,7 @@ function SectionCard({
           {Icon && (
             <div
               className="h-10 w-10 rounded-xl flex items-center justify-center flex-shrink-0"
-              style={{ backgroundColor: `${BRAND.navy}10` }}
+              style={{ backgroundColor: tint(BRAND.navy, 6) }}
             >
               <Icon className="h-5 w-5" style={{ color: BRAND.teal }} />
             </div>
@@ -206,7 +213,7 @@ function DataTable({
             <tr
               key={i}
               className="border-b border-gray-100"
-              style={i % 2 === 1 ? { backgroundColor: `${BRAND.navy}06` } : undefined}
+              style={i % 2 === 1 ? { backgroundColor: tint(BRAND.navy, 2) } : undefined}
             >
               {row.map((cell, j) => (
                 <td key={j} className="py-3 px-4 text-gray-800">
@@ -389,7 +396,7 @@ export default function MarketIntelligence() {
       <div
         className="rounded-2xl p-8 md:p-10 text-white mb-8 print:bg-muni-navy"
         style={{
-          background: `linear-gradient(135deg, ${BRAND.navy} 0%, #1B3A5C 40%, #312e81 100%)`,
+          background: `linear-gradient(135deg, ${BRAND.navy} 0%, var(--brand-primary) 40%, #312e81 100%)`,
         }}
       >
         <div className="flex items-start justify-between gap-4 mb-6">
@@ -647,7 +654,7 @@ export default function MarketIntelligence() {
                           <span
                             key={type}
                             className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
-                            style={{ backgroundColor: `${BRAND.navy}10`, color: BRAND.navy }}
+                            style={{ backgroundColor: tint(BRAND.navy, 6), color: BRAND.navy }}
                           >
                             {type}: {count}
                           </span>
@@ -700,7 +707,7 @@ export default function MarketIntelligence() {
                               <span
                                 key={rating}
                                 className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
-                                style={{ backgroundColor: `${BRAND.navy}10`, color: BRAND.navy }}
+                                style={{ backgroundColor: tint(BRAND.navy, 6), color: BRAND.navy }}
                               >
                                 {rating}: {count}
                               </span>
@@ -782,7 +789,7 @@ export default function MarketIntelligence() {
                       <div className="flex items-center gap-2">
                         <div
                           className="flex-1 rounded-lg p-3"
-                          style={{ backgroundColor: `${BRAND.navy}08` }}
+                          style={{ backgroundColor: tint(BRAND.navy, 3) }}
                         >
                           <div className="flex items-center justify-between text-sm">
                             <span className="text-amber-600 font-medium">
@@ -958,7 +965,7 @@ export default function MarketIntelligence() {
                           <span
                             key={type}
                             className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
-                            style={{ backgroundColor: `${BRAND.navy}10`, color: BRAND.navy }}
+                            style={{ backgroundColor: tint(BRAND.navy, 6), color: BRAND.navy }}
                           >
                             {type}: {count}
                           </span>
@@ -979,7 +986,7 @@ export default function MarketIntelligence() {
                           <span
                             key={type}
                             className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
-                            style={{ backgroundColor: `${BRAND.teal}15`, color: BRAND.navy }}
+                            style={{ backgroundColor: tint(BRAND.teal, 8), color: BRAND.navy }}
                           >
                             {type.replace(/_/g, ' ')}: {count}
                           </span>
@@ -1000,7 +1007,7 @@ export default function MarketIntelligence() {
                           <span
                             key={type}
                             className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
-                            style={{ backgroundColor: `${BRAND.navy}10`, color: BRAND.navy }}
+                            style={{ backgroundColor: tint(BRAND.navy, 6), color: BRAND.navy }}
                           >
                             {type}: {count}
                           </span>
@@ -1041,12 +1048,12 @@ export default function MarketIntelligence() {
                 {report.spread_curve.investment_grade_range_bps && (
                   <div
                     className="mt-4 rounded-lg p-3"
-                    style={{ backgroundColor: `${BRAND.teal}10` }}
+                    style={{ backgroundColor: tint(BRAND.teal, 6) }}
                   >
                     <h4 className="text-sm font-medium mb-1" style={{ color: BRAND.navy }}>
                       Estimated Cost-of-Capital Reference (25-Year Maturity)
                     </h4>
-                    <p className="text-xs mb-2" style={{ color: `${BRAND.navy}99` }}>
+                    <p className="text-xs mb-2" style={{ color: tint(BRAND.navy, 60) }}>
                       Based on the AAA benchmark curve plus sector spreads. For the
                       full picture, see Today's Borrowing Costs.
                     </p>
@@ -1061,7 +1068,7 @@ export default function MarketIntelligence() {
                           <div
                             key={rating}
                             className="bg-white rounded-lg px-3 py-2 text-center border"
-                            style={{ borderColor: `${BRAND.teal}40` }}
+                            style={{ borderColor: tint(BRAND.teal, 25) }}
                           >
                             <div className="text-xs text-gray-500 uppercase">
                               {rating}-Rated
@@ -1254,7 +1261,7 @@ export default function MarketIntelligence() {
                           <span
                             key={agency}
                             className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium"
-                            style={{ backgroundColor: `${BRAND.navy}10`, color: BRAND.navy }}
+                            style={{ backgroundColor: tint(BRAND.navy, 6), color: BRAND.navy }}
                           >
                             {agency}: {count}
                           </span>
@@ -1278,7 +1285,7 @@ export default function MarketIntelligence() {
             <div
               className="rounded-xl p-8 text-white text-center print:bg-muni-navy"
               style={{
-                background: `linear-gradient(135deg, ${BRAND.navy} 0%, #1B3A5C 50%, #312e81 100%)`,
+                background: `linear-gradient(135deg, ${BRAND.navy} 0%, var(--brand-primary) 50%, #312e81 100%)`,
               }}
             >
               <h2 className="text-xl font-bold mb-2">
@@ -1314,7 +1321,7 @@ export default function MarketIntelligence() {
                 {sensing.completedCount > 0 && (
                   <span
                     className="rounded-full px-2 py-0.5 text-xs"
-                    style={{ backgroundColor: `${BRAND.teal}20`, color: BRAND.navy }}
+                    style={{ backgroundColor: tint(BRAND.teal, 13), color: BRAND.navy }}
                   >
                     {sensing.completedCount}/4
                   </span>

@@ -846,7 +846,7 @@ export default function ReportExport() {
                                   : dim.score >= 13
                                     ? '#3b82f6'
                                     : dim.score >= 8
-                                      ? '#f59e0b'
+                                      ? 'var(--brand-gold)'
                                       : '#ef4444',
                               borderRadius: '4px',
                             }}

@@ -18,7 +18,7 @@ const BRAND = {
   teal: 'var(--brand-accent)',
   orange: 'var(--brand-cta)',
   orangeHover: 'var(--brand-cta-hover)',
-  gold: '#f59e0b',
+  gold: 'var(--brand-gold)',
 }
 
 /* ------------------------------------------------------------------ */

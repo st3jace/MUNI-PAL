@@ -98,7 +98,7 @@ function StatBox({
       labelColor: 'text-gray-500',
     },
     rating: {
-      bg: 'bg-white/80 backdrop-blur-sm border-l-4 border-[#f59e0b]',
+      bg: 'bg-white/80 backdrop-blur-sm border-l-4 border-muni-gold',
       text: 'text-muni-navy',
       labelColor: 'text-gray-500',
     },
@@ -810,7 +810,7 @@ export default function MarketIntelligence() {
                               style={{
                                 left: '0%',
                                 right: '0%',
-                                background: `linear-gradient(to right, #f59e0b, ${BRAND.teal}, #22c55e)`,
+                                background: `linear-gradient(to right, var(--brand-gold), ${BRAND.teal}, #22c55e)`,
                               }}
                             />
                           </div>

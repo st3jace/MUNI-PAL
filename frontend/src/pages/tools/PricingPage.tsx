@@ -377,7 +377,7 @@ export default function PricingPage() {
             </ul>
             <a
               href="#estimator"
-              className="w-full text-center inline-flex items-center justify-center gap-2 bg-muni-orange hover:bg-[#d47e2e] text-white font-semibold px-4 py-2.5 rounded-lg transition-colors text-sm"
+              className="w-full text-center inline-flex items-center justify-center gap-2 bg-muni-orange hover:bg-[var(--brand-cta-hover)] text-white font-semibold px-4 py-2.5 rounded-lg transition-colors text-sm"
             >
               Get Your Estimate
               <ArrowRight className="h-4 w-4" />

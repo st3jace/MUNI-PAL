@@ -22,7 +22,7 @@ const BRAND = {
   teal: 'var(--brand-accent)',
   orange: 'var(--brand-cta)',
   orangeHover: 'var(--brand-cta-hover)',
-  gold: '#f59e0b',
+  gold: 'var(--brand-gold)',
 }
 
 /* ------------------------------------------------------------------ */
@@ -215,7 +215,7 @@ export default function HealthcareCFOLanding() {
       {/*  ENGAGEMENT PATH — Elegant Steps with Gold Accents (from A)   */}
       {/* ============================================================ */}
       <section className="max-w-6xl mx-auto px-6 lg:px-8 mb-16">
-        <div className="w-16 h-px bg-[#f59e0b] mb-8" />
+        <div className="w-16 h-px bg-muni-gold mb-8" />
         <h2 className="font-serif text-2xl md:text-3xl font-bold text-gray-900 mb-2">
           The Bond Readiness Path
         </h2>
@@ -231,7 +231,7 @@ export default function HealthcareCFOLanding() {
               <div
                 className={`relative z-10 h-16 w-16 rounded-full flex items-center justify-center text-lg font-bold mb-4 ${
                   step.price === 'Free'
-                    ? 'bg-[#f59e0b] text-white shadow-lg shadow-[#f59e0b]/20'
+                    ? 'bg-muni-gold text-white shadow-lg shadow-muni-gold/20'
                     : 'bg-muni-navy text-white'
                 }`}
               >
@@ -240,7 +240,7 @@ export default function HealthcareCFOLanding() {
               <span
                 className={`text-xs font-semibold px-3 py-1 rounded-full mb-3 ${
                   step.price === 'Free'
-                    ? 'bg-[#f59e0b]/10 text-[#f59e0b]'
+                    ? 'bg-muni-gold/10 text-muni-gold'
                     : 'bg-muni-orange/10 text-muni-orange'
                 }`}
               >
@@ -291,7 +291,7 @@ export default function HealthcareCFOLanding() {
       {/*  WHEN TO ENGAGE — Gantt chart from C                          */}
       {/* ============================================================ */}
       <section className="max-w-6xl mx-auto px-6 lg:px-8 mb-16">
-        <div className="w-16 h-px bg-[#f59e0b] mb-8" />
+        <div className="w-16 h-px bg-muni-gold mb-8" />
         <h2 className="font-serif text-2xl md:text-3xl font-bold text-gray-900 mb-2 flex items-center gap-3">
           <Clock className="h-7 w-7 text-muni-teal" />
           When to Engage

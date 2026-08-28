@@ -1,0 +1,30 @@
+/* GENERATED from tokens.json by build_tokens.py - do NOT hand-edit.
+   theme: muni * contract v1.2.0 * 2026-08-28
+   Source of record: PRO EO/OP DESK/design-system/tokens/tokens.json
+   Regenerate there; never edit this file in the consuming app. */
+:root {
+  --brand-primary: #1B3A5C; --brand-primary-2: #455E7A;
+  --brand-accent: #2DAEAC; --brand-accent-light: #C8EAE9;
+  --brand-cta: #E8913A; --brand-cta-hover: #C87D32; --brand-ink: #0B1B2E; --brand-deep: #12273F; --brand-paper: #F7F5F1; --brand-gold: #f59e0b;
+  /* rgb triplets for alpha-capable utilities */
+  --brand-primary-rgb: 27 58 92; --brand-primary2-rgb: 69 94 122; --brand-accent-rgb: 45 174 172; --brand-accent-light-rgb: 200 234 233; --brand-cta-rgb: 232 145 58; --brand-cta-hover-rgb: 200 125 50; --brand-ink-rgb: 11 27 46; --brand-deep-rgb: 18 39 63; --brand-paper-rgb: 247 245 241; --brand-gold-rgb: 245 158 11;
+  --bg: #f6f5f1; --card: #ffffff; --line: #dfe3e8; --grid: #e6e3dc;
+  --ink: #22303c; --muted: #5c6b7a; --faint: #8a97a3;
+  --tier-certified: #1B3A5C; --tier-certified-bg: #DBF1F1;
+  --tier-operational: #5c6b7a; --tier-operational-bg: #ffffff;
+  --status-exact: #0ca30c; --status-partial: #fab219; --status-conflict: #ec835a;
+  --status-disputed: #d03b3b; --status-missing: #8a97a3;
+  --chart-1: #2a78d6; --chart-2: #eda100; --chart-3: #1baf7a; --chart-4: #4a3aa7;
+  --chart-gap: #ffffff;
+  --serif: Georgia, 'Times New Roman', serif; --sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fs-0: 12px; --fs-1: 13px; --fs-2: 14px; --fs-3: 15px; --fs-4: 17px; --fs-5: 20px; --fs-6: 26px; --fs-7: 34px; --fs-hero: 48px;
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px; --sp-6: 32px;
+  --r-card: 10px; --r-chip: 999px;
+  --shadow: 0 1px 2px rgba(11,27,46,.06), 0 2px 8px rgba(11,27,46,.05);
+  --layout-rail-w: 260px; --layout-topbar-h: 48px; --layout-pane-gap: 8px;
+  /* tonal scales - stick to the scale, do not hand-mix */
+  --navy-50: #D8DDE3; --navy-100: #C3CBD4; --navy-200: #99A7B6; --navy-300: #6F8298; --navy-400: #455E7A; --navy-500: #1B3A5C; --navy-600: #17324F; --navy-700: #142A43; --navy-800: #102236; --navy-900: #0C1A29;
+  --teal-50: #DBF1F1; --teal-100: #C8EAE9; --teal-200: #A1DBDA; --teal-300: #7ACCCB; --teal-400: #54BDBB; --teal-500: #2DAEAC; --teal-600: #279694; --teal-700: #217E7D; --teal-800: #1A6665; --teal-900: #144E4D;
+  --orange-50: #FBECDD; --orange-100: #F9E2CB; --orange-200: #F5CEA7; --orange-300: #F0B982; --orange-400: #ECA55E; --orange-500: #E8913A; --orange-600: #C87D32; --orange-700: #A8692A; --orange-800: #885522; --orange-900: #68411A;
+  --state-success: #16A34A; --state-error: #DC2626;
+}

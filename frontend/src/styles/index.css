@@ -1,20 +1,22 @@
+@import "./brand-tokens.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Muni-Pal brand tokens — Option A palette, decided 2026-08-09 (Stephen).
-   Canonical values ride here AND in tailwind.config.js theme.extend.colors.muni
-   (keep the two in sync). Estate design-system program:
-   INNOVATION FACTORY/docs/plans/2026-08-09-002-feat-design-system-portfolio-program.md.
-   Use named utilities (text-muni-teal, bg-muni-orange, …) in className;
-   use these vars in style objects and non-Tailwind CSS. Never a raw hex literal. */
-:root {
-  --brand-primary: #1B3A5C;   /* muni-navy */
-  --brand-accent: #2DAEAC;    /* muni-teal */
-  --brand-cta: #E8913A;       /* muni-orange */
-  --brand-cta-hover: #d47e2e;
-  --brand-gold: #f59e0b;
-}
+/* Muni-Pal brand tokens.
+
+   NOT DEFINED HERE ANY MORE. They are generated from the estate design-system
+   contract and synced in as brand-tokens.css:
+     source of record  PRO EO/OP DESK/design-system/tokens/tokens.json (theme "muni")
+     generator         tokens/build_tokens.py  ->  themes/brand-muni.css
+   Regenerate there and re-sync; never hand-edit brand-tokens.css.
+
+   The palette itself traces to MEGA/RESOURCES/MUNI-PAL/
+   "Muni-Pal - Brand Guidelines.pdf" v1.0 (Apr 2026), including the three
+   10-step tonal scales - stick to the scale, do not hand-mix.
+
+   Use named utilities (text-muni-teal, bg-muni-orange) in className; use the
+   vars in style objects and non-Tailwind CSS. Never a raw hex literal. */
 
 @layer base {
   body {

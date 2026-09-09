@@ -5,6 +5,12 @@
   "outputDirectory": "dist-healthcare",
   "cleanUrls": false,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/tools/readiness", "destination": "/", "permanent": false },
+    { "source": "/tools/readiness/:path*", "destination": "/", "permanent": false },
+    { "source": "/readiness", "destination": "/", "permanent": false },
+    { "source": "/readiness/:path*", "destination": "/", "permanent": false }
+  ],
   "rewrites": [
     {
       "source": "/api/v1/auth/:path*",

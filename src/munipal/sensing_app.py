@@ -19,7 +19,7 @@ from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 
 from munipal import __version__
-from munipal.api.routes import health, sensing
+from munipal.api.routes import health, sensing, obligation_register
 from munipal.config import get_settings
 from munipal.middleware.telemetry import TelemetryMiddleware
 
@@ -114,6 +114,7 @@ async def global_exception_handler(request: Request, exc: Exception) -> JSONResp
 # ---------------------------------------------------------------------------
 app.include_router(health.router, tags=["Health"])
 app.include_router(sensing.public_router, prefix="/api/v1/sensing", tags=["Sensing"])
+app.include_router(obligation_register.router, prefix="/api/v1/sensing/obligation-register", tags=["Obligation Register"])
 
 
 # ---------------------------------------------------------------------------

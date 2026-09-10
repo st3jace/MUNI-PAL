@@ -13,6 +13,7 @@ from fastapi.responses import JSONResponse
 
 from munipal import __version__
 from munipal.api.routes import (
+    obligation_register,
     advisory_packages,
     artifacts,
     auth,
@@ -147,6 +148,7 @@ app.include_router(templates.router, prefix="/api/v1/templates", tags=["Template
 
 # Sensing Component (top-of-funnel lead generation tools)
 app.include_router(sensing.router, prefix="/api/v1/sensing", tags=["Sensing"])
+app.include_router(obligation_register.router, prefix="/api/v1/sensing/obligation-register", tags=["Obligation Register"])
 
 # Stripe Checkout & Webhooks
 app.include_router(stripe.router, prefix="/api/v1/stripe", tags=["Stripe"])

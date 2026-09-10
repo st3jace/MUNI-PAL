@@ -25,6 +25,7 @@ import HealthcareCFOLanding from './pages/tools/HealthcareCFOLanding'
 import HealthcareReadiness from './pages/tools/HealthcareReadiness'
 import CoiBenchmarking from './pages/tools/CoiBenchmarking'
 import PricingPage from './pages/tools/PricingPage'
+import ObligationRegisterLanding from './pages/tools/ObligationRegisterLanding'
 import PilotNavigation from './pages/tools/PilotNavigation'
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
             <Route path="healthcare" element={<HealthcareCFOLanding />} />
             <Route path="tools/healthcare-readiness" element={<HealthcareReadiness />} />
             <Route path="pricing" element={<PricingPage />} />
+            <Route path="obligation-register" element={<ObligationRegisterLanding />} />
           </Route>
         </Routes>
       </SensingProvider>

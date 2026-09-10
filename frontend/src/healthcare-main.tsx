@@ -23,6 +23,7 @@ import CoiBenchmarking from './pages/tools/CoiBenchmarking'
 import ReportExport from './pages/tools/ReportExport'
 import PilotNavigation from './pages/tools/PilotNavigation'
 import PricingPage from './pages/tools/PricingPage'
+import ObligationRegisterLanding from './pages/tools/ObligationRegisterLanding'
 import AuthPage from './pages/tools/AuthPage'
 import './styles/index.css'
 
@@ -61,6 +62,7 @@ createRoot(root).render(
               <Route path="/tools/export" element={<ReportExport />} />
               <Route path="/tools/pilot-navigation" element={<PilotNavigation />} />
               <Route path="/pricing" element={<PricingPage />} />
+              <Route path="/obligation-register" element={<ObligationRegisterLanding />} />
               <Route path="/auth" element={<AuthPage />} />
               {/* Catch-all back to landing */}
               <Route path="*" element={<Navigate to="/" replace />} />

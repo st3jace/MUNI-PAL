@@ -19,7 +19,7 @@ const BRAND = {
 
 const INTAKE_URL = '/api/v1/sensing/obligation-register/intake'
 export const SAMPLE_URL = '/samples/obligation-register-sample.html'
-export const DIY_URL = '/diy/'
+export const DIY_URL = '/diy/index.html'
 
 // Arthur control — verbatim. Do not edit without a ruling.
 const ARTHUR_CONTROL =

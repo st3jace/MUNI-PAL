@@ -6,10 +6,26 @@
   "cleanUrls": false,
   "trailingSlash": false,
   "redirects": [
-    { "source": "/tools/readiness", "destination": "/", "permanent": false },
-    { "source": "/tools/readiness/:path*", "destination": "/", "permanent": false },
-    { "source": "/readiness", "destination": "/", "permanent": false },
-    { "source": "/readiness/:path*", "destination": "/", "permanent": false }
+    {
+      "source": "/tools/readiness",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/tools/readiness/:path*",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/readiness",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/readiness/:path*",
+      "destination": "/",
+      "permanent": false
+    }
   ],
   "rewrites": [
     {
@@ -35,6 +51,14 @@
     {
       "source": "/tools/:path*",
       "destination": "/tools/index.sensing.html"
+    },
+    {
+      "source": "/diy",
+      "destination": "/diy/index.html"
+    },
+    {
+      "source": "/diy/",
+      "destination": "/diy/index.html"
     },
     {
       "source": "/(.*)",

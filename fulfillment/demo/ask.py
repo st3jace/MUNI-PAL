@@ -27,8 +27,9 @@ JUDGMENT = re.compile(
     r"\b(material|materiality|should (we|i)|do (we|i) (need|have) to|must (we|i)|compliant|compliance with|"
     r"appl(y|ies)|controls?|which clause|is (this|that|it) (a|an) (listed|reportable)|are we (ok|fine|late)|"
     r"advice|advise|recommend|what should)\b", re.I)
-ONE_LINER = ("That is a call for your bond counsel or dissemination agent. I will mark it "
-             "'professional determination required' and keep the register to approved inputs and vault evidence.")
+# Arthur's wording, 2026-09-09 ruling §3.1. No status code, no implied triage.
+ONE_LINER = ("That is a call for your bond counsel or dissemination agent. I will log the question, "
+             "send it to them, and leave that field empty until they answer in writing.")
 
 STOP = {"the", "a", "an", "of", "in", "to", "is", "my", "our", "where", "what", "when", "does", "do", "for", "and", "or", "on", "by", "it", "this", "that", "are", "be", "with"}
 SECTION_RE = re.compile(r"^## (.+)$", re.M)
@@ -75,9 +76,9 @@ def log_refusal(question: str) -> None:
     out.mkdir(exist_ok=True)
     p = out / "refusal-log.md"
     if not p.exists():
-        p.write_text("# Refusal log\n\n", encoding="utf-8")
+        p.write_text("# Refusal log\n\nEvery judgment question put to us: the question, the date, and where it was routed. We do not answer them.\n\n", encoding="utf-8")
     with p.open("a", encoding="utf-8") as f:
-        f.write(f"- {date.today().isoformat()} Q&A: \"{question}\" — judgment question, routed to counsel / dissemination agent. Not answered.\n")
+        f.write(f"- {date.today().isoformat()} · asked via Q&A: \"{question}\" · routed to: bond counsel / dissemination agent · not answered.\n")
 
 
 def main() -> None:

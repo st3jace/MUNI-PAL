@@ -11,8 +11,8 @@ amount and date is invented. The method is real; the deal is not. No EMMA conten
 2. **Their professionals approve the list** (`approved-inputs.csv` + `approval-2026-09-08.md`): every
    obligation, clause and date on the register was approved by the client's own counsel or
    dissemination agent. We transcribe. We do not decide.
-3. **The register out** (`output/register.html`): register, calendar, evidence vault index, gap list,
-   refusal log, and the candidate clauses counsel has not ruled on yet.
+3. **The register out** (`output/register.html`): register, calendar, gap list, items awaiting
+   input (what we asked counsel for and have not received), refusal log, evidence vault index.
 4. **Arthur inside it** (`ask.py`): "where is this in my documents?" answered by pointing at the
    clause. Judgment questions are refused with the one-liner and logged.
 
@@ -29,9 +29,15 @@ python3 ask.py --corpus /mnt/c/Users/st3ja/braintrust/corpus/legal/public-financ
 
 Open `output/register.html` in a browser.
 
-## The five statuses, and nothing else
+## The four statuses, and nothing else
 
-`filed` · `not filed` · `evidence missing` · `not testable` · `professional determination required`
+`filed` · `not filed` · `evidence missing` · `not testable`
+
+A fifth code ("professional determination required") was rejected by Arthur on 2026-09-09: marking a
+row that way is itself a determination, and the unmarked rows read as cleared. The function lives in
+two other places instead: the **items awaiting input** list (what we asked for in writing and have not
+received) and the **refusal log** (judgment questions put to us, logged and routed, never answered).
+A status only ever attaches to a row that has written professional input behind it.
 
 ## What it never does
 

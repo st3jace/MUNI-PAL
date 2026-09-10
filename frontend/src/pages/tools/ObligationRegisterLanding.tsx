@@ -19,6 +19,7 @@ const BRAND = {
 
 const INTAKE_URL = '/api/v1/sensing/obligation-register/intake'
 export const SAMPLE_URL = '/samples/obligation-register-sample.html'
+export const DIY_URL = '/diy/'
 
 // Arthur control — verbatim. Do not edit without a ruling.
 const ARTHUR_CONTROL =
@@ -457,6 +458,20 @@ export default function ObligationRegisterLanding() {
           <p className="text-gray-300 text-sm leading-relaxed">
             The ten-business-day clock starts when the complete-drop checklist is satisfied and pauses while we wait on your counsel&rsquo;s written input, or any written fact we still need from you. No guarantee of filing status on the MSRB&rsquo;s public filing system, issuer comfort, audit outcome, or future issuance.
           </p>
+        </div>
+      </section>
+
+      {/* DIY kit */}
+      <section className="max-w-4xl mx-auto px-6 lg:px-8 mb-12">
+        <div className="bg-white rounded-xl border border-gray-200 p-7">
+          <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: BRAND.teal }}>Free · do it yourself</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-3">Want to run the first mile yourself?</h2>
+          <p className="text-gray-700 leading-relaxed mb-4">
+            Take the kit. A skill file you hand to the AI assistant you already use, a complete-drop checklist, the register template, and the four-status legend. Your AI builds the candidate map from your own documents. Your counsel approves it. Same method, same rule: candidates only, dates never computed.
+          </p>
+          <a href={DIY_URL} className="inline-flex items-center gap-2 font-semibold underline underline-offset-4" style={{ color: BRAND.navy }}>
+            Get the DIY kit <ArrowRight className="h-4 w-4" />
+          </a>
         </div>
       </section>
 

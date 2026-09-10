@@ -1,0 +1,275 @@
+#!/usr/bin/env python3
+"""Obligation Register runner (demo).
+
+Inputs
+  documents/            the client's closing documents (here: SYNTHETIC excerpts)
+  approved-inputs.csv   obligations, clauses and dates AS APPROVED by the client's own
+                        counsel / dissemination agent. This is the only source of register rows.
+  vault/                evidence files the client dropped
+
+Outputs (output/)
+  register.csv          one row per obligation, fixed status vocabulary
+  calendar.csv          one row per approved due date, next 24 months
+  vault-index.csv       every evidence file, labeled and bound to an obligation where a pattern matches
+  gaps.md               observational gap list (file present / absent vs an approved undertaking)
+  refusal-log.md        every item that needs a professional determination
+  candidates.csv        clauses found in the documents that are NOT on the approved list (for counsel)
+  register.html         one-page human view of all of the above
+
+Rules (from the offer one-pager, Arthur control 2026-09-09)
+  - Status vocabulary is fixed: filed / not filed / evidence missing / not testable /
+    professional determination required.
+  - Dates come only from approved-inputs.csv. Nothing is computed from a formula.
+  - Blank date + a frequency of event-driven / conditional / on request / standing -> not testable.
+  - Ambiguity -> professional determination required, and a refusal-log line.
+  - The runner never says "compliant". It never decides which clause controls.
+"""
+from __future__ import annotations
+
+import argparse
+import csv
+import html
+import json
+import re
+from datetime import date, timedelta
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+STATUSES = ("filed", "not filed", "evidence missing", "not testable", "professional determination required")
+NO_DATE_FREQ = {"event-driven", "conditional", "on request", "standing"}
+# Frequencies that carry no date but do carry judgment words in their rule text.
+JUDGMENT_WORDS = re.compile(r"\b(material|materiality|reasonabl|promptly|when they become available|timely)\b", re.I)
+
+
+def read_csv(p: Path) -> list[dict]:
+    with p.open(encoding="utf-8-sig", newline="") as f:
+        return list(csv.DictReader(f))
+
+
+def write_csv(p: Path, rows: list[dict], fields: list[str]) -> None:
+    with p.open("w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=fields)
+        w.writeheader()
+        w.writerows(rows)
+
+
+def period_tokens(d: date, fy_end_month: int = 12) -> dict:
+    """Mechanical labels for an evidence pattern. A due date in year Y for an annual item
+    refers to fiscal year Y-1 (the report is about the year that just ended)."""
+    q = (d.month - 1) // 3 + 1
+    # the quarter a due date belongs to is the quarter that ended before it
+    prev_q = q - 1 if q > 1 else 4
+    prev_q_year = d.year if q > 1 else d.year - 1
+    return {"fy": str(d.year - 1), "year": str(d.year), "period": f"{prev_q_year}Q{prev_q}"}
+
+
+def evidence_for(pattern: str, d: date, vault_files: set[str]) -> str | None:
+    if not pattern:
+        return None
+    name = pattern.format(**period_tokens(d))
+    for f in vault_files:
+        if f.startswith(name):
+            return f
+    return None
+
+
+def build(asof: date, horizon_months: int = 24) -> dict:
+    approved = read_csv(ROOT / "approved-inputs.csv")
+    vault_dir = ROOT / "vault"
+    vault_files = {p.name for p in vault_dir.iterdir() if p.is_file()} if vault_dir.exists() else set()
+    horizon = asof + timedelta(days=30 * horizon_months)
+
+    register, calendar, refusals, gaps = [], [], [], []
+    bound_evidence: dict[str, str] = {}
+
+    for a in approved:
+        dates = [date.fromisoformat(x) for x in a["due_dates_approved"].split(";") if x.strip()]
+        rule = a["due_rule_text_verbatim"]
+        freq = a["frequency"].strip().lower()
+        per_date = []
+        if not dates:
+            if freq in NO_DATE_FREQ:
+                status = "not testable"
+                note = f"no calendar date: {freq}; no event supplied by client"
+                if JUDGMENT_WORDS.search(rule):
+                    status = "professional determination required"
+                    note = "rule text carries a judgment word; counsel / dissemination agent decides when it is triggered"
+                    refusals.append((a["obligation_id"], a["obligation"], a["source_document"], a["clause"],
+                                     "Trigger depends on a judgment ('" + JUDGMENT_WORDS.search(rule).group(0) + "'). Not decided here."))
+            else:
+                status = "professional determination required"
+                note = "approved list carries no date for a dated frequency"
+                refusals.append((a["obligation_id"], a["obligation"], a["source_document"], a["clause"],
+                                 "Frequency implies a date but none was approved. Ask counsel for the date."))
+            next_due = ""
+        else:
+            for d in dates:
+                ev = evidence_for(a["evidence_pattern"], d, vault_files)
+                if ev:
+                    st = "filed"
+                    bound_evidence[ev] = a["obligation_id"]
+                elif d <= asof:
+                    st = "evidence missing"
+                    gaps.append((a["obligation_id"], a["obligation"], d.isoformat(), a["clause"], a["source_document"],
+                                 a["evidence_pattern"].format(**period_tokens(d))))
+                else:
+                    st = "not filed"
+                per_date.append((d, st, ev or ""))
+                if asof - timedelta(days=365) <= d <= horizon:
+                    calendar.append({
+                        "due_date": d.isoformat(), "obligation_id": a["obligation_id"], "obligation": a["obligation"],
+                        "recipient": a["recipient"], "clause": a["clause"], "source_document": a["source_document"],
+                        "status": st, "evidence_file": ev or "", "timing": "past" if d <= asof else "future",
+                    })
+            past = [x for x in per_date if x[0] <= asof]
+            future = [x for x in per_date if x[0] > asof]
+            if past:
+                missing = [x for x in past if x[1] == "evidence missing"]
+                if missing:
+                    status = "evidence missing"
+                    note = "no evidence for " + ", ".join(x[0].isoformat() for x in missing)
+                else:
+                    status = past[-1][1]
+                    note = f"last due {past[-1][0].isoformat()}"
+            else:
+                status = "not filed"
+                note = "not yet due"
+            next_due = future[0][0].isoformat() if future else ""
+
+        register.append({
+            "obligation_id": a["obligation_id"], "obligation": a["obligation"],
+            "source_document": a["source_document"], "clause": a["clause"], "recipient": a["recipient"],
+            "frequency": a["frequency"], "due_rule_text_verbatim": rule,
+            "next_due": next_due, "status": status, "status_note": note,
+            "evidence_files": "; ".join(x[2] for x in per_date if x[2]),
+            "approved_by": a["approved_by"], "approval_ref": a["approval_ref"],
+        })
+
+    vault_index = []
+    for f in sorted(vault_files):
+        first = (vault_dir / f).read_text(encoding="utf-8", errors="replace").splitlines()[:1]
+        vault_index.append({"file": f, "label": first[0] if first else "", "bound_to": bound_evidence.get(f, "UNBOUND")})
+    calendar.sort(key=lambda r: r["due_date"])
+
+    candidates = find_candidates(approved)
+    return {"register": register, "calendar": calendar, "vault_index": vault_index,
+            "gaps": gaps, "refusals": refusals, "candidates": candidates, "asof": asof.isoformat()}
+
+
+SECTION_RE = re.compile(r"^## (Section [^.]+\.?[^\n]*)$", re.M)
+DUTY_RE = re.compile(r"\b(shall (deliver|provide|give|furnish|notify|retain|obtain|cause|send|maintain|pay))\b", re.I)
+
+
+def find_candidates(approved: list[dict]) -> list[dict]:
+    """Clauses in documents/ with a duty verb that are NOT on the approved list.
+    These go to counsel. They never enter the register on their own."""
+    approved_keys = {(a["source_document"], a["clause"].split(".")[0].strip()) for a in approved}
+    approved_clauses = {(a["source_document"], a["clause"]) for a in approved}
+    out = []
+    for doc in sorted((ROOT / "documents").glob("*.md")):
+        text = doc.read_text(encoding="utf-8")
+        parts = SECTION_RE.split(text)
+        # parts: [pre, heading1, body1, heading2, body2, ...]
+        for i in range(1, len(parts) - 1, 2):
+            heading, body = parts[i].strip(), parts[i + 1]
+            sec = heading.split(".")[0] + "." + heading.split(".")[1] if heading.count(".") >= 1 else heading
+            sec = re.match(r"Section [0-9A-Za-z.()]+", heading).group(0).rstrip(".") if re.match(r"Section [0-9A-Za-z.()]+", heading) else heading
+            if not DUTY_RE.search(body):
+                continue
+            if any(sec.startswith(c.rstrip(".")) or c.startswith(sec) for (d, c) in approved_clauses if d == doc.name):
+                continue
+            m = DUTY_RE.search(body)
+            snippet = body.strip().replace("\n", " ")
+            out.append({"source_document": doc.name, "clause": sec, "heading": heading,
+                        "duty_phrase": m.group(0), "snippet": snippet[:220]})
+    return out
+
+
+def render_html(r: dict) -> str:
+    def esc(x):
+        return html.escape(str(x))
+
+    def table(rows, cols):
+        if not rows:
+            return "<p class='muted'>none</p>"
+        h = "<table><thead><tr>" + "".join(f"<th>{esc(c)}</th>" for c in cols) + "</tr></thead><tbody>"
+        for row in rows:
+            h += "<tr>" + "".join(f"<td class='s-{esc(row.get('status','')).replace(' ','-')}'>{esc(row.get(c,''))}</td>" for c in cols) + "</tr>"
+        return h + "</tbody></table>"
+
+    counts = {s: sum(1 for x in r["register"] if x["status"] == s) for s in STATUSES}
+    css = """
+    :root{--bg:#fbfaf7;--fg:#1e1e1e;--muted:#6b6b6b;--line:#ddd8cf;--ok:#1f6f43;--warn:#9a5b00;--bad:#9b2226;--hold:#4a4a8a}
+    body{background:var(--bg);color:var(--fg);font:14px/1.45 system-ui,Segoe UI,Roboto,sans-serif;margin:0;padding:24px;max-width:1200px}
+    h1{font-size:22px;margin:0 0 4px}h2{font-size:16px;margin:28px 0 8px;border-bottom:1px solid var(--line);padding-bottom:4px}
+    .muted{color:var(--muted)} .banner{background:#fff3cd;border:1px solid #e6c85a;padding:8px 12px;border-radius:6px;margin:12px 0}
+    .never{background:#fff;border:1px solid var(--line);padding:10px 14px;border-radius:6px;margin:12px 0}
+    table{border-collapse:collapse;width:100%;font-size:13px}th,td{border:1px solid var(--line);padding:5px 7px;vertical-align:top;text-align:left}
+    th{background:#f1ede4;position:sticky;top:0}
+    .kpi{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0}.kpi div{border:1px solid var(--line);border-radius:6px;padding:8px 12px;background:#fff;min-width:150px}
+    .kpi b{display:block;font-size:20px}
+    .s-filed{color:var(--ok)} .s-evidence-missing{color:var(--bad);font-weight:600} .s-not-filed{color:var(--warn)}
+    .s-not-testable{color:var(--muted)} .s-professional-determination-required{color:var(--hold);font-weight:600}
+    .wrap{overflow-x:auto}
+    """
+    reg_cols = ["obligation_id", "obligation", "source_document", "clause", "recipient", "frequency", "next_due", "status", "status_note", "evidence_files"]
+    cal_cols = ["due_date", "timing", "obligation_id", "obligation", "recipient", "clause", "status", "evidence_file"]
+    gaps_rows = [{"obligation_id": g[0], "obligation": g[1], "due_date": g[2], "clause": g[3], "source_document": g[4], "expected_file": g[5]} for g in r["gaps"]]
+    ref_rows = [{"obligation_id": x[0], "obligation": x[1], "source_document": x[2], "clause": x[3], "routed_to_counsel_because": x[4]} for x in r["refusals"]]
+    kpis = "".join(f"<div><b>{counts[s]}</b>{esc(s)}</div>" for s in STATUSES)
+    return f"""<!doctype html><meta charset='utf-8'><title>Obligation Register — SYN-HSG-AZ-2025</title><style>{css}</style>
+<h1>Obligation Register — Saguaro Commons Apartments, LP — Series 2025</h1>
+<div class='muted'>As of {esc(r['asof'])} · {len(r['register'])} approved obligations · {len(r['vault_index'])} evidence files · SYNTHETIC deal SYN-HSG-AZ-2025</div>
+<div class='banner'><b>Synthetic demonstration.</b> Every name, amount and date is invented. The method is real; the deal is not.</div>
+<div class='never'><b>What this register never does.</b> It never files. It never says "compliant". It never decides which clause controls, interprets a deadline formula, or decides whether an obligation applies. Every row below was approved by the client's own counsel or dissemination agent (see <code>approval-2026-09-08.md</code>). Dates come only from that approval. Anything else is routed to counsel in the refusal log.</div>
+<div class='kpi'>{kpis}</div>
+<h2>1. Register</h2><div class='wrap'>{table(r['register'], reg_cols)}</div>
+<h2>2. Calendar (past 12 months and next 24)</h2><div class='wrap'>{table(r['calendar'], cal_cols)}</div>
+<h2>3. Gap list (observational only)</h2><p class='muted'>An approved undertaking names a deliverable; no file is present in the vault for it. No remediation sequence, no impact ranking.</p><div class='wrap'>{table(gaps_rows, list(gaps_rows[0].keys()) if gaps_rows else [])}</div>
+<h2>4. Refusal log</h2><p class='muted'>Questions that need a professional determination. Routed to the client's counsel or dissemination agent, not answered here.</p><div class='wrap'>{table(ref_rows, list(ref_rows[0].keys()) if ref_rows else [])}</div>
+<h2>5. Evidence vault index</h2><div class='wrap'>{table(r['vault_index'], ['file', 'label', 'bound_to'])}</div>
+<h2>6. Candidate clauses not on the approved list</h2><p class='muted'>Duty language found in the documents that counsel has not (yet) approved as an obligation. Sent to counsel for a yes/no. Never entered on their own.</p><div class='wrap'>{table(r['candidates'], ['source_document', 'clause', 'heading', 'duty_phrase', 'snippet'])}</div>
+<h2>Legend</h2><ul>
+<li><b>filed</b>: an evidence file matching the approved undertaking and period is in the vault.</li>
+<li><b>not filed</b>: due date is in the future. Nothing is expected yet.</li>
+<li><b>evidence missing</b>: due date has passed and no matching evidence file is in the vault. This is an observation about the vault, not a conclusion about the client.</li>
+<li><b>not testable</b>: the undertaking has no calendar date (event-driven, conditional, on request, standing) and no event was supplied.</li>
+<li><b>professional determination required</b>: the trigger or date depends on a judgment. Counsel or the dissemination agent decides.</li>
+</ul>
+"""
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--asof", default=date.today().isoformat())
+    ap.add_argument("--out", default=str(ROOT / "output"))
+    args = ap.parse_args()
+    asof = date.fromisoformat(args.asof)
+    r = build(asof)
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    write_csv(out / "register.csv", r["register"], list(r["register"][0].keys()))
+    write_csv(out / "calendar.csv", r["calendar"], list(r["calendar"][0].keys()) if r["calendar"] else ["due_date"])
+    write_csv(out / "vault-index.csv", r["vault_index"], ["file", "label", "bound_to"])
+    write_csv(out / "candidates.csv", r["candidates"], ["source_document", "clause", "heading", "duty_phrase", "snippet"])
+    (out / "gaps.md").write_text(
+        "# Gap list (observational)\n\nAs of %s. An approved undertaking names a deliverable and no file is present in the vault.\n\n" % r["asof"]
+        + "".join(f"- **{g[0]}** {g[1]} — due {g[2]} — {g[4]} {g[3]} — expected `{g[5]}*`\n" for g in r["gaps"]) + ("\n(none)\n" if not r["gaps"] else ""),
+        encoding="utf-8")
+    (out / "refusal-log.md").write_text(
+        "# Refusal log\n\nItems routed to the client's counsel or dissemination agent. Not decided by Launch Shop.\n\n"
+        + "".join(f"- **{x[0]}** {x[1]} ({x[2]} {x[3]}): {x[4]}\n" for x in r["refusals"]) + ("\n(none)\n" if not r["refusals"] else ""),
+        encoding="utf-8")
+    (out / "register.html").write_text(render_html(r), encoding="utf-8")
+    (out / "summary.json").write_text(json.dumps({
+        "asof": r["asof"], "obligations": len(r["register"]),
+        "status_counts": {s: sum(1 for x in r["register"] if x["status"] == s) for s in STATUSES},
+        "calendar_rows": len(r["calendar"]), "gaps": len(r["gaps"]), "refusals": len(r["refusals"]),
+        "vault_files": len(r["vault_index"]), "unbound_vault_files": sum(1 for v in r["vault_index"] if v["bound_to"] == "UNBOUND"),
+        "candidates_for_counsel": len(r["candidates"]),
+    }, indent=2), encoding="utf-8")
+    print((out / "summary.json").read_text())
+
+
+if __name__ == "__main__":
+    main()

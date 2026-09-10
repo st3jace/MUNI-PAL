@@ -1,0 +1,45 @@
+{
+  "deal_id": "SYN-HSG-AZ-2025",
+  "mode": "synthetic",
+  "jurisdiction": "AZ",
+  "seed": 20250626,
+  "notes": "SYNTHETIC. Every name, number and date is invented. Shape follows BONDI deal-v0 and the deidentified ALA closing-binder index (muni-twin L1). No EMMA content. No real party.",
+  "obligated_person": {
+    "name": "Saguaro Commons Apartments, LP",
+    "entity_type": "AZ limited partnership / affordable multifamily owner",
+    "city": "Mesquite Flats, Arizona",
+    "fiscal_year_end": "12-31"
+  },
+  "parties": [
+    {"role": "conduit_issuer", "name": "The Industrial Development Authority of the City of Mesquite Flats", "side": "issuer"},
+    {"role": "obligated_person", "name": "Saguaro Commons Apartments, LP", "side": "borrower"},
+    {"role": "underwriter", "name": "Ocotillo Capital Markets, LLC", "side": "distribution"},
+    {"role": "municipal_advisor", "name": "Palo Verde Advisors, LLC", "side": "fiduciary"},
+    {"role": "bond_counsel", "name": "Creosote & Mesa LLP", "side": "issuer"},
+    {"role": "trustee", "name": "Ironwood Trust Company, N.A.", "side": "ops"},
+    {"role": "dissemination_agent", "name": "Ironwood Trust Company, N.A.", "side": "ops"},
+    {"role": "rating_agency", "name": null, "side": "credit", "status": "unrated"}
+  ],
+  "instrument": {
+    "credit_fork": "conduit",
+    "tax_fork": "qualified_pab_142d_residential_rental",
+    "sale_method": "limited_offering_bd",
+    "document_type": "limited_offering_memorandum",
+    "title": "Multifamily Housing Revenue Bonds (Saguaro Commons Apartments Project), Series 2025",
+    "par": 24500000,
+    "dated": "2025-06-26",
+    "closing": "2025-06-26",
+    "final_maturity": "2055-07-01",
+    "interest_payment_dates": ["01-01", "07-01"]
+  },
+  "disclosure": {
+    "cda_executed": "2025-06-26",
+    "annual_report_due": "not later than 180 days after the end of each Fiscal Year",
+    "listed_event_window": "not in excess of ten Business Days after the occurrence of the event",
+    "dissemination_agent": "Ironwood Trust Company, N.A."
+  },
+  "constraints": [
+    {"id": "rule_15c2_12_applicability", "status": "unknown", "note": "Limited offering; applicability is a constraint, not decided here."},
+    {"id": "irc_142d_set_aside", "status": "unknown", "note": "40% at 60% AMI elected in Regulatory Agreement; compliance is a professional determination."}
+  ]
+}

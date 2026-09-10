@@ -1,0 +1,50 @@
+# Whole-phrase, case-insensitive name-collision blocklist (lab/twin-bfms, v1).
+# Loaded by labkit/law.py at import. Every scanner excludes THIS file by exact path
+# (law.EXCLUDED_DATA_FILES) because it must spell the phrases it forbids.
+# Sources: COS working paper 2026-09-10 rule 10 (firms + real-issuer phrases) and
+# BUILD-SPEC 3.3 (the twelve old-pack city names, which are quarantined sources).
+#
+# --- brief rule 10: real firms / real parties ---
+Deloitte
+KPMG
+EY
+PwC
+Baird
+Ice Miller
+UMB
+Kuhn Loeb
+Piper Sandler
+Stifel
+Raymond James
+Choice Advisors
+Greenberg Traurig
+Kutak Rock
+Squire Patton
+Orrick
+Chapman and Cutler
+Gust Rosenfeld
+Slania
+American Leadership Academy
+Sierra Vista
+Pima
+Phoenix IDA
+Arizona Finance Authority
+# --- real-issuer phrases / manifest collisions seen in the old packs ---
+City of Sierra Vista
+County of Pima
+AZIDA
+Kuhn Loeb Inc
+Deloitte & Touche LLP
+# --- old synthetic-pack city names (unaudited lineage; never reused) ---
+Oakport
+Mapleford
+Fairburg
+Woodwood
+Goldencreek
+Ridgemont
+Springton
+Stonesprings
+Riversprings
+Meadowwood
+Riverport
+Pinecreek

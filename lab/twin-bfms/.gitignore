@@ -1,0 +1,8 @@
+# lab/twin-bfms local ignores (the shared root .gitignore is never edited)
+# runs/ is local-disk only (TR-1): never under OneDrive, deleted after golden freeze.
+runs/*
+!runs/.gitkeep
+**/_storage/
+**/_documents/
+**/empty-root/
+__pycache__/

@@ -1,0 +1,151 @@
+{
+  "_legend": "SYNTHETIC RESEARCH ARTIFACT — MUNI-TWIN — NOT LEGAL ADVICE — NOT PREPARED BY AN ATTORNEY — NOT AN OFFER OF SECURITIES. Fictional names collision-checked against real firms.",
+  "_provenance": {
+    "created_from": [
+      "scenario:SYN-HSG-AZ-2025-LAB03#lab.intake_docs"
+    ],
+    "generator_version": "lab-gen-0.1.0",
+    "lab_version": "0.1.0",
+    "scenario_id": "SYN-HSG-AZ-2025-LAB03",
+    "seed": 20250626,
+    "sha256_body": "ff5066eae5c0f610beed8e6f27575b0bd197aaeadebc6ff14271befbdb643186",
+    "source": "synthetic"
+  },
+  "dropped": [
+    {
+      "artifact_key": "site_control_permits",
+      "paths": [
+        "housing.site_control",
+        "project.location.sitecontrol",
+        "capital.project-cost",
+        "capital.equity_contribution",
+        "construction.permits.status",
+        "environmental.phase_one",
+        "housing.appraisal"
+      ],
+      "reason": "knob drop_required_artifact",
+      "status": "absent_by_scenario"
+    }
+  ],
+  "self_check": {
+    "chunk_text": "the whole file as uploaded, envelope and legend lines included",
+    "extractor": "munipal.services.extraction.rules_based_extractor.RulesBasedExtractor (offline, no LLM)",
+    "int_compared_paths": [
+      "capital.project-cost"
+    ],
+    "mode": "per-artifact (one extraction job per intake artifact; target_schema_paths = that artifact's expected_paths)",
+    "result": "pass"
+  },
+  "upload_order": [
+    {
+      "artifact_key": "issuer_borrower_authority",
+      "content_type": "text/plain",
+      "display_name": "Issuer, borrower, and revenue pledge package",
+      "expected_paths": [
+        "parties.issuer.name",
+        "parties.issuer.jurisdiction",
+        "parties.borrower.name",
+        "governance.inducement",
+        "bond_counsel.inducement_resolution",
+        "regulatory.tax-status",
+        "security.revenue.pledge",
+        "project.name",
+        "project.location"
+      ],
+      "folder": "01_PROJECT-OVERVIEW",
+      "labels": {
+        "bond_counsel.inducement_resolution": "Bond counsel inducement resolution",
+        "governance.inducement": "Governance inducement",
+        "parties.borrower.name": "Borrower",
+        "parties.issuer.jurisdiction": "Parties issuer jurisdiction",
+        "parties.issuer.name": "Issuer",
+        "project.location": "Location",
+        "project.name": "Organization",
+        "regulatory.tax-status": "Tax status",
+        "security.revenue.pledge": "Security revenue pledge"
+      },
+      "order": 1,
+      "path": "intake/01_PROJECT-OVERVIEW/issuer_borrower_authority.txt",
+      "requirement_level": "required",
+      "sha256": "25178fc8e72d708b06aa5bacc7428465973bbcff62b8e567f779c482f3af8d5e"
+    },
+    {
+      "artifact_key": "subsidy_stack",
+      "content_type": "text/plain",
+      "display_name": "LIHTC, HAP, subsidy, and affordability restriction stack",
+      "expected_paths": [
+        "housing.project_type",
+        "housing.lihtc_status",
+        "housing.tax_credit_allocation",
+        "housing.hap_section8_revenue",
+        "housing.affordability_restrictions",
+        "housing.affordability.restrictions"
+      ],
+      "folder": "02_FINANCING-STRUCTURE",
+      "labels": {
+        "housing.affordability.restrictions": "Housing affordability restrictions",
+        "housing.affordability_restrictions": "Housing affordability restrictions",
+        "housing.hap_section8_revenue": "Housing hap section8 revenue",
+        "housing.lihtc_status": "Housing lihtc status",
+        "housing.project_type": "Housing project type",
+        "housing.tax_credit_allocation": "Housing tax credit allocation"
+      },
+      "order": 2,
+      "path": "intake/02_FINANCING-STRUCTURE/subsidy_stack.txt",
+      "requirement_level": "required",
+      "sha256": "96294c9f8ca815357e04840ba4c6e100aa967ce7ae8834f4d3e81e067e7ff656"
+    },
+    {
+      "artifact_key": "rent_roll_operating",
+      "content_type": "text/plain",
+      "display_name": "Rent roll, occupancy, and operating revenue package",
+      "expected_paths": [
+        "housing.units.total",
+        "housing.rental_income",
+        "housing.ancillary_revenue",
+        "housing.occupancy_rate"
+      ],
+      "folder": "02_FINANCING-STRUCTURE",
+      "labels": {
+        "housing.ancillary_revenue": "Housing ancillary revenue",
+        "housing.occupancy_rate": "Housing occupancy rate",
+        "housing.rental_income": "Housing rental income",
+        "housing.units.total": "Housing units total"
+      },
+      "order": 3,
+      "path": "intake/02_FINANCING-STRUCTURE/rent_roll_operating.txt",
+      "requirement_level": "required",
+      "sha256": "c715816e6aca9a6abf1955475d08cbc3619e72b4fc3a949e1b2465c3e95a03bb"
+    },
+    {
+      "artifact_key": "market_compliance",
+      "content_type": "text/plain",
+      "display_name": "Market, demographics, lease-up, and compliance risk package",
+      "expected_paths": [
+        "market.demographics.summary",
+        "housing.lease_up_risk",
+        "housing.compliance_risk"
+      ],
+      "folder": "03_DUE-DILIGENCE",
+      "labels": {
+        "housing.compliance_risk": "Housing compliance risk",
+        "housing.lease_up_risk": "Housing lease up risk",
+        "market.demographics.summary": "Market demographics summary"
+      },
+      "order": 4,
+      "path": "intake/03_DUE-DILIGENCE/market_compliance.txt",
+      "requirement_level": "recommended",
+      "sha256": "aabc2c2995dcd632aab6c2d7f4f81f952fe3dfd6318e256245bd861d5b7a87f2"
+    }
+  ],
+  "workspace_folders": [
+    "00_WELCOME",
+    "01_PROJECT-OVERVIEW",
+    "02_FINANCING-STRUCTURE",
+    "03_DUE-DILIGENCE",
+    "04_CLOSING-DOCUMENTS",
+    "05_POST-ISSUANCE-COMPLIANCE",
+    "06_REPORTING",
+    "07_RESOURCE-LIBRARY"
+  ]
+}

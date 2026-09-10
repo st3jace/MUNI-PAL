@@ -1,0 +1,14 @@
+{
+  "deal_id": "SYN-HSG-AZ-2025-LAB02",
+  "derived_from": "SYN-HSG-AZ-2025-LAB01",
+  "mode": "synthetic",
+  "knob_delta": {
+    "lab.knobs.late_afs": true,
+    "disclosure.afs[0].posted": null,
+    "disclosure.afs[0].file": null,
+    "disclosure.afs[0].status": "unknown",
+    "stations.6_borrower_prep.events[afs_posted_fy2025].date": null,
+    "stations.6_borrower_prep.events[afs_posted_fy2025].status": "unknown",
+    "lab.expected_report": "expected/SYN-HSG-AZ-2025-LAB02/run-report.expected.json"
+  }
+}

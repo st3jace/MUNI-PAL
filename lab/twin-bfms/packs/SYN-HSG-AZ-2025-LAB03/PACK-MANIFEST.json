@@ -1,0 +1,408 @@
+{
+  "_legend": "SYNTHETIC RESEARCH ARTIFACT — MUNI-TWIN — NOT LEGAL ADVICE — NOT PREPARED BY AN ATTORNEY — NOT AN OFFER OF SECURITIES. Fictional names collision-checked against real firms.",
+  "_provenance": {
+    "created_from": [],
+    "generator_version": "lab-gen-0.1.0",
+    "lab_version": "0.1.0",
+    "scenario_id": "SYN-HSG-AZ-2025-LAB03",
+    "seed": 20250626,
+    "sha256_body": "6be80591c5bd68365f737275e82972d896a5a51b063121422a2e48485fa06953",
+    "source": "synthetic"
+  },
+  "absent_by_scenario": [
+    {
+      "artifact_key": "site_control_permits",
+      "reason": "knob drop_required_artifact",
+      "status": "absent_by_scenario"
+    },
+    {
+      "obligation_id": "OB-06",
+      "reason": "absent in the demo fixture set (build_fixtures.VAULT); the base's evidence-missing row",
+      "status": "absent_by_scenario",
+      "vault_file": "post-close/vault/quarterly-report-2026Q1.txt"
+    },
+    {
+      "obligation_id": "OB-07",
+      "reason": "absent in the demo fixture set (build_fixtures.VAULT); the base's evidence-missing row",
+      "status": "absent_by_scenario",
+      "vault_file": "post-close/vault/no-default-cert-FY2025.txt"
+    },
+    {
+      "obligation_id": "OB-14",
+      "reason": "first Computation Date 2030; asof 2026-09-10",
+      "status": "absent_by_scenario",
+      "vault_file": "post-close/vault/rebate-calc-2030.txt"
+    },
+    {
+      "reason": "disclosure.material_events is empty in the scenario",
+      "status": "absent_by_scenario",
+      "type": "listed_event_notice"
+    },
+    {
+      "reason": "no document carried",
+      "status": "absent_by_scenario",
+      "type": "closing_memo"
+    },
+    {
+      "reason": "no document carried",
+      "status": "absent_by_scenario",
+      "type": "signature_pages"
+    },
+    {
+      "reason": "no document carried; instrument.document_type names it, text not in pack",
+      "status": "absent_by_scenario",
+      "type": "limited_offering_memorandum"
+    },
+    {
+      "reason": "no document carried; limited offering, preliminary memorandum not in pack",
+      "status": "absent_by_scenario",
+      "type": "plom"
+    },
+    {
+      "reason": "no document carried; stations.5_buyers investment_letters is a log row only",
+      "status": "absent_by_scenario",
+      "type": "investor_letters"
+    },
+    {
+      "reason": "no document carried; tax.form_8038.filed is a scenario date only",
+      "status": "absent_by_scenario",
+      "type": "form_8038"
+    }
+  ],
+  "deal_id": "SYN-HSG-AZ-2025-LAB03",
+  "files": [
+    {
+      "created_from": [
+        "PACK-MANIFEST.json (files written before it)"
+      ],
+      "kind": "json",
+      "path": "bondi/artifact_manifest.json",
+      "sha256": "72aacf79af1aaa4553e287637bac9dc1460d68142c2d0a006658ab8fa82198b7",
+      "sha256_body": "7d2bca703b6f3b22854fd4b7335dd244c18b5619a45fcdc9279b18e364555b1d",
+      "size": 7075
+    },
+    {
+      "created_from": [
+        "scenario:SYN-HSG-AZ-2025-LAB03#constraints"
+      ],
+      "kind": "json",
+      "path": "bondi/constraint_report.json",
+      "sha256": "febbbad1cf2a19b98a4676c716ad948836167e9633853e58c005ae9258bbbabb",
+      "sha256_body": "0321510e9be3f9ec07e9623b3adc4aa5f7134ce0f1f90a43b1b11686a9d62fa8",
+      "size": 1830
+    },
+    {
+      "created_from": [
+        "scenario:SYN-HSG-AZ-2025-LAB03"
+      ],
+      "kind": "json",
+      "path": "bondi/deal.json",
+      "sha256": "d431cd9f5435acd1baa52b0ce7ab3785367776fe2e6c14ea379b8602a0e0bf84",
+      "sha256_body": "6659d41169a2c07e5389beb8343d30c99dfb423d5201796a57026bdc47f62686",
+      "size": 14256
+    },
+    {
+      "created_from": [
+        "scenario:SYN-HSG-AZ-2025-LAB03#stations",
+        "scenario:SYN-HSG-AZ-2025-LAB03#disclosure"
+      ],
+      "kind": "csv",
+      "path": "bondi/event_log.csv",
+      "sha256": "df83973fba3c08983766bbb565208913343a0702b621fa65477e34ea8e2134e0",
+      "sha256_body": "df83973fba3c08983766bbb565208913343a0702b621fa65477e34ea8e2134e0",
+      "size": 1176
+    },
+    {
+      "created_from": [
+        "event_log.csv"
+      ],
+      "kind": "csv_sidecar",
+      "path": "bondi/event_log.csv.provenance.json",
+      "sha256": "648ceaadd0cc5afd123f16fed11c3e35b42f66ad918e134c84c11c35bc7dff5d",
+      "sha256_body": "648ceaadd0cc5afd123f16fed11c3e35b42f66ad918e134c84c11c35bc7dff5d",
+      "size": 831
+    },
+    {
+      "created_from": [
+        "fulfillment/demo/build_fixtures.py::DOCUMENTS['00-index.md']"
+      ],
+      "kind": "md",
+      "path": "closing-documents/00-index.md",
+      "sha256": "38c546e87224d4801de340dd0fcfdd61a5e8505e4f54e2687a6848bd55647d68",
+      "sha256_body": "a094ca11fe58bcba23ee6c210b8fe0af7cb25676605f7bb206890aa52e087ef9",
+      "size": 1463
+    },
+    {
+      "created_from": [
+        "fulfillment/demo/build_fixtures.py::DOCUMENTS['01-indenture-excerpt.md']"
+      ],
+      "kind": "md",
+      "path": "closing-documents/01-indenture-excerpt.md",
+      "sha256": "6c770b44f9e25432bffd311f385d58832ab2aa8f5e39f25d4fdd14a97313ecf8",
+      "sha256_body": "23fbcf68a0aad5859dd025a1e2728faa16d60e8a7ce57633f3bb1fc704532ec8",
+      "size": 1874
+    },
+    {
+      "created_from": [
+        "fulfillment/demo/build_fixtures.py::DOCUMENTS['02-loan-agreement-excerpt.md']"
+      ],
+      "kind": "md",
+      "path": "closing-documents/02-loan-agreement-excerpt.md",
+      "sha256": "73a3343a2951c192600ca066f9ec1145c107ff9941135f8340dd992ea830f386",
+      "sha256_body": "3477ec49aef5f46db5cb92925bcaa49defacb4f441ea28e74bd9c532e5236888",
+      "size": 2947
+    },
+    {
+      "created_from": [
+        "fulfillment/demo/build_fixtures.py::DOCUMENTS['03-continuing-disclosure-agreement.md']"
+      ],
+      "kind": "md",
+      "path": "closing-documents/03-continuing-disclosure-agreement.md",
+      "sha256": "d646488e903c4ec873674eafc9546e867343270c628e5e4002f8f483f1f7c680",
+      "sha256_body": "4f37e809814fb76d17bcc941fb9ef867583116aca1c933c510e0da2231fc8358",
+      "size": 6015
+    },
+    {
+      "created_from": [
+        "fulfillment/demo/build_fixtures.py::DOCUMENTS['04-tax-regulatory-agreement-excerpt.md']"
+      ],
+      "kind": "md",
+      "path": "closing-documents/04-tax-regulatory-agreement-excerpt.md",
+      "sha256": "04fee2e218f8fec2439bbce1532f71bf8129e8fb46c22f8a4ddce116a16f5c09",
+      "sha256_body": "93528569649efeed80aba9d15d6da0437dba4411c7dbf44cd9e83897d7bd8438",
+      "size": 2377
+    },
+    {
+      "created_from": [
+        "fulfillment/demo/build_fixtures.py::DOCUMENTS['05-regulatory-agreement-excerpt.md']"
+      ],
+      "kind": "md",
+      "path": "closing-documents/05-regulatory-agreement-excerpt.md",
+      "sha256": "8f6ccc162f8d8d788b36b98f78893d011814e63c697e312f828c658f44d487ad",
+      "sha256_body": "75bb3f61c5914af8e97a4d88dcf3ced2f034a056c0f5dc8fcbb9a7ae5e2af4af",
+      "size": 1801
+    },
+    {
+      "created_from": [
+        "src/munipal/services/pilot_onboarding.py::build_pilot_onboarding_workflow('housing').document_request_list"
+      ],
+      "kind": "md",
+      "path": "intake/00_WELCOME/document-request-checklist.md",
+      "sha256": "3e65b3113ab21e46fd8953f672eee51c21bd087d2ba3a87a753e1e3d91932d20",
+      "sha256_body": "f1e2319c53f7b57d259e8261ae1b83d1c1bfa460cb11a9dd2f8935e9e92b7ff5",
+      "size": 1999
+    },
+    {
+      "created_from": [
+        "scenario:SYN-HSG-AZ-2025-LAB03#lab.intake_docs.issuer_borrower_authority"
+      ],
+      "kind": "txt",
+      "path": "intake/01_PROJECT-OVERVIEW/issuer_borrower_authority.txt",
+      "sha256": "25178fc8e72d708b06aa5bacc7428465973bbcff62b8e567f779c482f3af8d5e",
+      "sha256_body": "12afa17d610e5ca17d7b19a4b7bcd0a5b11dc9ab680f57bc88266b8cbdc15738",
+      "size": 905
+    },
+    {
+      "created_from": [
+        "scenario:SYN-HSG-AZ-2025-LAB03#lab.intake_docs.rent_roll_operating"
+      ],
+      "kind": "txt",
+      "path": "intake/02_FINANCING-STRUCTURE/rent_roll_operating.txt",
+      "sha256": "c715816e6aca9a6abf1955475d08cbc3619e72b4fc3a949e1b2465c3e95a03bb",
+      "sha256_body": "f0bc1ba9f1129b2f581efd1e4fef5bd928bcbc32e8bb643cffb6071bb5b11ced",
+      "size": 821
+    },
+    {
+      "created_from": [
+        "scenario:SYN-HSG-AZ-2025-LAB03#lab.intake_docs.subsidy_stack"
+      ],
+      "kind": "txt",
+      "path": "intake/02_FINANCING-STRUCTURE/subsidy_stack.txt",
+      "sha256": "96294c9f8ca815357e04840ba4c6e100aa967ce7ae8834f4d3e81e067e7ff656",
+      "sha256_body": "48229b7ca3eb1423d9f4a97d3faa32fc49c511e3649d057d5d1833288e67610a",
+      "size": 848
+    },
+    {
+      "created_from": [
+        "scenario:SYN-HSG-AZ-2025-LAB03#lab.intake_docs.market_compliance"
+      ],
+      "kind": "txt",
+      "path": "intake/03_DUE-DILIGENCE/market_compliance.txt",
+      "sha256": "aabc2c2995dcd632aab6c2d7f4f81f952fe3dfd6318e256245bd861d5b7a87f2",
+      "sha256_body": "6a3eb557d7587ce8ce2dd18fc559061f5b3402f0c742b8e71427bf8e9e0e8323",
+      "size": 706
+    },
+    {
+      "created_from": [
+        "scenario:SYN-HSG-AZ-2025-LAB03#lab.intake_docs"
+      ],
+      "kind": "json",
+      "path": "intake/intake-manifest.json",
+      "sha256": "0f1bf7e4bd4431e3ffc854e2dd849e908ac051dcca82c1768e8f80edf41b30a6",
+      "sha256_body": "ff5066eae5c0f610beed8e6f27575b0bd197aaeadebc6ff14271befbdb643186",
+      "size": 5720
+    },
+    {
+      "created_from": [
+        "fulfillment/demo/build_fixtures.py::APPROVAL_NOTE"
+      ],
+      "kind": "md",
+      "path": "post-close/approval-2026-09-08.md",
+      "sha256": "0484c2813171fe65cef4281ba5aad150ebb89adab71d93f85367da6bb90dde48",
+      "sha256_body": "dbb4dac28e8b7e6b28cdd1b4da1dbbedc9f5c2a87b382b84f38a0092fd8f399f",
+      "size": 1432
+    },
+    {
+      "created_from": [
+        "fulfillment/demo/build_fixtures.py::APPROVED (columns obligation, recipient scrubbed of the MSRB platform token)"
+      ],
+      "kind": "csv",
+      "path": "post-close/approved-inputs.csv",
+      "sha256": "43f5a862eb317c4a65f3b9b1f933c7cdf2873fc379ee30f851d4b5425ebf8ed6",
+      "sha256_body": "43f5a862eb317c4a65f3b9b1f933c7cdf2873fc379ee30f851d4b5425ebf8ed6",
+      "size": 5364
+    },
+    {
+      "created_from": [
+        "approved-inputs.csv"
+      ],
+      "kind": "csv_sidecar",
+      "path": "post-close/approved-inputs.csv.provenance.json",
+      "sha256": "79175749c1c803321a5ed764d70fdf5d7c54e584f532bd330844078564840038",
+      "sha256_body": "79175749c1c803321a5ed764d70fdf5d7c54e584f532bd330844078564840038",
+      "size": 1002
+    },
+    {
+      "created_from": [
+        "fulfillment/demo/build_fixtures.py::VAULT['afs-FY2025.txt']",
+        "approved-inputs.csv:OB-09 evidence_pattern 'afs-FY{fy}' rendered with run.py::period_tokens for approved due 2026-06-29"
+      ],
+      "kind": "vault_txt",
+      "path": "post-close/vault/afs-FY2025.txt",
+      "sha256": "b22c98481c9b720a3e6b645959b81e508bea6e7ec37df7921ec841443ff1683a",
+      "sha256_body": "67f29a571fc8cd831665b296178e1a4405fd9990c49e13c1b10b615f96a272f4",
+      "size": 703
+    },
+    {
+      "created_from": [
+        "fulfillment/demo/build_fixtures.py::VAULT['annual-report-FY2025.txt']",
+        "approved-inputs.csv:OB-01 evidence_pattern 'annual-report-FY{fy}' rendered with run.py::period_tokens for approved due 2026-06-29"
+      ],
+      "kind": "vault_txt",
+      "path": "post-close/vault/annual-report-FY2025.txt",
+      "sha256": "054771130862299e6fb0f90067c7ac13ad8263daf8c7673007fcdd6882dedb5f",
+      "sha256_body": "4972e4e2aba28e577d4da5167de36395d1786a09cf496395aed17589dadd6504",
+      "size": 784
+    },
+    {
+      "created_from": [
+        "fulfillment/demo/build_fixtures.py::VAULT['ccpc-2026.txt']",
+        "approved-inputs.csv:OB-13 evidence_pattern 'ccpc-{year}' rendered with run.py::period_tokens for approved due 2026-01-31"
+      ],
+      "kind": "vault_txt",
+      "path": "post-close/vault/ccpc-2026.txt",
+      "sha256": "8601718eb9b02d8161e7290231cb7a2888d8c7f118ddb3d29eb4db4c4e8b0a40",
+      "sha256_body": "307e3548aece9999b14d8a0f7a6b107f788c9b5b5a545c71a517004147995a09",
+      "size": 738
+    },
+    {
+      "created_from": [
+        "fulfillment/demo/build_fixtures.py::VAULT['dscr-calc-FY2025.txt']",
+        "approved-inputs.csv:OB-10 evidence_pattern 'dscr-calc-FY{fy}' rendered with run.py::period_tokens for approved due 2026-06-29"
+      ],
+      "kind": "vault_txt",
+      "path": "post-close/vault/dscr-calc-FY2025.txt",
+      "sha256": "7bab7d8896f2f3645262596c17f0c7d7e61cd596eddc81a625d420f6915d24a2",
+      "sha256_body": "67f29a571fc8cd831665b296178e1a4405fd9990c49e13c1b10b615f96a272f4",
+      "size": 703
+    },
+    {
+      "created_from": [
+        "fulfillment/demo/build_fixtures.py::VAULT['insurance-cert-2026.txt']",
+        "approved-inputs.csv:OB-08 evidence_pattern 'insurance-cert-{year}' rendered with run.py::period_tokens for approved due 2026-06-26"
+      ],
+      "kind": "vault_txt",
+      "path": "post-close/vault/insurance-cert-2026.txt",
+      "sha256": "3b4de9ad862553247b5b18509dde00b2cbab3425b82d88731d418f98ee3bc7f5",
+      "sha256_body": "7e1e9572d6ccf3d963baf66e851a25479a6b1edea5d3ab49edaedc2d186c2eac",
+      "size": 715
+    },
+    {
+      "created_from": [
+        "fulfillment/demo/build_fixtures.py::VAULT['lura-quarterly-2025Q3.txt']",
+        "approved-inputs.csv:OB-17 evidence_pattern 'lura-quarterly-{period}' rendered with run.py::period_tokens for approved due 2025-10-15"
+      ],
+      "kind": "vault_txt",
+      "path": "post-close/vault/lura-quarterly-2025Q3.txt",
+      "sha256": "ce6cfb22e90b5e09a55bf93c7efaa0e4b674ca6ad097d196936ad0333a919b7b",
+      "sha256_body": "63317287ce72be1a996a744d85ccbc1f6e25b557b93b3ee975ad583cab52ad4e",
+      "size": 731
+    },
+    {
+      "created_from": [
+        "fulfillment/demo/build_fixtures.py::VAULT['lura-quarterly-2025Q4.txt']",
+        "approved-inputs.csv:OB-17 evidence_pattern 'lura-quarterly-{period}' rendered with run.py::period_tokens for approved due 2026-01-15"
+      ],
+      "kind": "vault_txt",
+      "path": "post-close/vault/lura-quarterly-2025Q4.txt",
+      "sha256": "5b1d1ad0a88df0f5742da32d9af50a0753a7addaa1c52a73c42191a77e31a0ea",
+      "sha256_body": "77dee6ec8cee0102fe75823e90228fd465fa9384d93b8a6ee1f4193ef97854e6",
+      "size": 731
+    },
+    {
+      "created_from": [
+        "fulfillment/demo/build_fixtures.py::VAULT['lura-quarterly-2026Q1.txt']",
+        "approved-inputs.csv:OB-17 evidence_pattern 'lura-quarterly-{period}' rendered with run.py::period_tokens for approved due 2026-04-15"
+      ],
+      "kind": "vault_txt",
+      "path": "post-close/vault/lura-quarterly-2026Q1.txt",
+      "sha256": "0218e7ee8066c5fcbba9d9f741a72b7518ab62ce8c0155706767c5d85df41f40",
+      "sha256_body": "91dc1cef457e533140e8f76cce548f0881fe8568263f6a71123409dd35d61116",
+      "size": 731
+    },
+    {
+      "created_from": [
+        "fulfillment/demo/build_fixtures.py::VAULT['lura-quarterly-2026Q2.txt']",
+        "approved-inputs.csv:OB-17 evidence_pattern 'lura-quarterly-{period}' rendered with run.py::period_tokens for approved due 2026-07-15"
+      ],
+      "kind": "vault_txt",
+      "path": "post-close/vault/lura-quarterly-2026Q2.txt",
+      "sha256": "bb99d7a51b8fc71bf461ce8a1e7a06f03ffbdfa6941008a5c66ec372b2ca478b",
+      "sha256_body": "d64874fd35d15d33e730e75719f6a5a39a5b779a7c4d87c857b2b6e7e6c034d8",
+      "size": 731
+    },
+    {
+      "created_from": [
+        "fulfillment/demo/build_fixtures.py::VAULT['quarterly-report-2025Q3.txt']",
+        "approved-inputs.csv:OB-06 evidence_pattern 'quarterly-report-{period}' rendered with run.py::period_tokens for approved due 2025-11-14"
+      ],
+      "kind": "vault_txt",
+      "path": "post-close/vault/quarterly-report-2025Q3.txt",
+      "sha256": "489aa04a36f870711f7707b22f9f27126dc4995b55c9802ea74853989b0804d3",
+      "sha256_body": "d2beb64dfc5f1bf275062b5e9afbc0cf4a86d51deb007c3a68b1b8857ff452ed",
+      "size": 743
+    },
+    {
+      "created_from": [
+        "fulfillment/demo/build_fixtures.py::VAULT['quarterly-report-2025Q4.txt']",
+        "approved-inputs.csv:OB-06 evidence_pattern 'quarterly-report-{period}' rendered with run.py::period_tokens for approved due 2026-02-14"
+      ],
+      "kind": "vault_txt",
+      "path": "post-close/vault/quarterly-report-2025Q4.txt",
+      "sha256": "7073c46351ff0bedd126c9068475bd01f4a8e77fc114dd3190dbd531d8017fb6",
+      "sha256_body": "2c56da9e498aa309808e63dc30ded7a2e39258aab1e9095afe8bf00fcd5bddb5",
+      "size": 743
+    },
+    {
+      "created_from": [
+        "fulfillment/demo/build_fixtures.py::VAULT['quarterly-report-2026Q2.txt']",
+        "approved-inputs.csv:OB-06 evidence_pattern 'quarterly-report-{period}' rendered with run.py::period_tokens for approved due 2026-08-14"
+      ],
+      "kind": "vault_txt",
+      "path": "post-close/vault/quarterly-report-2026Q2.txt",
+      "sha256": "1408b8c5f23a832164d421245b947cc3dd5654819a472b3c6888de3453deb638",
+      "sha256_body": "522bcd142c3bd079c00dc3184b6eaa6a7dc0aa29287dccf5faa4b4b86040fa70",
+      "size": 743
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "_legend": "SYNTHETIC RESEARCH ARTIFACT — MUNI-TWIN — NOT LEGAL ADVICE — NOT PREPARED BY AN ATTORNEY — NOT AN OFFER OF SECURITIES. Fictional names collision-checked against real firms.",
+  "_provenance": {
+    "created_from": [
+      "fulfillment/demo/build_fixtures.py::APPROVED (columns obligation, recipient scrubbed of the MSRB platform token)"
+    ],
+    "generator_version": "lab-gen-0.1.0",
+    "lab_version": "0.1.0",
+    "scenario_id": "SYN-HSG-AZ-2025-LAB02",
+    "seed": 20250626,
+    "sha256_body": "43f5a862eb317c4a65f3b9b1f933c7cdf2873fc379ee30f851d4b5425ebf8ed6",
+    "source": "synthetic"
+  },
+  "columns": [
+    "obligation_id",
+    "obligation",
+    "source_document",
+    "clause",
+    "recipient",
+    "frequency",
+    "due_rule_text_verbatim",
+    "due_dates_approved",
+    "approved_by",
+    "approval_ref",
+    "evidence_pattern"
+  ],
+  "for_file": "approved-inputs.csv",
+  "rows": 18,
+  "sha256": "43f5a862eb317c4a65f3b9b1f933c7cdf2873fc379ee30f851d4b5425ebf8ed6"
+}

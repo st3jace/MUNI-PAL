@@ -1,0 +1,51 @@
+# Fence vocabulary for lab/twin-bfms (v1). Each non-comment line is a regex fragment.
+# Loaded by labkit/law.py at import (sectioned). No fragment spells a fenced token
+# literally: the last plain character of every fragment is wrapped in a one-character
+# class (a no-op for the compiled regex), so a plain grep for the token misses THIS file
+# while the compiled pattern still matches every real occurrence. The scanners therefore
+# cover this file like any other lab file (it is NOT in law.EXCLUDED_DATA_FILES); no lab
+# .py file spells the tokens either (critic must-fix M5).
+#
+# [rule3]     muni-twin QUARANTINE.md rule 3 pre-commit grep tokens (Class D provenance)
+# [sources]   old-pack city names, the rescue branch, the OneDrive folder, the rescued
+#             module names and the three `synth` import spellings (BUILD-SPEC 6)
+# [lab-words] the label-claim phrases (DEC-009 section 9.8)
+# [citation]  the citation-control phrase (brief rule 12)
+
+[rule3]
+emma_craw[l]er
+bond_os_extr[a]ctor
+corpus\.d[b]
+emma\.msrb\.or[g]
+msrb\.or[g]/emma
+
+[sources]
+Oakpor[t]
+Maplefor[d]
+Fairbur[g]
+Woodwoo[d]
+Goldencree[k]
+Ridgemon[t]
+Springto[n]
+Stonespring[s]
+Riverspring[s]
+Meadowwoo[d]
+Riverpor[t]
+Pinecree[k]
+rescue-2026082[7]
+Bond Facility Developmen[t]
+document_generato[r]
+legal_score[r]
+pareto_sample[r]
+emma_cor[e]
+sector_profiles\.jso[n]
+src/synt[h]
+from synt[h]
+import synt[h]
+
+[lab-words]
+\bis (a|the) (process |digital )?twi[n]\b
+digital twin o[f]
+
+[citation]
+Stephen approve[d]

@@ -1,0 +1,26 @@
+{
+  "_legend": "SYNTHETIC RESEARCH ARTIFACT — MUNI-TWIN — NOT LEGAL ADVICE — NOT PREPARED BY AN ATTORNEY — NOT AN OFFER OF SECURITIES. Fictional names collision-checked against real firms.",
+  "_provenance": {
+    "created_from": [
+      "labkit/generate_pack.py::write_pins"
+    ],
+    "generator_version": "lab-gen-0.1.0",
+    "lab_version": "0.1.0",
+    "scenario_id": "SYN-LAB-PINS",
+    "seed": 0,
+    "sha256_body": "b73edc25c38892c0f0716eb4012611d51d8fa91a73c09b85132cdf7112b82472",
+    "source": "synthetic"
+  },
+  "bondi_format_json_path": "lab/twin-bfms/fixtures/bondi-reference/format.json",
+  "bondi_format_json_sha256": "b304a868cc19808c8c6d807f849898118838f3a7c3cef6427b85eea649aff664",
+  "build_fixtures_path": "fulfillment/demo/build_fixtures.py",
+  "build_fixtures_sha256": "410374afac52304a47f9e67db23e0c96b87d40451371a791f706b138c8cfc172",
+  "note": "drift alarm: a change to either demo file or to format.json must be followed by a deliberate pack regeneration",
+  "pack_manifest_sha256": {
+    "SYN-HSG-AZ-2025-LAB01": "0bdb212cedf7fc22a52c5b8aeec69335a409a5fabdc97d321e788a8cf8e8f066",
+    "SYN-HSG-AZ-2025-LAB02": "712d19f4dacd513645aa4917ed10deb19156c828b1b5de92f8c874eea0d89896",
+    "SYN-HSG-AZ-2025-LAB03": "bb7ad5537b4dc7cd87e1d5a30764a50a40bf1afd2b5ce64a11dcf52a6e9c4d24"
+  },
+  "run_py_path": "fulfillment/demo/run.py",
+  "run_py_sha256": "c85e4860eb125d2e614ccc509838684683d622ed98ddd5756bf001ea2668acd4"
+}

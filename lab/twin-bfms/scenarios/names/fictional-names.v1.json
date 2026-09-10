@@ -1,0 +1,102 @@
+{
+  "legend": "SYNTHETIC RESEARCH ARTIFACT — MUNI-TWIN — NOT LEGAL ADVICE — NOT PREPARED BY AN ATTORNEY — NOT AN OFFER OF SECURITIES. Fictional names collision-checked against real firms.",
+  "version": "v1",
+  "check_date": "2026-09-10",
+  "blocklist": "scenarios/names/blocklist.v1.txt",
+  "reused_from": "fulfillment/demo/scenario/syn-hsg-2025.synthetic.json (same fictional family; already blocklist-checked there)",
+  "web_collision_check": "not performed",
+  "entries": [
+    {
+      "key": "hsg.issuer.01",
+      "name": "The Industrial Development Authority of the City of Mesquite Flats",
+      "roles": ["conduit_issuer"],
+      "side": "issuer",
+      "collision_checked_against": "blocklist.v1 (whole-phrase)",
+      "check_date": "2026-09-10",
+      "web_collision_check": "not performed"
+    },
+    {
+      "key": "hsg.issuer.01.short",
+      "name": "Mesquite Flats IDA",
+      "roles": ["stations_label"],
+      "side": "issuer",
+      "collision_checked_against": "blocklist.v1 (whole-phrase)",
+      "check_date": "2026-09-10",
+      "web_collision_check": "not performed"
+    },
+    {
+      "key": "hsg.borrower.01",
+      "name": "Saguaro Commons Apartments, LP",
+      "roles": ["obligated_person"],
+      "side": "borrower",
+      "collision_checked_against": "blocklist.v1 (whole-phrase)",
+      "check_date": "2026-09-10",
+      "web_collision_check": "not performed"
+    },
+    {
+      "key": "hsg.project.01",
+      "name": "Saguaro Commons Apartments Project",
+      "roles": ["project"],
+      "side": null,
+      "collision_checked_against": "blocklist.v1 (whole-phrase)",
+      "check_date": "2026-09-10",
+      "web_collision_check": "not performed"
+    },
+    {
+      "key": "hsg.city.01",
+      "name": "Mesquite Flats, Arizona",
+      "roles": ["place"],
+      "side": null,
+      "collision_checked_against": "blocklist.v1 (whole-phrase)",
+      "check_date": "2026-09-10",
+      "web_collision_check": "not performed"
+    },
+    {
+      "key": "hsg.underwriter.01",
+      "name": "Ocotillo Capital Markets, LLC",
+      "roles": ["underwriter"],
+      "side": "distribution",
+      "collision_checked_against": "blocklist.v1 (whole-phrase)",
+      "check_date": "2026-09-10",
+      "web_collision_check": "not performed"
+    },
+    {
+      "key": "hsg.ma.01",
+      "name": "Palo Verde Advisors, LLC",
+      "roles": ["municipal_advisor"],
+      "side": "fiduciary",
+      "collision_checked_against": "blocklist.v1 (whole-phrase)",
+      "check_date": "2026-09-10",
+      "web_collision_check": "not performed"
+    },
+    {
+      "key": "hsg.bond_counsel.01",
+      "name": "Creosote & Mesa LLP",
+      "roles": ["bond_counsel"],
+      "side": "issuer",
+      "collision_checked_against": "blocklist.v1 (whole-phrase)",
+      "check_date": "2026-09-10",
+      "web_collision_check": "not performed"
+    },
+    {
+      "key": "hsg.trustee.01",
+      "name": "Ironwood Trust Company, N.A.",
+      "roles": ["trustee", "dissemination_agent"],
+      "side": "ops",
+      "collision_checked_against": "blocklist.v1 (whole-phrase)",
+      "check_date": "2026-09-10",
+      "web_collision_check": "not performed"
+    },
+    {
+      "key": "hsg.reviewer.01",
+      "name": "lab-scripted-reviewer",
+      "uuid": "00000000-0000-4000-8000-000000000001",
+      "roles": ["reviewer_seat"],
+      "side": null,
+      "note": "NOT a human, NOT a Bond Strategist; the uuid is law.REVIEWER_ID",
+      "collision_checked_against": "blocklist.v1 (whole-phrase)",
+      "check_date": "2026-09-10",
+      "web_collision_check": "not performed"
+    }
+  ]
+}

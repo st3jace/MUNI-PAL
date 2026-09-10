@@ -1,0 +1,439 @@
+{
+  "_legend": "SYNTHETIC RESEARCH ARTIFACT — MUNI-TWIN — NOT LEGAL ADVICE — NOT PREPARED BY AN ATTORNEY — NOT AN OFFER OF SECURITIES. Fictional names collision-checked against real firms.",
+  "_provenance": {
+    "created_from": [
+      "scenario:SYN-HSG-AZ-2025-LAB02"
+    ],
+    "generator_version": "lab-gen-0.1.0",
+    "lab_version": "0.1.0",
+    "scenario_id": "SYN-HSG-AZ-2025-LAB02",
+    "seed": 20250626,
+    "sha256_body": "6a198a0ae256523a4798ad258d67607f18cffa9f0828bea93e441f3287b0d349",
+    "source": "synthetic"
+  },
+  "constraints": [
+    {
+      "id": "rule_15c2_12_applicability",
+      "note": "Limited offering; applicability is a constraint, not decided here.",
+      "status": "unknown"
+    },
+    {
+      "id": "irc_142d_set_aside",
+      "note": "40% at 60% AMI elected in Regulatory Agreement; compliance is a professional determination.",
+      "status": "unknown"
+    },
+    {
+      "cite": "A.R.S. 35-721.B",
+      "id": "afa_35_721B",
+      "note": "second board not carried; not invented",
+      "status": "unknown"
+    },
+    {
+      "cite": "IRC 147(f)",
+      "id": "tefra_147f",
+      "status": "unknown"
+    },
+    {
+      "cite": "IRC 146; A.R.S. 35-904",
+      "id": "volume_cap_35_904",
+      "note": "allocation evidence not carried",
+      "status": "unknown"
+    },
+    {
+      "cite": "IRC 147(g)",
+      "id": "coi_2pct_147g",
+      "status": "unknown"
+    },
+    {
+      "cite": "MSRB G-23",
+      "id": "g23_ma_uw_separation",
+      "note": "mechanical: municipal_advisor and underwriter are different table entries",
+      "status": "pass"
+    },
+    {
+      "id": "late_afs",
+      "note": "posting date vs the 180-day rule is a professional determination; the register reports evidence, the constraint stays unknown",
+      "status": "unknown"
+    }
+  ],
+  "deal_id": "SYN-HSG-AZ-2025-LAB02",
+  "derived_from": "SYN-HSG-AZ-2025-LAB01",
+  "disclosure": {
+    "afs": [
+      {
+        "file": null,
+        "fy": 2025,
+        "posted": null,
+        "status": "unknown"
+      }
+    ],
+    "annual_report_due": "not later than 180 days after the end of each Fiscal Year",
+    "cda_executed": "2025-06-26",
+    "dissemination_agent": "Ironwood Trust Company, N.A.",
+    "listed_event_window": "not in excess of ten Business Days after the occurrence of the event",
+    "material_events": []
+  },
+  "instrument": {
+    "closing": "2025-06-26",
+    "credit_fork": "conduit",
+    "dated": "2025-06-26",
+    "document_type": "limited_offering_memorandum",
+    "final_maturity": "2055-07-01",
+    "interest_payment_dates": [
+      "01-01",
+      "07-01"
+    ],
+    "par": 24500000,
+    "sale_method": "limited_offering_bd",
+    "tax_fork": "qualified_pab_142d_residential_rental",
+    "title": "Multifamily Housing Revenue Bonds (Saguaro Commons Apartments Project), Series 2025"
+  },
+  "jurisdiction": "AZ",
+  "knob_delta": {
+    "disclosure.afs[0].file": null,
+    "disclosure.afs[0].posted": null,
+    "disclosure.afs[0].status": "unknown",
+    "lab.expected_report": "expected/SYN-HSG-AZ-2025-LAB02/run-report.expected.json",
+    "lab.knobs.late_afs": true,
+    "stations.6_borrower_prep.events[afs_posted_fy2025].date": null,
+    "stations.6_borrower_prep.events[afs_posted_fy2025].status": "unknown"
+  },
+  "lab": {
+    "archetype_id": "housing_affordable_multifamily_revenue_bond",
+    "archetype_version": "v1",
+    "asof": "2026-09-10",
+    "blocklist": "scenarios/names/blocklist.v1.txt",
+    "db_playbook": "ucs_seed (POST /api/v1/playbooks/seed is the only seeder; checklist/readiness do not read the row — F8)",
+    "deal_status": "closed",
+    "expected_report": "expected/SYN-HSG-AZ-2025-LAB02/run-report.expected.json",
+    "intake_docs": {
+      "issuer_borrower_authority": [
+        "parties.issuer.name",
+        "parties.issuer.jurisdiction",
+        "parties.borrower.name",
+        "governance.inducement",
+        "bond_counsel.inducement_resolution",
+        "regulatory.tax-status",
+        "security.revenue.pledge",
+        "project.name",
+        "project.location"
+      ],
+      "market_compliance": [
+        "market.demographics.summary",
+        "housing.lease_up_risk",
+        "housing.compliance_risk"
+      ],
+      "rent_roll_operating": [
+        "housing.units.total",
+        "housing.rental_income",
+        "housing.ancillary_revenue",
+        "housing.occupancy_rate"
+      ],
+      "site_control_permits": [
+        "housing.site_control",
+        "project.location.sitecontrol",
+        "capital.project-cost",
+        "capital.equity_contribution",
+        "construction.permits.status",
+        "environmental.phase_one",
+        "housing.appraisal"
+      ],
+      "subsidy_stack": [
+        "housing.project_type",
+        "housing.lihtc_status",
+        "housing.tax_credit_allocation",
+        "housing.hap_section8_revenue",
+        "housing.affordability_restrictions",
+        "housing.affordability.restrictions"
+      ]
+    },
+    "intake_evidence_lines": {
+      "governance.inducement": "Inducement Resolution No. 2025-03 adopted 2025-03-28",
+      "project.location.sitecontrol": "ground lease executed 2025-01-15",
+      "security.revenue.pledge": "gross revenues of the Project pledged under the Loan Agreement"
+    },
+    "intake_evidence_lines_note": "Documentation only (critic M3): the four SCHEMA_PATHS enum paths carry their enum value in intake_facts; the prose below is what the underlying evidence would say. It is NOT emitted into any intake file (a prose line could hijack another path's label).",
+    "intake_facts": {
+      "bond_counsel.inducement_resolution": "Resolution No. 2025-03 form reviewed by Creosote & Mesa LLP",
+      "capital.equity_contribution": "$14,200,000",
+      "capital.project-cost": "$41,800,000",
+      "construction.permits.status": "building permit issued 2025-05-20",
+      "environmental.phase_one": "Phase I ESA dated 2024-12-09, no recognized environmental conditions",
+      "governance.inducement": "adopted",
+      "housing.affordability.restrictions": "40% of units at 60% AMI for the Qualified Project Period",
+      "housing.affordability_restrictions": "40% of units at 60% AMI for the Qualified Project Period",
+      "housing.ancillary_revenue": "$96,000 stabilized annual",
+      "housing.appraisal": "as-stabilized value $38,900,000, report dated 2025-02-27",
+      "housing.compliance_risk": "third-party compliance monitor engaged",
+      "housing.hap_section8_revenue": "$0 (no project-based HAP contract)",
+      "housing.lease_up_risk": "18-month absorption assumed; waitlist of 210 households",
+      "housing.lihtc_status": "4% LIHTC reservation letter dated 2025-03-04",
+      "housing.occupancy_rate": "93%",
+      "housing.project_type": "new construction garden-style affordable multifamily",
+      "housing.rental_income": "$2,412,000 stabilized annual",
+      "housing.site_control": "ground lease executed 2025-01-15",
+      "housing.tax_credit_allocation": "4% LIHTC reservation letter dated 2025-03-04",
+      "housing.units.total": "144",
+      "market.demographics.summary": "primary market area population 88,400; 5-year growth 6.1%",
+      "parties.borrower.name": "Saguaro Commons Apartments, LP",
+      "parties.issuer.jurisdiction": "Arizona",
+      "parties.issuer.name": "The Industrial Development Authority of the City of Mesquite Flats",
+      "project.location": "Mesquite Flats, Arizona",
+      "project.location.sitecontrol": "lease",
+      "project.name": "Saguaro Commons Apartments Project",
+      "regulatory.tax-status": "tax-exempt-idb",
+      "security.revenue.pledge": "gross"
+    },
+    "knob_catalog": [
+      "late_afs",
+      "drop_required_artifact",
+      "deal_status(on_hold|suspended|re_vintaged|carried_forward)",
+      "material_event",
+      "drop_party_role"
+    ],
+    "knobs": {
+      "deal_status": "closed",
+      "drop_required_artifact": null,
+      "late_afs": true,
+      "material_event": null
+    },
+    "lab_version": "0.1.0",
+    "name_table": "scenarios/names/fictional-names.v1.json",
+    "reuse_source": "fulfillment/demo/build_fixtures.py",
+    "review_plan": {
+      "approve": "all extracted facts whose value equals intake_facts",
+      "reject": [
+        "housing.lease_up_risk",
+        "housing.compliance_risk"
+      ],
+      "reviewer_id": "00000000-0000-4000-8000-000000000001",
+      "reviewer_label": "lab-scripted-reviewer — NOT a human, NOT a Bond Strategist"
+    },
+    "sector": "housing",
+    "sector_playbook_key": "housing_affordable_multifamily",
+    "subsector": "housing_affordable_multifamily"
+  },
+  "mode": "synthetic",
+  "notes": "SYNTHETIC RESEARCH ARTIFACT — MUNI-TWIN — NOT LEGAL ADVICE — NOT PREPARED BY AN ATTORNEY — NOT AN OFFER OF SECURITIES. Fictional names collision-checked against real firms. Same fictional family as fulfillment/demo SYN-HSG-AZ-2025; stations added by the lab (the demo scenario carries none). twin-bfms is a label, not a claim.",
+  "obligated_person": {
+    "city": "Mesquite Flats, Arizona",
+    "entity_type": "AZ limited partnership / affordable multifamily owner",
+    "fiscal_year_end": "12-31",
+    "name": "Saguaro Commons Apartments, LP"
+  },
+  "parties": [
+    {
+      "bfms_party_role": "Conduit Issuer",
+      "name": "The Industrial Development Authority of the City of Mesquite Flats",
+      "role": "conduit_issuer",
+      "side": "issuer"
+    },
+    {
+      "bfms_party_role": "Borrower",
+      "name": "Saguaro Commons Apartments, LP",
+      "role": "obligated_person",
+      "side": "borrower"
+    },
+    {
+      "bfms_party_role": "Underwriter",
+      "name": "Ocotillo Capital Markets, LLC",
+      "role": "underwriter",
+      "side": "distribution"
+    },
+    {
+      "bfms_party_role": "Municipal Advisor",
+      "name": "Palo Verde Advisors, LLC",
+      "role": "municipal_advisor",
+      "side": "fiduciary"
+    },
+    {
+      "bfms_party_role": "Bond Counsel",
+      "name": "Creosote & Mesa LLP",
+      "role": "bond_counsel",
+      "side": "issuer"
+    },
+    {
+      "bfms_party_role": "Trustee",
+      "name": "Ironwood Trust Company, N.A.",
+      "role": "trustee",
+      "side": "ops"
+    },
+    {
+      "bfms_party_role": "Other",
+      "name": "Ironwood Trust Company, N.A.",
+      "role": "dissemination_agent",
+      "side": "ops"
+    },
+    {
+      "name": null,
+      "role": "rating_agency",
+      "side": "credit",
+      "status": "unrated"
+    }
+  ],
+  "seed": 20250626,
+  "sources": [
+    "fulfillment/demo (synthetic, reused via build_fixtures.py constants)",
+    "muni-twin data/taxonomy/ala-2024-index-deidentified-v1.tsv (L1 metadata only)"
+  ],
+  "stations": {
+    "1_facility": {
+      "events": [
+        {
+          "actor_role": "conduit_issuer",
+          "date": "2025-02-26",
+          "event": "issuer_engagement",
+          "status": "fired"
+        },
+        {
+          "actor_role": "conduit_issuer",
+          "date": "2025-03-28",
+          "event": "prelim_resolution",
+          "status": "fired"
+        }
+      ],
+      "issuer": "Mesquite Flats IDA"
+    },
+    "2_conduit": {
+      "borrower": "Saguaro Commons Apartments, LP",
+      "events": [
+        {
+          "actor_role": "obligated_person",
+          "date": "2025-04-12",
+          "event": "application_filed",
+          "status": "fired"
+        },
+        {
+          "actor_role": "obligated_person",
+          "date": "2025-04-17",
+          "event": "indemnity_accepted",
+          "status": "fired"
+        }
+      ]
+    },
+    "3_issuance": {
+      "afa_confirm": "unknown",
+      "closing": "2025-06-26",
+      "events": [
+        {
+          "actor_role": "conduit_issuer",
+          "date": null,
+          "event": "tefra_notice",
+          "status": "unknown"
+        },
+        {
+          "actor_role": "conduit_issuer",
+          "date": null,
+          "event": "tefra_hearing",
+          "status": "unknown"
+        },
+        {
+          "actor_role": "second_board",
+          "date": null,
+          "event": "afa_confirm",
+          "status": "skipped"
+        },
+        {
+          "actor_role": "conduit_issuer",
+          "date": "2025-06-11",
+          "event": "final_resolution",
+          "status": "fired"
+        }
+      ]
+    },
+    "4_structure": {
+      "dscr": 1.15,
+      "events": [
+        {
+          "actor_role": "municipal_advisor",
+          "date": "2025-06-14",
+          "event": "scale_locked",
+          "status": "fired"
+        },
+        {
+          "actor_role": "trustee",
+          "date": "2025-06-26",
+          "event": "indenture_executed",
+          "status": "fired"
+        }
+      ],
+      "par": 24500000
+    },
+    "5_buyers": {
+      "events": [
+        {
+          "actor_role": "underwriter",
+          "date": "2025-06-06",
+          "event": "g17_letter",
+          "status": "fired"
+        },
+        {
+          "actor_role": "underwriter",
+          "date": "2025-06-17",
+          "event": "lom_posted",
+          "status": "fired"
+        },
+        {
+          "actor_role": "underwriter",
+          "date": "2025-06-21",
+          "event": "investment_letters",
+          "status": "fired"
+        },
+        {
+          "actor_role": "conduit_issuer",
+          "date": "2025-06-26",
+          "event": "closing",
+          "status": "fired"
+        },
+        {
+          "actor_role": "underwriter",
+          "date": "2025-06-27",
+          "event": "g32_os_filed",
+          "status": "fired"
+        }
+      ],
+      "rating": "unrated",
+      "sale": "limited_offering_bd"
+    },
+    "6_borrower_prep": {
+      "cda": "executed",
+      "events": [
+        {
+          "actor_role": "obligated_person",
+          "date": "2025-06-26",
+          "event": "cda_executed",
+          "status": "fired"
+        },
+        {
+          "actor_role": "conduit_issuer",
+          "date": "2025-08-11",
+          "event": "8038_filed",
+          "status": "fired"
+        },
+        {
+          "actor_role": "obligated_person",
+          "date": null,
+          "event": "afs_posted_fy2025",
+          "status": "unknown"
+        }
+      ]
+    }
+  },
+  "structure": {
+    "dscr_covenant": {
+      "ratio": 1.15,
+      "source": "closing-documents/02-loan-agreement-excerpt.md Section 6.9"
+    },
+    "source_of_repayment": "borrower loan payments; conduit issuer limited obligation"
+  },
+  "tax": {
+    "coi_2pct": "unknown",
+    "fork": "142d_residential_rental",
+    "form_8038": {
+      "due": null,
+      "due_rule_text": "15th day of the second calendar month after the close of the calendar quarter of issue (IRS Pub. 5005) — cited, not computed",
+      "filed": "2025-08-11"
+    },
+    "volume_cap": "unknown"
+  }
+}

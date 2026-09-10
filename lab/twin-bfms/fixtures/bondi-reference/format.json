@@ -1,0 +1,203 @@
+{
+  "_legend": "SYNTHETIC RESEARCH ARTIFACT — MUNI-TWIN — NOT LEGAL ADVICE — NOT PREPARED BY AN ATTORNEY — NOT AN OFFER OF SECURITIES. Fictional names collision-checked against real firms.",
+  "_provenance": {
+    "created_from": [
+      "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\APPLIED RESEARCH\\bondi-bfms\\synth-issuance\\generate.py"
+    ],
+    "generator_version": "lab-gen-0.1.0",
+    "lab_version": "0.1.0",
+    "scenario_id": "SYN-BONDI-FORMAT-REF",
+    "seed": 0,
+    "sha256_body": "dfa66c14c445396f17cdf40ce7929bedb9ae0614b0e66275d0e07a250d577412",
+    "source": "synthetic"
+  },
+  "constraint_statuses": [
+    "pass",
+    "fail",
+    "unknown",
+    "n/a"
+  ],
+  "event_log_header": [
+    "date",
+    "station",
+    "event",
+    "actor_role",
+    "status",
+    "reason"
+  ],
+  "event_statuses": [
+    "fired",
+    "skipped",
+    "unknown",
+    "on_hold",
+    "suspended",
+    "re_vintaged",
+    "carried_forward"
+  ],
+  "hold_statuses": [
+    "on_hold",
+    "suspended",
+    "re_vintaged",
+    "carried_forward"
+  ],
+  "lab_extension_events": [
+    "afs_posted_fy*",
+    "listed_or_material:*"
+  ],
+  "method": "ast.literal_eval of the module-level constants STATION_EVENTS_CORE, STATION_EVENTS_BY_POLE, STATION_EVENTS_POST, SALE_POLES and the DictWriter fieldnames; generate.py was never executed and is never imported",
+  "not_transcribed": "the date offsets (SCENARIO DRESSING) and the Form 8038 due-date helper: the lab never computes a date",
+  "sale_poles": [
+    "rated_public_offering",
+    "limited_offering_bd",
+    "direct_bank_purchase"
+  ],
+  "source_path_windows": "C:\\Users\\st3ja\\OneDrive\\Documents\\MEGA\\PROJECTS\\INNOVATION FACTORY\\APPLIED RESEARCH\\bondi-bfms\\synth-issuance\\generate.py",
+  "source_path_wsl": "/mnt/c/Users/st3ja/OneDrive/Documents/MEGA/PROJECTS/INNOVATION FACTORY/APPLIED RESEARCH/bondi-bfms/synth-issuance/generate.py",
+  "source_sha256": "5cdc6f04e124c45c1de59ef9e03d558bcfa0434fed58cdbde52d45d3fe0e555c",
+  "station_events_by_pole": {
+    "direct_bank_purchase": [
+      {
+        "actor_role": "purchaser",
+        "event": "term_sheet",
+        "station": "5_buyers"
+      },
+      {
+        "actor_role": "purchaser",
+        "event": "investor_letter",
+        "station": "5_buyers"
+      },
+      {
+        "actor_role": "conduit_issuer",
+        "event": "closing",
+        "station": "5_buyers"
+      }
+    ],
+    "limited_offering_bd": [
+      {
+        "actor_role": "underwriter",
+        "event": "g17_letter",
+        "station": "5_buyers"
+      },
+      {
+        "actor_role": "underwriter",
+        "event": "lom_posted",
+        "station": "5_buyers"
+      },
+      {
+        "actor_role": "underwriter",
+        "event": "investment_letters",
+        "station": "5_buyers"
+      },
+      {
+        "actor_role": "conduit_issuer",
+        "event": "closing",
+        "station": "5_buyers"
+      },
+      {
+        "actor_role": "underwriter",
+        "event": "g32_os_filed",
+        "station": "5_buyers"
+      }
+    ],
+    "rated_public_offering": [
+      {
+        "actor_role": "underwriter",
+        "event": "g17_letter",
+        "station": "5_buyers"
+      },
+      {
+        "actor_role": "underwriter",
+        "event": "pos_posted",
+        "station": "5_buyers"
+      },
+      {
+        "actor_role": "rating_agency",
+        "event": "rating_letter",
+        "station": "5_buyers"
+      },
+      {
+        "actor_role": "conduit_issuer",
+        "event": "closing",
+        "station": "5_buyers"
+      },
+      {
+        "actor_role": "underwriter",
+        "event": "g32_os_filed",
+        "station": "5_buyers"
+      }
+    ]
+  },
+  "station_events_core": [
+    {
+      "actor_role": "conduit_issuer",
+      "event": "issuer_engagement",
+      "station": "1_facility"
+    },
+    {
+      "actor_role": "conduit_issuer",
+      "event": "prelim_resolution",
+      "station": "1_facility"
+    },
+    {
+      "actor_role": "obligated_person",
+      "event": "application_filed",
+      "station": "2_conduit"
+    },
+    {
+      "actor_role": "obligated_person",
+      "event": "indemnity_accepted",
+      "station": "2_conduit"
+    },
+    {
+      "actor_role": "conduit_issuer",
+      "event": "tefra_notice",
+      "station": "3_issuance"
+    },
+    {
+      "actor_role": "conduit_issuer",
+      "event": "tefra_hearing",
+      "station": "3_issuance"
+    },
+    {
+      "actor_role": "second_board",
+      "event": "afa_confirm",
+      "station": "3_issuance"
+    },
+    {
+      "actor_role": "conduit_issuer",
+      "event": "final_resolution",
+      "station": "3_issuance"
+    },
+    {
+      "actor_role": "municipal_advisor",
+      "event": "scale_locked",
+      "station": "4_structure"
+    },
+    {
+      "actor_role": "trustee",
+      "event": "indenture_executed",
+      "station": "4_structure"
+    }
+  ],
+  "station_events_post": [
+    {
+      "actor_role": "obligated_person",
+      "event": "cda_executed",
+      "station": "6_borrower_prep"
+    },
+    {
+      "actor_role": "conduit_issuer",
+      "event": "8038_filed",
+      "station": "6_borrower_prep"
+    }
+  ],
+  "stations": [
+    "1_facility",
+    "2_conduit",
+    "3_issuance",
+    "4_structure",
+    "5_buyers",
+    "6_borrower_prep"
+  ],
+  "transcribed_on": "2026-09-10"
+}

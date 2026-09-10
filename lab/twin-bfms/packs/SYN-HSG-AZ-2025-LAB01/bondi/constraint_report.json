@@ -1,0 +1,59 @@
+{
+  "_legend": "SYNTHETIC RESEARCH ARTIFACT — MUNI-TWIN — NOT LEGAL ADVICE — NOT PREPARED BY AN ATTORNEY — NOT AN OFFER OF SECURITIES. Fictional names collision-checked against real firms.",
+  "_provenance": {
+    "created_from": [
+      "scenario:SYN-HSG-AZ-2025-LAB01#constraints"
+    ],
+    "generator_version": "lab-gen-0.1.0",
+    "lab_version": "0.1.0",
+    "scenario_id": "SYN-HSG-AZ-2025-LAB01",
+    "seed": 20250626,
+    "sha256_body": "0321510e9be3f9ec07e9623b3adc4aa5f7134ce0f1f90a43b1b11686a9d62fa8",
+    "source": "synthetic"
+  },
+  "constraint_report": [
+    {
+      "id": "rule_15c2_12_applicability",
+      "note": "Limited offering; applicability is a constraint, not decided here.",
+      "status": "unknown"
+    },
+    {
+      "id": "irc_142d_set_aside",
+      "note": "40% at 60% AMI elected in Regulatory Agreement; compliance is a professional determination.",
+      "status": "unknown"
+    },
+    {
+      "cite": "A.R.S. 35-721.B",
+      "id": "afa_35_721B",
+      "note": "second board not carried; not invented",
+      "status": "unknown"
+    },
+    {
+      "cite": "IRC 147(f)",
+      "id": "tefra_147f",
+      "status": "unknown"
+    },
+    {
+      "cite": "IRC 146; A.R.S. 35-904",
+      "id": "volume_cap_35_904",
+      "note": "allocation evidence not carried",
+      "status": "unknown"
+    },
+    {
+      "cite": "IRC 147(g)",
+      "id": "coi_2pct_147g",
+      "status": "unknown"
+    },
+    {
+      "cite": "MSRB G-23",
+      "id": "g23_ma_uw_separation",
+      "note": "mechanical: municipal_advisor and underwriter are different table entries",
+      "status": "pass"
+    },
+    {
+      "id": "late_afs",
+      "note": "posting date vs the 180-day rule is a professional determination; the register reports evidence, the constraint stays unknown",
+      "status": "unknown"
+    }
+  ]
+}

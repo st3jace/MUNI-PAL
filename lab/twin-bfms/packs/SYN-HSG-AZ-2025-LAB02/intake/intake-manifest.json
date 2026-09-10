@@ -1,0 +1,164 @@
+{
+  "_legend": "SYNTHETIC RESEARCH ARTIFACT — MUNI-TWIN — NOT LEGAL ADVICE — NOT PREPARED BY AN ATTORNEY — NOT AN OFFER OF SECURITIES. Fictional names collision-checked against real firms.",
+  "_provenance": {
+    "created_from": [
+      "scenario:SYN-HSG-AZ-2025-LAB02#lab.intake_docs"
+    ],
+    "generator_version": "lab-gen-0.1.0",
+    "lab_version": "0.1.0",
+    "scenario_id": "SYN-HSG-AZ-2025-LAB02",
+    "seed": 20250626,
+    "sha256_body": "e5bce5f6b2e30db4b16f80ecd9a97e727e6421d4a00f90c74c8b030fc395c1c4",
+    "source": "synthetic"
+  },
+  "dropped": [],
+  "self_check": {
+    "chunk_text": "the whole file as uploaded, envelope and legend lines included",
+    "extractor": "munipal.services.extraction.rules_based_extractor.RulesBasedExtractor (offline, no LLM)",
+    "int_compared_paths": [
+      "capital.project-cost"
+    ],
+    "mode": "per-artifact (one extraction job per intake artifact; target_schema_paths = that artifact's expected_paths)",
+    "result": "pass"
+  },
+  "upload_order": [
+    {
+      "artifact_key": "issuer_borrower_authority",
+      "content_type": "text/plain",
+      "display_name": "Issuer, borrower, and revenue pledge package",
+      "expected_paths": [
+        "parties.issuer.name",
+        "parties.issuer.jurisdiction",
+        "parties.borrower.name",
+        "governance.inducement",
+        "bond_counsel.inducement_resolution",
+        "regulatory.tax-status",
+        "security.revenue.pledge",
+        "project.name",
+        "project.location"
+      ],
+      "folder": "01_PROJECT-OVERVIEW",
+      "labels": {
+        "bond_counsel.inducement_resolution": "Bond counsel inducement resolution",
+        "governance.inducement": "Governance inducement",
+        "parties.borrower.name": "Borrower",
+        "parties.issuer.jurisdiction": "Parties issuer jurisdiction",
+        "parties.issuer.name": "Issuer",
+        "project.location": "Location",
+        "project.name": "Organization",
+        "regulatory.tax-status": "Tax status",
+        "security.revenue.pledge": "Security revenue pledge"
+      },
+      "order": 1,
+      "path": "intake/01_PROJECT-OVERVIEW/issuer_borrower_authority.txt",
+      "requirement_level": "required",
+      "sha256": "44c6aa24038eb00b8a1354389cf7acc52d3d1e9be298051e51a4cb6953f17d99"
+    },
+    {
+      "artifact_key": "subsidy_stack",
+      "content_type": "text/plain",
+      "display_name": "LIHTC, HAP, subsidy, and affordability restriction stack",
+      "expected_paths": [
+        "housing.project_type",
+        "housing.lihtc_status",
+        "housing.tax_credit_allocation",
+        "housing.hap_section8_revenue",
+        "housing.affordability_restrictions",
+        "housing.affordability.restrictions"
+      ],
+      "folder": "02_FINANCING-STRUCTURE",
+      "labels": {
+        "housing.affordability.restrictions": "Housing affordability restrictions",
+        "housing.affordability_restrictions": "Housing affordability restrictions",
+        "housing.hap_section8_revenue": "Housing hap section8 revenue",
+        "housing.lihtc_status": "Housing lihtc status",
+        "housing.project_type": "Housing project type",
+        "housing.tax_credit_allocation": "Housing tax credit allocation"
+      },
+      "order": 2,
+      "path": "intake/02_FINANCING-STRUCTURE/subsidy_stack.txt",
+      "requirement_level": "required",
+      "sha256": "3f857e9882f2922b64a3c6ffe4daf18d3c478163535ef5f86d253384f95ada74"
+    },
+    {
+      "artifact_key": "rent_roll_operating",
+      "content_type": "text/plain",
+      "display_name": "Rent roll, occupancy, and operating revenue package",
+      "expected_paths": [
+        "housing.units.total",
+        "housing.rental_income",
+        "housing.ancillary_revenue",
+        "housing.occupancy_rate"
+      ],
+      "folder": "02_FINANCING-STRUCTURE",
+      "labels": {
+        "housing.ancillary_revenue": "Housing ancillary revenue",
+        "housing.occupancy_rate": "Housing occupancy rate",
+        "housing.rental_income": "Housing rental income",
+        "housing.units.total": "Housing units total"
+      },
+      "order": 3,
+      "path": "intake/02_FINANCING-STRUCTURE/rent_roll_operating.txt",
+      "requirement_level": "required",
+      "sha256": "530c18d1f40e30590797e8253ddded991a4f66ea38e9440a03a2088b027b294e"
+    },
+    {
+      "artifact_key": "site_control_permits",
+      "content_type": "text/plain",
+      "display_name": "Site control, permits, and construction readiness package",
+      "expected_paths": [
+        "housing.site_control",
+        "project.location.sitecontrol",
+        "capital.project-cost",
+        "capital.equity_contribution",
+        "construction.permits.status",
+        "environmental.phase_one",
+        "housing.appraisal"
+      ],
+      "folder": "03_DUE-DILIGENCE",
+      "labels": {
+        "capital.equity_contribution": "Capital equity contribution",
+        "capital.project-cost": "Total project cost",
+        "construction.permits.status": "Construction permits status",
+        "environmental.phase_one": "Phase i environmental",
+        "housing.appraisal": "Housing appraisal",
+        "housing.site_control": "Housing site control",
+        "project.location.sitecontrol": "Project location sitecontrol"
+      },
+      "order": 4,
+      "path": "intake/03_DUE-DILIGENCE/site_control_permits.txt",
+      "requirement_level": "required",
+      "sha256": "15aba4c9066b7ec42fb9fb9ee073c426fea68dc8098d427535abf105ff95aa5f"
+    },
+    {
+      "artifact_key": "market_compliance",
+      "content_type": "text/plain",
+      "display_name": "Market, demographics, lease-up, and compliance risk package",
+      "expected_paths": [
+        "market.demographics.summary",
+        "housing.lease_up_risk",
+        "housing.compliance_risk"
+      ],
+      "folder": "03_DUE-DILIGENCE",
+      "labels": {
+        "housing.compliance_risk": "Housing compliance risk",
+        "housing.lease_up_risk": "Housing lease up risk",
+        "market.demographics.summary": "Market demographics summary"
+      },
+      "order": 5,
+      "path": "intake/03_DUE-DILIGENCE/market_compliance.txt",
+      "requirement_level": "recommended",
+      "sha256": "19f101acf0b169e816794866812332a4543640365ad1c579d0a3ec83a0aae782"
+    }
+  ],
+  "workspace_folders": [
+    "00_WELCOME",
+    "01_PROJECT-OVERVIEW",
+    "02_FINANCING-STRUCTURE",
+    "03_DUE-DILIGENCE",
+    "04_CLOSING-DOCUMENTS",
+    "05_POST-ISSUANCE-COMPLIANCE",
+    "06_REPORTING",
+    "07_RESOURCE-LIBRARY"
+  ]
+}

@@ -25887,7 +25887,7 @@
     },
     "/health": {
       "get": {
-        "description": "Basic health check endpoint.\n\nReturns service status without checking dependencies.\nUse this for liveness probes.",
+        "description": "Basic health check endpoint.\n\nReturns service status without checking dependencies.\nUse this for liveness probes.\n\nThis is a public surface. It carries no internal filesystem paths and no\ncorpus/provenance details (DEC-008: zero external references to the\nretired data source; the former ``corpus`` block was removed 2026-09-10).",
         "operationId": "health_check_health_get",
         "responses": {
           "200": {

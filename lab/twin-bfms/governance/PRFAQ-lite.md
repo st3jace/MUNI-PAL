@@ -1,8 +1,8 @@
-# PRFAQ-lite — lab/twin-bfms: the internal synthetic pre-to-post BFMS test bed (DRAFT 2026-09-10, dated 2026-11-25)
+# PRFAQ-lite — lab/twin-bfms: the internal synthetic pre-to-post BFMS test bed (FILED 2026-09-10 with DEC-010 / EXP-012, dated 2026-11-25)
 
-**Status: DRAFT — admission requires DEC-010 (Stephen's override ruling). EXP-012 files with it.**
+**Status: FILED 2026-09-10T23:11:40Z — DEC-010 (override) ruled A by Stephen in session 2026-09-10; EXP-012 filed with it. Projection at `INDUSTRIALIZATION/experiments/prfaq/PRFAQ-LAB-TWIN-BFMS.md`.**
 Drafts: `lab/twin-bfms/governance/DEC-010.draft.jsonl`, `lab/twin-bfms/governance/EXP-012.draft.jsonl`. Ask: `lab/twin-bfms/governance/decision-request.md`.
-Build authority today: Stephen's in-session instruction of 2026-09-10 (quoted in `lab/README.md`); the registry lines stay DRAFT until filed.
+Build authority today: Stephen's in-session instruction of 2026-09-10 (quoted in `lab/README.md`); the registry lines are filed (see Status).
 
 **Line / Stage / Constraint (5d gate):** Municipal bonds — ACQ stage 2 Advertise — constraint DEMAND per
 `INDUSTRIALIZATION/STAGE-DIAGNOSIS.md` section 1 (ratified 2026-08-04). Caveat on record: OUT-002 (2026-09-02,

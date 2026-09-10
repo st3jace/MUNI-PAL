@@ -5493,6 +5493,199 @@
         "title": "MissingPathInfo",
         "type": "object"
       },
+      "ObligationRegisterIntake": {
+        "description": "Intake form behind /obligation-register. Facts and contacts only. No judgment fields.",
+        "properties": {
+          "bond_counsel_contact": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bond Counsel Contact"
+          },
+          "bonds_already_closed": {
+            "description": "Have the bonds already closed?",
+            "title": "Bonds Already Closed",
+            "type": "boolean"
+          },
+          "cda_present": {
+            "anyOf": [
+              {
+                "enum": [
+                  "yes",
+                  "no",
+                  "not_sure"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cda Present"
+          },
+          "concurrent_preissuance": {
+            "description": "Asking us to work a new or contemplated issuance at the same time?",
+            "title": "Concurrent Preissuance",
+            "type": "boolean"
+          },
+          "consent_version": {
+            "default": "obligation-intake-v1",
+            "title": "Consent Version",
+            "type": "string"
+          },
+          "contact_email": {
+            "format": "email",
+            "title": "Contact Email",
+            "type": "string"
+          },
+          "contact_name": {
+            "maxLength": 255,
+            "minLength": 2,
+            "title": "Contact Name",
+            "type": "string"
+          },
+          "contact_phone": {
+            "anyOf": [
+              {
+                "maxLength": 50,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contact Phone"
+          },
+          "contact_title": {
+            "anyOf": [
+              {
+                "maxLength": 255,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Contact Title"
+          },
+          "dissemination_agent_contact": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dissemination Agent Contact"
+          },
+          "documents_on_hand": {
+            "anyOf": [
+              {
+                "maxLength": 4000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Documents On Hand"
+          },
+          "entity_type": {
+            "enum": [
+              "private_obligated_person",
+              "municipal_entity",
+              "unclear"
+            ],
+            "title": "Entity Type",
+            "type": "string"
+          },
+          "instrument_count": {
+            "anyOf": [
+              {
+                "maximum": 500.0,
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Instrument Count"
+          },
+          "instrument_list": {
+            "maxLength": 4000,
+            "minLength": 3,
+            "title": "Instrument List",
+            "type": "string"
+          },
+          "legal_name": {
+            "maxLength": 255,
+            "minLength": 2,
+            "title": "Legal Name",
+            "type": "string"
+          },
+          "municipal_advisor_contact": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Municipal Advisor Contact"
+          },
+          "privacy_consent": {
+            "default": false,
+            "title": "Privacy Consent",
+            "type": "boolean"
+          },
+          "session_id": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Session Id"
+          },
+          "state": {
+            "anyOf": [
+              {
+                "maxLength": 5,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "State"
+          }
+        },
+        "required": [
+          "bonds_already_closed",
+          "legal_name",
+          "entity_type",
+          "contact_name",
+          "contact_email",
+          "instrument_list",
+          "concurrent_preissuance"
+        ],
+        "title": "ObligationRegisterIntake",
+        "type": "object"
+      },
       "PlaybookDetail": {
         "description": "Full playbook with all definitions.",
         "properties": {
@@ -23994,6 +24187,72 @@
         "summary": "Market Intelligence",
         "tags": [
           "Sensing"
+        ]
+      }
+    },
+    "/api/v1/sensing/obligation-register/intake": {
+      "post": {
+        "operationId": "submit_intake_api_v1_sensing_obligation_register_intake_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ObligationRegisterIntake"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Submit Intake Api V1 Sensing Obligation Register Intake Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Submit Intake",
+        "tags": [
+          "Obligation Register"
+        ]
+      }
+    },
+    "/api/v1/sensing/obligation-register/privacy": {
+      "get": {
+        "operationId": "intake_privacy_contract_api_v1_sensing_obligation_register_privacy_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Intake Privacy Contract Api V1 Sensing Obligation Register Privacy Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Intake Privacy Contract",
+        "tags": [
+          "Obligation Register"
         ]
       }
     },

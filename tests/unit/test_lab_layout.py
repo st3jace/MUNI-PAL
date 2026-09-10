@@ -5,6 +5,7 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 
 from tests import lab_support
@@ -17,6 +18,10 @@ _V11_KEYS = (
     "primary_metric", "guardrails", "trial_cohort", "source_health", "risk_tier", "budget", "prfaq",
 )
 _DRAFT_TS = "<SET-AT-FILING>"
+# A line is either a DRAFT (ts placeholder, a value says DRAFT) or FILED (ISO-8601 UTC ts,
+# a value says FILED). Filing happened 2026-09-10 on Stephen's ruling "1. A  2. A"; the
+# canonical record is INDUSTRIALIZATION/experiments/registry.jsonl (PIT law: never edited).
+_ISO_TS = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$")
 
 
 def _draft_line(name: str) -> dict:
@@ -32,10 +37,14 @@ def _check_registry_line(name: str, entry: dict, *, id_: str, type_: str, statem
     missing = [k for k in (*_CORE_KEYS, statement_key, *v11) if k not in entry]
     assert missing == [], f"{name}: missing registry keys {missing}"
     assert entry["id"] == id_ and entry["type"] == type_
-    assert entry["ts"] == _DRAFT_TS, f"{name}: ts must stay {_DRAFT_TS} until Stephen files it (PIT law)"
+    filed = entry["ts"] != _DRAFT_TS
+    if filed:
+        assert _ISO_TS.match(entry["ts"]), f"{name}: a filed line carries an ISO-8601 UTC ts, got {entry['ts']!r}"
+        assert any(isinstance(v, str) and "FILED" in v for v in entry.values()), f"{name}: filed line must say FILED"
+    else:
+        assert any(isinstance(v, str) and "DRAFT" in v for v in entry.values()), f"{name}: no value says DRAFT"
     assert entry["status"] == "open"
     assert 0.0 <= float(entry["p"]) <= 1.0
-    assert any(isinstance(v, str) and "DRAFT" in v for v in entry.values()), f"{name}: no value says DRAFT"
     if "experiment_id" in entry:
         assert entry["experiment_id"] == id_
     if "evaluator" in entry:
@@ -78,7 +87,9 @@ def test_lab_layout_gitignore_governance() -> None:
     # evaluator, if named, must not be the builder.
     _check_registry_line("DEC-010.draft.jsonl", dec, id_="DEC-010", type_="decision", statement_key="decision", v11=("prfaq",))
     for entry in (exp, dec):
-        assert str(entry["prfaq"]).startswith("lab/twin-bfms/governance/PRFAQ-lite.md"), f"{entry['id']}: prfaq must point at the lab PRFAQ-lite"
+        # Filed lines follow the registry convention (`prfaq/<file>` relative to
+        # INDUSTRIALIZATION/experiments, cf. EXP-011) and name the canonical lab file after it.
+        assert "lab/twin-bfms/governance/PRFAQ-lite.md" in str(entry["prfaq"]), f"{entry['id']}: prfaq must point at the lab PRFAQ-lite"
     assert exp["evidence_level"] == "E0" and exp["gate"] == "G0" and exp["lifecycle"] == "experimental"
     assert (LAB / "governance" / "PRFAQ-lite.md").is_file()
     for entry in (exp, dec):

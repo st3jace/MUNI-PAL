@@ -42,7 +42,7 @@ and
 
 That instruction authorises the build. The registry lines that record it
 (`lab/twin-bfms/governance/EXP-012.draft.jsonl`, `lab/twin-bfms/governance/DEC-010.draft.jsonl`)
-are DRAFTS until Stephen files them (`INDUSTRIALIZATION/experiments/PATTERN.md`, PIT law: agents never append to `registry.jsonl`).
+were FILED into `INDUSTRIALIZATION/experiments/registry.jsonl` at 2026-09-10T23:11:40Z on Stephen's ruling "1. A  2. A" (this session). The repo copies keep their `.draft.jsonl` names for the fence test; their content is the filed line.
 The one-page ask is `lab/twin-bfms/governance/decision-request.md`.
 
 Stage-law gate (`INDUSTRIALIZATION/ENGINEERING-DOCTRINE.md` section 5d): if the DEC-010 override is refused,

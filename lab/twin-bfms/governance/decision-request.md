@@ -3,7 +3,7 @@
 Written for Stephen. Short words. One idea per line. Two rulings needed, three build choices.
 Source of the ask: COS working paper `LAB-BRIEF.md` (2026-09-10, scratchpad; sha256 `f031201cc35a3651da7b45f67e485c0995ab9f04f066e6274d258ef9fa621cb4`), section 1.
 Reset ruling: `C:\Users\st3ja\braintrust\workspace\cos\2026-09-10-RESET-plain-plan.md`.
-Nothing here is filed until you file it. The build ran on your in-session instruction of 2026-09-10 (quoted in `lab/README.md`).
+**RULED 2026-09-10 (in session): D1 = A, D2 = A.** DEC-010 and EXP-012 filed at 2026-09-10T23:11:40Z (`INDUSTRIALIZATION/experiments/registry.jsonl`, lines 25-26). D2 implementation: the allow-list change and the API snapshot landed with tests; the `railway.toml` flip is a separate local commit; the push is yours. The build ran on your in-session instruction of 2026-09-10 (quoted in `lab/README.md`).
 
 ## What you asked
 

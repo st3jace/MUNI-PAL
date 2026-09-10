@@ -76,6 +76,10 @@ SENSING_PILOT_FUNNEL_CONTRACT = SensingPilotFunnelContract(
             "/api/v1/sensing/event",
             "/api/v1/sensing/unsubscribe",
             "/api/v1/sensing/privacy",
+            # Obligation Register intake (the one sellable offer, 2026-09-10 reset). Public by
+            # design: a prospect drops their post-close details; no auth, no advice, no filing.
+            "/api/v1/sensing/obligation-register/intake",
+            "/api/v1/sensing/obligation-register/privacy",
         ),
         protected_sensing_admin_routes=(
             "/api/v1/sensing/leads",

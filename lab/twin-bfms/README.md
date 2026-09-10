@@ -3,7 +3,7 @@
 > SYNTHETIC RESEARCH ARTIFACT — MUNI-TWIN — NOT LEGAL ADVICE — NOT PREPARED BY AN ATTORNEY — NOT AN OFFER OF SECURITIES. Fictional names collision-checked against real firms.
 
 **twin-bfms is a label, not a claim (DEC-009 section 9.8).** Internal R&D. Nothing for sale. Nothing public.
-Authority: Stephen's in-session instruction of 2026-09-10 (quoted in `lab/README.md`); registry lines stay DRAFT until filed.
+Authority: Stephen's in-session instruction of 2026-09-10 (quoted in `lab/README.md`); registry lines DEC-010 and EXP-012 FILED 2026-09-10T23:11:40Z on Stephen's ruling "1. A  2. A".
 Source brief: COS working paper `LAB-BRIEF.md` (2026-09-10, scratchpad; sha256 `f031201cc35a3651da7b45f67e485c0995ab9f04f066e6274d258ef9fa621cb4`).
 Reset ruling: `C:\Users\st3ja\braintrust\workspace\cos\2026-09-10-RESET-plain-plan.md`.
 

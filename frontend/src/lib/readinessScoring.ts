@@ -97,7 +97,7 @@ const STATUS_FACTORS: Record<ItemStatus, number> = {
 }
 
 const TIERS: TierInfo[] = [
-  { id: 'bond_ready', label: 'Bond-Ready', minScore: 90, color: '#22c55e', baselineWeeks: '0-2', agentWeeks: '0-1', compression: '50%' },
+  { id: 'bond_ready', label: 'Well Documented', minScore: 90, color: '#22c55e', baselineWeeks: '0-2', agentWeeks: '0-1', compression: '50%' },
   { id: 'near_ready', label: 'Near-Ready', minScore: 75, color: '#eab308', baselineWeeks: '4-12', agentWeeks: '3-8', compression: '30-40%' },
   { id: 'preparation', label: 'Preparation Phase', minScore: 50, color: '#f97316', baselineWeeks: '12-24', agentWeeks: '8-16', compression: '30-35%' },
   { id: 'pre_preparation', label: 'Pre-Preparation', minScore: 0, color: '#ef4444', baselineWeeks: '24-52', agentWeeks: '16-36', compression: '30-35%' },

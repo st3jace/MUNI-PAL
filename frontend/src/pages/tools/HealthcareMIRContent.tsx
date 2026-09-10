@@ -33,7 +33,7 @@ export function InformationGap() {
             </strong>{' '}
             — the specific financial profile, pledge structure, and strategic
             characteristics that separate AA-rated systems from BBB-rated ones,
-            drawn from 866 actual municipal bond deals
+            drawn from public disclosure filings
           </span>
         </li>
         <li className="flex gap-2">
@@ -58,8 +58,8 @@ export function InformationGap() {
         </li>
       </ul>
       <p className="text-xs text-gray-400 mt-4 border-t border-white/10 pt-3">
-        All benchmarks come from real filings: 866 public official
-        statements, 1,318 financial reports, and 239 rating agency actions.
+        All benchmarks come from public filings: official statements,
+        financial reports, and rating agency actions.
       </p>
     </div>
   )

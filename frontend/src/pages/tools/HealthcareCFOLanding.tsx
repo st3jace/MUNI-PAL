@@ -52,7 +52,7 @@ const HOW_IT_WORKS = [
     step: 2,
     name: 'See where you stand',
     description:
-      'A readiness score across 6 dimensions, benchmarked against 866 real municipal bond transactions — plus your top gaps.',
+      'Your readiness organized across 6 dimensions, set beside comparable deals drawn from public disclosure filings — plus your top gaps.',
   },
   {
     step: 3,
@@ -64,7 +64,7 @@ const HOW_IT_WORKS = [
 
 const WHAT_YOU_GET = [
   'A readiness score across 6 dimensions',
-  'Sector benchmarks from 866 real municipal bond transactions',
+  'Sector context drawn from public disclosure filings',
   'Your top gaps, with examples of what stronger borrowers documented',
   'A report you can hand to your board and registered advisor',
 ]
@@ -154,19 +154,18 @@ export default function HealthcareCFOLanding() {
                 For healthcare CFOs planning a first bond issue
               </p>
               <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold leading-tight text-white max-w-xl mb-6">
-                Find out if your hospital is bond-ready &mdash; and what
-                borrowing will really cost &mdash; before you sit down with
-                anyone.
+                See where your hospital stands &mdash; and what borrowing
+                has looked like for hospitals like yours &mdash; before you
+                sit down with anyone.
               </h1>
               <p className="text-base md:text-lg text-gray-300 max-w-lg mb-10 leading-relaxed">
                 Muni-Pal shows you what municipal deals like yours actually
-                looked like, built from{' '}
+                looked like, drawn from{' '}
                 <span className="text-white font-semibold">
-                  866 real municipal bond transactions
-                </span>{' '}
-                in public disclosure filings. See where you stand &mdash; for
-                free, in about 15 minutes &mdash; before your first advisor
-                meeting.
+                  public disclosure filings
+                </span>
+                . See where you stand &mdash; for free, in about 15 minutes
+                &mdash; before your first advisor meeting.
               </p>
 
               <div className="flex flex-col items-start gap-3">
@@ -249,8 +248,8 @@ export default function HealthcareCFOLanding() {
         <div className="bg-gray-50 border border-gray-100 rounded-xl py-8 px-6">
           <div className="flex flex-wrap justify-center gap-10 md:gap-16 text-center">
             {[
-              { value: '866', label: 'real municipal bond transactions analyzed' },
-              { value: '6', label: 'readiness dimensions scored on every assessment' },
+              { value: 'Public', label: 'disclosure filings are the only source of every benchmark' },
+              { value: '6', label: 'readiness dimensions organized on every assessment' },
               { value: '15 min', label: 'to a first readiness read. Free.' },
             ].map((stat) => (
               <div key={stat.label}>
@@ -400,7 +399,7 @@ export default function HealthcareCFOLanding() {
       <section style={{ backgroundColor: BRAND.navy }} className="py-14 md:py-16">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-            Find out if your hospital is bond-ready.
+            See where your hospital stands.
           </h2>
           <p className="text-gray-300 mb-8 max-w-lg mx-auto text-sm">
             Free. About 15 minutes. No documents required to start. No sales

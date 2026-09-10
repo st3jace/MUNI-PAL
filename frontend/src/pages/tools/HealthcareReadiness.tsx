@@ -211,7 +211,7 @@ export default function HealthcareReadiness() {
         <div>
           <h1 className="text-xl font-bold text-gray-900">Healthcare Bond Readiness Assessment</h1>
           <p className="text-sm text-gray-500">
-            Find out if your facility is bond-ready — free, about 10 minutes
+            See where your facility stands — free, about 10 minutes
           </p>
         </div>
       </div>

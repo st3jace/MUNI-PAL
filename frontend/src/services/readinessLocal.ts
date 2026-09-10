@@ -198,7 +198,7 @@ export async function scoreReadinessLocal(params: {
 
   const adjusted = Math.min(rawPct + finAdj, 100)
   const tier =
-    adjusted >= 75 ? 'Bond Ready' : adjusted >= 50 ? 'Near Ready' : adjusted >= 25 ? 'Developing' : 'Early Stage'
+    adjusted >= 75 ? 'Well Documented' : adjusted >= 50 ? 'Near Ready' : adjusted >= 25 ? 'Developing' : 'Early Stage'
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const result: any = {

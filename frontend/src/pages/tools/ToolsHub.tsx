@@ -6,7 +6,7 @@ const tools = [
   {
     name: 'Bond Readiness Assessment',
     description:
-      'Find out if your facility is bond-ready — free, about 10 minutes. Answer plain-English questions and get a scored action plan: your top gaps, what each one costs you, and what to fix first.',
+      'See where your facility stands — free, about 10 minutes. Answer plain-English questions and get an organized action plan: your top gaps and what to work on first.',
     href: '/tools/readiness',
     icon: ClipboardCheck,
     color: 'bg-muni-gold',
@@ -43,7 +43,7 @@ const tools = [
   {
     name: 'Sector Market Report',
     description:
-      'What good looks like in your sector — the financial profile, ratings, deal structures, and borrowing costs lenders expect, built from 866 real municipal bond transactions.',
+      'What good looks like in your sector — the financial profile, ratings, deal structures, and borrowing costs lenders expect, drawn from public disclosure filings.',
     href: '/tools/market-intelligence',
     icon: BarChart3,
     color: 'bg-blue-500',
@@ -69,9 +69,9 @@ export default function ToolsHub() {
         <h1 className="text-2xl font-bold text-gray-900">Free Bond Tools</h1>
         <p className="mt-2 text-gray-600 max-w-2xl">
           Free tools that show you what municipal deals like yours actually
-          look like — built from 866 real transactions in public disclosure
-          filings. See what your sector pays, compare your deal, and find out
-          if you're bond-ready before you sit down with anyone.
+          look like — drawn from public disclosure filings. See what your
+          sector pays, compare your deal, and see where you stand before you
+          sit down with anyone.
         </p>
       </div>
 

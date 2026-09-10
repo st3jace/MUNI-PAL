@@ -633,7 +633,7 @@ export default function ReadinessAssess() {
             Bond Readiness Assessment
           </h1>
           <p className="text-sm text-gray-500 mt-1">
-            Find out if your project is bond-ready — free, about 10 minutes,
+            See where your project stands — free, about 10 minutes,
             no documents required to start
           </p>
         </div>

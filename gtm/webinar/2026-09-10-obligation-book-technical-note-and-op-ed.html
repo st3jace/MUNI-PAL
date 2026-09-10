@@ -1,0 +1,312 @@
+<title>The Obligation Book Is the Product</title>
+<style>
+  :root{
+    --navy:#1B3A5C; --navy-2:#455E7A; --teal:#2DAEAC; --teal-light:#C8EAE9; --orange:#E8913A; --orange-2:#C87D32;
+    --ink:#0B1B2E; --deep:#12273F; --paper:#F7F5F1;
+    --bg:var(--paper); --fg:var(--ink); --muted:#5F6B7A; --line:#DCD6CB; --surface:#FFFFFF; --surface-2:#EFEBE3;
+    --head:var(--navy); --label:#1E8C8A; --band-bg:var(--navy); --band-fg:#FFFFFF; --band-muted:#C9D3DF;
+    --code-bg:#FFFFFF;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:var(--deep); --fg:#E8EDF2; --muted:#9FB0C2; --line:#2B4058; --surface:#18304B; --surface-2:#1F3A57;
+      --head:#E8EDF2; --label:var(--teal); --band-bg:#0B1B2E; --band-fg:#FFFFFF; --band-muted:#B7C4D3; --code-bg:#0F2238;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:var(--deep); --fg:#E8EDF2; --muted:#9FB0C2; --line:#2B4058; --surface:#18304B; --surface-2:#1F3A57;
+    --head:#E8EDF2; --label:var(--teal); --band-bg:#0B1B2E; --band-fg:#FFFFFF; --band-muted:#B7C4D3; --code-bg:#0F2238;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;font-size:17px;line-height:1.6}
+  .band{background:var(--band-bg);color:var(--band-fg);padding:56px 24px 48px}
+  .band .in{max-width:76ch;margin:0 auto}
+  .eyebrow{color:var(--teal);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin:0 0 14px}
+  .band h1{font-size:clamp(30px,4.5vw,44px);line-height:1.12;margin:0 0 16px;font-weight:700;text-wrap:balance;max-width:22ch}
+  .band .dek{color:var(--band-muted);font-size:19px;line-height:1.5;max-width:60ch;margin:0 0 22px}
+  .band .meta{color:var(--band-muted);font-size:13px;display:flex;flex-wrap:wrap;gap:8px 22px}
+  .band .meta b{color:#fff;font-weight:600}
+  .draft{display:inline-block;border:1px solid var(--teal);color:var(--teal);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:4px;margin-bottom:18px}
+  main{max-width:76ch;margin:0 auto;padding:12px 24px 64px}
+  .part{margin-top:56px;padding-top:22px;border-top:3px solid var(--teal)}
+  .part .eyebrow{color:var(--label)}
+  h2{color:var(--head);font-size:30px;line-height:1.2;margin:0 0 8px;text-wrap:balance}
+  h3{color:var(--head);font-size:20px;line-height:1.3;margin:36px 0 10px}
+  h4{color:var(--head);font-size:16px;margin:24px 0 6px}
+  p{margin:0 0 16px;max-width:68ch}
+  .lede{font-size:19px;color:var(--fg);max-width:64ch}
+  ul,ol{margin:0 0 18px;padding-left:22px;max-width:66ch}
+  li{margin:6px 0}
+  li::marker{color:var(--teal)}
+  .callout{background:var(--surface);border-left:4px solid var(--teal);padding:14px 18px;margin:20px 0;max-width:68ch;border-radius:0 6px 6px 0}
+  .callout p{margin:0}
+  .callout .k{display:block;color:var(--label);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+  .never{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin:24px 0}
+  .never .k{color:var(--label);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+  .never ul{margin-bottom:0}
+  .tbl{overflow-x:auto;margin:16px 0 24px}
+  table{border-collapse:collapse;width:100%;font-size:15px;font-variant-numeric:tabular-nums}
+  th,td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+  th{color:var(--label);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+  td b{color:var(--head)}
+  code{background:var(--code-bg);border:1px solid var(--line);border-radius:4px;padding:1px 6px;font-size:14px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .status{display:inline-block;background:var(--code-bg);border:1px solid var(--line);border-radius:4px;padding:2px 8px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14px;margin:2px 6px 2px 0}
+  .diagram{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px;margin:18px 0 8px;overflow-x:auto}
+  .diagram svg{display:block;width:100%;height:auto;min-width:640px}
+  .cap{color:var(--muted);font-size:13px;margin:0 0 24px}
+  .quote{font-size:22px;line-height:1.35;color:var(--head);font-weight:600;max-width:30ch;margin:28px 0;padding-left:18px;border-left:4px solid var(--teal);text-wrap:balance}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:16px 0 24px}
+  .cell{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+  .cell .k{color:var(--label);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+  .cell p{margin:0;font-size:15px}
+  .cta{display:inline-block;background:var(--orange);color:#fff;text-decoration:none;font-weight:600;padding:10px 16px;border-radius:6px;font-size:15px}
+  .cta:hover{background:var(--orange-2)}
+  a{color:var(--label)}
+  footer{max-width:76ch;margin:0 auto;padding:28px 24px 48px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+  footer p{margin:4px 0}
+  @media (max-width:600px){body{font-size:16px}.band{padding:40px 18px 34px}main{padding:8px 18px 48px}}
+</style>
+
+<div class="band"><div class="in">
+  <div class="draft">Draft · internal until it clears the send gate</div>
+  <p class="eyebrow">Technical note and op-ed · source material for a webinar</p>
+  <h1>The Obligation Book Is the Product</h1>
+  <p class="dek">How Launch Shop built the 10-Day Obligation Register in one working day on synthetic data, and what that way of working means for everyone who lives with a closed bond deal.</p>
+  <div class="meta"><span><b>Muni-Pal</b> · a Launch Shop product</span><span>Written 2026-09-10</span><span>Reading time about 25 minutes</span></div>
+</div></div>
+
+<main>
+
+<p class="lede">A private borrower closes a bond deal and walks away with a binder. Inside it are promises that outlive everyone who negotiated them: annual reports, event notices, certificates, calculations, records. Different deals carry different promises. Nobody owns the calendar. This document explains what we built to fix that, how we built it without crossing the line into advice, and why the same way of working matters to counsel, trustees, issuers, and investors as much as to the borrower.</p>
+
+<p>It has three parts. Part I is the build, in enough technical detail that an engineer could reproduce it. Part II is the argument. Part III is a 30-minute talk that carries both.</p>
+
+<!-- ============================ PART I ============================ -->
+<section class="part">
+  <p class="eyebrow">Part I · Technical note</p>
+  <h2>How we built the Obligation Register</h2>
+
+  <h3>1. The problem we chose, and the line we would not cross</h3>
+  <p>Post-issuance work has two halves. One half is judgment: which clause controls, whether an event is material, what a deadline formula means for this fiscal year. That half belongs to bond counsel, the municipal advisor, and the dissemination agent, and in the United States it sits behind the municipal advisor definition and Rule 15c2-12. The other half is clerical: find every undertaking, bind it to the clause that created it, keep a calendar, keep the evidence, notice when a file is missing. That half is where the pain is, and almost nobody owns it.</p>
+  <p>We chose the clerical half. Not by arguing about the boundary, but by changing the artifact until the boundary had nothing to attach to. Pre-issuance work runs into the advisor definition because it is "with respect to the issuance." A register built after closing, from documents the client already has, with every judgment routed to their own professionals, is not.</p>
+  <div class="callout"><span class="k">The move that made it sellable</span><p>The winning move was not to argue the gate. It was to change the artifact until the gate had nothing to attach to. The bonds are sold, so "with respect to the issuance" has nothing to bind.</p></div>
+
+  <h3>2. Five constraints that shaped every line of code</h3>
+  <ol>
+    <li><b>The approved-input rule.</b> Every row in the register carries written input from the client's counsel, municipal advisor, or dissemination agent. We transcribe. We do not decide which undertaking controls, interpret an ambiguous deadline formula, determine successor or refunding effects, or decide whether an obligation applies.</li>
+    <li><b>Four status codes, no fifth.</b> <span class="status">filed</span><span class="status">not filed</span><span class="status">evidence missing</span><span class="status">not testable</span> A proposed fifth code, "professional determination required," was rejected. Marking a row that way is itself a determination, and the unmarked rows then read as cleared.</li>
+    <li><b>Two lists that are not statuses.</b> Items awaiting input, which records what we asked for in writing and have not received. And the refusal log, which records every judgment question put to us, the date, and where it was routed. Neither says anything about the obligation.</li>
+    <li><b>No computed dates.</b> Dates enter the calendar only as approved by a professional. The runner never turns "180 days after fiscal year end" into June 29.</li>
+    <li><b>No EMMA.</b> Nothing in the build, the demo, the prospect list, or the copy derives from the MSRB's public filing system. Synthetic data and issuer-published records carry the whole method.</li>
+  </ol>
+
+  <h3>3. Architecture</h3>
+  <div class="diagram">
+    <svg viewBox="0 0 900 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Pipeline: three inputs feed the runner, which emits six outputs and one page; a reference seat answers where-is-it questions and refuses judgment.">
+      <defs>
+        <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#2DAEAC"/></marker>
+      </defs>
+      <style>
+        .box{fill:var(--surface-2);stroke:#2DAEAC;stroke-width:1.5}
+        .box2{fill:#1B3A5C;stroke:#1B3A5C}
+        .t{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-size:13px;fill:var(--fg)}
+        .tw{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-size:13px;fill:#fff;font-weight:600}
+        .lbl{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;font-size:11px;fill:#1E8C8A;font-weight:600;letter-spacing:.08em}
+        .ln{stroke:#2DAEAC;stroke-width:1.5;fill:none;marker-end:url(#arr)}
+      </style>
+      <text x="20" y="24" class="lbl">INPUTS · the client's</text>
+      <rect x="20" y="36" width="190" height="52" rx="6" class="box"/><text x="32" y="58" class="t">Closing documents</text><text x="32" y="76" class="t">CDA, loan, indenture, tax, LURA</text>
+      <rect x="20" y="104" width="190" height="52" rx="6" class="box"/><text x="32" y="126" class="t">Approved inputs</text><text x="32" y="144" class="t">rows + clauses + dates, in writing</text>
+      <rect x="20" y="172" width="190" height="52" rx="6" class="box"/><text x="32" y="194" class="t">Evidence vault</text><text x="32" y="212" class="t">files, named by row and period</text>
+
+      <path d="M210,62 C260,62 260,130 300,130" class="ln"/>
+      <path d="M210,130 L300,130" class="ln"/>
+      <path d="M210,198 C260,198 260,130 300,130" class="ln"/>
+
+      <text x="305" y="24" class="lbl">RUNNER</text>
+      <rect x="305" y="96" width="170" height="68" rx="6" class="box2"/>
+      <text x="320" y="122" class="tw">run.py</text>
+      <text x="320" y="142" class="tw">transcribe · compare · bind</text>
+
+      <path d="M475,130 L520,130" class="ln"/>
+
+      <text x="525" y="24" class="lbl">OUTPUTS · one page</text>
+      <g class="t">
+        <rect x="525" y="36" width="160" height="30" rx="5" class="box"/><text x="536" y="56" class="t">Register</text>
+        <rect x="525" y="72" width="160" height="30" rx="5" class="box"/><text x="536" y="92" class="t">Calendar</text>
+        <rect x="525" y="108" width="160" height="30" rx="5" class="box"/><text x="536" y="128" class="t">Gap list</text>
+        <rect x="525" y="144" width="160" height="30" rx="5" class="box"/><text x="536" y="164" class="t">Items awaiting input</text>
+        <rect x="525" y="180" width="160" height="30" rx="5" class="box"/><text x="536" y="200" class="t">Refusal log</text>
+        <rect x="525" y="216" width="160" height="30" rx="5" class="box"/><text x="536" y="236" class="t">Evidence vault index</text>
+      </g>
+      <path d="M685,140 L720,140" class="ln"/>
+      <rect x="720" y="110" width="160" height="60" rx="6" class="box"/><text x="732" y="134" class="t">register.html</text><text x="732" y="152" class="t">the thing the client reads</text>
+
+      <text x="305" y="262" class="lbl">REFERENCE SEAT</text>
+      <rect x="305" y="272" width="375" height="46" rx="6" class="box"/>
+      <text x="318" y="292" class="t">ask.py · "where is this in my documents?" · quotes the clause</text>
+      <text x="318" y="308" class="t">judgment question → scripted refusal → refusal log</text>
+      <path d="M115,224 C115,296 200,295 305,295" class="ln"/>
+    </svg>
+  </div>
+  <p class="cap">Figure 1. The whole product is one pipeline. Three inputs, one runner, six outputs, one page. The reference seat reads the same documents and points at text; it never interprets.</p>
+
+  <p>The runner is a few hundred lines of Python with no model in the path. That is deliberate. Transcription and comparison are mechanical, and a mechanical step can be tested, replayed, and explained to a board. Every register row comes from one row of the approved-inputs file. Status is decided by comparing that row's approved dates against the files in the vault, and by nothing else. A row whose frequency implies a date but has no approved date is not a row yet; it goes to the items-awaiting-input list with the request date and the recipient. Duty language found in the documents but absent from the approved list goes to the same list as a yes-or-no question for counsel.</p>
+  <p>The reference seat, the piece the client experiences as "Arthur," is retrieval over the client's own documents with a refusal rule in front of it. Ask where the annual report requirement is and it returns the section, the line, and the text. Ask whether a bond call is material and it answers with one sentence, logs the question, and stops. Optionally it also searches our reference shelf, a twelve-volume practitioner's guide, and labels every hit as secondary synthesis to be verified against primary text before use.</p>
+
+  <h3>4. Synthetic data, and why we could not have built it any other way</h3>
+  <p>We do not have a client's binder to build on, and we would not use one for a public demo if we did. So the demo deal is invented. <b>SYN-HSG-AZ-2025</b> is a multifamily housing conduit financing for a borrower that does not exist, issued by an authority that does not exist, in a city that does not exist. Every name, amount, and date in it is made up. What is not made up is the shape.</p>
+  <p>The shape comes from our research program, MUNI-TWIN, which builds a digital twin of conduit issuance. One of its artifacts is a deidentified index of a real closing transcript: eighty-seven entries, page spans, document titles exactly as written, with the borrower, the series, and twenty-six property names substituted out. Three layers, three hashes. The verbatim extract, the deidentified transform, and the domain judgment that collapsed it into fifty-seven node types are kept separate and reproducible.</p>
+  <div class="callout"><span class="k">The rule that makes synthetic data usable</span><p>Metadata travels, content does not. A document list, a clause structure, a deadline pattern can leave the source. The text, the numbers, and the names never do.</p></div>
+  <p>That index told us which documents a real binder contains and in what order. From it we wrote five synthetic excerpts, a continuing disclosure agreement with sixteen listed events, a loan agreement with quarterly and annual deliverables, an indenture, a tax regulatory agreement with a rebate clock, and a land use restriction agreement with set-aside reporting. The runner was built and tested against them. Internally, the same runner is checked against our own issuer-side book. Publicly, a stranger sees the synthetic deal. A client sees their own documents. Nothing in between.</p>
+
+  <h3>5. Controls as code</h3>
+  <p>A control that lives in a memo gets skipped. A control that lives in a test fails the build. We wrote the rules as tests wherever we could.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Control</th><th>Where it lives</th><th>What fails if it is broken</th></tr></thead>
+    <tbody>
+      <tr><td><b>Post-close only</b></td><td>Intake API, server side</td><td>A submission with "bonds not closed" is refused with the stop message. Test asserts the 422.</td></tr>
+      <tr><td><b>No municipal entities</b></td><td>Intake API and the form</td><td>Refused server side; the form stops before contact fields.</td></tr>
+      <tr><td><b>Four statuses</b></td><td>A constant in the runner; the page copy</td><td>The page test asserts exactly four code chips and no "professional determination required" anywhere.</td></tr>
+      <tr><td><b>No price, no claim numbers, no "compliant"</b></td><td>Page test</td><td>Regex over the rendered page: no dollar figure, no deal count, no "compliant," no "bond-ready."</td></tr>
+      <tr><td><b>Control sentence verbatim</b></td><td>Page test</td><td>The approved-input sentence is asserted word for word.</td></tr>
+      <tr><td><b>Refusal on judgment questions</b></td><td>The reference seat; the DIY skill</td><td>A fresh model was handed the skill and three trap questions. Zero dates computed, zero statuses assigned, three refusals.</td></tr>
+      <tr><td><b>Public API only mounts what it should</b></td><td>Deployment-boundary test</td><td>The standalone public app must expose the intake route and none of the admin routes.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>6. The front door</h3>
+  <p>The public page follows a seven-section skeleton: what this is, what you get, what we never do, who it is for, how it works, the guarantee, how to start. The "never" section is written as the reason to trust the file, not as a disclaimer. The intake form asks the gate question first and alone. Answer no, and the form ends. It collects facts and contacts only; nothing on it invites a legal judgment. Submissions land in the same lead table as every other inquiry, flagged for "entity unclear," "concurrent pre-issuance work," and "no professional named," and the team is emailed at once.</p>
+  <p>Beside the paid path sits a free one. The DIY kit is four plain-text files: a complete-drop checklist, a register template, the four-code legend, and a skill file a prospect hands to whatever AI assistant they already use. The skill produces a candidate map, quotes every deadline verbatim, and refuses the same questions we refuse. It ends with an explicit line, "end of instructions for the AI," so the sales copy below it is never read as an instruction.</p>
+
+  <h3>7. The list engine</h3>
+  <p>The same discipline runs the prospect list. The route is issuer or registry, then deal, then obligated person, then sponsor, then a named human. Four of those steps are public record. Conduit issuers publish their transaction lists; one Arizona authority's list yielded one hundred and twenty-seven closed deals in a single afternoon. A research pass on the housing and industrial rows resolved sponsors and websites for twenty-six of thirty, citing a public source on each. A script then applies the qualification rules mechanically: a municipal owner goes to the nurture file, a sponsor with a new issuance pending goes to a holds file with a recheck trigger, a defunct borrower is retired, an unresolved sponsor waits. Nothing enters a send without a source citation.</p>
+
+  <h3>8. What we deliberately did not build</h3>
+  <div class="never"><div class="k">Left out on purpose</div><ul>
+    <li>A fifth status code, a score, a rating, a colour by importance, or any field that records our assessment of anything.</li>
+    <li>Date computation from deadline formulas.</li>
+    <li>Filing on the MSRB's public filing system, or the word "compliant" anywhere in a deliverable.</li>
+    <li>Materiality determinations, notice drafting, or any pre-issuance work inside this engagement.</li>
+    <li>A DIY calendar. The kit stops at candidates because a calendar without approved dates is a judgment wearing a spreadsheet.</li>
+  </ul></div>
+
+  <h3>9. The day, in order</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Step</th><th>What was produced</th><th>Proof it worked</th></tr></thead>
+    <tbody>
+      <tr><td>Reset</td><td>One-page plan. One repo. One offer. Parked everything else.</td><td>Plan filed; repo folders created; lead list scrubbed.</td></tr>
+      <tr><td>Demo</td><td>Synthetic deal, five documents, approved-inputs file, runner, reference seat, one-page register.</td><td>Eighteen obligations, evidence bound, gaps and open items listed, judgment question refused and logged.</td></tr>
+      <tr><td>Four-code fix</td><td>Fifth status removed; items-awaiting-input list added.</td><td>Re-run; legend and outputs agree with the ruling.</td></tr>
+      <tr><td>Landing page and intake</td><td>Public page, server-side gates, lead storage, team email.</td><td>Six page tests, ten API tests, live test intake delivered.</td></tr>
+      <tr><td>DIY kit</td><td>Skill file plus three companions, served beside the page.</td><td>Fresh-model dry run: no dates, no statuses, three refusals. Five wording fixes applied before publishing.</td></tr>
+      <tr><td>List</td><td>Source register, issuer-list ingest, sponsor research, mechanical qualification.</td><td>Prospect file more than doubled; holds file records every exclusion and why.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>10. The stack</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Layer</th><th>Choice</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>Runner and reference seat</td><td>Python, no model in the path</td><td>Mechanical steps must be testable and replayable.</td></tr>
+      <tr><td>API</td><td>FastAPI, one public app and one full app sharing routers</td><td>The public deployment mounts only what a stranger may reach.</td></tr>
+      <tr><td>Site</td><td>React, Vite, Tailwind on the Muni-Pal design tokens</td><td>One design contract across product and marketing surfaces.</td></tr>
+      <tr><td>Hosting</td><td>Vercel for the site, Railway for the API and Postgres</td><td>Push to master deploys both; the build is the gate.</td></tr>
+      <tr><td>Email and enrichment</td><td>Resend, domain-locked sending key; Clay for the last mile</td><td>Keys scoped to one domain and one job each.</td></tr>
+      <tr><td>Secrets</td><td>SOPS with age; a registry of every copy</td><td>A key's blast radius is written down before it is issued.</td></tr>
+      <tr><td>Research data</td><td>MUNI-TWIN synthetic deals; deidentified index; issuer-published lists</td><td>No client content and no EMMA content in the build or the demo.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============================ PART II ============================ -->
+<section class="part">
+  <p class="eyebrow">Part II · Op-ed</p>
+  <h2>AI as clerk, not counsel</h2>
+  <p class="lede">The bottleneck in post-issuance work was never judgment. It was custody. The value of these tools is in doing the mechanical half flawlessly and refusing the other half out loud.</p>
+
+  <p>Every stakeholder in a conduit bond deal has spent twenty years assuming the hard part is the legal part. The advisor structures, counsel opines, the underwriter prices, the trustee holds. Then the deal closes and the promises go into a binder that nobody opens until something goes wrong. The annual report is late because the person who knew the deadline left. The rent roll was sent to the wrong address. The rebate computation was due in year five and nobody put year five on a calendar. None of these failures needed a lawyer to prevent. They needed a clerk who never forgets and never guesses.</p>
+  <p>That is what these capabilities are. Not artificial intelligence in the sense the industry has been sold. A transcription discipline, a fixed vocabulary, and a refusal rule, wrapped around the documents a borrower already owns.</p>
+
+  <h3>What changes now, for each seat at the table</h3>
+  <div class="grid2">
+    <div class="cell"><div class="k">The obligated person</div><p>One working file. Every undertaking beside the clause that created it, with the evidence for the last one and the date of the next. A calendar with a source. A gap list that says what is missing and stops.</p></div>
+    <div class="cell"><div class="k">Bond counsel and the dissemination agent</div><p>Cleaner inputs. Questions arrive pre-sorted with clause citations, not as a panicked call in June. The approval they give is recorded as data, so the register can show it was theirs.</p></div>
+    <div class="cell"><div class="k">The trustee</div><p>Evidence arrives named by obligation and period. The certificate for section 6.5 for fiscal 2025 is a file called that, not an attachment to a thread.</p></div>
+    <div class="cell"><div class="k">The conduit issuer</div><p>A borrower who keeps a book is a borrower whose problems surface early. The issuer's own post-issuance responsibilities do not change, and the register never speaks for the issuer.</p></div>
+    <div class="cell"><div class="k">Investors and underwriters</div><p>Undertakings that are tracked tend to be kept. The register makes no claim about any filing's status; it makes the keeping cheaper.</p></div>
+    <div class="cell"><div class="k">The municipal advisor</div><p>Not replaced. Handed decisions instead of conclusions. Every judgment question the register refuses is a question the advisor is paid to answer.</p></div>
+  </div>
+
+  <p class="quote">Four words, and no fifth. The discipline is in what the vocabulary refuses to say.</p>
+
+  <p>The status vocabulary deserves its own paragraph, because it is where most compliance software goes wrong. The temptation is to add a code that means "a professional should look at this." It feels careful. It is the opposite. It partitions the register into the rows we flagged and the rows we did not, and the rows we did not flag now read as cleared. Nobody has to write "compliant" for a reader to infer it. Our four codes are observations about documents: is there a file, does it correspond, can we test it. The routing that a fifth code was reaching for lives in two lists instead, one of requests and one of refusals, and neither says anything about the obligation.</p>
+
+  <h3>What changes next</h3>
+  <p><b>Registers that survive the deal's own history.</b> Refundings, fiscal-year changes, successor trustees, and amended undertakings currently break whatever spreadsheet exists. When the approval trail is data, each of those events re-opens exactly the rows it touches, and the items-awaiting-input list tells everyone what has to be re-approved.</p>
+  <p><b>Tools that improve without touching anyone's documents.</b> A synthetic deal that carries the shape of a real binder, with none of its content, lets the extractor be built, tested, and stress-tested in public. The deidentified index that made our demo possible is one artifact. A library of them is a training set no client had to contribute to.</p>
+  <p><b>A shared vocabulary.</b> Four statuses, a refusal log, and an items-awaiting-input list are simple enough to become a convention between borrowers and their professionals. A trustee who receives files named by obligation and period from ten borrowers will start asking the eleventh for the same.</p>
+  <p><b>Agents that keep the book alive, and the people who keep the agents alive.</b> A workflow a borrower runs themselves will drift. Models change. A prompt that worked in June returns something different in December. The free kit we published does the first mile and says so; the maintenance, the approval chasing, the evidence custody, and the re-testing are the work, and they need an owner. That is where a done-with-you or done-for-you service earns its fee, and it is an honest place to earn it.</p>
+
+  <h3>The limits, stated plainly</h3>
+  <ul>
+    <li>The approved-input rule is load-bearing. Remove it and the register becomes our determination dressed as the client's.</li>
+    <li>The method is activity-reviewed, not counsel-cleared. That is the correct phrase and it stays until a lawyer signs.</li>
+    <li>We never file. We never say "compliant." We never replace counsel, the advisor, or the dissemination agent.</li>
+    <li>Nothing here is a claim about the market. It is a claim about custody.</li>
+  </ul>
+
+  <p class="quote">The obligation book is the product. Everything else is filing.</p>
+</section>
+
+<!-- ============================ PART III ============================ -->
+<section class="part">
+  <p class="eyebrow">Part III · Webinar outline</p>
+  <h2>A 30-minute talk that carries both parts</h2>
+  <p>Working title: <b>The Obligation Book Is the Product.</b> Audience: CFOs, controllers, and asset managers of private obligated persons, with their counsel and dissemination agents invited. One presenter, three live moments, one ask.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Minute</th><th>Beat</th><th>On screen</th><th>Live moment</th></tr></thead>
+    <tbody>
+      <tr><td>0–3</td><td>The binder nobody opens. Three failures that needed a clerk, not a lawyer.</td><td>Title slide; one sentence per failure.</td><td></td></tr>
+      <tr><td>3–7</td><td>The line, and the move: post-close, transcription, refusal.</td><td>The control sentence, verbatim.</td><td></td></tr>
+      <tr><td>7–14</td><td>The register, walked top to bottom.</td><td>The synthetic sample register.</td><td><b>Live 1.</b> Scroll the sample. Point at one filed row, one evidence-missing row, one item awaiting input.</td></tr>
+      <tr><td>14–18</td><td>Four words and no fifth.</td><td>The legend.</td><td></td></tr>
+      <tr><td>18–22</td><td>The reference seat: where is it, and what it will not say.</td><td>Terminal or chat window.</td><td><b>Live 2.</b> Ask "where is the annual report requirement?" then "is the trustee change material?" Show the refusal and the log line.</td></tr>
+      <tr><td>22–26</td><td>Synthetic data: how the demo exists without anyone's documents.</td><td>Figure 1 and the three-layer index.</td><td></td></tr>
+      <tr><td>26–29</td><td>What you can do today, free.</td><td>The DIY kit page.</td><td><b>Live 3.</b> Paste the skill into an assistant with one synthetic document. Show the candidate map and the "end of instructions" line.</td></tr>
+      <tr><td>29–30</td><td>The ask.</td><td>Intake page.</td><td>Fixed fee after we see instrument count and CDA pack. Ten business days. We never file.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="never"><div class="k">For the presenter · words that do not leave your mouth</div><ul>
+    <li>Any deal count, dollar savings, readiness percentage, rate, or coverage figure as a claim.</li>
+    <li>"Compliant," "bond-ready," "funded," "lower cost of issuance."</li>
+    <li>The MSRB's filing system by its trademark, as if it were ours.</li>
+    <li>Timing, structure, or refunding advice. Counsel-timeline or rate-scare urgency.</li>
+    <li>A price. "Fixed fee, quoted after we see your instrument count and CDA pack."</li>
+  </ul></div>
+
+  <p>Recording format: screen plus presenter, thirty minutes, with the three live moments cut as standalone clips of under ninety seconds each. The sample register, the refusal, and the DIY skill are the three clips that travel.</p>
+  <p><a class="cta" href="https://muni-pal.io/obligation-register">The register page</a> &nbsp; <a href="https://muni-pal.io/samples/obligation-register-sample.html">Sample register</a> &nbsp;·&nbsp; <a href="https://muni-pal.io/diy/index.html">DIY kit</a></p>
+</section>
+
+<section class="part">
+  <p class="eyebrow">Appendix · Six terms</p>
+  <div class="tbl"><table>
+    <tbody>
+      <tr><td><b>Obligated person</b></td><td>The private borrower behind a conduit bond. The party that actually repays and actually promises.</td></tr>
+      <tr><td><b>Continuing disclosure agreement</b></td><td>The undertaking, made at closing, to provide annual information and notices of certain events for the life of the bonds.</td></tr>
+      <tr><td><b>Dissemination agent</b></td><td>The party appointed to make those filings. The register never becomes one.</td></tr>
+      <tr><td><b>Listed events</b></td><td>The enumerated events, sixteen in current form, that trigger a notice. Whether one has occurred and whether it is material are judgments.</td></tr>
+      <tr><td><b>Approved input</b></td><td>A row, clause, or date that a professional has confirmed in writing. The only thing that can enter a register.</td></tr>
+      <tr><td><b>Refusal log</b></td><td>The record of every judgment question put to us, the date, and where it was routed. Questions go in; answers do not.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+</main>
+
+<footer>
+  <p>Muni-Pal — A Launch Shop product. © 2026 Launch Shop. All rights reserved.</p>
+  <p>Launch Shop is not a municipal advisor, a law firm, or a dissemination agent. Nothing in this document is legal advice or a conclusion about any party's regulatory status. Draft for internal review; no external use until it clears the send gate.</p>
+</footer>

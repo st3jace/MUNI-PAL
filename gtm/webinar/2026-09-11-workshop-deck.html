@@ -1,0 +1,326 @@
+<title>Closed-Deal Obligation Book Workshop</title>
+<style>
+  :root{
+    --navy:#1B3A5C; --teal:#2DAEAC; --orange:#E8913A; --orange-2:#C87D32; --ink:#0B1B2E; --deep:#12273F; --paper:#F7F5F1;
+    --bg:#0B1B2E; --slide:#F7F5F1; --slide-fg:#0B1B2E; --slide-muted:#5F6B7A; --slide-line:#DCD6CB; --head:#1B3A5C; --label:#1E8C8A;
+    --dark-slide:#1B3A5C; --dark-fg:#FFFFFF; --dark-muted:#C9D3DF; --notes-bg:#12273F; --notes-fg:#E8EDF2; --chip:#FFFFFF;
+  }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --bg:#06111F; } }
+  :root[data-theme="dark"]{ --bg:#06111F; }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--slide-fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;overflow:hidden}
+  .stage{position:fixed;inset:0;display:grid;grid-template-rows:1fr auto}
+  .frame{position:relative;display:flex;align-items:center;justify-content:center;padding:16px}
+  .slide{position:absolute;width:min(100%,calc((100vh - 96px) * 16 / 9));aspect-ratio:16/9;background:var(--slide);color:var(--slide-fg);border-radius:10px;padding:5.2% 6% 5%;display:none;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.35);overflow:hidden}
+  .slide.on{display:flex}
+  .slide.dark{background:var(--dark-slide);color:var(--dark-fg)}
+  .slide.dark .eyebrow{color:var(--teal)}
+  .slide.dark h1,.slide.dark h2{color:var(--dark-fg)}
+  .slide.dark .muted{color:var(--dark-muted)}
+  .eyebrow{color:var(--label);font-size:clamp(11px,1.1vw,14px);font-weight:600;letter-spacing:.09em;text-transform:uppercase;margin:0 0 .9em}
+  h1{color:var(--head);font-size:clamp(28px,4.4vw,58px);line-height:1.08;margin:0 0 .35em;font-weight:700;text-wrap:balance;max-width:20ch}
+  h2{color:var(--head);font-size:clamp(22px,3.1vw,42px);line-height:1.12;margin:0 0 .5em;font-weight:700;text-wrap:balance;max-width:24ch}
+  p,li{font-size:clamp(14px,1.55vw,22px);line-height:1.45}
+  p{margin:0 0 .7em;max-width:44ch}
+  .muted{color:var(--slide-muted)}
+  ul,ol{margin:0;padding-left:1.1em;max-width:46ch}
+  li{margin:.35em 0}
+  li::marker{color:var(--teal)}
+  .big{font-size:clamp(20px,2.6vw,36px);line-height:1.25;font-weight:600;color:var(--head);max-width:26ch;text-wrap:balance}
+  .slide.dark .big{color:#fff}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:4%;flex:1;min-height:0}
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:3%;flex:1;min-height:0}
+  .card{background:#fff;border:1px solid var(--slide-line);border-radius:8px;padding:4% 5%;min-height:0}
+  .slide.dark .card{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.18)}
+  .card .k{color:var(--label);font-size:clamp(10px,1vw,13px);font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5em}
+  .slide.dark .card .k{color:var(--teal)}
+  .card p{font-size:clamp(13px,1.35vw,19px);margin:0}
+  .chips{display:flex;flex-wrap:wrap;gap:.6em;margin:.4em 0 .9em}
+  .chip{background:var(--chip);border:1.5px solid var(--teal);border-radius:6px;padding:.35em .8em;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:clamp(15px,1.9vw,28px);color:var(--ink)}
+  .rule{border-left:5px solid var(--teal);padding-left:1em;margin:.6em 0 1em;max-width:46ch}
+  .rule p{margin:0;font-size:clamp(14px,1.5vw,21px)}
+  .live{position:absolute;top:5%;right:6%;background:var(--orange);color:#fff;font-weight:700;font-size:clamp(11px,1.1vw,14px);letter-spacing:.08em;text-transform:uppercase;padding:.45em .9em;border-radius:5px}
+  .url{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:clamp(14px,1.7vw,24px);color:var(--head);background:#fff;border:1px solid var(--slide-line);border-radius:6px;padding:.4em .8em;display:inline-block;margin:.3em 0}
+  .slide.dark .url{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.2)}
+  .foot{position:absolute;left:6%;right:6%;bottom:4%;display:flex;justify-content:space-between;font-size:clamp(10px,1vw,13px);color:var(--slide-muted)}
+  .slide.dark .foot{color:var(--dark-muted)}
+  .foot b{color:var(--label)}
+  .slide.dark .foot b{color:var(--teal)}
+  .cta{display:inline-block;background:var(--orange);color:#fff;font-weight:700;padding:.6em 1.1em;border-radius:6px;font-size:clamp(15px,1.8vw,26px);margin-top:.4em}
+  table{border-collapse:collapse;width:100%;font-size:clamp(12px,1.3vw,18px)}
+  th,td{border-bottom:1px solid var(--slide-line);padding:.45em .6em;text-align:left;vertical-align:top}
+  th{color:var(--label);font-size:clamp(10px,1vw,13px);letter-spacing:.06em;text-transform:uppercase}
+  .status-filed{color:#1f6f43}.status-missing{color:#9b2226;font-weight:600}.status-not{color:#9a5b00}.status-nt{color:var(--slide-muted)}
+  /* controls + notes */
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 18px;color:#C9D3DF;font-size:13px;background:rgba(0,0,0,.25)}
+  .bar button{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:5px;padding:5px 10px;font-size:13px;cursor:pointer}
+  .bar button:focus{outline:2px solid var(--teal)}
+  .bar .n{font-variant-numeric:tabular-nums}
+  .notes{display:none;position:fixed;right:0;top:0;bottom:44px;width:min(420px,40vw);background:var(--notes-bg);color:var(--notes-fg);padding:18px 20px;overflow:auto;font-size:15px;line-height:1.55;border-left:1px solid rgba(255,255,255,.12)}
+  .notes.on{display:block}
+  .notes h4{margin:0 0 6px;color:var(--teal);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  .notes .t{color:#9FB0C2;font-size:12px;margin-bottom:10px}
+  .notes p{font-size:15px;max-width:none;margin:0 0 10px}
+  .notes .say{border-left:3px solid var(--teal);padding-left:10px}
+  .notes .do{color:#F2C48C}
+  @media print{
+    body{overflow:visible;background:#fff}
+    .stage{position:static;display:block}
+    .frame{display:block;padding:0}
+    .slide{position:static;display:flex!important;width:100%;aspect-ratio:16/9;margin:0 0 12px;box-shadow:none;page-break-after:always;border-radius:0}
+    .bar,.notes{display:none!important}
+  }
+</style>
+
+<div class="stage">
+<div class="frame" id="frame">
+
+<!-- 1 -->
+<section class="slide dark on" data-t="0:00–0:30">
+  <p class="eyebrow">The Closed-Deal Obligation Book · Live working session</p>
+  <h1>Build your Candidate Map in one sitting.</h1>
+  <p class="muted">For CFOs, controllers, and asset managers at private obligated persons. Counsel and dissemination agents welcome.</p>
+  <p class="muted">Thirty minutes. One synthetic register. The questions it refuses. Bring one real question from a closed deal.</p>
+  <div class="foot"><span><b>Muni-Pal</b> · a Launch Shop product</span><span>Post-close custody only. We do not file, judge, or advise.</span></div>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-t="0:30–3:00">
+  <p class="eyebrow">1 · The clerk gap after closing</p>
+  <h2>Three failures that needed a clerk, not a lawyer.</h2>
+  <div class="three">
+    <div class="card"><div class="k">The annual report</div><p>Late, because the person who knew the deadline left in March and the deadline lived in their head.</p></div>
+    <div class="card"><div class="k">The rent roll</div><p>Sent on time, to the wrong address, with the wrong quarter in the file name. Nobody could prove it went.</p></div>
+    <div class="card"><div class="k">The rebate computation</div><p>Due in year five. Year five was not on any calendar, because no calendar existed.</p></div>
+  </div>
+  <div class="foot"><span><b>Muni-Pal</b></span><span>Custody, not judgment.</span></div>
+</section>
+
+<!-- 3 -->
+<section class="slide dark" data-t="3:00–6:00">
+  <p class="eyebrow">The line we stay behind</p>
+  <h2>We sell custody. Not advice, not filing, not judgment, not outcomes.</h2>
+  <div class="rule"><p>Launch Shop records or mechanically transcribes obligations, dates, and owners supplied or approved by the client, bond counsel, municipal advisor, or dissemination agent. Launch Shop does not independently decide which undertaking controls, interpret ambiguous deadline formulas, determine successor/refunding effects, or decide whether an obligation applies.</p></div>
+  <p class="muted">That sentence is in the engagement letter, on the website, and in the code. It is why the file is safe to hand to your counsel and your board.</p>
+  <div class="foot"><span><b>Muni-Pal</b></span><span>Activity-reviewed. Not counsel-cleared. We say so.</span></div>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-t="6:00–9:00">
+  <p class="eyebrow">2 · What a working book contains</p>
+  <h2>Six things. Nothing else.</h2>
+  <div class="three">
+    <div class="card"><div class="k">Register</div><p>Every undertaking, bound to the document and clause that created it, with recipient and frequency.</p></div>
+    <div class="card"><div class="k">Calendar</div><p>Dates your professionals approved in writing. Only those.</p></div>
+    <div class="card"><div class="k">Evidence vault index</div><p>Every file you delivered, named by obligation and period, bound to its row.</p></div>
+    <div class="card"><div class="k">Gap list</div><p>An approved undertaking with no file for it. Observation only. No ranking, no plan.</p></div>
+    <div class="card"><div class="k">Items awaiting input</div><p>What we asked your counsel for, when, and have not received.</p></div>
+    <div class="card"><div class="k">Refusal log</div><p>Every judgment question anyone asked, the date, and where it went. Not answered.</p></div>
+  </div>
+  <div class="foot"><span><b>Muni-Pal</b></span><span>What you see on the sample is what you buy.</span></div>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-t="9:00–11:00">
+  <p class="eyebrow">3 · The method</p>
+  <h2>Transcribe. Compare. Refuse.</h2>
+  <div class="three">
+    <div class="card"><div class="k">Transcribe</div><p>Read every clause. Quote the duty and the deadline language word for word. Never paraphrase a deadline.</p></div>
+    <div class="card"><div class="k">Compare</div><p>Put each approved row beside the files in the vault. Is there a file? Does it match the period? That is the whole test.</p></div>
+    <div class="card"><div class="k">Refuse</div><p>"Is it material?" "Are we late?" "Which clause controls?" Logged, routed to your professional, left unanswered.</p></div>
+  </div>
+  <p class="muted">No model decides anything in this pipeline. Transcription and comparison are mechanical, so they can be tested and replayed.</p>
+  <div class="foot"><span><b>Muni-Pal</b></span><span>Mechanical steps, written as tests.</span></div>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-t="11:00–14:00">
+  <p class="eyebrow">4 · Four status codes, no fifth</p>
+  <h2>The discipline is in what the vocabulary refuses to say.</h2>
+  <div class="chips"><span class="chip">filed</span><span class="chip">not filed</span><span class="chip">evidence missing</span><span class="chip">not testable</span></div>
+  <div class="two">
+    <div><p>All four are observations about documents. Is there a file. Does it correspond. Can we test it.</p><p>No score. No rating. No colour by importance. No field that records our opinion of anything.</p></div>
+    <div class="card"><div class="k">Why no fifth</div><p>"Needs a professional" feels careful. It is the opposite. It marks the rows we flagged, and the rows we did not flag now read as cleared. That is how "we track your obligations" drifts into "you are fine" without anyone writing the word.</p></div>
+  </div>
+  <div class="foot"><span><b>Muni-Pal</b></span><span>The routing lives in two lists, not in the status column.</span></div>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-t="14:00–18:00">
+  <span class="live">Live 1 · the register</span>
+  <p class="eyebrow">5 · Live synthetic register</p>
+  <h2>A working book, top to bottom.</h2>
+  <p>Synthetic deal. Every name, amount, and date invented. The method is real; the deal is not.</p>
+  <table>
+    <thead><tr><th>Row</th><th>Obligation</th><th>Clause</th><th>Next due</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>OB-01</td><td>Annual report to the MSRB via the filing system</td><td>CDA §4(a)</td><td>2027-06-29</td><td class="status-filed">filed</td></tr>
+      <tr><td>OB-06</td><td>Quarterly rent roll and occupancy report</td><td>Loan §6.8</td><td>2026-11-14</td><td class="status-missing">evidence missing</td></tr>
+      <tr><td>OB-14</td><td>Rebate computation to Trustee</td><td>TRA §5.2</td><td>2030-08-25</td><td class="status-not">not filed</td></tr>
+      <tr><td>OB-04</td><td>Listed event notices</td><td>CDA §5(a)</td><td>—</td><td class="status-nt">not testable</td></tr>
+    </tbody>
+  </table>
+  <span class="url">muni-pal.io/samples/obligation-register-sample.html</span>
+  <div class="foot"><span><b>Muni-Pal</b></span><span>Switch to the browser. Point at one of each.</span></div>
+</section>
+
+<!-- 8 -->
+<section class="slide dark" data-t="18:00–21:00">
+  <span class="live">Live 2 · the refusal</span>
+  <p class="eyebrow">The reference seat</p>
+  <h2>"Where is it?" gets an answer. "Is it material?" gets routed.</h2>
+  <div class="two">
+    <div class="card"><div class="k">Ask</div><p>"Where is the annual report requirement in my documents?"</p><p class="muted" style="margin-top:.6em">Returns the document, the section, the line, and the clause text. Nothing added.</p></div>
+    <div class="card"><div class="k">Ask</div><p>"The trustee changed last month. Is that a material event?"</p><p class="muted" style="margin-top:.6em">"That is a call for your bond counsel or dissemination agent. I will log the question, send it to them, and leave that field empty until they answer in writing."</p></div>
+  </div>
+  <div class="foot"><span><b>Muni-Pal</b></span><span>Show the refusal-log line appear.</span></div>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-t="21:00–24:00">
+  <span class="live">Live 3 · the Candidate Map</span>
+  <p class="eyebrow">6 · Candidate Map in one sitting</p>
+  <h2>A skill file you hand to the AI you already use.</h2>
+  <div class="two">
+    <div>
+      <ul>
+        <li>Paste the skill. Attach your closing documents.</li>
+        <li>It returns every undertaking with its clause, the deadline language quoted word for word, and the questions for counsel.</li>
+        <li>It refuses to compute a date, assign a status, judge materiality, or draft a filing.</li>
+        <li>It ends with "end of instructions for the AI."</li>
+      </ul>
+    </div>
+    <div class="card"><div class="k">The one rule</div><p>A candidate becomes an obligation only when your counsel, advisor, or dissemination agent approves the row, the clause, and the dates, in writing. That rule is the whole method. Everything else is filing.</p></div>
+  </div>
+  <span class="url">muni-pal.io/diy</span>
+  <div class="foot"><span><b>Muni-Pal</b></span><span>Free. Plain text. Any assistant.</span></div>
+</section>
+
+<!-- 10 -->
+<section class="slide dark" data-t="24:00–27:00">
+  <p class="eyebrow">Your question</p>
+  <h2>Bring one question from a closed deal. We answer it one of two ways.</h2>
+  <div class="two">
+    <div class="card"><div class="k">Custody question</div><p>"Where would this live in the book?" "What evidence would count?" "How would this row be named?" We answer on the spot.</p></div>
+    <div class="card"><div class="k">Judgment question</div><p>"Does this apply to us?" "Are we late?" "Is this material?" We say plainly that it belongs with your counsel or dissemination agent, and we show what the book records instead.</p></div>
+  </div>
+  <p class="muted">Both answers are useful. The second one is the product.</p>
+  <div class="foot"><span><b>Muni-Pal</b></span><span>Live questions only. The recording will not include yours.</span></div>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-t="27:00–28:30">
+  <p class="eyebrow">7 · Who qualifies</p>
+  <h2>One gate question. Have the bonds already closed?</h2>
+  <div class="two">
+    <div class="card"><div class="k">For</div><ul><li>Private borrowers and obligated persons on closed deals with live reporting undertakings.</li><li>Housing, industrial, food and agriculture, healthcare, education. The sector does not change the work.</li><li>You keep your own counsel, advisor, or dissemination agent for the judgment calls.</li></ul></div>
+    <div class="card"><div class="k">Not for</div><ul><li>Municipal entities or public authorities. We have no path for you today.</li><li>Advice on a deal that has not closed.</li><li>Filing, materiality calls, or disclosure drafting.</li></ul></div>
+  </div>
+  <div class="foot"><span><b>Muni-Pal</b></span><span>Answer no, and the form stops. On purpose.</span></div>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-t="28:30–29:30">
+  <p class="eyebrow">The 10-Day Obligation Register</p>
+  <h2>Done for you. Ten business days from a complete drop.</h2>
+  <div class="two">
+    <div><ul><li>Fixed fee, quoted after we see your instrument count and CDA pack. Never on par, never contingent.</li><li>You drop the binder. Your professionals approve the list. We build the book.</li><li>You, or your dissemination agent, file. We never do.</li></ul></div>
+    <div class="card"><div class="k">Guarantee · process only</div><p>If we don't deliver a complete Obligation Register and labeled vault for every source document you uploaded within 10 business days of a complete drop, we refund the fee in full.</p></div>
+  </div>
+  <div class="foot"><span><b>Muni-Pal</b></span><span>Two founding slots this month. Then list price.</span></div>
+</section>
+
+<!-- 13 -->
+<section class="slide dark" data-t="29:30–30:00">
+  <p class="eyebrow">8 · Start</p>
+  <h2>If your bonds have closed and you want a fixed-fee quote.</h2>
+  <span class="url">muni-pal.io/obligation-register</span>
+  <p class="muted" style="margin-top:.8em">Five minutes. Facts and contacts only. Nothing on it asks for a legal judgment.</p>
+  <p class="muted">Recording goes out within two hours. It will not include your question. That is why you asked it live.</p>
+  <div class="foot"><span><b>Muni-Pal</b> · a Launch Shop product</span><span>We never file. We never say "compliant." We never replace your counsel.</span></div>
+</section>
+
+</div>
+<div class="bar">
+  <span>← → to move · <b style="color:#fff">N</b> notes · <b style="color:#fff">P</b> print all</span>
+  <span class="n" id="count">1 / 13</span>
+  <span><button id="prev">Prev</button> <button id="next">Next</button> <button id="notesBtn">Notes</button></span>
+</div>
+</div>
+
+<aside class="notes" id="notes"></aside>
+
+<script>
+const NOTES = [
+`<h4>Slide 1 · Open</h4><div class="t">0:00–0:30</div>
+<p class="say">Thanks for being here. This is thirty minutes and it is a working session, not a talk. You will see one obligation register built on a made-up deal, you will see the questions it refuses to answer, and you will leave with a way to build the first version of your own map today.</p>
+<p class="say">One rule for the room: we discuss custody. Where a promise lives, which clause made it, what evidence exists. We do not file, we do not give judgment, and we are not a municipal advisor. If you brought a question, keep it close. We take live questions at minute twenty-four.</p>
+<p class="do">Do: say the recording sentence once here. "Live attendees can ask questions and see the book worked in real time. We'll send the recording afterward, but the recording does not include your specific question."</p>`,
+
+`<h4>Slide 2 · The clerk gap</h4><div class="t">0:30–3:00</div>
+<p class="say">Every one of us assumes the hard part of a bond deal is the legal part. Then the deal closes and the promises go into a binder nobody opens until something breaks.</p>
+<p class="say">Three failures I have watched. An annual report goes late because the one person who knew the deadline left in March. A rent roll goes out on time, to the wrong address, and nobody can prove it went. A rebate computation is due in year five, and year five is not on a calendar because there is no calendar.</p>
+<p class="say">None of those needed a lawyer to prevent. They needed a clerk who never forgets and never guesses. That is the gap. That is all we are here to close.</p>`,
+
+`<h4>Slide 3 · The line</h4><div class="t">3:00–6:00</div>
+<p class="say">Before anything else, the line. Read the sentence on screen. That is in our engagement letter, on our website, and in our code. We record and transcribe what your professionals approve. We do not decide which clause controls, we do not interpret a deadline formula, we do not decide whether an obligation applies.</p>
+<p class="say">Why lead with it? Because it is the reason you can hand the file to your counsel and your board. A register that quietly contains our opinions is worth less than no register. A register that contains only what your professionals approved is something you can defend.</p>
+<p class="say">One more honest phrase: this method is activity-reviewed, not counsel-cleared. We say that out loud.</p>
+<p class="do">Never say: compliant, bond-ready, any deal count, any dollar saved, any rate.</p>`,
+
+`<h4>Slide 4 · What a book contains</h4><div class="t">6:00–9:00</div>
+<p class="say">A working book has six things and nothing else. The register: every undertaking bound to the document and the clause that created it. The calendar: only dates your professionals approved in writing. The evidence vault index: every file you delivered, named by obligation and period. The gap list: an approved undertaking with no file for it, and it stops there. Items awaiting input: what we asked your counsel for and have not received. And the refusal log: every judgment question anyone asked us, the date, and where it went.</p>
+<p class="say">Notice what is not on the list. No score. No plan. No opinion. What you will see on the sample in a few minutes is exactly what a client gets.</p>`,
+
+`<h4>Slide 5 · The method</h4><div class="t">9:00–11:00</div>
+<p class="say">Three verbs. Transcribe: read every clause and quote the duty and the deadline language word for word. We never paraphrase a deadline, because a paraphrase is an interpretation. Compare: put each approved row beside the files in the vault. Is there a file, does it match the period. That is the entire test. Refuse: is it material, are we late, which clause controls. Logged, routed, left unanswered.</p>
+<p class="say">There is no model deciding anything in this pipeline. The transcription and the comparison are mechanical, which means they can be tested and replayed and explained to a board.</p>`,
+
+`<h4>Slide 6 · Four codes</h4><div class="t">11:00–14:00</div>
+<p class="say">Every row carries one of four words. Filed: a matching file is in the vault. Not filed: the date is in the future. Evidence missing: the date passed and there is no matching file in what you gave us. Not testable: there is no calendar date and no event was supplied.</p>
+<p class="say">People always ask for a fifth: "needs a professional." It feels careful. It is the opposite. The moment you mark some rows that way, the rows you did not mark read as cleared. Nobody has to write the word "compliant" for a reader to infer it. So there is no fifth. The routing lives in two lists instead, requests and refusals, and neither says anything about the obligation.</p>`,
+
+`<h4>Slide 7 · LIVE 1 · the register</h4><div class="t">14:00–18:00</div>
+<p class="do">Do: switch to the browser. Open the sample register. Scroll slowly. Point at: one filed row with its evidence file; the evidence-missing row and the same row in the gap list; one item awaiting input and read the request date; the refusal log.</p>
+<p class="say">This is a synthetic deal. Every name, amount and date is invented. The method is real; the deal is not. Here is a filed row: the annual report, the clause it comes from, the file in the vault. Here is evidence missing: the first-quarter rent roll. The date passed and there is no file. That is the whole statement. Not late, not in default. No file in the set you gave us.</p>
+<p class="say">And here is items awaiting input. We asked counsel whether two trustee duties in the indenture are the borrower's. We recorded the date. We wait.</p>`,
+
+`<h4>Slide 8 · LIVE 2 · the refusal</h4><div class="t">18:00–21:00</div>
+<p class="do">Do: open the reference seat. Type the first question. Read the returned clause. Type the second question. Read the refusal out loud. Show the new line in the refusal log.</p>
+<p class="say">First question: where is the annual report requirement in my documents? It gives me the document, the section, the line, the text. Nothing added.</p>
+<p class="say">Second question: the trustee changed last month, is that a material event? Listen to the answer. "That is a call for your bond counsel or dissemination agent. I will log the question, send it to them, and leave that field empty until they answer in writing." And here is the log line. That refusal is not a limitation of the tool. It is the product.</p>`,
+
+`<h4>Slide 9 · LIVE 3 · the Candidate Map</h4><div class="t">21:00–24:00</div>
+<p class="do">Do: open your assistant. Paste the skill file. Attach one synthetic document. Show the candidate map coming back. Point at the verbatim deadline text and the questions-for-counsel list.</p>
+<p class="say">You can do the first mile yourself, today, for free. This is a skill file. You hand it to whatever assistant you already use and attach your closing documents. It transcribes every undertaking with its clause, it quotes the deadline language exactly, and it lists the questions for your counsel. It will not compute a date, assign a status, judge materiality, or draft anything.</p>
+<p class="say">One rule and it is the whole method: a candidate becomes an obligation only when your professional approves the row, the clause and the dates, in writing. Everything else is filing.</p>`,
+
+`<h4>Slide 10 · Your question</h4><div class="t">24:00–27:00</div>
+<p class="do">Do: take two or three live questions. Sort each one out loud into custody or judgment before answering.</p>
+<p class="say">Custody answer pattern: "In the book that would be a row under the loan agreement, section such-and-such, recipient the trustee, frequency quarterly. The evidence that would count is the report itself with the delivery date. The row would be named OB-something, period, short name."</p>
+<p class="say">Judgment answer pattern: "That is a question of whether it applies, and that belongs with your bond counsel or dissemination agent. What the book would do is record the clause, log your question with today's date, and leave the field empty until they answer in writing. I would rather tell you that plainly than guess."</p>
+<p class="do">Both answers are useful. Say so. The second one is the product.</p>`,
+
+`<h4>Slide 11 · Who qualifies</h4><div class="t">27:00–28:30</div>
+<p class="say">One gate question decides everything: have the bonds already closed. If yes, and you are a private borrower or obligated person with live undertakings, this is for you. Housing, industrial, food and agriculture, healthcare, education. The sector does not change the work.</p>
+<p class="say">If you are a municipal entity or a public authority, we have no path for you today, and the form will tell you so. If the deal has not closed, we do not do pre-issuance work on this product. On purpose.</p>`,
+
+`<h4>Slide 12 · The register</h4><div class="t">28:30–29:30</div>
+<p class="say">The done-for-you version is the 10-Day Obligation Register. Fixed fee, quoted after we see your instrument count and your continuing disclosure pack. Never a percentage of anything. You drop the binder, your professionals approve the list, we build the book. Ten business days from a complete drop, pausing only while we wait for your counsel's written input.</p>
+<p class="say">Read the guarantee. It is a promise about our process and nothing else. Two founding slots this month, then list price. Scarcity is real because the hours are mine.</p>
+<p class="do">Never print or say a number for the fee. "Fixed fee, quoted after we see your instrument count and CDA pack."</p>`,
+
+`<h4>Slide 13 · Start</h4><div class="t">29:30–30:00</div>
+<p class="say">If your bonds have closed and you want a quote, the intake is on screen. Five minutes, facts and contacts only. Nothing on it asks for a legal judgment.</p>
+<p class="say">The recording goes out within two hours. It will not include your question. That is why you asked it live. Thank you.</p>
+<p class="do">After: send the recording within two hours with the one-question reply CTA. Day 3, day 5, day 10 follow the sequence.</p>`
+];
+const slides=[...document.querySelectorAll('.slide')];let i=0;const notes=document.getElementById('notes');const count=document.getElementById('count');
+function show(n){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>s.classList.toggle('on',k===i));count.textContent=(i+1)+' / '+slides.length;notes.innerHTML=NOTES[i]||'';try{localStorage.setItem('cdob-slide',i)}catch(e){}}
+document.getElementById('prev').onclick=()=>show(i-1);document.getElementById('next').onclick=()=>show(i+1);
+document.getElementById('notesBtn').onclick=()=>notes.classList.toggle('on');
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){show(i+1);e.preventDefault()}else if(e.key==='ArrowLeft'||e.key==='PageUp'){show(i-1);e.preventDefault()}else if(e.key.toLowerCase()==='n'){notes.classList.toggle('on')}else if(e.key.toLowerCase()==='p'){window.print()}else if(e.key==='Home'){show(0)}else if(e.key==='End'){show(slides.length-1)}});
+let start=null;try{start=parseInt(localStorage.getItem('cdob-slide'))}catch(e){}
+show(Number.isFinite(start)?start:0);
+</script>

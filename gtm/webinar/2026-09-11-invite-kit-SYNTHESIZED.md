@@ -1,5 +1,7 @@
 # Invite kit — The Closed-Deal Obligation Book (synthesized)
 
+> **SUPERSEDED 2026-09-11.** Use `2026-09-11-invite-and-followup-SEQUENCE.md` in the MUNI-PAL repo (`gtm/webinar/`). It carries the plain-language pass. Do not send from this file.
+
 **Date:** 2026-09-11  
 **Sources merged:** repo `2026-09-11-invite-and-followup-SEQUENCE.md` + `2026-09-11-workshop-SCRIPT.md` + ACQ AI 2026-09-10 rewrite + useful bits from Hermosillo 2026-09-10 invite kit.  
 **Status: DRAFT (pricing adopted 2026-09-11).** Nothing sends until it clears `GTM/send-gate`.  
@@ -89,6 +91,8 @@ We're hosting a **30-minute live working session** for CFOs, controllers, and as
 
 You'll see a synthetic obligation register, the four status codes it uses, and the questions it refuses to answer. **Bring one real question from a closed deal.**
 
+You'll also see how to start your own **Candidate Map**. That is a first-draft list of every reporting promise in your closing documents. Each promise is tied to the page and clause it came from, with the deadline words quoted exactly. Nothing on it counts until your bond counsel or dissemination agent approves it in writing.
+
 Counsel and dissemination agents are welcome.
 
 We discuss post-close custody only. We do not file, give judgment, or act as a municipal advisor.
@@ -129,7 +133,7 @@ In the session you'll see:
 1. A synthetic obligation register (made-up deal; real method)  
 2. Four status words only: filed / not filed / evidence missing / not testable  
 3. Where “is it material?” gets **refused and routed** — that refusal is the product  
-4. How to start a **Candidate Map** yourself in one sitting (skill file + your docs)
+4. How to start a **Candidate Map** yourself in one sitting. A Candidate Map is a first-draft list of every reporting promise in your closing documents, each tied to its clause, with the deadline words quoted exactly. You build it with free instructions you paste into the AI assistant you already use. Nothing on it counts until your bond counsel or dissemination agent approves it in writing.
 
 Preview the shape (synthetic): {{sample register link}}
 
@@ -198,7 +202,7 @@ We're opening shortly. Live questions are welcome. {{Join link}}
 
 ## Live open (first ~60s — align with SCRIPT)
 
-“Thanks for being here. This is thirty minutes and a working session, not a talk. You'll see one obligation register on a made-up deal, the questions it refuses, and a way to build the first version of your own map today.
+“Thanks for being here. This is thirty minutes and a working session, not a talk. You'll see one obligation register on a made-up deal, the questions it refuses, and a way to start your own Candidate Map today: a first-draft list of every reporting promise in your closing documents.
 
 One rule: we discuss custody — where a promise lives, which clause made it, what evidence exists. We do not file, we do not give judgment, and we are not a municipal advisor.
 
@@ -232,7 +236,7 @@ If you were live: workshop price (**$2,500**) holds if you start intake by {{dea
 
 If bonds are already closed and you want a fixed-fee quote, start here: {{Intake link}}
 
-DIY first mile (no binder to us): {{DIY / Candidate Map kit link}}
+Build your own Candidate Map for free, without sending us any documents: {{DIY / Candidate Map kit link}}. It gives you a first-draft list of your reporting promises. Nothing on it counts until your bond counsel or dissemination agent approves it in writing.
 
 We build the book from your drop and approved written inputs. You or your dissemination agent file. We never do.
 

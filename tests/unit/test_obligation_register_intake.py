@@ -66,6 +66,7 @@ async def test_good_intake_is_stored_as_lead(test_client, db_session):
         "entity_unclear": False,
         "concurrent_preissuance": False,
         "no_professional_named": False,
+        "workshop_attendee": False,
     }
     # No price, no compliance word, anywhere in what the prospect sees.
     assert "$" not in json.dumps(body)
@@ -89,6 +90,7 @@ async def test_unclear_entity_and_concurrent_work_are_flagged_not_refused(test_c
         "entity_unclear": True,
         "concurrent_preissuance": True,
         "no_professional_named": True,
+        "workshop_attendee": False,
     }
 
 

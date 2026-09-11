@@ -25,9 +25,14 @@ export const DIY_URL = '/diy/index.html'
 const ARTHUR_CONTROL =
   'Muni-Pal records or mechanically transcribes obligations, dates, and owners supplied or approved by the client, bond counsel, municipal advisor, or dissemination agent. Muni-Pal does not independently decide which undertaking controls, interpret ambiguous deadline formulas, determine successor/refunding effects, or decide whether an obligation applies.'
 
-// Guarantee — verbatim from the offer one-pager.
+// Guarantee — matches letter §6.9; numbers ruled in
+// braintrust/workspace/cos/2026-09-09-DECISION-a2post-pricing-and-guarantee.md (2%/day, 20% cap, day 20).
+// The big line must stay true without the fine print. Fine print adds detail; it never takes back the promise.
 const GUARANTEE =
-  "If we don't deliver a complete Obligation Register and labeled vault for every source document you uploaded within 10 business days of a complete drop, we refund the fee in full."
+  'We deliver in ten business days.* If we are late, you get money back for each late business day. If we have not delivered by business day 20, you can end it and get the full fee back.'
+
+const GUARANTEE_FINE_PRINT =
+  '* Terms apply. The engagement letter controls. The ten business days start when your document set is complete against our checklist. The clock pauses while we wait for a written answer we asked for from your counsel or from you. Each late business day refunds 2% of the fee, up to 20%. If by business day 20 on that clock we have not delivered the Register and the labeled document vault, you may end the engagement and we refund the full fee within ten business days. No guarantee of filing status on the MSRB’s public filing system, issuer comfort, audit outcome, or future issuance.'
 
 const WHAT_YOU_GET = [
   { name: 'Register', copy: 'Each obligation tied to a source document and clause, with recipient, frequency, next due date when known, and a fixed status.' },
@@ -462,9 +467,7 @@ export default function ObligationRegisterLanding() {
         <div className="rounded-xl p-7" style={{ backgroundColor: BRAND.navy }}>
           <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BRAND.teal }}>Guarantee (process only)</p>
           <p className="text-white text-lg font-semibold leading-relaxed mb-4">{GUARANTEE}</p>
-          <p className="text-gray-300 text-sm leading-relaxed">
-            The ten-business-day clock starts when the complete-drop checklist is satisfied and pauses while we wait on your counsel&rsquo;s written input, or any written fact we still need from you. No guarantee of filing status on the MSRB&rsquo;s public filing system, issuer comfort, audit outcome, or future issuance.
-          </p>
+          <p className="text-gray-300 text-xs leading-relaxed">{GUARANTEE_FINE_PRINT}</p>
         </div>
       </section>
 
@@ -474,7 +477,7 @@ export default function ObligationRegisterLanding() {
           <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: BRAND.teal }}>Free · do it yourself</p>
           <h2 className="text-2xl font-bold text-gray-900 mb-3">Want to run the first mile yourself?</h2>
           <p className="text-gray-700 leading-relaxed mb-4">
-            Take the kit. A skill file you hand to the AI assistant you already use, a complete-drop checklist, the register template, and the four-status legend. Your AI builds the candidate map from your own documents. Your counsel approves it. Same method, same rule: candidates only, dates never computed.
+            Take the kit. A set of instructions you paste into the AI assistant you already use, a complete-drop checklist, the register template, and the four-status legend. Your AI builds the candidate map from your own documents. Your counsel approves it. Same method, same rule: candidates only, dates never computed.
           </p>
           <a href={DIY_URL} className="inline-flex items-center gap-2 font-semibold underline underline-offset-4" style={{ color: BRAND.navy }}>
             Get the DIY kit <ArrowRight className="h-4 w-4" />

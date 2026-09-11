@@ -39,6 +39,16 @@ describe('Obligation Register landing page', () => {
     expect(text).not.toMatch(/bond-ready/i)
   })
 
+  it('states the guarantee in the letter §6.9 terms, with fine print that never contradicts the big line', () => {
+    const { container } = renderPage()
+    const text = container.textContent ?? ''
+    expect(text).toMatch(/money back for each late business day/i)
+    expect(text).toMatch(/by business day 20, you can end it and get the full fee back/i)
+    expect(text).toMatch(/terms apply/i)
+    expect(text).toMatch(/2% of the fee, up to 20%/i)
+    expect(text).not.toMatch(/within 10 business days of a complete drop, we refund the fee in full/i)
+  })
+
   it('stops the form when the bonds have not closed', () => {
     renderPage()
     fireEvent.click(screen.getByRole('radio', { name: /^no$/i }))

@@ -31,7 +31,7 @@ router = APIRouter()
 INTAKE_PRIVACY_CONTRACT: dict[str, Any] = {
     "consent_version": "obligation-intake-v1",
     "consent_copy": (
-        "I consent to Launch Shop collecting my contact details, entity type, instrument "
+        "I consent to Muni-Pal collecting my contact details, entity type, instrument "
         "list and professional contacts to confirm eligibility and reply with a fixed-fee quote."
     ),
 }

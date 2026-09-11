@@ -272,7 +272,7 @@ def main() -> None:
         encoding="utf-8")
     write_csv(out / "open-items.csv", r["open_items"], ["requested_on", "requested_from", "item", "source_document", "clause", "what_was_asked"])
     (out / "open-items.md").write_text(
-        "# Items awaiting input\n\nLaunch Shop has requested the following in writing and has received no written instruction. Sorted by request date.\n\n"
+        "# Items awaiting input\n\nMuni-Pal has requested the following in writing and has received no written instruction. Sorted by request date.\n\n"
         + "".join(f"- {x['requested_on']} → {x['requested_from']}: **{x['item']}** ({x['source_document']} {x['clause']}). {x['what_was_asked']}\n" for x in r["open_items"]) + ("\n(none)\n" if not r["open_items"] else ""),
         encoding="utf-8")
     refusal = out / "refusal-log.md"

@@ -164,7 +164,7 @@ Within fifteen (15) days after the end of each calendar quarter, the Borrower sh
 }
 
 # The load-bearing control. Every row here was "approved" by the client's own
-# counsel / dissemination agent (synthetic). Launch Shop transcribes; it does not decide.
+# counsel / dissemination agent (synthetic). Muni-Pal transcribes; it does not decide.
 APPROVED_FIELDS = [
     "obligation_id", "obligation", "source_document", "clause", "recipient", "frequency",
     "due_rule_text_verbatim", "due_dates_approved", "approved_by", "approval_ref", "evidence_pattern",
@@ -214,12 +214,12 @@ APPROVED = [
 APPROVAL_NOTE = """# Approval of obligation list — SYNTHETIC
 
 **From:** Creosote & Mesa LLP, bond counsel (synthetic), and Ironwood Trust Company, N.A., dissemination agent (synthetic)
-**To:** Saguaro Commons Apartments, LP; Launch Shop
+**To:** Saguaro Commons Apartments, LP; Muni-Pal
 **Date:** 2026-09-08
 
 We have reviewed the candidate obligation list extracted from the Series 2025 closing documents. The obligations, clause references and due dates in `approved-inputs.csv` are approved as stated. Where the `due_dates_approved` column is blank, no date is supplied and none should be computed. Items marked `on request`, `event-driven`, `conditional` or `standing` carry no calendar date.
 
-Launch Shop records what is written here. It does not decide which undertaking controls, interpret deadline formulas, or decide whether an obligation applies.
+Muni-Pal records what is written here. It does not decide which undertaking controls, interpret deadline formulas, or decide whether an obligation applies.
 """
 
 # Synthetic evidence. Some present, some deliberately missing (Q1-2026 quarterly report,

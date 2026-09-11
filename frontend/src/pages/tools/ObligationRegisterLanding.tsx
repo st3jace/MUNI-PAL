@@ -23,7 +23,7 @@ export const DIY_URL = '/diy/index.html'
 
 // Arthur control — verbatim. Do not edit without a ruling.
 const ARTHUR_CONTROL =
-  'Launch Shop records or mechanically transcribes obligations, dates, and owners supplied or approved by the client, bond counsel, municipal advisor, or dissemination agent. Launch Shop does not independently decide which undertaking controls, interpret ambiguous deadline formulas, determine successor/refunding effects, or decide whether an obligation applies.'
+  'Muni-Pal records or mechanically transcribes obligations, dates, and owners supplied or approved by the client, bond counsel, municipal advisor, or dissemination agent. Muni-Pal does not independently decide which undertaking controls, interpret ambiguous deadline formulas, determine successor/refunding effects, or decide whether an obligation applies.'
 
 // Guarantee — verbatim from the offer one-pager.
 const GUARANTEE =
@@ -290,7 +290,7 @@ export function IntakeForm() {
 
               <label className="flex items-start gap-3 text-sm text-gray-700">
                 <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} required className="mt-1" />
-                <span>I consent to Launch Shop collecting my contact details, entity type, instrument list and professional contacts to confirm eligibility and reply with a fixed-fee quote.</span>
+                <span>I consent to Muni-Pal collecting my contact details, entity type, instrument list and professional contacts to confirm eligibility and reply with a fixed-fee quote.</span>
               </label>
 
               {error && (
@@ -490,7 +490,7 @@ export default function ObligationRegisterLanding() {
           <img src="/muni-pal-emblem.png" alt="Muni-Pal" className="h-10 w-10 object-contain opacity-50" />
           <p className="text-sm text-gray-400">Muni-Pal &mdash; A Launch Shop product. Built by Innovation Factory.</p>
           <p className="text-[11px] text-gray-400 max-w-2xl text-center leading-relaxed">
-            Launch Shop is not your municipal advisor, not a law firm, and not a dissemination agent. Nothing on this page is municipal advisory services as defined under Section 15B of the Securities Exchange Act, legal advice, or a conclusion about your regulatory status. Filing decisions belong with you and your licensed professionals.
+            Muni-Pal is not your municipal advisor, not a law firm, and not a dissemination agent. Nothing on this page is municipal advisory services as defined under Section 15B of the Securities Exchange Act, legal advice, or a conclusion about your regulatory status. Filing decisions belong with you and your licensed professionals.
           </p>
         </div>
       </footer>

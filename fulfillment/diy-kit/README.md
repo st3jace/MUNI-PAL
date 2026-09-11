@@ -22,4 +22,4 @@ It does not get your counsel's approval, keep the calendar honest when the deal 
 A worked example on a synthetic deal (every name and number invented): muni-pal.io/samples/obligation-register-sample.html
 
 ---
-Launch Shop is not your municipal advisor, not a law firm, and not a dissemination agent. Nothing in this kit is legal advice or a conclusion about your regulatory status.
+Muni-Pal is not your municipal advisor, not a law firm, and not a dissemination agent. Nothing in this kit is legal advice or a conclusion about your regulatory status.

@@ -2,7 +2,7 @@
 name: obligation-map
 description: Build a CANDIDATE obligation map from a closed bond deal's documents, for your bond counsel or dissemination agent to approve. Transcribes reporting and continuing-disclosure undertakings with clause citations. Never decides which clause controls, never computes deadlines, never says "compliant".
 version: 1.0 (2026-09-10)
-author: Launch Shop — the method behind the 10-Day Obligation Register (muni-pal.io/obligation-register)
+author: Muni-Pal — the method behind the 10-Day Obligation Register (muni-pal.io/obligation-register)
 ---
 
 # Obligation Map — a skill for your AI assistant

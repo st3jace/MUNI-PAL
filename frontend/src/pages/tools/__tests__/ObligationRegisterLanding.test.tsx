@@ -23,7 +23,7 @@ describe('Obligation Register landing page', () => {
   it('carries the Arthur control sentence verbatim and only four status codes', () => {
     const { container } = renderPage()
     expect(
-      screen.getByText(/Launch Shop does not independently decide which undertaking controls/i)
+      screen.getByText(/Muni-Pal does not independently decide which undertaking controls/i)
     ).toBeInTheDocument()
     const codes = Array.from(container.querySelectorAll('code')).map((c) => c.textContent)
     expect(codes).toEqual(['filed', 'not filed', 'evidence missing', 'not testable'])

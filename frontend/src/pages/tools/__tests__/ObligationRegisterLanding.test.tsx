@@ -39,6 +39,13 @@ describe('Obligation Register landing page', () => {
     expect(text).not.toMatch(/bond-ready/i)
   })
 
+  it('states registration status as a fact, never a legal conclusion about the activity', () => {
+    const { container } = renderPage()
+    const text = container.textContent ?? ''
+    expect(text).toMatch(/not a registered municipal advisor, broker-dealer, or law firm/i)
+    expect(text).not.toMatch(/as defined under Section 15B/i)
+  })
+
   it('states the guarantee in the letter §6.9 terms, with fine print that never contradicts the big line', () => {
     const { container } = renderPage()
     const text = container.textContent ?? ''
@@ -52,7 +59,7 @@ describe('Obligation Register landing page', () => {
   it('stops the form when the bonds have not closed', () => {
     renderPage()
     fireEvent.click(screen.getByRole('radio', { name: /^no$/i }))
-    expect(screen.getByRole('alert')).toHaveTextContent(/post-close obligated persons only/i)
+    expect(screen.getByRole('alert')).toHaveTextContent(/only for private borrowers whose bonds have already closed/i)
     expect(screen.queryByLabelText(/legal name/i)).not.toBeInTheDocument()
   })
 
@@ -60,7 +67,7 @@ describe('Obligation Register landing page', () => {
     renderPage()
     fireEvent.click(screen.getByRole('radio', { name: /^yes$/i }))
     fireEvent.change(screen.getByRole('combobox', { name: /entity type/i }), { target: { value: 'municipal_entity' } })
-    expect(screen.getByRole('alert')).toHaveTextContent(/no path for municipal entities/i)
+    expect(screen.getByRole('alert')).toHaveTextContent(/no path for cities, districts, or other public bodies/i)
     expect(screen.queryByLabelText(/^email$/i)).not.toBeInTheDocument()
   })
 
@@ -69,7 +76,7 @@ describe('Obligation Register landing page', () => {
     fireEvent.click(screen.getByRole('radio', { name: /^yes$/i }))
     fireEvent.change(screen.getByRole('combobox', { name: /entity type/i }), { target: { value: 'private_obligated_person' } })
     expect(screen.getByLabelText(/^email$/i)).toBeInTheDocument()
-    expect(screen.getByLabelText(/series or instruments already closed/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/bond issues that have already closed/i)).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /request fixed-fee quote/i })).toBeDisabled()
   })
 })

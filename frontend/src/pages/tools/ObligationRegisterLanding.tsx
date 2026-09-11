@@ -4,8 +4,10 @@
  * Product: 10-Day Obligation Register (LS-A2-POST). Post-close only. Sector-neutral.
  * Copy: Hermosillo 2026-09-10 (workspace/hermosillo/2026-09-10-obligation-register-landing-page.md),
  *       headline B + sub-headline A1 with the ten-day tweak (Stephen 2026-09-10).
+ *       Plain-language pass 2026-09-11 (gtm/webinar/2026-09-11-PLAIN-LANGUAGE-PASS.md).
  * Controls: Arthur 2026-09-09 letter — approved-input rule verbatim in §3, four status codes,
- *       guarantee verbatim in §6. No price. No claim numbers. No "compliant".
+ *       guarantee in §6. No price. No claim numbers. No "compliant".
+ *       Disclaimers state facts about registration status, never a conclusion about the activity.
  */
 import { useEffect, useState, type FormEvent } from 'react'
 import { ArrowRight, CheckCircle2, FileText, Shield, XCircle } from 'lucide-react'
@@ -35,22 +37,24 @@ const GUARANTEE_FINE_PRINT =
   '* Terms apply. The engagement letter controls. The ten business days start when your document set is complete against our checklist. The clock pauses while we wait for a written answer we asked for from your counsel or from you. Each late business day refunds 2% of the fee, up to 20%. If by business day 20 on that clock we have not delivered the Register and the labeled document vault, you may end the engagement and we refund the full fee within ten business days. No guarantee of filing status on the MSRB’s public filing system, issuer comfort, audit outcome, or future issuance.'
 
 const WHAT_YOU_GET = [
-  { name: 'Register', copy: 'Each obligation tied to a source document and clause, with recipient, frequency, next due date when known, and a fixed status.' },
-  { name: 'Calendar', copy: 'Due dates from text you designate or written instructions your professionals supply.' },
-  { name: 'Gap list', copy: 'Observational only: an approved undertaking, and no matching vault file. No remediation. No impact ranking.' },
-  { name: 'Items awaiting input', copy: 'What we asked your professionals for in writing and have not received. Sorted by request date, nothing else.' },
-  { name: 'Refusal log', copy: 'Judgment questions routed to your counsel or dissemination agent. Not answered by us.' },
-  { name: 'Evidence vault index', copy: 'Labeled files bound back to register rows.' },
+  { name: 'Register', copy: 'Every reporting promise, tied to the document and clause that created it, with who gets it, how often, the next due date when known, and one of four status words.' },
+  { name: 'Calendar', copy: 'Due dates your lawyer or advisor gave in writing. Where there is no written answer yet, we show the document’s own words and leave the date empty.' },
+  { name: 'Gap list', copy: 'A promise your lawyer approved, with no matching file. That is all it says. No fix-it plan. No ranking.' },
+  { name: 'Items awaiting input', copy: 'What we asked your lawyer or advisor for in writing and have not received, listed by the date we asked.' },
+  { name: 'Refusal log', copy: 'Questions only your lawyer can answer. We log each one and send it to your bond counsel or dissemination agent. We do not answer them.' },
+  { name: 'Evidence vault index', copy: 'A labeled folder of every document and report you sent us, each tied to its row in the register.' },
 ]
 
 const STATUSES = ['filed', 'not filed', 'evidence missing', 'not testable']
+const STATUS_MEANINGS =
+  'filed: we have the file · not filed: not due yet · evidence missing: the due date passed and there is no file · not testable: no date to check against'
 
 const HOW_IT_WORKS = [
-  'You confirm the bonds have closed and you are the obligated person.',
-  'You send the document drop and name your professionals.',
-  'We quote a fixed fee after we see your instrument count and CDA pack. Never on par, never contingent, never in basis points.',
-  'You sign the purpose-built engagement letter. Payment is due at signature.',
-  'We deliver in ten business days from a complete drop, pausing while we wait on your counsel’s written input.',
+  'You confirm your bonds have closed and that you are the borrower.',
+  'You send us your documents and tell us who your lawyer, advisor, and dissemination agent are.',
+  'We quote a fixed fee once we know how many bond issues you have and see your disclosure agreement and filed reports. The fee is never a percentage of your bonds and never depends on an outcome.',
+  'You sign an engagement letter written for this work. Payment is due when you sign.',
+  'We deliver in ten business days from a complete set of documents. The clock pauses while we wait for a written answer from your lawyer.',
   'You, or your dissemination agent, file. We do not.',
 ]
 
@@ -58,8 +62,8 @@ type EntityType = 'private_obligated_person' | 'municipal_entity' | 'unclear'
 type Gate = 'unset' | 'yes' | 'no'
 
 const PRE_ISSUANCE_STOP =
-  'This offer is for post-close obligated persons only. We do not build registers for deals that have not closed.'
-const MUNICIPAL_STOP = 'We have no path for municipal entities or public authorities today.'
+  'This offer is only for private borrowers whose bonds have already closed. We do not build registers for bonds that have not been sold yet.'
+const MUNICIPAL_STOP = 'We have no path for cities, districts, or other public bodies today.'
 
 function CtaButton({ children, href }: { children: React.ReactNode; href: string }) {
   return (
@@ -147,7 +151,7 @@ export function IntakeForm() {
         <CheckCircle2 className="h-8 w-8 mb-3" style={{ color: BRAND.teal }} />
         <h3 className="text-lg font-semibold text-gray-900 mb-2">Thanks. We have it.</h3>
         <p className="text-sm text-gray-700">
-          We will confirm eligibility and reply with a fixed-fee quote after we review instrument count and the CDA pack. We do not provide filing advice from this form.
+          We will confirm this is a fit and reply with a fixed-fee quote once we see how many bond issues you have and your disclosure agreement. We do not give filing advice from this form.
         </p>
       </div>
     )
@@ -158,7 +162,7 @@ export function IntakeForm() {
       {/* Gate — first, alone */}
       <fieldset>
         <legend className="text-base font-semibold text-gray-900 mb-2">Have the bonds already closed?</legend>
-        <p className={help + ' mb-3'}>Closed, not merely authorized or approved. We only work on obligations that already exist.</p>
+        <p className={help + ' mb-3'}>Closed means the bonds were sold and delivered, not just approved. We only work on promises that already exist.</p>
         <div className="flex gap-6">
           {(['yes', 'no'] as const).map((v) => (
             <label key={v} className="inline-flex items-center gap-2 text-sm">
@@ -177,27 +181,27 @@ export function IntakeForm() {
       {gate === 'yes' && (
         <>
           <fieldset className="space-y-4">
-            <legend className="text-base font-semibold text-gray-900">The entity</legend>
+            <legend className="text-base font-semibold text-gray-900">Your organization</legend>
             <div>
-              <label className={label} htmlFor="legal_name">Legal name of the obligated person</label>
+              <label className={label} htmlFor="legal_name">Legal name of the borrower</label>
               <input id="legal_name" name="legal_name" className={field} required />
-              <p className={help}>The entity named on the continuing-disclosure undertaking.</p>
+              <p className={help}>The name on your continuing disclosure agreement.</p>
             </div>
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className={label} htmlFor="entity_type">Entity type</label>
                 <select id="entity_type" name="entity_type" className={field} value={entityType} onChange={(e) => setEntityType(e.target.value as EntityType)} required>
                   <option value="">Choose one</option>
-                  <option value="private_obligated_person">Private borrower or obligated person</option>
-                  <option value="municipal_entity">Municipal entity or public authority</option>
+                  <option value="private_obligated_person">Private borrower (nonprofit or company)</option>
+                  <option value="municipal_entity">City, district, or other public body</option>
                   <option value="unclear">Not sure</option>
                 </select>
-                <p className={help}>Pick what the bond documents call you. "Not sure" holds for a human review.</p>
+                <p className={help}>Pick what your bond documents call you. If you are not sure, a person on our team will check.</p>
               </div>
               <div>
                 <label className={label} htmlFor="state">State</label>
                 <input id="state" name="state" className={field} maxLength={2} placeholder="AZ" />
-                <p className={help}>Tells us which document conventions to expect.</p>
+                <p className={help}>Tells us which state&rsquo;s document style to expect.</p>
               </div>
             </div>
             {municipalStop && (
@@ -223,7 +227,7 @@ export function IntakeForm() {
                   <div>
                     <label className={label} htmlFor="contact_email">Email</label>
                     <input id="contact_email" name="contact_email" type="email" className={field} required />
-                    <p className={help}>Where we send the quote and the letter.</p>
+                    <p className={help}>Where we send the quote and the engagement letter.</p>
                   </div>
                   <div>
                     <label className={label} htmlFor="contact_phone">Phone</label>
@@ -234,19 +238,19 @@ export function IntakeForm() {
               </fieldset>
 
               <fieldset className="space-y-4">
-                <legend className="text-base font-semibold text-gray-900">The financings</legend>
+                <legend className="text-base font-semibold text-gray-900">Your bonds</legend>
                 <div>
-                  <label className={label} htmlFor="instrument_list">Series or instruments already closed</label>
-                  <textarea id="instrument_list" name="instrument_list" className={field} rows={3} required placeholder="One per line: issuer, series name, closing year if known" />
-                  <p className={help}>Copy it off the closing documents. No advice is requested here.</p>
+                  <label className={label} htmlFor="instrument_list">Bond issues that have already closed</label>
+                  <textarea id="instrument_list" name="instrument_list" className={field} rows={3} required placeholder="One per line: issuer, series name, closing year if you know it" />
+                  <p className={help}>Copy it from your closing documents. We are not asking for advice here.</p>
                 </div>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <label className={label} htmlFor="instrument_count">How many separate series or issues?</label>
+                    <label className={label} htmlFor="instrument_count">How many separate bond issues?</label>
                     <input id="instrument_count" name="instrument_count" type="number" min={1} className={field} />
                   </div>
                   <div>
-                    <label className={label} htmlFor="cda_present">Is there a continuing-disclosure agreement in the binder?</label>
+                    <label className={label} htmlFor="cda_present">Do you have a continuing disclosure agreement in your closing documents?</label>
                     <select id="cda_present" name="cda_present" className={field} defaultValue="">
                       <option value="">Choose one</option>
                       <option value="yes">Yes</option>
@@ -258,18 +262,18 @@ export function IntakeForm() {
                 </div>
                 <div>
                   <label className={label} htmlFor="documents_on_hand">What documents do you have on hand?</label>
-                  <textarea id="documents_on_hand" name="documents_on_hand" className={field} rows={2} placeholder="Closing binder, CDA, loan agreement, prior filings, anything missing" />
-                  <p className={help}>Labels and file locations only. The document drop itself happens after the quote, through a private link. Please do not ask a question that needs a legal answer here; we would only route it to your counsel.</p>
+                  <textarea id="documents_on_hand" name="documents_on_hand" className={field} rows={2} placeholder="Closing binder, disclosure agreement, loan agreement, past filings, anything missing" />
+                  <p className={help}>Just list what you have. You send the documents after the quote, through a private link. Please do not ask a legal question here; we would only send it to your lawyer.</p>
                 </div>
               </fieldset>
 
               <fieldset className="space-y-4">
                 <legend className="text-base font-semibold text-gray-900">Your professionals</legend>
-                <p className={help}>We replace none of these. They approve the obligation list. Every judgment question goes to them.</p>
+                <p className={help}>We replace none of them. They approve the list of promises. Every question that needs judgment goes to them.</p>
                 {[
-                  ['bond_counsel_contact', 'Bond counsel', 'Firm and person, if engaged. Judgment calls route here.'],
-                  ['municipal_advisor_contact', 'Municipal advisor', 'Firm and person, if engaged.'],
-                  ['dissemination_agent_contact', 'Dissemination agent', 'Firm and person, if appointed. They file; we do not.'],
+                  ['bond_counsel_contact', 'Bond counsel', 'Firm and person, if you have one. Judgment questions go here.'],
+                  ['municipal_advisor_contact', 'Municipal advisor', 'Firm and person, if you have one.'],
+                  ['dissemination_agent_contact', 'Dissemination agent', 'Firm and person, if appointed. This is the firm that posts your reports to the MSRB’s public site. They file; we do not.'],
                 ].map(([name, lbl, h]) => (
                   <div key={name}>
                     <label className={label} htmlFor={name}>{lbl}</label>
@@ -280,7 +284,7 @@ export function IntakeForm() {
               </fieldset>
 
               <fieldset>
-                <legend className="text-base font-semibold text-gray-900 mb-2">Are you asking us to work a new or contemplated issuance at the same time?</legend>
+                <legend className="text-base font-semibold text-gray-900 mb-2">Do you also want us to work on a new bond sale at the same time?</legend>
                 <div className="flex gap-6">
                   {(['no', 'yes'] as const).map((v) => (
                     <label key={v} className="inline-flex items-center gap-2 text-sm">
@@ -297,7 +301,7 @@ export function IntakeForm() {
               <div>
                 <label className={label} htmlFor="workshop_session">Did you attend a live working session? Which one?</label>
                 <input id="workshop_session" name="workshop_session" className={field} placeholder="Date and time, or leave blank" />
-                <p className={help}>Live attendees who start intake within 24 hours of the session get the workshop price.</p>
+                <p className={help}>Live attendees who start this form within 24 hours of the session get the workshop price.</p>
               </div>
 
               <label className="flex items-start gap-3 text-sm text-gray-700">
@@ -346,18 +350,18 @@ export default function ObligationRegisterLanding() {
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-14 md:py-20">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold tracking-wide uppercase mb-4" style={{ color: BRAND.teal }}>
-              10-Day Obligation Register · for obligated persons on closed deals
+              10-Day Obligation Register · for private borrowers whose bonds have closed
             </p>
             <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold leading-tight text-white mb-6">
               The post-close obligation book your counsel can work from.
             </h1>
             <p className="text-base md:text-lg text-gray-300 mb-10 leading-relaxed">
-              We build a working register from your closing documents and your professionals&rsquo; written inputs, in ten business days. You, or your dissemination agent, file.
+              We build a register of every reporting promise in your closing documents, using only what your lawyer or advisor approves in writing, in ten business days. You, or your dissemination agent, file.
             </p>
             <div className="flex flex-col sm:flex-row sm:items-center gap-4">
               <CtaButton href="#start">Request a fixed-fee quote</CtaButton>
               <a href={SAMPLE_URL} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm text-gray-200 underline underline-offset-4">
-                <FileText className="h-4 w-4" /> See a sample register (synthetic deal)
+                <FileText className="h-4 w-4" /> See a sample register (made-up example deal)
               </a>
             </div>
           </div>
@@ -368,10 +372,10 @@ export default function ObligationRegisterLanding() {
       <section className="max-w-4xl mx-auto px-6 lg:px-8 mt-14 mb-12">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">What this is</h2>
         <p className="text-gray-700 leading-relaxed mb-4">
-          The <strong>10-Day Obligation Register</strong> is a post-close working book of your continuing-disclosure and reporting duties on deals that have already closed. It is not a readiness score, not a new-issuance plan, and not a promise about how any filing will be treated. Each undertaking is labeled, bound to the clause that creates it, with evidence beside it when you have provided the file.
+          The <strong>10-Day Obligation Register</strong> is a record of the reporting promises you made when your bonds closed: annual reports, quarterly reports, event notices, and the rest. It is not a readiness score, not a plan for new bonds, and not a promise about how any filing will be treated. Each promise is tied to the clause that created it, with the file beside it when you have sent us one.
         </p>
         <p className="text-gray-600 text-sm leading-relaxed">
-          We run this discipline on an issuer-side book with multiple financings whose obligations differ deal to deal.
+          We use this method today for a bond issuer with many deals, each with different reporting promises.
         </p>
       </section>
 
@@ -394,7 +398,8 @@ export default function ObligationRegisterLanding() {
               <code key={s} className="text-sm bg-white border border-gray-200 rounded px-2 py-1 text-gray-800">{s}</code>
             ))}
           </div>
-          <p className="text-xs text-gray-500 mt-3">No score, no rating, no ranking, no colour by importance. Judgment questions live in the refusal log and the items-awaiting-input list, never in the status column.</p>
+          <p className="text-sm text-gray-700 mt-3">{STATUS_MEANINGS}</p>
+          <p className="text-xs text-gray-500 mt-3">No score, no rating, no ranking, no color by importance. Questions for your lawyer go in the refusal log and the items-awaiting-input list, never in the status column.</p>
         </div>
       </section>
 
@@ -402,15 +407,18 @@ export default function ObligationRegisterLanding() {
       <section className="max-w-4xl mx-auto px-6 lg:px-8 mb-12">
         <div className="bg-white rounded-xl border border-gray-200 p-7">
           <h2 className="text-2xl font-bold text-gray-900 mb-1 flex items-center gap-3"><Shield className="h-6 w-6 text-gray-400" /> What we never do</h2>
-          <p className="text-sm text-gray-500 mb-5">Read this first. It is why the file is safe to circulate.</p>
+          <p className="text-sm text-gray-500 mb-5">Read this first. It is why you can share the file with your lawyer and your board.</p>
           <p className="text-gray-700 leading-relaxed mb-5">
             We never file on the MSRB&rsquo;s public filing system. We never say you are fine. We never draft notices. We never invent a deadline. We never decide which clause controls.
+          </p>
+          <p className="text-gray-800 leading-relaxed mb-3 font-medium">
+            In plain words: we copy what your documents say and what your lawyer tells us. We never decide what it means. The exact rule:
           </p>
           <blockquote className="border-l-4 pl-4 text-sm text-gray-800 leading-relaxed italic" style={{ borderColor: BRAND.teal }}>
             {ARTHUR_CONTROL}
           </blockquote>
           <p className="text-gray-700 leading-relaxed mt-5 text-sm">
-            When a judgment question comes up: that is a call for your bond counsel or dissemination agent. We log it, send it to them, and leave the field empty until they answer in writing.
+            When a question needs judgment, it is a call for your bond counsel or dissemination agent. We log it, send it to them, and leave the field empty until they answer in writing.
           </p>
         </div>
       </section>
@@ -424,7 +432,7 @@ export default function ObligationRegisterLanding() {
               <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BRAND.teal }}>For</p>
               <ul className="space-y-2.5">
                 {[
-                  'Private obligated persons: operators, CFOs, controllers, asset managers, on closed deals with live continuing-disclosure or reporting undertakings.',
+                  'Private borrowers on bonds (nonprofits and companies): operators, CFOs, controllers, and asset managers whose bonds have closed and who still have reporting promises to keep.',
                   'Housing, industrial, food and agriculture, healthcare, education. The sector does not change the work.',
                   'You keep your own bond counsel, municipal advisor, or dissemination agent for the judgment calls.',
                 ].map((t) => (
@@ -436,10 +444,10 @@ export default function ObligationRegisterLanding() {
               <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Not for</p>
               <ul className="space-y-2.5">
                 {[
-                  'Municipal entities or public authorities. We have no path for you today.',
-                  'Advice on a deal that has not closed.',
-                  'Filing, materiality calls, or disclosure drafting.',
-                  'Pre-issuance document-room work at the same time as this engagement.',
+                  'Cities, districts, and other public bodies. We have no path for you today.',
+                  'Advice on bonds that have not been sold yet.',
+                  'Filing, deciding what is material, or writing disclosure documents.',
+                  'Work on a new bond sale for you while this engagement is open.',
                 ].map((t) => (
                   <li key={t} className="flex items-start gap-2.5 text-sm text-gray-500"><XCircle className="h-4 w-4 flex-shrink-0 mt-0.5 text-gray-300" />{t}</li>
                 ))}
@@ -475,9 +483,9 @@ export default function ObligationRegisterLanding() {
       <section className="max-w-4xl mx-auto px-6 lg:px-8 mb-12">
         <div className="bg-white rounded-xl border border-gray-200 p-7">
           <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: BRAND.teal }}>Free · do it yourself</p>
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">Want to run the first mile yourself?</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-3">Want to take the first step yourself?</h2>
           <p className="text-gray-700 leading-relaxed mb-4">
-            Take the kit. A set of instructions you paste into the AI assistant you already use, a complete-drop checklist, the register template, and the four-status legend. Your AI builds the candidate map from your own documents. Your counsel approves it. Same method, same rule: candidates only, dates never computed.
+            Take the free kit: instructions you paste into the AI assistant you already use, a checklist of the documents you need, the register template, and a one-page guide to the four status words. Your AI builds a Candidate Map from your own documents: a first-draft list of your reporting promises. Your lawyer approves it. Same method, same rule: nothing counts until it is approved, and the AI never works out a date.
           </p>
           <a href={DIY_URL} className="inline-flex items-center gap-2 font-semibold underline underline-offset-4" style={{ color: BRAND.navy }}>
             Get the DIY kit <ArrowRight className="h-4 w-4" />
@@ -489,7 +497,7 @@ export default function ObligationRegisterLanding() {
       <section id="start" className="max-w-4xl mx-auto px-6 lg:px-8 mb-14 scroll-mt-8">
         <h2 className="text-2xl font-bold text-gray-900 mb-2">How to start</h2>
         <p className="text-gray-600 text-sm mb-6">
-          If the bonds have not closed, the form stops. If you clear the gate, leave contacts, instruments, and your professionals. We reply with a fixed-fee quote and the letter. No invented urgency.
+          One question comes first: have the bonds already closed? If not, the form stops. If yes, tell us who you are, which bond issues you have, and who your professionals are. We reply with a fixed-fee quote and the engagement letter. No pressure, no countdown.
         </p>
         <IntakeForm />
       </section>
@@ -500,7 +508,7 @@ export default function ObligationRegisterLanding() {
           <img src="/muni-pal-emblem.png" alt="Muni-Pal" className="h-10 w-10 object-contain opacity-50" />
           <p className="text-sm text-gray-400">Muni-Pal &mdash; A Launch Shop product. Built by Innovation Factory.</p>
           <p className="text-[11px] text-gray-400 max-w-2xl text-center leading-relaxed">
-            Muni-Pal is not your municipal advisor, not a law firm, and not a dissemination agent. Nothing on this page is municipal advisory services as defined under Section 15B of the Securities Exchange Act, legal advice, or a conclusion about your regulatory status. Filing decisions belong with you and your licensed professionals.
+            Muni-Pal is not a registered municipal advisor, broker-dealer, or law firm, and is not your dissemination agent. Nothing on this page is legal advice. Filing decisions belong with you and your own licensed professionals.
           </p>
         </div>
       </footer>

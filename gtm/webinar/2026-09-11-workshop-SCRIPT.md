@@ -8,7 +8,8 @@
 ### Before you start
 - Browser tabs open, in this order: the sample register, the reference seat (terminal or chat), your AI assistant with the skill file ready to paste, the intake page.
 - Say the recording sentence once, at the top, verbatim: *"Live attendees can ask questions and see the book worked in real time. We'll send the recording afterward, but the recording does not include your specific question."*
-- Words that do not leave your mouth: any deal count, dollar saved, readiness percentage, rate, or coverage figure as a claim; "compliant", "bond-ready", "funded", "lower cost of issuance"; the MSRB's filing system by its trademark as if it were ours; timing, structure, or refunding advice; a price.
+- Words that do not leave your mouth: any deal count, dollar saved, readiness percentage, rate, or coverage figure as a claim; "compliant", "bond-ready", "funded", "lower cost of issuance"; the MSRB's filing system by its trademark as if it were ours; timing, structure, or refunding advice; "founding slots" unless a real capacity cap is in force.
+- The price is said on stage, once, at minute 28:30, both numbers, no negotiation. Nowhere before that.
 
 ---
 
@@ -88,21 +89,46 @@ One gate question decides everything: have the bonds already closed. If yes, and
 
 If you are a municipal entity or a public authority, we have no path for you today, and the form will tell you so. If the deal has not closed, we do not do pre-issuance work on this product. On purpose.
 
-### 28:30–29:30 · The 10-Day Obligation Register (slide 12)
-The done-for-you version is the 10-Day Obligation Register. Fixed fee, quoted after we see your instrument count and your continuing disclosure pack. Never a percentage of anything. You drop the binder, your professionals approve the list, we build the book. Ten business days from a complete drop, pausing only while we wait for your counsel's written input.
+### 28:30–29:30 · The 10-Day Obligation Register, and the price (slide 12)
+**Bridge.** The Candidate Map tells you which obligations and inputs need to be located. The Register turns that map into a controlled custody book: calendar, gaps, awaiting inputs, refusals, and evidence locations. First mile free. Forever custody needs an owner. That is the paid book.
 
-[Read the guarantee.] It is a promise about our process and nothing else. Two founding slots this month, then list price. Scarcity is real because the hours are mine.
+**Stack.** What you get is one operating artifact, the 10-Day Obligation Register: the register, the calendar with approved dates only, the gap list, the awaiting-input tracker, the refusal log, and the evidence vault index. No score. No plan. No opinion we invented.
+
+**Terms.** Fixed fee, never a percentage of anything. Exact scope still follows instrument count and your continuing-disclosure pack, because the binder has to match the quote.
+
+**Price, plain.**
+- List price is **$3,750**, ACH at signature.
+- If you take the next step **from this live session**, start the five-minute intake while you are here or within **24 hours**, you get the **$1,250 workshop discount: $2,500**.
+- Miss that window and you are at list.
+
+You drop the documents. Your professionals approve the list in writing. We build the book. Ten business days from a complete drop, pausing only while we wait for counsel's written input.
+
+**Guarantee, spoken short.** If you provide a complete drop, we deliver the Register within ten business days. The clock pauses for counsel's written input. If we have not delivered by the outside date on that tolled clock, we terminate and refund the full fee. That does not guarantee filing outcomes, legal conclusions, audit results, or that you are "fine". Detail is in the letter.
+
+[Say both numbers. Do not negotiate. No "founding slots" unless a real capacity cap is in force. Do not litigate the clock live.]
 
 ### 29:30–30:00 · 8. Intake (slide 13)
-If your bonds have closed and you want a quote, the intake is on screen. Five minutes, facts and contacts only. Nothing on it asks for a legal judgment.
+If your bonds have closed and you want the book, the intake is on screen. Five minutes, facts and contacts only. Nothing on it asks for a legal judgment. We confirm fit, instrument count, and the CDA drop. Start it from this session to lock the **$2,500** workshop price. Otherwise the path is the same product at **$3,750**.
+
+If accepted, you get the ACH request, and the ten-business-day clock starts when the drop is complete.
 
 The recording goes out within two hours. It will not include your question. That is why you asked it live. Thank you.
 
+[Then stop talking.]
+
 ---
 
+### Pricing rule (Stephen, 2026-09-11)
+- **Workshop price $2,500** ($1,250 off list) for a live attendee who starts intake during the session or within 24 hours of session end.
+- **List $3,750** for everyone else: recording-only viewers, late intake, cold inbound.
+- "Two founding slots" is parked. Use it only if a real, enforced capacity cap exists.
+- The intake form asks which live session the person attended. That answer, plus the timestamp, decides the price. Do not extend the window by default.
+
 ### After the session
-- Send the recording within two hours, with the one-question reply CTA (see `SEQUENCE.md`).
+- Contact every attendee who asked a live question within **15 minutes**. Book the intake before the conversation ends.
+- Send the recording within two hours, with the one-question reply CTA (see `SEQUENCE.md`). Segment it: live attendees get the 24-hour workshop-price line; recording-only viewers get list.
 - Day 3: "What did you find in your closed-deal book?"
-- Day 5: intake CTA to qualified registrants.
+- Day 5: intake CTA to qualified registrants, same segment rule.
 - Day 10: final reactivation.
-- Every registrant is contacted within the hour of registering and within two hours of the session. Nobody enters no-man's land.
+- Every registrant is contacted within the hour of registering. Nobody enters no-man's land.
+- Track five numbers only: invited, attended, qualified, intake completed, paid.

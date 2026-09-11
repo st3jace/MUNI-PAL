@@ -107,6 +107,7 @@ export function IntakeForm() {
       cda_present: get('cda_present'),
       documents_on_hand: get('documents_on_hand'),
       concurrent_preissuance: concurrent === 'yes',
+      workshop_session: get('workshop_session'),
       privacy_consent: consent,
       consent_version: 'obligation-intake-v1',
     }
@@ -287,6 +288,12 @@ export function IntakeForm() {
                   <p className={help + ' mt-2'}>We will not quote this product until that is cleared separately. You can still send the form.</p>
                 )}
               </fieldset>
+
+              <div>
+                <label className={label} htmlFor="workshop_session">Did you attend a live working session? Which one?</label>
+                <input id="workshop_session" name="workshop_session" className={field} placeholder="Date and time, or leave blank" />
+                <p className={help}>Live attendees who start intake within 24 hours of the session get the workshop price.</p>
+              </div>
 
               <label className="flex items-start gap-3 text-sm text-gray-700">
                 <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} required className="mt-1" />

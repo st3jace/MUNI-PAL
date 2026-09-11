@@ -69,6 +69,11 @@ class ObligationRegisterIntake(BaseModel):
     concurrent_preissuance: bool = Field(
         ..., description="Asking us to work a new or contemplated issuance at the same time?"
     )
+    # Workshop attendance. Decides the workshop price window (Stephen 2026-09-11):
+    # a live attendee who starts intake within 24h of session end pays the workshop price.
+    workshop_session: str | None = Field(
+        default=None, max_length=200, description="Which live session you attended, if any (date and time)"
+    )
     # Consent + session
     privacy_consent: bool = False
     consent_version: str = INTAKE_PRIVACY_CONTRACT["consent_version"]
@@ -106,6 +111,8 @@ async def submit_intake(
         "no_professional_named": not any(
             [request.bond_counsel_contact, request.municipal_advisor_contact, request.dissemination_agent_contact]
         ),
+        # Fact only. Whether the 24h window is met is checked by a person against the session end time.
+        "workshop_attendee": bool(request.workshop_session),
     }
 
     lead = SensingLead(

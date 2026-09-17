@@ -79,14 +79,14 @@ You can take the first step yourself, today, for free. This is a set of instruct
 
 A promise on the map counts only when your bond counsel, advisor, or dissemination agent approves the row, the clause, and the dates, in writing. Those limits are what make the AI useful in a real operation. Every output stays tied to source text, the assistant does not invent dates, and judgment questions are sent to your professionals instead of guessed. That does not eliminate every AI error, but it reduces the unsupported answers most teams are worried about and makes the output easier to check.
 
-### 24:00–27:00 · Your question (slide 10)
-[Take two or three live questions. Before you answer, say out loud whether each one is a record question or a judgment question.]
+### 24:00–27:00 · Live questions (slide 10)
+[Timing is provisional. Keep three minutes in the fixed 30-minute version for now and take two or three questions. Rehearse this block once at three minutes and once at five; do not lengthen the live version until the rehearsal shows what the extra time buys. At 2:30, say "I can take one more." Keep the close intact. Rehearsal source: `2026-09-15-closed-deal-q-bank.md`. If the room is quiet, seed Q03, Q05, or Q14.]
 
-Record answer pattern: "In the register that would be a row under the loan agreement, section such-and-such, sent to the trustee, every quarter. The file that counts as proof is the report itself, with the date it was sent. The row would be named OB-number, period, short name."
+Ask the question exactly as it comes up at work. I am going to sort it before I answer: record, judgment, fit, or product. That keeps us from inventing an answer the register is not allowed to hold.
 
-Judgment answer pattern: "That is a question of whether it applies, and that belongs with your bond counsel or dissemination agent. What the register would do is record the clause, log your question with today's date, and leave the field empty until they answer in writing. I would rather tell you that plainly than guess."
+For a record question, point to the document, section, recipient, period, and file that counts as proof. For a judgment question, log it, send it to bond counsel or the dissemination agent, and wait for the written answer. For a fit question, apply the post-close and private-borrower gate. For a product question, answer from the approved scope, DIY path, and price.
 
-[Both answers are useful. Say so. The second one is the product.]
+[Say the category before every answer. If a question crosses categories, separate the parts out loud. Do not force an answer merely because the question was asked live.]
 
 ### 27:00–27:45 · 7. Who it is for (slide 11)
 One question decides if this is for you: have the bonds already closed? If yes, and you are a private borrower with reporting promises still to keep, this is for you. Housing, industrial, food and agriculture, healthcare, education. The sector does not change the work.

@@ -50,6 +50,23 @@ production database migration was part of local verification.
 
 ## Reproduction
 
+### Hosted fresh-database verification (September 17, 2026)
+
+Initialized the new Launch Shop / Muni-Pal Supabase project from an empty public
+schema. The hosted database reports migration head `e5f6g7h8i9j0`, 40 public tables,
+five Register tables with RLS enabled, 13 Register indexes, one seeded playbook,
+and zero client accounts. No existing production records were moved.
+
+This exposed and fixed offline PostgreSQL JSON literal escaping in `alembic/env.py`:
+the offline dialect must match PostgreSQL's default `standard_conforming_strings=on`.
+The first attempts rolled back cleanly; the corrected full migration committed and
+the counts above were read back from Supabase. Both migration regression tests pass.
+This verifies hosted schema creation, not backend connectivity or live payments.
+
+The separate `docker/Dockerfile.portal` packages the locked dependencies and migrations
+for the private backend. Local Docker is unavailable; its image still needs a hosted
+build and smoke test before release.
+
 On Windows, create a Python 3.12 environment and install **the dependencies in
 `uv.lock`**, then the local package. Use the repository commands with isolated mode:
 

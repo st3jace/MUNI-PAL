@@ -21,6 +21,9 @@ def test_full_postgres_migration_chain_can_be_exported():
         capture_output=True, text=True, check=True,
     )
     assert "gen_random_uuid()::text" in result.stdout
+    # Standard PostgreSQL strings must preserve the original JSON escapes.
+    assert r'\"100 tons/day\"' in result.stdout
+    assert r'\\"100 tons/day\\"' not in result.stdout
     assert "CREATE TABLE register_reports" in result.stdout
     assert "e5f6g7h8i9j0" in result.stdout
     assert result.stdout.rstrip().endswith('COMMIT;')

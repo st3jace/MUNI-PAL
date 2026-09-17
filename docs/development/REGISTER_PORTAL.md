@@ -61,6 +61,16 @@ used for any register rows. The quote/engagement governs the promised scope.
 
 ## Database and Supabase
 
+The dedicated **Launch Shop / Muni-Pal** project is now provisioned and initialized:
+`eywppovcndfuocaphrer` (US West / Oregon). Its initial schema was verified at
+`e5f6g7h8i9j0` with no client accounts or migrated production records. The project
+uses the Free plan; backups and production capacity still require setup.
+
+The verified session-pooler settings are host `aws-0-us-west-2.pooler.supabase.com`,
+port `5432`, user `postgres.eywppovcndfuocaphrer`, database `postgres`. The password
+belongs only in the backend hosting secret settings. Project dashboard:
+https://supabase.com/dashboard/project/eywppovcndfuocaphrer
+
 **Supabase works as managed PostgreSQL for the existing SQLAlchemy/Alembic backend.**
 Keep BFMS authentication for this release; replacing it with Supabase Auth would
 require a separate token verification/user migration project. No browser Supabase
@@ -162,6 +172,12 @@ separate future scope; do not imply that this integration is present.
    and `/api/v1/stripe/*` to the main backend. The supplied Vercel rewrite assumes
    that backend is available at `https://api.muni-pal.io`; adjust the destination
    if that hostname still points only at the sensing service.
+   The chosen deployment is a **separate service in the existing Railway project**.
+   Use `docker/Dockerfile.portal` for its image, with repository root build context;
+   it installs `uv.lock` dependencies and runs migrations before starting the API.
+   Ensure the service uses its own start command, not the sensing command in the
+   existing `railway.toml`. Supply a strong JWT secret and the database/Stripe secrets
+   through Railway settings, then point private frontend API rewrites to this service.
 4. Build/deploy the React portal or healthcare frontend. The new routes exist in
    both. Preserve existing API rewrites and backend settings.
 5. Configure a trusted operator account. Import one test closing pack; review it;

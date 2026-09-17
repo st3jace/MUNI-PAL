@@ -25,6 +25,8 @@ import PilotNavigation from './pages/tools/PilotNavigation'
 import PricingPage from './pages/tools/PricingPage'
 import ObligationRegisterLanding from './pages/tools/ObligationRegisterLanding'
 import AuthPage from './pages/tools/AuthPage'
+import Ask from './pages/Ask'
+import AskNavigation from './components/AskNavigation'
 import './styles/index.css'
 
 const queryClient = new QueryClient({
@@ -46,6 +48,7 @@ createRoot(root).render(
       <SensingProvider>
         <div className="min-h-screen bg-gray-50">
           <div className="py-8 px-4 sm:px-6 lg:px-8">
+            <AskNavigation />
             <Routes>
               {/* Landing page is the root */}
               <Route path="/" element={<HealthcareCFOLanding />} />
@@ -64,6 +67,7 @@ createRoot(root).render(
               <Route path="/pricing" element={<PricingPage />} />
               <Route path="/obligation-register" element={<ObligationRegisterLanding />} />
               <Route path="/auth" element={<AuthPage />} />
+              <Route path="/ask" element={<Ask />} />
               {/* Catch-all back to landing */}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

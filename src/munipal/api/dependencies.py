@@ -101,7 +101,7 @@ async def get_current_user_id(
         try:
             UUID(subject)
         except (ValueError, AttributeError):
-            raise _unauthorized("Token subject must be a valid UUID")
+            raise _unauthorized("Token subject must be a valid UUID") from None
 
         return subject
 
@@ -228,6 +228,38 @@ async def require_auth(
 
 
 AuthenticatedUserId = Annotated[str, Depends(require_auth)]
+
+
+async def require_paid_user(
+    db: DbSession,
+    authorization: str | None = Header(None),
+) -> User:
+    """Strict, database-backed paid identity; never use development impersonation."""
+    claims = _decode_access_token(_extract_bearer_token(authorization))
+    try:
+        user_id = str(UUID(str(claims.get("sub", ""))))
+    except ValueError:
+        raise _unauthorized() from None
+    if claims.get("type") != "access" or not claims.get("exp"):
+        raise _unauthorized()
+    user = await db.get(User, user_id)
+    if not user:
+        raise _unauthorized()
+    if not user.is_active:
+        raise HTTPException(403, detail={"code": "account_inactive", "message": "Account is inactive."})
+    # Ask is a subscription entitlement.  The current schema cannot identify
+    # which project a per-project purchase covers, so that tier must fail
+    # closed rather than unlock every project the user owns.
+    if user.subscription_tier != "subscription":
+        raise HTTPException(403, detail={
+            "code": "subscription_required",
+            "message": "An active Ask subscription is required.",
+            "upgrade_url": "/pricing",
+        })
+    return user
+
+
+PaidUser = Annotated[User, Depends(require_paid_user)]
 
 
 def require_roles(*allowed_roles: str):

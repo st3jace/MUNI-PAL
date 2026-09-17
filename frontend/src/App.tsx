@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/Layout'
+import Ask from './pages/Ask'
+import AuthPage from './pages/tools/AuthPage'
 import Dashboard from './pages/Dashboard'
 import ProjectList from './pages/ProjectList'
 import ProjectDetail from './pages/ProjectDetail'
@@ -37,6 +39,8 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Navigate to="/dashboard" replace />} />
             <Route path="dashboard" element={<Dashboard />} />
+            <Route path="ask" element={<Ask />} />
+            <Route path="auth" element={<AuthPage />} />
             <Route path="projects" element={<ProjectList />} />
             <Route path="projects/:projectId" element={<ProjectDetail />} />
             <Route path="projects/:projectId/facts" element={<FactsReview />} />

@@ -27,7 +27,7 @@ if settings.use_sqlite:
     # SQLite configuration for development
     async_engine = create_async_engine(
         settings.database_url,
-        echo=settings.debug,
+        echo=False,  # SQL parameters can contain private document and chat text.
         connect_args={"check_same_thread": False},
         poolclass=StaticPool,
     )
@@ -35,7 +35,7 @@ else:
     # PostgreSQL configuration for production
     async_engine = create_async_engine(
         settings.database_url,
-        echo=settings.debug,
+        echo=False,
         pool_pre_ping=True,
         pool_size=10,
         max_overflow=20,
@@ -70,7 +70,7 @@ if settings.use_sqlite:
     # SQLite configuration for development
     sync_engine = create_engine(
         settings.database_url_sync,
-        echo=settings.debug,
+        echo=False,
         connect_args={"check_same_thread": False},
         poolclass=StaticPool,
     )
@@ -78,7 +78,7 @@ else:
     # PostgreSQL configuration for production
     sync_engine = create_engine(
         settings.database_url_sync,
-        echo=settings.debug,
+        echo=False,
         pool_pre_ping=True,
         pool_size=5,
         max_overflow=10,

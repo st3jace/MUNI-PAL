@@ -1,4 +1,4 @@
-import { Outlet, NavLink, useParams } from 'react-router-dom'
+import { Outlet, NavLink, useLocation, useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import {
   LayoutDashboard,
@@ -20,6 +20,7 @@ import {
 import { useState } from 'react'
 import AdvisorChat from './AdvisorChat'
 import { api } from '../services/api'
+import { useAuth } from '../contexts/AuthContext'
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -40,8 +41,11 @@ const baseProjectNavigation = [
 ]
 
 export default function Layout() {
+  const { user } = useAuth()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { projectId } = useParams()
+  const location = useLocation()
+  const isAskRoute = location.pathname === '/ask' || location.pathname.startsWith('/ask/')
 
   const { data: project } = useQuery({
     queryKey: ['project', projectId],
@@ -94,7 +98,7 @@ export default function Layout() {
 
         <nav className="mt-4 px-2">
           <div className="space-y-1">
-            {navigation.map((item) => (
+            {[...navigation, ...(user ? [{ name: 'Ask where it is', href: '/ask', icon: MessageSquareMore }] : [])].map((item) => (
               <NavLink
                 key={item.name}
                 to={item.href}
@@ -178,7 +182,7 @@ export default function Layout() {
       </div>
 
       {/* Municipal Advisor Chat Widget */}
-      <AdvisorChat />
+      {!isAskRoute && <AdvisorChat />}
     </div>
   )
 }

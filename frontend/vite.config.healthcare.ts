@@ -32,6 +32,10 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 3003,
       proxy: {
+        '/api/v1/ask': {
+          target: apiTarget,
+          changeOrigin: true,
+        },
         '/api/v1/auth': {
           target: apiTarget,
           changeOrigin: true,

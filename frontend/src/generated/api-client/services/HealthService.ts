@@ -12,6 +12,10 @@ export class HealthService {
      *
      * Returns service status without checking dependencies.
      * Use this for liveness probes.
+     *
+     * This is a public surface. It carries no internal filesystem paths and no
+     * corpus/provenance details (DEC-008: zero external references to the
+     * retired data source; the former ``corpus`` block was removed 2026-09-10).
      * @returns any Successful Response
      * @throws ApiError
      */

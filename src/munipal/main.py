@@ -13,6 +13,7 @@ from fastapi.responses import JSONResponse
 
 from munipal import __version__
 from munipal.api.routes import (
+    ask,
     obligation_register,
     advisory_packages,
     artifacts,
@@ -123,6 +124,7 @@ async def global_exception_handler(request: Request, exc: Exception) -> JSONResp
 # -----------------------------------------------------------------------------
 app.include_router(health.router, tags=["Health"])
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["Auth"])
+app.include_router(ask.router, prefix="/api/v1/ask", tags=["Ask"])
 app.include_router(playbooks.router, prefix="/api/v1/playbooks", tags=["Playbooks"])
 app.include_router(projects.router, prefix="/api/v1/projects", tags=["Projects"])
 app.include_router(artifacts.router, prefix="/api/v1/artifacts", tags=["Artifacts"])

@@ -5,6 +5,7 @@ Authorization service for project-scoped access checks.
 from uuid import UUID
 
 from fastapi import HTTPException, status
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from munipal.config import get_settings
@@ -19,6 +20,23 @@ class AuthorizationService:
 
     def __init__(self, db: AsyncSession):
         self.db = db
+
+    @staticmethod
+    def owned_project_scope(user: User):
+        """Strict owner/tenant scope for private evidence, independent of rollout flags."""
+        tenant_id = (user.organization or "").strip() or DEFAULT_TENANT_ID
+        return (
+            Project.owner_id == user.id,
+            Project.tenant_id == tenant_id,
+        )
+
+    async def require_owned_project(self, user: User, project_id: str) -> Project:
+        project = await self.db.scalar(select(Project).where(
+            Project.id == project_id, *self.owned_project_scope(user),
+        ))
+        if project is None:
+            raise HTTPException(404, detail="Not found")
+        return project
 
     async def is_superuser(self, user_id: str) -> bool:
         """Public superuser check."""

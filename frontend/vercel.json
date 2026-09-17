@@ -29,6 +29,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/v1/register/:path*",
+      "destination": "https://api.muni-pal.io/api/v1/register/:path*"
+    },
+    {
       "source": "/api/v1/ask/:path*",
       "destination": "https://api.muni-pal.io/api/v1/ask/:path*"
     },

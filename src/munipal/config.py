@@ -57,6 +57,10 @@ class Settings(BaseSettings):
     postgres_user: str = "munipal"
     postgres_password: str = "munipal_dev_password"
     postgres_db: str = "munipal"
+    postgres_ssl: bool = False
+    stripe_secret_key: str = ""
+    stripe_webhook_secret: str = ""
+    register_frontend_url: str = "https://muni-pal.io"
 
     @computed_field
     @property
@@ -65,7 +69,7 @@ class Settings(BaseSettings):
         if self.use_sqlite:
             return f"sqlite+aiosqlite:///{self.sqlite_path}"
         return (
-            f"postgresql+asyncpg://{self.postgres_user}:{self.postgres_password}"
+            f"postgresql+asyncpg://{quote(self.postgres_user, safe='')}:{quote(self.postgres_password, safe='')}"
             f"@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
         )
 
@@ -76,9 +80,9 @@ class Settings(BaseSettings):
         if self.use_sqlite:
             return f"sqlite:///{self.sqlite_path}"
         return (
-            f"postgresql+psycopg2://{self.postgres_user}:{self.postgres_password}"
+            f"postgresql+psycopg2://{quote(self.postgres_user, safe='')}:{quote(self.postgres_password, safe='')}"
             f"@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
-        )
+        ) + ("?sslmode=require" if self.postgres_ssl else "")
 
     # -------------------------------------------------------------------------
     # Redis

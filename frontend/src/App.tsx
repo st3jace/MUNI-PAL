@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/Layout'
 import Ask from './pages/Ask'
+import ObligationRegisterPortal from './pages/ObligationRegisterPortal'
 import AuthPage from './pages/tools/AuthPage'
 import Dashboard from './pages/Dashboard'
 import ProjectList from './pages/ProjectList'
@@ -40,6 +41,8 @@ function App() {
             <Route index element={<Navigate to="/dashboard" replace />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="ask" element={<Ask />} />
+            <Route path="register" element={<ObligationRegisterPortal />} />
+            <Route path="register/:dealId" element={<ObligationRegisterPortal />} />
             <Route path="auth" element={<AuthPage />} />
             <Route path="projects" element={<ProjectList />} />
             <Route path="projects/:projectId" element={<ProjectDetail />} />

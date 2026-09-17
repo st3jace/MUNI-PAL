@@ -230,11 +230,11 @@ async def require_auth(
 AuthenticatedUserId = Annotated[str, Depends(require_auth)]
 
 
-async def require_paid_user(
+async def require_strict_user(
     db: DbSession,
     authorization: str | None = Header(None),
 ) -> User:
-    """Strict, database-backed paid identity; never use development impersonation."""
+    """Strict active identity, independently of legacy rollout flags or billing tier."""
     claims = _decode_access_token(_extract_bearer_token(authorization))
     try:
         user_id = str(UUID(str(claims.get("sub", ""))))
@@ -247,6 +247,14 @@ async def require_paid_user(
         raise _unauthorized()
     if not user.is_active:
         raise HTTPException(403, detail={"code": "account_inactive", "message": "Account is inactive."})
+    return user
+
+
+StrictUser = Annotated[User, Depends(require_strict_user)]
+
+
+async def require_paid_user(user: StrictUser) -> User:
+    """Ask remains a separate subscription entitlement."""
     # Ask is a subscription entitlement.  The current schema cannot identify
     # which project a per-project purchase covers, so that tier must fail
     # closed rather than unlock every project the user owns.

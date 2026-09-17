@@ -11,6 +11,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from munipal.api.dependencies import CurrentUserId, DbSession
 from munipal.core.models import User
 from munipal.db.session import get_async_session
+from munipal.config import get_settings
+from munipal.services.register_billing import (
+    expire_register_checkout, fulfill_register_checkout, refund_register_payment,
+)
 
 router = APIRouter()
 
@@ -79,7 +83,7 @@ async def stripe_webhook(
     sig = request.headers.get("stripe-signature", "")
 
     try:
-        event = stripe.Webhook.construct_event(body, sig, _WEBHOOK_SECRET)
+        event = stripe.Webhook.construct_event(body, sig, get_settings().stripe_webhook_secret or _WEBHOOK_SECRET)
     except stripe.SignatureVerificationError:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -94,7 +98,13 @@ async def stripe_webhook(
     event_type = event["type"]
     data = event["data"]["object"]
 
-    if event_type == "checkout.session.completed":
+    if event_type in ("checkout.session.completed", "checkout.session.async_payment_succeeded") and (data.get("metadata") or {}).get("register_deal_id"):
+        await fulfill_register_checkout(db, data)
+    elif event_type == "checkout.session.expired" and (data.get("metadata") or {}).get("register_deal_id"):
+        await expire_register_checkout(db, data)
+    elif event_type == "charge.refunded":
+        await refund_register_payment(db, data)
+    elif event_type == "checkout.session.completed" and data.get("mode") != "payment":
         await _provision_subscription(db, data)
     elif event_type in (
         "customer.subscription.updated",
@@ -138,6 +148,8 @@ async def _sync_subscription_status(db: AsyncSession, sub_data: dict) -> None:
     """Sync subscription status from Stripe events."""
     subscription_id = sub_data.get("id")
     sub_status = sub_data.get("status")
+    if not subscription_id:
+        return
 
     result = await db.execute(
         select(User).where(User.stripe_subscription_id == subscription_id)

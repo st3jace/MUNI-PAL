@@ -1,6 +1,9 @@
 """Exercise the new migration and persistence against a fresh file database."""
 
 import importlib.util
+import os
+import subprocess
+import sys
 from pathlib import Path
 
 from alembic.migration import MigrationContext
@@ -9,6 +12,18 @@ from sqlalchemy import create_engine, inspect, text
 from sqlalchemy.orm import Session
 
 from munipal.core.models.register import RegisterDeal, RegisterReport
+
+
+def test_full_postgres_migration_chain_can_be_exported():
+    result = subprocess.run(
+        [sys.executable, '-I', '-m', 'alembic', 'upgrade', 'head', '--sql'],
+        cwd=Path(__file__).resolve().parents[2], env={**os.environ, 'USE_SQLITE': 'false'},
+        capture_output=True, text=True, check=True,
+    )
+    assert "gen_random_uuid()::text" in result.stdout
+    assert "CREATE TABLE register_reports" in result.stdout
+    assert "e5f6g7h8i9j0" in result.stdout
+    assert result.stdout.rstrip().endswith('COMMIT;')
 
 
 def test_register_migration_persists_across_connections(tmp_path):

@@ -5,8 +5,8 @@ Implementation: `feature/obligation-register-portal`.
 
 ## Results
 
-- New backend tests: **24 passed** (deal access/payment/delivery, document extraction,
-  and migration/reconnection persistence).
+- New backend tests: **25 passed** across the focused runs (deal access/payment/delivery,
+  document extraction, migration/reconnection persistence and full SQL export).
 - Focused portal + Ask/auth/authorization/billing/contract/intake runs:
   **87 passed + 89 passed**. The enhanced report-byte persistence test also passed.
 - New frontend tests: **7 passed**. Portal plus Ask/navigation focused run: **16 passed**.
@@ -21,6 +21,10 @@ Implementation: `feature/obligation-register-portal`.
 - Focused Ruff and ESLint/React Hooks checks passed.
 - OpenAPI snapshot and both generated frontend artifacts were regenerated.
 - Alembic reports one head: `e5f6g7h8i9j0`. PostgreSQL migration SQL generation passed.
+  Full PostgreSQL bootstrap export also passed after replacing the historical lead
+  unsubscribe-token backfill's client-side row fetch with `gen_random_uuid()` on
+  PostgreSQL. Both migration tests passed after that targeted change. The full-suite
+  count above precedes the addition of this SQL-export regression test.
   New migration upgrade/downgrade and persistence across connections passed in an
   isolated file-backed SQLite database. A hosted PostgreSQL migration remains a
   deployment step; local Docker was unavailable.

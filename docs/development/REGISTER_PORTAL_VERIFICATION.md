@@ -73,6 +73,10 @@ GitHub's first gate failed before frontend tests because `frontend/package-lock.
 was ignored while the workflow required `npm ci`. The lockfile is now tracked; Vercel
 also uses `npm ci`. CI now uses the tested Python 3.12/uv.lock environment and includes
 the Register and Ask suites. Existing unrelated test failures are not suppressed.
+The subsequent GitHub run `35272494896` passed the backend gate, generated-artifact
+verification and test discovery, then reported the same frontend result: 30 passed,
+five failures in AdvisoryPackages, Readiness and PilotNavigation. The Vercel build
+for `6c5f91f` succeeded. The pull-request gate remains red for those existing failures.
 
 On Windows, create a Python 3.12 environment and install **the dependencies in
 `uv.lock`**, then the local package. Use the repository commands with isolated mode:

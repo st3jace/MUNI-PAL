@@ -66,7 +66,7 @@ This is a made-up example deal. Every name, amount and date is invented. The met
 Here is an item awaiting input. We asked the lawyer whether two trustee duties in the indenture belong to the borrower. We recorded the date. We wait. And this is the refusal log, where questions only a lawyer can answer go. We will add one in a minute.
 
 ### 18:00–21:00 · LIVE 2 · ask where it is (slide 8)
-[Open the "ask where it is" tool. Type the first question. Read the returned clause. Type the second question. Read the refusal out loud. Show the new line in the refusal log.]
+[The "ask where it is" demo is currently a terminal tool, not a hosted webpage. Source/reference URL: https://github.com/st3jace/MUNI-PAL/blob/master/fulfillment/demo/ask.py. To run it locally, open `C:\Users\st3ja\MUNI-PAL\fulfillment\demo` and run `python ask.py "annual report due"`. Then type the second question, read the refusal out loud, and show the new line in the refusal log.]
 
 First question: where is the annual report requirement in my documents? It gives me the document, the section, the line, and the text. Nothing added.
 
@@ -77,7 +77,7 @@ Second question: the trustee changed last month, is that a material event? Liste
 
 You can take the first step yourself, today, for free. This is a set of instructions. You paste it into whatever AI assistant you already use and attach your closing documents. It lists every reporting promise with its clause, it copies the deadline words exactly, and it lists the questions for your lawyer. It will not work out a date, assign a status, decide if something is material, or draft anything.
 
-One rule, and it is the whole method: a promise on the map counts only when your bond counsel, advisor, or dissemination agent approves the row, the clause, and the dates, in writing. Everything else is paperwork.
+A promise on the map counts only when your bond counsel, advisor, or dissemination agent approves the row, the clause, and the dates, in writing. Those limits are what make the AI useful in a real operation. Every output stays tied to source text, the assistant does not invent dates, and judgment questions are sent to your professionals instead of guessed. That does not eliminate every AI error, but it reduces the unsupported answers most teams are worried about and makes the output easier to check.
 
 ### 24:00–27:00 · Your question (slide 10)
 [Take two or three live questions. Before you answer, say out loud whether each one is a record question or a judgment question.]

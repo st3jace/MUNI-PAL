@@ -42,7 +42,7 @@ One more honest sentence: no lawyer has signed off on this method yet. We say th
 [Never say: compliant, bond-ready, any deal count, any dollar saved, any rate.]
 
 ### 6:00–9:00 · 2. What the register contains (slide 4)
-The register has six parts and nothing else. The register itself: every reporting promise, tied to the document and the clause that created it. The calendar: only dates your bond counsel, advisor, or dissemination agent gave in writing. The evidence vault index: a labeled folder of every document and report you sent us, each tied to its promise. The gap list: an approved promise with no file for it, and it stops there. Items awaiting input: what we asked your lawyer for in writing and have not received. And the refusal log: every question only your lawyer can answer, the date, and who we sent it to.
+The register brings six parts together in one working record. The register itself: every reporting promise, tied to the document and the clause that created it. The calendar: only dates your bond counsel, advisor, or dissemination agent gave in writing. The evidence vault index: a labeled folder of every document and report you sent us, each tied to its promise. The gap list: an approved promise with no file for it, and it stops there. Items awaiting input: what we asked your lawyer for in writing and have not received. And the refusal log: every question only your lawyer can answer, the date, and who we sent it to.
 
 Notice what is not on the list. No score. No plan. No opinion. What you will see on the sample in a few minutes is exactly what a client gets.
 
@@ -51,10 +51,12 @@ Three verbs. Transcribe: read every clause and copy the promise and the deadline
 
 No AI makes a decision here. Every step is a simple check we can run again and show your board.
 
-### 11:00–14:00 · 4. Four status words, no fifth (slide 6)
+### 11:00–14:00 · 4. Four reliable status words (slide 6)
 Every row carries one of four words. Filed: we have the file. Not filed: it is not due yet. Evidence missing: the due date passed and there is no file in what you gave us. Not testable: there is no date to check against, and no event was reported to us.
 
-People always ask for a fifth: "needs a professional." It feels careful. It is the opposite. The moment you mark some rows that way, the rows you did not mark read as cleared. Nobody has to write the word "compliant" for a reader to infer it. So there is no fifth. Questions for your lawyer live in two other lists, items awaiting input and the refusal log. Neither one says anything about the promise itself.
+These four work across deals because each one comes from the same check against information your operation already has. What was required? When was it due? Is the matching file here? The record may be a rent roll, an enrollment report, or a patient census. The subject changes; the check does not.
+
+That gives your team a status it can trace back to the approved date and the supplied file, instead of asking them to learn a new scoring system or trust a conclusion they cannot see.
 
 ### 14:00–18:00 · 5. LIVE 1 · the example register (slide 7)
 [Switch to the browser. Open the examples page. Use the housing register for the live walk. Mention that the education and healthcare-center examples are available from the same page. Scroll slowly. Point at: one filed row with its file; the evidence-missing row and the same row in the gap list; one item awaiting input, and read the request date; the refusal log.]

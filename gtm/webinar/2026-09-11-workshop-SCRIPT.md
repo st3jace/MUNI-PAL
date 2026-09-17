@@ -21,12 +21,12 @@ One rule for the room: we keep records. Where a promise lives, which clause made
 
 [Say the recording sentence once here: "Live attendees can ask questions and see the register worked in real time. We'll send the recording afterward, but the recording does not include your specific question."]
 
-### 0:30–3:00 · 1. Who keeps track after closing? (slide 2)
-Every one of us assumes the hard part of a bond deal is the legal part. Then the deal closes and the promises go into a binder nobody opens until something breaks.
+### 0:30–3:00 · 1. The work after closing (slide 2)
+After a bond deal closes, the work changes. The legal and financing work may be finished, but recurring operational functions remain: keep each promise visible, route the right record, and preserve proof of what happened.
 
-Three failures I have watched. An annual report goes late because the one person who knew the deadline left in March. A quarterly report goes out on time, to the wrong address, and nobody can prove it went. For you that might be a rent roll, an enrollment count, or a patient census. A rebate computation is due in year five, and year five is not on a calendar because there is no calendar.
+Those functions may sit with finance, operations, compliance, administration, or several people at once. The title varies by organization. The functions do not. Trouble starts when a function lives only in one person's memory, one inbox, or one binder.
 
-None of those needed a lawyer to prevent. They needed a clerk who never forgets and never guesses. That is the gap. That is all we are here to close.
+This is where AI can be practical without replacing anyone. The objective is not to automate a position. It is to give the people already doing the work a reliable system: keep approved dates visible, connect each record to its clause and recipient, and preserve the evidence. The person still owns the work. The lawyer or advisor still owns judgment. The AI supports the function and refuses to cross that line.
 
 ### 3:00–6:00 · The line (slide 3)
 Before anything else, the line. In plain words: we copy what your documents say and what your lawyer tells us. We never decide what it means.
@@ -57,7 +57,7 @@ Every row carries one of four words. Filed: we have the file. Not filed: it is n
 People always ask for a fifth: "needs a professional." It feels careful. It is the opposite. The moment you mark some rows that way, the rows you did not mark read as cleared. Nobody has to write the word "compliant" for a reader to infer it. So there is no fifth. Questions for your lawyer live in two other lists, items awaiting input and the refusal log. Neither one says anything about the promise itself.
 
 ### 14:00–18:00 · 5. LIVE 1 · the example register (slide 7)
-[Switch to the browser. Open the sample register. Scroll slowly. Point at: one filed row with its file; the evidence-missing row and the same row in the gap list; one item awaiting input, and read the request date; the refusal log.]
+[Switch to the browser. Open the examples page. Use the housing register for the live walk. Mention that the education and healthcare-center examples are available from the same page. Scroll slowly. Point at: one filed row with its file; the evidence-missing row and the same row in the gap list; one item awaiting input, and read the request date; the refusal log.]
 
 This is a made-up example deal. Every name, amount and date is invented. The method is real; the deal is not. Here is a filed row: the annual report, the clause it comes from, the file in the folder. Here is evidence missing: the first-quarter rent roll. This example is a housing deal. The date passed and there is no file. That is the whole statement. Not late, not in default. No file in the set you gave us.
 

@@ -1,4 +1,6 @@
-const API = import.meta.env.VITE_API_URL || ''
+// Keep private requests on the same origin as authentication. The host's rewrites
+// select the portal backend; legacy VITE_API_URL points to the public sensing API.
+const API = ''
 
 export interface Deal {
   id: string; name: string; legal_name: string; professional_contact: string

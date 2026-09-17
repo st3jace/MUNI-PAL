@@ -9,7 +9,9 @@ Implementation: `feature/obligation-register-portal`.
   document extraction, migration/reconnection persistence and full SQL export).
 - Focused portal + Ask/auth/authorization/billing/contract/intake runs:
   **87 passed + 89 passed**. The enhanced report-byte persistence test also passed.
-- New frontend tests: **7 passed**. Portal plus Ask/navigation focused run: **16 passed**.
+- New frontend tests: **8 passed**, including a regression proving private Register
+  requests ignore the legacy public `VITE_API_URL`. The earlier portal plus
+  Ask/navigation focused run passed 16 tests.
 - Full backend with repository-pinned dependencies: **686 passed, 7 failed**.
   Failures are the same synthetic lab/hash-pin categories reported on the base:
   three housing end-to-end scenarios, Bondi format equivalence, pack determinism,
@@ -26,8 +28,8 @@ Implementation: `feature/obligation-register-portal`.
   PostgreSQL. Both migration tests passed after that targeted change. The full-suite
   count above precedes the addition of this SQL-export regression test.
   New migration upgrade/downgrade and persistence across connections passed in an
-  isolated file-backed SQLite database. A hosted PostgreSQL migration remains a
-  deployment step; local Docker was unavailable.
+  isolated file-backed SQLite database. Hosted PostgreSQL and Railway image
+  verification are recorded below; local Docker was unavailable.
 - Browser QA against the running local backend: sign-in/return route, deal library,
   paid deal/source list, versioned generation and reload persistence verified.
   A 390px viewport reported no horizontal document overflow. Preview fixtures are
@@ -61,11 +63,10 @@ This exposed and fixed offline PostgreSQL JSON literal escaping in `alembic/env.
 the offline dialect must match PostgreSQL's default `standard_conforming_strings=on`.
 The first attempts rolled back cleanly; the corrected full migration committed and
 the counts above were read back from Supabase. Both migration regression tests pass.
-This verifies hosted schema creation, not backend connectivity or live payments.
+Backend connectivity was subsequently verified below. Live payments remain untested.
 
 The separate `docker/Dockerfile.portal` packages the locked dependencies and migrations
-for the private backend. Local Docker is unavailable; its image still needs a hosted
-build and smoke test before release.
+for the private backend. Its hosted build and smoke test subsequently passed below.
 
 The application wheel built successfully and contains the portal routes and all four
 Register skill-kit resources. Vercel produced a successful hosted frontend preview.
@@ -91,7 +92,31 @@ refresh-token rejection, deal creation/readback, document upload/download with e
 bytes and no-store headers, same-organization cross-owner denial, unpaid build denial,
 and denial of client-issued quotes. Two synthetic QA accounts and a clearly labeled
 synthetic deal/document were used; no customer files or payments were involved.
+Both synthetic accounts were then deactivated in Supabase and read back as inactive.
 Stripe keys/webhook and paid-mode end-to-end verification remain outstanding.
+
+### Hosted frontend and proxy verification
+
+Production Vercel deployment `BwPiELHZmdXq4wtfateDXyVA3VJa` built commit `586dd8d`
+and was explicitly promoted to the public domains, clearing the temporary rollback.
+The earlier `19d5533` frontend briefly reached production and was rolled back after
+discovering that Register requests used the legacy sensing API environment value.
+The corrected client uses relative URLs, like authentication, and a focused
+regression test proves it ignores that legacy variable. All eight Register frontend
+tests pass after this fix.
+
+Nine public-domain checks passed at `https://muni-pal.io`: home, Register (both
+trailing-slash forms) and authentication pages return HTML; Register account/deal
+and authentication profile APIs return JSON 401 without credentials; invalid login
+is rejected; an unsigned Stripe webhook returns 400. The browser displays the
+Register sign-in/create-account entrance. These checks supplement the 17 hosted
+backend checks; they do not establish paid checkout readiness.
+
+The release remains on the feature branch and the PR is unmerged. Operator account
+setup, Stripe test-mode checkout/webhook/refund verification, backups/retention and
+live-mode configuration remain launch gates. The existing unrelated full-suite
+failures described above remain unresolved. Vercel warns that the existing Node 20
+build runtime must be upgraded before September 30, 2026.
 
 On Windows, create a Python 3.12 environment and install **the dependencies in
 `uv.lock`**, then the local package. Use the repository commands with isolated mode:

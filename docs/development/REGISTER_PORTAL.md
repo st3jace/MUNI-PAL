@@ -2,8 +2,24 @@
 
 Built on `feature/durable-ask-chat` at `a1fda08b8ee024de3a7c21ebe650f265357d9397`.
 The React portal and standalone healthcare entry point both serve `/register` and
-`/register/:dealId`. The public offer page links to the workspace. This code does
-not deploy the product or configure hosted accounts.
+`/register/:dealId`. The public offer page links to the workspace.
+
+## Hosted status — September 17, 2026
+
+The client entrance is live at **https://muni-pal.io/register**, backed by the
+separate **Muni-Pal Portal** Railway service and **Launch Shop / Muni-Pal** Supabase
+database. Production frontend release `586dd8d` was promoted and its private API
+routes verified. Documents and reports require authentication and per-deal payment
+where applicable. No existing production records were migrated.
+
+This is not yet ready for paid client onboarding: operator account setup, Stripe
+keys/webhook, test-mode payment/refund verification, hosted backups and retention
+arrangements remain outstanding. No live charge or client email was sent.
+The frontend was explicitly promoted from `feature/obligation-register-portal`;
+the draft PR remains unmerged. Integrate it into `master` before normal production
+branch releases, or a later master deployment can replace the portal frontend.
+Vercel also reports Node 20 build support ending September 30, 2026; upgrade the
+frontend runtime and verify builds before that date.
 
 ## Client and operator workflow
 
@@ -194,8 +210,8 @@ separate future scope; do not imply that this integration is present.
    proxy must support these uploads), hosted backups, paid-mode settings, data
    retention expectations and the complete engagement/fulfillment process.
 
-No hosted migration, production deployment, live charge, client communication or
-Supabase project creation is performed by the source changes.
+The hosted migration and deployment above were performed separately from the
+source changes; they do not configure Stripe or grant operator access automatically.
 
 Sources: [Supabase connections](https://supabase.com/docs/guides/database/connecting-to-postgres),
 [SQLAlchemy with Supabase](https://supabase.com/docs/guides/troubleshooting/using-sqlalchemy-with-supabase-FUqebT),

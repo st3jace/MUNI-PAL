@@ -78,6 +78,21 @@ verification and test discovery, then reported the same frontend result: 30 pass
 five failures in AdvisoryPackages, Readiness and PilotNavigation. The Vercel build
 for `6c5f91f` succeeded. The pull-request gate remains red for those existing failures.
 
+### Hosted backend smoke test
+
+Railway deployment `79d1c925-218d-4dce-a4a9-0cc8e1e5200d` became active at
+`https://muni-pal-portal-production.up.railway.app`. The production image built;
+startup migrations succeeded, `/health` returned healthy, and `/health/ready`
+confirmed database connectivity. Redis is absent and causes the aggregate response
+to say degraded; the Register workflow does not depend on Redis.
+
+Seventeen hosted checks passed: account registration/login, profile persistence,
+refresh-token rejection, deal creation/readback, document upload/download with exact
+bytes and no-store headers, same-organization cross-owner denial, unpaid build denial,
+and denial of client-issued quotes. Two synthetic QA accounts and a clearly labeled
+synthetic deal/document were used; no customer files or payments were involved.
+Stripe keys/webhook and paid-mode end-to-end verification remain outstanding.
+
 On Windows, create a Python 3.12 environment and install **the dependencies in
 `uv.lock`**, then the local package. Use the repository commands with isolated mode:
 

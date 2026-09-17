@@ -169,15 +169,21 @@ separate future scope; do not imply that this integration is present.
    hosted PostgreSQL connection. Inspect new tables, indexes and RLS.
 3. Deploy `munipal.main:app`. The public-only `munipal.sensing_app:app` intentionally
    excludes private Register routes. Route `/api/v1/register/*`, `/api/v1/auth/*`
-   and `/api/v1/stripe/*` to the main backend. The supplied Vercel rewrite assumes
-   that backend is available at `https://api.muni-pal.io`; adjust the destination
-   if that hostname still points only at the sensing service.
+   and `/api/v1/stripe/*` to the main backend. The supplied Vercel rewrites now send
+   Register, Ask, authentication and Stripe requests to the separate portal backend
+   at `https://muni-pal-portal-production.up.railway.app`. Public sensing requests
+   continue to use `https://api.muni-pal.io`.
    The chosen deployment is a **separate service in the existing Railway project**.
    Use `docker/Dockerfile.portal` for its image, with repository root build context;
    it installs `uv.lock` dependencies and runs migrations before starting the API.
    Ensure the service uses its own start command, not the sensing command in the
    existing `railway.toml`. Supply a strong JWT secret and the database/Stripe secrets
    through Railway settings, then point private frontend API rewrites to this service.
+   Railway project: `inspiring-victory`; service: `Muni-Pal Portal`
+   (`3d8ba4b4-9bd3-468c-a44d-a77de5978127`). The first hosted deployment is active,
+   with `/health` healthy and Supabase connectivity verified. Redis is not configured;
+   the aggregate readiness response reports that optional broader-BFMS dependency as
+   unavailable. This Register workflow does not use Redis/background jobs.
 4. Build/deploy the React portal or healthcare frontend. The new routes exist in
    both. Preserve existing API rewrites and backend settings.
 5. Configure a trusted operator account. Import one test closing pack; review it;

@@ -1,6 +1,6 @@
 {
   "framework": null,
-  "installCommand": "npm install",
+  "installCommand": "npm ci",
   "buildCommand": "npx vite build --config vite.config.healthcare.ts && npx vite build --config vite.config.sensing.ts --base /tools/ --outDir dist-healthcare/tools && npx vite build --config vite.config.readiness.ts --base /readiness/ --outDir dist-healthcare/readiness",
   "outputDirectory": "dist-healthcare",
   "cleanUrls": false,

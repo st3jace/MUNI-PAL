@@ -23,7 +23,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.14"
+          python-version: "3.12"
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -34,12 +34,19 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install -e .[dev]
+          python -m pip install uv==0.11.25
+          uv sync --frozen --extra dev
+          echo "$PWD/.venv/bin" >> "$GITHUB_PATH"
 
       - name: Run core + security + risk suites
         run: |
           pytest -q \
+            tests/integration/test_register_portal.py \
+            tests/unit/test_register_engine.py \
+            tests/unit/test_register_migration.py \
+            tests/integration/test_ask_api.py \
+            tests/integration/test_ask_migration.py \
+            tests/unit/test_ask_service.py \
             tests/contract/test_openapi_contract.py \
             tests/integration/test_readiness_api.py \
             tests/integration/test_checklist_api.py \

@@ -67,6 +67,13 @@ The separate `docker/Dockerfile.portal` packages the locked dependencies and mig
 for the private backend. Local Docker is unavailable; its image still needs a hosted
 build and smoke test before release.
 
+The application wheel built successfully and contains the portal routes and all four
+Register skill-kit resources. Vercel produced a successful hosted frontend preview.
+GitHub's first gate failed before frontend tests because `frontend/package-lock.json`
+was ignored while the workflow required `npm ci`. The lockfile is now tracked; Vercel
+also uses `npm ci`. CI now uses the tested Python 3.12/uv.lock environment and includes
+the Register and Ask suites. Existing unrelated test failures are not suppressed.
+
 On Windows, create a Python 3.12 environment and install **the dependencies in
 `uv.lock`**, then the local package. Use the repository commands with isolated mode:
 

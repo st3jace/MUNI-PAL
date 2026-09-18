@@ -162,7 +162,31 @@ The runtime test driver retained credentials only in memory and was stopped.
 No real funds moved and no receipt or client email was sent. Hosted testing covered
 card decline/success and refunds; delayed payment methods and expiry have automated
 coverage but were not exercised against Stripe in this run. Live configuration,
-backups/retention and the broader release gates above remain outstanding.
+engagement/privacy retention terms and the broader release gates above remain outstanding.
+
+### Backups and recovery — September 17, 2026
+
+Supabase Pro was enabled by the owner. Its managed backup page showed a physical
+recovery point at 2026-09-17 19:40 UTC. The independent private Railway bucket and
+nightly backup service are deployed with 30-day operational recovery retention.
+The backup uses a consistent database snapshot, verifies a temporary restore,
+encrypts with age X25519, uploads and downloads the encrypted object to verify it.
+Only the public encryption recipient is hosted; the private recovery identity
+is outside source control in an owner-only Windows directory for vault custody.
+
+A hosted backup finished at 2026-09-18 03:05:39 UTC. A separate recovery rehearsal
+downloaded and decrypted that object, restored all 40 public application tables,
+and matched all row fingerprints, document/report hashes, RLS, grants, policies
+and migration head at 03:06:17 UTC. Production was never a restore target. Seven
+focused tests passed for retention bounds and stale/future/unverified receipts;
+focused Ruff and formatting passed. The managed Supabase restore itself was not
+performed, and no production recovery-time commitment is inferred.
+
+Backup cron is 09:00 UTC daily (02:00 Arizona); the separate bucket-only monitor
+checks hourly at minute 15 and fails if no verified snapshot exists within 26 hours.
+Railway's account notification rules already enable email and in-app alerts for
+failed/crashed deployments and high-severity events. See `ops/backups/README.md`
+for service IDs, operator recovery, pre-migration backups and Stripe reconciliation.
 
 On Windows, create a Python 3.12 environment and install **the dependencies in
 `uv.lock`**, then the local package. Use the repository commands with isolated mode:

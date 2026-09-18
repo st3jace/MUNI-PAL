@@ -18,7 +18,10 @@ connected and hosted card checkout/refund verification passed after fixing Strip
 `we_1UGokGFDH0RHRrjHlWK9ML3E`, using API version `2026-08-26.dahlia`, listening to
 the four Register events below. Secrets are stored only in Railway settings.
 **Real payments are not enabled.** Live-mode keys and a separate live webhook,
-hosted backups and retention arrangements remain outstanding before paid onboarding.
+engagement/privacy retention terms remain outstanding before paid onboarding.
+Supabase Pro daily backups and an independent encrypted nightly Railway backup are
+configured; a download/decrypt/restore rehearsal matched all 40 application tables.
+See `ops/backups/README.md` for schedules, alerts, recovery-key custody and recovery.
 No live charge or client email was sent.
 The frontend was explicitly promoted from `feature/obligation-register-portal`;
 the draft PR remains unmerged. Integrate it into `master` before normal production
@@ -85,7 +88,8 @@ used for any register rows. The quote/engagement governs the promised scope.
 The dedicated **Launch Shop / Muni-Pal** project is now provisioned and initialized:
 `eywppovcndfuocaphrer` (US West / Oregon). Its initial schema was verified at
 `e5f6g7h8i9j0` with no client accounts or migrated production records. The project
-uses the Free plan; backups and production capacity still require setup.
+now uses the Pro plan with seven days of daily managed backups. Independent
+encrypted exports have 30-day recovery retention. Review capacity as usage grows.
 
 The verified session-pooler settings are host `aws-0-us-west-2.pooler.supabase.com`,
 port `5432`, user `postgres.eywppovcndfuocaphrer`, database `postgres`. The password

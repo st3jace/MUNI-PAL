@@ -131,3 +131,8 @@ frontend/node_modules/
 munipal_dev.db.bak*
 tmp_test.py
 dogfood-output/
+
+# Private recovery material must never enter source control.
+*.agekey
+*.tar.age
+*.dump

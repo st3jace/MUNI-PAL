@@ -12,9 +12,14 @@ database. Production frontend release `586dd8d` was promoted and its private API
 routes verified. Documents and reports require authentication and per-deal payment
 where applicable. No existing production records were migrated.
 
-This is not yet ready for paid client onboarding: operator account setup, Stripe
-keys/webhook, test-mode payment/refund verification, hosted backups and retention
-arrangements remain outstanding. No live charge or client email was sent.
+The approved owner account has operator access. Launch Shop Stripe **test mode** is
+connected and hosted card checkout/refund verification passed after fixing Stripe
+15 event conversion in backend commit `137ca1f`. The test webhook destination is
+`we_1UGokGFDH0RHRrjHlWK9ML3E`, using API version `2026-08-26.dahlia`, listening to
+the four Register events below. Secrets are stored only in Railway settings.
+**Real payments are not enabled.** Live-mode keys and a separate live webhook,
+hosted backups and retention arrangements remain outstanding before paid onboarding.
+No live charge or client email was sent.
 The frontend was explicitly promoted from `feature/obligation-register-portal`;
 the draft PR remains unmerged. Integrate it into `master` before normal production
 branch releases, or a later master deployment can replace the portal frontend.

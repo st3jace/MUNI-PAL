@@ -93,7 +93,7 @@ bytes and no-store headers, same-organization cross-owner denial, unpaid build d
 and denial of client-issued quotes. Two synthetic QA accounts and a clearly labeled
 synthetic deal/document were used; no customer files or payments were involved.
 Both synthetic accounts were then deactivated in Supabase and read back as inactive.
-Stripe keys/webhook and paid-mode end-to-end verification remain outstanding.
+Stripe test-mode verification was subsequently completed below; live payments remain disabled.
 
 ### Hosted frontend and proxy verification
 
@@ -113,10 +113,56 @@ Register sign-in/create-account entrance. These checks supplement the 17 hosted
 backend checks; they do not establish paid checkout readiness.
 
 The release remains on the feature branch and the PR is unmerged. Operator account
-setup, Stripe test-mode checkout/webhook/refund verification, backups/retention and
-live-mode configuration remain launch gates. The existing unrelated full-suite
+setup and Stripe test-mode verification were subsequently completed below.
+Backups/retention and live-mode configuration remain launch gates. The existing unrelated full-suite
 failures described above remain unresolved. Vercel warns that the existing Node 20
 build runtime must be upgraded before September 30, 2026.
+
+### Hosted Stripe sandbox verification
+
+Launch Shop account `acct_19wrEUFDH0RHRrjH` is connected in **test mode**. The separate
+destination `we_1UGokGFDH0RHRrjHlWK9ML3E` sends the four Register events to the Railway
+portal webhook using API version `2026-08-26.dahlia`. Existing destinations were not
+changed. The user entered the test API key and signing secret in Railway directly.
+
+The first actual signed checkout event exposed `AttributeError: get`: Stripe 15
+returns `StripeObject` instances, whereas the earlier mocked tests returned dicts.
+Commit `137ca1f` converts the verified event recursively with `to_dict()` before
+billing dispatch. Two new regression cases reproduce the original failure with real
+HMAC signatures and the actual SDK, then pass with the fix. They also cover tampered
+payload rejection, duplicate completion and refunds arriving before completion.
+The combined Register/Stripe integration suite now passes **28 tests**. Focused lint
+passes with existing B008/B904 baseline findings excluded; diff checks pass.
+Railway deployed the fix as `7ea680fb-873b-43b3-a331-4804a94bdf2f`.
+
+A $10 synthetic quote was seeded through database administration for deal
+`707f3fc2-f836-4920-b417-1060c739dddc` (no professional engagement). The hosted test
+used real client API authentication and Stripe Checkout; operator quote API behavior
+is covered by automated tests, not by this database-seeded fixture.
+
+Verified against the public portal and actual Stripe test events:
+
+- Repeated checkout requests reuse the same session; another client cannot pay it.
+- A declined test card leaves report generation locked.
+- A successful test card creates payment `pi_3UGpIQFDH0RHRrjH0vRcIzXE`.
+- Replaying the original failed event after deployment returns HTTP 200 and marks
+  the deal paid, without another charge.
+- The paid client builds and downloads a valid ZIP with eight package files;
+  another client receives 404. The purchase does not grant a subscription.
+- A $2 partial refund reaches the webhook with HTTP 200 and preserves access;
+  a second report version builds and downloads successfully.
+- Refunding the remaining $8 returns HTTP 200 and changes the deal to refunded;
+  report generation and download both return 402.
+- Replaying checkout completion after the full refund returns HTTP 200 and leaves
+  access revoked.
+
+Both synthetic accounts were deactivated afterward and verified inactive. Their
+clearly labeled test deal and two report versions remain as an audit fixture.
+The runtime test driver retained credentials only in memory and was stopped.
+No real funds moved and no receipt or client email was sent. Hosted testing covered
+card decline/success and refunds; delayed payment methods and expiry have automated
+coverage but were not exercised against Stripe in this run. Live configuration,
+backups/retention and the broader release gates above remain outstanding.
 
 On Windows, create a Python 3.12 environment and install **the dependencies in
 `uv.lock`**, then the local package. Use the repository commands with isolated mode:

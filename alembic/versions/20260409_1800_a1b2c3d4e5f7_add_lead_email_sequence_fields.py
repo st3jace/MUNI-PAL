@@ -38,12 +38,18 @@ def upgrade() -> None:
     )
     # Backfill existing rows with unique tokens
     conn = op.get_bind()
-    leads = conn.execute(sa.text("SELECT id FROM sensing_leads WHERE unsubscribe_token = ''")).fetchall()
-    for row in leads:
-        conn.execute(
-            sa.text("UPDATE sensing_leads SET unsubscribe_token = :token WHERE id = :id"),
-            {"token": str(uuid4()), "id": row[0]},
-        )
+    if conn.dialect.name == "postgresql":
+        # A server-side backfill also works when exporting the complete migration
+        # chain as SQL for a fresh hosted database. Offline connections cannot
+        # fetch rows. PostgreSQL 13+ provides gen_random_uuid() in core.
+        op.execute(sa.text("UPDATE sensing_leads SET unsubscribe_token = gen_random_uuid()::text WHERE unsubscribe_token = ''"))
+    else:
+        leads = conn.execute(sa.text("SELECT id FROM sensing_leads WHERE unsubscribe_token = ''")).fetchall()
+        for row in leads:
+            conn.execute(
+                sa.text("UPDATE sensing_leads SET unsubscribe_token = :token WHERE id = :id"),
+                {"token": str(uuid4()), "id": row[0]},
+            )
     op.create_unique_constraint("uq_sensing_leads_unsubscribe_token", "sensing_leads", ["unsubscribe_token"])
 
 

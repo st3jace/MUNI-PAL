@@ -360,6 +360,7 @@ export default function ObligationRegisterLanding() {
             </p>
             <div className="flex flex-col sm:flex-row sm:items-center gap-4">
               <CtaButton href="#start">Request a fixed-fee quote</CtaButton>
+              <a href="/register" className="inline-flex items-center gap-2 font-semibold text-muni-teal underline">Open your client workspace <ArrowRight className="h-4 w-4" /></a>
               <a href={SAMPLE_URL} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm text-gray-200 underline underline-offset-4">
                 <FileText className="h-4 w-4" /> See a sample register (made-up example deal)
               </a>

@@ -26,6 +26,7 @@ import PricingPage from './pages/tools/PricingPage'
 import ObligationRegisterLanding from './pages/tools/ObligationRegisterLanding'
 import AuthPage from './pages/tools/AuthPage'
 import Ask from './pages/Ask'
+import ObligationRegisterPortal from './pages/ObligationRegisterPortal'
 import AskNavigation from './components/AskNavigation'
 import './styles/index.css'
 
@@ -68,6 +69,8 @@ createRoot(root).render(
               <Route path="/obligation-register" element={<ObligationRegisterLanding />} />
               <Route path="/auth" element={<AuthPage />} />
               <Route path="/ask" element={<Ask />} />
+              <Route path="/register" element={<ObligationRegisterPortal />} />
+              <Route path="/register/:dealId" element={<ObligationRegisterPortal />} />
               {/* Catch-all back to landing */}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

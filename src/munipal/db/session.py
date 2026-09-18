@@ -36,6 +36,7 @@ else:
     async_engine = create_async_engine(
         settings.database_url,
         echo=False,
+        connect_args={"ssl": "require"} if settings.postgres_ssl else {},
         pool_pre_ping=True,
         pool_size=10,
         max_overflow=20,

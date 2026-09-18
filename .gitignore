@@ -121,7 +121,6 @@ frontend/node_modules/
 # ---------------------------------------------------------------
 .claude/
 .mcp.json
-frontend/package-lock.json
 
 .vercel
 
@@ -132,3 +131,8 @@ frontend/package-lock.json
 munipal_dev.db.bak*
 tmp_test.py
 dogfood-output/
+
+# Private recovery material must never enter source control.
+*.agekey
+*.tar.age
+*.dump

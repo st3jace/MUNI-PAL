@@ -1,0 +1,27 @@
+# Separate private BFMS portal service. Uses the tested dependency lock.
+FROM python:3.12-slim AS builder
+WORKDIR /app
+RUN pip install --no-cache-dir uv==0.11.25
+COPY pyproject.toml uv.lock README.md ./
+COPY src/ ./src/
+RUN uv sync --frozen --no-dev --no-editable --python /usr/local/bin/python
+
+FROM python:3.12-slim AS runtime
+WORKDIR /app
+RUN groupadd --gid 1000 munipal && \
+    useradd --uid 1000 --gid 1000 --create-home munipal
+COPY --from=builder /app/.venv /app/.venv
+COPY --chown=munipal:munipal alembic.ini ./
+COPY --chown=munipal:munipal alembic/ ./alembic/
+RUN mkdir -p /app/artifacts /app/reports && \
+    chown -R munipal:munipal /app/artifacts /app/reports
+ENV PATH="/app/.venv/bin:$PATH" \
+    PYTHONUNBUFFERED=1 \
+    DEBUG=false \
+    USE_SQLITE=false \
+    POSTGRES_SSL=true \
+    AUTH_ENFORCEMENT_V2=true \
+    TENANT_ISOLATION_V2=true
+USER munipal
+EXPOSE 8000
+CMD ["sh", "-c", "alembic upgrade head && exec uvicorn munipal.main:app --host 0.0.0.0 --port ${PORT:-8000}"]

@@ -4,15 +4,16 @@ Alembic migration environment configuration.
 
 from logging.config import fileConfig
 
-from alembic import context
 from sqlalchemy import engine_from_config, pool
+
+from alembic import context
 
 # Import models and base
 from munipal.config import get_settings
-from munipal.db.base import Base
 
 # Import all models to register them with Base.metadata
 from munipal.core import models  # noqa: F401
+from munipal.db.base import Base
 
 # Alembic Config object
 config = context.config
@@ -49,6 +50,15 @@ def run_migrations_offline() -> None:
         compare_type=True,
         compare_server_default=True,
     )
+
+    dialect = context.get_context().dialect
+    if dialect.name == "postgresql":
+        # Online SQLAlchemy discovers this from SHOW standard_conforming_strings.
+        # Offline exports target modern PostgreSQL's default ON, including Supabase.
+        # Otherwise the uninitialized dialect doubles JSON backslashes and emits
+        # invalid JSON. Changing the server setting inside a multi-statement SQL
+        # batch is too late: PostgreSQL parses its literals before executing it.
+        dialect._backslash_escapes = False
 
     with context.begin_transaction():
         context.run_migrations()

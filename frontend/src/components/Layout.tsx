@@ -23,6 +23,7 @@ import { api } from '../services/api'
 import { useAuth } from '../contexts/AuthContext'
 
 const navigation = [
+  { name: 'Obligation Register', href: '/register', icon: ClipboardList },
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Projects', href: '/projects', icon: FolderKanban },
   { name: 'Sensing Tools', href: '/tools', icon: Wrench },
@@ -45,7 +46,7 @@ export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { projectId } = useParams()
   const location = useLocation()
-  const isAskRoute = location.pathname === '/ask' || location.pathname.startsWith('/ask/')
+  const isAskRoute = location.pathname === '/ask' || location.pathname.startsWith('/ask/') || location.pathname === '/register' || location.pathname.startsWith('/register/')
 
   const { data: project } = useQuery({
     queryKey: ['project', projectId],

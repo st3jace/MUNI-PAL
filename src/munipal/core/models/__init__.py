@@ -7,6 +7,7 @@ All models are imported here for Alembic autogenerate support.
 from munipal.db.base import Base
 from munipal.core.models.artifact import Artifact, Chunk
 from munipal.core.models.ask import AskConversation, AskMessage
+from munipal.core.models.register import RegisterDeal, RegisterDocument, RegisterFolder, RegisterPaymentReversal, RegisterReport
 from munipal.core.models.deliverable import DeliverablePack
 from munipal.core.models.extraction import ExtractionJob
 from munipal.core.models.fact import (
@@ -58,6 +59,7 @@ from munipal.core.models.deal_document import (
 )
 
 __all__ = [
+    "RegisterDeal", "RegisterDocument", "RegisterFolder", "RegisterReport", "RegisterPaymentReversal",
     "AskConversation",
     "AskMessage",
     "Base",

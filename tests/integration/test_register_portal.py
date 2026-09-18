@@ -1,5 +1,9 @@
 """Client deals are paid individually and never disclose another owner's records."""
 
+import hashlib
+import hmac
+import json
+import time
 from datetime import timedelta
 from uuid import uuid4
 
@@ -284,6 +288,49 @@ async def test_signed_webhook_routes_one_time_purchase_without_subscription(
     response = await test_client.post("/api/v1/stripe/webhook", content=b"{}")
     assert response.status_code == 200
     assert quoted.payment_status == "paid"
+    assert people[0].subscription_tier != "subscription"
+
+
+@pytest.mark.parametrize("refund_first", [False, True])
+async def test_real_stripe_sdk_signed_payment_and_refund(
+    test_client, people, quoted, db_session, monkeypatch, refund_first
+):
+    """Exercise the SDK's actual Event objects, not dict-only webhook mocks."""
+    from munipal.config import get_settings
+
+    secret = "whsec_synthetic_regression_only"
+    monkeypatch.setattr(get_settings(), "stripe_webhook_secret", secret)
+
+    async def send(event_type, data, *, tamper=False):
+        payload = json.dumps({
+            "id": "evt_synthetic_regression",
+            "object": "event",
+            "type": event_type,
+            "data": {"object": data},
+        }).encode()
+        timestamp = str(int(time.time()))
+        signature = hmac.new(
+            secret.encode(), timestamp.encode() + b"." + payload, hashlib.sha256
+        ).hexdigest()
+        return await test_client.post(
+            "/api/v1/stripe/webhook",
+            content=payload + b" " if tamper else payload,
+            headers={"stripe-signature": f"t={timestamp},v1={signature}"},
+        )
+
+    completion = {**payment(quoted), "object": "checkout.session"}
+    refund = {"id": "ch_synthetic", "object": "charge", "payment_intent": "pi_order", "refunded": True}
+    assert (await send("checkout.session.completed", completion, tamper=True)).status_code == 400
+    assert quoted.payment_status == "awaiting_payment"
+    if refund_first:
+        assert (await send("charge.refunded", refund)).status_code == 200
+    assert (await send("checkout.session.completed", completion)).status_code == 200
+    await db_session.refresh(quoted)
+    assert quoted.payment_status == ("refunded" if refund_first else "paid")
+    assert (await send("charge.refunded", refund)).status_code == 200
+    assert (await send("checkout.session.completed", completion)).status_code == 200
+    await db_session.refresh(quoted)
+    assert quoted.payment_status == "refunded"
     assert people[0].subscription_tier != "subscription"
 
 

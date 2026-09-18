@@ -9,11 +9,13 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from munipal.api.dependencies import CurrentUserId, DbSession
+from munipal.config import get_settings
 from munipal.core.models import User
 from munipal.db.session import get_async_session
-from munipal.config import get_settings
 from munipal.services.register_billing import (
-    expire_register_checkout, fulfill_register_checkout, refund_register_payment,
+    expire_register_checkout,
+    fulfill_register_checkout,
+    refund_register_payment,
 )
 
 router = APIRouter()
@@ -95,6 +97,10 @@ async def stripe_webhook(
             detail="Invalid payload.",
         )
 
+    # Stripe 15 returns objects without dict.get(); normalize nested payloads only
+    # after signature verification, before handing them to billing services.
+    if isinstance(event, stripe.StripeObject):
+        event = event.to_dict()
     event_type = event["type"]
     data = event["data"]["object"]
 
